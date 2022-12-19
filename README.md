@@ -37,3 +37,8 @@ Frontend Home Page
 Backend Dashboard
 
 ![image](public/backend-demo.png)
+
+## Contribution
+
+- To contribute to ElectroForums, please feel free to send PRs Requests on this repository.
+- Please feel free to email me on [elquchiri@gmail.com](mailto:elquchiri@gmail.com) for suggestions
