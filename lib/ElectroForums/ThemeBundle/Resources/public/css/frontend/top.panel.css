@@ -1,0 +1,24 @@
+.top-panel {
+    width: 100%;
+    color: #ffffff;
+    background-color: #888;
+    padding: 7px;
+    text-align: right;
+}
+
+.top-panel .website-switcher {
+    display: inline-block;
+}
+.top-panel .website-switcher a.switcher-dropdown {
+    color: #ffffff;
+}
+
+.top-panel .user {
+    display: inline-block;
+    margin-left: 21px;
+}
+.top-panel .user a {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+}

@@ -1,0 +1,43 @@
+services:
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+
+  ElectroForums\CmsBundle\:
+    resource: '../../'
+    exclude:
+      - '../../DependencyInjection/'
+      - '../../Resources/'
+      - '../../Tests/'
+      # Tu mets ici les dossiers a exclure simplement...
+
+  #===========================================================================
+  # Ici si tu as des problemes et tu veux savoir ce que tu fais si ton arborescence et juste
+  # tu ouvres le fichier -> Symfony\Component\Config\Resource\GlobResource
+  # Tu vas à la ligne 146 () c'est possible que ca change :-(
+  # Et tu rajoutes ca :
+
+  #  if (!$this->recursive || isset($this->excludedPrefixes[str_replace('\\', '/', $path)])) {
+  #  continue;
+  #   }
+  #        // Tu rajoutes juste ces lignes!!
+  #  ->    if (!str_contains($path, 'src'))
+  #  ->    dd($path);
+
+  #  $files = iterator_to_array(new \RecursiveIteratorIterator(
+  #  new \RecursiveCallbackFilterIterator(
+  #  new \RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::FOLLOW_SYMLINKS),
+  #  function (\SplFileInfo $file, $path) {
+  #  return !isset($this->excludedPrefixes[str_replace('\\', '/', $path)]) && '.' !== $file->getBasename()[0];
+  #}
+  #  ),
+  #  \RecursiveIteratorIterator::LEAVES_ONLY
+  #  ));
+  #
+  # Je t'ai mis la methode d'avant et d'après..
+  # La ou tu vois les deux flèches c'est juste un test pour exclure le path src (evt. d'autre si tu as d'autre chose)
+  # une fois filtré
+  # j'obtiens ça -> /var/www/webroot/ROOT/article/lib/tuto/tools-bundle
+  # du coup je sais de combien je dois remonter ;-)
+  #===========================================================================

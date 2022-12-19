@@ -1,0 +1,45 @@
+.tabs-container {
+    display: flex;
+}
+.tabs-container .tabs {
+    width: 25%;
+    background-color: #dedede;
+    border-radius: 3px;
+}
+.tabs-container .tabs .tabs-title {
+    padding: 11px 17px 11px 17px;
+    font-size: 13px;
+    font-weight: 600;
+    border-bottom: 1px solid #CCC;
+}
+.tabs-container .tabs ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 7px 0 7px 0;
+}
+.tabs-container .tabs ul li {
+
+}
+.tabs-container .tabs ul li a {
+    display: block;
+    text-decoration: none;
+    padding: 11px 17px 11px 17px;
+    color: #2e3136;
+}
+.tabs-container .tabs ul li a:hover {
+    background-color: #CCC;
+    color: #2e3136;
+}
+
+.tabs-container .tab-container {
+    flex: 1;
+    padding: 0 13px 0 13px;
+}
+.tabs-container .tab-container .tab-title {
+    padding: 9px;
+    font-weight: 600;
+    border-bottom: 1px solid #CCC;
+}
+.tabs-container .tab-container .tab-content {
+    padding: 9px;
+}

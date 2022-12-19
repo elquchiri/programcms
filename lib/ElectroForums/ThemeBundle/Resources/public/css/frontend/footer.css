@@ -1,0 +1,8 @@
+.footer {
+    width: 100%;
+}
+.footer .footer-content {
+    font-size: 13px;
+    color: #888888;
+    padding: 31px;
+}

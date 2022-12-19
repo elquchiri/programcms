@@ -1,0 +1,25 @@
+{% extends '@ElectroForumsTheme/frontend/layout.html.twig' %}
+
+{% block title %}Edit your Account{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/electroforumsuser/css/frontend/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="container main-container">
+        <h2>Edit Profile</h2>
+        <div class="row" style="margin-top: 21px;">
+            {% include '@ElectroForumsUser/frontend/dashboard/navigation.bar.html.twig' %}
+            <div class="col-md-9">
+                <div class="mb-5">
+                    <h3>{% block page_title %}Edit your Acount{% endblock %}</h3>
+                    <p class="text-muted">{% block page_tip %}Browse and Edit your Account.{% endblock %}</p>
+                </div>
+                {% block page_content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

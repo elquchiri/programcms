@@ -1,0 +1,52 @@
+{% extends '@ElectroForumsTheme/frontend/layout.html.twig' %}
+
+{% block title %}Welcome to ElectroForums !{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/electroforumscms/css/frontend/home.cms.css') }}">
+{% endblock %}
+
+{% block page_title %}Home{% endblock %}
+{% block page_tip %}Welcome to ElectroForums.{% endblock %}
+
+{% block content %}
+    <section class="h-100">
+        <header class="container h-100">
+            <div class="d-flex align-items-center justify-content-center h-100">
+                <div class="d-flex flex-column">
+                    <div class="card" style="border: none">
+                        <div class="card-body" style="width: 29rem;">
+                            <h2>Log In</h2>
+                            <p>Join our Community and grant access.</p>
+                            {% if error %}
+                                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            {% endif %}
+                            <form method="POST" action="{{ path('electro_forums_user_authentication') }}">
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Email or Nickname</label>
+                                    <input type="email" class="form-control" id="username" name="email" value="{{ email }}" placeholder="@email or Login" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="*********">
+                                    <div id="emailHelp" class="form-text">
+                                        <a href="#">Forgotten Password ?</a>
+                                    </div>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Remember connexion</label>
+                                </div>
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                <div style="text-align: right">
+                                    <button type="submit" class="btn btn-primary btn-block" style="width: 100%;">Login Now</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </section>
+{% endblock %}

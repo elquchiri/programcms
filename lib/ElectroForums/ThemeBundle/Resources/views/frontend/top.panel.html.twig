@@ -1,0 +1,21 @@
+<div class="top-panel">
+    <div class="container-fluid">
+        <div class="dropdown website-switcher">
+            <a  href="#" class="dropdown-toggle switcher-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                English (USA)
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">العربية</a>
+                <a class="dropdown-item" href="#">Francais</a>
+                <a class="dropdown-item" href="#">Española</a>
+            </div>
+        </div>
+        {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+        <div class="user">
+            <a href="{{ path('electro_forums_user_authentication_register') }}">Create an Account</a>
+            or
+            <a href="{{ path('electro_forums_user_authentication') }}">Login</a>
+        </div>
+        {% endif %}
+    </div>
+</div>

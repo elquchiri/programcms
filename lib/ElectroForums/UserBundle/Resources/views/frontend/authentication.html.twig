@@ -1,0 +1,52 @@
+{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="mb-3">Log In</h5>
+        <form method="POST" action="{{ path('electro_forums_user_authentication') }}">
+            <div class="mb-3">
+                <label for="username" class="form-label">Email or Nickname</label>
+                <input type="email" class="form-control" id="username" name="email" value="{{ email }}" placeholder="@email or Login" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="*********">
+                <div id="emailHelp" class="form-text">
+                    <a href="#">Forgotten Password ?</a>
+                </div>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Remember connexion</label>
+            </div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <div style="text-align: right">
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Login Now</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}
+
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="mb-3">Welcome,</h5>
+            <div class="panel-body inf-content">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip" src="https://bootdey.com/img/Content/avatar/avatar7.png" data-original-title="Usuario">
+                    </div>
+                    <div class="col-md-6">
+                        <strong>{{ app.user.getUserFirstname() }}</strong>
+                        <p style="font-size: 14px;"><b>5785</b> replies</p>
+                        <p style="font-size: 13px;">
+                            <a href="#">Profile</a>
+                            &middot;
+                            <a href="{{ path('electro_forums_user_edit_dashboard') }}">Edit</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

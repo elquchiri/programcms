@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+}
+
+html, body {
+    font-family: "Tahoma";
+}
+
+a {
+    text-decoration: none;
+}
+
+.content {
+    margin-left: 110px;
+}
+.content .content-header {
+    padding: 31px;
+    border-bottom: 1px solid #CCC;
+}
+.content .content-header h2 {
+    padding: 0;
+    margin: 0;
+}
+.content .content-header .content-header-tip {
+    color: #888;
+    font-size: 12px;
+    padding: 5px 0 0 5px;
+}
+.content .content-container {
+    padding: 31px;
+}

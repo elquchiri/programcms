@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="i18nAllyConfiguration">
+    <version>1.0</version>
+    <ignores>
+      <valuesInProject />
+      <valuesInFile />
+      <filesInProject />
+      <unignoredFunctionNames>
+        <set />
+      </unignoredFunctionNames>
+      <unignoredFunctionArguments>
+        <map />
+      </unignoredFunctionArguments>
+      <ignoredArrayKeys>
+        <set />
+      </ignoredArrayKeys>
+    </ignores>
+  </component>
+</project>

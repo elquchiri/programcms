@@ -1,0 +1,6 @@
+electro_forums_theme:
+  my_var_string: "je suis heureux de faire un bundle"
+  my_array:
+    - element1
+    - element2
+  my_integer: 22
