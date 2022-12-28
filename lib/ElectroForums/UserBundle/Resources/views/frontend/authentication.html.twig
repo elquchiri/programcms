@@ -37,12 +37,12 @@
                         <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip" src="https://bootdey.com/img/Content/avatar/avatar7.png" data-original-title="Usuario">
                     </div>
                     <div class="col-md-6">
-                        <strong>{{ app.user.getUserFirstname() }}</strong>
+                        <strong><a href="#">{{ app.user.getUserFirstname() }}</a></strong>
                         <p style="font-size: 14px;"><b>5785</b> replies</p>
                         <p style="font-size: 13px;">
-                            <a href="#">Profile</a>
-                            &middot;
                             <a href="{{ path('electro_forums_user_edit_dashboard') }}">Edit</a>
+                            &middot;
+                            <a href="{{ path('electro_forums_user_logout') }}">Logout</a>
                         </p>
                     </div>
                 </div>

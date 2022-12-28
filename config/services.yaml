@@ -20,5 +20,9 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    # Use This syntax to override a service class
+    #ElectroForums\UserBundle\Service\HelloService:
+        #class: App\HelloService
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

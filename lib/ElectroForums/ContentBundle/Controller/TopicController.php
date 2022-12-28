@@ -12,7 +12,7 @@ class TopicController extends AbstractController
 {
 
     #[Route('/content/topic/id/{id}', name: 'content_topic')]
-    public function front_editor(
+    public function contentTopicView(
 
     ): Response
     {

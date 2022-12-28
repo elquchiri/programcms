@@ -1,0 +1,96 @@
+
+.ef-editor {
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #dedede;
+    height: 100%;
+    min-height: 100%;
+    width: 100%;
+}
+
+.ef-editor .ef-forum-view {
+    background-color: #eee;
+    padding: 9px 21px;
+}
+
+.ef-editor .ef-post-title {
+    border-top: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+}
+.ef-editor .ef-post-title input[type=text] {
+    outline: none;
+    border: 0;
+    width: 100%;
+    padding: 17px 17px;
+}
+
+.ef-editor .ef-toolbar {
+    display: flex;
+    background-color: #ffffff;
+    color: #000000;
+    border-bottom: 1px solid #dedede;
+    width:100%;
+}
+.ef-editor .ef-toolbar ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    border-right: 1px solid #eee;
+}
+.ef-editor .ef-toolbar ul li {
+    padding: 11px;
+}
+.ef-editor .ef-toolbar ul li.separator {
+
+}
+.ef-editor .ef-toolbar ul li select {
+    border: 0;
+    outline: none;
+    font-size: 14px;
+}
+.ef-editor .ef-toolbar ul li a {
+    font-weight: bold;
+    display: block;
+    color: #000000;
+    opacity: 0.7;
+    transition: opacity 0.5s;
+}
+.ef-editor .ef-toolbar ul li a:hover {
+    opacity: 1;
+}
+
+.ef-editor .ef-content {
+    width: 100%;
+    padding: 21px;
+    background-color: #ffffff;
+    outline: none;
+    flex: 1;
+    overflow-y: auto;
+}
+.ef-editor .ef-content[placeholder]:empty:before {
+    content: attr(placeholder);
+    color: #878686;
+}
+
+.ef-editor pre.html-view {
+    display: none;
+    width: 100%;
+    padding: 21px;
+    background-color: #ffffff;
+    border: 0;
+    flex: 1;
+    white-space: pre-line;
+}
+
+.ef-editor .ef-details-bar {
+    display: -webkit-flex;
+    display: flex;
+    width: 100%;
+    padding: 11px 21px;
+}
+.ef-editor .ef-details-bar .buttons {
+    flex: 1;
+    text-align: right;
+}

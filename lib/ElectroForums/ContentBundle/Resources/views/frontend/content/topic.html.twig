@@ -23,12 +23,10 @@
                                     <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip" src="https://bootdey.com/img/Content/avatar/avatar7.png" data-original-title="Usuario">
                                 </div>
                                 <div class="col-md-6">
-                                    <strong>{{ app.user.getUserFirstname() }}</strong>
+                                    <strong>Mohamed</strong>
                                     <p style="font-size: 14px;"><b>5785</b> replies</p>
                                     <p style="font-size: 13px;">
-                                        <a href="#">Profile</a>
-                                        &middot;
-                                        <a href="{{ path('electro_forums_user_edit_dashboard') }}">Edit</a>
+                                        <a href="#">See Profile</a>
                                     </p>
                                 </div>
                             </div>
@@ -48,6 +46,83 @@
             </div>
             <div class="col-md-10">
                 <h3>Welcome Forum !</h3>
+                How are you ?&nbsp;<span style="font-weight: bold;">Hello</span>&nbsp;Med<div>Un entier supérieur ou égal à zéro représentant le décalage pour le début du Range à partir du début de <span style="font-weight: bold;">startNode</span>.</div>
+                <div><br></div>
+                <div><img src="https://miro.medium.com/focal/70/70/50/50/1*OimWR9RFAGMTHBRJMIvQFg.jpeg"></div>
+                <div><br></div>
+                <div>La méthode Range.insertNode() insère un nœud au début du Range. Le nouveau nœud est inséré au point de départ du Range. Si le nouveau nœud est sur le point d’être ajouté à un Node texte, ce Node est coupé en deux au point d’insertion, et l’insertion se fait entre les deux nœuds texte. Si le nouveau nœud est un fragment de document, les enfants du fragment sont insérés à la place.La méthode Range.insertNode() insère un nœud au début du Range. Le nouveau nœud est inséré au point de départ du Range. Si le nouveau nœud est sur le point d’être ajouté à un Node texte, ce Node est coupé en deux au point d’insertion, et l’insertion se fait entre les deux nœuds texte. Si le nouveau nœud est un fragment de document, les enfants du fragment sont insérés à la place.</div>
+
+                <p>On Internet Explorer, a contentEditable DIV creates a new paragraph each time you press Enter whereas Firefox creates a <br/> tag.
+
+                As discussed here, it is possible to use JavaScript to intercept the Enter keyPress and use range.pasteHTML to create a <br/> instead. But doing this breaks the Undo menu; once you hit Enter, you can no longer Undo past that point.
+
+                How can I force the contentEditable element to create single line breaks on Enter without breaking Undo?This technique appears to avoid the Chrome bug that does show BRs the first time (with the code you mentionned you need to push two times the Enter key).
+
+                It's not a perfect hack but it works: it adds a whitespace after your BR so it show properly. However, you will see that adding only a whitespace " " will NOT change anything, it works with other letters. The browser will not show it, probably because it is like a blank space inside an html page, it simply does not mean anything. To get rid of that bug I created a div with jQuery that includes a &nbsp; tag, and I take the text() property to put it in the textnode otherwise it doesn't work.</p>
+
+                <div>
+                    <a href="#">Comment</a> &middot;
+                    <a href="#">Embed & Message</a> &middot;
+                    <a href="#">Rate</a>
+                </div>
+            </div>
+        </div>
+        <div class="row home-cms">
+            <div class="col-md-2 home-cms-right-panel">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="panel-body inf-content">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip" src="https://bootdey.com/img/Content/avatar/avatar7.png" data-original-title="Usuario">
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>Baptiste</strong>
+                                    <p style="font-size: 14px;"><b>5785</b> replies</p>
+                                    <p style="font-size: 13px;">
+                                        <a href="#">See Profile</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <p>We and our partners process personal data such as IP address, unique ID, browsing data for:
+                    Store and/or access information on a device; Personalised ads display, personalised content, ad and content measurement, audience insights, and product development; Ensure security, prevent fraud, and debug; Technically deliver ads or content; Match and combine offline data sources; Link different devices; Receive and use automatically-sent device characteristics for identification; Use precise geolocation data; Actively scan device characteristics for identification.
+                    Some partners rely on their legitimate business interest. View our list of partners to see the purposes they believe they have legitimate interest for and how you can object to it. You choices will not affect browsing data. You can change your mind and change your consent choices at any time by clicking "User Consent" link.</p>
+            </div>
+        </div>
+
+        <div class="row home-cms">
+            <div class="col-md-2 home-cms-right-panel">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="panel-body inf-content">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip" src="https://bootdey.com/img/Content/avatar/avatar7.png" data-original-title="Usuario">
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>Mohamed</strong>
+                                    <p style="font-size: 14px;"><b>5785</b> replies</p>
+                                    <p style="font-size: 13px;">
+                                        <a href="#">See Profile</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="mb-3">
+                    <textarea class="form-control" placeholder="Your Comment .." style="height: 200px"></textarea>
+                </div>
+                <div class="mb-3">
+                    <input class="btn btn-primary" type="submit" value="Send Comment">
+                </div>
             </div>
         </div>
     </div>

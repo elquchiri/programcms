@@ -12,7 +12,7 @@ class EditorController extends AbstractController
 {
 
     #[Route('/content/editor', name: 'frontend_editor')]
-    public function front_editor(
+    public function frontEditor(
 
     ): Response
     {

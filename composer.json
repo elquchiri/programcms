@@ -40,7 +40,8 @@
             "ElectroForums\\AdminBundle\\": "lib/ElectroForums/AdminBundle",
             "ElectroForums\\CmsBundle\\": "lib/ElectroForums/CmsBundle",
             "ElectroForums\\ForumBundle\\": "lib/ElectroForums/ForumBundle",
-            "ElectroForums\\ContentBundle\\": "lib/ElectroForums/ContentBundle"
+            "ElectroForums\\ContentBundle\\": "lib/ElectroForums/ContentBundle",
+            "ElectroForums\\PostBundle\\": "lib/ElectroForums/PostBundle"
         }
     },
     "autoload-dev": {

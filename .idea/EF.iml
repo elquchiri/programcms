@@ -12,6 +12,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="App\" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="App\Tests\" />
       <sourceFolder url="file://$MODULE_DIR$/lib/ElectroForums/ContentBundle" isTestSource="false" packagePrefix="ElectroForums\ContentBundle\" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/ElectroForums/PostBundle" isTestSource="false" packagePrefix="ElectroForums\PostBundle\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/event-dispatcher" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/deprecations" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/cache" />

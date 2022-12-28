@@ -9,6 +9,7 @@ return [
     ElectroForums\CmsBundle\ElectroForumsCmsBundle::class => ['all' => true],
     ElectroForums\ForumBundle\ElectroForumsForumBundle::class => ['all' => true],
     ElectroForums\ContentBundle\ElectroForumsContentBundle::class => ['all' => true],
+    ElectroForums\PostBundle\ElectroForumsPostBundle::class => ['all' => true],
     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
     Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle::class => ['all' => true],
     Symfony\Bundle\TwigBundle\TwigBundle::class => ['all' => true],

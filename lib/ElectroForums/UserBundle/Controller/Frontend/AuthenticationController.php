@@ -18,15 +18,24 @@ use ElectroForums\UserBundle\Entity\User;
 class AuthenticationController extends AbstractController
 {
 
+    private $authenticationUtils;
+
+    public function __construct(
+        AuthenticationUtils $authenticationUtils
+    )
+    {
+        $this->authenticationUtils = $authenticationUtils;
+    }
+
     #[Route('/user/authentication', name: 'electro_forums_user_authentication')]
     public function authenticate(
-        AuthenticationUtils $authenticationUtils
+
     ): Response
     {
         // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
+        $error = $this->authenticationUtils->getLastAuthenticationError();
 
-        $lastEmail = $authenticationUtils->getLastUsername();
+        $lastEmail = $this->authenticationUtils->getLastUsername();
 
         return $this->render('@ElectroForumsUser/frontend/authentication/login.html.twig', [
             'email' => $lastEmail,

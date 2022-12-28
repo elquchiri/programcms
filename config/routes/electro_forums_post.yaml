@@ -1,0 +1,3 @@
+_tools:
+  resource: '@ElectroForumsPostBundle/Resources/config/routes.yaml'
+#  prefix: /post
