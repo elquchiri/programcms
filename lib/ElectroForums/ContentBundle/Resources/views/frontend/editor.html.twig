@@ -20,6 +20,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/go.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify-html.min.js"></script>
+    <script type="text/javascript" src="{{ asset('efEditor/efEditor.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/electroforumscontent/js/frontend/editor.js') }}"></script>
 {% endblock %}
 
@@ -29,12 +30,12 @@
                 <div class="ef-editor" >
                     <div class="ef-forum-view d-flex flex-row">
                         <a href="{{ path('electro_forums_forum_view', {id: 1}) }}">
-                            <img src="{{ asset('bundles/electroforumsforum/images/general-forum.png') }}" width="35" height="35" class="mr-3">
+                            <img src="{{ asset('bundles/electroforumsforum/images/general-forum.png') }}" width="25" height="25" class="mr-3">
                         </a>
                         <div class="w-100">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex flex-row align-items-center">
-                                    <span class="mr-2" style="padding: 5px 7px;">
+                                    <span class="mr-2" style="padding: 1px 7px;">
                                         <a href="{{ path('electro_forums_forum_view', {id: 1}) }}">
                                             <b>Welcome Forum !</b>
                                         </a>
@@ -43,7 +44,7 @@
                                     </span>
                                 </div>
                                 <small>
-                                    <span style="background-color: #eca741" class="badge badge-pill badge-primary">
+                                    <span style="background-color: #d47638" class="badge badge-pill badge-primary">
                                         Posts Left: 7
                                     </span>
                                 </small>
@@ -56,154 +57,8 @@
                         <input type="text" name="post_title" placeholder="Write your Post's title here .." />
                     </div>
 
-                    <div class="ef-toolbar">
-                        <ul>
-                            <li>
-                                <a href="#" data-ef-code="bold">
-                                    <img src="{{ asset('bundles/electroforumscontent/images/editor/bold.png') }}" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" data-ef-code="italic">
-                                    <img src="{{ asset('bundles/electroforumscontent/images/editor/italic.png') }}" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" data-ef-code="underline">
-                                    <img src="{{ asset('bundles/electroforumscontent/images/editor/underline.png') }}" />
-                                </a>
-                            </li>
-                        </ul>
-                        <ul>
-                            <li>
-                                <select name="">
-                                    <option value="">Normal</option>
-                                    <option value="" style="font-size: 31px;">Title 1</option>
-                                    <option value="" style="font-size: 21px;">Title2</option>
-                                </select>
-                            </li>
-                            <li>
-                                <select name="">
-                                    <option value="">Arial</option>
-                                    <option value="">Sans-Serif</option>
-                                    <option value="">Tahoma</option>
-                                </select>
-                            </li>
-                            <li>
-                                <select name="">
-                                    {% for i in 1..50 %}
-                                    <option value="">{{ i }}</option>
-                                    {% endfor %}
-                                </select>
-                            </li>
-                        </ul>
-                        <ul>
-                            <li>
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
-                                    <img src="{{ asset('bundles/electroforumscontent/images/editor/text_color.png') }}" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
-                                    <img src="{{ asset('bundles/electroforumscontent/images/editor/foreground.png') }}" />
-                                </a>
-                            </li>
-                        </ul>
-                        <ul>
-                            <li>
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
-                                    <img src="{{ asset('bundles/electroforumscontent/images/editor/left-align.png') }}" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
-                                    <img src="{{ asset('bundles/electroforumscontent/images/editor/center-align.png') }}" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
-                                    <img src="{{ asset('bundles/electroforumscontent/images/editor/right-align.png') }}" />
-                                </a>
-                            </li>
-                        </ul>
-                        <ul>
-                            <li>
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
-                                    <img src="{{ asset('bundles/electroforumscontent/images/editor/image.png') }}" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" data-ef-code="url">
-                                    <img src="{{ asset('bundles/electroforumscontent/images/editor/link.png') }}" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="{{ asset('bundles/electroforumscontent/images/editor/video.png') }}" />
-                                </a>
-                            </li>
-                        </ul>
-                        <ul>
-                            <li>
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
-                                    <img src="{{ asset('bundles/electroforumscontent/images/editor/ordered_list.png') }}" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
-                                    <img src="{{ asset('bundles/electroforumscontent/images/editor/numbered_list.png') }}" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
-                                    <img src="{{ asset('bundles/electroforumscontent/images/editor/checkbox_list.png') }}" />
-                                </a>
-                            </li>
-                        </ul>
-                        <ul>
-                            <li>
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
-                                    <img src="{{ asset('bundles/electroforumscontent/images/editor/table.png') }}" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
-                                    <img src="{{ asset('bundles/electroforumscontent/images/editor/separator.png') }}" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" data-ef-code="code">
-                                    <img src="{{ asset('bundles/electroforumscontent/images/editor/code.png') }}" />
-                                </a>
-                            </li>
-                        </ul>
-                        <ul>
-                            <li>
-                                <a href="#" data-ef-code="widget">
-                                    <img src="{{ asset('bundles/electroforumscontent/images/editor/widget.png') }}" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" data-ef-code="emoji">
-                                    <img src="{{ asset('bundles/electroforumscontent/images/editor/emoji.png') }}" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" data-ef-code="code">
-                                    <img src="{{ asset('bundles/electroforumscontent/images/editor/export.png') }}" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" data-ef-code="code">
-                                    <img src="{{ asset('bundles/electroforumscontent/images/editor/fullscreen.png') }}" />
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="ef-content" placeholder="Write @ to tag community users" contenteditable="true"></div>
-                    <pre class="html-view language-xml" data-lang="xml"></pre>
-
+                    <div class="ef-editor-editable"></div>
+                    <input type="file" id="image_upload" style="display:none"/>
                     <div class="ef-details-bar">
                         <div class="">
                             <button class="btn btn-sm btn-link">Go Back</button>
@@ -217,7 +72,7 @@
         {% endblock %}
     </div>
 
-    <div class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal url-modal modal-sm fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -239,6 +94,37 @@
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Add URL</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal video-modal modal-sm fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Video</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="video-form">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="videoProvider">Video Provider</label>
+                            <select name="video_provider" class="form-control" id="videoProvider">
+                                <option value="youtube">Youtube</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="url">URL</label>
+                            <input type="text" name="url" class="form-control" id="url" placeholder="http(s)://">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Add Video</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </form>

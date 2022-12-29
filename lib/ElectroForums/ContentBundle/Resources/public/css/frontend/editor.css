@@ -12,6 +12,7 @@
 .ef-editor .ef-forum-view {
     background-color: #eee;
     padding: 9px 21px;
+    box-shadow: inset 1px 1px 3px #dedede;
 }
 
 .ef-editor .ef-post-title {
@@ -23,45 +24,52 @@
     border: 0;
     width: 100%;
     padding: 17px 17px;
+    box-shadow: inset 1px 1px 3px #eee;
 }
 
-.ef-editor .ef-toolbar {
+.ef-editor .ef-editor-editable {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.ef-editor .ef-editor-editable .ef-toolbar {
     display: flex;
     background-color: #ffffff;
     color: #000000;
     border-bottom: 1px solid #dedede;
     width:100%;
 }
-.ef-editor .ef-toolbar ul {
+.ef-editor .ef-editor-editable .ef-toolbar ul {
     display: flex;
     list-style-type: none;
     padding: 0;
     margin: 0;
     border-right: 1px solid #eee;
 }
-.ef-editor .ef-toolbar ul li {
+.ef-editor .ef-editor-editable .ef-toolbar ul li {
     padding: 11px;
 }
-.ef-editor .ef-toolbar ul li.separator {
+.ef-editor .ef-editor-editable .ef-toolbar ul li.separator {
 
 }
-.ef-editor .ef-toolbar ul li select {
+.ef-editor .ef-editor-editable .ef-toolbar ul li select {
     border: 0;
     outline: none;
     font-size: 14px;
 }
-.ef-editor .ef-toolbar ul li a {
+.ef-editor .ef-editor-editable .ef-toolbar ul li a {
     font-weight: bold;
     display: block;
     color: #000000;
     opacity: 0.7;
     transition: opacity 0.5s;
 }
-.ef-editor .ef-toolbar ul li a:hover {
+.ef-editor .ef-editor-editable .ef-toolbar ul li a:hover {
     opacity: 1;
 }
 
-.ef-editor .ef-content {
+.ef-editor .ef-editor-editable .ef-content {
     width: 100%;
     padding: 21px;
     background-color: #ffffff;
@@ -69,12 +77,12 @@
     flex: 1;
     overflow-y: auto;
 }
-.ef-editor .ef-content[placeholder]:empty:before {
+.ef-editor .ef-editor-editable .ef-content[placeholder]:empty:before {
     content: attr(placeholder);
     color: #878686;
 }
 
-.ef-editor pre.html-view {
+.ef-editor .ef-editor-editable pre.html-view {
     display: none;
     width: 100%;
     padding: 21px;
