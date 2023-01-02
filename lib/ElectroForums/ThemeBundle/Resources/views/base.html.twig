@@ -1,9 +1,8 @@
-{#<!DOCTYPE html>#}
-<html>
+<!doctype html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
         <title>{% block title %}Welcome to ElectroForums !{% endblock %}</title>
@@ -11,10 +10,9 @@
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('bundles/electroforumstheme/css/frontend/main.css') }}"/>
         {% endblock %}
-
-        {% block javascripts %}{% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
     </body>
 </html>

@@ -2,7 +2,7 @@
 
 namespace ElectroForums\ForumBundle\Entity;
 
-use App\Repository\ForumRepository;
+use ElectroForums\ForumBundle\Repository\ForumRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ForumRepository::class)]

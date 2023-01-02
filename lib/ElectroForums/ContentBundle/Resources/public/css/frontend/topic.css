@@ -1,0 +1,8 @@
+.dot {
+    height: 11px;
+    width: 11px;
+    background-color: #198754;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}

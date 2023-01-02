@@ -66,6 +66,7 @@
             $('.url-modal').modal('show');
 
             $('#url-form').submit(function(e) {
+                helpers.restoreSelection();
                 e.preventDefault();
 
                 let urlTitle = $('input[name=url_title]').val();
@@ -75,7 +76,8 @@
                 a.href = url;
                 a.innerText = urlTitle;
 
-                range.insertNode(a);
+                // var range = window.getSelection().getRangeAt(0);
+                window.getSelection().getRangeAt(0).insertNode(a);
 
                 $('.url-modal').modal('hide');
             });
@@ -93,6 +95,7 @@
             $('.video-modal').modal('show');
 
             $('#video-form').submit(function(e) {
+                helpers.restoreSelection();
                 e.preventDefault();
 
                 let videoProvider = $(this).find('select[name=video_provider]').val();
@@ -108,7 +111,7 @@
 
                 div.appendChild(iframe);
 
-                range.insertNode(div);
+                window.getSelection().getRangeAt(0).insertNode(div);
 
                 $('.video-modal').modal('hide');
             });
@@ -137,15 +140,337 @@
          */
         _fullScreen: function() {
             $('.ef-forum-view').removeClass('d-flex');
-            $('.ef-forum-view').slideUp('fast');
+            $('.ef-forum-view').hide();
 
             $('.ef-post-title input')
                 .css({paddingTop: '11px'})
                 .animate({
                     paddingBottom: '11px'
-                }, 500);
+                }, 300);
+        },
+        _textAlign: function(direction) {
+            let selection = window.getSelection().getRangeAt(0);
+            let selectedText = selection.extractContents();
+            let div = document.createElement("div");
+
+            try {
+                div.style['textAlign'] = direction;
+            } catch (e) {
+                console.trace(e);
+            }
+
+            div.appendChild(selectedText);
+            selection.insertNode(div);
         }
     };
+
+    let helpers = {
+        saveSelection: function() {
+            if(window.getSelection) {
+                sel = window.getSelection();
+                if(sel.getRangeAt && sel.rangeCount) {
+                    let ranges = [];
+                    for(var i = 0, len = sel.rangeCount; i < len; ++i) {
+                        ranges.push(sel.getRangeAt(i));
+                    }
+                    return ranges;
+                }
+            } else if (document.selection && document.selection.createRange) {
+                return document.selection.createRange();
+            }
+            return null;
+        },
+        restoreSelection: function() {
+            savedSel = range;
+            if(savedSel) {
+                if(window.getSelection) {
+                    sel = window.getSelection();
+                    sel.removeAllRanges();
+                    for(var i = 0, len = savedSel.length; i < len; ++i) {
+                        sel.addRange(savedSel[i]);
+                    }
+                } else if(document.selection && savedSel.select) {
+                    savedSel.select();
+                }
+            }
+            return window.getSelection().getRangeAt(0).extractContents();
+        },
+        headStyle: function() {
+            let sizes = [14, 20, 30, 40];
+            var select = document.createElement('select');
+            for(var i=0; i<sizes.length; i++) {
+                var option = document.createElement('option');
+                option.innerText = 'Title ' + (i + 1);
+                option.setAttribute('value', sizes[i]);
+                option.style['fontSize'] = sizes[i];
+                select.appendChild(option);
+            }
+
+            $(select).on('change', function() {
+                let titleSize = $(this).val();
+                let selectedText = helpers.restoreSelection();
+                let selection = window.getSelection().getRangeAt(0);
+                let span = document.createElement("span");
+
+                try {
+                    span.style['fontSize'] = titleSize + 'px';
+                } catch (e) {
+                    console.trace(e);
+                }
+
+                span.appendChild(selectedText);
+                selection.insertNode(span);
+            });
+
+            return select;
+        },
+        fontFamily: function() {
+            let sizes = ['Arial', 'Tahoma', 'sans-serif'];
+            var select = document.createElement('select');
+            for(var i=0; i<sizes.length; i++) {
+                var option = document.createElement('option');
+                option.innerText = sizes[i];
+                option.style['fontFamily'] = sizes[i];
+                select.appendChild(option);
+            }
+            return select;
+        },
+        fontSize: function() {
+            var select = document.createElement('select');
+            for(var i=11; i<=30; i++) {
+                var option = document.createElement('option');
+                option.innerText = i;
+                option.setAttribute('value', i);
+                select.appendChild(option);
+            }
+
+            $(select).on('change', function() {
+                let fontSize = $(this).val();
+                let selectedText = helpers.restoreSelection();
+                let selection = window.getSelection().getRangeAt(0);
+                let span = document.createElement("span");
+
+                try {
+                    span.style['fontSize'] = fontSize + 'px';
+                } catch (e) {
+                    console.trace(e);
+                }
+
+                span.appendChild(selectedText);
+                selection.insertNode(span);
+            });
+
+            return select;
+        },
+        table: function(li) {
+            let tableModel = [10, 10];
+            li.setAttribute('class', 'nav-item dropdown');
+
+            var a = document.createElement('a');
+            a.setAttribute('href', '#');
+            a.setAttribute('class', 'nav-link');
+            a.setAttribute('role', 'button');
+            a.setAttribute('data-bs-toggle', 'dropdown');
+            a.setAttribute('aria-haspopup', 'true');
+            a.setAttribute('aria-expanded', 'false');
+
+            var img = document.createElement('img');
+            img.src = window.location.origin + '/efEditor/images/' + 'table.png';
+            a.appendChild(img);
+            // Append menu item
+            li.appendChild(a);
+
+            var dropdown = document.createElement('div');
+            dropdown.setAttribute('class', 'dropdown-menu ef-dropdown-items');
+
+            var tbl = document.createElement('table');
+            tbl.setAttribute('class', 'ef-component-table');
+
+            for(var i=0; i<tableModel[0]; i++) {
+                var tr = document.createElement('tr');
+                for(var j=0; j<tableModel[1]; j++) {
+                    var td = document.createElement('td');
+                    td.setAttribute('id', i+'f'+j);
+                    tr.appendChild(td);
+                }
+                tbl.appendChild(tr);
+            }
+
+            dropdown.appendChild(tbl);
+
+            var a = document.createElement('a');
+            a.setAttribute('class', 'dropdown-item');
+            a.setAttribute('href', '#');
+            a.innerText = 'Customize Cells';
+            dropdown.appendChild(a);
+            // Append dropdown menu item
+            li.appendChild(dropdown);
+
+            $(tbl).find('td').on('mouseover', function(e) {
+                let coords = $(this).attr('id');
+                let column = coords.split('f')[0];
+                let row = coords.split('f')[1];
+
+                $('td').removeClass('selected');
+                for(var i=0; i<=column; i++) {
+                    for(var j=0; j<=row; j++) {
+                        $('td#' + i + 'f' + j).addClass('selected');
+                    }
+                }
+            });
+            $(tbl).on('mouseout', function() {
+                $(this).find('td').removeClass('selected');
+            });
+
+            $(tbl).find('td').on('click', function(e) {
+                helpers.restoreSelection();
+                e.preventDefault();
+
+                let coords = $(this).attr('id');
+                let column = coords.split('f')[0];
+                let row = coords.split('f')[1];
+
+                var table = document.createElement('table');
+                table.setAttribute('class', 'ef-editor-table');
+                for(var i=0; i<=column; i++) {
+                    var tr = document.createElement('tr');
+                    for(var j=0; j<=row; j++) {
+                        var td = document.createElement('td');
+                        tr.appendChild(td);
+                        $('td#' + i + 'f' + j).addClass('selected');
+                    }
+                    table.appendChild(tr);
+                }
+                window.getSelection().getRangeAt(0).insertNode(table);
+            });
+        },
+        textColor: function(li) {
+            li.setAttribute('class', 'nav-item dropdown');
+
+            var a = document.createElement('a');
+            a.setAttribute('href', '#');
+            a.setAttribute('class', 'nav-link');
+            a.setAttribute('role', 'button');
+            a.setAttribute('data-bs-toggle', 'dropdown');
+            a.setAttribute('aria-haspopup', 'true');
+            a.setAttribute('data-bs-auto-close', 'outside');
+            a.setAttribute('aria-expanded', 'false');
+
+            var img = document.createElement('img');
+            img.src = window.location.origin + '/efEditor/images/' + 'textColor.png';
+            a.appendChild(img);
+            // Append menu item
+            li.appendChild(a);
+
+            var dropdown = document.createElement('div');
+            dropdown.setAttribute('class', 'dropdown-menu ef-dropdown-colorpicker-container');
+
+            var colorCanvas = document.createElement('canvas');
+            colorCanvas.setAttribute('class', 'ef-component-colorpicker');
+            colorCanvas.setAttribute('width', '200px');
+            colorCanvas.setAttribute('height', '200px');
+
+            var sliderCanvas = document.createElement('canvas');
+            sliderCanvas.setAttribute('class', 'ef-component-slider-colorpicker');
+            sliderCanvas.setAttribute('width', '40px');
+            sliderCanvas.setAttribute('height', '200px');
+
+            var sliderCanvasMarker = document.createElement('div');
+            sliderCanvasMarker.setAttribute('class', 'ef-component-slider-colorpicker-marker');
+
+            dropdown.appendChild(colorCanvas);
+            dropdown.appendChild(sliderCanvas);
+            dropdown.appendChild(sliderCanvasMarker);
+
+            var tbl = document.createElement('table');
+            tbl.setAttribute('class', 'ef-component-table');
+            var tr = document.createElement('tr');
+            tbl.appendChild(tr);
+            var tableModel = ['#000000', '#81c91c', '', '', '', '', '', '', '', ''];
+            for (var j = 0; j < tableModel.length; j++) {
+                var td = document.createElement('td');
+                td.style['backgroundColor'] = tableModel[j];
+                td.style['border'] = '1px solid #CCC';
+                tr.appendChild(td);
+            }
+            dropdown.appendChild(tbl);
+
+            // Append dropdown menu item
+            li.appendChild(dropdown);
+
+            var ColorCtx = colorCanvas.getContext('2d');  // This create a 2D context for the canvas
+            // Create a horizontal gradient
+            let gradientH = ColorCtx.createLinearGradient(0, 0, ColorCtx.canvas.width, 0);
+            gradientH.addColorStop(0, '#ffffff');
+            gradientH.addColorStop(1, '#fa0606');
+            ColorCtx.fillStyle = gradientH;
+            ColorCtx.fillRect(0, 0, ColorCtx.canvas.width, ColorCtx.canvas.height);
+            // Create a Vertical Gradient(white to black)
+            let gradientV = ColorCtx.createLinearGradient(0, 0, 0, 200);
+            gradientV.addColorStop(0, 'rgba(0,0,0,0)');
+            gradientV.addColorStop(1, '#000');
+            ColorCtx.fillStyle = gradientV;
+            ColorCtx.fillRect(0, 0, ColorCtx.canvas.width, ColorCtx.canvas.height);
+            colorCanvas.addEventListener('click', function (event) {
+                let x = event.clientX;  // Get X coordinate
+                let y = event.clientY;  // Get Y coordinate
+                pixel = ColorCtx.getImageData(0, y-140, 1, 1)['data'];   // Read pixel Color
+                rgb = `rgb(${pixel[0]},${pixel[1]},${pixel[2]})`;
+
+                // document.body.style.background = rgb;    // Set this color to body of the document
+                let selectedText = helpers.restoreSelection();
+                var span = document.createElement('span');
+                span.style['color'] = rgb;
+                span.appendChild(selectedText);
+                window.getSelection().getRangeAt(0).insertNode(span);
+            });
+
+            var SliderCtx = sliderCanvas.getContext('2d');  // This create a 2D context for the canvas
+
+            // Create a horizontal gradient
+            let gradientH2 = SliderCtx.createLinearGradient(0, 0, SliderCtx.canvas.width, 0);
+            gradientH2.addColorStop(0, '#fff');
+            gradientH2.addColorStop(1, '#000');
+            SliderCtx.fillStyle = gradientH2;
+            SliderCtx.fillRect(0, 0, SliderCtx.canvas.width, SliderCtx.canvas.height);
+
+            // Create a Vertical Gradient(white to black)
+            let gradientV2 = SliderCtx.createLinearGradient(0, 0, 0, 200);
+            gradientV2.addColorStop(0.1, '#ff0000');
+            gradientV2.addColorStop(0.2, '#ff5500');
+            gradientV2.addColorStop(0.4, '#eeff00');
+            gradientV2.addColorStop(0.6, '#00ff00');
+            gradientV2.addColorStop(0.8, '#0000ff');
+            gradientV2.addColorStop(0.9, '#e600ff');
+            gradientV2.addColorStop(1, '#ff0000');
+            SliderCtx.fillStyle = gradientV2;
+            SliderCtx.fillRect(0, 0, SliderCtx.canvas.width, SliderCtx.canvas.height);
+
+            sliderCanvas.addEventListener('click', function (event) {
+                let x = event.clientX;  // Get X coordinate
+                let y = event.clientY;  // Get Y coordinate
+
+                pixel = SliderCtx.getImageData(0, y-140, 1, 1)['data'];   // Read pixel Color
+                rgb = `rgb(${pixel[0]},${pixel[1]},${pixel[2]})`;
+
+                sliderCanvasMarker.style['top'] = y - 140;
+                sliderCanvasMarker.style['left'] = 200 - 2.5;
+
+                // Create a horizontal gradient
+                var gradientH = ColorCtx.createLinearGradient(0, 0, ColorCtx.canvas.width, 0);
+                gradientH.addColorStop(0, '#ffffff');
+                gradientH.addColorStop(1, rgb);
+                ColorCtx.fillStyle = gradientH;
+                ColorCtx.fillRect(0, 0, ColorCtx.canvas.width, ColorCtx.canvas.height);
+                // Create a Vertical Gradient(white to black)
+                var gradientV = ColorCtx.createLinearGradient(0, 0, 0, 200);
+                gradientV.addColorStop(0, 'rgba(0,0,0,0)');
+                gradientV.addColorStop(1, '#000');
+                ColorCtx.fillStyle = gradientV;
+                ColorCtx.fillRect(0, 0, ColorCtx.canvas.width, ColorCtx.canvas.height);
+            });
+        }
+    }
 
     $.fn.efEditor = function (options) {
 
@@ -183,14 +508,41 @@
 
                 for(var component=0; component < settings.components[componentGroup].length; component++) {
                     var li = document.createElement('li');
-                    var a = document.createElement('a');
-                    a.setAttribute('href', '#');
-                    a.setAttribute('data-ef-code', settings.components[componentGroup][component]);
-                    var img = document.createElement('img');
-                    img.src = window.location.origin + '/efEditor/images/' + settings.components[componentGroup][component] + '.png';
 
-                    a.appendChild(img);
-                    li.appendChild(a);
+                    if(
+                        settings.components[1].includes(settings.components[componentGroup][component]) ||
+                        settings.components[componentGroup][component] == 'table' ||
+                        settings.components[componentGroup][component] == 'textColor'
+                    ) {
+                        switch (settings.components[componentGroup][component]) {
+                            case 'headStyle':
+                                li.appendChild(helpers.headStyle());
+                                break;
+                            case 'fontFamily':
+                                li.appendChild(helpers.fontFamily());
+                                break;
+                            case 'fontSize':
+                                li.appendChild(helpers.fontSize());
+                                break;
+                            case 'table':
+                                helpers['table'].apply(this, [li]);
+                                break;
+                            case 'textColor':
+                                helpers['textColor'].apply(this, [li]);
+                                break;
+                        }
+
+                    }else{
+                        var a = document.createElement('a');
+                        a.setAttribute('href', '#');
+                        a.setAttribute('data-ef-code', settings.components[componentGroup][component]);
+                        var img = document.createElement('img');
+                        img.src = window.location.origin + '/efEditor/images/' + settings.components[componentGroup][component] + '.png';
+
+                        a.appendChild(img);
+                        li.appendChild(a);
+                    }
+
                     ul.appendChild(li);
                 }
 
@@ -204,20 +556,12 @@
             efContent = $(efContent);
             htmlView = $(htmlView);
 
-            efContent.focusout(function() {
-                var element = $(this);
-                if (!element.text().replace(" ", "").length) {
-                    element.empty();
-                }
-
-                range = window.getSelection().getRangeAt(0);
-
-            });
-
             efEditorElement.find('.ef-toolbar ul li a').click(function(e) {
                 e.preventDefault();
+                // Save selection when focus is out.
+                range = helpers.saveSelection();
 
-                var code = $(this).data('ef-code');
+                let code = $(this).data('ef-code');
                 switch(code) {
                     case 'bold':
                         components._addEventEditionButton('fontWeight', 'bold');
@@ -226,7 +570,7 @@
                         components._addEventEditionButton('fontStyle', 'italic');
                         break;
                     case 'underline':
-                        components._addEventEditionButton('fontStyle', 'underline');
+                        components._addEventEditionButton('textDecoration', 'underline');
                         break;
                     case 'export':
                         components._export(efContent, htmlView);
@@ -245,6 +589,15 @@
                         break;
                     case 'fullscreen':
                         components._fullScreen();
+                        break;
+                    case 'leftAlign':
+                        components._textAlign('left');
+                        break;
+                    case 'rightAlign':
+                        components._textAlign('right');
+                        break;
+                    case 'centerAlign':
+                        components._textAlign('center');
                         break;
                 }
             });
@@ -286,43 +639,3 @@
     }
 
 })(jQuery);
-
-
-// function getCaretIndex() {
-//     var element = efContent[0];
-//     let position = 0;
-//     const isSupported = typeof window.getSelection !== "undefined";
-//     if (isSupported) {
-//         const selection = window.getSelection();
-//         if (selection.rangeCount !== 0) {
-//             const range = window.getSelection().getRangeAt(0);
-//             const preCaretRange = range.cloneRange();
-//             preCaretRange.selectNodeContents(element);
-//             preCaretRange.setEnd(range.endContainer, range.endOffset);
-//             position = preCaretRange.toString().length;
-//         }
-//     }
-//     return position;
-// }
-
-// function getCaretPosition() {
-//     if (window.getSelection && window.getSelection().getRangeAt) {
-//         var range = window.getSelection().getRangeAt(0);
-//         var selectedObj = window.getSelection();
-//         var rangeCount = 0;
-//         var childNodes = selectedObj.anchorNode.parentNode.childNodes;
-//         for (var i = 0; i < childNodes.length; i++) {
-//             if (childNodes[i] == selectedObj.anchorNode) {
-//                 break;
-//             }
-//             if (childNodes[i].outerHTML)
-//                 rangeCount += childNodes[i].outerHTML.length;
-//             else if (childNodes[i].nodeType == 3) {
-//                 rangeCount += childNodes[i].textContent.length;
-//             }
-//         }
-//         console.log(range.startOffset + rangeCount);
-//         return range.startOffset + rangeCount;
-//     }
-//     return -1;
-// }

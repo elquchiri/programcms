@@ -1,6 +1,6 @@
 <table class="table table-striped">
     <thead>
-    <th></th>
+    <th class="text-center"></th>
     <th>General</th>
     <th></th>
     <th class="text-center">Subjects</th>
@@ -10,7 +10,7 @@
     </thead>
     <tbody>
     <tr>
-        <td>
+        <td class="text-center">
             <img src="{{ asset('bundles/electroforumsforum/images/general-forum.png') }}" />
         </td>
         <td>
@@ -44,14 +44,14 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <td class="text-center">
             <img src="{{ asset('bundles/electroforumsforum/images/extensions-forum.png') }}" />
         </td>
         <td>
             <a href="#">ElectroForums Extensions</a>
         </td>
         <td>
-            <img src="{{ asset('bundles/electroforumsforum/images/locked-forum.png') }}" />
+            <img src="{{ asset('bundles/electroforumsforum/images/locked-forum.png') }}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Closed Forum" />
         </td>
         <td class="text-center">
             347

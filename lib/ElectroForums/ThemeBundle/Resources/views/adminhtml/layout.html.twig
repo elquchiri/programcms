@@ -63,6 +63,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="/" id="ef-websites">
+                        <img src="{{ asset('bundles/electroforumstheme/images/websites.png') }}" />
+                        <p>Websites</p>
+                    </a>
+                </li>
+                <li>
                     <a href="/" id="system">
                         <img src="{{ asset('bundles/electroforumstheme/images/system.png') }}" />
                         <p>System</p>
@@ -105,7 +111,7 @@
         </div>
         <ul>
             <li>
-                <a href="{{ path('electro_forums_user_list') }}">All Clients</a>
+                <a href="{{ path('electroForumsUserList') }}">All Clients</a>
             </li>
             <li>
                 <a href="#">Now Online</a>
@@ -184,6 +190,20 @@
             </li>
             <li>
                 <a href="#">Contribute to EF Project</a>
+            </li>
+        </ul>
+    </div>
+    <div class="menu-items" id="ef-websites">
+        <div class="menu-item">
+            <div class="menu-item-title">Websites</div>
+            <div class="close-sign">&#x2715;</div>
+        </div>
+        <ul>
+            <li>
+                <a href="{{ path('electro_forums_website_list') }}">All Websites</a>
+            </li>
+            <li>
+                <a href="#">Configuration</a>
             </li>
         </ul>
     </div>

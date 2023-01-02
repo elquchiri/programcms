@@ -7,6 +7,7 @@ namespace ElectroForums\UserBundle\Controller\Adminhtml;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends AbstractController
 {
@@ -21,8 +22,10 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/user/list', name: 'electro_forums_user_list')]
-    public function list(): Response
+    #[Route('/user/list', name: 'electroForumsUserList')]
+    public function list(
+        Request $request
+    ): Response
     {
         return $this->render('@ElectroForumsUser/adminhtml/list.html.twig', [
 

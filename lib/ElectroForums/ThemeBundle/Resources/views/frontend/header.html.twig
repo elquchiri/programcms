@@ -1,6 +1,6 @@
 <div class="header">
     <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
+        <div class="container">
             <a class="navbar-brand" href="{{ path('frontend_home') }}">ElectroForums</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -9,8 +9,14 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-4" type="search" placeholder="Search anything here .." aria-label="Search">
+                <form class="d-flex" role="search" style="margin-right: 11px;">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search anything here .." aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn" type="button" id="button-addon2"
+                        style="border: 1px solid #CCC; border-left: 0; padding-top: 0;">
+                            <img src="{{ asset('bundles/electroforumsforum/images/search.png') }}" style="width: 15px; height: 15px"/>
+                        </button>
+                    </div>
                 </form>
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
@@ -25,10 +31,10 @@
                             </a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Account
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="#">Profile</a>
                                 <a class="dropdown-item" href="#">My Topics</a>
                                 <a class="dropdown-item" href="#">My Replies</a>

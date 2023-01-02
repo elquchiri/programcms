@@ -4,124 +4,195 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bundles/electroforumscms/css/frontend/home.cms.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/electroforumscontent/css/frontend/topic.css') }}">
 {% endblock %}
 
 {% block page_title %}Home{% endblock %}
 {% block page_tip %}Welcome to ElectroForums.{% endblock %}
 
-{% block content %}
-    <div class="container-fluid" style="padding: 21px;">
-        <div class="row home-cms">
-            <div class="col-md-2 home-cms-right-panel">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="mb-3">Written by,</h5>
-                        <div class="panel-body inf-content">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip" src="https://bootdey.com/img/Content/avatar/avatar7.png" data-original-title="Usuario">
-                                </div>
-                                <div class="col-md-6">
-                                    <strong>Mohamed</strong>
-                                    <p style="font-size: 14px;"><b>5785</b> replies</p>
-                                    <p style="font-size: 13px;">
-                                        <a href="#">See Profile</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+{% block additional_content  %}
+{% endblock %}
 
-                <div class="card text-white bg-success">
-                    <div class="card-header">
-                        Now Reading
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Members &middot; 542</li>
-                        <li class="list-group-item">Visitors &middot; 5487</li>
+{% block content %}
+    <div style="padding: 21px;">
+        <nav class="navbar navbar-expand-lg mb-4">
+            <div class="container">
+                <a class="navbar-brand" href="{{ path('frontend_home') }}">
+                    {% trans %}Welcome Forum !{% endtrans %}
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+                    <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link text-center" aria-current="page" href="{{ path('frontend_editor') }}">
+                                <img src="{{ asset('bundles/electroforumsforum/images/reply.png') }}"/>
+                                <p>Reply</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-center" aria-current="page" href="{{ path('frontend_editor') }}">
+                                <img src="{{ asset('bundles/electroforumsforum/images/post.png') }}"/>
+                                <p>Add Topic</p>
+                            </a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a class="nav-link" aria-current="page" href="{{ path('frontend_home') }}">
+                                <img src="{{ asset('bundles/electroforumsforum/images/message.png') }}"/>
+                                <p>Message</p>
+                            </a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a class="nav-link" aria-current="page" href="{{ path('frontend_home') }}">
+                                <img src="{{ asset('bundles/electroforumsforum/images/favorite.png') }}"/>
+                                <p>Favorite</p>
+                            </a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a class="nav-link" aria-current="page" href="{{ path('frontend_home') }}">
+                                <img src="{{ asset('bundles/electroforumsforum/images/print.png') }}"/>
+                                <p>Print</p>
+                            </a>
+                        </li>
+                        <li style="margin-right: 9px;">
+                            <div class="form-floating">
+                                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                    <option selected>1/4587</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                                <label for="floatingSelect">Page</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-floating">
+                                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                    <option selected>Recent</option>
+                                    <option value="1">Trending</option>
+                                </select>
+                                <label for="floatingSelect">Sort by</label>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
-            <div class="col-md-10">
-                <h3>Welcome Forum !</h3>
-                How are you ?&nbsp;<span style="font-weight: bold;">Hello</span>&nbsp;Med<div>Un entier supérieur ou égal à zéro représentant le décalage pour le début du Range à partir du début de <span style="font-weight: bold;">startNode</span>.</div>
-                <div><br></div>
-                <div><img src="https://miro.medium.com/focal/70/70/50/50/1*OimWR9RFAGMTHBRJMIvQFg.jpeg"></div>
-                <div><br></div>
-                <div>La méthode Range.insertNode() insère un nœud au début du Range. Le nouveau nœud est inséré au point de départ du Range. Si le nouveau nœud est sur le point d’être ajouté à un Node texte, ce Node est coupé en deux au point d’insertion, et l’insertion se fait entre les deux nœuds texte. Si le nouveau nœud est un fragment de document, les enfants du fragment sont insérés à la place.La méthode Range.insertNode() insère un nœud au début du Range. Le nouveau nœud est inséré au point de départ du Range. Si le nouveau nœud est sur le point d’être ajouté à un Node texte, ce Node est coupé en deux au point d’insertion, et l’insertion se fait entre les deux nœuds texte. Si le nouveau nœud est un fragment de document, les enfants du fragment sont insérés à la place.</div>
-
-                <p>On Internet Explorer, a contentEditable DIV creates a new paragraph each time you press Enter whereas Firefox creates a <br/> tag.
-
-                As discussed here, it is possible to use JavaScript to intercept the Enter keyPress and use range.pasteHTML to create a <br/> instead. But doing this breaks the Undo menu; once you hit Enter, you can no longer Undo past that point.
-
-                How can I force the contentEditable element to create single line breaks on Enter without breaking Undo?This technique appears to avoid the Chrome bug that does show BRs the first time (with the code you mentionned you need to push two times the Enter key).
-
-                It's not a perfect hack but it works: it adds a whitespace after your BR so it show properly. However, you will see that adding only a whitespace " " will NOT change anything, it works with other letters. The browser will not show it, probably because it is like a blank space inside an html page, it simply does not mean anything. To get rid of that bug I created a div with jQuery that includes a &nbsp; tag, and I take the text() property to put it in the textnode otherwise it doesn't work.</p>
-
-                <div>
-                    <a href="#">Comment</a> &middot;
-                    <a href="#">Embed & Message</a> &middot;
-                    <a href="#">Rate</a>
-                </div>
-            </div>
+        </nav>
+        <div style="background-color: rgba(238,234,234,0.1); text-align: center; padding: 31px; margin: 21px 0;">
+            <h4>Program your own WYSIWYG editor – with HTML, CSS & JavaScript</h4>
+            <p class="text-muted" style="font-size: 15px;">
+                Published 4 Mars 2020
+                &middot;
+                Last Modification was Yesterday
+            </p>
         </div>
-        <div class="row home-cms">
-            <div class="col-md-2 home-cms-right-panel">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="panel-body inf-content">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip" src="https://bootdey.com/img/Content/avatar/avatar7.png" data-original-title="Usuario">
-                                </div>
-                                <div class="col-md-6">
-                                    <strong>Baptiste</strong>
-                                    <p style="font-size: 14px;"><b>5785</b> replies</p>
-                                    <p style="font-size: 13px;">
-                                        <a href="#">See Profile</a>
-                                    </p>
+        <div class="container">
+            <div class="row home-cms">
+                <div class="col-md-auto home-cms-right-panel" style="width: 270px;">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="mb-3">{% trans %}Written by,{% endtrans %}</h6>
+                            <div class="panel-body inf-content">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip" src="https://bootdey.com/img/Content/avatar/avatar7.png" data-original-title="Usuario">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <a href="#"><strong>Mohamed E.</strong></a>
+                                        <p style="font-size: 14px; margin: 0;">Active Member</p>
+                                        <span style="font-size: 14px;"><b>5785</b> replies</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="me-auto">
+                                    <div style="font-size: 14px;">Note</div>
+                                    <img src="{{ asset('bundles/electroforumsforum/images/star.png') }}"/>
+                                    <img src="{{ asset('bundles/electroforumsforum/images/star.png') }}"/>
+                                    <img src="{{ asset('bundles/electroforumsforum/images/star.png') }}"/>
+                                    <img src="{{ asset('bundles/electroforumsforum/images/star.png') }}"/>
+                                    <img src="{{ asset('bundles/electroforumsforum/images/star.png') }}"/>
+                                </div>
+                                <span class="badge text-muted bg-light">5/ 5</span>
+                            </li>
+                        </ul>
+                        <div class="card-footer text-success" style="font-size: 14px;">
+                            <span class="dot"></span> {% trans %}Now Reading{% endtrans %}
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Members &middot; 542</li>
+                            <li class="list-group-item">Visitors &middot; 5487</li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-10">
-                <p>We and our partners process personal data such as IP address, unique ID, browsing data for:
-                    Store and/or access information on a device; Personalised ads display, personalised content, ad and content measurement, audience insights, and product development; Ensure security, prevent fraud, and debug; Technically deliver ads or content; Match and combine offline data sources; Link different devices; Receive and use automatically-sent device characteristics for identification; Use precise geolocation data; Actively scan device characteristics for identification.
-                    Some partners rely on their legitimate business interest. View our list of partners to see the purposes they believe they have legitimate interest for and how you can object to it. You choices will not affect browsing data. You can change your mind and change your consent choices at any time by clicking "User Consent" link.</p>
-            </div>
-        </div>
+                <div class="col-md">
+                    <div>Un entier supérieur ou égal à zéro représentant le décalage pour le début du Range à partir du début de <span style="font-weight: bold;">startNode</span>.</div>
+                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate nisi eget velit laoreet, nec pretium magna eleifend. Maecenas consequat sagittis quam, ut pretium arcu vehicula efficitur. Sed pulvinar ipsum at aliquet scelerisque. Vestibulum non rhoncus mauris. Duis metus tellus, tempor vitae neque a, mollis eleifend nibh. Cras vestibulum finibus turpis sit amet luctus. Sed congue turpis in ante blandit finibus. Donec malesuada tempor vulputate. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer eleifend lorem sit amet ornare vestibulum. Nulla ut sem et magna consequat mattis. Pellentesque in laoreet elit. Vestibulum sed maximus magna. Suspendisse viverra elit ac consectetur imperdiet. Ut molestie volutpat nibh, ut viverra ex pretium vel.</div>
+                    <div><br></div>
+                    <div><img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Axes_horizontal_et_vertical_de_la_politesse.png" class="img-fluid"></div>
+                    <div><br></div>
+                    <div>La méthode Range.insertNode() insère un nœud au début du Range. Le nouveau nœud est inséré au point de départ du Range. Si le nouveau nœud est sur le point d’être ajouté à un Node texte, ce Node est coupé en deux au point d’insertion, et l’insertion se fait entre les deux nœuds texte. Si le nouveau nœud est un fragment de document, les enfants du fragment sont insérés à la place.La méthode Range.insertNode() insère un nœud au début du Range. Le nouveau nœud est inséré au point de départ du Range. Si le nouveau nœud est sur le point d’être ajouté à un Node texte, ce Node est coupé en deux au point d’insertion, et l’insertion se fait entre les deux nœuds texte. Si le nouveau nœud est un fragment de document, les enfants du fragment sont insérés à la place.</div>
 
-        <div class="row home-cms">
-            <div class="col-md-2 home-cms-right-panel">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="panel-body inf-content">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip" src="https://bootdey.com/img/Content/avatar/avatar7.png" data-original-title="Usuario">
-                                </div>
-                                <div class="col-md-6">
-                                    <strong>Mohamed</strong>
-                                    <p style="font-size: 14px;"><b>5785</b> replies</p>
-                                    <p style="font-size: 13px;">
-                                        <a href="#">See Profile</a>
-                                    </p>
+                    <p>On Internet Explorer, a contentEditable DIV creates a new paragraph each time you press Enter whereas Firefox creates a <br/> tag.
+
+                        As discussed here, it is possible to use JavaScript to intercept the Enter keyPress and use range.pasteHTML to create a <br/> instead. But doing this breaks the Undo menu; once you hit Enter, you can no longer Undo past that point.
+
+                        How can I force the contentEditable element to create single line breaks on Enter without breaking Undo?This technique appears to avoid the Chrome bug that does show BRs the first time (with the code you mentionned you need to push two times the Enter key).
+
+                        It's not a perfect hack but it works: it adds a whitespace after your BR so it show properly. However, you will see that adding only a whitespace " " will NOT change anything, it works with other letters. The browser will not show it, probably because it is like a blank space inside an html page, it simply does not mean anything. To get rid of that bug I created a div with jQuery that includes a &nbsp; tag, and I take the text() property to put it in the textnode otherwise it doesn't work.</p>
+
+                    <p>Curabitur placerat augue ut ante posuere mollis at nec leo. Praesent id libero lacus. Vestibulum sem tellus, tincidunt a tortor consequat, imperdiet luctus tellus. Nam vehicula non massa ut tristique. Nam pulvinar, risus non vehicula pretium, risus neque ornare orci, at feugiat quam turpis vel dui. Fusce hendrerit porttitor urna vel varius. Nunc quis mauris vitae purus convallis eleifend ac vel elit. Morbi aliquet congue eros id porttitor. Integer euismod laoreet sem quis fringilla. Sed commodo fermentum mi, sit amet posuere diam semper vitae.
+                    </p>
+                    <div>Un entier supérieur ou égal à zéro représentant le décalage pour le début du Range à partir du début de <span style="font-weight: bold;">startNode</span>.</div>
+                    <div><br></div>
+                    <div><img src="https://www.researchgate.net/publication/263543051/figure/fig1/AS:669558310436865@1536646549144/Combining-the-horizontal-and-vertical-perspectives-in-holistic-music-education.png" class="img-fluid"></div>
+                    <div><br></div>
+                </div>
+            </div>
+            <div class="row home-cms">
+                <div class="col-md-auto home-cms-right-panel" style="width: 270px;">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="panel-body inf-content">
+                                <h6 class="mb-3">Reply by,</h6>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip" src="https://bootdey.com/img/Content/avatar/avatar7.png" data-original-title="Usuario">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="#"><strong>Baptiste</strong></a>
+                                        <p style="font-size: 14px; margin: 0;">Active Member</p>
+                                        <p style="font-size: 14px;"><b>5785</b> replies</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">Score</div>
+                                    <img src="{{ asset('bundles/electroforumsforum/images/star.png') }}"/>
+                                    <img src="{{ asset('bundles/electroforumsforum/images/star.png') }}"/>
+                                    <img src="{{ asset('bundles/electroforumsforum/images/star.png') }}"/>
+                                    <img src="{{ asset('bundles/electroforumsforum/images/star.png') }}"/>
+                                    <img src="{{ asset('bundles/electroforumsforum/images/star.png') }}"/>
+                                </div>
+                                <span class="badge text-muted bg-light rounded-pill">5/ 5</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-10">
-                <div class="mb-3">
-                    <textarea class="form-control" placeholder="Your Comment .." style="height: 200px"></textarea>
-                </div>
-                <div class="mb-3">
-                    <input class="btn btn-primary" type="submit" value="Send Comment">
+                <div class="col-md">
+                    <p>We and our partners process personal data such as IP address, unique ID, browsing data for:
+                        Store and/or access information on a device; Personalised ads display, personalised content, ad and content measurement, audience insights, and product development; Ensure security, prevent fraud, and debug; Technically deliver ads or content; Match and combine offline data sources; Link different devices; Receive and use automatically-sent device characteristics for identification; Use precise geolocation data; Actively scan device characteristics for identification.
+                        Some partners rely on their legitimate business interest. View our list of partners to see the purposes they believe they have legitimate interest for and how you can object to it. You choices will not affect browsing data. You can change your mind and change your consent choices at any time by clicking "User Consent" link.</p>
+                    <p>
+                        <img src="https://maxst.icons8.com/vue-static/icon/after-free-download/likes.png">
+                    </p>
                 </div>
             </div>
         </div>

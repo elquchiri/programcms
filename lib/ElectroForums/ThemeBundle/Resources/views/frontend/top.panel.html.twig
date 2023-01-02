@@ -1,10 +1,11 @@
 <div class="top-panel">
-    <div class="container-fluid">
+    <div class="container">
         <div class="dropdown website-switcher">
-            <a  href="#" class="dropdown-toggle switcher-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                English (USA)
+            <a  href="#" class="dropdown-toggle switcher-dropdown" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Main Website
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{{ path('electro_forums_website_switcher', {id: 1}) }}">English (USA)</a>
                 <a class="dropdown-item" href="#">العربية</a>
                 <a class="dropdown-item" href="#">Francais</a>
                 <a class="dropdown-item" href="#">Española</a>

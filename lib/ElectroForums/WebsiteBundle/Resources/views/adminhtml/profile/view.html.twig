@@ -1,0 +1,55 @@
+{% extends '@ElectroForumsTheme/adminhtml/layout.html.twig' %}
+
+{% block title %}Profile View{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/electroforumsuser/css/app.css') }}">
+{% endblock %}
+
+{% block page_title %}Customer View{% endblock %}
+{% block page_tip %}Browse / Edit Client{% endblock %}
+
+{% block content %}
+
+    <div class="tabs-container">
+        <div class="tabs">
+            <div class="tabs-title">Client Information</div>
+            <ul>
+                <li>
+                    <a class="active" href="">Client View</a>
+                    <a href="">Information</a>
+                    <a href="">Posts <span class="badge text-bg-primary">4 posts</span></a>
+                    <a href="">Comments <span class="badge text-bg-secondary">454</span></a>
+                    <a href="">Activity</a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-container">
+            <div class="tab-title">Personal Information</div>
+            <div class="tab-content">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Last Logged In:</th>
+                            <td>28 Nov 2022, 13:47:34 (Offline)</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Account Lock:</th>
+                            <td>Unlocked</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Confirmed email:</th>
+                            <td>Confirmation Not Required</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Account Created:	</th>
+                            <td>5 May 2017, 01:11:06</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

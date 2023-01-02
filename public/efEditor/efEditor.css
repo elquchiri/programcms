@@ -1,0 +1,76 @@
+.ef-content {
+    font-size: 15px;
+    caret-color : #232222;
+}
+
+.ef-component-table {
+    width: 100%;
+    height: 100%;
+    border-collapse: separate;
+    border-spacing: 2px;
+    padding: 7px;
+}
+.ef-component-table tr {
+
+}
+.ef-component-table tr td {
+    width: 10%;
+    height: 15px;
+    border: 1px solid #d2d1d1;
+    background-color: #eee;
+}
+.ef-component-table tr td:hover {
+    background-color: #d47638;
+}
+.ef-component-table tr td.selected {
+    background-color: #e7894b;
+}
+
+.ef-component-colorpicker {
+    position: relative;
+}
+.ef-component-slider-colorpicker {
+    position: relative;
+}
+.ef-component-slider-colorpicker-marker {
+    position: absolute;
+    left: 197.5px;
+    top: 0;
+    width: 45px;
+    height: 10px;
+    border: 1px solid #888888;
+    border-radius: 5px;
+    background-color: transparent;
+    z-index: 100;
+}
+
+.ef-dropdown-items {
+    width: 200px;
+}
+.ef-dropdown-colorpicker-container {
+    padding: 0;
+    width: 243px;
+}
+
+.ef-dropdown-items a {
+    font-size: 13px;
+    font-weight: normal !important;
+    padding-left: 11px;
+}
+
+.ef-editor-table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+}
+.ef-editor-table tr {
+    overflow: hidden;
+    height: 34px;
+    border: 0;
+}
+.ef-editor-table tr td {
+    padding: 5px;
+    border: 1px solid #000000;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

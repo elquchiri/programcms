@@ -1,3 +1,4 @@
 controllers:
   resource: ../../Controller/
   type: annotation
+  prefix: /{_locale}

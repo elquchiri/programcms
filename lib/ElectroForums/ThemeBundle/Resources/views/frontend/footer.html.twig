@@ -1,5 +1,43 @@
-<div class="footer">
+<footer class="footer">
     <div class="footer-content">
-        ElectroForums Community Edition &copy; 2022
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <ul>
+                        <li>
+                            <a href="#">Search Terms</a>
+                            <a href="#">Privacy and Cookie Policy</a>
+                            <a href="#">Advanced Search</a>
+                            <a href="#">Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul>
+                        <li>
+                            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <a href="{{ path('electro_forums_user_authentication_register') }}">Join our Community</a>
+                            {% endif %}
+                            <a href="#">Borwse Community Members</a>
+                            <a href="#">#Trending</a>
+                            <a href="#">Assistance</a>
+                            <a href="#">About Us</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" style="background-color: #ffffff">
+                            <img src="{{ asset('bundles/electroforumsforum/images/message.png') }}" style="width: 15px; height: 15px"/>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Enter your email address" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-primary" type="button" id="button-addon2">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+    <div class="footer-copyright">
+        Copyright © 2022-present ElectroForums Community Edition
+    </div>
+</footer>

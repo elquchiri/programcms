@@ -4,19 +4,20 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bundles/electroforumscms/css/frontend/home.cms.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/electroforumforum/css/frontend/forum.css') }}">
 {% endblock %}
 
 {% block page_title %}Home{% endblock %}
 {% block page_tip %}Welcome to ElectroForums.{% endblock %}
 
 {% block content %}
-    <div class="container-fluid" style="padding: 21px;">
+    <div class="container" style="padding: 21px 0">
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ path('frontend_home') }}">
-                    General Forum
-                    <p style="font-size: 13px;">Manager by</p>
+                    <img src="{{ asset('bundles/electroforumsforum/images/general-forum.png') }}" />
+                    Welcome Forum !
+                    <p style="font-size: 13px;">Managed by</p>
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,7 +30,7 @@
                     <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link text-center" aria-current="page" href="{{ path('frontend_editor') }}">
-                                <img src="{{ asset('bundles/electroforumscms/images/messages.png') }}"/>
+                                <img src="{{ asset('bundles/electroforumsforum/images/post.png') }}"/>
                                 <p>Add Topic</p>
                             </a>
                         </li>
@@ -73,6 +74,7 @@
             <div class="col-md-12">
                 <table class="table table-striped">
                     <thead>
+                    <th class="text-center"></th>
                     <th>Subjects</th>
                     <th></th>
                     <th>Publisher</th>
@@ -82,6 +84,9 @@
                     </thead>
                     <tbody>
                     <tr>
+                        <td class="text-center">
+                            <img src="{{ asset('bundles/electroforumsforum/images/folder.png') }}" />
+                        </td>
                         <td>
                             <a href="{{ path('content_topic', {id: 1}) }}">Welcome Forum !</a>
                         </td>
@@ -113,6 +118,9 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="text-center">
+                            <img src="{{ asset('bundles/electroforumsforum/images/folder.png') }}" />
+                        </td>
                         <td>
                             <a href="#">Get in Touch for Last ElectroForums Updates</a>
                         </td>
