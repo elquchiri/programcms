@@ -1,0 +1,92 @@
+{% extends '@ElectroForumsTheme/adminhtml/layout.html.twig' %}
+
+{% block title %}Create New Website{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/electroforumsuser/css/app.css') }}">
+{% endblock %}
+
+{% block page_title %}Create New Website{% endblock %}
+{% block page_tip %}Create Website{% endblock %}
+
+{% block content %}
+    <div style="margin-bottom: 21px; border-top: 1px solid #CCC; border-bottom: 1px solid #CCC; width: 100%; background-color: #f8f8f8; padding: 11px 0; text-align: right">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <button class="btn btn" type="button">
+                                <img style="margin-bottom: 2px;" src="{{ asset('bundles/electroforumsadmin/images/back.png') }}" />
+                                Back
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn" type="button">
+                                Reset
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-primary" type="button">
+                                Save Website
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="">
+        <p>
+            <a class="" style="color: #000000" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <h5>Web Site Information</h5>
+            </a>
+        </p>
+        <div class="collapse show" id="collapseExample">
+            <form>
+                <div class="row mb-3">
+                    <div class="col-3 text-end">
+                        <label for="inputPassword6" class="col-form-label">Name *</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" id="inputPassword6" class="form-control" placeholder="Ex: Arabe Website" aria-describedby="passwordHelpInline">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3 text-end">
+                        <label for="inputPassword6" class="col-form-label">Code *</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" id="inputPassword6" class="form-control" placeholder="Ex: ar" aria-describedby="passwordHelpInline">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3 text-end">
+                        <label for="inputPassword6" class="col-form-label">Sort Order</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-3 text-end">
+                        <label for="inputPassword6" class="col-form-label">Status</label>
+                    </div>
+                    <div class="col-6">
+                        <select class="form-select">
+                            <option value="1">Enabled</option>
+                            <option value="0" selected>Disabled</option>
+                        </select>
+                        <div id="emailHelp" class="form-text">We recommend disabling website on creation.</div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

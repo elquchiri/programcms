@@ -200,7 +200,7 @@
         </div>
         <ul>
             <li>
-                <a href="{{ path('electro_forums_website_list') }}">All Websites</a>
+                <a href="{{ path('electro_forums_website_list') }}">All Web Sites</a>
             </li>
             <li>
                 <a href="#">Configuration</a>
@@ -252,8 +252,44 @@
 
     <div class="content">
         <div class="content-header">
-            <h2>{% block page_title %}{% endblock %}</h2>
-            <p class="content-header-tip">{% block page_tip %}{% endblock %}</p>
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <div>
+                        <h2>{% block page_title %}{% endblock %}</h2>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                        <ul class="navbar-nav mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" aria-current="page" href="{{ path('frontend_home') }}">
+                                        <img src="{{ asset('bundles/electroforumscms/images/messages.png') }}" />
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" aria-current="page" href="{{ path('frontend_home') }}">
+                                        <img src="{{ asset('bundles/electroforumscms/images/notifications.png') }}" />
+                                    </a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Admin
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <a class="dropdown-item" href="#">Profile</a>
+                                        <a class="dropdown-item" href="#">My Topics</a>
+                                        <a class="dropdown-item" href="#">My Replies</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ path('electro_forums_user_edit_dashboard') }}">Edit Profile</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ path('electro_forums_user_logout') }}">Logout</a>
+                                    </div>
+                                </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
         </div>
 
 {#        <div class="alert alert-success" role="alert">#}

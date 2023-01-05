@@ -5,20 +5,17 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                </ul>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <form class="d-flex" role="search" style="margin-right: 11px;">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search anything here .." aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <input type="text" style="width: 300px" class="form-control" placeholder="Search anything here .." aria-label="Recipient's username" aria-describedby="button-addon2">
                         <button class="btn" type="button" id="button-addon2"
                         style="border: 1px solid #CCC; border-left: 0; padding-top: 0;">
                             <img src="{{ asset('bundles/electroforumsforum/images/search.png') }}" style="width: 15px; height: 15px"/>
                         </button>
                     </div>
                 </form>
-                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav mb-2 mb-lg-0">
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="{{ path('frontend_home') }}">

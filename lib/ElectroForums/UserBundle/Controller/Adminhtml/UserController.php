@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends AbstractController
 {
-    #[Route('/admin/user/view/id/{id}', name: 'electro_forums_user_home')]
+    #[Route('/user/view/id/{id}', name: 'electro_forums_user_home')]
     public function view(
         \ElectroForums\UserBundle\Repository\UserRepository $customerRepository
     ): Response

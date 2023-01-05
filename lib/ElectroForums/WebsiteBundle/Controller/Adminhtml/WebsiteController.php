@@ -11,13 +11,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class WebsiteController extends AbstractController
 {
 
-    #[Route('/admin/website/list', name: 'electro_forums_website_list')]
+    #[Route('/website/list', name: 'electro_forums_website_list')]
     public function websiteList(
 
     ): Response
     {
 
         return $this->render('@ElectroForumsWebsite/adminhtml/list.html.twig', [
+
+        ]);
+    }
+
+    #[Route('/website/create', name: 'electro_forums_website_create')]
+    public function createWebsite(
+
+    ): Response
+    {
+
+        return $this->render('@ElectroForumsWebsite/adminhtml/create_website.html.twig', [
 
         ]);
     }
