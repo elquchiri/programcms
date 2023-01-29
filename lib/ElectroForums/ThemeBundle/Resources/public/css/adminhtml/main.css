@@ -4,6 +4,7 @@
 
 html, body {
     font-family: "Tahoma";
+    height: 100%;
 }
 
 a {
@@ -11,6 +12,13 @@ a {
 }
 
 .content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: stretch;
+    height: 100%;
     margin-left: 110px;
 }
 .content .content-header {

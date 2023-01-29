@@ -11,9 +11,8 @@
 {% block page_tip %}Browse / Manage Websites{% endblock %}
 
 {% block content %}
-    <div style="margin-bottom: 21px; border-top: 1px solid #CCC; border-bottom: 1px solid #CCC; width: 100%; background-color: #f8f8f8; padding: 21px; text-align: right">
-        <a href="{{ path('electro_forums_website_create') }}" class="btn btn-primary">Create Website</a>
-    </div>
+
+    {{ component('toolbar', {buttons: buttons, includeWebsiteSwitcher: true}) }}
 
     <div class="mb-3">
         <nav class="navbar navbar-expand-lg">
@@ -73,7 +72,7 @@
                 <ul class="pagination justify-content-end ms-auto mt-2">
                     <li class="page-item">
                         <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
+                            <span aria-hidden="true"><</span>
                         </a>
                     </li>
                     <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -81,7 +80,7 @@
                     <li class="page-item"><a class="page-link" href="#">3</a></li>
                     <li class="page-item">
                         <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
+                            <span aria-hidden="true">></span>
                         </a>
                     </li>
                 </ul>
@@ -92,91 +91,23 @@
     <table class="table table-striped">
         <thead class="table-dark">
         <th>#</th>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Code</th>
-        <th></th>
+        <th>Root Website</th>
+        <th>Website</th>
+        <th>Website View</th>
         </thead>
         <tbody>
         <tr>
             <th scope="row">1</th>
-            <td>Main Website</td>
+            <td><a href="#">Main Root Website</a></td>
             <td>
                 <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover">
-                    Enabled
+                    <a href="#">Main Website</a>
                 </span>
             </td>
             <td>
                 <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover">
-                    main
+                    <a href="#">Default Website View</a>
                 </span>
-            </td>
-            <td class="text-center">
-                <div class="btn-group dropstart">
-                    <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true"
-                       aria-expanded="false">
-                        Edit
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Edit</a></li>
-                        <li><a class="dropdown-item" href="#">Disable</a></li>
-                        <li><a class="dropdown-item" href="#">Delete</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Arabe Website</td>
-            <td>
-                <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover">
-                    Enabled
-                </span>
-            </td>
-            <td>
-                <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover">
-                    ar
-                </span>
-            </td>
-            <td class="text-center">
-                <div class="btn-group dropstart">
-                    <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true"
-                       aria-expanded="false">
-                        Edit
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Edit</a></li>
-                        <li><a class="dropdown-item" href="#">Lock</a></li>
-                        <li><a class="dropdown-item" href="#">Message</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Frensh Website</td>
-            <td>
-                <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover">
-                    Disabled
-                </span>
-            </td>
-            <td>
-                <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover">
-                    fr
-                </span>
-            </td>
-            <td class="text-center">
-                <div class="btn-group dropstart">
-                    <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true"
-                       aria-expanded="false">
-                        Edit
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Edit</a></li>
-                        <li><a class="dropdown-item" href="#">Lock</a></li>
-                        <li><a class="dropdown-item" href="#">Message</a></li>
-                    </ul>
-                </div>
             </td>
         </tr>
         </tbody>

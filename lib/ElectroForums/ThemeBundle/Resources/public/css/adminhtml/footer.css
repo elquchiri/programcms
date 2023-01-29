@@ -1,8 +1,11 @@
 .footer {
-    margin-left: 110px;
+    margin-top: 51px;
+    flex: 1 1 auto;
+    border-top: 1px solid #dddddd;
+    background-color: #eee;
 }
 .footer .footer-content {
     font-size: 13px;
-    color: #888888;
+    color: #777777;
     padding: 31px;
 }

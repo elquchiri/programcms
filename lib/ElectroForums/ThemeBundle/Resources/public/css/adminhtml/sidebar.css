@@ -53,6 +53,7 @@
     color: white;
     padding: 19px;
     display: none;
+    z-index: 99;
 }
 .menu-items .menu-item {
     display: flex;

@@ -1,0 +1,107 @@
+{% extends '@ElectroForumsTheme/adminhtml/layout.html.twig' %}
+
+{% block title %}Configuration{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/electroforumsconfig/css/menu.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/electroforumsconfig/js/config_menu.js') }}"></script>
+{% endblock %}
+
+{% block page_title %}Configuration{% endblock %}
+{% block page_tip %}Welcome to your Dashboard.{% endblock %}
+
+{% block content %}
+
+    {{ component('toolbar', {buttons: buttons, includeWebsiteSwitcher: true}) }}
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="config-menu">
+                <ul>
+                    <li class="root">
+                        <a href="#">General</a>
+                    </li>
+                    <ul class="child">
+                        <li>
+                            <a href="#">General</a>
+                        </li>
+                        <li>
+                            <a href="#">Web</a>
+                        </li>
+                    </ul>
+                    <li class="root">
+                        <a href="#">Client</a>
+                    </li>
+                    <ul class="child">
+                        <li>
+                            <a href="#">Client Configuration</a>
+                        </li>
+                    </ul>
+                    <li class="root">
+                        <a href="#">Advanced</a>
+                    </li>
+                    <ul class="child">
+                        <li>
+                            <a href="#">System</a>
+                        </li>
+                        <li>
+                            <a href="#">Developer</a>
+                        </li>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9">
+
+            {{ component('eav_entity_attribute_view') }}
+
+            <div class="ef-colapse">
+                <h5>
+                    <a class="" style="color: #000000" data-bs-toggle="collapse" href="#posts" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        Posts in Category
+                    </a>
+                </h5>
+                <div class="collapse ef-collapse-container" id="posts">
+                    <table class="table table-striped">
+                        <thead>
+                        <th></th>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Publisher</th>
+                        <th>Role</th>
+                        <th></th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><input type="checkbox" name=""> </td>
+                            <th scope="row">25415</th>
+                            <td>Med EL QUCHIRI</td>
+                            <td><a href="#">Med ELQ</a> </td>
+                            <td>USER</td>
+                            <td>
+                                <div class="btn-group dropstart">
+                                    <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true"
+                                       aria-expanded="false">
+                                        Edit
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Edit</a></li>
+                                        <li><a class="dropdown-item" href="#">Lock</a></li>
+                                        <li><a class="dropdown-item" href="#">Message</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

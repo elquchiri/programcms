@@ -1,0 +1,20 @@
+<div class="ef-buttons-bar">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            {% if includeWebsiteSwitcher is defined and includeWebsiteSwitcher is same as(true) %}
+                {{ component('website_switcher') }}
+            {% endif %}
+            <div class="justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    {% for button in this.buttons %}
+                    <li class="nav-item">
+                        <button class="btn btn-{{ button.buttonType }}" type="button">
+                            {{ button.label }}
+                        </button>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>

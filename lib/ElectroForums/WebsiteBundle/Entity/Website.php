@@ -11,22 +11,52 @@ class Website
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $website_id = null;
+
+    #[ORM\Column(length: 255)]
+    private ?int $website_root_id = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $website_code = null;
 
     #[ORM\Column(length: 255)]
     private ?string $website_name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $website_code = null;
+    private ?int $root_category_id = null;
 
-    public function getId(): ?int
+    public function getWebsiteId(): ?int
     {
-        return $this->id;
+        return $this->website_id;
     }
 
-    public function setEntityId(int $entity_id): self
+    public function setWebsiteId(int $website_id): self
     {
-        $this->entity_id = $entity_id;
+        $this->website_id = $website_id;
+
+        return $this;
+    }
+
+    public function getWebsiteRootId(): ?int
+    {
+        return $this->website_root_id;
+    }
+
+    public function setWebsiteRootId(int $website_root_id): self
+    {
+        $this->website_root_id = $website_root_id;
+
+        return $this;
+    }
+
+    public function getWebsiteCode(): ?string
+    {
+        return $this->website_code;
+    }
+
+    public function setWebsiteCode(string $website_code): self
+    {
+        $this->website_code = $website_code;
 
         return $this;
     }
@@ -43,14 +73,14 @@ class Website
         return $this;
     }
 
-    public function getWebsiteCode(): ?string
+    public function getRootCategoryId(): ?string
     {
-        return $this->website_code;
+        return $this->root_category_id;
     }
 
-    public function setWebsiteCode(string $website_code): self
+    public function setRootCategoryId(string $root_category_id): self
     {
-        $this->website_code = $website_code;
+        $this->root_category_id = $root_category_id;
 
         return $this;
     }

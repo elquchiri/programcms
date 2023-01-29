@@ -21,6 +21,7 @@
         "symfony/security-bundle": "^6.2",
         "symfony/translation": "^6.2",
         "symfony/twig-bundle": "^6.2",
+        "symfony/ux-twig-component": "^2.7",
         "symfony/validator": "^6.2",
         "symfony/yaml": "6.2.*",
         "symfonycasts/verify-email-bundle": "^1.12"
@@ -44,7 +45,11 @@
             "ElectroForums\\ForumBundle\\": "lib/ElectroForums/ForumBundle",
             "ElectroForums\\ContentBundle\\": "lib/ElectroForums/ContentBundle",
             "ElectroForums\\PostBundle\\": "lib/ElectroForums/PostBundle",
-            "ElectroForums\\WebsiteBundle\\": "lib/ElectroForums/WebsiteBundle"
+            "ElectroForums\\WebsiteBundle\\": "lib/ElectroForums/WebsiteBundle",
+            "ElectroForums\\CategoryBundle\\": "lib/ElectroForums/CategoryBundle",
+            "ElectroForums\\EavBundle\\": "lib/ElectroForums/EavBundle",
+            "ElectroForums\\UiBundle\\": "lib/ElectroForums/UiBundle",
+            "ElectroForums\\ConfigBundle\\": "lib/ElectroForums/ConfigBundle"
         }
     },
     "autoload-dev": {

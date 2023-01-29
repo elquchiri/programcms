@@ -1,0 +1,109 @@
+.category-tree-container {
+    padding-top: 11px;
+}
+.category-tree-container .category-buttons {
+    margin-bottom: 21px;
+}
+
+.ef-colapse {
+    margin-top: 31px;
+}
+.ef-colapse .ef-collapse-container {
+    padding-top: 17px;
+}
+.ef-colapse h5 {
+    font-size: 15px;
+    font-weight: bold;
+    color: #232222;
+}
+
+.tree {
+    position: relative;
+    margin-top: 5px;
+    font-size: 0.85rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.tree span {
+    font-size: 13px;
+    letter-spacing: 0.4px;
+    color: #a8a8a8;
+}
+.tree .fa-folder-open, .tree .fa-folder {
+    color: #007bff;
+}
+.tree .fa-html5 {
+    color: #f21f10;
+}
+.tree ul {
+    padding-left: 5px;
+    list-style: none;
+}
+.tree ul.child {
+    display: none;
+}
+.tree ul li {
+    position: relative;
+    padding-top: 5px;
+    padding-bottom: 0;
+    padding-left: 15px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.tree ul li span.title {
+    color: #232222;
+    background: url("../../images/open-sign.png") no-repeat;
+    padding-left: 21px;
+}
+.tree ul li span.title .category-name {
+    color: #232222;
+}
+.tree ul li span.title.closed {
+    color: #232222;
+    background: url("../../images/close-sign.png") no-repeat;
+    padding-left: 21px;
+}
+.tree ul li span.active {
+    background-color: #f5d6c7;
+    color: #000000;
+    border-radius: 3px;
+    padding: 0 3px;
+}
+.tree ul li:before {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 10px;
+    height: 1px;
+    margin: auto;
+    content: '';
+    background-color: #dedede;
+}
+.tree ul li:after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    content: '';
+    background-color: #dedede;
+}
+.tree ul li:last-child:after {
+    height: 15px;
+}
+.tree ul a {
+    cursor: pointer;
+}
+.tree ul a:hover {
+    text-decoration: none;
+}

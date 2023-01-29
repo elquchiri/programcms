@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="{{ asset('bundles/electroforumstheme/css/adminhtml/main.css') }}"/>
     <link rel="stylesheet" href="{{ asset('bundles/electroforumstheme/css/adminhtml/sidebar.css') }}"/>
     <link rel="stylesheet" href="{{ asset('bundles/electroforumstheme/css/adminhtml/footer.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('bundles/electroforumstheme/css/adminhtml/components/buttons.bar.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('bundles/electroforumstheme/css/adminhtml/components/form.css') }}"/>
 {% endblock %}
 
 {% block javascripts %}
@@ -155,7 +157,7 @@
         </div>
         <ul>
             <li>
-                <a href="#">All Categories</a>
+                <a href="{{ path('electroforums_category_tree') }}">Categories</a>
             </li>
             <li>
                 <a href="#">All Forums</a>
@@ -203,7 +205,7 @@
                 <a href="{{ path('electro_forums_website_list') }}">All Web Sites</a>
             </li>
             <li>
-                <a href="#">Configuration</a>
+                <a href="{{ path('admin_configuration') }}">Configuration</a>
             </li>
         </ul>
     </div>
@@ -277,11 +279,7 @@
                                         Admin
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="#">Profile</a>
-                                        <a class="dropdown-item" href="#">My Topics</a>
-                                        <a class="dropdown-item" href="#">My Replies</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="{{ path('electro_forums_user_edit_dashboard') }}">Edit Profile</a>
+                                        <a class="dropdown-item" href="{{ path('electro_forums_user_edit_dashboard') }}">Edit Account</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="{{ path('electro_forums_user_logout') }}">Logout</a>
                                     </div>
@@ -302,8 +300,8 @@
         <div class="content-container">
             {% block content %}{% endblock %}
         </div>
-    </div>
 
-    {% include '@ElectroForumsTheme/adminhtml/footer.html.twig' %}
+        {% include '@ElectroForumsTheme/adminhtml/footer.html.twig' %}
+    </div>
 
 {% endblock %}
