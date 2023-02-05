@@ -23,7 +23,7 @@
             <div class="config-menu">
                 <ul>
                     {% for tab in tabs %}
-                        <li class="root">
+                        <li class="root {% if tab.active is defined %}open{% endif %}">
                             <a href="#">{{ tab.label }}</a>
                         </li>
                         {% if tab.sections is defined %}
@@ -41,10 +41,10 @@
                 </ul>
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9" style="padding-left: 21px;">
             {% for groupId, group in currentSectionGroups %}
             <div class="ef-colapse">
-                <a class="" style="color: #000000" data-bs-toggle="collapse" href="#{{ groupId }}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <a data-bs-toggle="collapse" href="#{{ groupId }}" role="button" aria-expanded="false" aria-controls="collapseExample">
                     {{ group.label }}
                 </a>
                 <div class="collapse ef-collapse-container" id="{{ groupId }}">
@@ -70,6 +70,14 @@
 
                                 {% if field.type == 'select' %}
                                     <select class="form-select" name="" id="{{ fieldId }}">
+                                        {% for option in field.source %}
+                                            <option value="">{{ option }}</option>
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
+
+                                {% if field.type == 'multiselect' %}
+                                    <select class="form-select multiselect" name="" id="{{ fieldId }}" {% if field.type == 'multiselect' %}multiple{% endif %}>
                                         {% for option in field.source %}
                                             <option value="">{{ option }}</option>
                                         {% endfor %}

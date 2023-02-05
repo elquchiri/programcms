@@ -29,13 +29,16 @@ class ConfigController extends AbstractController
     #[Route('/system_config/index', name: 'admin_configuration')]
     public function index(): Response
     {
+        $this->configSerializer->parseConfig();
         $tabs = $this->configSerializer->getConfigNavigation();
+        $currentSectionGroups = $this->configSerializer->getCurrenSectionGroups();
 
         $this->toolbar->addButton("Save Config", "", "primary");
 
         return $this->render('@ElectroForumsConfig/adminhtml/config.html.twig', [
             'buttons' => $this->toolbar->getButtons(),
-            'tabs' => $tabs
+            'tabs' => $tabs,
+            'currentSectionGroups' => $currentSectionGroups
         ]);
     }
 

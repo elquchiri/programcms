@@ -6,20 +6,39 @@ namespace ElectroForums\ConfigBundle\Model;
 
 class ConfigSerializer
 {
-
+    /**
+     * Kernel's Container
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
     private $container;
-
+    /**
+     * Stores Hole Merged Configuration
+     * @var array
+     */
     private $configs;
+    /**
+     * Holds current sectionId in URL
+     * @var
+     */
     private $sectionId;
 
+    /**
+     * ConfigSerializer constructor.
+     * @param \App\Kernel $kernel
+     */
     public function __construct(
         \App\Kernel $kernel
     )
     {
         $this->container = $kernel->getContainer();
         $this->configs = [];
+        $this->sectionId = null;
     }
 
+    /**
+     * Parse all Bundle's configurations
+     * @throws \ReflectionException
+     */
     public function parseConfig() {
         // Get all bundles
         $bundles = array_keys($this->container->getParameter('kernel.bundles'));
@@ -39,6 +58,11 @@ class ConfigSerializer
 
                 if(isset($config['sections'])) {
                     foreach($config['sections'] as $sectionId => $section) {
+                        // If no sectionId defined, get the first one as default
+                        // Globally used with index action, so we pick the default section
+                        if(!isset($this->sectionId)) {
+                            $this->sectionId = $sectionId;
+                        }
                         if(isset($section['tab'])) {
                             $targetTabId = $section['tab'];
                             $this->configs['tabs'][$targetTabId]['sections'][$sectionId] = [
@@ -52,6 +76,7 @@ class ConfigSerializer
                         }
                         // If current loop sectionId == current http section_id parameter, then merge groups & fields
                         if($sectionId == $this->sectionId) {
+                            //$this->sectionId = $sectionId;
                             foreach($section['groups'] as $groupId => $group) {
                                 if(isset($group['label'])) {
                                     $this->configs['current_section']['groups'][$groupId] = [
@@ -66,7 +91,7 @@ class ConfigSerializer
                                             'type' => $field['type']
                                         ];
 
-                                        if($field['type'] == 'select') {
+                                        if($field['type'] == 'select' || $field['type'] == 'multiselect') {
                                             $source = new \ReflectionClass($field['source']);
                                             $this->configs['current_section']['groups'][$groupId]['fields'][$fieldId]['source'] = $source->newInstance()->getOptionsArray();
                                         }
@@ -80,18 +105,34 @@ class ConfigSerializer
         }
     }
 
+    /**
+     * Set sectionId
+     * @param $sectionId
+     */
     public function setSectionId($sectionId) {
         $this->sectionId = $sectionId;
     }
 
+    /**
+     * Get sectionId
+     * @return mixed
+     */
     public function getSectionId() {
         return $this->sectionId;
     }
 
+    /**
+     * Get Configuration Navigation to render
+     * @return mixed
+     */
     public function getConfigNavigation() {
         return $this->configs['tabs'];
     }
 
+    /**
+     * Get current section's groups tree
+     * @return mixed
+     */
     public function getCurrenSectionGroups() {
         return $this->configs['current_section']['groups'];
     }

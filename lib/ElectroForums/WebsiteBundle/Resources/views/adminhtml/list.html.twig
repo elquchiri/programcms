@@ -4,11 +4,9 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bundles/electroforumsuser/css/app.css') }}">
 {% endblock %}
 
 {% block page_title %}All Web Sites{% endblock %}
-{% block page_tip %}Browse / Manage Websites{% endblock %}
 
 {% block content %}
 
@@ -90,10 +88,10 @@
 
     <table class="table table-striped">
         <thead class="table-dark">
-        <th>#</th>
-        <th>Root Website</th>
-        <th>Website</th>
-        <th>Website View</th>
+            <th>#</th>
+            <th>Root Website</th>
+            <th>Website</th>
+            <th>Website View</th>
         </thead>
         <tbody>
         <tr>

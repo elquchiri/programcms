@@ -7,3 +7,26 @@ electro_forums_config:
       general:
         label: 'General'
         tab: 'core_general'
+        groups:
+          country_options:
+            label: 'Country Options'
+            fields:
+              default_country:
+                label: 'Default Country'
+                type: 'select'
+                source: ElectroForums\WebsiteBundle\Model\Provider\CountrySelector
+              allowed_countries:
+                label: 'Allow Countries'
+                type: 'multiselect'
+                source: ElectroForums\WebsiteBundle\Model\Provider\CountrySelector
+          local_options:
+            label: 'Locale Options'
+            fields:
+              timezone:
+                label: 'Timezone'
+                type: 'select'
+                source: ElectroForums\CoreBundle\Model\Provider\TimeZoneSelector
+              locale:
+                label: 'Locale'
+                type: 'select'
+                source: ElectroForums\CoreBundle\Model\Provider\TimeZoneSelector

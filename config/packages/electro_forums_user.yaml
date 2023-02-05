@@ -14,6 +14,9 @@ electro_forums_user:
               redirect_user_after_login:
                 type: 'yesno'
                 label: 'Redirect User to Account Dashboard after Logging in'
+              approve_new_users:
+                type: 'yesno'
+                label: 'Approve Users on registration before they can Logging in'
           account_sharing:
             label: 'Account Sharing Options'
             fields:
