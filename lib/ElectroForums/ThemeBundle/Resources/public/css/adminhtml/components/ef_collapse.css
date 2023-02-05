@@ -1,0 +1,18 @@
+.ef-colapse {
+    padding-top: 17px;
+    padding-bottom: 17px;
+    border-bottom: 1px solid #dedede;
+}
+.ef-colapse .ef-collapse-container {
+    padding-top: 17px;
+}
+.ef-colapse a {
+    font-size: 16px;
+    font-weight: bolder;
+    color: #232222;
+    display: block;
+    background: url('../../../images/down-arrow.png') no-repeat 99% center;
+}
+.ef-colapse a.open {
+    background: url('../../../images/up-arrow.png') no-repeat 99% center;
+}

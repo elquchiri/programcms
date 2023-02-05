@@ -1,7 +1,7 @@
 <?php
 
 
-namespace ElectroForums\UserBundle\DependencyInjection;
+namespace ElectroForums\CmsBundle\DependencyInjection;
 
 
 class Configuration extends \ElectroForums\ConfigBundle\DependencyInjection\Configuration

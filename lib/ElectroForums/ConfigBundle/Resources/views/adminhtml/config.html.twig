@@ -13,7 +13,6 @@
 {% endblock %}
 
 {% block page_title %}Configuration{% endblock %}
-{% block page_tip %}Welcome to your Dashboard.{% endblock %}
 
 {% block content %}
 
@@ -23,84 +22,65 @@
         <div class="col-md-3">
             <div class="config-menu">
                 <ul>
-                    <li class="root">
-                        <a href="#">General</a>
-                    </li>
-                    <ul class="child">
-                        <li>
-                            <a href="#">General</a>
+                    {% for tab in tabs %}
+                        <li class="root">
+                            <a href="#">{{ tab.label }}</a>
                         </li>
-                        <li>
-                            <a href="#">Web</a>
-                        </li>
-                    </ul>
-                    <li class="root">
-                        <a href="#">Client</a>
-                    </li>
-                    <ul class="child">
-                        <li>
-                            <a href="#">Client Configuration</a>
-                        </li>
-                    </ul>
-                    <li class="root">
-                        <a href="#">Advanced</a>
-                    </li>
-                    <ul class="child">
-                        <li>
-                            <a href="#">System</a>
-                        </li>
-                        <li>
-                            <a href="#">Developer</a>
-                        </li>
-                    </ul>
+                        {% if tab.sections is defined %}
+                            <ul class="child" {% if tab.active is defined %} style="display: block" {% endif %}>
+                                {% for sectionId, section in tab.sections %}
+                                    <li>
+                                        <a class="{% if section.active %}active{% endif %}" href="{{ path('admin_configuration_edit', {sectionId: sectionId}) }}">
+                                            {{ section.label }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
         </div>
         <div class="col-md-9">
-
-            {{ component('eav_entity_attribute_view') }}
-
+            {% for groupId, group in currentSectionGroups %}
             <div class="ef-colapse">
-                <h5>
-                    <a class="" style="color: #000000" data-bs-toggle="collapse" href="#posts" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        Posts in Category
-                    </a>
-                </h5>
-                <div class="collapse ef-collapse-container" id="posts">
-                    <table class="table table-striped">
-                        <thead>
-                        <th></th>
-                        <th>#</th>
-                        <th>Title</th>
-                        <th>Publisher</th>
-                        <th>Role</th>
-                        <th></th>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td><input type="checkbox" name=""> </td>
-                            <th scope="row">25415</th>
-                            <td>Med EL QUCHIRI</td>
-                            <td><a href="#">Med ELQ</a> </td>
-                            <td>USER</td>
-                            <td>
-                                <div class="btn-group dropstart">
-                                    <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true"
-                                       aria-expanded="false">
-                                        Edit
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Edit</a></li>
-                                        <li><a class="dropdown-item" href="#">Lock</a></li>
-                                        <li><a class="dropdown-item" href="#">Message</a></li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <a class="" style="color: #000000" data-bs-toggle="collapse" href="#{{ groupId }}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    {{ group.label }}
+                </a>
+                <div class="collapse ef-collapse-container" id="{{ groupId }}">
+                    {% for fieldId, field in group.fields %}
+                        <div class="row mb-3">
+                            <div class="col-3 text-end">
+                                <label for="{{ fieldId }}" class="col-form-label">{{ field.label }}</label>
+                            </div>
+                            <div class="col-6">
+                                {% if field.type == 'text' %}
+                                    <input type="text" name="" id="{{ fieldId }}" class="form-control" placeholder="{{ field.label }}" />
+                                {% endif %}
+
+                                {% if field.type == 'yesno' %}
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input ef-checkbox-switcher" type="checkbox" role="switch" id="{{ fieldId }}" checked>
+                                    </div>
+                                {% endif %}
+
+                                {% if field.type == 'textarea' %}
+                                    <textarea class="form-control" id="{{ fieldId }}" placeholder="{{ field.label }}"></textarea>
+                                {% endif %}
+
+                                {% if field.type == 'select' %}
+                                    <select class="form-select" name="" id="{{ fieldId }}">
+                                        {% for option in field.source %}
+                                            <option value="">{{ option }}</option>
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
 

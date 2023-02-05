@@ -11,6 +11,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends AbstractController
 {
+
+    private \ElectroForums\ConfigBundle\Model\Config $config;
+
+    public function __construct(
+        \ElectroForums\ConfigBundle\Model\Config $config
+    )
+    {
+        $this->config = $config;
+    }
+
     #[Route('/user/view/id/{id}', name: 'electro_forums_user_home')]
     public function view(
         \ElectroForums\UserBundle\Repository\UserRepository $customerRepository
@@ -27,6 +37,7 @@ class UserController extends AbstractController
         Request $request
     ): Response
     {
+        //exit($this->config->getConfigValue('ok'));
         return $this->render('@ElectroForumsUser/adminhtml/list.html.twig', [
 
         ]);

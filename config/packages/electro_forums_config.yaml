@@ -1,0 +1,9 @@
+electro_forums_config:
+  system_config:
+    tab:
+      id: 'core_general'
+      label: 'General'
+    sections:
+      general:
+        label: 'General'
+        tab: 'core_general'

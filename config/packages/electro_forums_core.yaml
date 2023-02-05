@@ -1,0 +1,12 @@
+electro_forums_core:
+  system_config:
+    tab:
+      id: 'core_advanced'
+      label: 'Advanced'
+    sections:
+      system:
+        label: 'System'
+        tab: 'core_advanced'
+      developer:
+        label: 'Developer'
+        tab: 'core_advanced'

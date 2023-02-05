@@ -28,29 +28,15 @@ namespace ElectroForums\ThemeBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
+use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-class ElectroForumsThemeExtension extends Extension implements PrependExtensionInterface
+class ElectroForumsThemeExtension extends Extension
 {
-
     public function load(array $configs, ContainerBuilder $container)
     {
-        $loader =new YamlFileLoader($container,new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new YamlFileLoader($container,new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yaml');
-
-        $config = $this->processConfiguration(new Configuration(), $configs);
-
-        $container->setParameter('electro_forums_theme.my_var_string', $config['my_var_string']);
-        $container->setParameter('electro_forums_theme.my_array', $config['my_array']);
-        $container->setParameter('electro_forums_theme.my_integer', $config['my_integer']);
-        $container->setParameter('electro_forums_theme.my_var_string_option', $config['my_var_string_option']);
-    }
-
-    public function prepend(ContainerBuilder $container)
-    {
-
     }
 
     public function getAlias(): string

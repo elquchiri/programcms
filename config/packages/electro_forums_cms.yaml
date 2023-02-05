@@ -1,0 +1,16 @@
+electro_forums_cms:
+  system_config:
+    tab:
+      id: 'content'
+      label: 'Content'
+    sections:
+      section1:
+        label: 'Content Editor Configuration'
+        tab: 'content'
+        groups:
+          group1:
+            label: 'My Group'
+            fields:
+              field1:
+                type: 'text'
+                label: 'Enable module Theme'
