@@ -12,7 +12,7 @@ class Configuration implements ConfigurationInterface
 
     function getConfigTreeBuilder(): TreeBuilder
     {
-        $builder = new TreeBuilder('electro_forums_theme');
+        $builder = new TreeBuilder('electroforums_configuration_tree');
 
         $rootNode = $builder->getRootNode();
         $rootNode->children()
@@ -42,6 +42,7 @@ class Configuration implements ConfigurationInterface
                                                 ->scalarNode('type')->end()
                                                 ->scalarNode('label')->end()
                                                 ->scalarNode('source')->end()
+                                                ->scalarNode('defaultValue')->end()
                                             ->end()
                                     ->end()
                                 ->end()

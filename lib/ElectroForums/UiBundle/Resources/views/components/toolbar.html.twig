@@ -1,16 +1,27 @@
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/electroforumsui/js/toolbar.js') }}"></script>
+{% endblock %}
+
 <div class="ef-buttons-bar">
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             {% if includeWebsiteSwitcher is defined and includeWebsiteSwitcher is same as(true) %}
                 {{ component('website_switcher') }}
             {% endif %}
+
             <div class="justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     {% for button in this.buttons %}
                     <li class="nav-item">
-                        <button class="btn btn-{{ button.buttonType }}" type="button">
+                        {% if button.buttonType == 'save' %}
+                        <button class="btn btn-primary ef-toolbar-btn" data-ef-btn-type="{{ button.buttonType }}" data-ef-btn-target="{{ button.buttonTarget }}" data-ef-btn-action="{{ button.buttonAction }}" type="button">
                             {{ button.label }}
                         </button>
+                        {% else %}
+                            <button class="btn btn-{{ button.buttonType }} ef-toolbar-btn" data-ef-btn-type="{{ button.buttonType }}" type="button">
+                                {{ button.label }}
+                            </button>
+                        {% endif %}
                     </li>
                     {% endfor %}
                 </ul>

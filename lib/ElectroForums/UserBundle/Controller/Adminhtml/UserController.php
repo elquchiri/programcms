@@ -37,7 +37,7 @@ class UserController extends AbstractController
         Request $request
     ): Response
     {
-        //exit($this->config->getConfigValue('ok'));
+        $cnf = $this->config->getConfigValue('user_configuration/login_options/redirect_user_after_login');
         return $this->render('@ElectroForumsUser/adminhtml/list.html.twig', [
 
         ]);

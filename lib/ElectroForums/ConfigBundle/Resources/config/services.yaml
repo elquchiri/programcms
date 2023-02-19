@@ -12,6 +12,10 @@ services:
       - '../../Tests/'
       # Tu mets ici les dossiers a exclure simplement...
 
+  ElectroForums\ConfigBundle\Model\ConfigSerializer:
+    arguments:
+      $container: '@service_container'
+
   #===========================================================================
   # Ici si tu as des problemes et tu veux savoir ce que tu fais si ton arborescence et juste
   # tu ouvres le fichier -> Symfony\Component\Config\Resource\GlobResource

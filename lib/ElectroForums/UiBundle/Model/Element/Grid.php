@@ -8,14 +8,26 @@ class Grid
 {
     private array $columns = [];
     private array $data = [];
+    private array $actions = [];
 
-    public function addColumn($title): static
+    public function addColumn($title, $type = 'text'): static
     {
         $this->columns[] = [
-            'title' => $title
+            'title' => $title,
+            'type'  => $type
         ];
 
         return $this;
+    }
+
+    public function addAction($action)
+    {
+        return $this->actions[] = $action;
+    }
+
+    public function getActions(): array
+    {
+        return $this->actions ?? [];
     }
 
     public function getColumns(): array

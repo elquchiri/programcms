@@ -42,53 +42,57 @@
             </div>
         </div>
         <div class="col-md-9" style="padding-left: 21px;">
-            {% for groupId, group in currentSectionGroups %}
-            <div class="ef-colapse">
-                <a data-bs-toggle="collapse" href="#{{ groupId }}" role="button" aria-expanded="false" aria-controls="collapseExample">
-                    {{ group.label }}
-                </a>
-                <div class="collapse ef-collapse-container" id="{{ groupId }}">
-                    {% for fieldId, field in group.fields %}
-                        <div class="row mb-3">
-                            <div class="col-3 text-end">
-                                <label for="{{ fieldId }}" class="col-form-label">{{ field.label }}</label>
+            <form id="electroforums_config">
+                {% for groupId, group in currentSectionGroups %}
+                <div class="ef-colapse">
+                    <a data-bs-toggle="collapse" href="#{{ groupId }}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        {{ group.label }}
+                    </a>
+                    <div class="collapse ef-collapse-container" id="{{ groupId }}">
+                        {% for fieldId, field in group.fields %}
+                            <div class="row mb-3">
+                                <div class="col-3 text-end">
+                                    <label for="{{ fieldId }}" class="col-form-label">{{ field.label }}</label>
+                                </div>
+                                <div class="col-6">
+                                    {% if field.type == 'text' %}
+                                        <input type="text" name="{{ groupId }}/{{ fieldId }}" id="{{ fieldId }}" class="form-control" value="{{ field.value }}" placeholder="{{ field.label }}" />
+                                    {% endif %}
+
+                                    {% if field.type == 'yesno' %}
+                                        <div class="form-check form-switch">
+                                            <input type="hidden" name="{{ groupId }}/{{ fieldId }}" value="off" />
+                                            <input class="form-check-input ef-checkbox-switcher" name="{{ groupId }}/{{ fieldId }}" type="checkbox" role="switch" id="{{ fieldId }}" value="on" {% if field.value == 'on' %}checked{% endif %}>
+                                        </div>
+                                    {% endif %}
+
+                                    {% if field.type == 'textarea' %}
+                                        <textarea class="form-control" name="{{ groupId }}/{{ fieldId }}" id="{{ fieldId }}" placeholder="{{ field.label }}"></textarea>
+                                    {% endif %}
+
+                                    {% if field.type == 'select' %}
+                                        <select class="form-select" name="{{ groupId }}/{{ fieldId }}" id="{{ fieldId }}">
+                                            {% for optionValue, option in field.source %}
+                                                <option value="{{ optionValue }}" {% if optionValue == field.value %}selected{% endif %}>{{ option }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    {% endif %}
+
+                                    {% if field.type == 'multiselect' %}
+                                        <select class="form-select multiselect" name="{{ groupId }}/{{ fieldId }}" id="{{ fieldId }}" {% if field.type == 'multiselect' %}multiple{% endif %}>
+                                            {% for optionValue, option in field.source %}
+                                                <option value="{{ optionValue }}">{{ option }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    {% endif %}
+                                </div>
                             </div>
-                            <div class="col-6">
-                                {% if field.type == 'text' %}
-                                    <input type="text" name="" id="{{ fieldId }}" class="form-control" placeholder="{{ field.label }}" />
-                                {% endif %}
-
-                                {% if field.type == 'yesno' %}
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input ef-checkbox-switcher" type="checkbox" role="switch" id="{{ fieldId }}" checked>
-                                    </div>
-                                {% endif %}
-
-                                {% if field.type == 'textarea' %}
-                                    <textarea class="form-control" id="{{ fieldId }}" placeholder="{{ field.label }}"></textarea>
-                                {% endif %}
-
-                                {% if field.type == 'select' %}
-                                    <select class="form-select" name="" id="{{ fieldId }}">
-                                        {% for option in field.source %}
-                                            <option value="">{{ option }}</option>
-                                        {% endfor %}
-                                    </select>
-                                {% endif %}
-
-                                {% if field.type == 'multiselect' %}
-                                    <select class="form-select multiselect" name="" id="{{ fieldId }}" {% if field.type == 'multiselect' %}multiple{% endif %}>
-                                        {% for option in field.source %}
-                                            <option value="">{{ option }}</option>
-                                        {% endfor %}
-                                    </select>
-                                {% endif %}
-                            </div>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
                 </div>
-            </div>
-            {% endfor %}
+                {% endfor %}
+                <input type="hidden" name="section_id" value="{{ sectionId }}" />
+            </form>
         </div>
     </div>
 

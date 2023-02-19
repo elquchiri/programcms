@@ -1,46 +1,9 @@
 electro_forums_user:
   system_config:
-    tab:
-      id: 'user'
-      label: 'Users'
     sections:
       user_configuration:
-        label: 'User Configuration'
-        tab: 'user'
         groups:
           login_options:
-            label: 'Login Options'
             fields:
               redirect_user_after_login:
-                type: 'yesno'
-                label: 'Redirect User to Account Dashboard after Logging in'
-              approve_new_users:
-                type: 'yesno'
-                label: 'Approve Users on registration before they can Logging in'
-          account_sharing:
-            label: 'Account Sharing Options'
-            fields:
-              share_user:
-                type: 'select'
-                label: 'Share User Accounts'
-                source: ElectroForums\UserBundle\Model\Provider\AccountSharingOptions
-      newsletter:
-        label: 'Newsletter'
-        tab: 'user'
-        groups:
-          group1:
-            label: 'My Group'
-            fields:
-              field1:
-                type: 'text'
-                label: 'Enable module'
-      login_as_user:
-        label: 'Login as User'
-        tab: 'user'
-        groups:
-          login_as_user_settings:
-            label: 'Login as User Settings'
-            fields:
-              field1:
-                type: 'text'
-                label: 'Enable module'
+                defaultValue: 1

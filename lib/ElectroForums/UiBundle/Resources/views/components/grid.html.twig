@@ -6,16 +6,19 @@
     <div class="navbar-collapse" id="navbarSupportedContent">
         <form class="d-flex" role="search" style="margin-right: 11px;">
             <div class="input-group">
-                <input type="text" style="width: 300px" class="form-control" placeholder="Search by Keyword .." aria-label="Recipient's username" aria-describedby="button-addon2">
+                <input type="text" style="width: 300px" class="form-control" placeholder="Search by Keyword .."
+                       aria-label="Recipient's username" aria-describedby="button-addon2">
                 <button class="btn" type="button" id="button-addon2"
                         style="border: 1px solid #CCC; border-left: 0; padding-top: 0;">
-                    <img src="{{ asset('bundles/electroforumsforum/images/search.png') }}" style="width: 15px; height: 15px"/>
+                    <img src="{{ asset('bundles/electroforumsforum/images/search.png') }}"
+                         style="width: 15px; height: 15px"/>
                 </button>
             </div>
         </form>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
                     Filters
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
@@ -23,7 +26,8 @@
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
                     Columns
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
@@ -31,7 +35,8 @@
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
                     Export
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
@@ -67,17 +72,42 @@
 
 <table class="table table-striped mt-3">
     <thead class="table-dark">
-        {% for column in this.columns %}
-            <th>{{ column.title }}</th>
-        {% endfor %}
+    {% for column in this.columns %}
+        <th>{{ column.title }}</th>
+    {% endfor %}
     </thead>
     <tbody>
-        {% for rowColumn in this.data %}
-            <tr>
-                {% for value in rowColumn %}
-                    <td>{{ value.label }}</td>
-                {% endfor %}
-            </tr>
-        {% endfor %}
+    {% for rowColumn in this.data %}
+        <tr>
+            <td class="text-center">
+                <input type="checkbox" name=""/>
+            </td>
+            {% for value in rowColumn %}
+                <td>{{ value.label }}</td>
+            {% endfor %}
+            {% if this.actions is defined %}
+                <td class="text-center">
+                    {% for action in this.actions %}
+                        {% if action.type == 'url' %}
+                            <a href="#">{{ action.label }}</a>
+                        {% endif %}
+                        {% if action.type == 'dropdown' %}
+                            <div class="btn-group" style="margin-top: -3px;">
+                                <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true"
+                                   aria-expanded="false">
+                                    {{ action.label }}
+                                </a>
+                                <ul class="dropdown-menu">
+                                    {% for subAction in action.actions %}
+                                        <li><a class="dropdown-item" href="#">{{ subAction.label }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            {% endif %}
+        </tr>
+    {% endfor %}
     </tbody>
 </table>

@@ -1,26 +1,20 @@
 <?php
 
 
-namespace ElectroForums\ConfigBundle\Model;
+namespace ElectroForums\AdminBundle\Model;
 
 
-class ConfigSerializer
+class MenuConfigSerializer
 {
     /**
      * Stores Hole Merged Configuration
      * @var array
      */
-    private $configs;
-    /**
-     * Holds current sectionId in URL
-     * @var
-     */
-    private $sectionId;
+    private $menu;
     /**
      * @var \Symfony\Component\DependencyInjection\Container
      */
     private $container;
-    private Config $config;
 
 
     public function __construct(
@@ -28,10 +22,8 @@ class ConfigSerializer
         \ElectroForums\ConfigBundle\Model\Config $config
     )
     {
-        $this->configs = [];
-        $this->sectionId = null;
+        $this->menu = [];
         $this->container = $container;
-        $this->config = $config;
     }
 
     /**
@@ -46,10 +38,10 @@ class ConfigSerializer
             // Get the configuration file path for the bundle
             $reflectedBundle = new \ReflectionClass($bundleClass);
             $bundleDirectory = dirname($reflectedBundle->getFileName());
-            $configFilePath = $bundleDirectory . '/Resources/config/system.yaml';
+            $configFilePath = $bundleDirectory . '/Resources/config/adminhtml/menu.yaml';
             // Load the configuration file
             if (file_exists($configFilePath)) {
-                $config = \Symfony\Component\Yaml\Yaml::parseFile($configFilePath)['system_config'];
+                $config = \Symfony\Component\Yaml\Yaml::parseFile($configFilePath)['menu'];
 
                 if (isset($config['tab'])) {
                     if (isset($config['tab']['id']) && isset($config['tab']['label'])) {
@@ -90,10 +82,7 @@ class ConfigSerializer
                                     foreach ($group['fields'] as $fieldId => $field) {
                                         $this->configs['current_section']['groups'][$groupId]['fields'][$fieldId] = [
                                             'label' => $field['label'],
-                                            'type' => $field['type'],
-                                            'value' => $this->config->getConfigValue(
-                                                $this->sectionId . '/' . $groupId . '/' . $fieldId
-                                            )
+                                            'type' => $field['type']
                                         ];
 
                                         if ($field['type'] == 'select' || $field['type'] == 'multiselect') {
@@ -108,41 +97,5 @@ class ConfigSerializer
                 }
             }
         }
-    }
-
-    /**
-     * Set sectionId
-     * @param $sectionId
-     */
-    public function setSectionId($sectionId)
-    {
-        $this->sectionId = $sectionId;
-    }
-
-    /**
-     * Get sectionId
-     * @return mixed
-     */
-    public function getSectionId()
-    {
-        return $this->sectionId;
-    }
-
-    /**
-     * Get Configuration Navigation to render
-     * @return mixed
-     */
-    public function getConfigNavigation()
-    {
-        return $this->configs['tabs'];
-    }
-
-    /**
-     * Get current section's groups tree
-     * @return mixed
-     */
-    public function getCurrenSectionGroups()
-    {
-        return $this->configs['current_section']['groups'];
     }
 }

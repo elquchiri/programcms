@@ -12,6 +12,9 @@ To install ElectroForums project run :
 ```bash
   git clone git@github.com:elquchiri/electroforums.git
   composer install
+  
+  php bin/console make:migration
+  php bin/console doctrine:migrations:migrate
   bin/console assets:install
 ```
 

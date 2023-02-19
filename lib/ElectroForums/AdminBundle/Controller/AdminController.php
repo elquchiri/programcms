@@ -12,11 +12,22 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class AdminController extends AbstractController
 {
 
+    private \ElectroForums\UiBundle\Model\Element\Toolbar $toolbar;
+
+    public function __construct(
+        \ElectroForums\UiBundle\Model\Element\Toolbar $toolbar
+    )
+    {
+        $this->toolbar = $toolbar;
+    }
+
     #[Route('/admin', name: 'admin_home')]
     public function index(): Response
     {
+        $this->toolbar->addButton("Reload Data", "", "primary");
+
         return $this->render('@ElectroForumsAdmin/adminhtml/home.html.twig', [
-            //'arg' => $translator->trans("Hello Profile"),
+            'buttons' => $this->toolbar->getButtons()
         ]);
     }
 }

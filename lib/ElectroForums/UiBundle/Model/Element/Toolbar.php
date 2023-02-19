@@ -8,12 +8,13 @@ class Toolbar
 {
     private array $buttons = [];
 
-    public function addButton($buttonTitle, $buttonURL, $buttonType): Toolbar
+    public function addButton($buttonTitle, $buttonURL, $buttonType, $buttonTarget = null): Toolbar
     {
         $this->buttons[] = [
             'label' => $buttonTitle,
-            'url' => $buttonURL,
-            'buttonType' => $buttonType
+            'buttonAction' => $buttonURL,
+            'buttonType' => $buttonType,
+            'buttonTarget' => $buttonTarget
         ];
 
         return $this;

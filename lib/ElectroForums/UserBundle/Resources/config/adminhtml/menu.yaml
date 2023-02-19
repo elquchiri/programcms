@@ -1,0 +1,8 @@
+menu:
+  menu1:
+    label: 'Dashboard'
+    icon: ''
+    items:
+      clients:
+        label: 'All Clients'
+        path: ''

@@ -288,14 +288,9 @@
             </nav>
         </div>
 
-{#        <div class="alert alert-success" role="alert">#}
-{#            {% block success_message %}Customer Saved.{% endblock %}#}
-{#        </div>#}
-{#        <div class="alert alert-danger" role="alert">#}
-{#            {% block danger_message %}<b>Attention:</b> One or more extensions are outed of date{% endblock %}#}
-{#        </div>#}
-
         <div class="content-container">
+            {% include '@ElectroForumsTheme/adminhtml/flashes.html.twig' %}
+
             {% block content %}{% endblock %}
         </div>
 
