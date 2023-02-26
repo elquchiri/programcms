@@ -4,9 +4,7 @@
 namespace ElectroForums\AdminBundle;
 
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-
-class ElectroForumsAdminBundle extends Bundle
+class ElectroForumsAdminBundle extends \ElectroForums\CoreBundle\ElectroForumsCoreBundle
 {
     public const VERSION = '1.0.0';
 }

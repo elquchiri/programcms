@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4c2f7f8cb825d76aa481da659c46be13",
+    "content-hash": "e9ee46237699d5ceeea93aaff68d0b31",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -4320,16 +4320,16 @@
         },
         {
             "name": "symfony/routing",
-            "version": "v6.2.0",
+            "version": "v6.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/routing.git",
-                "reference": "857ac6f4df371470fbdefa2f5967a2618dbf1852"
+                "reference": "589bd742d5d03c192c8521911680fe88f61712fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/routing/zipball/857ac6f4df371470fbdefa2f5967a2618dbf1852",
-                "reference": "857ac6f4df371470fbdefa2f5967a2618dbf1852",
+                "url": "https://api.github.com/repos/symfony/routing/zipball/589bd742d5d03c192c8521911680fe88f61712fe",
+                "reference": "589bd742d5d03c192c8521911680fe88f61712fe",
                 "shasum": ""
             },
             "require": {
@@ -4342,7 +4342,7 @@
                 "symfony/yaml": "<5.4"
             },
             "require-dev": {
-                "doctrine/annotations": "^1.12",
+                "doctrine/annotations": "^1.12|^2",
                 "psr/log": "^1|^2|^3",
                 "symfony/config": "^6.2",
                 "symfony/dependency-injection": "^5.4|^6.0",
@@ -4388,7 +4388,7 @@
                 "url"
             ],
             "support": {
-                "source": "https://github.com/symfony/routing/tree/v6.2.0"
+                "source": "https://github.com/symfony/routing/tree/v6.2.5"
             },
             "funding": [
                 {
@@ -4404,7 +4404,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-11-09T13:28:29+00:00"
+            "time": "2023-01-01T08:38:09+00:00"
         },
         {
             "name": "symfony/runtime",

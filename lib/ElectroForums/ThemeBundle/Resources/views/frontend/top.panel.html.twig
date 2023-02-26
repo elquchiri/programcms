@@ -13,9 +13,9 @@
         </div>
         {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
         <div class="user">
-            <a href="{{ path('electro_forums_user_authentication_register') }}">Create an Account</a>
+            <a href="{{ path('electroforums_userbundle_register') }}">Create an Account</a>
             or
-            <a href="{{ path('electro_forums_user_authentication') }}">Login</a>
+            <a href="{{ path('electroforums_userbundle_authentication') }}">Login</a>
         </div>
         {% endif %}
     </div>

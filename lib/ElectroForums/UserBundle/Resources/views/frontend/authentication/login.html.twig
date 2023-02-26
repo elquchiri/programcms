@@ -22,7 +22,7 @@
                             {% if error %}
                                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                             {% endif %}
-                            <form method="POST" action="{{ path('electro_forums_user_authentication') }}">
+                            <form method="POST" action="{{ path('electroforums_userbundle_authentication') }}">
                                 <div class="mb-3">
                                     <label for="username" class="form-label">Email or Nickname</label>
                                     <input type="email" class="form-control" id="username" name="email" value="{{ email }}" placeholder="@email or Login" aria-describedby="emailHelp">

@@ -1,9 +1,4 @@
-controllers:
-  resource: ../../Controller/
-  type: annotation
-  prefix: /{_locale}
-
-admin_controllers:
-  resource: ../../Controller/Adminhtml/
-  type: annotation
-  prefix: /{_locale}/admin
+router:
+  standard:
+    user_root:
+      frontName: 'user'

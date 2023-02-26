@@ -3,10 +3,10 @@
 return [
     Symfony\Bundle\FrameworkBundle\FrameworkBundle::class => ['all' => true],
     Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle::class => ['all' => true],
+    ElectroForums\RouterBundle\ElectroForumsRouterBundle::class => ['all' => true],
     ElectroForums\ConfigBundle\ElectroForumsConfigBundle::class => ['all' => true],
     ElectroForums\UserBundle\ElectroForumsUserBundle::class => ['all' => true],
     ElectroForums\ThemeBundle\ElectroForumsThemeBundle::class => ['all' => true],
-    ElectroForums\RouterBundle\ElectroForumsRouterBundle::class => ['all' => true],
     ElectroForums\AdminBundle\ElectroForumsAdminBundle::class => ['all' => true],
     ElectroForums\CmsBundle\ElectroForumsCmsBundle::class => ['all' => true],
     ElectroForums\ForumBundle\ElectroForumsForumBundle::class => ['all' => true],

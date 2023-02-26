@@ -1,0 +1,22 @@
+services:
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+
+  ElectroForums\RouterBundle\:
+    resource: '../../'
+    exclude:
+      - '../../DependencyInjection/'
+      - '../../Resources/'
+      - '../../Tests/'
+
+  ElectroForums\RouterBundle\Routing\ElectroforumsRouteLoader:
+    tags: [ routing.loader ]
+    arguments:
+      $container: '@service_container'
+      $locator: '@file_locator'
+
+  ElectroForums\RouterBundle\Service\Request:
+    arguments:
+      $container: '@service_container'

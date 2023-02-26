@@ -1,3 +1,0 @@
-_tools:
-  resource: '@ElectroForumsAdminBundle/Resources/config/routes.yaml'
-#  prefix: /my-route

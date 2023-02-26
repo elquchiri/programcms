@@ -4,9 +4,7 @@
 namespace ElectroForums\ConfigBundle;
 
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-
-class ElectroForumsConfigBundle extends Bundle
+class ElectroForumsConfigBundle extends \ElectroForums\CoreBundle\ElectroForumsCoreBundle
 {
     public const VERSION = '1.0.0';
 }

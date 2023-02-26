@@ -141,8 +141,8 @@ class ConfigSerializer
      * Get current section's groups tree
      * @return mixed
      */
-    public function getCurrenSectionGroups()
+    public function getCurrenSectionGroups(): array
     {
-        return $this->configs['current_section']['groups'];
+        return $this->configs['current_section']['groups'] ?? [];
     }
 }

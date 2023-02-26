@@ -1,28 +1,24 @@
 <?php
 
 
-namespace ElectroForums\AdminBundle\Controller;
+namespace ElectroForums\AdminBundle\Controller\Admin;
 
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
-
-class AdminController extends AbstractController
+class HomeController extends \ElectroForums\CoreBundle\Controller\Adminhtml\AbstractController
 {
 
     private \ElectroForums\UiBundle\Model\Element\Toolbar $toolbar;
 
     public function __construct(
+        \ElectroForums\RouterBundle\Service\Request $request,
         \ElectroForums\UiBundle\Model\Element\Toolbar $toolbar
     )
     {
+        parent::__construct($request);
         $this->toolbar = $toolbar;
     }
 
-    #[Route('/admin', name: 'admin_home')]
-    public function index(): Response
+    public function execute()
     {
         $this->toolbar->addButton("Reload Data", "", "primary");
 

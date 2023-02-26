@@ -21,7 +21,7 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
-    public const LOGIN_ROUTE = 'electro_forums_user_authentication';
+    public const LOGIN_ROUTE = 'electroforums_userbundle_authentication';
 
     public function __construct(private UrlGeneratorInterface $urlGenerator)
     {

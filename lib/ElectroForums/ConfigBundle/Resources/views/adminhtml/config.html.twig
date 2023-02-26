@@ -30,7 +30,7 @@
                             <ul class="child" {% if tab.active is defined %} style="display: block" {% endif %}>
                                 {% for sectionId, section in tab.sections %}
                                     <li>
-                                        <a class="{% if section.active %}active{% endif %}" href="{{ path('admin_configuration_edit', {sectionId: sectionId}) }}">
+                                        <a class="{% if section.active %}active{% endif %}" href="{{ path('electroforums_configbundle_edit') }}/sectionId/{{ sectionId }}">
                                             {{ section.label }}
                                         </a>
                                     </li>
