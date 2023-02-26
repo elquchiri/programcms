@@ -15,7 +15,6 @@ services:
     tags: [ routing.loader ]
     arguments:
       $container: '@service_container'
-      $locator: '@file_locator'
 
   ElectroForums\RouterBundle\Service\Request:
     arguments:

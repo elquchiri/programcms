@@ -1,3 +1,0 @@
-electro_forums_router:
-  resource: '.'
-  type: electroforums

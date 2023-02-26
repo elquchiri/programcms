@@ -4,7 +4,6 @@
 namespace ElectroForums\RouterBundle\Routing;
 
 
-use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Route;
@@ -13,23 +12,19 @@ use Symfony\Component\Routing\RouteCollection;
 class ElectroforumsRouteLoader extends Loader
 {
 
-    const ELECTROFORUMS_ROUTING_LOADER = 'electroforums';
     const ELECTROFORUMS_ROUTING_CLASS_METOHD = 'execute';
 
     private $routes;
-    private FileLocatorInterface $locator;
     private ContainerInterface $container;
     private string $frontName;
     private bool $isLoaded;
 
     public function __construct(
-        FileLocatorInterface $locator,
         ContainerInterface $container,
         string $env = null
     )
     {
         parent::__construct($env);
-        $this->locator = $locator;
         $this->routes = new RouteCollection();
         $this->container = $container;
         $this->frontName = '';
@@ -38,7 +33,7 @@ class ElectroforumsRouteLoader extends Loader
 
     public function supports(mixed $resource, string $type = null): bool
     {
-        return $type === self::ELECTROFORUMS_ROUTING_LOADER;
+        return $type === \ElectroForums\RouterBundle\Helper\Data::ELECTROFORUMS_ROUTING_LOADER;
     }
 
     public function load(mixed $resource, string $type = null): RouteCollection
@@ -53,7 +48,6 @@ class ElectroforumsRouteLoader extends Loader
         foreach ($bundles as $bundleName => $bundleClass) {
             $reflectedBundle = new \ReflectionClass($bundleClass);
             if ($reflectedBundle->hasMethod('isElectroForumsBundle')) {
-                //$bundlePath = $this->locator->locate('@' . $bundleName);
                 $bundleDirectory = dirname($reflectedBundle->getFileName());
                 $routesFilePath = $bundleDirectory . '/Resources/config/routes.yaml';
 
