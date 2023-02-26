@@ -33,7 +33,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ path('electroforums_adminbundle_home') }}" id="dashboard">
+                    <a href="{{ path('electroforums_adminbundle_admin_home') }}" id="dashboard">
                         <img src="{{ asset('bundles/electroforumstheme/images/dashboard.png') }}" />
                         <p>Dashboard</p>
                     </a>
@@ -117,7 +117,7 @@
         </div>
         <ul>
             <li>
-                <a href="{{ path('electroforums_userbundle_index') }}">All Clients</a>
+                <a href="{{ path('electroforums_userbundle_index_index') }}">All Clients</a>
             </li>
             <li>
                 <a href="#">Now Online</a>
@@ -206,7 +206,7 @@
                 <a href="{{ path('electro_forums_website_list') }}">All Web Sites</a>
             </li>
             <li>
-                <a href="{{ path('electroforums_configbundle_index') }}">Configuration</a>
+                <a href="{{ path('electroforums_configbundle_systemconfig_index') }}">Configuration</a>
             </li>
         </ul>
     </div>
@@ -282,7 +282,7 @@
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <a class="dropdown-item" href="">Edit Account</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="{{ path('electroforums_userbundle_logout') }}">Logout</a>
+                                        <a class="dropdown-item" href="{{ path('electroforums_userbundle_account_logout') }}">Logout</a>
                                     </div>
                                 </li>
                         </ul>

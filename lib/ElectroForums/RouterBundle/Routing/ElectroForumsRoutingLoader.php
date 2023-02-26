@@ -109,7 +109,7 @@ class ElectroforumsRouteLoader extends Loader
         $className = preg_replace('/(.)(Controller)/', '$1', $parts[count($parts) - 1]);
 
         $path = strtolower($this->frontName . '/' . $folderName . '/' . $className) . '/{parameters<.*>?}';
-        $routeName = strtolower($namespace . '_' . $bundleName . '_' . $className);
+        $routeName = strtolower($namespace . '_' . $bundleName . '_' . $folderName . '_' . $className);
 
         // Create a new route object with the controller and action
         $defaults = [
