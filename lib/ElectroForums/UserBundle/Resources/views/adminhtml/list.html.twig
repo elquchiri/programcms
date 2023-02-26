@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="{{ asset('bundles/electroforumsuser/css/app.css') }}">
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/electroforumsuser/js/user.js') }}"></script>
+{% endblock %}
+
 {% block page_title %}All Clients{% endblock %}
 {% block page_tip %}Browse / Edit Clients{% endblock %}
 

@@ -3,7 +3,6 @@
 
 namespace ElectroForums\ConfigBundle\Controller;
 
-
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractConfigController extends \ElectroForums\CoreBundle\Controller\Adminhtml\AbstractController

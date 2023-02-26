@@ -20,6 +20,7 @@ class ElectroforumsRouteLoader extends Loader
     private FileLocatorInterface $locator;
     private ContainerInterface $container;
     private string $frontName;
+    private bool $isLoaded;
 
     public function __construct(
         FileLocatorInterface $locator,
@@ -32,6 +33,7 @@ class ElectroforumsRouteLoader extends Loader
         $this->routes = new RouteCollection();
         $this->container = $container;
         $this->frontName = '';
+        $this->isLoaded = false;
     }
 
     public function supports(mixed $resource, string $type = null): bool
@@ -41,6 +43,10 @@ class ElectroforumsRouteLoader extends Loader
 
     public function load(mixed $resource, string $type = null): RouteCollection
     {
+        if (true === $this->isLoaded) {
+            throw new \RuntimeException('Do not add the "electroforums" loader twice');
+        }
+
         // Get all bundles
         $bundles = $this->container->getParameter('kernel.bundles');
 
@@ -94,6 +100,8 @@ class ElectroforumsRouteLoader extends Loader
                 }
             }
         }
+
+        $this->isLoaded = true;
 
         return $this->routes;
     }

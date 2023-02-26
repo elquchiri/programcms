@@ -41,11 +41,11 @@ To install ElectroForums project run :
 
 Frontend Home Page
 
-![image](public/frontend-demo.png)
+![image](public/images/frontend-demo.png)
 
 Backend Dashboard
 
-![image](public/backend-demo.png)
+![image](public/images/backend-demo.png)
 
 ## Contribution
 

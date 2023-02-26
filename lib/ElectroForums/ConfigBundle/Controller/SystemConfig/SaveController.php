@@ -4,7 +4,7 @@
 namespace ElectroForums\ConfigBundle\Controller\SystemConfig;
 
 
-class Save extends \ElectroForums\ConfigBundle\Controller\AbstractConfigController
+class SaveController extends \ElectroForums\ConfigBundle\Controller\AbstractConfigController
 {
 
     public function __construct(\ElectroForums\RouterBundle\Service\Request $request, \ElectroForums\UiBundle\Model\Element\Toolbar $toolbar, \ElectroForums\ConfigBundle\Model\ConfigSerializer $configSerializer, \ElectroForums\ConfigBundle\Model\Config $config, \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator)
