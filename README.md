@@ -4,6 +4,9 @@ Integrate Easy & Efficient CMS System
 
 [![Donate](https://img.shields.io/badge/Donate-Buymeacoffee-green.svg)](https://www.buymeacoffee.com/elquchiriw?new=1)
 
+## Deployment
+
+Please note that ElectroForums CMS Project is under development
 
 ## Installation
 
@@ -51,3 +54,6 @@ Backend Dashboard
 
 - To contribute to ElectroForums, please feel free to send PRs Requests on this repository.
 - Please feel free to email me on [elquchiri@gmail.com](mailto:elquchiri@gmail.com) for suggestions
+- Please Join our Channels on Slack & Telegram
+   - http://join.slack.com/t/electroforumscms/shared_invite/zt-1qbsdh8sw-_rFQJsEI4qAbdhorYz4RWQ
+   - https://t.me/electroforums

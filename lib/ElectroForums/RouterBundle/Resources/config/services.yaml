@@ -19,3 +19,7 @@ services:
   ElectroForums\RouterBundle\Service\Request:
     arguments:
       $container: '@service_container'
+
+  ElectroForums\RouterBundle\Service\Response:
+    arguments:
+      $container: '@service_container'

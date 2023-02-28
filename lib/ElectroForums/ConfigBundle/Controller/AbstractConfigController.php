@@ -42,7 +42,7 @@ abstract class AbstractConfigController extends \ElectroForums\CoreBundle\Contro
 
         $this->toolbar->addButton(
             "Save Config",
-            $this->urlGenerator->generate('electroforums_configbundle_save'),
+            $this->urlGenerator->generate('config_systemconfig_save'),
             "save",
             "electroforums_config"
         );

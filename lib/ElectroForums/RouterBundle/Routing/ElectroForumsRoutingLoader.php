@@ -90,6 +90,9 @@ class ElectroforumsRouteLoader extends Loader
                                 $this->addRoute($class);
                             }
                         }
+
+                        // Reset frontName
+                        $this->frontName = '';
                     }
                 }
             }
@@ -103,13 +106,12 @@ class ElectroforumsRouteLoader extends Loader
     public function addRoute($controller)
     {
         $parts = explode('\\', $controller);
-        $namespace = $parts[0];
-        $bundleName = $parts[1];
+
         $folderName = $parts[count($parts) - 2];
         $className = preg_replace('/(.)(Controller)/', '$1', $parts[count($parts) - 1]);
 
         $path = strtolower($this->frontName . '/' . $folderName . '/' . $className) . '/{parameters<.*>?}';
-        $routeName = strtolower($namespace . '_' . $bundleName . '_' . $folderName . '_' . $className);
+        $routeName = strtolower($this->frontName . '_' . $folderName . '_' . $className);
 
         // Create a new route object with the controller and action
         $defaults = [

@@ -42,6 +42,7 @@ class RegisterController extends \ElectroForums\CoreBundle\Controller\Adminhtml\
                     $form->get('password')->getData()
                 )
             );
+            // Set Account Role as 'USER'
             $user->setRoles(['USER']);
 
             $this->entityManager->persist($user);

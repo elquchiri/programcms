@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column">
-    <referenceContainer name="content">
-        <block class="" name="helloworld_block" template="" />
-    </referenceContainer>
-</page>

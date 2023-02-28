@@ -28,7 +28,7 @@ class SaveController extends \ElectroForums\ConfigBundle\Controller\AbstractConf
             }
             $this->addFlash('success', 'Configuration Saved Succefully.');
 
-            return $this->redirectToRoute('electroforums_configbundle_edit', ['sectionId' => $sectionId]);
+            return $this->redirectToRoute('config_systemconfig_edit', ['sectionId' => $sectionId]);
         }
 
         return $this->redirectToRoute('admin_configuration');
