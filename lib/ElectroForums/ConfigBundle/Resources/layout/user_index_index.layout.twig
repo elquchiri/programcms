@@ -1,5 +1,7 @@
-{#{% EFReferenceContainer name="myContainer" %}#}
-{#    {% EFBlock name="myBlock" class="myClass" %}#}
-{#        <b>Yeaap</b>#}
-{#    {% endEFBlock %}#}
-{#{% endEFReferenceContainer %}#}
+{% EFContainer name="myContainer" htmlTag="div" htmlClass="my-class" %}
+    {% EFBlock name="myBlockUser1" class="ElectroForums\\UserBundle\\Block\\MyBlockUser" template="@ElectroForumsUser/user.html.twig" %}{% endEFBlock %}
+{% endEFContainer %}
+
+{% EFReferenceContainer name="myContainer" %}
+    {% EFBlock name="myBlockUser2" class="ElectroForums\\UserBundle\\Block\\MyBlockUser" template="@ElectroForumsUser/user.html.twig" %}{% endEFBlock %}
+{% endEFReferenceContainer %}

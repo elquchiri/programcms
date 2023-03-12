@@ -26,7 +26,9 @@ class Response
     {
         $viewModel = new \ElectroForums\ThemeBundle\Model\View();
         //$viewModel->setViewPath($routeName);
-        $content = $this->twig->render('user_index_index.layout.twig', $parameters);
+
+        $content = $this->twig->render('user_index_index.layout.twig');
+
         $response ??= new \Symfony\Component\HttpFoundation\Response();
 
         if (200 === $response->getStatusCode()) {

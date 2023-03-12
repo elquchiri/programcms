@@ -8,7 +8,7 @@ class ReferenceBlockExtension extends \Twig\Extension\AbstractExtension
 {
     protected \Twig\Environment $environment;
 
-    private $referenceContainers = [];
+    private $efContainers = [];
     private $efBlocks = [];
 
     public function __construct(\Twig\Environment $environment)
@@ -16,14 +16,13 @@ class ReferenceBlockExtension extends \Twig\Extension\AbstractExtension
         $this->environment = $environment;
     }
 
-    public function addReferenceContainer($containerName, array $block)
+    public function addReferenceContainer($containerName, $blockName)
     {
-        $this->referenceContainers[$containerName][] = $block;
-    }
+        if(!isset($this->efContainers[$containerName])) {
+            throw new \Exception(sprintf("Unable to find EfContainer %s", $containerName));
+        }
 
-    public function getReferenceContainers()
-    {
-        return $this->referenceContainers;
+        $this->efContainers[$containerName]['blocks'][] = $blockName;
     }
 
     public function addEfBlock($blockName, $blockClass, $blockTemplate)
@@ -39,13 +38,18 @@ class ReferenceBlockExtension extends \Twig\Extension\AbstractExtension
         return $this->efBlocks;
     }
 
-    public function getTokenParsers()
+    public function addEfContainer($containerName, $containerHtmlTag, $containerHtmlClass)
     {
-        return [
-            new \ElectroForums\ThemeBundle\Parser\EFBlockTokenParser(),
-            new \ElectroForums\ThemeBundle\Parser\EFReferenceContainerTokenParser(),
-            new \ElectroForums\ThemeBundle\Parser\EFLayoutTokenParser()
+        $this->efContainers[$containerName] = [
+            'blocks' => [],
+            'htmlTag' => $containerHtmlTag,
+            'htmlClass' => $containerHtmlClass
         ];
+    }
+
+    public function getEfContainers()
+    {
+        return $this->efContainers;
     }
 
     private function renderEfBlock($blockClass, $blockTemplate): string
@@ -54,5 +58,15 @@ class ReferenceBlockExtension extends \Twig\Extension\AbstractExtension
         $blockClass = $blockClassReflection->newInstance();
 
         return $this->environment->render($blockTemplate, ['efBlock' => $blockClass]);
+    }
+
+    public function getTokenParsers()
+    {
+        return [
+            new \ElectroForums\ThemeBundle\Parser\EFBlockTokenParser(),
+            new \ElectroForums\ThemeBundle\Parser\EFReferenceContainerTokenParser(),
+            new \ElectroForums\ThemeBundle\Parser\EFLayoutTokenParser(),
+            new \ElectroForums\ThemeBundle\Parser\EFContainerTokenParser()
+        ];
     }
 }

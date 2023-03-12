@@ -58,11 +58,21 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
             return new Source('', $name, '');
         }
 
+        if (null === $defaultLayoutPaths = $this->findTemplate('default.layout.twig')) {
+            return new Source('', $name, '');
+        }
+
+        // We can use $template = $this->environment->createTemplate($source, $path = ''); to skip using EFLayout Tag
+
         $source = "{% EFLayout %}";
+
+        foreach($defaultLayoutPaths as $defaultLayoutPath) {
+            $templateContent = file_get_contents($defaultLayoutPath);
+            $source .= $templateContent;
+        }
 
         foreach($paths as $path) {
             $templateContent = file_get_contents($path);
-            //$template = $this->environment->createTemplate($templateContent, $path);
             $source .= $templateContent;
         }
 
