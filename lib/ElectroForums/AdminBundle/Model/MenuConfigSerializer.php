@@ -34,7 +34,7 @@ class MenuConfigSerializer
     {
         // Get all bundles
         $bundles = $this->container->getParameter('kernel.bundles');
-        foreach ($bundles as $bundleName => $bundleClass) {
+        foreach ($bundles as $bundleClass) {
             // Get the configuration file path for the bundle
             $reflectedBundle = new \ReflectionClass($bundleClass);
             $bundleDirectory = dirname($reflectedBundle->getFileName());

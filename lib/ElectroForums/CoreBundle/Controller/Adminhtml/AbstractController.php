@@ -4,7 +4,6 @@
 namespace ElectroForums\CoreBundle\Controller\Adminhtml;
 
 
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
@@ -20,22 +19,14 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
         $this->request = $request;
     }
 
+    /**
+     * Overrides method in each Controller
+     * @return mixed
+     */
     abstract public function execute();
 
     public function getRequest()
     {
         return $this->request;
-    }
-
-    protected function render(string $view, array $parameters = [], ?Response $response = null): Response
-    {
-        $viewModel = new \ElectroForums\ThemeBundle\Model\View();
-        $viewModel->setViewPath($view);
-
-        return parent::render(
-            $viewModel->getViewPath(),
-            $parameters,
-            $response
-        );
     }
 }

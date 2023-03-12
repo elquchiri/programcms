@@ -8,6 +8,19 @@ use Twig\Error\LoaderError;
 
 class View
 {
+
+//    private \Symfony\Component\DependencyInjection\ContainerInterface $container;
+//    private \Symfony\Component\HttpFoundation\RequestStack $requestStack;
+//
+//    public function __construct(
+//        \Symfony\Component\DependencyInjection\ContainerInterface $container,
+//        \Symfony\Component\HttpFoundation\RequestStack $requestStack
+//    )
+//    {
+//        $this->container = $container;
+//        $this->requestStack = $requestStack;
+//    }
+
     // Template View Path
     private $viewPath;
 
@@ -18,6 +31,10 @@ class View
 
     public function getViewPath(): string
     {
+//        $currentRequest = $this->requestStack->getCurrentRequest();
+//        $routeName = $currentRequest->attributes->get('_route');
+
+
         $pathParams = explode('/', $this->viewPath);
         $twigNamespace = $pathParams[0];
         $bundleName = str_replace('@', '', $twigNamespace) . 'Bundle';

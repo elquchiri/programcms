@@ -11,15 +11,22 @@ class Response
 {
 
     private ContainerInterface $container;
+    private \Twig\Environment $twig;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(
+        ContainerInterface $container,
+        \Twig\Environment $twig
+    )
     {
         $this->container = $container;
+        $this->twig = $twig;
     }
 
-    public function render($view, $parameters)
+    public function render($parameters = []): \Symfony\Component\HttpFoundation\Response
     {
-        $content = $this->container->get('twig')->render($view, $parameters);
+        $viewModel = new \ElectroForums\ThemeBundle\Model\View();
+        //$viewModel->setViewPath($routeName);
+        $content = $this->twig->render('user_index_index.layout.twig', $parameters);
         $response ??= new \Symfony\Component\HttpFoundation\Response();
 
         if (200 === $response->getStatusCode()) {
@@ -34,5 +41,10 @@ class Response
         $response->setContent($content);
 
         return $response;
+    }
+
+    public function renderJson()
+    {
+
     }
 }

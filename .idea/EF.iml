@@ -19,6 +19,7 @@
       <sourceFolder url="file://$MODULE_DIR$/lib/ElectroForums/ConfigBundle" isTestSource="false" packagePrefix="ElectroForums\ConfigBundle\" />
       <sourceFolder url="file://$MODULE_DIR$/lib/ElectroForums/EavBundle" isTestSource="false" packagePrefix="ElectroForums\EavBundle\" />
       <sourceFolder url="file://$MODULE_DIR$/lib/ElectroForums/UiBundle" isTestSource="false" packagePrefix="ElectroForums\UiBundle\" />
+      <excludeFolder url="file://$MODULE_DIR$/var/cache" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
