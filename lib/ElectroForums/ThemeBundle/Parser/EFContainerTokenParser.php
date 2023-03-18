@@ -3,6 +3,7 @@
 
 namespace ElectroForums\ThemeBundle\Parser;
 
+use Twig\Error\SyntaxError;
 
 class EFContainerTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
@@ -13,12 +14,21 @@ class EFContainerTokenParser extends \Twig\TokenParser\AbstractTokenParser
         $stream->expect(\Twig\Token::NAME_TYPE, 'name');
         $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
         $containerName = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
-        $stream->expect(\Twig\Token::NAME_TYPE, 'htmlTag');
-        $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
-        $containerHtmlTag = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
-        $stream->expect(\Twig\Token::NAME_TYPE, 'htmlClass');
-        $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
-        $containerHtmlClass = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+        try {
+            $stream->expect(\Twig\Token::NAME_TYPE, 'htmlTag');
+            $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
+            $containerHtmlTag = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+        }catch(SyntaxError $e) {
+            $containerHtmlTag = '';
+        }
+
+        try {
+            $stream->expect(\Twig\Token::NAME_TYPE, 'htmlClass');
+            $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
+            $containerHtmlClass = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+        }catch(SyntaxError $e) {
+            $containerHtmlClass = '';
+        }
         $stream->expect(\Twig\Token::BLOCK_END_TYPE);
 
         $body = $this->parser->subparse([$this, 'decideBlockEnd'], true);

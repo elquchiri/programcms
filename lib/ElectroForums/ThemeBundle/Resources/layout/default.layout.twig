@@ -1,3 +1,5 @@
-{% EFContainer name="top.panel" htmlTag="div" htmlClass="top.panel" %}
-    {% EFBlock name="myBlockUser1" class="ElectroForums\\UserBundle\\Block\\MyBlockUser" template="@ElectroForumsUser/user.html.twig" %}{% endEFBlock %}
-{% endEFContainer %}
+{% EFPage layout="3columns" %}
+    {% EFReferenceContainer name="main" %}
+        {% EFContainer name="content" %}{% endEFContainer %}
+    {% endEFReferenceContainer %}
+{% endEFPage %}

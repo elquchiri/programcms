@@ -6,15 +6,26 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
         <title>
-            {% block title %}Welcome to ElectroForums !{% endblock %}
+{#            {% EFBlock name="page.title" %}Welcome to ElectroForums !{% endEFBlock %}#}
         </title>
 
-        {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('bundles/electroforumstheme/css/frontend/main.css') }}"/>
-        {% endblock %}
-        {% block javascripts %}{% endblock %}
+        {# Merge All Css Files #}
+        {% for css in efCss %}
+            <link rel="stylesheet" type="text/css" href="{{ asset(css) }}" />
+        {% endfor %}
+
+        {# Merge All Javascript Files #}
+        {% for js in efJs %}
+            <script type="text/javascript" src="{{ asset(js) }}"></script>
+        {% endfor %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% for efContainer in efContainers %}
+            <{{ efContainer.htmlTag }} class="{{ efContainer.htmlClass }}">
+                {% for efBlock in efContainer.blocks %}
+                    {{ efBlocks[efBlock]|raw }}
+                {% endfor %}
+            </{{ efContainer.htmlTag }}>
+        {% endfor %}
     </body>
 </html>

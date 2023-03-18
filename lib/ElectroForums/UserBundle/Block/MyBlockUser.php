@@ -11,4 +11,9 @@ class MyBlockUser
     {
         return "Hello world, This is awesome, continue .. !";
     }
+
+    public function getHtml()
+    {
+
+    }
 }

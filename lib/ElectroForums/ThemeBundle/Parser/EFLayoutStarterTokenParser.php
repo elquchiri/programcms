@@ -4,7 +4,7 @@
 namespace ElectroForums\ThemeBundle\Parser;
 
 
-class EFLayoutTokenParser extends \Twig\TokenParser\AbstractTokenParser
+class EFLayoutStarterTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
     public function parse(\Twig\Token $token)
     {
@@ -16,16 +16,16 @@ class EFLayoutTokenParser extends \Twig\TokenParser\AbstractTokenParser
 
         $stream->expect(\Twig\Token::BLOCK_END_TYPE);
 
-        return new \ElectroForums\ThemeBundle\Parser\EFLayoutNode($body, $lineno, $this->getTag());
+        return new \ElectroForums\ThemeBundle\Parser\EFLayoutStarterNode($body, $lineno, $this->getTag());
     }
 
     public function decideBlockEnd(\Twig\Token $token)
     {
-        return $token->test('endEFLayout');
+        return $token->test('endEFLayoutStarter');
     }
 
     public function getTag()
     {
-        return 'EFLayout';
+        return 'EFLayoutStarter';
     }
 }
