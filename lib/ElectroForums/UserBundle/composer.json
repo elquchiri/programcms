@@ -1,5 +1,29 @@
 {
     "name": "electroforums/user-bundle",
-    "description": "",
-    "type": "symfony-bundle"
+    "description": "Represents User entities in ElectroForums application",
+    "license": "MIT",
+    "type": "symfony-bundle",
+    "keywords": [
+        "ElectroForums",
+        "Theme",
+        "Layout",
+        "Page",
+        "Bundle",
+        "CMS"
+    ],
+    "authors": [
+        {
+            "name": "Mohamed EL QUCHIRI",
+            "email": "elquchiri@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "ElectroForums\\UserBundle\\": ""
+        }
+    }
 }

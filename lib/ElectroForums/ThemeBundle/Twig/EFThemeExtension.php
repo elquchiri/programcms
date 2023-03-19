@@ -8,7 +8,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
 {
     protected \Twig\Environment $environment;
 
-    private static $efPageLayout = '2column';
+    private $efPageLayout = '2column';
     private $efContainers = [];
     private $efBlocks = [];
     private $efCss = [];
@@ -55,16 +55,16 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         return $this->efContainers;
     }
 
-    public static function addEFPageLayout($pageLayoutName)
+    public function addEFPageLayout($pageLayoutName)
     {
         if($pageLayoutName) {
-            self::$efPageLayout = $pageLayoutName;
+            $this->efPageLayout = $pageLayoutName;
         }
     }
 
-    public static function getEFPageLayout()
+    public function getEFPageLayout()
     {
-        return self::$efPageLayout . '.layout.twig';
+        return $this->efPageLayout . '.layout.twig';
     }
 
     public function addEFCss($cssTags)
@@ -116,6 +116,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
             new \ElectroForums\ThemeBundle\Parser\EFLayoutTokenParser(),
             new \ElectroForums\ThemeBundle\Parser\EFContainerTokenParser(),
             new \ElectroForums\ThemeBundle\Parser\EFBlockTokenParser(),
+            new \ElectroForums\ThemeBundle\Parser\EFReferenceBlockTokenParser(),
             new \ElectroForums\ThemeBundle\Parser\EFCssTokenParser(),
             new \ElectroForums\ThemeBundle\Parser\EFJsTokenParser(),
             new \ElectroForums\ThemeBundle\Parser\EFReferenceContainerTokenParser()
