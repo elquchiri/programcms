@@ -20,12 +20,14 @@
         {% endfor %}
     </head>
     <body>
-        {% for efContainer in efContainers %}
-            <{{ efContainer.htmlTag }} class="{{ efContainer.htmlClass }}">
-                {% for efBlock in efContainer.blocks %}
-                    {{ efBlocks[efBlock]|raw }}
-                {% endfor %}
-            </{{ efContainer.htmlTag }}>
-        {% endfor %}
+        {% if efContainers %}
+            {% for efContainer in efContainers %}
+                <{{ efContainer.htmlTag }} class="{{ efContainer.htmlClass }}">
+                    {% for efBlock in efContainer.blocks %}
+                        {{ efBlocks[efBlock]|raw }}
+                    {% endfor %}
+                </{{ efContainer.htmlTag }}>
+            {% endfor %}
+        {% endif %}
     </body>
 </html>

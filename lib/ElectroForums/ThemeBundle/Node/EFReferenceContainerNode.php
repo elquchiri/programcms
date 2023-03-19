@@ -15,9 +15,14 @@ class EFReferenceContainerNode extends \Twig\Node\Node implements \Twig\Node\Nod
     {
         $containerName = $this->getAttribute('containerName');
         foreach($this->getNode('body') as $node) {
-            if($node instanceof \ElectroForums\ThemeBundle\Node\EFBlockNode) {
-                $blockName = $node->getAttribute('blockName');
-                $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Twig\EFThemeExtension')->addReferenceContainer('$containerName', '$blockName');");
+            switch($node) {
+                case ($node instanceof \ElectroForums\ThemeBundle\Node\EFBlockNode):
+                    $blockName = $node->getAttribute('blockName');
+                    $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Twig\EFThemeExtension')->addReferenceContainer('$containerName', '$blockName');");
+                    break;
+                case ($node instanceof \ElectroForums\ThemeBundle\Node\EFContainerNode):
+
+                    break;
             }
         }
 

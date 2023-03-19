@@ -19,7 +19,7 @@ class EFLayoutStarterNode extends \Twig\Node\Node implements \Twig\Node\NodeOutp
             ->write("\$efJs = \$this->env->getExtension('\ElectroForums\ThemeBundle\Twig\EFThemeExtension')->getEfJs();")
             ->write("\$efContainers = \$this->env->getExtension('\ElectroForums\ThemeBundle\Twig\EFThemeExtension')->getEfContainers();")
             ->write("\$efBlocks = \$this->env->getExtension('\ElectroForums\ThemeBundle\Twig\EFThemeExtension')->getEfBlocks();")
-            //->write("echo '<pre>'; var_dump(\$efContainers);");
-            ->write("echo \$this->env->render('@ElectroForumsTheme/base.html.twig', ['efCss' => \$efCss, 'efJs' => \$efJs, 'efContainers' => \$efContainers, 'efBlocks' => \$efBlocks]);");
+            ->write("echo '<pre>'; var_dump(\$efContainers);");
+            //->write("echo \$this->env->render('@ElectroForumsTheme/base.html.twig', ['efCss' => \$efCss, 'efJs' => \$efJs, 'efContainers' => \$efContainers, 'efBlocks' => \$efBlocks]);");
     }
 }

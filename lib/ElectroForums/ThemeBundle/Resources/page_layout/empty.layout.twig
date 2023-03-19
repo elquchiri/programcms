@@ -1,9 +1,10 @@
 {% EFLayout %}
     {% EFContainer name="root" %}
-        {% EFContainer name="page.wrapper" %}
-            {% EFContainer name="main.content" %}
-                {% EFContainer name="columns" %}
-                    {% EFContainer name="main" %}{% endEFContainer %}
+        {% EFContainer name="page.wrapper" htmlTag="div" htmlClass="page-wrapper" %}
+            {% EFContainer name="global.notices" %}{% endEFContainer %}
+            {% EFContainer name="main.content" htmlTag="main" htmlClass="page-main" %}
+                {% EFContainer name="columns" htmlTag="div" htmlClass="columns" %}
+                    {% EFContainer name="main" htmlTag="div" htmlClass="column main" %}{% endEFContainer %}
                 {% endEFContainer %}
             {% endEFContainer %}
         {% endEFContainer %}

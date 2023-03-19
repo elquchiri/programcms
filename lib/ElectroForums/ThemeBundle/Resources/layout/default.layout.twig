@@ -1,5 +1,29 @@
-{% EFPage layout="1column" %}
+{% EFPage layout="3columns" %}
+    {% EFReferenceContainer name="header.container" %}
+        {% EFContainer name="header.panel.wrapper" htmlTag="div" htmlClass="panel wrapper" %}
+            {% EFContainer name="header.panel" htmlTag="div" htmlClass="panel header" %}
+                {# Website Switcher EFBlock #}
+                {# Account Navigation EFBlock #}
+            {% endEFContainer %}
+            {% EFContainer name="header.wrapper" htmlTag="div" htmlClass="panel header" %}
+                {# Website LOGO EFBlock #}
+            {% endEFContainer %}
+        {% endEFContainer %}
+    {% endEFReferenceContainer %}
+
+    {% EFReferenceContainer name="page.top" %}
+        {# Navigation Section EFBlock #}
+        {% EFContainer name="top.container" htmlTag="div" htmlClass="top-container" %}{% endEFContainer %}
+        {# Breadcrump EFBlock #}
+    {% endEFReferenceContainer %}
+
     {% EFReferenceContainer name="main" %}
         {% EFContainer name="content" %}{% endEFContainer %}
+    {% endEFReferenceContainer %}
+
+    {% EFReferenceContainer name="footer.container" %}
+        {% EFContainer name="footer" htmlTag="div" htmlClass="footer content" %}
+
+        {% endEFContainer %}
     {% endEFReferenceContainer %}
 {% endEFPage %}
