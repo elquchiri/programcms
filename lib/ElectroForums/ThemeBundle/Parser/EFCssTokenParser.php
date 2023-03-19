@@ -20,7 +20,7 @@ class EFCssTokenParser extends \Twig\TokenParser\AbstractTokenParser
 
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new \ElectroForums\ThemeBundle\Parser\EFCssNode($cssFiles, $lineno, $this->getTag());
+        return new \ElectroForums\ThemeBundle\Node\EFCssNode($cssFiles, $lineno, $this->getTag());
     }
 
     protected function parseCssFiles()

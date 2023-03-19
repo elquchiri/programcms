@@ -1,10 +1,10 @@
 <?php
 
 
-namespace ElectroForums\ThemeBundle\Parser;
+namespace ElectroForums\ThemeBundle\Node;
 
 
-class EFBlockNode extends \Twig\Node\Node
+class EFBlockNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
 {
     public function __construct($blockName, $blockClass, $blockTemplate, $body, $lineno, $tag = null)
     {
@@ -18,9 +18,9 @@ class EFBlockNode extends \Twig\Node\Node
         $blockClass = $this->getAttribute('blockClass');
 
         $compiler
-            ->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Twig\ReferenceBlockExtension')->addEfBlock('$blockName', '$blockClass', '$blockTemplate');");
+            ->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Twig\EFThemeExtension')->addEfBlock('$blockName', '$blockClass', '$blockTemplate');");
 
         // TODO: Subcompile to continue processing childBlocks if any
-        //$compiler->subcompile($this->getNode('body'));
+        $compiler->subcompile($this->getNode('body'));
     }
 }

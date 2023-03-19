@@ -35,7 +35,7 @@ class EFContainerTokenParser extends \Twig\TokenParser\AbstractTokenParser
 
         $stream->expect(\Twig\Token::BLOCK_END_TYPE);
 
-        return new \ElectroForums\ThemeBundle\Parser\EFContainerNode($containerName, $containerHtmlTag, $containerHtmlClass, $body, $lineno, $this->getTag());
+        return new \ElectroForums\ThemeBundle\Node\EFContainerNode($containerName, $containerHtmlTag, $containerHtmlClass, $body, $lineno, $this->getTag());
     }
 
     public function decideBlockEnd(\Twig\Token $token)

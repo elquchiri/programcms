@@ -4,11 +4,11 @@
 namespace ElectroForums\ThemeBundle\Twig;
 
 
-class ReferenceBlockExtension extends \Twig\Extension\AbstractExtension
+class EFThemeExtension extends \Twig\Extension\AbstractExtension
 {
     protected \Twig\Environment $environment;
 
-    private $efPageLayout;
+    private static $efPageLayout = '2column';
     private $efContainers = [];
     private $efBlocks = [];
     private $efCss = [];
@@ -55,16 +55,16 @@ class ReferenceBlockExtension extends \Twig\Extension\AbstractExtension
         return $this->efContainers;
     }
 
-    public function addEFPageLayout($pageLayoutName)
+    public static function addEFPageLayout($pageLayoutName)
     {
         if($pageLayoutName) {
-            $this->efPageLayout = $pageLayoutName;
+            self::$efPageLayout = $pageLayoutName;
         }
     }
 
-    public function getEFPageLayout()
+    public static function getEFPageLayout()
     {
-        return $this->efPageLayout;
+        return self::$efPageLayout . '.layout.twig';
     }
 
     public function addEFCss($cssTags)
@@ -103,16 +103,22 @@ class ReferenceBlockExtension extends \Twig\Extension\AbstractExtension
         return $this->environment->render($blockTemplate, ['efBlock' => $blockClass]);
     }
 
+    /**
+     * Defines All ElectroForums's Twig Token Parsers
+     * @return array
+     */
     public function getTokenParsers()
     {
         return [
-            new \ElectroForums\ThemeBundle\Parser\EFBlockTokenParser(),
-            new \ElectroForums\ThemeBundle\Parser\EFReferenceContainerTokenParser(),
             new \ElectroForums\ThemeBundle\Parser\EFLayoutStarterTokenParser(),
+            new \ElectroForums\ThemeBundle\Parser\EFPageTokenParser($this->environment),
+            new \ElectroForums\ThemeBundle\Parser\EFUpdateTokenParser($this->environment),
+            new \ElectroForums\ThemeBundle\Parser\EFLayoutTokenParser(),
             new \ElectroForums\ThemeBundle\Parser\EFContainerTokenParser(),
-            new \ElectroForums\ThemeBundle\Parser\EFPageTokenParser(),
+            new \ElectroForums\ThemeBundle\Parser\EFBlockTokenParser(),
             new \ElectroForums\ThemeBundle\Parser\EFCssTokenParser(),
-            new \ElectroForums\ThemeBundle\Parser\EFJsTokenParser()
+            new \ElectroForums\ThemeBundle\Parser\EFJsTokenParser(),
+            new \ElectroForums\ThemeBundle\Parser\EFReferenceContainerTokenParser()
         ];
     }
 }

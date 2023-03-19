@@ -7,7 +7,7 @@ use Twig\Environment;
 use Twig\Token;
 use Twig\Error\SyntaxError;
 
-class EFPageTokenParser extends \Twig\TokenParser\AbstractTokenParser
+class EFUpdateTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
 
     protected Environment $environment;
@@ -22,28 +22,24 @@ class EFPageTokenParser extends \Twig\TokenParser\AbstractTokenParser
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
         try {
-            $stream->expect(Token::NAME_TYPE, 'layout');
+            $stream->expect(Token::NAME_TYPE, 'handle');
             $stream->expect(Token::OPERATOR_TYPE, '=');
-            $pageLayoutName = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+            $handle = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
         }catch(SyntaxError $e) {
-            $pageLayoutName = null;
+            $handle = null;
         }
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        $body = $this->parser->subparse([$this, 'decidePageEnd'], true);
-
-        $stream->expect(\Twig\Token::BLOCK_END_TYPE);
-
-        return new \ElectroForums\ThemeBundle\Node\EFPageNode($this->environment, $pageLayoutName, $body, $lineno, $this->getTag());
+        return new \ElectroForums\ThemeBundle\Node\EFUpdateNode($this->environment, $handle, $lineno, $this->getTag());
     }
 
-    public function decidePageEnd(\Twig\Token $token)
+    public function decideUpdateEnd(\Twig\Token $token)
     {
-        return $token->test('endEFPage');
+        return $token->test('endEFUpdate');
     }
 
     public function getTag()
     {
-        return 'EFPage';
+        return 'EFUpdate';
     }
 }

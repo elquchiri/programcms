@@ -11,9 +11,6 @@ use Symfony\Component\Routing\RouteCollection;
 
 class ElectroforumsRouteLoader extends Loader
 {
-
-    const ELECTROFORUMS_ROUTING_CLASS_METOHD = 'execute';
-
     private $routes;
     private ContainerInterface $container;
     private string $frontName;
@@ -115,7 +112,7 @@ class ElectroforumsRouteLoader extends Loader
 
         // Create a new route object with the controller and action
         $defaults = [
-            '_controller' => $controller . '::' . self::ELECTROFORUMS_ROUTING_CLASS_METOHD
+            '_controller' => $controller . '::' . \ElectroForums\RouterBundle\Helper\Data::ELECTROFORUMS_ROUTING_CLASS_METOHD
         ];
         $requirements = [
 

@@ -48,6 +48,12 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
                 if(is_dir($layoutPath)) {
                     $this->paths[self::MAIN_NAMESPACE][] = $layoutPath;
                 }
+
+                 // Get All Page Layout files inside ThemeBundle to can pick page's layout
+                if($reflectedBundle->getShortName() == 'ElectroForumsThemeBundle') {
+                    $pageLayoutPath = $bundleDirectory . '/Resources/page_layout';
+                    $this->paths[self::MAIN_NAMESPACE][] = $pageLayoutPath;
+                }
             }
         }
     }

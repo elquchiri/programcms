@@ -25,7 +25,7 @@ class EFBlockTokenParser extends \Twig\TokenParser\AbstractTokenParser
 
         $stream->expect(\Twig\Token::BLOCK_END_TYPE);
 
-        return new \ElectroForums\ThemeBundle\Parser\EFBlockNode($blockName, $blockClass, $blockTemplate, $body, $lineno, $this->getTag());
+        return new \ElectroForums\ThemeBundle\Node\EFBlockNode($blockName, $blockClass, $blockTemplate, $body, $lineno, $this->getTag());
     }
 
     public function decideBlockEnd(\Twig\Token $token)

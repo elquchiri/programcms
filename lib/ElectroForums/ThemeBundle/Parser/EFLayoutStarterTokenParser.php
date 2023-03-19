@@ -16,7 +16,7 @@ class EFLayoutStarterTokenParser extends \Twig\TokenParser\AbstractTokenParser
 
         $stream->expect(\Twig\Token::BLOCK_END_TYPE);
 
-        return new \ElectroForums\ThemeBundle\Parser\EFLayoutStarterNode($body, $lineno, $this->getTag());
+        return new \ElectroForums\ThemeBundle\Node\EFLayoutStarterNode($body, $lineno, $this->getTag());
     }
 
     public function decideBlockEnd(\Twig\Token $token)

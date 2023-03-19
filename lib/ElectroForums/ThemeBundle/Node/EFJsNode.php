@@ -1,10 +1,10 @@
 <?php
 
 
-namespace ElectroForums\ThemeBundle\Parser;
+namespace ElectroForums\ThemeBundle\Node;
 
 
-class EFJsNode extends \Twig\Node\Node
+class EFJsNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
 {
     public function __construct($jsFiles, $lineno, $tag = null)
     {
@@ -14,6 +14,6 @@ class EFJsNode extends \Twig\Node\Node
     public function compile(\Twig\Compiler $compiler)
     {
         $jsFiles = implode(',', $this->getAttribute('js_files'));
-        $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Twig\ReferenceBlockExtension')->addEFJs('$jsFiles');");
+        $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Twig\EFThemeExtension')->addEFJs('$jsFiles');");
     }
 }

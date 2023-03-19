@@ -7,7 +7,7 @@ use Twig\Token;
 
 class EFReferenceContainerTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
-    public function parse(\Twig\Token $token)
+    public function parse(Token $token)
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
@@ -18,12 +18,12 @@ class EFReferenceContainerTokenParser extends \Twig\TokenParser\AbstractTokenPar
 
         $body = $this->parser->subparse([$this, 'decideBlockEnd'], true);
 
-        $stream->expect(\Twig\Token::BLOCK_END_TYPE);
+        $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new \ElectroForums\ThemeBundle\Parser\EFReferenceContainerNode($containerName, $body, $lineno, $this->getTag());
+        return new \ElectroForums\ThemeBundle\Node\EFReferenceContainerNode($containerName, $body, $lineno, $this->getTag());
     }
 
-    public function decideBlockEnd(\Twig\Token $token)
+    public function decideBlockEnd(Token $token)
     {
         return $token->test('endEFReferenceContainer');
     }

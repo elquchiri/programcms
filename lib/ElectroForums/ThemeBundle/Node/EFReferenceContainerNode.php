@@ -1,10 +1,10 @@
 <?php
 
 
-namespace ElectroForums\ThemeBundle\Parser;
+namespace ElectroForums\ThemeBundle\Node;
 
 
-class EFReferenceContainerNode extends \Twig\Node\Node
+class EFReferenceContainerNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
 {
     public function __construct($containerName, $body, $lineno, $tag = null)
     {
@@ -15,9 +15,9 @@ class EFReferenceContainerNode extends \Twig\Node\Node
     {
         $containerName = $this->getAttribute('containerName');
         foreach($this->getNode('body') as $node) {
-            if($node instanceof \ElectroForums\ThemeBundle\Parser\EFBlockNode) {
+            if($node instanceof \ElectroForums\ThemeBundle\Node\EFBlockNode) {
                 $blockName = $node->getAttribute('blockName');
-                $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Twig\ReferenceBlockExtension')->addReferenceContainer('$containerName', '$blockName');");
+                $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Twig\EFThemeExtension')->addReferenceContainer('$containerName', '$blockName');");
             }
         }
 

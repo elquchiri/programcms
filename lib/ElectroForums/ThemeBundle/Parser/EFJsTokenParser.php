@@ -20,7 +20,7 @@ class EFJsTokenParser extends \Twig\TokenParser\AbstractTokenParser
 
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new \ElectroForums\ThemeBundle\Parser\EFJsNode($jsFiles, $lineno, $this->getTag());
+        return new \ElectroForums\ThemeBundle\Node\EFJsNode($jsFiles, $lineno, $this->getTag());
     }
 
     protected function parseCssFiles()
