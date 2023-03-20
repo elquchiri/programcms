@@ -3,7 +3,7 @@
 Integrate Easy & Efficient CMS System
 
 ## Deployment
-[![](https://img.shields.io/github/last-commit/elquchiri/electroforums?label=In%20Active%20Development)]()
+![](https://img.shields.io/github/last-commit/elquchiri/electroforums?label=In%20Active%20Development)
 
 Please note that ElectroForums CMS Project is under development
 
