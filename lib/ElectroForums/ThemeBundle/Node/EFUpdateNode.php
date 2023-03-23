@@ -22,11 +22,12 @@ class EFUpdateNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInte
      */
     public function compile(\Twig\Compiler $compiler)
     {
-        // TODO: Checks for Authorized EFPage children or throw an Exception if anything else found.
-        $handle = 'C:\Users\Mohamed\EF\lib\ElectroForums\ThemeBundle\Resources/page_layout/' . $this->getAttribute('handle');
-        $handle = sprintf("%s.layout.twig", $handle);
+        $efExtension = $this->environment->getExtension('\ElectroForums\ThemeBundle\Twig\EFThemeExtension');
+        $handle = $this->getAttribute('handle');
 
-        $source = new Source(file_get_contents($handle), 'LayoutHandler');
+        $pageLayoutContents = $efExtension->getPageLayout()->getPageLayoutContents($handle);
+
+        $source = new Source($pageLayoutContents, 'LayoutHandler');
         $nodes = $this->environment->parse($this->environment->tokenize($source));
 
         $compiler->subcompile($nodes->getNode('body'));

@@ -28,7 +28,7 @@ class PageLayout
         foreach ($bundles as $bundle) {
             $pageLayoutPath = $bundle['path'] . '/Resources/page_layout/' . $pageLayoutName . '.layout.twig';
             $themeLayoutPath = $this->directoryList->getRoot() . '/themes/blank/' . $bundle['name'] . '/page_layout/' . $pageLayoutName . '.layout.twig';
-            var_dump($themeLayoutPath);
+
             if(file_exists($themeLayoutPath)) {
                 $layoutPageContents .= file_get_contents($themeLayoutPath);
             } elseif (file_exists($pageLayoutPath)) {
