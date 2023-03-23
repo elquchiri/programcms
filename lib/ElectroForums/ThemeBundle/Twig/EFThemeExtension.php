@@ -7,16 +7,23 @@ namespace ElectroForums\ThemeBundle\Twig;
 class EFThemeExtension extends \Twig\Extension\AbstractExtension
 {
     protected \Twig\Environment $environment;
+    protected \ElectroForums\ThemeBundle\Model\PageLayout $pageLayout;
 
-    private $efPageLayout = '2column';
-    private $efContainers = [];
+    private $efPageLayouts = [];
+    private $efPageLayoutNumber = 0;
+    public $efContainers;
     private $efBlocks = [];
     private $efCss = [];
     private $efJs = [];
 
-    public function __construct(\Twig\Environment $environment)
+    public function __construct(
+        \Twig\Environment $environment,
+        \ElectroForums\ThemeBundle\Model\PageLayout $pageLayout
+    )
     {
         $this->environment = $environment;
+        $this->efContainers = [];
+        $this->pageLayout = $pageLayout;
     }
 
     public function addReferenceContainer($containerName, $blockName)
@@ -25,12 +32,12 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
             throw new \Exception(sprintf("Unable to find EfContainer %s", $containerName));
         }
 
-        $this->efContainers[$containerName]['blocks'][] = $blockName;
+        //$this->efContainers[$containerName]['blocks'][] = $blockName;
     }
 
     public function addEfBlock($blockName, $blockClass, $blockTemplate)
     {
-        $this->efBlocks[$blockName] = $this->renderEfBlock($blockClass, $blockTemplate);
+        //$this->efBlocks[$blockName] = $this->renderEfBlock($blockClass, $blockTemplate);
     }
 
     /**
@@ -41,13 +48,67 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         return $this->efBlocks;
     }
 
-    public function addEfContainer($containerName, $containerHtmlTag, $containerHtmlClass)
+    public function addEfRootContainer($containerName)
     {
-        $this->efContainers[$containerName] = [
-            'blocks' => [],
-            'htmlTag' => $containerHtmlTag,
-            'htmlClass' => $containerHtmlClass
-        ];
+        if(!count($this->efContainers)) {
+            $this->efContainers[$containerName] = [
+                'containers' => [],
+                'blocks' => []
+            ];
+        }
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function addEfContainer($containerName, $containerParent = null, $containerHtmlTag = null, $containerHtmlClass = null)
+    {
+            $containerPaths = [];
+            $targetContainer = $this->findContainerPath($this->efContainers, $containerParent, $containerPaths);
+
+            if($targetContainer) {
+                $this->addContainerElement($containerPaths, $containerName, [
+                    'containers' => [],
+                    'blocks' => [],
+                    'htmlTag' => $containerHtmlTag,
+                    'htmlClass' => $containerHtmlClass
+                ]);
+            }else{
+                // Throws Exception if EFContainer's parent not found
+                throw new \Exception(sprintf("Cant insert %s, EFContainer's parent \"%s\" not found.", $containerName, $containerParent));
+            }
+    }
+
+    public function findContainerPath($efContainers, $containerName, &$path = [])
+    {
+        foreach($efContainers as $containerKey => $container) {
+            if($containerKey == $containerName) {
+                $path[] = $containerKey;
+                return $container;
+            }elseif (isset($container['containers'])) {
+                $subPath = [];
+                $result = $this->findContainerPath($container['containers'], $containerName, $subPath);
+                if ($result !== null) {
+                    $path[] = $containerKey;
+                    $path = array_merge($path, $subPath);
+                    return $result;
+                }
+            }
+        }
+        return null;
+    }
+
+    public function addContainerElement($keys, $containerName, $container)
+    {
+        $nestedContainer = &$this->efContainers;
+        foreach ($keys as $key) {
+            // Update $nestedContainer to point to the nested array corresponding to the current key
+            $nestedContainer = &$nestedContainer[$key]['containers'];
+        }
+
+        $nestedContainer[$containerName] = $container;
+
+        unset($nestedContainer);
     }
 
     public function getEfContainers(): array
@@ -58,13 +119,28 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     public function addEFPageLayout($pageLayoutName)
     {
         if($pageLayoutName) {
-            $this->efPageLayout = $pageLayoutName;
+            $this->efPageLayouts[] = $pageLayoutName;
         }
     }
 
-    public function getEFPageLayout()
+    public function getEFPageLayouts()
     {
-        return $this->efPageLayout . '.layout.twig';
+        return $this->efPageLayouts;
+    }
+
+    public function canAddPageLayout($pageLayout): bool
+    {
+        if(empty($pageLayout)) {
+            return false;
+        }
+        $pageLayoutNumber = substr($pageLayout, 0, 1);
+
+        if($this->efPageLayoutNumber < $pageLayoutNumber) {
+            $this->efPageLayoutNumber = $pageLayoutNumber;
+
+            return true;
+        }
+        return false;
     }
 
     public function addEFCss($cssTags)
@@ -103,6 +179,11 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         return $this->environment->render($blockTemplate, ['efBlock' => $blockClass]);
     }
 
+    public function getPageLayout()
+    {
+        return $this->pageLayout;
+    }
+
     /**
      * Defines All ElectroForums's Twig Token Parsers
      * @return array
@@ -120,6 +201,13 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
             new \ElectroForums\ThemeBundle\Parser\EFCssTokenParser(),
             new \ElectroForums\ThemeBundle\Parser\EFJsTokenParser(),
             new \ElectroForums\ThemeBundle\Parser\EFReferenceContainerTokenParser()
+        ];
+    }
+
+    public function getNodeVisitors(): array
+    {
+        return [
+            new \ElectroForums\ThemeBundle\NodeVisitor\PageNodeVisitor()
         ];
     }
 }

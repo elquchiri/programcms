@@ -12,7 +12,5 @@ services:
       - '../../Tests/'
 
   ElectroForums\ThemeBundle\Twig\LayoutLoader:
-    tags:
-      - { name: 'twig.loader', priority: -1 }
     arguments:
       $container: '@service_container'

@@ -5,6 +5,7 @@ namespace ElectroForums\ThemeBundle\Node;
 
 
 use Twig\Environment;
+use Twig\Node\Node;
 use Twig\Source;
 
 class EFPageNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
@@ -23,23 +24,25 @@ class EFPageNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterf
      */
     public function compile(\Twig\Compiler $compiler)
     {
-        $pageLayoutName = 'C:\Users\Mohamed\EF\lib\ElectroForums\ThemeBundle\Resources/page_layout/' . $this->getAttribute('pageLayoutName');
-        $pageLayoutName = sprintf("%s.layout.twig", $pageLayoutName);
+        $efExtension = $this->environment->getExtension('\ElectroForums\ThemeBundle\Twig\EFThemeExtension');
 
-        $source = new Source(file_get_contents($pageLayoutName), 'PageLayout');
-        $nodes = $this->environment->parse($this->environment->tokenize($source));
-        $compiler->subcompile($nodes->getNode('body'));
+        $pageLayoutName = $this->getAttribute('pageLayoutName');
+
+        if($efExtension->canAddPageLayout($pageLayoutName)) {
+            $this->environment->getExtension('\ElectroForums\ThemeBundle\Twig\EFThemeExtension')->addEFPageLayout($pageLayoutName);
+
+            $pageLayoutContents = $efExtension->getPageLayout()->getPageLayoutContents($pageLayoutName);
+            $source = new Source($pageLayoutContents, 'PageLayout');
+            $nodes = $this->environment->parse($this->environment->tokenize($source));
+            $compiler->subcompile($nodes->getNode('body'));
+        }
 
         // Checks for Authorized EFPage children, throws an Exception if anything else found.
         foreach($this->getNode('body') as $node) {
             switch($node) {
                 case ($node instanceof \ElectroForums\ThemeBundle\Node\EFContainerNode):
-                    $containerName = $node->getAttribute('containerName');
-                    //$compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Twig\EFThemeExtension')->addSubContainer('$containerName', '$containerName');");
                     break;
                 case ($node instanceof \ElectroForums\ThemeBundle\Node\EFReferenceContainerNode):
-                    //$subContainerName = $node->getAttribute('blockName');
-                    //$compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Twig\EFThemeExtension')->addReferenceContainer('$containerName', '$blockName');");
                     break;
                 case ($node instanceof \ElectroForums\ThemeBundle\Node\EFCssNode):
                     break;

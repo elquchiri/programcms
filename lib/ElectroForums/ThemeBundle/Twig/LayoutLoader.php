@@ -22,13 +22,11 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
     private $errorCache;
 
     public function __construct(
-        ContainerInterface $container,
-        \Twig\Environment $environment
+        ContainerInterface $container
     )
     {
         $this->container = $container;
         $this->initLayoutPaths();
-        $this->environment = $environment;
     }
 
     private function initLayoutPaths(string $rootPath = null)

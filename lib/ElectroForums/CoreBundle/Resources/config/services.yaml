@@ -10,3 +10,7 @@ services:
       - '../../DependencyInjection/'
       - '../../Resources/'
       - '../../Tests/'
+
+  ElectroForums\CoreBundle\Model\Utils\BundleManager:
+    arguments:
+      $container: '@service_container'

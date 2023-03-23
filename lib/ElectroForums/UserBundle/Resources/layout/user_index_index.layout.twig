@@ -1,3 +1,5 @@
-{% EFReferenceContainer name="myContainer" %}
-    {% EFBlock name="myBlockUser3" class="ElectroForums\\UserBundle\\Block\\MyBlockUser" template="@ElectroForumsUser/user.html.twig" %}{% endEFBlock %}
-{% endEFReferenceContainer %}
+{% EFPage layout="1column" %}
+    {% EFReferenceContainer name="myContainer" %}
+        {% EFBlock name="myBlockUser3" class="ElectroForums\\UserBundle\\Block\\MyBlockUser" template="@ElectroForumsUser/user.html.twig" %}{% endEFBlock %}
+    {% endEFReferenceContainer %}
+{% endEFPage %}

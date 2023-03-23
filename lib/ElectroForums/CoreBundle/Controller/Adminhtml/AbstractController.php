@@ -4,9 +4,6 @@
 namespace ElectroForums\CoreBundle\Controller\Adminhtml;
 
 
-use Symfony\Component\HttpFoundation\Response;
-
-
 abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
 

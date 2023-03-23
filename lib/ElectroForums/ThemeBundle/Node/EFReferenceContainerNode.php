@@ -14,14 +14,18 @@ class EFReferenceContainerNode extends \Twig\Node\Node implements \Twig\Node\Nod
     public function compile(\Twig\Compiler $compiler)
     {
         $containerName = $this->getAttribute('containerName');
+
         foreach($this->getNode('body') as $node) {
             switch($node) {
                 case ($node instanceof \ElectroForums\ThemeBundle\Node\EFBlockNode):
                     $blockName = $node->getAttribute('blockName');
-                    $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Twig\EFThemeExtension')->addReferenceContainer('$containerName', '$blockName');");
+                    //$compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Twig\EFThemeExtension')->addReferenceContainer('$containerName', '$blockName');");
                     break;
                 case ($node instanceof \ElectroForums\ThemeBundle\Node\EFContainerNode):
-
+                    $subContainerName = $node->getAttribute('containerName');
+                    $subContainerHtmlTag = $node->getAttribute('containerHtmlTag');
+                    $subContainerHtmlClass = $node->getAttribute('containerHtmlClass');
+                    $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Twig\EFThemeExtension')->addEfContainer('$subContainerName', '$containerName', '$subContainerHtmlTag', '$subContainerHtmlClass');");
                     break;
             }
         }
