@@ -6,10 +6,10 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ElectroForums\ThemeBundle\Block\Html;
+namespace ElectroForums\CoreBundle\View\Element;
 
 
-class Breadcrumbs extends \ElectroForums\CoreBundle\View\Element\AbstractBlock
+abstract class AbstractBlock
 {
 
 }

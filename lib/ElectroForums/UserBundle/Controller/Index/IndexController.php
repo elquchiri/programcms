@@ -25,8 +25,5 @@ class IndexController extends \ElectroForums\CoreBundle\Controller\Adminhtml\Abs
     {
         $customer = $this->customerRepository->find(5);
         return $this->response->render();
-//        return $this->render('@ElectroForumsUser/adminhtml/list.html.twig', [
-//
-//        ]);
     }
 }

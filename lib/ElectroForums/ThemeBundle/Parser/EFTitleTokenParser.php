@@ -12,7 +12,7 @@ use Twig\Environment;
 use Twig\Token;
 use Twig\Error\SyntaxError;
 
-class EFUpdateTokenParser extends \Twig\TokenParser\AbstractTokenParser
+class EFTitleTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
 
     protected Environment $environment;
@@ -26,25 +26,23 @@ class EFUpdateTokenParser extends \Twig\TokenParser\AbstractTokenParser
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
-        try {
-            $stream->expect(Token::NAME_TYPE, 'handle');
-            $stream->expect(Token::OPERATOR_TYPE, '=');
-            $handle = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
-        }catch(SyntaxError $e) {
-            $handle = null;
-        }
+
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new \ElectroForums\ThemeBundle\Node\EFUpdateNode($this->environment, $handle, $lineno, $this->getTag());
+        $body = $this->parser->subparse([$this, 'decideTitleEnd'], true);
+
+        $stream->expect(\Twig\Token::BLOCK_END_TYPE);
+
+        return new \ElectroForums\ThemeBundle\Node\EFTitleNode($this->environment, $body, $lineno, $this->getTag());
     }
 
-    public function decideUpdateEnd(\Twig\Token $token)
+    public function decideTitleEnd(\Twig\Token $token)
     {
-        return $token->test('endEFUpdate');
+        return $token->test('endEFTitle');
     }
 
     public function getTag()
     {
-        return 'EFUpdate';
+        return 'EFTitle';
     }
 }

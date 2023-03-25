@@ -5,9 +5,13 @@
     "type": "symfony-bundle",
     "keywords": [
         "ElectroForums",
-        "Theme",
-        "Layout",
-        "Page",
+        "User",
+        "Role",
+        "Profile",
+        "Registration",
+        "Sign Up",
+        "Sign In",
+        "Logout",
         "Bundle",
         "CMS"
     ],

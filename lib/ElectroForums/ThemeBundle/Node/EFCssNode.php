@@ -1,5 +1,10 @@
 <?php
-
+/*
+ * Copyright © ElectroForums. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
 
 namespace ElectroForums\ThemeBundle\Node;
 
@@ -14,6 +19,6 @@ class EFCssNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterfa
     public function compile(\Twig\Compiler $compiler)
     {
         $cssFiles = implode(',', $this->getAttribute('css_files'));
-        $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Twig\EFThemeExtension')->addEFCss('$cssFiles');");
+        $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->addEFCss('$cssFiles');");
     }
 }

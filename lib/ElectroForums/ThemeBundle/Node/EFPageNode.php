@@ -1,11 +1,15 @@
 <?php
-
+/*
+ * Copyright © ElectroForums. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
 
 namespace ElectroForums\ThemeBundle\Node;
 
 
 use Twig\Environment;
-use Twig\Node\Node;
 use Twig\Source;
 
 class EFPageNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
@@ -24,12 +28,12 @@ class EFPageNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterf
      */
     public function compile(\Twig\Compiler $compiler)
     {
-        $efExtension = $this->environment->getExtension('\ElectroForums\ThemeBundle\Twig\EFThemeExtension');
+        $efExtension = $this->environment->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension');
 
         $pageLayoutName = $this->getAttribute('pageLayoutName');
 
         if($efExtension->canAddPageLayout($pageLayoutName)) {
-            $this->environment->getExtension('\ElectroForums\ThemeBundle\Twig\EFThemeExtension')->addEFPageLayout($pageLayoutName);
+            $efExtension->addEFPageLayout($pageLayoutName);
 
             $pageLayoutContents = $efExtension->getPageLayout()->getPageLayoutContents($pageLayoutName);
             $source = new Source($pageLayoutContents, 'PageLayout');
@@ -47,6 +51,8 @@ class EFPageNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterf
                 case ($node instanceof \ElectroForums\ThemeBundle\Node\EFCssNode):
                     break;
                 case ($node instanceof \ElectroForums\ThemeBundle\Node\EFJsNode):
+                    break;
+                case ($node instanceof \ElectroForums\ThemeBundle\Node\EFTitleNode):
                     break;
                 case ($node instanceof \ElectroForums\ThemeBundle\Node\EFUpdateNode):
                     break;

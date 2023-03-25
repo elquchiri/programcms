@@ -1,10 +1,13 @@
 <?php
-
+/*
+ * Copyright © ElectroForums. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
 
 namespace ElectroForums\ThemeBundle\Model;
 
-
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class PageLayout
 {
@@ -20,6 +23,11 @@ class PageLayout
         $this->directoryList = $directoryList;
     }
 
+    /**
+     * Combine Requested PageLayoutName files found in bundles, picks from theme first
+     * @param $pageLayoutName
+     * @return string
+     */
     public function getPageLayoutContents($pageLayoutName): string
     {
         $layoutPageContents = '';

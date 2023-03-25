@@ -1,3 +1,4 @@
-controllers:
-  resource: ../../Controller/
-  type: annotation
+router:
+  standard:
+    user_root:
+      frontName: 'post'

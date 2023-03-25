@@ -1,5 +1,10 @@
 <?php
-
+/*
+ * Copyright © ElectroForums. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
 
 namespace ElectroForums\ThemeBundle\Node;
 
@@ -22,7 +27,7 @@ class EFUpdateNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInte
      */
     public function compile(\Twig\Compiler $compiler)
     {
-        $efExtension = $this->environment->getExtension('\ElectroForums\ThemeBundle\Twig\EFThemeExtension');
+        $efExtension = $this->environment->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension');
         $handle = $this->getAttribute('handle');
 
         $pageLayoutContents = $efExtension->getPageLayout()->getPageLayoutContents($handle);

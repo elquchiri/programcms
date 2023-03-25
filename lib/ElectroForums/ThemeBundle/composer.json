@@ -8,6 +8,10 @@
         "Theme",
         "Layout",
         "Page",
+        "Blocks",
+        "Page Layout",
+        "Template",
+        "Inheritance",
         "Bundle",
         "CMS"
     ],

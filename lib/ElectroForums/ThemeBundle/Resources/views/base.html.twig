@@ -5,29 +5,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-        <title>
-{#            {% EFBlock name="page.title" %}Welcome to ElectroForums !{% endEFBlock %}#}
-        </title>
+        <title>{{ efTitle }}</title>
 
         {# Merge All Css Files #}
-        {% for css in efCss %}
-            <link rel="stylesheet" type="text/css" href="{{ asset(css) }}" />
+        {% for cssFile in efCss %}
+            <link rel="stylesheet" type="text/css" href="{{ asset(cssFile) }}" />
         {% endfor %}
 
         {# Merge All Javascript Files #}
-        {% for js in efJs %}
-            <script type="text/javascript" src="{{ asset(js) }}"></script>
+        {% for jsFile in efJs %}
+            <script type="text/javascript" src="{{ asset(jsFile) }}"></script>
         {% endfor %}
     </head>
     <body>
-        {% if efContainers %}
-            {% for efContainer in efContainers %}
-                <{{ efContainer.htmlTag }} class="{{ efContainer.htmlClass }}">
-                    {% for efBlock in efContainer.blocks %}
-                        {{ efBlocks[efBlock]|raw }}
-                    {% endfor %}
-                </{{ efContainer.htmlTag }}>
-            {% endfor %}
-        {% endif %}
+        {# Print Body Content #}
+        {{ html|raw }}
     </body>
 </html>

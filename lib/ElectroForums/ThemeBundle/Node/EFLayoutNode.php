@@ -1,5 +1,10 @@
 <?php
-
+/*
+ * Copyright © ElectroForums. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
 
 namespace ElectroForums\ThemeBundle\Node;
 
@@ -19,7 +24,7 @@ class EFLayoutNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInte
                 case ($node instanceof \ElectroForums\ThemeBundle\Node\EFContainerNode):
                     $containerName = $node->getAttribute('containerName');
                     $compiler
-                        ->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Twig\EFThemeExtension')->addEfRootContainer('$containerName');");
+                        ->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->addEfRootContainer('$containerName');");
                     break;
                 case ($node instanceof \ElectroForums\ThemeBundle\Node\EFReferenceContainerNode):
                     break;
