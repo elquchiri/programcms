@@ -1,0 +1,31 @@
+/*
+ * Copyright © ElectroForums. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+
+.panel.wrapper {
+    width: 100%;
+    color: #ffffff;
+    background-color: #888;
+    padding: 7px;
+    text-align: right;
+}
+
+.panel.wrapper .website-switcher {
+    display: inline-block;
+}
+.panel.wrapper .website-switcher a.switcher-dropdown {
+    color: #ffffff;
+}
+
+.panel.wrapper .user {
+    display: inline-block;
+    margin-left: 21px;
+}
+.panel.wrapper .user a {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+}

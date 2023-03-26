@@ -73,6 +73,22 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         }
     }
 
+    public function addEfChildrenBlock($blockName, $blockClass, $blockTemplate, $blockParent)
+    {
+        $blockPaths = [];
+        $targetBlock = $this->findBlockPath($this->efContainers, $blockParent, $blockPaths);
+
+        if ($targetBlock) {
+            $this->addChildrenBlockElement($blockPaths, $blockName, [
+                'class' => $blockClass,
+                'template' => $blockTemplate
+            ]);
+        } else {
+            // Throws Exception if EFContainer's parent not found
+            throw new \Exception(sprintf("Cant insert %s, EFBlock's parent \"%s\" not found.", $blockName, $containerParent));
+        }
+    }
+
     public function addEfRootContainer($containerName)
     {
         if (!count($this->efContainers)) {

@@ -1,9 +1,14 @@
 {% EFPage layout="3columns" %}
+    {% EFCss ['bootstrap.min.css', 'bundles/electroforumstheme/css/top-panel.css'] %}
+    {% EFJs ['jquery.min.js', 'underscore-umd-min.js', 'popper.min.js', 'bootstrap.bundle.min.js'] %}
+
     {% EFReferenceContainer name="header.container" %}
         {% EFContainer name="header.panel.wrapper" htmlTag="div" htmlClass="panel wrapper" %}
-            {% EFContainer name="header.panel" htmlTag="div" htmlClass="panel header" %}
-                {# Website Switcher EFBlock #}
-                {# Account Navigation EFBlock #}
+            {% EFContainer name="header.panel" htmlTag="div" htmlClass="panel header container" %}
+                {# Website switcher dropdown #}
+                {% EFBlock name="website.switcher" class="ElectroForums\\WebsiteBundle\\Block\\WebsiteSwitcher" template="@ElectroForumsWebsite/frontend/website_switcher.html.twig" %}{% endEFBlock %}
+                {# Account navigation links #}
+                {% EFBlock name="website.navigation" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsUser/frontend/account_navigation.html.twig" %}{% endEFBlock %}
             {% endEFContainer %}
         {% endEFContainer %}
         {% EFContainer name="header.wrapper" htmlTag="div" htmlClass="panel content" %}

@@ -23,7 +23,5 @@ class EFReferenceBlockNode extends \Twig\Node\Node implements \Twig\Node\NodeCap
         $compiler
             ->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->addEfBlock('$blockName');");
 
-        // TODO: Subcompile to continue processing childBlocks if any
-        $compiler->subcompile($this->getNode('body'));
     }
 }

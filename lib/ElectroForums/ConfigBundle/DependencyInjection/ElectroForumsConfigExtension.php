@@ -1,10 +1,9 @@
 <?php
-/**
- * ElectroForums Community Edition
+/*
+ * Copyright © ElectroForums. All rights reserved.
+ * See LICENSE for license details.
  *
- * Dashboard Sidebar Manager
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
- * Created 04/12/2022
  */
 
 namespace ElectroForums\ConfigBundle\DependencyInjection;

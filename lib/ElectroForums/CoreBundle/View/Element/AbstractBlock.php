@@ -12,4 +12,17 @@ namespace ElectroForums\CoreBundle\View\Element;
 abstract class AbstractBlock
 {
 
+    public function toHtml()
+    {
+
+    }
+
+    /**
+     * Used to be Overridden
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        return '';
+    }
 }

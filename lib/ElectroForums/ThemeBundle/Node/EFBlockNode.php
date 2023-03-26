@@ -19,12 +19,24 @@ class EFBlockNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInter
     public function compile(\Twig\Compiler $compiler)
     {
         $blockName = $this->getAttribute('blockName');
-        $blockTemplate = $this->getAttribute('blockTemplate');
-        $blockClass = $this->getAttribute('blockClass');
 
+        foreach($this->getNode('body') as $node) {
+            switch($node) {
+                case ($node instanceof \ElectroForums\ThemeBundle\Node\EFBlockNode):
+                    $childBlockName = $node->getAttribute('blockName');
+                    $childBlockClass = $node->getAttribute('blockClass');
+                    $childBlockTemplate = $node->getAttribute('blockTemplate');
+                    $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->addEfChildrenBlock('$childBlockName', '$childBlockClass', '$childBlockTemplate', '$blockName');");
+                    break;
+                case ($node instanceof \Twig\Node\TextNode):
+                    if(empty(trim($node->getAttribute('data')))) {
+                        break;
+                    }
+                default:
+                    throw new \Exception(sprintf("%s is not a supported Tag inside EFBlocks.", $node->getNodeTag()));
+            }
+        }
 
-
-        // TODO: Subcompile to continue processing childBlocks if any
         $compiler->subcompile($this->getNode('body'));
     }
 }
