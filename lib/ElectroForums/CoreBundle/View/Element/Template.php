@@ -9,9 +9,32 @@
 namespace ElectroForums\CoreBundle\View\Element;
 
 
+use Twig\Environment;
+
 class Template extends AbstractBlock
 {
-    protected $_template = '';
+    /**
+     * Path to template file.
+     *
+     * @var string
+     */
+    protected $_template;
+    /**
+     * Assigned variables for view
+     *
+     * @var array
+     */
+    protected $_viewVars = [];
+    /**
+     * Twig Environment instance
+     * @var Environment
+     */
+    protected Environment $environment;
+
+    public function __construct(Environment $environment)
+    {
+        $this->environment = $environment;
+    }
 
     protected function _toHtml()
     {
@@ -46,7 +69,26 @@ class Template extends AbstractBlock
      */
     public function getTemplateFile($template = null)
     {
+        return $this->_template;
+    }
 
+    /**
+     * Assign variable
+     *
+     * @param   string|array $key
+     * @param   mixed $value
+     * @return  $this
+     */
+    public function assign($key, $value = null)
+    {
+        if (is_array($key)) {
+            foreach ($key as $subKey => $subValue) {
+                $this->assign($subKey, $subValue);
+            }
+        } else {
+            $this->_viewVars[$key] = $value;
+        }
+        return $this;
     }
 
     /**
@@ -57,6 +99,10 @@ class Template extends AbstractBlock
      */
     public function fetchView($template)
     {
+        try {
+            return $this->environment->render($template, $this->_viewVars);
+        } catch (\Exception $e) {
 
+        }
     }
 }

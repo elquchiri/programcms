@@ -237,9 +237,12 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     private function renderEfBlock($blockClass, $blockTemplate): string
     {
         $blockClassReflection = new \ReflectionClass($blockClass);
-        $blockClass = $blockClassReflection->newInstance();
+        $blockClassInstance = $blockClassReflection->newInstance($this->environment);
 
-        return $this->environment->render($blockTemplate, ['efBlock' => $blockClass]);
+        return $blockClassInstance
+            ->setTemplate($blockTemplate)
+            ->assign(['efBlock' => $blockClassInstance])
+            ->toHtml();
     }
 
     public function getPageLayout(): \ElectroForums\ThemeBundle\Model\PageLayout

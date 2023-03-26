@@ -14,7 +14,7 @@ abstract class AbstractBlock
 
     public function toHtml()
     {
-
+        return $this->_toHtml();
     }
 
     /**

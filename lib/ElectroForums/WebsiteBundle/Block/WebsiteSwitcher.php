@@ -9,9 +9,7 @@
 namespace ElectroForums\WebsiteBundle\Block;
 
 
-use ElectroForums\CoreBundle\View\Element\AbstractBlock;
-
-class WebsiteSwitcher extends AbstractBlock
+class WebsiteSwitcher extends \ElectroForums\CoreBundle\View\Element\Template
 {
 
 }

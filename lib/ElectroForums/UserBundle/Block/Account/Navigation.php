@@ -9,9 +9,7 @@
 namespace ElectroForums\UserBundle\Block\Account;
 
 
-use ElectroForums\CoreBundle\View\Element\AbstractBlock;
-
-class Navigation extends AbstractBlock
+class Navigation extends \ElectroForums\CoreBundle\View\Element\Template
 {
 
 }
