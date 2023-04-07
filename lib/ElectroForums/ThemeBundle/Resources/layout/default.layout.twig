@@ -8,11 +8,7 @@
                 {# Website switcher dropdown #}
                 {% EFBlock name="website.switcher" class="ElectroForums\\WebsiteBundle\\Block\\WebsiteSwitcher" template="@ElectroForumsWebsite/frontend/website_switcher.html.twig" %}{% endEFBlock %}
                 {# Account navigation links #}
-                {% EFBlock name="website.navigation" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsUser/frontend/account_navigation.html.twig" %}
-                    {% EFBlock name="website.navigation2" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsUser/frontend/account_navigation2.html.twig" %}
-                        {% EFBlock name="website.navigation3" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsUser/frontend/account_navigation3.html.twig" %}{% endEFBlock %}
-                    {% endEFBlock %}
-                {% endEFBlock %}
+                {% EFBlock name="website.navigation" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsUser/frontend/account_navigation.html.twig" %}{% endEFBlock %}
             {% endEFContainer %}
         {% endEFContainer %}
         {% EFContainer name="header.wrapper" htmlTag="div" htmlClass="panel content" %}

@@ -18,7 +18,6 @@ class EFLayoutStarterNode extends \Twig\Node\Node implements \Twig\Node\NodeOutp
 
     public function compile(\Twig\Compiler $compiler)
     {
-        // We can also use ob_start() and ob_get_clean() with a $compiler->write("\n") to buffer output
         $compiler->subcompile($this->getNode('body'))
             ->write("\$efCss = \$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->getEfCss();")
             ->write("\$efJs = \$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->getEfJs();")

@@ -20,8 +20,23 @@ class EFReferenceBlockNode extends \Twig\Node\Node implements \Twig\Node\NodeCap
     {
         $blockName = $this->getAttribute('blockName');
 
-        $compiler
-            ->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->addEfBlock('$blockName');");
+        foreach($this->getNode('body') as $node) {
+            switch($node) {
+                case ($node instanceof \ElectroForums\ThemeBundle\Node\EFBlockNode):
+                    $childBlockName = $node->getAttribute('blockName');
+                    $childBlockClass = $node->getAttribute('blockClass');
+                    $childBlockTemplate = $node->getAttribute('blockTemplate');
+                    $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->addEfChildrenBlock('$childBlockName', '$childBlockClass', '$childBlockTemplate', '$blockName');");
+                    break;
+                case ($node instanceof \Twig\Node\TextNode):
+                    if(empty(trim($node->getAttribute('data')))) {
+                        break;
+                    }
+                default:
+                    throw new \Exception(sprintf("%s is not a supported Tag inside EFReferenceBlocks.", $node->getNodeTag()));
+            }
+        }
 
+        $compiler->subcompile($this->getNode('body'));
     }
 }
