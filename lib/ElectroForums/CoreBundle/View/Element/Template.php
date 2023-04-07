@@ -36,7 +36,7 @@ class Template extends AbstractBlock
         $this->environment = $environment;
     }
 
-    protected function _toHtml()
+    protected function _toHtml(): string
     {
         if (!$this->getTemplate()) {
             return '';
@@ -69,6 +69,7 @@ class Template extends AbstractBlock
      */
     public function getTemplateFile($template = null)
     {
+        // Parse name (@ElectroForumsTheme) file and pick from theme first, else from bundle
         return $this->_template;
     }
 

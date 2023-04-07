@@ -144,6 +144,47 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         return null;
     }
 
+    private function findBlockInsideContainer($blockTarget, $blocks, &$path)
+    {
+        foreach ($blocks as $blockKey => $block) {
+            if ($blockKey == $blockTarget) {
+                $path[] = $blockKey;
+                return $blockKey;
+            } else if (isset($block['blocks'])) {
+                $subPath = [];
+                $result = $this->findBlockInsideContainer($blockTarget, $block['blocks'], $subPath);
+                if ($result !== null) {
+                    $path[] = $blockKey;
+                    $path = array_merge($path, $subPath);
+                    return $result;
+                }
+            }
+        }
+        return null;
+    }
+
+    public function findBlockPath($efContainers, $blockParent, &$path = [])
+    {
+        foreach ($efContainers as $containerKey => $container) {
+            $blocksPath = [];
+            $targetBlock = $this->findBlockInsideContainer($blockParent, $container['blocks'], $blocksPath);
+            if($targetBlock) {
+                $path[] = $containerKey;
+                $path['blocks'] = $blocksPath;
+                return $container;
+            }else if (isset($container['containers'])) {
+                $subPath = [];
+                $result = $this->findBlockPath($container['containers'], $blockParent, $subPath);
+                if ($result !== null) {
+                    $path[] = $containerKey;
+                    $path = array_merge($path, $subPath);
+                    return $result;
+                }
+            }
+        }
+        return null;
+    }
+
     public function addContainerElement($keys, $containerName, $container)
     {
         $nestedContainer = &$this->efContainers;
@@ -157,6 +198,12 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         unset($nestedContainer);
     }
 
+    /**
+     * Cross block target keys to insert a new EFBlock
+     * @param $keys
+     * @param $blockName
+     * @param $block
+     */
     public function addBlockElement($keys, $blockName, $block)
     {
         $nestedContainer = &$this->efContainers;
@@ -169,7 +216,39 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
             }
         }
 
-        $nestedContainer[$blockName] = $this->renderEfBlock($block['class'], $block['template']);
+        // Block is an array for eventual subBlocks
+        $nestedContainer[$blockName] = [
+            'class'     => $block['class'],
+            'template'  => $block['template']
+        ];
+
+        unset($nestedContainer);
+    }
+
+    public function addChildrenBlockElement($blockPaths, $blockName, $blockParams)
+    {
+        $nestedContainer = &$this->efContainers;
+        foreach ($blockPaths as $index => $key) {
+            // Update $nestedContainer to point to the nested array corresponding to the current key
+            if(!is_array($key)) {
+                // Blocks section
+                if($index == count($blockPaths) - 2) {
+                    $nestedContainer = &$nestedContainer[$key]['blocks'];
+                }else {
+                    // Containers section
+                    $nestedContainer = &$nestedContainer[$key]['containers'];
+                }
+            }
+        }
+
+        foreach($blockPaths['blocks'] as $blockKey) {
+            $nestedContainer = &$nestedContainer[$blockKey]['blocks'];
+        }
+
+        $nestedContainer[$blockName] = [
+            'class'     => $blockParams['class'],
+            'template'  => $blockParams['template']
+        ];
 
         unset($nestedContainer);
     }
@@ -234,13 +313,17 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         return $this->efJs;
     }
 
-    private function renderEfBlock($blockClass, $blockTemplate): string
+    private function renderEfBlock($block): string
     {
-        $blockClassReflection = new \ReflectionClass($blockClass);
+        $blockClassReflection = new \ReflectionClass($block['class']);
         $blockClassInstance = $blockClassReflection->newInstance($this->environment);
 
+        if(isset($block['blocks'])) {
+            $blockClassInstance->setChildBlocks($block['blocks']);
+        }
+
         return $blockClassInstance
-            ->setTemplate($blockTemplate)
+            ->setTemplate($block['template'])
             ->assign(['efBlock' => $blockClassInstance])
             ->toHtml();
     }
@@ -279,7 +362,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
 
                 // Render internal Blocks if exists
                 if(isset($containerNode['blocks']) && count($containerNode['blocks'])) {
-                    $pageContent .= implode('', $containerNode['blocks']);
+                    $pageContent .= $this->renderContainerBlocks($containerNode['blocks']);
                 }
                 // Render internal Containers if exists
                 if(isset($containerNode['containers']) && count($containerNode['containers'])) {
@@ -295,6 +378,15 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         }
 
         return $pageContent;
+    }
+
+    protected function renderContainerBlocks($blocks)
+    {
+        $containerBlocksContent = '';
+        foreach($blocks as $block) {
+            $containerBlocksContent .= $this->renderEfBlock($block);
+        }
+        return $containerBlocksContent;
     }
 
     /**

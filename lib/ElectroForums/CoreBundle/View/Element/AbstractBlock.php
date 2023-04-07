@@ -11,18 +11,66 @@ namespace ElectroForums\CoreBundle\View\Element;
 
 abstract class AbstractBlock
 {
+    private array $childBlocks = [];
 
-    public function toHtml()
+    public function toHtml(): string
     {
         return $this->_toHtml();
     }
 
     /**
-     * Used to be Overridden
+     * Created to be Overridden
      * @return string
      */
-    protected function _toHtml()
+    protected function _toHtml(): string
     {
         return '';
+    }
+
+    /**
+     * Retrieve child block by name
+     *
+     * @param string $alias
+     * @return string
+     */
+    public function getChildHtml(string $alias): string
+    {
+        $childBlock = $this->getChildBlock($alias);
+        return $childBlock
+            ->assign('efBlock', $childBlock)
+            ->toHtml();
+    }
+
+    /**
+     * @param string $alias
+     * @throws \InvalidArgumentException
+     * @return object
+     */
+    public function getChildBlock(string $alias): object
+    {
+        if (!isset($this->childBlocks[$alias])) {
+            throw new \InvalidArgumentException("ChildBlock requested Not found");
+        }
+
+        $childBlock = $this->childBlocks[$alias];
+        $blockClassReflection = new \ReflectionClass($childBlock['class']);
+        $blockClassInstance = $blockClassReflection->newInstance($this->environment);
+
+        $blockClassInstance->setTemplate($childBlock['template']);
+        if (isset($childBlock['blocks'])) {
+            $blockClassInstance->setChildBlocks($childBlock['blocks']);
+        }
+
+        return $blockClassInstance;
+    }
+
+    public function setChildBlocks($childBlocks)
+    {
+        $this->childBlocks = $childBlocks;
+    }
+
+    public function getChildBlocks(): array
+    {
+        return $this->childBlocks;
     }
 }
