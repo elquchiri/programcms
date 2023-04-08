@@ -1,8 +1,8 @@
 <p align="center">
+<a href="https://t.me/electroforums"><img src="https://img.shields.io/badge/Chat-Telegram-blue.svg"></a>
+<a href="http://join.slack.com/t/electroforumscms/shared_invite/zt-1qbsdh8sw-_rFQJsEI4qAbdhorYz4RWQ"><img src="https://img.shields.io/badge/Chat-Slack-2EB67D.svg"></a>
 <img src="https://raw.githubusercontent.com/elquchiri/electroforums/master/public/images/electroforums-logo.png">
 </p>
-
-# ElectroForums &copy;
 
 ElectroForums provides you with a complete, trustworthy CMS & easy to use PHP Framework to build and deploy All kind of Web Sites.
 
