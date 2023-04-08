@@ -1,4 +1,4 @@
-<p align="center">
+<p align="center" style="margin-top: 31px;">
 <img src="https://raw.githubusercontent.com/elquchiri/electroforums/master/public/images/electroforums-logo.png">
 </p>
 
