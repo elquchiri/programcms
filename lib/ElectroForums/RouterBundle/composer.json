@@ -1,0 +1,33 @@
+{
+    "name": "electroforums/router-bundle",
+    "description": "The Router bundle contains common infrastructure that provides an ability to apply and use routes in ElectroForums application.",
+    "license": "MIT",
+    "type": "symfony-bundle",
+    "keywords": [
+        "ElectroForums",
+        "Router",
+        "Route",
+        "Routes",
+        "Http",
+        "Request",
+        "Response",
+        "Controller Based",
+        "Bundle",
+        "CMS"
+    ],
+    "authors": [
+        {
+            "name": "Mohamed EL QUCHIRI",
+            "email": "elquchiri@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "ElectroForums\\RouterBundle\\": ""
+        }
+    }
+}
