@@ -15,6 +15,13 @@ The EFManager deliver & Maintain ElectroForums Bundles, so you can choose any ki
 
 Please note that ElectroForums CMS Project is under development
 
+## Requirements
+
+- Apache 2 
+- PHP 8.1
+- MySQL 8
+- Composer 2
+- Git
 ## Installation
 
 To install ElectroForums project run :
@@ -46,6 +53,7 @@ To install ElectroForums project run :
 - Strong Administration Dashboard
 - Automatic Routing System
 - Themes System
+- Layouts, Containers, Blocks and Templates System
 
 
 ## Demo
