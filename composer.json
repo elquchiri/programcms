@@ -52,7 +52,13 @@
             "ElectroForums\\CategoryBundle\\": "lib/ElectroForums/CategoryBundle",
             "ElectroForums\\EavBundle\\": "lib/ElectroForums/EavBundle",
             "ElectroForums\\UiBundle\\": "lib/ElectroForums/UiBundle",
-            "ElectroForums\\ConfigBundle\\": "lib/ElectroForums/ConfigBundle"
+            "ElectroForums\\ConfigBundle\\": "lib/ElectroForums/ConfigBundle",
+            "ElectroForums\\ContactBundle\\": "lib/ElectroForums/ContactBundle",
+            "ElectroForums\\NewsletterBundle\\": "lib/ElectroForums/NewsletterBundle",
+            "ElectroForums\\CommentBundle\\": "lib/ElectroForums/CommentBundle",
+            "ElectroForums\\SearchBundle\\": "lib/ElectroForums/SearchBundle",
+            "ElectroForums\\ReportBundle\\": "lib/ElectroForums/ReportBundle",
+            "ElectroForums\\EFManagerBundle\\": "lib/ElectroForums/EFManagerBundle"
         }
     },
     "autoload-dev": {
