@@ -1,0 +1,1 @@
+The Blank Theme contains common infrastructure that provides an ability to apply and use theme in ElectroForums application.

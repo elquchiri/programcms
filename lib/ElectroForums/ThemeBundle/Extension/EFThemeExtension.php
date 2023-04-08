@@ -17,32 +17,32 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
      * Saves Page Layouts
      * @var array
      */
-    private $efPageLayouts = [];
+    private array $efPageLayouts = [];
     /**
      * Used to check page layout Inheritance
      * @var int
      */
-    private $efPageLayoutNumber = 0;
+    private int $efPageLayoutNumber = 0;
     /**
      * Holds All tags
      * @var array
      */
-    public $efContainers;
+    public array $efContainers;
     /**
      * Holds All Css files
      * @var array
      */
-    private $efCss = [];
+    private array $efCss = [];
     /**
      * Holds All Js files
      * @var array
      */
-    private $efJs = [];
+    private array $efJs = [];
     /**
      * Page title content
      * @var
      */
-    private $efTitle;
+    private string $efTitle;
 
     public function __construct(
         \Twig\Environment $environment,
@@ -338,7 +338,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         $this->efTitle = $title;
     }
 
-    public function getEfTitle()
+    public function getEfTitle(): string
     {
         return $this->efTitle ?? 'Welcome !';
     }
@@ -371,6 +371,10 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
 
                 $pageContent .= "</". $containerNode['htmlTag'] .">";
             }else{
+                // Render internal Blocks if exists
+                if(isset($containerNode['blocks']) && count($containerNode['blocks'])) {
+                    $pageContent .= $this->renderContainerBlocks($containerNode['blocks']);
+                }
                 if(isset($containerNode['containers'])) {
                     $pageContent .= $this->renderPage($containerNode['containers']);
                 }
@@ -380,7 +384,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         return $pageContent;
     }
 
-    protected function renderContainerBlocks($blocks)
+    protected function renderContainerBlocks($blocks): string
     {
         $containerBlocksContent = '';
         foreach($blocks as $block) {

@@ -1,3 +1,7 @@
+<p align="center">
+<img src="https://github.com/elquchiri/electroforums/blob/master/public/images/">
+</p>
+
 # ElectroForums &copy;
 
 Integrate Easy & Efficient CMS System

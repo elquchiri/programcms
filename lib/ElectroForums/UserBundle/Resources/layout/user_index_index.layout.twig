@@ -1,3 +1,6 @@
-{#{% EFPage layout="1column" %}#}
-
-{#{% endEFPage %}#}
+{% EFPage %}
+    {% EFReferenceContainer name="content" %}
+        {% EFContainer name="test" %}{% endEFContainer %}
+        {% EFBlock name="website.navigationx" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsUser/frontend/account_navigation.html.twig" %}{% endEFBlock %}
+    {% endEFReferenceContainer %}
+{% endEFPage %}
