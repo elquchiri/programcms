@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/elquchiri/electroforums/blob/master/public/images/">
+<img src="https://raw.githubusercontent.com/elquchiri/electroforums/master/public/images/electroforums-logo.png">
 </p>
 
 # ElectroForums &copy;
