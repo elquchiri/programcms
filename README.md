@@ -1,10 +1,14 @@
-<p align="center" style="margin-top: 31px;">
+<p align="center">
 <img src="https://raw.githubusercontent.com/elquchiri/electroforums/master/public/images/electroforums-logo.png">
 </p>
 
 # ElectroForums &copy;
 
-Integrate Easy & Efficient CMS System
+ElectroForums provides you with a complete, trustworthy CMS & easy to use PHP Framework to build and deploy All kind of Web Sites.
+
+Written in PHP, on top of Symfony, it makes it very easy to reuse, install or create new bundles to Improve your Application.
+
+The EFManager deliver & Maintain ElectroForums Bundles, so you can choose any kind of features and modules wich fit the best with your application's requirements to add to your Website with ease.
 
 ## Deployment
 ![](https://img.shields.io/github/last-commit/elquchiri/electroforums?label=In%20Active%20Development)
@@ -40,6 +44,7 @@ To install ElectroForums project run :
 - ElectroForums Manager for Extensions
 - Advanced Reporting System
 - Strong Administration Dashboard
+- Automatic Routing System
 - Themes System
 
 
