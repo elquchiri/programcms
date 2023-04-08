@@ -51,10 +51,11 @@ To install ElectroForums project run :
 - ElectroForums Manager for Extensions
 - Advanced Reporting System
 - Strong Administration Dashboard
-- Automatic Routing System
+- Automatic Routing System based on Controller Path
 - Themes System
 - Layouts, Containers, Blocks and Templates System
-
+- Aspect-Oriented Programming Style
+- Data Based AI to process, generate and translate content
 
 ## Demo
 
