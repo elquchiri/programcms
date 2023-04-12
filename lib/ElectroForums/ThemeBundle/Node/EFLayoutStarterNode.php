@@ -23,8 +23,8 @@ class EFLayoutStarterNode extends \Twig\Node\Node implements \Twig\Node\NodeOutp
             ->write("\$efJs = \$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->getEfJs();")
             ->write("\$efTitle = \$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->getEfTitle();")
 
-            //->write("\$html = \$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->renderPage();")
-            ->write("echo '<pre>'; var_dump(\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->getEfContainers());");
-            //->write("echo \$this->env->render('@ElectroForumsTheme/base.html.twig', ['efCss' => \$efCss, 'efJs' => \$efJs, 'efTitle' => \$efTitle, 'html' => \$html]);");
+            ->write("\$html = \$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->renderPage();")
+            //->write("echo '<pre>'; var_dump(\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->getEfContainers());");
+            ->write("echo \$this->env->render('@ElectroForumsTheme/base.html.twig', ['efCss' => \$efCss, 'efJs' => \$efJs, 'efTitle' => \$efTitle, 'html' => \$html]);");
     }
 }

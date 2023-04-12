@@ -34,13 +34,29 @@ class EFContainerTokenParser extends \Twig\TokenParser\AbstractTokenParser
         }catch(SyntaxError $e) {
             $containerHtmlClass = '';
         }
+
+        try {
+            $stream->expect(\Twig\Token::NAME_TYPE, 'before');
+            $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
+            $before = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+        }catch(SyntaxError $e) {
+            $before = '';
+        }
+
+        try {
+            $stream->expect(\Twig\Token::NAME_TYPE, 'after');
+            $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
+            $after = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+        }catch(SyntaxError $e) {
+            $after = '';
+        }
         $stream->expect(\Twig\Token::BLOCK_END_TYPE);
 
         $body = $this->parser->subparse([$this, 'decideBlockEnd'], true);
 
         $stream->expect(\Twig\Token::BLOCK_END_TYPE);
 
-        return new \ElectroForums\ThemeBundle\Node\EFContainerNode($containerName, $containerHtmlTag, $containerHtmlClass, $body, $lineno, $this->getTag());
+        return new \ElectroForums\ThemeBundle\Node\EFContainerNode($containerName, $containerHtmlTag, $containerHtmlClass, $before, $after, $body, $lineno, $this->getTag());
     }
 
     public function decideBlockEnd(\Twig\Token $token)

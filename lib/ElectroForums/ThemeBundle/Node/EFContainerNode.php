@@ -11,9 +11,9 @@ namespace ElectroForums\ThemeBundle\Node;
 
 class EFContainerNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
 {
-    public function __construct($containerName, $containerHtmlTag, $containerHtmlClass, $body, $lineno, $tag = null)
+    public function __construct($containerName, $containerHtmlTag, $containerHtmlClass, $before, $after, $body, $lineno, $tag = null)
     {
-        parent::__construct(['body' => $body], ['containerName' => $containerName, 'containerHtmlTag' => $containerHtmlTag, 'containerHtmlClass' => $containerHtmlClass], $lineno, $tag);
+        parent::__construct(['body' => $body], ['containerName' => $containerName, 'containerHtmlTag' => $containerHtmlTag, 'containerHtmlClass' => $containerHtmlClass, 'before' => $before, 'after' => $after], $lineno, $tag);
     }
 
     public function compile(\Twig\Compiler $compiler)
@@ -32,7 +32,9 @@ class EFContainerNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureI
                     $subContainerName = $node->getAttribute('containerName');
                     $subContainerHtmlTag = $node->getAttribute('containerHtmlTag');
                     $subContainerHtmlClass = $node->getAttribute('containerHtmlClass');
-                    $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->addEfContainer('$subContainerName', '$containerName', '$subContainerHtmlTag', '$subContainerHtmlClass');");
+                    $before = $node->getAttribute('before');
+                    $after = $node->getAttribute('after');
+                    $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->addEfContainer('$subContainerName', '$containerName', '$subContainerHtmlTag', '$subContainerHtmlClass', '$before', '$after');");
                     break;
             }
         }

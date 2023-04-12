@@ -32,7 +32,9 @@ class EFReferenceContainerNode extends \Twig\Node\Node implements \Twig\Node\Nod
                     $subContainerName = $node->getAttribute('containerName');
                     $subContainerHtmlTag = $node->getAttribute('containerHtmlTag');
                     $subContainerHtmlClass = $node->getAttribute('containerHtmlClass');
-                    $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->addEfContainer('$subContainerName', '$containerName', '$subContainerHtmlTag', '$subContainerHtmlClass');");
+                    $before = $node->getAttribute('before');
+                    $after = $node->getAttribute('after');
+                    $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->addEfContainer('$subContainerName', '$containerName', '$subContainerHtmlTag', '$subContainerHtmlClass', '$before', '$after');");
                     break;
             }
         }

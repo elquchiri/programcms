@@ -49,16 +49,17 @@ abstract class AbstractBlock
     public function getChildBlock(string $alias): object
     {
         if (!isset($this->childBlocks[$alias])) {
-            throw new \InvalidArgumentException("ChildBlock requested Not found");
+            throw new \InvalidArgumentException("Requested ChildBlock Not found");
         }
 
         $childBlock = $this->childBlocks[$alias];
+
         $blockClassReflection = new \ReflectionClass($childBlock['class']);
         $blockClassInstance = $blockClassReflection->newInstance($this->environment);
 
         $blockClassInstance->setTemplate($childBlock['template']);
-        if (isset($childBlock['blocks'])) {
-            $blockClassInstance->setChildBlocks($childBlock['blocks']);
+        if (isset($childBlock['childs'])) {
+            $blockClassInstance->setChildBlocks($childBlock['childs']);
         }
 
         return $blockClassInstance;

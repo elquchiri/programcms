@@ -24,7 +24,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
      */
     private int $efPageLayoutNumber = 0;
     /**
-     * Holds All tags
+     * Holds elements Tree with All tags
      * @var array
      */
     public array $efContainers;
@@ -85,7 +85,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
             ]);
         } else {
             // Throws Exception if EFContainer's parent not found
-            throw new \Exception(sprintf("Cant insert %s, EFBlock's parent \"%s\" not found.", $blockName, $containerParent));
+            throw new \Exception(sprintf("Cant insert %s, EFBlock's parent \"%s\" not found.", $blockParent));
         }
     }
 
@@ -93,8 +93,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     {
         if (!count($this->efContainers)) {
             $this->efContainers[$containerName] = [
-                'containers' => [],
-                'blocks' => []
+                'type' => 'container'
             ];
         }
     }
@@ -102,21 +101,26 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     /**
      * @throws \Exception
      */
-    public function addEfContainer($containerName, $containerParent = null, $containerHtmlTag = null, $containerHtmlClass = null)
+    public function addEfContainer($containerName, $containerParent = null, $containerHtmlTag = null, $containerHtmlClass = null, $before = null, $after = null)
     {
         $containerPaths = [];
         $targetContainer = $this->findContainerPath($this->efContainers, $containerParent, $containerPaths);
 
         if ($targetContainer) {
             $container = [
-                'containers' => [],
-                'blocks' => []
+                'type' => 'container'
             ];
             if(!empty($containerHtmlTag)) {
                 $container['htmlTag'] = $containerHtmlTag;
             }
             if(!empty($containerHtmlClass)) {
                 $container['htmlClass'] = $containerHtmlClass;
+            }
+            if(!empty($before)) {
+                $container['before'] = $before;
+            }
+            if(!empty($after)) {
+                $container['after'] = $after;
             }
             $this->addContainerElement($containerPaths, $containerName, $container);
         } else {
@@ -131,9 +135,9 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
             if ($containerKey == $containerName) {
                 $path[] = $containerKey;
                 return $container;
-            } elseif (isset($container['containers'])) {
+            } elseif (isset($container['childs'])) {
                 $subPath = [];
-                $result = $this->findContainerPath($container['containers'], $containerName, $subPath);
+                $result = $this->findContainerPath($container['childs'], $containerName, $subPath);
                 if ($result !== null) {
                     $path[] = $containerKey;
                     $path = array_merge($path, $subPath);
@@ -150,9 +154,9 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
             if ($blockKey == $blockTarget) {
                 $path[] = $blockKey;
                 return $blockKey;
-            } else if (isset($block['blocks'])) {
+            } else if (isset($block['childs'])) {
                 $subPath = [];
-                $result = $this->findBlockInsideContainer($blockTarget, $block['blocks'], $subPath);
+                $result = $this->findBlockInsideContainer($blockTarget, $block['childs'], $subPath);
                 if ($result !== null) {
                     $path[] = $blockKey;
                     $path = array_merge($path, $subPath);
@@ -167,14 +171,14 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     {
         foreach ($efContainers as $containerKey => $container) {
             $blocksPath = [];
-            $targetBlock = $this->findBlockInsideContainer($blockParent, $container['blocks'], $blocksPath);
+            $targetBlock = $this->findBlockInsideContainer($blockParent, $container['childs'], $blocksPath);
             if($targetBlock) {
                 $path[] = $containerKey;
-                $path['blocks'] = $blocksPath;
+                $path['childs'] = $blocksPath;
                 return $container;
-            }else if (isset($container['containers'])) {
+            }else if (isset($container['childs'])) {
                 $subPath = [];
-                $result = $this->findBlockPath($container['containers'], $blockParent, $subPath);
+                $result = $this->findBlockPath($container['childs'], $blockParent, $subPath);
                 if ($result !== null) {
                     $path[] = $containerKey;
                     $path = array_merge($path, $subPath);
@@ -190,12 +194,42 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         $nestedContainer = &$this->efContainers;
         foreach ($keys as $key) {
             // Update $nestedContainer to point to the nested array corresponding to the current key
-            $nestedContainer = &$nestedContainer[$key]['containers'];
+            $nestedContainer = &$nestedContainer[$key]['childs'];
+        }
+        // $nestedContainer is the parentContainer childs
+        if($nestedContainer && isset($container['before'])) {
+            $this->checkForPriority($containerName, $container, $nestedContainer);
+        }else {
+            $nestedContainer[$containerName] = $container;
         }
 
-        $nestedContainer[$containerName] = $container;
-
         unset($nestedContainer);
+    }
+
+    protected function checkForPriority($containerName, $container, &$nestedContainer)
+    {
+        $targetElementName = $container['before'];
+        if($targetElementName == '-') {
+            $nestedContainer = $container + $nestedContainer;
+        }else if(isset($nestedContainer[$targetElementName])) {
+            $position = array_flip(array_keys($nestedContainer))[$targetElementName];
+            $arr1 = array_slice($nestedContainer,0, $position);
+            $arr2 = array_slice($nestedContainer, $position, count($nestedContainer));
+            $nestedContainer = $arr1 + [$containerName => $container] + $arr2;
+        }
+    }
+
+    private function insertItemsToPosition(array $array, string|int $insertAfterPosition, array $itemsToAdd): array
+    {
+        $insertAfterIndex = array_search($insertAfterPosition, array_keys($array), true);
+        if ($insertAfterIndex === false) {
+            throw new \UnexpectedValueException(sprintf('You try to insert items to an array after the key "%s", but this key is not existing in given array. Available keys are: %s', $insertAfterPosition, implode(', ', array_keys($array))));
+        }
+
+        $itemsBefore = array_slice($array, 0, $insertAfterIndex + 1);
+        $itemsAfter = array_slice($array, $insertAfterIndex + 1);
+
+        return $itemsBefore + $itemsToAdd + $itemsAfter;
     }
 
     /**
@@ -209,15 +243,12 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         $nestedContainer = &$this->efContainers;
         foreach ($keys as $index => $key) {
             // Update $nestedContainer to point to the nested array corresponding to the current key
-            if($index == count($keys) - 1) {
-                $nestedContainer = &$nestedContainer[$key]['blocks'];
-            }else{
-                $nestedContainer = &$nestedContainer[$key]['containers'];
-            }
+            $nestedContainer = &$nestedContainer[$key]['childs'];
         }
 
         // Block is an array for eventual subBlocks
         $nestedContainer[$blockName] = [
+            'type'      => 'block',
             'class'     => $block['class'],
             'template'  => $block['template']
         ];
@@ -231,21 +262,16 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         foreach ($blockPaths as $index => $key) {
             // Update $nestedContainer to point to the nested array corresponding to the current key
             if(!is_array($key)) {
-                // Blocks section
-                if($index == count($blockPaths) - 2) {
-                    $nestedContainer = &$nestedContainer[$key]['blocks'];
-                }else {
-                    // Containers section
-                    $nestedContainer = &$nestedContainer[$key]['containers'];
-                }
+                $nestedContainer = &$nestedContainer[$key]['childs'];
             }
         }
 
-        foreach($blockPaths['blocks'] as $blockKey) {
-            $nestedContainer = &$nestedContainer[$blockKey]['blocks'];
+        foreach($blockPaths['childs'] as $blockKey) {
+            $nestedContainer = &$nestedContainer[$blockKey]['childs'];
         }
 
         $nestedContainer[$blockName] = [
+            'type'      => 'block',
             'class'     => $blockParams['class'],
             'template'  => $blockParams['template']
         ];
@@ -318,8 +344,8 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         $blockClassReflection = new \ReflectionClass($block['class']);
         $blockClassInstance = $blockClassReflection->newInstance($this->environment);
 
-        if(isset($block['blocks'])) {
-            $blockClassInstance->setChildBlocks($block['blocks']);
+        if(isset($block['childs'])) {
+            $blockClassInstance->setChildBlocks($block['childs']);
         }
 
         return $blockClassInstance
@@ -355,42 +381,25 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
 
         $pageContent = '';
         foreach($container as $containerNode) {
-            if(isset($containerNode['htmlTag'])) {
-                // Renderable container case, prepares & adds Html Elements
-                $htmlClass = isset($containerNode['htmlClass']) ? 'class="'. $containerNode['htmlClass'] .'"' : '';
-                $pageContent .= "<". $containerNode['htmlTag'] ." ". $htmlClass .">";
-
-                // Render internal Blocks if exists
-                if(isset($containerNode['blocks']) && count($containerNode['blocks'])) {
-                    $pageContent .= $this->renderContainerBlocks($containerNode['blocks']);
+            if($containerNode['type'] == 'container') {
+                if(isset($containerNode['htmlTag'])) {
+                    // Renderable container case, prepares & adds Html Elements
+                    $htmlClass = isset($containerNode['htmlClass']) ? 'class="' . $containerNode['htmlClass'] . '"' : '';
+                    $pageContent .= "<" . $containerNode['htmlTag'] . " " . $htmlClass . ">";
                 }
-                // Render internal Containers if exists
-                if(isset($containerNode['containers']) && count($containerNode['containers'])) {
-                    $pageContent .= $this->renderPage($containerNode['containers']);
+                // Render internal elements if exists
+                if(isset($containerNode['childs']) && count($containerNode['childs'])) {
+                    $pageContent .= $this->renderPage($containerNode['childs']);
                 }
-
-                $pageContent .= "</". $containerNode['htmlTag'] .">";
-            }else{
-                // Render internal Blocks if exists
-                if(isset($containerNode['blocks']) && count($containerNode['blocks'])) {
-                    $pageContent .= $this->renderContainerBlocks($containerNode['blocks']);
+                if(isset($containerNode['htmlTag'])) {
+                    $pageContent .= "</". $containerNode['htmlTag'] .">";
                 }
-                if(isset($containerNode['containers'])) {
-                    $pageContent .= $this->renderPage($containerNode['containers']);
-                }
+            }else if($containerNode['type'] == 'block') {
+                $pageContent .= $this->renderEfBlock($containerNode);
             }
         }
 
         return $pageContent;
-    }
-
-    protected function renderContainerBlocks($blocks): string
-    {
-        $containerBlocksContent = '';
-        foreach($blocks as $block) {
-            $containerBlocksContent .= $this->renderEfBlock($block);
-        }
-        return $containerBlocksContent;
     }
 
     /**
