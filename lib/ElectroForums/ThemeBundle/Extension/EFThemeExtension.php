@@ -129,6 +129,24 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         }
     }
 
+    public function removeElement($name)
+    {
+        $containerPaths = [];
+        $targetContainer = $this->findContainerPath($this->efContainers, $name, $containerPaths);
+        if ($targetContainer) {
+            $nestedContainer = &$this->efContainers;
+            foreach ($containerPaths as $index => $key) {
+                // Update $nestedContainer to point to the nested array corresponding to the current key
+                if($index < count($containerPaths) - 1) {
+                    $nestedContainer = &$nestedContainer[$key]['childs'];
+                }else{
+                    $nestedContainer = &$nestedContainer[$key];
+                }
+            }
+            $nestedContainer = NULL;
+        }
+    }
+
     public function findContainerPath($efContainers, $containerName, &$path = [])
     {
         foreach ($efContainers as $containerKey => $container) {
@@ -197,8 +215,9 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
             $nestedContainer = &$nestedContainer[$key]['childs'];
         }
         // $nestedContainer is the parentContainer childs
-        if($nestedContainer && isset($container['before'])) {
-            $this->checkForPriority($containerName, $container, $nestedContainer);
+        if($nestedContainer && (isset($container['before']) || isset($container['after']))) {
+            $priority = isset($container['before']) ? 'before' : 'after';
+            $this->checkForPriority($containerName, $container, $nestedContainer, $priority);
         }else {
             $nestedContainer[$containerName] = $container;
         }
@@ -206,30 +225,33 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         unset($nestedContainer);
     }
 
-    protected function checkForPriority($containerName, $container, &$nestedContainer)
+    protected function checkForPriority($containerName, $container, &$nestedContainer, $priority)
     {
-        $targetElementName = $container['before'];
+        $targetElementName = $container[$priority];
         if($targetElementName == '-') {
-            $nestedContainer = $container + $nestedContainer;
+            switch($priority) {
+                case 'before':
+                    $nestedContainer = $container + $nestedContainer;
+                    break;
+                case 'after':
+                    $nestedContainer = $nestedContainer + $container;
+                    break;
+            }
         }else if(isset($nestedContainer[$targetElementName])) {
             $position = array_flip(array_keys($nestedContainer))[$targetElementName];
-            $arr1 = array_slice($nestedContainer,0, $position);
-            $arr2 = array_slice($nestedContainer, $position, count($nestedContainer));
-            $nestedContainer = $arr1 + [$containerName => $container] + $arr2;
+            switch($priority) {
+                case 'before':
+                    $arr1 = array_slice($nestedContainer,0, $position);
+                    $arr2 = array_slice($nestedContainer, $position, count($nestedContainer));
+                    $nestedContainer = $arr1 + [$containerName => $container] + $arr2;
+                    break;
+                case 'after':
+                    $arr3 = array_slice($nestedContainer,0, $position + 1);
+                    $arr4 = array_slice($nestedContainer, $position + 1, count($nestedContainer));
+                    $nestedContainer = $arr3 + [$containerName => $container] + $arr4;
+                    break;
+            }
         }
-    }
-
-    private function insertItemsToPosition(array $array, string|int $insertAfterPosition, array $itemsToAdd): array
-    {
-        $insertAfterIndex = array_search($insertAfterPosition, array_keys($array), true);
-        if ($insertAfterIndex === false) {
-            throw new \UnexpectedValueException(sprintf('You try to insert items to an array after the key "%s", but this key is not existing in given array. Available keys are: %s', $insertAfterPosition, implode(', ', array_keys($array))));
-        }
-
-        $itemsBefore = array_slice($array, 0, $insertAfterIndex + 1);
-        $itemsAfter = array_slice($array, $insertAfterIndex + 1);
-
-        return $itemsBefore + $itemsToAdd + $itemsAfter;
     }
 
     /**

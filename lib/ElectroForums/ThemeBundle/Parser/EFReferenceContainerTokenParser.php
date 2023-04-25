@@ -8,6 +8,7 @@
 
 namespace ElectroForums\ThemeBundle\Parser;
 
+use Twig\Error\SyntaxError;
 use Twig\Token;
 
 class EFReferenceContainerTokenParser extends \Twig\TokenParser\AbstractTokenParser
@@ -19,13 +20,20 @@ class EFReferenceContainerTokenParser extends \Twig\TokenParser\AbstractTokenPar
         $stream->expect(Token::NAME_TYPE, 'name');
         $stream->expect(Token::OPERATOR_TYPE, '=');
         $containerName = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+        try {
+            $stream->expect(\Twig\Token::NAME_TYPE, 'remove');
+            $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
+            $remove = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+        }catch(SyntaxError $e) {
+            $remove = '';
+        }
         $stream->expect(Token::BLOCK_END_TYPE);
 
         $body = $this->parser->subparse([$this, 'decideBlockEnd'], true);
 
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new \ElectroForums\ThemeBundle\Node\EFReferenceContainerNode($containerName, $body, $lineno, $this->getTag());
+        return new \ElectroForums\ThemeBundle\Node\EFReferenceContainerNode($containerName, $remove, $body, $lineno, $this->getTag());
     }
 
     public function decideBlockEnd(Token $token)

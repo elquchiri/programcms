@@ -11,14 +11,20 @@ namespace ElectroForums\ThemeBundle\Node;
 
 class EFReferenceContainerNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
 {
-    public function __construct($containerName, $body, $lineno, $tag = null)
+    public function __construct($containerName, $remove, $body, $lineno, $tag = null)
     {
-        parent::__construct(['body' => $body], ['containerName' => $containerName], $lineno, $tag);
+        parent::__construct(['body' => $body], ['containerName' => $containerName, 'remove' => $remove], $lineno, $tag);
     }
 
     public function compile(\Twig\Compiler $compiler)
     {
         $containerName = $this->getAttribute('containerName');
+        $remove = (bool) $this->getAttribute('remove');
+
+        if($remove) {
+            // Remove container from Elements Tree
+            $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->removeElement('$containerName');");
+        }
 
         foreach($this->getNode('body') as $node) {
             switch($node) {
