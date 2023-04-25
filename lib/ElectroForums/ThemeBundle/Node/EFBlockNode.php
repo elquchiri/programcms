@@ -11,9 +11,9 @@ namespace ElectroForums\ThemeBundle\Node;
 
 class EFBlockNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
 {
-    public function __construct($blockName, $blockClass, $blockTemplate, $body, $lineno, $tag = null)
+    public function __construct($blockName, $blockClass, $blockTemplate, $before, $after, $body, $lineno, $tag = null)
     {
-        parent::__construct(['body' => $body], ['blockName' => $blockName, 'blockClass' => $blockClass, 'blockTemplate' => $blockTemplate], $lineno, $tag);
+        parent::__construct(['body' => $body], ['blockName' => $blockName, 'blockClass' => $blockClass, 'blockTemplate' => $blockTemplate, 'before' => $before, 'after' => $after], $lineno, $tag);
     }
 
     public function compile(\Twig\Compiler $compiler)

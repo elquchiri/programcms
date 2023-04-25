@@ -57,16 +57,24 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     /**
      * @throws \Exception
      */
-    public function addEfBlock($blockName, $blockClass, $blockTemplate, $containerParent)
+    public function addEfBlock($blockName, $blockClass, $blockTemplate, $containerParent, $before = null, $after = null)
     {
         $containerPaths = [];
-        $targetContainer = $this->findContainerPath($this->efContainers, $containerParent, $containerPaths);
+        $targetContainer = $this->findElementPath($this->efContainers, $containerParent, $containerPaths);
 
         if ($targetContainer) {
-            $this->addBlockElement($containerPaths, $blockName, [
+            $element = [
+                'type' => 'block',
                 'class' => $blockClass,
                 'template' => $blockTemplate
-            ]);
+            ];
+            if(!empty($before)) {
+                $element['before'] = $before;
+            }
+            if(!empty($after)) {
+                $element['after'] = $after;
+            }
+            $this->addElement($containerPaths, $blockName, $element);
         } else {
             // Throws Exception if EFContainer's parent not found
             throw new \Exception(sprintf("Cant insert %s, EFContainer's parent \"%s\" not found.", $blockName, $containerParent));
@@ -104,7 +112,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     public function addEfContainer($containerName, $containerParent = null, $containerHtmlTag = null, $containerHtmlClass = null, $before = null, $after = null)
     {
         $containerPaths = [];
-        $targetContainer = $this->findContainerPath($this->efContainers, $containerParent, $containerPaths);
+        $targetContainer = $this->findElementPath($this->efContainers, $containerParent, $containerPaths);
 
         if ($targetContainer) {
             $container = [
@@ -122,17 +130,21 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
             if(!empty($after)) {
                 $container['after'] = $after;
             }
-            $this->addContainerElement($containerPaths, $containerName, $container);
+            $this->addElement($containerPaths, $containerName, $container);
         } else {
             // Throws Exception if EFContainer's parent not found
             throw new \Exception(sprintf("Cant insert %s, EFContainer's parent \"%s\" not found.", $containerName, $containerParent));
         }
     }
 
+    /**
+     * Remove element from Tree
+     * @param $name
+     */
     public function removeElement($name)
     {
         $containerPaths = [];
-        $targetContainer = $this->findContainerPath($this->efContainers, $name, $containerPaths);
+        $targetContainer = $this->findElementPath($this->efContainers, $name, $containerPaths);
         if ($targetContainer) {
             $nestedContainer = &$this->efContainers;
             foreach ($containerPaths as $index => $key) {
@@ -147,7 +159,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         }
     }
 
-    public function findContainerPath($efContainers, $containerName, &$path = [])
+    public function findElementPath($efContainers, $containerName, &$path = [])
     {
         foreach ($efContainers as $containerKey => $container) {
             if ($containerKey == $containerName) {
@@ -155,7 +167,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
                 return $container;
             } elseif (isset($container['childs'])) {
                 $subPath = [];
-                $result = $this->findContainerPath($container['childs'], $containerName, $subPath);
+                $result = $this->findElementPath($container['childs'], $containerName, $subPath);
                 if ($result !== null) {
                     $path[] = $containerKey;
                     $path = array_merge($path, $subPath);
@@ -207,7 +219,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         return null;
     }
 
-    public function addContainerElement($keys, $containerName, $container)
+    public function addElement($keys, $elementName, $element)
     {
         $nestedContainer = &$this->efContainers;
         foreach ($keys as $key) {
@@ -215,11 +227,15 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
             $nestedContainer = &$nestedContainer[$key]['childs'];
         }
         // $nestedContainer is the parentContainer childs
-        if($nestedContainer && (isset($container['before']) || isset($container['after']))) {
-            $priority = isset($container['before']) ? 'before' : 'after';
-            $this->checkForPriority($containerName, $container, $nestedContainer, $priority);
+        if($nestedContainer && (isset($element['before']) || isset($element['after']))) {
+            if(isset($element['before'])) {
+                $this->checkForPriority($elementName, $element, $nestedContainer, 'before');
+            }
+            if(isset($element['after'])) {
+                $this->checkForPriority($elementName, $element, $nestedContainer, 'after');
+            }
         }else {
-            $nestedContainer[$containerName] = $container;
+            $nestedContainer[$elementName] = $element;
         }
 
         unset($nestedContainer);
@@ -231,10 +247,10 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         if($targetElementName == '-') {
             switch($priority) {
                 case 'before':
-                    $nestedContainer = $container + $nestedContainer;
+                    $nestedContainer = [$containerName => $container] + $nestedContainer;
                     break;
                 case 'after':
-                    $nestedContainer = $nestedContainer + $container;
+                    $nestedContainer = $nestedContainer + [$containerName => $container];
                     break;
             }
         }else if(isset($nestedContainer[$targetElementName])) {
@@ -252,30 +268,6 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
                     break;
             }
         }
-    }
-
-    /**
-     * Cross block target keys to insert a new EFBlock
-     * @param $keys
-     * @param $blockName
-     * @param $block
-     */
-    public function addBlockElement($keys, $blockName, $block)
-    {
-        $nestedContainer = &$this->efContainers;
-        foreach ($keys as $index => $key) {
-            // Update $nestedContainer to point to the nested array corresponding to the current key
-            $nestedContainer = &$nestedContainer[$key]['childs'];
-        }
-
-        // Block is an array for eventual subBlocks
-        $nestedContainer[$blockName] = [
-            'type'      => 'block',
-            'class'     => $block['class'],
-            'template'  => $block['template']
-        ];
-
-        unset($nestedContainer);
     }
 
     public function addChildrenBlockElement($blockPaths, $blockName, $blockParams)

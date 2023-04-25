@@ -24,24 +24,26 @@ class EFReferenceContainerNode extends \Twig\Node\Node implements \Twig\Node\Nod
         if($remove) {
             // Remove container from Elements Tree
             $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->removeElement('$containerName');");
-        }
-
-        foreach($this->getNode('body') as $node) {
-            switch($node) {
-                case ($node instanceof \ElectroForums\ThemeBundle\Node\EFBlockNode):
-                    $blockName = $node->getAttribute('blockName');
-                    $blockClass = $node->getAttribute('blockClass');
-                    $blockTemplate = $node->getAttribute('blockTemplate');
-                    $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->addEfBlock('$blockName', '$blockClass', '$blockTemplate', '$containerName');");
-                    break;
-                case ($node instanceof \ElectroForums\ThemeBundle\Node\EFContainerNode):
-                    $subContainerName = $node->getAttribute('containerName');
-                    $subContainerHtmlTag = $node->getAttribute('containerHtmlTag');
-                    $subContainerHtmlClass = $node->getAttribute('containerHtmlClass');
-                    $before = $node->getAttribute('before');
-                    $after = $node->getAttribute('after');
-                    $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->addEfContainer('$subContainerName', '$containerName', '$subContainerHtmlTag', '$subContainerHtmlClass', '$before', '$after');");
-                    break;
+        }else {
+            foreach ($this->getNode('body') as $node) {
+                switch ($node) {
+                    case ($node instanceof \ElectroForums\ThemeBundle\Node\EFBlockNode):
+                        $blockName = $node->getAttribute('blockName');
+                        $blockClass = $node->getAttribute('blockClass');
+                        $blockTemplate = $node->getAttribute('blockTemplate');
+                        $before = $node->getAttribute('before');
+                        $after = $node->getAttribute('after');
+                        $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->addEfBlock('$blockName', '$blockClass', '$blockTemplate', '$containerName', '$before', '$after');");
+                        break;
+                    case ($node instanceof \ElectroForums\ThemeBundle\Node\EFContainerNode):
+                        $subContainerName = $node->getAttribute('containerName');
+                        $subContainerHtmlTag = $node->getAttribute('containerHtmlTag');
+                        $subContainerHtmlClass = $node->getAttribute('containerHtmlClass');
+                        $before = $node->getAttribute('before');
+                        $after = $node->getAttribute('after');
+                        $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->addEfContainer('$subContainerName', '$containerName', '$subContainerHtmlTag', '$subContainerHtmlClass', '$before', '$after');");
+                        break;
+                }
             }
         }
 
