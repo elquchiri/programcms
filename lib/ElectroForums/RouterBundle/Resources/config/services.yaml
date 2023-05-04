@@ -18,8 +18,8 @@ services:
 
   ElectroForums\RouterBundle\Service\Request:
     arguments:
-      $container: '@service_container'
+      $requestStack: '@request_stack'
 
   ElectroForums\RouterBundle\Service\Response:
     arguments:
-      $container: '@service_container'
+      $requestStack: '@request_stack'

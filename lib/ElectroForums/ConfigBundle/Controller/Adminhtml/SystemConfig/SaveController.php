@@ -1,13 +1,19 @@
 <?php
 
 
-namespace ElectroForums\ConfigBundle\Controller\SystemConfig;
+namespace ElectroForums\ConfigBundle\Controller\Adminhtml\SystemConfig;
 
 
-class SaveController extends \ElectroForums\ConfigBundle\Controller\AbstractConfigController
+class SaveController extends \ElectroForums\ConfigBundle\Controller\Adminhtml\AbstractConfigController
 {
 
-    public function __construct(\ElectroForums\RouterBundle\Service\Request $request, \ElectroForums\UiBundle\Model\Element\Toolbar $toolbar, \ElectroForums\ConfigBundle\Model\ConfigSerializer $configSerializer, \ElectroForums\ConfigBundle\Model\Config $config, \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator)
+    public function __construct(
+        \ElectroForums\RouterBundle\Service\Request $request,
+        \ElectroForums\UiBundle\Model\Element\Toolbar $toolbar,
+        \ElectroForums\ConfigBundle\Model\ConfigSerializer $configSerializer,
+        \ElectroForums\ConfigBundle\Model\Config $config,
+        \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
+    )
     {
         parent::__construct($request, $toolbar, $configSerializer, $config, $urlGenerator);
     }

@@ -9,6 +9,8 @@
 namespace ElectroForums\ThemeBundle\Extension;
 
 
+use Twig\Source;
+
 class EFThemeExtension extends \Twig\Extension\AbstractExtension
 {
     protected \Twig\Environment $environment;
@@ -18,11 +20,6 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
      * @var array
      */
     private array $efPageLayouts = [];
-    /**
-     * Used to check page layout Inheritance
-     * @var int
-     */
-    private int $efPageLayoutNumber = 0;
     /**
      * Holds elements Tree with All tags
      * @var array
@@ -301,7 +298,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     public function addEFPageLayout($pageLayoutName)
     {
         if ($pageLayoutName) {
-            $this->efPageLayouts[] = $pageLayoutName;
+            $this->efPageLayouts[$pageLayoutName] = $pageLayoutName;
         }
     }
 
@@ -312,17 +309,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
 
     public function canAddPageLayout($pageLayout): bool
     {
-        if (empty($pageLayout)) {
-            return false;
-        }
-        $pageLayoutNumber = substr($pageLayout, 0, 1);
-
-        if ($this->efPageLayoutNumber < $pageLayoutNumber) {
-            $this->efPageLayoutNumber = $pageLayoutNumber;
-
-            return true;
-        }
-        return false;
+        return !isset($this->efPageLayouts[$pageLayout]);
     }
 
     public function addEFCss($cssTags)
@@ -392,6 +379,13 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         if($container === null) {
             $container = $this->efContainers;
         }
+
+        // Clean unneeded Page Layout containers
+//        foreach($this->efPageLayouts as $efPageLayout) {
+//            $pageLayoutContents = $efExtension->getPageLayout()->getPageLayoutContents($pageLayoutName);
+//            $source = new Source($pageLayoutContents, 'PageLayout');
+//            $nodes = $this->environment->parse($this->environment->tokenize($source));
+//        }
 
         $pageContent = '';
         foreach($container as $containerNode) {

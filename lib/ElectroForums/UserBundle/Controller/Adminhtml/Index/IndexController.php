@@ -6,7 +6,7 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ElectroForums\UserBundle\Controller\Index;
+namespace ElectroForums\UserBundle\Controller\Adminhtml\Index;
 
 
 class IndexController extends \ElectroForums\CoreBundle\Controller\Adminhtml\AbstractController

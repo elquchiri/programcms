@@ -1,7 +1,12 @@
 <?php
+/*
+ * Copyright © ElectroForums. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
 
-
-namespace ElectroForums\ConfigBundle\Controller;
+namespace ElectroForums\ConfigBundle\Controller\Adminhtml;
 
 use Symfony\Component\HttpFoundation\Response;
 

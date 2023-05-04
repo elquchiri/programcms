@@ -1,5 +1,10 @@
 <?php
-
+/*
+ * Copyright © ElectroForums. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
 
 namespace ElectroForums\RouterBundle\Service;
 
@@ -7,20 +12,25 @@ namespace ElectroForums\RouterBundle\Service;
 class Request
 {
 
-    private \Symfony\Component\DependencyInjection\Container $container;
+    protected \Symfony\Component\HttpFoundation\RequestStack $requestStack;
 
     public function __construct(
-        \Symfony\Component\DependencyInjection\Container $container
+        \Symfony\Component\HttpFoundation\RequestStack $requestStack
     )
     {
-        $this->container = $container;
+        $this->requestStack = $requestStack;
     }
 
     public function getParam($param)
     {
+        return $this->getParameters()[$param] ?? '';
+    }
+
+    public function getParameters(): array
+    {
         $parameters = [];
 
-        $request = $this->container->get('request_stack')->getCurrentRequest();
+        $request = $this->getCurrentRequest();
         $requestParams = explode('/', $request->get('parameters'));
 
         for ($i=0; $i<count($requestParams); $i++) {
@@ -31,11 +41,16 @@ class Request
             $parameters[$requestParams[$i]] = $requestParams[$i+1];
         }
 
-        return $parameters[$param] ?? '';
+        return $parameters ?? [];
     }
 
     public function getCurrentRequest()
     {
-        return $this->container->get('request_stack')->getCurrentRequest();
+        return $this->requestStack->getCurrentRequest();
+    }
+
+    public function getCurrentAreaCode()
+    {
+        return str_starts_with($this->getCurrentRequest()->get('_route'), 'adminhtml_') ? 'adminhtml' : 'frontend';
     }
 }

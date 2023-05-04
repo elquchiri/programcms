@@ -1,25 +1,29 @@
 <?php
-
+/*
+ * Copyright © ElectroForums. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
 
 namespace ElectroForums\RouterBundle\Service;
 
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormInterface;
 
 class Response
 {
 
-    private ContainerInterface $container;
+    protected \Symfony\Component\HttpFoundation\RequestStack $requestStack;
     private \Twig\Environment $twig;
 
     public function __construct(
-        ContainerInterface $container,
+        \Symfony\Component\HttpFoundation\RequestStack $requestStack,
         \Twig\Environment $twig
     )
     {
-        $this->container = $container;
         $this->twig = $twig;
+        $this->requestStack = $requestStack;
     }
 
     public function render($parameters = []): \Symfony\Component\HttpFoundation\Response

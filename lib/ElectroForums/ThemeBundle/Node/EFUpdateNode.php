@@ -30,11 +30,17 @@ class EFUpdateNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInte
         $efExtension = $this->environment->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension');
         $handle = $this->getAttribute('handle');
 
-        $pageLayoutContents = $efExtension->getPageLayout()->getPageLayoutContents($handle);
+        if($efExtension->canAddPageLayout($handle)) {
+            $efExtension->addEFPageLayout($handle);
 
-        $source = new Source($pageLayoutContents, 'LayoutHandler');
-        $nodes = $this->environment->parse($this->environment->tokenize($source));
+            /** @var \ElectroForums\ThemeBundle\Model\PageLayout $pageLayout */
+            $pageLayout = $efExtension->getPageLayout();
+            $pageLayoutContents = $pageLayout->getPageLayoutContents($handle);
 
-        $compiler->subcompile($nodes->getNode('body'));
+            $source = new Source($pageLayoutContents, 'LayoutHandler');
+            $nodes = $this->environment->parse($this->environment->tokenize($source));
+
+            $compiler->subcompile($nodes->getNode('body'));
+        }
     }
 }

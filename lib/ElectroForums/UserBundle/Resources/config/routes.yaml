@@ -1,4 +1,7 @@
 router:
-  standard:
+  frontend:
+    user_root:
+      frontName: 'user'
+  adminhtml:
     user_root:
       frontName: 'user'

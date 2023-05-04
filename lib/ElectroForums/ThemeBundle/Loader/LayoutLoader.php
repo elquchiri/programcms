@@ -19,35 +19,34 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
     const DEFAULT_LAYOUT_FILE = 'default.layout.twig';
 
     protected \Twig\Environment $environment;
+    protected \ElectroForums\RouterBundle\Service\Request $request;
     private $paths;
     private ContainerInterface $container;
     private $cache;
     private $errorCache;
 
     public function __construct(
-        ContainerInterface $container
+        ContainerInterface $container,
+        \ElectroForums\RouterBundle\Service\Request $request
     )
     {
         $this->container = $container;
+        $this->request = $request;
     }
 
     private function initLayoutPaths()
     {
+        $areaCode = $this->request->getCurrentAreaCode();
+
         // Get all bundles
         $bundles = $this->container->getParameter('kernel.bundles');
         foreach ($bundles as $bundleClass) {
             $reflectedBundle = new \ReflectionClass($bundleClass);
             $bundleDirectory = dirname($reflectedBundle->getFileName());
-            $layoutPath = $bundleDirectory . '/Resources/layout';
+            $layoutPath = $bundleDirectory . '/Resources/views/' . $areaCode . '/layout';
 
             if(is_dir($layoutPath)) {
                 $this->paths[] = $layoutPath;
-            }
-
-            // Get All Page Layout files inside ThemeBundle to can pick page's layout
-            if($reflectedBundle->getShortName() == 'ElectroForumsThemeBundle') {
-                $pageLayoutPath = $bundleDirectory . '/Resources/page_layout';
-                $this->paths[] = $pageLayoutPath;
             }
         }
     }
@@ -140,7 +139,7 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
     private function validateName(string $name): void
     {
         if (false !== strpos($name, "\0")) {
-            throw new LoaderError('A template name cannot contain NUL bytes.');
+            throw new LoaderError('A layout name cannot contain NUL bytes.');
         }
     }
 

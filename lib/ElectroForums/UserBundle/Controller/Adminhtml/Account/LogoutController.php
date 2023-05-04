@@ -6,7 +6,7 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ElectroForums\UserBundle\Controller\Account;
+namespace ElectroForums\UserBundle\Controller\Adminhtml\Account;
 
 
 use Symfony\Bundle\SecurityBundle\Security;
