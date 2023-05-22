@@ -36,7 +36,8 @@ class EFPageNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterf
             $efExtension->addEFPageLayout($pageLayoutName);
 
             $pageLayoutContents = $efExtension->getPageLayout()->getPageLayoutContents($pageLayoutName);
-            $source = new Source($pageLayoutContents, 'PageLayout');
+            // We use the layout file name to use it later in the EFLayoutNode class
+            $source = new Source($pageLayoutContents, $pageLayoutName);
             $nodes = $this->environment->parse($this->environment->tokenize($source));
             $compiler->subcompile($nodes->getNode('body'));
         }

@@ -107,6 +107,7 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
         }
 
         foreach ($this->paths as $path) {
+            // Get default layouts
             if (is_file($path.'/'. self::DEFAULT_LAYOUT_FILE)) {
                 if (false !== $realpath = realpath($path.'/'. self::DEFAULT_LAYOUT_FILE)) {
                     $this->cache[$name][] = $realpath;
@@ -114,6 +115,7 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
                     $this->cache[$name][] = $path.'/'. self::DEFAULT_LAYOUT_FILE;
                 }
             }
+            // Get current page layout
             if (is_file($path.'/'. $name)) {
                 if (false !== $realpath = realpath($path.'/'. $name)) {
                     $this->cache[$name][] = $realpath;

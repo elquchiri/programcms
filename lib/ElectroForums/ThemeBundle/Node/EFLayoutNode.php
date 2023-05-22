@@ -19,12 +19,19 @@ class EFLayoutNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInte
 
     public function compile(\Twig\Compiler $compiler)
     {
+        // Retrieve the template file
+        $templateName = $this->getTemplateName();
+
         foreach($this->getNode('body') as $node) {
             switch ($node) {
                 case ($node instanceof \ElectroForums\ThemeBundle\Node\EFContainerNode):
                     $containerName = $node->getAttribute('containerName');
                     $compiler
-                        ->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->addEfRootContainer('$containerName');");
+                        ->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->addEfRootContainer('$containerName');")
+                        ->raw("\n");
+                    $compiler
+                        ->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->addEfRootContainer('$containerName');")
+                        ->raw("\n");
                     break;
                 case ($node instanceof \ElectroForums\ThemeBundle\Node\EFReferenceContainerNode):
                     break;
