@@ -37,7 +37,9 @@ class EFUpdateNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInte
             $pageLayout = $efExtension->getPageLayout();
             $pageLayoutContents = $pageLayout->getPageLayoutContents($handle);
 
-            $source = new Source($pageLayoutContents, 'LayoutHandler');
+            // Prepare layout file to be parsed as by the LayoutNode
+            $source = new Source($pageLayoutContents, $handle);
+
             $nodes = $this->environment->parse($this->environment->tokenize($source));
 
             $compiler->subcompile($nodes->getNode('body'));

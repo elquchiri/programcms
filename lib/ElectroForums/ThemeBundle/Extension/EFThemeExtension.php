@@ -9,22 +9,29 @@
 namespace ElectroForums\ThemeBundle\Extension;
 
 
-use Twig\Source;
-
 class EFThemeExtension extends \Twig\Extension\AbstractExtension
 {
-    protected \Twig\Environment $environment;
-    protected \ElectroForums\ThemeBundle\Model\PageLayout $pageLayout;
+    private \Twig\Environment $environment;
+    /**
+     * PageLayout Model, used to get page layout content
+     * @var \ElectroForums\ThemeBundle\Model\PageLayout
+     */
+    private \ElectroForums\ThemeBundle\Model\PageLayout $pageLayout;
     /**
      * Saves Page Layouts
      * @var array
      */
     private array $efPageLayouts = [];
     /**
+     * Stores the last page layout, current page
+     * @var string
+     */
+    private string $currentPageLayout;
+    /**
      * Holds elements Tree with All tags
      * @var array
      */
-    public array $efContainers;
+    private array $efContainers;
     /**
      * Holds All Css files
      * @var array
@@ -40,6 +47,11 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
      * @var
      */
     private string $efTitle;
+    /**
+     * Used to remove unused containers by keeping only those of the last layout
+     * @var array
+     */
+    private array $elementsWithFileName;
 
     public function __construct(
         \Twig\Environment $environment,
@@ -49,6 +61,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         $this->environment = $environment;
         $this->efContainers = [];
         $this->pageLayout = $pageLayout;
+        $this->elementsWithFileName = [];
     }
 
     /**
@@ -101,6 +114,21 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
                 'type' => 'container'
             ];
         }
+    }
+
+    public function trackElementWithFileName($templateName, $elementName)
+    {
+        $this->elementsWithFileName[$templateName][] = $elementName;
+    }
+
+    public function trackHandlerWithFileName($templateName, $handlerName)
+    {
+        $this->elementsWithFileName[$templateName]['handlers'][] = $handlerName;
+    }
+
+    public function getElementsWithFileName()
+    {
+        return $this->elementsWithFileName;
     }
 
     /**
@@ -312,6 +340,16 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         return !isset($this->efPageLayouts[$pageLayout]);
     }
 
+    public function setCurrentPageLayout($pageLayout)
+    {
+        $this->currentPageLayout = $pageLayout;
+    }
+
+    public function getCurrentPageLayout(): string
+    {
+        return $this->currentPageLayout;
+    }
+
     public function addEFCss($cssTags)
     {
         foreach (explode(',', $cssTags) as $css) {
@@ -381,11 +419,16 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         }
 
         // Clean unneeded Page Layout containers
-//        foreach($this->efPageLayouts as $efPageLayout) {
-//            $pageLayoutContents = $efExtension->getPageLayout()->getPageLayoutContents($pageLayoutName);
-//            $source = new Source($pageLayoutContents, 'PageLayout');
-//            $nodes = $this->environment->parse($this->environment->tokenize($source));
-//        }
+        $pageLayoutsToRemove = [];
+        foreach($this->elementsWithFileName as $layoutFileName => $layout) {
+            if($layoutFileName != $this->currentPageLayout && isset($layout['handlers']) && !in_array($layoutFileName, $layout['handlers'])) {
+                foreach($layout as $layoutKey => $layoutContainerName) {
+                    if(!is_array($layoutContainerName) && $layoutKey != 'handlers') {
+                        $this->removeElement($layoutContainerName);
+                    }
+                }
+            }
+        }
 
         $pageContent = '';
         foreach($container as $containerNode) {
