@@ -58,6 +58,8 @@ class EFPageNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterf
                     break;
                 case ($node instanceof \ElectroForums\ThemeBundle\Node\EFUpdateNode):
                     break;
+                case ($node instanceof \ElectroForums\ThemeBundle\Node\EFMoveNode):
+                    break;
                 case ($node instanceof \Twig\Node\TextNode):
                     if(empty(trim($node->getAttribute('data')))) {
                         break;

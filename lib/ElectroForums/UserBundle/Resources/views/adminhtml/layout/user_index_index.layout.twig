@@ -1,5 +1,9 @@
 {% EFPage layout="admin-1column" %}
     {% EFReferenceContainer name="content" %}
-        {% EFBlock name="website.navigation" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsUser/adminhtml/templates/account_navigation.html.twig" %}{% endEFBlock %}
+        {% EFBlock name="website.navigation" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsUser/adminhtml/templates/account_navigation.html.twig" %}
+            {% EFBlock name="website.navigation2" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsUser/adminhtml/templates/account_navigation.html.twig" %}{% endEFBlock %}
+        {% endEFBlock %}
     {% endEFReferenceContainer %}
+
+    {% EFMove element="website.navigation" destination="header.container" before="header.panel.wrapper" %}{% endEFMove %}
 {% endEFPage %}

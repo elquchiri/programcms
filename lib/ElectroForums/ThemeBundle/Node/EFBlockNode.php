@@ -26,7 +26,9 @@ class EFBlockNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInter
                     $childBlockName = $node->getAttribute('blockName');
                     $childBlockClass = $node->getAttribute('blockClass');
                     $childBlockTemplate = $node->getAttribute('blockTemplate');
-                    $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->addEfChildrenBlock('$childBlockName', '$childBlockClass', '$childBlockTemplate', '$blockName');");
+                    $before = $node->getAttribute('before');
+                    $after = $node->getAttribute('after');
+                    $compiler->write("\$this->env->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension')->addEfBlock('$childBlockName', '$childBlockClass', '$childBlockTemplate', '$blockName', '$before', '$after');");
                     break;
                 case ($node instanceof \Twig\Node\TextNode):
                     if(empty(trim($node->getAttribute('data')))) {

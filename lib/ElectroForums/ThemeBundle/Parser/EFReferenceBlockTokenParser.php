@@ -9,6 +9,8 @@
 namespace ElectroForums\ThemeBundle\Parser;
 
 
+use Twig\Error\SyntaxError;
+
 class EFReferenceBlockTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
     public function parse(\Twig\Token $token)
@@ -18,6 +20,14 @@ class EFReferenceBlockTokenParser extends \Twig\TokenParser\AbstractTokenParser
         $stream->expect(\Twig\Token::NAME_TYPE, 'name');
         $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
         $blockName = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+
+        try {
+            $stream->expect(\Twig\Token::NAME_TYPE, 'remove');
+            $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
+            $remove = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+        }catch(SyntaxError $e) {
+            $remove = '';
+        }
 
         $stream->expect(\Twig\Token::BLOCK_END_TYPE);
 

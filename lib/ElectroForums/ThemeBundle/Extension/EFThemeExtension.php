@@ -91,22 +91,6 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         }
     }
 
-    public function addEfChildrenBlock($blockName, $blockClass, $blockTemplate, $blockParent)
-    {
-        $blockPaths = [];
-        $targetBlock = $this->findBlockPath($this->efContainers, $blockParent, $blockPaths);
-
-        if ($targetBlock) {
-            $this->addChildrenBlockElement($blockPaths, $blockName, [
-                'class' => $blockClass,
-                'template' => $blockTemplate
-            ]);
-        } else {
-            // Throws Exception if EFContainer's parent not found
-            throw new \Exception(sprintf("Cant insert %s, EFBlock's parent \"%s\" not found.", $blockParent));
-        }
-    }
-
     public function addEfRootContainer($containerName)
     {
         if (!count($this->efContainers)) {
@@ -114,21 +98,6 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
                 'type' => 'container'
             ];
         }
-    }
-
-    public function trackElementWithFileName($templateName, $elementName)
-    {
-        $this->elementsWithFileName[$templateName][] = $elementName;
-    }
-
-    public function trackHandlerWithFileName($templateName, $handlerName)
-    {
-        $this->elementsWithFileName[$templateName]['handlers'][] = $handlerName;
-    }
-
-    public function getElementsWithFileName()
-    {
-        return $this->elementsWithFileName;
     }
 
     /**
@@ -162,6 +131,71 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         }
     }
 
+    public function moveElement($elementName, $targetElementName, $before, $after)
+    {
+        $element = &$this->efContainers;
+
+        $elementPath = [];
+        $targetElementPath = [];
+
+        // Find element
+        $elementArray = $this->findElementPath($element, $elementName, $elementPath);
+        if(!empty($before)) {
+            $elementArray['before'] = $before;
+        }else if(!empty($after)) {
+            $elementArray['after'] = $after;
+        }else{
+            $elementArray['after'] = '-';
+        }
+
+        // Find target element (destination)
+        $this->findElementPath($this->efContainers, $targetElementName, $targetElementPath);
+
+        // Remove Element from his original position, make it nullable
+        $this->removeElement($elementName);
+
+        if(!empty($targetElementPath)) {
+            // Add Element
+            $this->addElement($targetElementPath, $elementName, $elementArray);
+        }
+    }
+
+    /**
+     * @param $containerName
+     * @param $container
+     * @param $nestedContainer
+     * @param $priority
+     */
+    protected function checkForPriority($containerName, $container, &$nestedContainer, $priority)
+    {
+        $targetElementName = $container[$priority];
+        if($targetElementName == '-') {
+            switch($priority) {
+                case 'before':
+                    $nestedContainer = [$containerName => $container] + $nestedContainer;
+                    break;
+                case 'after':
+                    $nestedContainer = $nestedContainer + [$containerName => $container];
+                    break;
+            }
+        }else if(isset($nestedContainer[$targetElementName])) {
+            // gets position of the element inside his parent $nestedContainer
+            $position = array_flip(array_keys($nestedContainer))[$targetElementName];
+            switch($priority) {
+                case 'before':
+                    $arr1 = array_slice($nestedContainer,0, $position);
+                    $arr2 = array_slice($nestedContainer, $position, count($nestedContainer));
+                    $nestedContainer = $arr1 + [$containerName => $container] + $arr2;
+                    break;
+                case 'after':
+                    $arr3 = array_slice($nestedContainer,0, $position + 1);
+                    $arr4 = array_slice($nestedContainer, $position + 1, count($nestedContainer));
+                    $nestedContainer = $arr3 + [$containerName => $container] + $arr4;
+                    break;
+            }
+        }
+    }
+
     /**
      * Remove element from Tree
      * @param $name
@@ -180,8 +214,35 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
                     $nestedContainer = &$nestedContainer[$key];
                 }
             }
+            // Make element nullable
             $nestedContainer = NULL;
         }
+    }
+
+    /**
+     * @param $templateName
+     * @param $elementName
+     */
+    public function trackElementWithFileName($templateName, $elementName)
+    {
+        $this->elementsWithFileName[$templateName][] = $elementName;
+    }
+
+    /**
+     * @param $templateName
+     * @param $handlerName
+     */
+    public function trackHandlerWithFileName($templateName, $handlerName)
+    {
+        $this->elementsWithFileName[$templateName]['handlers'][] = $handlerName;
+    }
+
+    /**
+     * @return array
+     */
+    public function getElementsWithFileName(): array
+    {
+        return $this->elementsWithFileName;
     }
 
     public function findElementPath($efContainers, $containerName, &$path = [])
@@ -203,47 +264,6 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         return null;
     }
 
-    private function findBlockInsideContainer($blockTarget, $blocks, &$path)
-    {
-        foreach ($blocks as $blockKey => $block) {
-            if ($blockKey == $blockTarget) {
-                $path[] = $blockKey;
-                return $blockKey;
-            } else if (isset($block['childs'])) {
-                $subPath = [];
-                $result = $this->findBlockInsideContainer($blockTarget, $block['childs'], $subPath);
-                if ($result !== null) {
-                    $path[] = $blockKey;
-                    $path = array_merge($path, $subPath);
-                    return $result;
-                }
-            }
-        }
-        return null;
-    }
-
-    public function findBlockPath($efContainers, $blockParent, &$path = [])
-    {
-        foreach ($efContainers as $containerKey => $container) {
-            $blocksPath = [];
-            $targetBlock = $this->findBlockInsideContainer($blockParent, $container['childs'], $blocksPath);
-            if($targetBlock) {
-                $path[] = $containerKey;
-                $path['childs'] = $blocksPath;
-                return $container;
-            }else if (isset($container['childs'])) {
-                $subPath = [];
-                $result = $this->findBlockPath($container['childs'], $blockParent, $subPath);
-                if ($result !== null) {
-                    $path[] = $containerKey;
-                    $path = array_merge($path, $subPath);
-                    return $result;
-                }
-            }
-        }
-        return null;
-    }
-
     public function addElement($keys, $elementName, $element)
     {
         $nestedContainer = &$this->efContainers;
@@ -255,65 +275,12 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         if($nestedContainer && (isset($element['before']) || isset($element['after']))) {
             if(isset($element['before'])) {
                 $this->checkForPriority($elementName, $element, $nestedContainer, 'before');
-            }
-            if(isset($element['after'])) {
+            } else if(isset($element['after'])) {
                 $this->checkForPriority($elementName, $element, $nestedContainer, 'after');
             }
         }else {
             $nestedContainer[$elementName] = $element;
         }
-
-        unset($nestedContainer);
-    }
-
-    protected function checkForPriority($containerName, $container, &$nestedContainer, $priority)
-    {
-        $targetElementName = $container[$priority];
-        if($targetElementName == '-') {
-            switch($priority) {
-                case 'before':
-                    $nestedContainer = [$containerName => $container] + $nestedContainer;
-                    break;
-                case 'after':
-                    $nestedContainer = $nestedContainer + [$containerName => $container];
-                    break;
-            }
-        }else if(isset($nestedContainer[$targetElementName])) {
-            $position = array_flip(array_keys($nestedContainer))[$targetElementName];
-            switch($priority) {
-                case 'before':
-                    $arr1 = array_slice($nestedContainer,0, $position);
-                    $arr2 = array_slice($nestedContainer, $position, count($nestedContainer));
-                    $nestedContainer = $arr1 + [$containerName => $container] + $arr2;
-                    break;
-                case 'after':
-                    $arr3 = array_slice($nestedContainer,0, $position + 1);
-                    $arr4 = array_slice($nestedContainer, $position + 1, count($nestedContainer));
-                    $nestedContainer = $arr3 + [$containerName => $container] + $arr4;
-                    break;
-            }
-        }
-    }
-
-    public function addChildrenBlockElement($blockPaths, $blockName, $blockParams)
-    {
-        $nestedContainer = &$this->efContainers;
-        foreach ($blockPaths as $index => $key) {
-            // Update $nestedContainer to point to the nested array corresponding to the current key
-            if(!is_array($key)) {
-                $nestedContainer = &$nestedContainer[$key]['childs'];
-            }
-        }
-
-        foreach($blockPaths['childs'] as $blockKey) {
-            $nestedContainer = &$nestedContainer[$blockKey]['childs'];
-        }
-
-        $nestedContainer[$blockName] = [
-            'type'      => 'block',
-            'class'     => $blockParams['class'],
-            'template'  => $blockParams['template']
-        ];
 
         unset($nestedContainer);
     }
@@ -470,14 +437,8 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
             new \ElectroForums\ThemeBundle\Parser\EFReferenceBlockTokenParser(),
             new \ElectroForums\ThemeBundle\Parser\EFCssTokenParser(),
             new \ElectroForums\ThemeBundle\Parser\EFJsTokenParser(),
+            new \ElectroForums\ThemeBundle\Parser\EFMoveTokenParser(),
             new \ElectroForums\ThemeBundle\Parser\EFReferenceContainerTokenParser()
-        ];
-    }
-
-    public function getNodeVisitors(): array
-    {
-        return [
-            new \ElectroForums\ThemeBundle\NodeVisitor\PageNodeVisitor()
         ];
     }
 }
