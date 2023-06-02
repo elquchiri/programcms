@@ -14,5 +14,3 @@ services:
   ElectroForums\ThemeBundle\Loader\LayoutLoader:
     tags:
       - { name: 'twig.loader', priority: -1 } # Used to be able to continue to twig default loader
-    arguments:
-      $container: '@service_container'

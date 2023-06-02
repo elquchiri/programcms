@@ -9,7 +9,6 @@
 namespace ElectroForums\ThemeBundle\Loader;
 
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Twig\Error\LoaderError;
 use Twig\Source;
 
@@ -18,124 +17,75 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
 {
     const DEFAULT_LAYOUT_FILE = 'default.layout.twig';
 
-    protected \Twig\Environment $environment;
-    protected \ElectroForums\RouterBundle\Service\Request $request;
-    private $paths;
-    private ContainerInterface $container;
-    private $cache;
-    private $errorCache;
+    private \ElectroForums\RouterBundle\Service\Request $request;
+    private \ElectroForums\CoreBundle\Model\Utils\BundleManager $bundleManager;
+    private \ElectroForums\CoreBundle\Model\Filesystem\DirectoryList $directoryList;
+    private array $paths;
 
     public function __construct(
-        ContainerInterface $container,
+        \ElectroForums\CoreBundle\Model\Utils\BundleManager $bundleManager,
+        \ElectroForums\CoreBundle\Model\Filesystem\DirectoryList $directoryList,
         \ElectroForums\RouterBundle\Service\Request $request
     )
     {
-        $this->container = $container;
+        $this->bundleManager = $bundleManager;
         $this->request = $request;
+        $this->directoryList = $directoryList;
     }
 
-    private function initLayoutPaths()
+    private function initLayoutPaths($layoutName)
     {
         $areaCode = $this->request->getCurrentAreaCode();
 
         // Get all bundles
-        $bundles = $this->container->getParameter('kernel.bundles');
-        foreach ($bundles as $bundleClass) {
-            $reflectedBundle = new \ReflectionClass($bundleClass);
-            $bundleDirectory = dirname($reflectedBundle->getFileName());
-            $layoutPath = $bundleDirectory . '/Resources/views/' . $areaCode . '/layout';
+        $bundles = $this->bundleManager->getAllEfBundles();
+        foreach ($bundles as $bundle) {
+            $layoutPath = $bundle['path'] . '/Resources/views/'. $areaCode .'/layout/';
+            $themeLayoutPath = $this->directoryList->getRoot() . '/themes/'. $areaCode . '/ElectroForums/backend/' . $bundle['name'] . '/layout/';
 
-            if(is_dir($layoutPath)) {
-                $this->paths[] = $layoutPath;
+            if(is_file($themeLayoutPath . self::DEFAULT_LAYOUT_FILE)) {
+                $this->paths['default'][] = $themeLayoutPath . self::DEFAULT_LAYOUT_FILE;
+            }else if(is_file($layoutPath . self::DEFAULT_LAYOUT_FILE)) {
+                $this->paths['default'][] = $layoutPath . self::DEFAULT_LAYOUT_FILE;
+            }
+
+            if(is_file($themeLayoutPath . $layoutName)) {
+                $this->paths['layout'][] = $themeLayoutPath . $layoutName;
+            } elseif (is_file($layoutPath . $layoutName)) {
+                $this->paths['layout'][] = $layoutPath . $layoutName;
             }
         }
     }
 
     public function getSourceContext(string $name): Source
     {
-        if (null === $paths = $this->findLayout($name)) {
-            return new Source('', $name, '');
+        try {
+            $this->validateName($name);
+        } catch (LoaderError $e) {
+            throw $e;
         }
+
+        // Parse and populate current layout paths
+        $this->initLayoutPaths($name);
 
         $source = "{% EFLayoutStarter %}";
 
-        foreach($paths as $path) {
-            $templateContent = file_get_contents($path);
-            $source .= $templateContent;
+        foreach($this->paths as $key => $path) {
+            if($key == 'default') {
+                foreach($this->paths['default'] as $defaultPath) {
+                    $source .= file_get_contents($defaultPath);
+                }
+            }
+            if($key == 'layout') {
+                foreach($this->paths['layout'] as $layoutPath) {
+                    $source .= file_get_contents($layoutPath);
+                }
+            }
         }
 
         $source .= "{% endEFLayoutStarter %}";
 
         return new Source($source, $name, $path = '');
-    }
-
-    protected function findLayout(string $name, bool $throw = true)
-    {
-        if (isset($this->cache[$name])) {
-            return $this->cache[$name];
-        }
-
-        if (isset($this->errorCache[$name])) {
-            if (!$throw) {
-                return null;
-            }
-
-            throw new LoaderError($this->errorCache[$name]);
-        }
-
-        try {
-            $this->validateName($name);
-        } catch (LoaderError $e) {
-            if (!$throw) {
-                return null;
-            }
-
-            throw $e;
-        }
-
-        // Parse and populate current layout paths
-        $this->initLayoutPaths();
-
-        if (!isset($this->paths) || empty($this->paths)) {
-            $this->errorCache[$name] = sprintf('There are no registered paths for layout %s', $name);
-
-            if (!$throw) {
-                return null;
-            }
-
-            throw new LoaderError($this->errorCache[$name]);
-        }
-
-        foreach ($this->paths as $path) {
-            // Get default layouts
-            if (is_file($path.'/'. self::DEFAULT_LAYOUT_FILE)) {
-                if (false !== $realpath = realpath($path.'/'. self::DEFAULT_LAYOUT_FILE)) {
-                    $this->cache[$name][] = $realpath;
-                }else{
-                    $this->cache[$name][] = $path.'/'. self::DEFAULT_LAYOUT_FILE;
-                }
-            }
-            // Get current page layout
-            if (is_file($path.'/'. $name)) {
-                if (false !== $realpath = realpath($path.'/'. $name)) {
-                    $this->cache[$name][] = $realpath;
-                }else{
-                    $this->cache[$name][] = $path.'/'. $name;
-                }
-            }
-        }
-
-        if(isset($this->cache[$name]) && !empty($this->cache[$name])) {
-            return $this->cache[$name];
-        }
-
-        $this->errorCache[$name] = sprintf('Unable to find layout "%s" (looked into: %s).', $name, implode(', ', $this->paths));
-
-        if (!$throw) {
-            return null;
-        }
-
-        throw new LoaderError($this->errorCache[$name]);
     }
 
     private function validateName(string $name): void

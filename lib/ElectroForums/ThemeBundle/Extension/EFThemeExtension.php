@@ -131,6 +131,12 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         }
     }
 
+    /**
+     * @param $elementName
+     * @param $targetElementName
+     * @param $before
+     * @param $after
+     */
     public function moveElement($elementName, $targetElementName, $before, $after)
     {
         $element = &$this->efContainers;
@@ -166,7 +172,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
      * @param $nestedContainer
      * @param $priority
      */
-    protected function checkForPriority($containerName, $container, &$nestedContainer, $priority)
+    private function addElementWithPriority($containerName, $container, &$nestedContainer, $priority)
     {
         $targetElementName = $container[$priority];
         if($targetElementName == '-') {
@@ -274,9 +280,9 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         // $nestedContainer is the parentContainer childs
         if($nestedContainer && (isset($element['before']) || isset($element['after']))) {
             if(isset($element['before'])) {
-                $this->checkForPriority($elementName, $element, $nestedContainer, 'before');
+                $this->addElementWithPriority($elementName, $element, $nestedContainer, 'before');
             } else if(isset($element['after'])) {
-                $this->checkForPriority($elementName, $element, $nestedContainer, 'after');
+                $this->addElementWithPriority($elementName, $element, $nestedContainer, 'after');
             }
         }else {
             $nestedContainer[$elementName] = $element;
