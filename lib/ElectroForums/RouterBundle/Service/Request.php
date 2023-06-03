@@ -53,4 +53,10 @@ class Request
     {
         return str_starts_with($this->getCurrentRequest()->get('_route'), 'adminhtml_') ? 'adminhtml' : 'frontend';
     }
+
+    public function getCurrentRouteName(): string
+    {
+        $layoutNameElements = explode("_", $this->getCurrentRequest()->get('_route'));
+        return $layoutNameElements[1] . '_' . $layoutNameElements[2] . '_' . $layoutNameElements[3] . '.layout.twig';
+    }
 }

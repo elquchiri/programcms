@@ -31,7 +31,9 @@ class EFPageNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterf
         $efExtension = $this->environment->getExtension('\ElectroForums\ThemeBundle\Extension\EFThemeExtension');
         $pageLayoutName = $this->getAttribute('pageLayoutName');
         // Overrides page layout, used when rendering final page
-        $efExtension->setCurrentPageLayout($pageLayoutName);
+        if(!empty($pageLayoutName)) {
+            $efExtension->setCurrentPageLayout($pageLayoutName);
+        }
 
         if($efExtension->canAddPageLayout($pageLayoutName)) {
             $efExtension->addEFPageLayout($pageLayoutName);

@@ -1,5 +1,10 @@
 <?php
-
+/*
+ * Copyright © ElectroForums. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
 
 namespace ElectroForums\RouterBundle\Routing;
 
@@ -85,13 +90,13 @@ class ElectroforumsRouteLoader extends Loader
                                 continue;
                             }
 
-                            if ($class = $this->findClass($file)) {
-                                $refl = new \ReflectionClass($class);
+                            if ($controllerClass = $this->findClass($file)) {
+                                $refl = new \ReflectionClass($controllerClass);
                                 if ($refl->isAbstract()) {
                                     continue;
                                 }
-                                $areaCode = str_contains($file->getPath(), '\\Adminhtml\\') ? 'adminhtml' : 'standard';
-                                $this->addRoute($class, $areaCode);
+                                $areaCode = str_contains($file->getPath(), '\\Adminhtml\\') ? 'adminhtml' : 'frontend';
+                                $this->addRoute($controllerClass, $areaCode);
                             }
                         }
 
@@ -108,9 +113,9 @@ class ElectroforumsRouteLoader extends Loader
         return $this->routes;
     }
 
-    public function addRoute($controller, $areaCode)
+    public function addRoute($controllerClass, $areaCode)
     {
-        $parts = explode('\\', $controller);
+        $parts = explode('\\', $controllerClass);
 
         $folderName = $parts[count($parts) - 2];
         $className = preg_replace('/(.)(Controller)/', '$1', $parts[count($parts) - 1]);
@@ -119,13 +124,13 @@ class ElectroforumsRouteLoader extends Loader
             $routeName = \ElectroForums\RouterBundle\Helper\Data::ELECTROFORUMS_AREA_CODE_ADMINHTML . '_' . strtolower($this->frontAdminName . '_' . $folderName . '_' . $className);
             $path = \ElectroForums\RouterBundle\Helper\Data::ADMIN_ROUTE_PREFIX . '/' . strtolower($this->frontAdminName . '/' . $folderName . '/' . $className) . '/{parameters<.*>?}';
         }else{
-            $routeName = strtolower($this->frontName . '_' . $folderName . '_' . $className);
+            $routeName = \ElectroForums\RouterBundle\Helper\Data::ELECTROFORUMS_AREA_CODE_FRONTEND . '_' . strtolower($this->frontName . '_' . $folderName . '_' . $className);
             $path = strtolower($this->frontName . '/' . $folderName . '/' . $className) . '/{parameters<.*>?}';
         }
 
         // Create a new route object with the controller and action
         $defaults = [
-            '_controller' => $controller . '::' . \ElectroForums\RouterBundle\Helper\Data::ELECTROFORUMS_ROUTING_CLASS_METOHD
+            '_controller' => $controllerClass . '::' . \ElectroForums\RouterBundle\Helper\Data::ELECTROFORUMS_ROUTING_CLASS_METOHD
         ];
         $requirements = [
 

@@ -1,12 +1,15 @@
 <?php
-
+/*
+ * Copyright © ElectroForums. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
 
 namespace ElectroForums\EavBundle;
 
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-
-class ElectroForumsEavBundle extends Bundle
+class ElectroForumsEavBundle extends \ElectroForums\CoreBundle\ElectroForumsCoreBundle
 {
     public const VERSION = '1.0.0';
 }

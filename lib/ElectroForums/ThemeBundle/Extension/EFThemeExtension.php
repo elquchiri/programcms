@@ -62,6 +62,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         $this->efContainers = [];
         $this->pageLayout = $pageLayout;
         $this->elementsWithFileName = [];
+        $this->currentPageLayout = "";
     }
 
     /**
@@ -351,21 +352,6 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         return $this->efJs;
     }
 
-    private function renderEfBlock($block): string
-    {
-        $blockClassReflection = new \ReflectionClass($block['class']);
-        $blockClassInstance = $blockClassReflection->newInstance($this->environment);
-
-        if(isset($block['childs'])) {
-            $blockClassInstance->setChildBlocks($block['childs']);
-        }
-
-        return $blockClassInstance
-            ->setTemplate($block['template'])
-            ->assign(['efBlock' => $blockClassInstance])
-            ->toHtml();
-    }
-
     public function getPageLayout(): \ElectroForums\ThemeBundle\Model\PageLayout
     {
         return $this->pageLayout;
@@ -382,6 +368,26 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     }
 
     /**
+     * Render EFBlocks Elements
+     * @param $block
+     * @return string
+     * @throws \ReflectionException
+     */
+    private function renderEfBlock($block): string
+    {
+        $blockClassReflection = new \ReflectionClass($block['class']);
+        $blockClassInstance = $blockClassReflection->newInstance($this->environment);
+
+        if(isset($block['childs'])) {
+            $blockClassInstance->setChildBlocks($block['childs']);
+        }
+
+        return $blockClassInstance
+            ->setTemplate($block['template'])
+            ->assign(['efBlock' => $blockClassInstance])
+            ->toHtml();
+    }
+    /**
      * Parses Tag Nodes Tree and creates final body content
      * @return string
      */
@@ -391,21 +397,11 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
             $container = $this->efContainers;
         }
 
-        // Clean unneeded Page Layout containers
-        $pageLayoutsToRemove = [];
-        foreach($this->elementsWithFileName as $layoutFileName => $layout) {
-            if($layoutFileName != $this->currentPageLayout && isset($layout['handlers']) && !in_array($layoutFileName, $layout['handlers'])) {
-                foreach($layout as $layoutKey => $layoutContainerName) {
-                    if(!is_array($layoutContainerName) && $layoutKey != 'handlers') {
-                        $this->removeElement($layoutContainerName);
-                    }
-                }
-            }
-        }
+        $this->cleanUnusedPageLayoutContainers();
 
         $pageContent = '';
         foreach($container as $containerNode) {
-            if($containerNode['type'] == 'container') {
+            if($containerNode && $containerNode['type'] == 'container') {
                 if(isset($containerNode['htmlTag'])) {
                     // Renderable container case, prepares & adds Html Elements
                     $htmlClass = isset($containerNode['htmlClass']) ? 'class="' . $containerNode['htmlClass'] . '"' : '';
@@ -418,12 +414,26 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
                 if(isset($containerNode['htmlTag'])) {
                     $pageContent .= "</". $containerNode['htmlTag'] .">";
                 }
-            }else if($containerNode['type'] == 'block') {
+            }else if($containerNode && $containerNode['type'] == 'block') {
                 $pageContent .= $this->renderEfBlock($containerNode);
             }
         }
 
         return $pageContent;
+    }
+
+    private function cleanUnusedPageLayoutContainers()
+    {
+        // Clean unneeded Page Layout containers
+        foreach($this->elementsWithFileName as $layoutFileName => $layout) {
+            if($layoutFileName != $this->currentPageLayout && isset($layout['handlers']) && !in_array($layoutFileName, $layout['handlers'])) {
+                foreach($layout as $layoutKey => $layoutContainerName) {
+                    if(!is_array($layoutContainerName) && $layoutKey != 'handlers') {
+                        $this->removeElement($layoutContainerName);
+                    }
+                }
+            }
+        }
     }
 
     /**

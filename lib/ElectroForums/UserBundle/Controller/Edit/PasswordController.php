@@ -6,7 +6,7 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ElectroForums\UserBundle\Controller\Adminhtml\Edit;
+namespace ElectroForums\UserBundle\Controller\Edit;
 
 
 class PasswordController extends \ElectroForums\CoreBundle\Controller\Adminhtml\AbstractController

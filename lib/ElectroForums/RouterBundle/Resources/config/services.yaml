@@ -19,7 +19,3 @@ services:
   ElectroForums\RouterBundle\Service\Request:
     arguments:
       $requestStack: '@request_stack'
-
-  ElectroForums\RouterBundle\Service\Response:
-    arguments:
-      $requestStack: '@request_stack'

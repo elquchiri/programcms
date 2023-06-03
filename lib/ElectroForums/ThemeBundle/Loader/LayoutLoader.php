@@ -43,12 +43,13 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
             $layoutPath = $bundle['path'] . '/Resources/views/'. $areaCode .'/layout/';
             $themeLayoutPath = $this->directoryList->getRoot() . '/themes/'. $areaCode . '/ElectroForums/backend/' . $bundle['name'] . '/layout/';
 
+            // Get all layout files
             if(is_file($themeLayoutPath . self::DEFAULT_LAYOUT_FILE)) {
                 $this->paths['default'][] = $themeLayoutPath . self::DEFAULT_LAYOUT_FILE;
             }else if(is_file($layoutPath . self::DEFAULT_LAYOUT_FILE)) {
                 $this->paths['default'][] = $layoutPath . self::DEFAULT_LAYOUT_FILE;
             }
-
+            // Get all default files
             if(is_file($themeLayoutPath . $layoutName)) {
                 $this->paths['layout'][] = $themeLayoutPath . $layoutName;
             } elseif (is_file($layoutPath . $layoutName)) {
@@ -59,14 +60,14 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
 
     public function getSourceContext(string $name): Source
     {
+        // Parse and populate current layout paths
+        $this->initLayoutPaths($name);
+
         try {
-            $this->validateName($name);
+            $this->validateLayout($name);
         } catch (LoaderError $e) {
             throw $e;
         }
-
-        // Parse and populate current layout paths
-        $this->initLayoutPaths($name);
 
         $source = "{% EFLayoutStarter %}";
 
@@ -88,7 +89,11 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
         return new Source($source, $name, $path = '');
     }
 
-    private function validateName(string $name): void
+    /**
+     * @param string $name
+     * @throws LoaderError
+     */
+    private function validateLayout(string $name): void
     {
         if (false !== strpos($name, "\0")) {
             throw new LoaderError('A layout name cannot contain NUL bytes.');

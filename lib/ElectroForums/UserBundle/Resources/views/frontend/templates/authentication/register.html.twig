@@ -1,71 +1,57 @@
-{% extends '@ElectroForumsTheme/frontend/layout.html.twig' %}
-
-{% block title %}Welcome to ElectroForums !{% endblock %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bundles/electroforumscms/css/frontend/home.cms.css') }}">
-{% endblock %}
-
-{% block page_title %}Home{% endblock %}
-{% block page_tip %}Welcome to ElectroForums.{% endblock %}
-
-{% block content %}
-    <section class="h-100">
-        <header class="container h-100">
-            <div class="d-flex align-items-center justify-content-center h-100">
-                <div class="d-flex flex-column">
-                    <div class="card" style="border: none">
-                        <div class="card-body" style="width: 29rem;">
-                            <h2>Create an Account</h2>
-                            <p>Join our Community and grant access.</p>
-                            {{ form_start(registrationForm, {'method': 'POST', 'attr': {'id': 'user_authentication_register'}}) }}
-                                <div class="mb-3">
-                                    <label for="username" class="form-label">Email</label>
-                                    {{ form_widget(registrationForm.email) }}
-                                </div>
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">Password</label>
-                                    {{ form_widget(registrationForm.password) }}
-                                </div>
-                                <div class="mb-3">
-                                    <label for="username" class="form-label">Nick-Name</label>
-                                    {{ form_widget(registrationForm.user_nickname) }}
-                                    <div id="emailHelp" class="form-text">
-                                        This will be your identifier in the forums.
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="username" class="form-label">First Name</label>
-{#                                    <input type="text" class="form-control" id="username" name="user_firstname" placeholder="First Name" aria-describedby="emailHelp">#}
-                                    {{ form_widget(registrationForm.user_firstname) }}
-                                </div>
-                                <div class="mb-3">
-                                    <label for="username" class="form-label">Last Name</label>
-                                    {{ form_widget(registrationForm.user_lastname) }}
-                                </div>
-                                <div class="mb-3 form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">
-                                        I accept <a href="#">The rules</a> and <a href="#">Confidential policy</a>
-                                    </label>
-                                </div>
-                                <div class="mb-3 form-check">
-                                    <input type="checkbox" class="form-check-input" id="newsletter">
-                                    <label class="form-check-label" for="newsletter">
-                                        I want to be informed by email for updated topics.
-                                    </label>
-                                </div>
-                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                                <div style="">
-                                    <button type="submit" class="btn btn-primary btn-block" style="width: 100%;">Create my Account</button>
-                                </div>
-{#                            </form>#}
-                            {{ form_end(registrationForm) }}
+<section class="h-100">
+    <header class="container h-100">
+        <div class="d-flex align-items-center justify-content-center h-100">
+            <div class="d-flex flex-column">
+                <div class="card" style="border: none">
+                    <div class="card-body" style="width: 29rem;">
+                        <h2>Create an Account</h2>
+                        <p>Join our Community and grant access.</p>
+                        {{ form_start(registrationForm, {'method': 'POST', 'attr': {'id': 'user_authentication_register'}}) }}
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Email</label>
+                            {{ form_widget(registrationForm.email) }}
                         </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            {{ form_widget(registrationForm.password) }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Nick-Name</label>
+                            {{ form_widget(registrationForm.user_nickname) }}
+                            <div id="emailHelp" class="form-text">
+                                This will be your identifier in the forums.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">First Name</label>
+                            {{ form_widget(registrationForm.user_firstname) }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Last Name</label>
+                            {{ form_widget(registrationForm.user_lastname) }}
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">
+                                I accept <a href="#">The rules</a> and <a href="#">Confidential policy</a>
+                            </label>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="newsletter">
+                            <label class="form-check-label" for="newsletter">
+                                I want to be informed by email for updated topics.
+                            </label>
+                        </div>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                        <div style="">
+                            <button type="submit" class="btn btn-primary btn-block" style="width: 100%;">Create my
+                                Account
+                            </button>
+                        </div>
+                        {{ form_end(registrationForm) }}
                     </div>
                 </div>
             </div>
-        </header>
-    </section>
-{% endblock %}
+        </div>
+    </header>
+</section>

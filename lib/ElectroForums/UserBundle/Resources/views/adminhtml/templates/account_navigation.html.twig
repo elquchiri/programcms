@@ -1,7 +1,0 @@
-{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-    <div class="user">
-        <a href="{{ path('adminhtml_user_account_register') }}">Create an Account</a>
-        or
-        <a href="{{ path('adminhtml_user_account_authentication') }}">Login</a>
-    </div>
-{% endif %}

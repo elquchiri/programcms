@@ -6,9 +6,9 @@
         {% EFContainer name="header.panel.wrapper" htmlTag="div" htmlClass="panel wrapper" %}
             {% EFContainer name="header.panel" htmlTag="div" htmlClass="panel header container" %}
                 {# Website switcher dropdown #}
-                {% EFBlock name="website.switcher" class="ElectroForums\\WebsiteBundle\\Block\\WebsiteSwitcher" template="@ElectroForumsWebsite/frontend/website_switcher.html.twig" %}{% endEFBlock %}
+                {% EFBlock name="website.switcher" class="ElectroForums\\WebsiteBundle\\Block\\WebsiteSwitcher" template="@ElectroForumsWebsite/frontend/templates/website_switcher.html.twig" %}{% endEFBlock %}
                 {# Account navigation links #}
-                {% EFBlock name="website.navigation" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsUser/frontend/account_navigation.html.twig" %}{% endEFBlock %}
+                {% EFBlock name="website.navigation" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsUser/frontend/templates/account_navigation.html.twig" %}{% endEFBlock %}
             {% endEFContainer %}
         {% endEFContainer %}
         {% EFContainer name="header.wrapper" htmlTag="div" htmlClass="panel content" %}

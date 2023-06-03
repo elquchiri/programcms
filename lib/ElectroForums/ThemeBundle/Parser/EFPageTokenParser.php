@@ -31,7 +31,7 @@ class EFPageTokenParser extends \Twig\TokenParser\AbstractTokenParser
             $stream->expect(Token::OPERATOR_TYPE, '=');
             $pageLayoutName = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
         }catch(SyntaxError $e) {
-            $pageLayoutName = null;
+            $pageLayoutName = "";
         }
         $stream->expect(Token::BLOCK_END_TYPE);
 

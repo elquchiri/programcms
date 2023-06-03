@@ -6,8 +6,7 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ElectroForums\UserBundle\Controller\Adminhtml\Account;
-
+namespace ElectroForums\UserBundle\Controller\Account;
 
 use Doctrine\ORM\EntityManagerInterface;
 use ElectroForums\UserBundle\Entity\User;
@@ -17,6 +16,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class RegisterController extends \ElectroForums\CoreBundle\Controller\Adminhtml\AbstractController
 {
 
+    protected \ElectroForums\RouterBundle\Service\Response $response;
     private UserPasswordHasherInterface $userPasswordHasher;
     private EntityManagerInterface $entityManager;
     private \ElectroForums\RouterBundle\Service\Request $request;
@@ -24,13 +24,15 @@ class RegisterController extends \ElectroForums\CoreBundle\Controller\Adminhtml\
     public function __construct(
         \ElectroForums\RouterBundle\Service\Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        \ElectroForums\RouterBundle\Service\Response $response
     )
     {
         parent::__construct($request);
         $this->userPasswordHasher = $userPasswordHasher;
         $this->entityManager = $entityManager;
         $this->request = $request;
+        $this->response = $response;
     }
 
     public function execute()
@@ -56,8 +58,6 @@ class RegisterController extends \ElectroForums\CoreBundle\Controller\Adminhtml\
             return $this->redirectToRoute('frontend_home');
         }
 
-        return $this->render('@ElectroForumsUser/frontend/authentication/register.html.twig', [
-            'registrationForm' => $form->createView()
-        ]);
+        return $this->response->render();
     }
 }

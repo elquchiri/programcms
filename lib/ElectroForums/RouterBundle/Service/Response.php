@@ -13,22 +13,22 @@ use Symfony\Component\Form\FormInterface;
 
 class Response
 {
-
-    protected \Symfony\Component\HttpFoundation\RequestStack $requestStack;
+    protected Request $request;
     private \Twig\Environment $twig;
 
     public function __construct(
-        \Symfony\Component\HttpFoundation\RequestStack $requestStack,
+        \ElectroForums\RouterBundle\Service\Request $request,
         \Twig\Environment $twig
     )
     {
         $this->twig = $twig;
-        $this->requestStack = $requestStack;
+        $this->request = $request;
     }
 
     public function render($parameters = []): \Symfony\Component\HttpFoundation\Response
     {
-        $content = $this->twig->render('user_index_index.layout.twig');
+        $currentRouteName = $this->request->getCurrentRouteName();
+        $content = $this->twig->render($currentRouteName);
 
         $response ??= new \Symfony\Component\HttpFoundation\Response();
 

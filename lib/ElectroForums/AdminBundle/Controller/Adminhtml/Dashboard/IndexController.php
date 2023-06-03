@@ -1,10 +1,15 @@
 <?php
+/*
+ * Copyright © ElectroForums. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+
+namespace ElectroForums\AdminBundle\Controller\Adminhtml\Dashboard;
 
 
-namespace ElectroForums\AdminBundle\Controller\Admin;
-
-
-class HomeController extends \ElectroForums\CoreBundle\Controller\Adminhtml\AbstractController
+class IndexController extends \ElectroForums\CoreBundle\Controller\Adminhtml\AbstractController
 {
 
     private \ElectroForums\UiBundle\Model\Element\Toolbar $toolbar;

@@ -103,7 +103,7 @@ class Template extends AbstractBlock
         try {
             return $this->environment->render($template, $this->_viewVars);
         } catch (\Exception $e) {
-
+            throw $e;
         }
     }
 }
