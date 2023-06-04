@@ -9,7 +9,7 @@
 namespace ElectroForums\ThemeBundle\Block\Html;
 
 
-class Breadcrumbs extends \ElectroForums\CoreBundle\View\Element\Template
+class Title extends \ElectroForums\CoreBundle\View\Element\Template
 {
 
 }

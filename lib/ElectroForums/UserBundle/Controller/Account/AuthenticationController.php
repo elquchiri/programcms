@@ -18,10 +18,11 @@ class AuthenticationController extends \ElectroForums\CoreBundle\Controller\Admi
 
     public function __construct(
         \ElectroForums\RouterBundle\Service\Request $request,
+        \ElectroForums\RouterBundle\Service\Response $response,
         AuthenticationUtils $authenticationUtils,
     )
     {
-        parent::__construct($request);
+        parent::__construct($request, $response);
         $this->authenticationUtils = $authenticationUtils;
     }
 
@@ -32,9 +33,6 @@ class AuthenticationController extends \ElectroForums\CoreBundle\Controller\Admi
 
         $lastEmail = $this->authenticationUtils->getLastUsername();
 
-        return $this->render('@ElectroForumsUser/frontend/authentication/login.html.twig', [
-            'email' => $lastEmail,
-            'error' => $error
-        ]);
+        return $this->getResponse()->render();
     }
 }

@@ -15,24 +15,21 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class RegisterController extends \ElectroForums\CoreBundle\Controller\Adminhtml\AbstractController
 {
-
-    protected \ElectroForums\RouterBundle\Service\Response $response;
     private UserPasswordHasherInterface $userPasswordHasher;
     private EntityManagerInterface $entityManager;
     private \ElectroForums\RouterBundle\Service\Request $request;
 
     public function __construct(
         \ElectroForums\RouterBundle\Service\Request $request,
+        \ElectroForums\RouterBundle\Service\Response $response,
         UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager,
-        \ElectroForums\RouterBundle\Service\Response $response
     )
     {
-        parent::__construct($request);
+        parent::__construct($request, $response);
         $this->userPasswordHasher = $userPasswordHasher;
         $this->entityManager = $entityManager;
         $this->request = $request;
-        $this->response = $response;
     }
 
     public function execute()
@@ -58,6 +55,6 @@ class RegisterController extends \ElectroForums\CoreBundle\Controller\Adminhtml\
             return $this->redirectToRoute('frontend_home');
         }
 
-        return $this->response->render();
+        return $this->getResponse()->render();
     }
 }

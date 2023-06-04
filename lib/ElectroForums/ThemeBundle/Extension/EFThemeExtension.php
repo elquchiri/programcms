@@ -31,7 +31,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
      * Holds elements Tree with All tags
      * @var array
      */
-    private array $efContainers;
+    private array $efElements;
     /**
      * Holds All Css files
      * @var array
@@ -59,7 +59,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     )
     {
         $this->environment = $environment;
-        $this->efContainers = [];
+        $this->efElements = [];
         $this->pageLayout = $pageLayout;
         $this->elementsWithFileName = [];
         $this->currentPageLayout = "";
@@ -71,7 +71,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     public function addEfBlock($blockName, $blockClass, $blockTemplate, $containerParent, $before = null, $after = null)
     {
         $containerPaths = [];
-        $targetContainer = $this->findElementPath($this->efContainers, $containerParent, $containerPaths);
+        $targetContainer = $this->findElementPath($this->efElements, $containerParent, $containerPaths);
 
         if ($targetContainer) {
             $element = [
@@ -94,8 +94,8 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
 
     public function addEfRootContainer($containerName)
     {
-        if (!count($this->efContainers)) {
-            $this->efContainers[$containerName] = [
+        if (!count($this->efElements)) {
+            $this->efElements[$containerName] = [
                 'type' => 'container'
             ];
         }
@@ -107,7 +107,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     public function addEfContainer($containerName, $containerParent = null, $containerHtmlTag = null, $containerHtmlClass = null, $before = null, $after = null)
     {
         $containerPaths = [];
-        $targetContainer = $this->findElementPath($this->efContainers, $containerParent, $containerPaths);
+        $targetContainer = $this->findElementPath($this->efElements, $containerParent, $containerPaths);
 
         if ($targetContainer) {
             $container = [
@@ -140,7 +140,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
      */
     public function moveElement($elementName, $targetElementName, $before, $after)
     {
-        $element = &$this->efContainers;
+        $element = &$this->efElements;
 
         $elementPath = [];
         $targetElementPath = [];
@@ -156,7 +156,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         }
 
         // Find target element (destination)
-        $this->findElementPath($this->efContainers, $targetElementName, $targetElementPath);
+        $this->findElementPath($this->efElements, $targetElementName, $targetElementPath);
 
         // Remove Element from his original position, make it nullable
         $this->removeElement($elementName);
@@ -210,9 +210,9 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     public function removeElement($name)
     {
         $containerPaths = [];
-        $targetContainer = $this->findElementPath($this->efContainers, $name, $containerPaths);
+        $targetContainer = $this->findElementPath($this->efElements, $name, $containerPaths);
         if ($targetContainer) {
-            $nestedContainer = &$this->efContainers;
+            $nestedContainer = &$this->efElements;
             foreach ($containerPaths as $index => $key) {
                 // Update $nestedContainer to point to the nested array corresponding to the current key
                 if($index < count($containerPaths) - 1) {
@@ -273,7 +273,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
 
     public function addElement($keys, $elementName, $element)
     {
-        $nestedContainer = &$this->efContainers;
+        $nestedContainer = &$this->efElements;
         foreach ($keys as $key) {
             // Update $nestedContainer to point to the nested array corresponding to the current key
             $nestedContainer = &$nestedContainer[$key]['childs'];
@@ -294,7 +294,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
 
     public function getEfContainers(): array
     {
-        return $this->efContainers;
+        return $this->efElements;
     }
 
     public function addEFPageLayout($pageLayoutName)
@@ -394,7 +394,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     public function renderPage($container = null): string
     {
         if($container === null) {
-            $container = $this->efContainers;
+            $container = $this->efElements;
         }
 
         $this->cleanUnusedPageLayoutContainers();

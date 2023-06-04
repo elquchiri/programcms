@@ -2,7 +2,7 @@
     {% EFUpdate handle="empty" %}
     {% EFReferenceContainer name="page.wrapper" %}
         {% EFContainer name="header.container" htmlTag="header" htmlClass="page-header" before="main.content" %}{% endEFContainer %}
-        {% EFContainer name="page.top" %}{% endEFContainer %}
+        {% EFContainer name="page.top" after="header.container" %}{% endEFContainer %}
         {% EFContainer name="footer.container" htmlTag="footer" htmlClass="page-footer" %}{% endEFContainer %}
     {% endEFReferenceContainer %}
 {% endEFLayout %}

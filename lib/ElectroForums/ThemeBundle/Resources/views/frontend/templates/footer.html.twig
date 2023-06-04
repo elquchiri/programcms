@@ -16,7 +16,7 @@
                     <ul>
                         <li>
                             {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <a href="{{ path('electroforums_userbundle_register') }}">Join our Community</a>
+                            <a href="{{ path('frontend_user_account_register') }}">Join our Community</a>
                             {% endif %}
                             <a href="#">Borwse Community Members</a>
                             <a href="#">#Trending</a>
