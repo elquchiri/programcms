@@ -8,14 +8,7 @@
 
 namespace ElectroForums\UserBundle\Block\Account;
 
-
-use Twig\Environment;
-
 class Register extends \ElectroForums\CoreBundle\View\Element\Template
 {
 
-    public function __construct(Environment $environment)
-    {
-        parent::__construct($environment);
-    }
 }

@@ -6,13 +6,10 @@
                     <div class="card-body" style="width: 29rem;">
                         <h2>Log In</h2>
                         <p>Join our Community and grant access.</p>
-                        {% if error %}
-                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                        {% endif %}
                         <form method="POST" action="{{ path('frontend_user_account_authentication') }}">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Email or Nickname</label>
-                                <input type="email" class="form-control" id="username" name="email" value="{{ email }}"
+                                <input type="email" class="form-control" id="username" name="email" value=""
                                        placeholder="@email or Login" aria-describedby="emailHelp">
                             </div>
                             <div class="mb-3">

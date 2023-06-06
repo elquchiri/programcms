@@ -8,9 +8,12 @@
 
 namespace ElectroForums\UserBundle\Controller\Account;
 
-
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+/**
+ * Class AuthenticationController
+ * @package ElectroForums\UserBundle\Controller\Account
+ */
 class AuthenticationController extends \ElectroForums\CoreBundle\Controller\Adminhtml\AbstractController
 {
 

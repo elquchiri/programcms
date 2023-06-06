@@ -44,4 +44,16 @@ class BundleManager
         return $efBundles;
     }
 
+    /**
+     * @throws \Exception
+     */
+    public function getBundleByName($bundleName)
+    {
+        $bundles = $this->getAllEfBundles();
+        if(isset($bundles[$bundleName])) {
+            return $bundles[$bundleName];
+        }
+        throw new \Exception(sprintf("Invalid Bundle %s", $bundleName));
+    }
+
 }

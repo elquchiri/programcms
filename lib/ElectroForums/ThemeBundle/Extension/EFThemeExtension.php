@@ -8,9 +8,15 @@
 
 namespace ElectroForums\ThemeBundle\Extension;
 
-
+/**
+ * Class EFThemeExtension
+ * @package ElectroForums\ThemeBundle\Extension
+ */
 class EFThemeExtension extends \Twig\Extension\AbstractExtension
 {
+    protected \ElectroForums\RouterBundle\Service\Request $request;
+    protected \ElectroForums\CoreBundle\Model\Utils\BundleManager $bundleManager;
+    protected \ElectroForums\CoreBundle\Model\Filesystem\DirectoryList $directoryList;
     private \Twig\Environment $environment;
     /**
      * PageLayout Model, used to get page layout content
@@ -55,7 +61,10 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
 
     public function __construct(
         \Twig\Environment $environment,
-        \ElectroForums\ThemeBundle\Model\PageLayout $pageLayout
+        \ElectroForums\ThemeBundle\Model\PageLayout $pageLayout,
+        \ElectroForums\RouterBundle\Service\Request $request,
+        \ElectroForums\CoreBundle\Model\Utils\BundleManager $bundleManager,
+        \ElectroForums\CoreBundle\Model\Filesystem\DirectoryList $directoryList
     )
     {
         $this->environment = $environment;
@@ -63,6 +72,9 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         $this->pageLayout = $pageLayout;
         $this->elementsWithFileName = [];
         $this->currentPageLayout = "";
+        $this->request = $request;
+        $this->bundleManager = $bundleManager;
+        $this->directoryList = $directoryList;
     }
 
     /**
@@ -74,10 +86,19 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         $targetContainer = $this->findElementPath($this->efElements, $containerParent, $containerPaths);
 
         if ($targetContainer) {
+            $areaCode = $this->request->getCurrentAreaCode();
+            $templateParts = explode('/', $blockTemplate);
+            $bundleName = explode('@', $templateParts[0])[1];
+            $bundle = $this->bundleManager->getBundleByName($bundleName);
+            unset($templateParts[0]);
+            $requestedTemplatePath = implode('/', $templateParts);
+            $templatePath = $bundle['path'] . '/Resources/views/'. $areaCode .'/templates/' . $requestedTemplatePath;
+            $themeTemplatePath = $this->directoryList->getRoot() . '/themes/'. $areaCode . '/ElectroForums/blank/' . $bundle['name'] . '/templates/' .$requestedTemplatePath;
+
             $element = [
                 'type' => 'block',
                 'class' => $blockClass,
-                'template' => $blockTemplate
+                'template' => is_file($themeTemplatePath) ? '@Themes/' . $areaCode . '/ElectroForums/blank/' . $bundle['name'] . '/templates/' .$requestedTemplatePath : '@' . str_replace('Bundle', '', $bundleName) . '/' . $areaCode .'/templates/' . $requestedTemplatePath
             ];
             if(!empty($before)) {
                 $element['before'] = $before;
@@ -376,7 +397,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     private function renderEfBlock($block): string
     {
         $blockClassReflection = new \ReflectionClass($block['class']);
-        $blockClassInstance = $blockClassReflection->newInstance($this->environment);
+        $blockClassInstance = $blockClassReflection->newInstance($this->environment, $this->request, $this->bundleManager, $this->directoryList);
 
         if(isset($block['childs'])) {
             $blockClassInstance->setChildBlocks($block['childs']);

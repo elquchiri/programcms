@@ -8,9 +8,12 @@
 
 namespace ElectroForums\CoreBundle\View\Element;
 
-
 use Twig\Environment;
 
+/**
+ * Class Template
+ * @package ElectroForums\CoreBundle\View\Element
+ */
 class Template extends AbstractBlock
 {
     /**
@@ -18,13 +21,13 @@ class Template extends AbstractBlock
      *
      * @var string
      */
-    protected $_template;
+    protected string $_template;
     /**
      * Assigned variables for view
      *
      * @var array
      */
-    protected $_viewVars = [];
+    protected array $_viewVars = [];
     /**
      * Twig Environment instance
      * @var Environment
@@ -36,6 +39,9 @@ class Template extends AbstractBlock
         $this->environment = $environment;
     }
 
+    /**
+     * @throws \Exception
+     */
     protected function _toHtml(): string
     {
         if (!$this->getTemplate()) {
@@ -50,13 +56,13 @@ class Template extends AbstractBlock
      * @param string $template
      * @return $this
      */
-    public function setTemplate($template)
+    public function setTemplate(string $template): static
     {
         $this->_template = $template;
         return $this;
     }
 
-    public function getTemplate()
+    public function getTemplate(): string
     {
         return $this->_template;
     }
@@ -80,7 +86,7 @@ class Template extends AbstractBlock
      * @param   mixed $value
      * @return  $this
      */
-    public function assign($key, $value = null)
+    public function assign($key, $value = null): static
     {
         if (is_array($key)) {
             foreach ($key as $subKey => $subValue) {
@@ -98,7 +104,7 @@ class Template extends AbstractBlock
      * @param string $fileName
      * @return string
      */
-    public function fetchView($template)
+    public function fetchView($template): string
     {
         try {
             return $this->environment->render($template, $this->_viewVars);

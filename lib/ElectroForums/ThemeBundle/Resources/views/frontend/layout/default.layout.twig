@@ -6,23 +6,23 @@
         {% EFContainer name="header.panel.wrapper" htmlTag="div" htmlClass="panel wrapper" %}
             {% EFContainer name="header.panel" htmlTag="div" htmlClass="panel header container" %}
                 {# Website switcher dropdown #}
-                {% EFBlock name="website.switcher" class="ElectroForums\\WebsiteBundle\\Block\\WebsiteSwitcher" template="@ElectroForumsWebsite/frontend/templates/website_switcher.html.twig" %}{% endEFBlock %}
+                {% EFBlock name="website.switcher" class="ElectroForums\\WebsiteBundle\\Block\\WebsiteSwitcher" template="@ElectroForumsWebsiteBundle/website_switcher.html.twig" %}{% endEFBlock %}
                 {# Account navigation links #}
-                {% EFBlock name="website.navigation" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsUser/frontend/templates/account_navigation.html.twig" %}{% endEFBlock %}
+                {% EFBlock name="website.navigation" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsUserBundle/account_navigation.html.twig" %}{% endEFBlock %}
             {% endEFContainer %}
         {% endEFContainer %}
         {% EFContainer name="header.wrapper" htmlTag="div" htmlClass="panel content" %}
             {# Website LOGO EFBlock #}
-            {% EFBlock name="header.content" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsTheme/frontend/templates/header.html.twig" %}{% endEFBlock %}
+            {% EFBlock name="header.content" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsThemeBundle/header.html.twig" %}{% endEFBlock %}
         {% endEFContainer %}
     {% endEFReferenceContainer %}
 
     {% EFReferenceContainer name="page.top" %}
         {# Navigation Section EFBlock #}
-        {% EFBlock name="navigation.bar" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsTheme/frontend/templates/navigation.bar.html.twig" %}{% endEFBlock %}
+        {% EFBlock name="navigation.bar" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsThemeBundle/navigation.bar.html.twig" %}{% endEFBlock %}
         {% EFContainer name="top.container" htmlTag="div" htmlClass="top-container" %}{% endEFContainer %}
         {# Breadcrump EFBlock #}
-        {% EFBlock name="breadcrumb" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsTheme/frontend/templates/breadcrumb.html.twig" %}{% endEFBlock %}
+        {% EFBlock name="breadcrumb" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsThemeBundle/breadcrumb.html.twig" %}{% endEFBlock %}
     {% endEFReferenceContainer %}
 
     {% EFReferenceContainer name="main" %}
@@ -31,7 +31,7 @@
 
     {% EFReferenceContainer name="footer.container" %}
         {% EFContainer name="footer" htmlTag="div" htmlClass="footer content" %}
-            {% EFBlock name="footer.content" class="ElectroForums\\WebsiteBundle\\Block\\WebsiteSwitcher" template="@ElectroForumsTheme/frontend/templates/footer.html.twig" %}{% endEFBlock %}
+            {% EFBlock name="footer.content" class="ElectroForums\\WebsiteBundle\\Block\\WebsiteSwitcher" template="@ElectroForumsThemeBundle/footer.html.twig" %}{% endEFBlock %}
         {% endEFContainer %}
     {% endEFReferenceContainer %}
 {% endEFPage %}

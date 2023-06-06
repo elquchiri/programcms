@@ -3,10 +3,10 @@
     {% EFJs ['jquery.min.js', 'underscore-umd-min.js', 'popper.min.js', 'bootstrap.bundle.min.js', 'bundles/electroforumsadmin/js/sidebar.js'] %}
 
     {% EFReferenceContainer name="page.menu" %}
-        {% EFBlock name="register.content" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsAdmin/adminhtml/templates/sidebar.html.twig" %}{% endEFBlock %}
+        {% EFBlock name="register.content" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsAdminBundle/sidebar.html.twig" %}{% endEFBlock %}
     {% endEFReferenceContainer %}
     {% EFReferenceContainer name="main.top" %}
-        {% EFBlock name="page.title" class="ElectroForums\\ThemeBundle\\Block\\Html\\Title" template="@ElectroForumsTheme/adminhtml/templates/title.html.twig" %}{% endEFBlock %}
+        {% EFBlock name="page.title" class="ElectroForums\\ThemeBundle\\Block\\Html\\Title" template="@ElectroForumsThemeBundle/title.html.twig" %}{% endEFBlock %}
     {% endEFReferenceContainer %}
     {% EFReferenceContainer name="footer.container" %}
         {% EFContainer name="footer" htmlTag="div" htmlClass="footer content" %}{% endEFContainer %}

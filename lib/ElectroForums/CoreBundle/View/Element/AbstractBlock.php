@@ -8,7 +8,10 @@
 
 namespace ElectroForums\CoreBundle\View\Element;
 
-
+/**
+ * Class AbstractBlock
+ * @package ElectroForums\CoreBundle\View\Element
+ */
 abstract class AbstractBlock
 {
     private array $childBlocks = [];
