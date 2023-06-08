@@ -58,6 +58,8 @@
             "ElectroForums\\CommentBundle\\": "lib/ElectroForums/CommentBundle",
             "ElectroForums\\SearchBundle\\": "lib/ElectroForums/SearchBundle",
             "ElectroForums\\ReportBundle\\": "lib/ElectroForums/ReportBundle",
+            "ElectroForums\\MessagingBundle\\": "lib/ElectroForums/MessagingBundle",
+            "ElectroForums\\NotificationBundle\\": "lib/ElectroForums/NotificationBundle",
             "ElectroForums\\EFManagerBundle\\": "lib/ElectroForums/EFManagerBundle"
         }
     },

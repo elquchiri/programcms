@@ -13,6 +13,10 @@ use ElectroForums\UserBundle\Entity\User;
 use ElectroForums\UserBundle\Form\UserRegistrationType;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+/**
+ * Class RegisterController
+ * @package ElectroForums\UserBundle\Controller\Account
+ */
 class RegisterController extends \ElectroForums\CoreBundle\Controller\Adminhtml\AbstractController
 {
     private UserPasswordHasherInterface $userPasswordHasher;

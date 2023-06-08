@@ -13,7 +13,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
-
 class ElectroforumsRouteLoader extends Loader
 {
     private $routes;
@@ -132,11 +131,14 @@ class ElectroforumsRouteLoader extends Loader
         $defaults = [
             '_controller' => $controllerClass . '::' . \ElectroForums\RouterBundle\Helper\Data::ELECTROFORUMS_ROUTING_CLASS_METOHD
         ];
-        $requirements = [
+        $requirements = [];
 
-        ];
-
-        $route = new Route('/' . $path, $defaults, $requirements, ['_locale' => 'en']);
+        if($routeName == 'frontend_cms_index_index') {
+            // CMS Home Page Route
+            $route = new Route('/', $defaults, $requirements, ['_locale' => 'en']);
+        }else {
+            $route = new Route('/' . $path, $defaults, $requirements, ['_locale' => 'en']);
+        }
 
         // Add the route to the collection
         $this->routes->add($routeName, $route);

@@ -1,4 +1,3 @@
 bundle:
-  name: ElectroForums_User
   sequence:
-    - ElectroForums_Theme
+    - ElectroForumsThemeBundle

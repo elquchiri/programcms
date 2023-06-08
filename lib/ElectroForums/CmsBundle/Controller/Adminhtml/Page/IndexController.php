@@ -1,13 +1,14 @@
 <?php
-
+/*
+ * Copyright © ElectroForums. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
 
 namespace ElectroForums\CmsBundle\Controller\Adminhtml;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-
-class PageController extends AbstractController
+class IndexController extends \ElectroForums\CoreBundle\Controller\Adminhtml\AbstractController
 {
 
     private \ElectroForums\UiBundle\Model\Element\Toolbar $toolbar;
@@ -22,11 +23,9 @@ class PageController extends AbstractController
         $this->grid = $grid;
     }
 
-    #[Route('/cms/page', name: 'adminhtml_pages_list')]
-    public function index(
-
-    ): Response
+    public function execute()
     {
+        exit('kk');
         $this->toolbar->addButton("Add New Page", "", "primary");
 
         $this->grid->addAction([

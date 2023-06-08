@@ -14,9 +14,21 @@ namespace ElectroForums\ThemeBundle\Extension;
  */
 class EFThemeExtension extends \Twig\Extension\AbstractExtension
 {
+    /**
+     * @var \ElectroForums\RouterBundle\Service\Request
+     */
     protected \ElectroForums\RouterBundle\Service\Request $request;
+    /**
+     * @var \ElectroForums\CoreBundle\Model\Utils\BundleManager
+     */
     protected \ElectroForums\CoreBundle\Model\Utils\BundleManager $bundleManager;
+    /**
+     * @var \ElectroForums\CoreBundle\Model\Filesystem\DirectoryList
+     */
     protected \ElectroForums\CoreBundle\Model\Filesystem\DirectoryList $directoryList;
+    /**
+     * @var \Twig\Environment
+     */
     private \Twig\Environment $environment;
     /**
      * PageLayout Model, used to get page layout content
@@ -68,13 +80,13 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     )
     {
         $this->environment = $environment;
+        $this->request = $request;
+        $this->bundleManager = $bundleManager;
+        $this->directoryList = $directoryList;
         $this->efElements = [];
         $this->pageLayout = $pageLayout;
         $this->elementsWithFileName = [];
         $this->currentPageLayout = "";
-        $this->request = $request;
-        $this->bundleManager = $bundleManager;
-        $this->directoryList = $directoryList;
     }
 
     /**
@@ -113,6 +125,9 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         }
     }
 
+    /**
+     * @param $containerName
+     */
     public function addEfRootContainer($containerName)
     {
         if (!count($this->efElements)) {
@@ -273,6 +288,12 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         return $this->elementsWithFileName;
     }
 
+    /**
+     * @param $efContainers
+     * @param $containerName
+     * @param array $path
+     * @return null
+     */
     public function findElementPath($efContainers, $containerName, &$path = [])
     {
         foreach ($efContainers as $containerKey => $container) {
@@ -292,6 +313,11 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         return null;
     }
 
+    /**
+     * @param $keys
+     * @param $elementName
+     * @param $element
+     */
     public function addElement($keys, $elementName, $element)
     {
         $nestedContainer = &$this->efElements;
@@ -313,11 +339,17 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         unset($nestedContainer);
     }
 
+    /**
+     * @return array
+     */
     public function getEfContainers(): array
     {
         return $this->efElements;
     }
 
+    /**
+     * @param $pageLayoutName
+     */
     public function addEFPageLayout($pageLayoutName)
     {
         if ($pageLayoutName) {
@@ -325,26 +357,42 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         }
     }
 
+    /**
+     * @return array
+     */
     public function getEFPageLayouts(): array
     {
         return $this->efPageLayouts;
     }
 
+    /**
+     * @param $pageLayout
+     * @return bool
+     */
     public function canAddPageLayout($pageLayout): bool
     {
         return !isset($this->efPageLayouts[$pageLayout]);
     }
 
+    /**
+     * @param $pageLayout
+     */
     public function setCurrentPageLayout($pageLayout)
     {
         $this->currentPageLayout = $pageLayout;
     }
 
+    /**
+     * @return string
+     */
     public function getCurrentPageLayout(): string
     {
         return $this->currentPageLayout;
     }
 
+    /**
+     * @param $cssTags
+     */
     public function addEFCss($cssTags)
     {
         foreach (explode(',', $cssTags) as $css) {
@@ -354,11 +402,17 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         }
     }
 
+    /**
+     * @return array
+     */
     public function getEFCss(): array
     {
         return $this->efCss;
     }
 
+    /**
+     * @param $jsTags
+     */
     public function addEFJs($jsTags)
     {
         foreach (explode(',', $jsTags) as $js) {
@@ -368,21 +422,33 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         }
     }
 
+    /**
+     * @return array
+     */
     public function getEFJs(): array
     {
         return $this->efJs;
     }
 
+    /**
+     * @return \ElectroForums\ThemeBundle\Model\PageLayout
+     */
     public function getPageLayout(): \ElectroForums\ThemeBundle\Model\PageLayout
     {
         return $this->pageLayout;
     }
 
+    /**
+     * @param $title
+     */
     public function setEfTitle($title)
     {
         $this->efTitle = $title;
     }
 
+    /**
+     * @return string
+     */
     public function getEfTitle(): string
     {
         return $this->efTitle ?? 'Welcome !';
@@ -408,6 +474,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
             ->assign(['efBlock' => $blockClassInstance])
             ->toHtml();
     }
+
     /**
      * Parses Tag Nodes Tree and creates final body content
      * @return string
@@ -443,6 +510,9 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         return $pageContent;
     }
 
+    /**
+     * Clean Unused Page Layout containers in the elements tree
+     */
     private function cleanUnusedPageLayoutContainers()
     {
         // Clean unneeded Page Layout containers

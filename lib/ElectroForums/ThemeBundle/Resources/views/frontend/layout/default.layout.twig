@@ -1,5 +1,13 @@
+{#
+/*
+ * Copyright © ElectroForums. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
 {% EFPage layout="3columns" %}
-    {% EFCss ['bootstrap.min.css', 'bundles/electroforumstheme/css/top-panel.css', 'bundles/electroforumstheme/css/footer.css', 'bundles/electroforumstheme/css/breadcrumb.css'] %}
+    {% EFCss ['bootstrap.min.css', 'bundles/electroforumstheme/css/main.css', 'bundles/electroforumstheme/css/top-panel.css', 'bundles/electroforumstheme/css/footer.css', 'bundles/electroforumstheme/css/breadcrumb.css'] %}
     {% EFJs ['jquery.min.js', 'underscore-umd-min.js', 'popper.min.js', 'bootstrap.bundle.min.js'] %}
 
     {% EFReferenceContainer name="header.container" %}
@@ -12,8 +20,14 @@
             {% endEFContainer %}
         {% endEFContainer %}
         {% EFContainer name="header.wrapper" htmlTag="div" htmlClass="panel content" %}
-            {# Website LOGO EFBlock #}
-            {% EFBlock name="header.content" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsThemeBundle/header.html.twig" %}{% endEFBlock %}
+            {% EFContainer name="navbar" htmlTag="nav" htmlClass="navbar navbar-expand-lg container" %}
+                {# Website LOGO EFBlock #}
+                {% EFBlock name="logo" class="ElectroForums\\ThemeBundle\\Block\\Html\\Header\\Logo" template="@ElectroForumsThemeBundle/logo.html.twig" %}{% endEFBlock %}
+                {# Website Navbar Toggler EFBlock #}
+                {% EFBlock name="navbar.togller" class="ElectroForums\\UserBundle\\Block\\Account\\Navigation" template="@ElectroForumsThemeBundle/navbar_toggler.html.twig" %}{% endEFBlock %}
+                {# Website Navbar Fast Access Container #}
+                {% EFContainer name="navbar.collapse" htmlTag="div" htmlClass="collapse navbar-collapse justify-content-end" %}{% endEFContainer %}
+            {% endEFContainer %}
         {% endEFContainer %}
     {% endEFReferenceContainer %}
 

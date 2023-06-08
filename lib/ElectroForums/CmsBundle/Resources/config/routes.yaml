@@ -1,4 +1,7 @@
-controllers:
-  resource: ../../Controller/
-  type: annotation
-  prefix: /{_locale}
+router:
+  frontend:
+    cms_root:
+      frontName: 'cms'
+  adminhtml:
+    cms_root:
+      frontName: 'cms'
