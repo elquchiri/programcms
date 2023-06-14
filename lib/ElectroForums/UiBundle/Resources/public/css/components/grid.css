@@ -3,3 +3,10 @@
     border: 1px solid #dedede;
     background: url('../../images/left-arrow.png') no-repeat center center;
 }
+
+.admin-table {
+
+}
+.admin-table .table-dark {
+    font-size: 14px;
+}

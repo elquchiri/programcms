@@ -462,9 +462,8 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
      */
     private function renderEfBlock($block): string
     {
-        $blockClassReflection = new \ReflectionClass($block['class']);
-        $blockClassInstance = $blockClassReflection->newInstance($this->environment, $this->request, $this->bundleManager, $this->directoryList);
-
+        // Get Block instance from Container class
+        $blockClassInstance = $this->bundleManager->getContainer()->get($block['class']);
         if(isset($block['childs'])) {
             $blockClassInstance->setChildBlocks($block['childs']);
         }
@@ -490,17 +489,19 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         $pageContent = '';
         foreach($container as $containerNode) {
             if($containerNode && $containerNode['type'] == 'container') {
-                if(isset($containerNode['htmlTag'])) {
-                    // Renderable container case, prepares & adds Html Elements
-                    $htmlClass = isset($containerNode['htmlClass']) ? 'class="' . $containerNode['htmlClass'] . '"' : '';
-                    $pageContent .= "<" . $containerNode['htmlTag'] . " " . $htmlClass . ">";
-                }
-                // Render internal elements if exists
+                // Render only containers with sub-elements
                 if(isset($containerNode['childs']) && count($containerNode['childs'])) {
+                    if (isset($containerNode['htmlTag'])) {
+                        // Renderable container case, prepares & adds Html Elements
+                        $htmlClass = isset($containerNode['htmlClass']) ? 'class="' . $containerNode['htmlClass'] . '"' : '';
+                        $pageContent .= "<" . $containerNode['htmlTag'] . " " . $htmlClass . ">";
+                    }
+                    // Render internal elements if exists
                     $pageContent .= $this->renderPage($containerNode['childs']);
-                }
-                if(isset($containerNode['htmlTag'])) {
-                    $pageContent .= "</". $containerNode['htmlTag'] .">";
+
+                    if (isset($containerNode['htmlTag'])) {
+                        $pageContent .= "</" . $containerNode['htmlTag'] . ">";
+                    }
                 }
             }else if($containerNode && $containerNode['type'] == 'block') {
                 $pageContent .= $this->renderEfBlock($containerNode);

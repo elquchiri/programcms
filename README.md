@@ -53,7 +53,7 @@ To install ElectroForums project run :
 - Strong Administration Dashboard
 - Automatic Routing System based on Controller Path
 - Themes System
-- Layouts, Containers, Blocks and Templates System
+- Layouts, Containers, Blocks and Templates Engine
 - Aspect-Oriented Programming Style
 - Data Based AI to process, generate and translate content
 

@@ -1,7 +1,3 @@
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('bundles/electroforumsui/css/adminhtml/grid.css') }}">
-{% endblock %}
-
 <nav class="navbar navbar-expand-lg">
     <div class="navbar-collapse" id="navbarSupportedContent">
         <form class="d-flex" role="search" style="margin-right: 11px;">
@@ -70,44 +66,61 @@
     </div>
 </nav>
 
-<table class="table table-striped mt-3">
-    <thead class="table-dark">
-    {% for column in this.columns %}
-        <th>{{ column.title }}</th>
-    {% endfor %}
+<table class="table table-striped">
+    <thead>
+    <th></th>
+    <th>#</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Role</th>
+    <th>Gender</th>
+    <th>Country</th>
+    <th></th>
     </thead>
     <tbody>
-    {% for rowColumn in this.data %}
-        <tr>
-            <td class="text-center">
-                <input type="checkbox" name=""/>
-            </td>
-            {% for value in rowColumn %}
-                <td>{{ value.label }}</td>
-            {% endfor %}
-            {% if this.actions is defined %}
-                <td class="text-center">
-                    {% for action in this.actions %}
-                        {% if action.type == 'url' %}
-                            <a href="#">{{ action.label }}</a>
-                        {% endif %}
-                        {% if action.type == 'dropdown' %}
-                            <div class="btn-group" style="margin-top: -3px;">
-                                <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true"
-                                   aria-expanded="false">
-                                    {{ action.label }}
-                                </a>
-                                <ul class="dropdown-menu">
-                                    {% for subAction in action.actions %}
-                                        <li><a class="dropdown-item" href="#">{{ subAction.label }}</a></li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                </td>
-            {% endif %}
-        </tr>
-    {% endfor %}
+    <tr>
+        <td><input type="checkbox" name=""> </td>
+        <th scope="row">25415</th>
+        <td>Med EL QUCHIRI</td>
+        <td>
+                <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover">
+                    elquchiri@gmail.com<br>
+                </span>
+        </td>
+        <td>USER</td>
+        <td>Man</td>
+        <td>France</td>
+        <td>
+            <div class="btn-group dropstart">
+                <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true"
+                   aria-expanded="false">
+                    Edit
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                    <li><a class="dropdown-item" href="#">Lock</a></li>
+                    <li><a class="dropdown-item" href="#">Message</a></li>
+                </ul>
+            </div>
+        </td>
+    </tr>
     </tbody>
 </table>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-end">
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>

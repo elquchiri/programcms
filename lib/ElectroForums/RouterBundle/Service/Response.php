@@ -10,7 +10,10 @@ namespace ElectroForums\RouterBundle\Service;
 
 use Symfony\Component\Form\FormInterface;
 
-
+/**
+ * Class Response
+ * @package ElectroForums\RouterBundle\Service
+ */
 class Response
 {
     protected Request $request;
@@ -46,8 +49,8 @@ class Response
         return $response;
     }
 
-    public function renderJson()
+    public function renderJson($jsonData)
     {
-
+        return json_encode($jsonData);
     }
 }

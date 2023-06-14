@@ -1,21 +1,33 @@
 <?php
-
+/*
+ * Copyright © ElectroForums. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
 
 namespace ElectroForums\ConfigBundle\Controller\Adminhtml\SystemConfig;
 
-
+/**
+ * Class SaveController
+ * @package ElectroForums\ConfigBundle\Controller\Adminhtml\SystemConfig
+ */
 class SaveController extends \ElectroForums\ConfigBundle\Controller\Adminhtml\AbstractConfigController
 {
 
+    protected \ElectroForums\ConfigBundle\Model\Config $config;
+    protected \ElectroForums\RouterBundle\Service\Url $url;
+
     public function __construct(
         \ElectroForums\RouterBundle\Service\Request $request,
-        \ElectroForums\UiBundle\Model\Element\Toolbar $toolbar,
-        \ElectroForums\ConfigBundle\Model\ConfigSerializer $configSerializer,
+        \ElectroForums\RouterBundle\Service\Response $response,
         \ElectroForums\ConfigBundle\Model\Config $config,
-        \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
+        \ElectroForums\RouterBundle\Service\Url $url
     )
     {
-        parent::__construct($request, $toolbar, $configSerializer, $config, $urlGenerator);
+        parent::__construct($request, $response);
+        $this->config = $config;
+        $this->url = $url;
     }
 
     public function execute()
@@ -34,9 +46,9 @@ class SaveController extends \ElectroForums\ConfigBundle\Controller\Adminhtml\Ab
             }
             $this->addFlash('success', 'Configuration Saved Succefully.');
 
-            return $this->redirectToRoute('config_systemconfig_edit', ['sectionId' => $sectionId]);
+            return $this->redirect($this->url->getUrlByRouteName('adminhtml_config_systemconfig_edit', ['sectionId' => $sectionId]));
         }
 
-        return $this->redirectToRoute('admin_configuration');
+        return $this->redirectToRoute('adminhtml_config_systemconfig_index');
     }
 }

@@ -11,6 +11,19 @@ a {
     text-decoration: none;
 }
 
+.page-wrapper {
+    height: 100%;
+}
+
+.page-main-actions {
+    padding: 31px 21px 0 21px;
+}
+
+.messages-wrapper {
+    padding: 11px 21px 0 21px;
+    font-size: 14px;
+}
+
 .content {
     display: flex;
     flex-direction: column;
@@ -22,7 +35,7 @@ a {
     margin-left: 110px;
 }
 .content .content-header {
-    padding: 31px 31px 0 21px;
+    padding: 31px 21px 0 21px;
 }
 .content .content-header h2 {
     padding: 0;
@@ -34,5 +47,5 @@ a {
     padding: 5px 0 0 5px;
 }
 .content .content-container {
-    padding: 15px 31px;
+    padding: 21px 21px 0 21px;
 }

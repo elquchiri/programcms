@@ -60,6 +60,7 @@
             "ElectroForums\\ReportBundle\\": "lib/ElectroForums/ReportBundle",
             "ElectroForums\\MessagingBundle\\": "lib/ElectroForums/MessagingBundle",
             "ElectroForums\\NotificationBundle\\": "lib/ElectroForums/NotificationBundle",
+            "ElectroForums\\AdminNotificationBundle\\": "lib/ElectroForums/AdminNotificationBundle",
             "ElectroForums\\EFManagerBundle\\": "lib/ElectroForums/EFManagerBundle"
         }
     },

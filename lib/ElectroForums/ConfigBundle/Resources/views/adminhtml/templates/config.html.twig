@@ -1,28 +1,8 @@
-{% extends '@ElectroForumsTheme/adminhtml/layout.html.twig' %}
-
-{% block title %}Configuration{% endblock %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bundles/electroforumsconfig/css/menu.css') }}">
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript" src="{{ asset('bundles/electroforumsconfig/js/config_menu.js') }}"></script>
-{% endblock %}
-
-{% block page_title %}Configuration{% endblock %}
-
-{% block content %}
-
-    {{ component('toolbar', {buttons: buttons, includeWebsiteSwitcher: true}) }}
-
-    <div class="row">
+<div class="row">
         <div class="col-md-3">
             <div class="config-menu">
                 <ul>
-                    {% for tab in tabs %}
+                    {% for tab in efBlock.getTabs() %}
                         <li class="root {% if tab.active is defined %}open{% endif %}">
                             <a href="#">{{ tab.label }}</a>
                         </li>
@@ -43,7 +23,7 @@
         </div>
         <div class="col-md-9" style="padding-left: 21px;">
             <form id="electroforums_config">
-                {% for groupId, group in currentSectionGroups %}
+                {% for groupId, group in efBlock.getCurrentSectionGroups() %}
                 <div class="ef-colapse">
                     <a data-bs-toggle="collapse" href="#{{ groupId }}" role="button" aria-expanded="false" aria-controls="collapseExample">
                         {{ group.label }}
@@ -91,9 +71,7 @@
                     </div>
                 </div>
                 {% endfor %}
-                <input type="hidden" name="section_id" value="{{ sectionId }}" />
+                <input type="hidden" name="section_id" value="{{ efBlock.getSectionId() }}" />
             </form>
         </div>
     </div>
-
-{% endblock %}

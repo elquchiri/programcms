@@ -8,7 +8,10 @@
 
 namespace ElectroForums\ThemeBundle\Node;
 
-
+/**
+ * Class EFBlockNode
+ * @package ElectroForums\ThemeBundle\Node
+ */
 class EFBlockNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
 {
     public function __construct($blockName, $blockClass, $blockTemplate, $before, $after, $body, $lineno, $tag = null)

@@ -25,7 +25,6 @@ class IndexController extends \ElectroForums\CoreBundle\Controller\Adminhtml\Abs
 
     public function execute()
     {
-        exit('kk');
         $this->toolbar->addButton("Add New Page", "", "primary");
 
         $this->grid->addAction([

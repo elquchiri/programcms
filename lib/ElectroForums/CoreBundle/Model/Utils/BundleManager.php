@@ -8,7 +8,6 @@
 
 namespace ElectroForums\CoreBundle\Model\Utils;
 
-
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class BundleManager

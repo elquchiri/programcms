@@ -1,7 +1,15 @@
+{#
+/*
+ * Copyright © ElectroForums. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
 {% EFLayout %}
     {% EFContainer name="root" %}
         {% EFContainer name="page.wrapper" htmlTag="div" htmlClass="page-wrapper" %}
-            {% EFContainer name="page.content" %}{% endEFContainer %}
+            {% EFContainer name="page.content" htmlTag="div" htmlClass="content" %}{% endEFContainer %}
         {% endEFContainer %}
     {% endEFContainer %}
 {% endEFLayout %}

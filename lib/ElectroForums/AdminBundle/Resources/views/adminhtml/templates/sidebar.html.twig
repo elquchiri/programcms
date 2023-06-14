@@ -15,7 +15,7 @@
         <li>
             <a href="/" id="clients">
                 <img src="{{ asset('bundles/electroforumsadmin/images/user.png') }}"/>
-                <p>Clients</p>
+                <p>Users</p>
             </a>
         </li>
         <li>
@@ -85,21 +85,21 @@
 </div>
 <div class="menu-items" id="clients">
     <div class="menu-item">
-        <div class="menu-item-title">Clients</div>
+        <div class="menu-item-title">Users</div>
         <div class="close-sign">&#x2715;</div>
     </div>
     <ul>
         <li>
-            <a href="">All Clients</a>
+            <a href="">All Users</a>
         </li>
         <li>
             <a href="#">Now Online</a>
         </li>
         <li>
-            <a href="#">Locked Clients</a>
+            <a href="#">Locked Users</a>
         </li>
         <li>
-            <a href="#">Manage Client Roles</a>
+            <a href="#">Manage User Roles</a>
         </li>
     </ul>
 </div>
@@ -179,7 +179,7 @@
             <a href="">All Web Sites</a>
         </li>
         <li>
-            <a href="">Configuration</a>
+            <a href="{{ path('adminhtml_config_systemconfig_index') }}">Configuration</a>
         </li>
     </ul>
 </div>

@@ -8,7 +8,6 @@
 
 namespace ElectroForums\ThemeBundle\Block\Html;
 
-
 class Title extends \ElectroForums\CoreBundle\View\Element\Template
 {
 

@@ -57,8 +57,10 @@ abstract class AbstractBlock
 
         $childBlock = $this->childBlocks[$alias];
 
-        $blockClassReflection = new \ReflectionClass($childBlock['class']);
-        $blockClassInstance = $blockClassReflection->newInstance($this->environment);
+        //$blockClassReflection = new \ReflectionClass($childBlock['class']);
+        //$blockClassInstance = $blockClassReflection->newInstance($this->environment);
+        $blockClassInstance = new $childBlock['class']($this->bundleManager->getContainer()->get($childBlock['class']));
+
 
         $blockClassInstance->setTemplate($childBlock['template']);
         if (isset($childBlock['childs'])) {

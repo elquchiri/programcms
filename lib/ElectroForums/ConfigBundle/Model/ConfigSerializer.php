@@ -79,26 +79,28 @@ class ConfigSerializer
                         // If current loop sectionId == current http section_id parameter, then merge groups & fields
                         if ($sectionId == $this->sectionId) {
                             //$this->sectionId = $sectionId;
-                            foreach ($section['groups'] as $groupId => $group) {
-                                if (isset($group['label'])) {
-                                    $this->configs['current_section']['groups'][$groupId] = [
-                                        'label' => $group['label'],
-                                        'fields' => []
-                                    ];
-                                }
-                                if (isset($group['fields'])) {
-                                    foreach ($group['fields'] as $fieldId => $field) {
-                                        $this->configs['current_section']['groups'][$groupId]['fields'][$fieldId] = [
-                                            'label' => $field['label'],
-                                            'type' => $field['type'],
-                                            'value' => $this->config->getConfigValue(
-                                                $this->sectionId . '/' . $groupId . '/' . $fieldId
-                                            )
+                            if(isset($section['groups'])) {
+                                foreach ($section['groups'] as $groupId => $group) {
+                                    if (isset($group['label'])) {
+                                        $this->configs['current_section']['groups'][$groupId] = [
+                                            'label' => $group['label'],
+                                            'fields' => []
                                         ];
+                                    }
+                                    if (isset($group['fields'])) {
+                                        foreach ($group['fields'] as $fieldId => $field) {
+                                            $this->configs['current_section']['groups'][$groupId]['fields'][$fieldId] = [
+                                                'label' => $field['label'],
+                                                'type' => $field['type'],
+                                                'value' => $this->config->getConfigValue(
+                                                    $this->sectionId . '/' . $groupId . '/' . $fieldId
+                                                )
+                                            ];
 
-                                        if ($field['type'] == 'select' || $field['type'] == 'multiselect') {
-                                            $source = new \ReflectionClass($field['source']);
-                                            $this->configs['current_section']['groups'][$groupId]['fields'][$fieldId]['source'] = $source->newInstance()->getOptionsArray();
+                                            if ($field['type'] == 'select' || $field['type'] == 'multiselect') {
+                                                $source = new \ReflectionClass($field['source']);
+                                                $this->configs['current_section']['groups'][$groupId]['fields'][$fieldId]['source'] = $source->newInstance()->getOptionsArray();
+                                            }
                                         }
                                     }
                                 }

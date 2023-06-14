@@ -1,0 +1,22 @@
+{#
+/*
+ * Copyright © ElectroForums. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% EFPage %}
+    {% EFCss ['bundles/electroforumsconfig/css/menu.css', 'bundles/electroforumsui/css/components/ef_collapse.css'] %}
+    {% EFJs ['bundles/electroforumsconfig/js/config_menu.js'] %}
+    {% EFTitle %}Edit Configuration{% endEFTitle %}
+
+    {% EFReferenceContainer name="buttons.bar" %}
+        {% EFBlock name="website.switcher" class="ElectroForums\\UiBundle\\Block\\Toolbar\\WebsiteSwitcher" template="@ElectroForumsUiBundle/toolbar/website_switcher.html.twig" %}{% endEFBlock %}
+        {% EFBlock name="toolbar.actions" class="ElectroForums\\ConfigBundle\\Block\\ToolbarActions" template="@ElectroForumsUiBundle/toolbar/toolbar_buttons.html.twig" %}{% endEFBlock %}
+    {% endEFReferenceContainer %}
+
+    {% EFReferenceContainer name="content" %}
+        {% EFBlock name="config.block" class="ElectroForums\\ConfigBundle\\Block\\Configuration" template="@ElectroForumsConfigBundle/config.html.twig" %}{% endEFBlock %}
+    {% endEFReferenceContainer %}
+{% endEFPage %}

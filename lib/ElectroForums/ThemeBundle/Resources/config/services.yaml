@@ -2,12 +2,15 @@ services:
   _defaults:
     autowire: true      # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-
+    public: true # used to help instantiating block classes from container
 
   ElectroForums\ThemeBundle\:
     resource: '../../'
     exclude:
       - '../../DependencyInjection/'
+      - '../../Loader/'
+      - '../../Node/'
+      - '../../Parser/'
       - '../../Resources/'
       - '../../Tests/'
 
