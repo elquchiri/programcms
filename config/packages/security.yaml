@@ -10,7 +10,7 @@ security:
         #The configuration above uses Doctrine to load the User entity using the email property as "user identifier".
         app_user_provider:
             entity:
-                class: ElectroForums\UserBundle\Entity\User
+                class: ProgramCms\UserBundle\Entity\User
                 property: email
     firewalls:
         dev:
@@ -24,7 +24,7 @@ security:
 #                login_path: frontend_home
 #                check_path: electro_forums_user_authentication
 #                enable_csrf: true
-            custom_authenticator: ElectroForums\UserBundle\Security\LoginAuthenticator
+            custom_authenticator: ProgramCms\UserBundle\Security\LoginAuthenticator
             logout:
                 path: electro_forums_user_logout
                 # where to redirect after logout

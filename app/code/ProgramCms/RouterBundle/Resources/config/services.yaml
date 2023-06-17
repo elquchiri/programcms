@@ -1,0 +1,21 @@
+services:
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+
+  ProgramCms\RouterBundle\:
+    resource: '../../'
+    exclude:
+      - '../../DependencyInjection/'
+      - '../../Resources/'
+      - '../../Tests/'
+
+  ProgramCms\RouterBundle\Routing\ProgramCmsRouteLoader:
+    tags: [ routing.loader ]
+    arguments:
+      $container: '@service_container'
+
+  ProgramCms\RouterBundle\Service\Request:
+    arguments:
+      $requestStack: '@request_stack'

@@ -1,0 +1,25 @@
+.ef-colapse {
+    margin-bottom: 11px;
+    border-bottom: 1px solid #dedede;
+}
+.ef-colapse .ef-collapse-container {
+    margin-top: 17px;
+}
+.ef-colapse .ef-collapse-container .multiselect {
+    height: 300px;
+}
+.ef-colapse .ef-collapse-container .multiselect option {
+    padding: 5px;
+}
+
+.ef-colapse a {
+    font-size: 16px;
+    padding-bottom: 13px;
+    font-weight: bolder;
+    color: #232222;
+    display: block;
+    background: url('../../../images/down-arrow.png') no-repeat 99% center;
+}
+.ef-colapse a.open {
+    background: url('../../../images/up-arrow.png') no-repeat 99% center;
+}

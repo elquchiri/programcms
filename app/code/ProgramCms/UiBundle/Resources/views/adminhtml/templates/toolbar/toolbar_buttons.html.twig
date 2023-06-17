@@ -1,0 +1,25 @@
+<div class="collapse navbar-collapse justify-content-end">
+    <ul class="navbar-nav">
+        {% for button in efBlock.getButtons() %}
+            <li class="nav-item">
+                {% if button.buttonType == 'save' %}
+                    <button class="btn btn-primary ef-toolbar-btn" data-ef-btn-type="{{ button.buttonType }}"
+                            data-ef-btn-target="{{ button.buttonTarget }}"
+                            data-ef-btn-action="{{ button.buttonAction }}" type="button">
+                        {{ button.label }}
+                    </button>
+                {% elseif button.buttonType == 'back' %}
+                    <button class="btn btn" type="button">
+                        <img style="margin-bottom: 2px;" src="{{ asset('bundles/programcmsadmin/images/back.png') }}" />
+                        {{ button.label }}
+                    </button>
+                {% else %}
+                    <button class="btn btn-{{ button.buttonType }} ef-toolbar-btn"
+                            data-ef-btn-type="{{ button.buttonType }}" type="button">
+                        {{ button.label }}
+                    </button>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>

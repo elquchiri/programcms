@@ -1,6 +1,6 @@
 require.config({
     paths: {
         jquery: '/jquery.min',
-        hello: '/bundles/electroforumsuser/js/hello'
+        hello: '/bundles/programcmsuser/js/hello'
     }
 });

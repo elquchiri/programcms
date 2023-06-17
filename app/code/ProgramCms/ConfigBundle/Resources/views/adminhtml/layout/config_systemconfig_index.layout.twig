@@ -1,0 +1,26 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% EFPage layout="admin-2columns-left" %}
+    {% EFCss ['bundles/programcmsconfig/css/menu.css', 'bundles/programcmsui/css/components/ef_collapse.css'] %}
+    {% EFJs ['bundles/programcmsconfig/js/config_menu.js'] %}
+    {% EFTitle %}Configuration{% endEFTitle %}
+
+    {% EFReferenceContainer name="buttons.bar" %}
+        {% EFBlock name="website.switcher" class="ProgramCms\\UiBundle\\Block\\Toolbar\\WebsiteSwitcher" template="@ProgramCmsUiBundle/toolbar/website_switcher.html.twig" %}{% endEFBlock %}
+        {% EFBlock name="toolbar.actions" class="ProgramCms\\UiBundle\\Block\\Toolbar\\ToolbarActions" template="@ProgramCmsUiBundle/toolbar/toolbar_buttons.html.twig" %}{% endEFBlock %}
+    {% endEFReferenceContainer %}
+
+    {% EFReferenceContainer name="sidebar.main" %}
+        {% EFBlock name="config.menu.block" class="ProgramCms\\ConfigBundle\\Block\\Configuration" template="@ProgramCmsConfigBundle/config_menu.html.twig" %}{% endEFBlock %}
+    {% endEFReferenceContainer %}
+
+    {% EFReferenceContainer name="content" %}
+        {% EFBlock name="config.block" class="ProgramCms\\ConfigBundle\\Block\\Configuration" template="@ProgramCmsConfigBundle/config.html.twig" %}{% endEFBlock %}
+    {% endEFReferenceContainer %}
+{% endEFPage %}

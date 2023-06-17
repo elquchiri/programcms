@@ -1,0 +1,118 @@
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('bundles/electroforumstheme/css/frontend/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/electroforumscontent/css/frontend/editor.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css"/>
+    <link rel="stylesheet" href="{{ asset('efEditor/efEditor.css') }}">
+
+    <script type="text/javascript" src="{{ asset('bundles/electroforumstheme/js/lib/jquery.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <!-- and it's easy to individually load additional languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/go.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify-html.min.js"></script>
+    <script type="text/javascript" src="{{ asset('efEditor/efEditor.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/electroforumscontent/js/frontend/editor.js') }}"></script>
+
+    <div class="content">
+                <div class="ef-editor" >
+                    <div class="ef-forum-view d-flex flex-row">
+                        <a href="{{ path('electro_forums_forum_view', {id: 1}) }}">
+                            <img src="{{ asset('bundles/electroforumsforum/images/general-forum.png') }}" width="25" height="25" class="mr-3">
+                        </a>
+                        <div class="w-100">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex flex-row align-items-center">
+                                    <span class="mr-2" style="padding: 1px 7px;">
+                                        <a href="{{ path('electro_forums_forum_view', {id: 1}) }}">
+                                            <b>Welcome Forum !</b>
+                                        </a>
+                                        &middot;
+                                        <small class="text-muted">New Post</small>
+                                    </span>
+                                </div>
+                                <small>
+                                    <span style="background-color: #d47638" class="badge badge-pill badge-primary">
+                                        Posts Left: 7
+                                    </span>
+                                </small>
+                            </div>
+                            <p class="text-justify comment-text mb-0"></p>
+                        </div>
+                    </div>
+
+                    <div class="ef-post-title">
+                        <input type="text" name="post_title" placeholder="Write your Post's title here .." />
+                    </div>
+
+                    <div class="ef-editor-editable"></div>
+                    <input type="file" id="image_upload" style="display:none"/>
+                    <div class="ef-details-bar">
+                        <div class="">
+                            <button class="btn btn-sm btn-link">Go Back</button>
+                        </div>
+                        <div class="buttons">
+                            <button class="btn btn-primary btn-sm">Publish</button>
+                            <button class="btn btn-secondary btn-sm">Save as Draft</button>
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+    <div class="modal url-modal modal-sm fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add URL</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="url-form">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="urlTitle">URL Title</label>
+                            <input type="text" name="url_title" class="form-control" id="urlTitle" placeholder="Enter URL Title / Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="url">URL</label>
+                            <input type="text" name="url" class="form-control" id="url" placeholder="http(s)://">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Add URL</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal video-modal modal-sm fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Video</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="video-form">
+                    <div class="modal-body">
+                        <div class="form-group mb-2">
+                            <label for="videoProvider">Video Provider</label>
+                            <select name="video_provider" class="form-select" id="videoProvider">
+                                <option value="youtube">Youtube</option>
+                                <option value="youtube">Dailymotion</option>
+                                <option value="youtube">Vkontact</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="url">Video URL</label>
+                            <input type="text" name="url" class="form-control" id="url" placeholder="http(s)://">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Add Video</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,27 @@
+{
+    "name": "programcms/website-bundle",
+    "description": "Represents Website entities in ProgramCMS application",
+    "license": "MIT",
+    "type": "symfony-bundle",
+    "keywords": [
+        "ProgramCms",
+        "Website",
+        "Bundle",
+        "CMS"
+    ],
+    "authors": [
+        {
+            "name": "Mohamed EL QUCHIRI",
+            "email": "elquchiri@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "ProgramCms\\WebsiteBundle\\": ""
+        }
+    }
+}

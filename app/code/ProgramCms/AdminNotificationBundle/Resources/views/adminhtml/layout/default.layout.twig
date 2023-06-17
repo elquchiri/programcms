@@ -1,0 +1,13 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% EFPage %}
+    {% EFReferenceContainer name="navbar.collapse" %}
+        {% EFBlock name="admin.notifications" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsAdminNotificationBundle/admin_notifications.html.twig" before="-" %}{% endEFBlock %}
+    {% endEFReferenceContainer %}
+{% endEFPage %}

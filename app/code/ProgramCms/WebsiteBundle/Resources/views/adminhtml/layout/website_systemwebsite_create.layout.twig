@@ -1,0 +1,19 @@
+{% EFPage %}
+    {% EFReferenceContainer name="buttons.bar" %}
+        {% EFBlock name="website.switcher" class="ProgramCms\\UiBundle\\Block\\Toolbar\\WebsiteSwitcher" template="@ProgramCmsUiBundle/toolbar/website_switcher.html.twig" %}{% endEFBlock %}
+        {% EFBlock name="toolbar.actions" class="ProgramCms\\WebsiteBundle\\Block\\Toolbar\\CreateToolbarActions" template="@ProgramCmsUiBundle/toolbar/toolbar_buttons.html.twig" %}{% endEFBlock %}
+    {% endEFReferenceContainer %}
+
+    {% EFReferenceContainer name="content" %}
+{#        {% EFBlock name="collapser" class="" %}#}
+{#            {% EFBlock name="form" class="" %}#}
+{#                {% Arguments %}#}
+{#                    {% Argument name="" type="array" %}#}
+{#                        {% Item name="" type="" %}{% endItem %}#}
+{#                    {% endArgument %}#}
+{#                {% endArguments %}#}
+{#            {% endEFBlock %}#}
+{#        {% endEFBlock %}#}
+        {% EFBlock name="users.list" class="ProgramCms\\UserBundle\\Block\\UsersList" template="@ProgramCmsUiBundle/form/form.html.twig" %}{% endEFBlock %}
+    {% endEFReferenceContainer %}
+{% endEFPage %}

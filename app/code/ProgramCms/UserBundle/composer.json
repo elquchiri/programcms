@@ -1,0 +1,33 @@
+{
+    "name": "programcms/user-bundle",
+    "description": "Represents User entities in ProgramCMS application",
+    "license": "MIT",
+    "type": "symfony-bundle",
+    "keywords": [
+        "ProgramCms",
+        "User",
+        "Role",
+        "Profile",
+        "Registration",
+        "Sign Up",
+        "Sign In",
+        "Logout",
+        "Bundle",
+        "CMS"
+    ],
+    "authors": [
+        {
+            "name": "Mohamed EL QUCHIRI",
+            "email": "elquchiri@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "ProgramCms\\UserBundle\\": ""
+        }
+    }
+}

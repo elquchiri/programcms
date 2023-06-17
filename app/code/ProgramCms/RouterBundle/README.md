@@ -1,0 +1,1 @@
+The Router bundle contains common infrastructure that provides an ability to apply and use routes in ProgramCMS application.

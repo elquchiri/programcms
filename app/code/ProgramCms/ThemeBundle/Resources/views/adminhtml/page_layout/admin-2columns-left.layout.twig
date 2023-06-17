@@ -1,0 +1,17 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% EFLayout %}
+    {% EFUpdate handle="admin-1column" %}
+    {% EFReferenceContainer name="page.main.container" %}
+        {# Used when the page containers 2 containers, one in the left and the main one inside the page.main.container. #}
+        {% EFContainer name="side.col" htmlTag="div" htmlClass="col-md-3 side-col" before="-" %}
+            {% EFContainer name="sidebar.main" %}{% endEFContainer %}
+        {% endEFContainer %}
+    {% endEFReferenceContainer %}
+{% endEFLayout %}

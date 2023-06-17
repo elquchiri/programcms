@@ -1,0 +1,12 @@
+{% EFPage %}
+    {% EFTitle %}Websites{% endEFTitle %}
+
+    {% EFReferenceContainer name="buttons.bar" %}
+        {% EFBlock name="website.switcher" class="ProgramCms\\UiBundle\\Block\\Toolbar\\WebsiteSwitcher" template="@ProgramCmsUiBundle/toolbar/website_switcher.html.twig" %}{% endEFBlock %}
+        {% EFBlock name="toolbar.actions" class="ProgramCms\\UiBundle\\Block\\Toolbar\\ToolbarActions" template="@ProgramCmsUiBundle/toolbar/toolbar_buttons.html.twig" %}{% endEFBlock %}
+    {% endEFReferenceContainer %}
+
+    {% EFReferenceContainer name="content" %}
+        {% EFBlock name="website.list" class="ProgramCms\\UserBundle\\Block\\UsersList" template="@ProgramCmsWebsiteBundle/list.html.twig" %}{% endEFBlock %}
+    {% endEFReferenceContainer %}
+{% endEFPage %}

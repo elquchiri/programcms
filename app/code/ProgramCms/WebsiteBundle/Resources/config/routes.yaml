@@ -1,0 +1,7 @@
+router:
+  frontend:
+    website_root:
+      frontName: 'website'
+  adminhtml:
+    website_root:
+      frontName: 'website'

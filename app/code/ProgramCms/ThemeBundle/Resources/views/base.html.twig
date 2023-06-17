@@ -1,0 +1,32 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <title>{{ efTitle }}</title>
+
+        {# Merge All Css Files #}
+        {% for cssFile in efCss %}
+            <link rel="stylesheet" type="text/css" href="{{ asset(cssFile) }}" />
+        {% endfor %}
+
+        {# Merge All Javascript Files #}
+        {% for jsFile in efJs %}
+            <script type="text/javascript" src="{{ asset(jsFile) }}"></script>
+        {% endfor %}
+    </head>
+    <body>
+        {# Print Body Content #}
+        {{ html|raw }}
+    </body>
+</html>

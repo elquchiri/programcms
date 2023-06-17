@@ -1,9 +1,0 @@
-electro_forums_user:
-  system_config:
-    sections:
-      user_configuration:
-        groups:
-          login_options:
-            fields:
-              redirect_user_after_login:
-                defaultValue: 1

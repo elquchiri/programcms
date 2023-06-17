@@ -1,0 +1,27 @@
+<?php
+
+
+namespace ProgramCms\UiBundle\Model\Element;
+
+
+class Toolbar
+{
+    private array $buttons = [];
+
+    public function addButton($buttonTitle, $buttonURL, $buttonType, $buttonTarget = null): Toolbar
+    {
+        $this->buttons[] = [
+            'label' => $buttonTitle,
+            'buttonAction' => $buttonURL,
+            'buttonType' => $buttonType,
+            'buttonTarget' => $buttonTarget
+        ];
+
+        return $this;
+    }
+
+    public function getButtons(): array
+    {
+        return $this->buttons;
+    }
+}

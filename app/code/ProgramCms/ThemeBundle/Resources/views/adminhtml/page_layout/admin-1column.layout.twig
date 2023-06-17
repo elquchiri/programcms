@@ -1,0 +1,32 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% EFLayout %}
+    {% EFUpdate handle="admin-empty" %}
+    {% EFReferenceContainer name="page.wrapper" %}
+        {% EFContainer name="notices.wrapper" before="-" %}
+            {% EFContainer name="notifications" %}{% endEFContainer %}
+            {% EFContainer name="notification.window" before="-" %}{% endEFContainer %}
+        {% endEFContainer %}
+        {% EFContainer name="header.container" htmlTag="header" htmlClass="page-header" before="main.content" %}{% endEFContainer %}
+        {% EFContainer name="page.menu" %}{% endEFContainer %}
+        {% EFReferenceContainer name="page.content" %}
+            {% EFContainer name="main.top" %}{% endEFContainer %}
+            {% EFContainer name="page.main.actions" htmlTag="nav" htmlClass="navbar navbar-expand-lg page-main-actions" %}{% endEFContainer %}
+            {% EFContainer name="messages.wrapper" htmlTag="div" htmlClass="messages-wrapper" %}
+                {% EFContainer name="page.messages" %}{% endEFContainer %}
+            {% endEFContainer %}
+            {% EFContainer name="page.main.container" htmlTag="div" htmlClass="row content-container" %}
+                {% EFContainer name="main.col" htmlTag="div" htmlClass="col main-col" %}
+                    {% EFContainer name="content" %}{% endEFContainer %}
+                {% endEFContainer %}
+            {% endEFContainer %}
+            {% EFContainer name="footer.container" htmlTag="footer" htmlClass="footer" %}{% endEFContainer %}
+        {% endEFReferenceContainer %}
+    {% endEFReferenceContainer %}
+{% endEFLayout %}

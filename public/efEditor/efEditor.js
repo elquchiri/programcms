@@ -1,5 +1,5 @@
 /**
- * Copyright © ElectroForums, Inc. All rights reserved.
+ * Copyright © ProgramCMS, Inc. All rights reserved.
  * See LICENSE for license details.
  *
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>

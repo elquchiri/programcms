@@ -1,0 +1,21 @@
+<div class="config-menu">
+    <ul>
+        {% for tab in efBlock.getTabs() %}
+            <li class="root {% if tab.active is defined %}open{% endif %}">
+                <a href="#">{{ tab.label }}</a>
+            </li>
+            {% if tab.sections is defined %}
+                <ul class="child" {% if tab.active is defined %} style="display: block" {% endif %}>
+                    {% for sectionId, section in tab.sections %}
+                        <li>
+                            <a class="{% if section.active %}active{% endif %}"
+                               href="{{ path('adminhtml_config_systemconfig_edit') }}/sectionId/{{ sectionId }}">
+                                {{ section.label }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
