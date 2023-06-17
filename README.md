@@ -4,7 +4,7 @@
 </p>
 <p align="center"><img src="https://raw.githubusercontent.com/elquchiri/programcms/master/public/images/programcms-logo.png"></p>
 
-ProgramCms provides you with a complete, trustworthy CMS & easy to use PHP Framework to build and deploy All kind of Web Sites.
+ProgramCMS provides you with a complete, trustworthy CMS & easy to use PHP Framework to build and deploy All kind of Web Sites.
 
 Written in PHP, on top of Symfony, it makes it very easy to reuse, install or create new bundles to Improve your Application.
 
@@ -13,7 +13,7 @@ The Manager Bundle deliver & Maintain ProgramCms Bundles, so you can choose any 
 ## Deployment
 ![](https://img.shields.io/github/last-commit/elquchiri/programcms?label=In%20Active%20Development)
 
-Please note that ProgramCMS CMS Project is under development
+Please note that ProgramCMS Project is under development
 
 ## Requirements
 
@@ -74,6 +74,11 @@ Backend Dashboard
 - Please Join our Channels on Slack & Telegram
    - http://join.slack.com/t/programcms/shared_invite/zt-1qbsdh8sw-_rFQJsEI4qAbdhorYz4RWQ
    - https://t.me/programcms
+
+## Remarkable Changes
+
+- 2022/12: First commit in the project
+- 2023/06: Changing Project name from ElectroForums to ProgramCMS
 
 ## Donation
 
