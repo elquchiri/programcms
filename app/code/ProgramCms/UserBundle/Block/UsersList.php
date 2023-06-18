@@ -15,11 +15,12 @@ class UsersList extends \ProgramCms\CoreBundle\View\Element\Template
     protected \ProgramCms\UiBundle\Model\Element\Grid $grid;
 
     public function __construct(
-        Environment $environment,
-        \ProgramCms\UiBundle\Model\Element\Grid $grid
+        \ProgramCms\CoreBundle\View\Element\Template\Context $context,
+        \ProgramCms\UiBundle\Model\Element\Grid $grid,
+        array $data = []
     )
     {
-        parent::__construct($environment);
+        parent::__construct($context, $data);
         $this->grid = $grid;
     }
 
@@ -36,7 +37,7 @@ class UsersList extends \ProgramCms\CoreBundle\View\Element\Template
         return $this->grid->getColumns();
     }
 
-    public function getData(): array
+    public function getRows(): array
     {
         $this->grid->populate([
             [

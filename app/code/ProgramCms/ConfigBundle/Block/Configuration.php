@@ -21,15 +21,14 @@ class Configuration extends \ProgramCms\CoreBundle\View\Element\Template
     protected \ProgramCms\RouterBundle\Service\Request $request;
 
     public function __construct(
-        Environment $environment,
+        \ProgramCms\CoreBundle\View\Element\Template\Context $context,
         \ProgramCms\ConfigBundle\Model\ConfigSerializer $configSerializer,
-        \ProgramCms\RouterBundle\Service\Request $request
+        array $data = []
     )
     {
-        parent::__construct($environment);
+        parent::__construct($context, $data);
         $this->configSerializer = $configSerializer;
-        $this->request = $request;
-
+        $this->request = $context->getRequest();
         $this->initConfigSerializer();
     }
 

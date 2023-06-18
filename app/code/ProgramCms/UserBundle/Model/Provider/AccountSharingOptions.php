@@ -8,11 +8,14 @@
 
 namespace ProgramCms\UserBundle\Model\Provider;
 
-
-class AccountSharingOptions implements \ProgramCms\ConfigBundle\Model\OptionsArrayProvider
+/**
+ * Class AccountSharingOptions
+ * @package ProgramCms\UserBundle\Model\Provider
+ */
+class AccountSharingOptions extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
 {
 
-    public function getOptionsArray()
+    public function getOptionsArray(): array
     {
         return [
             'Global', 'Per Website'

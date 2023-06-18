@@ -20,18 +20,19 @@ class CreateToolbarActions extends \ProgramCms\UiBundle\Block\Toolbar\ToolbarAct
     protected \ProgramCms\RouterBundle\Service\Url $url;
 
     public function __construct(
-        Environment $environment,
-        \ProgramCms\RouterBundle\Service\Url $url
+        \ProgramCms\CoreBundle\View\Element\Template\Context $context,
+        \ProgramCms\RouterBundle\Service\Url $url,
+        array $data = []
     )
     {
-        parent::__construct($environment);
+        parent::__construct($context, $data);
         $this->url = $url;
     }
 
     public function getButtons(): array
     {
         return [
-            ["buttonType" => "back", "buttonTarget" => "button", "buttonAction" => "", "label" => "Go Back"],
+            ["buttonType" => "back", "buttonTarget" => "button", "buttonAction" => "", "label" => "back"],
             ["buttonType" => "reset", "buttonTarget" => "button", "buttonAction" => "", "label" => "Reset"],
             ["buttonType" => "save", "buttonTarget" => "programcms_config", "buttonAction" => $this->url->getUrlByRouteName("adminhtml_config_systemconfig_save"), "label" => "Save Website"]
         ];

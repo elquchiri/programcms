@@ -33,6 +33,12 @@ class EFBlockNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInter
                     $after = $node->getAttribute('after');
                     $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\EFThemeExtension')->addEfBlock('$childBlockName', '$childBlockClass', '$childBlockTemplate', '$blockName', '$before', '$after');");
                     break;
+                case ($node instanceof \ProgramCms\ThemeBundle\Node\Argument\ArgumentsNode):
+                    $arguments = [];
+                    $this->getArgumentAsArray($node, $arguments);
+                    $arguments = json_encode($arguments);
+                    $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\EFThemeExtension')->setArguments('$blockName', '$arguments');");
+                    break;
                 case ($node instanceof \Twig\Node\TextNode):
                     if(empty(trim($node->getAttribute('data')))) {
                         break;
@@ -43,5 +49,19 @@ class EFBlockNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInter
         }
 
         $compiler->subcompile($this->getNode('body'));
+    }
+
+    private function getArgumentAsArray($argument, &$argumentArray)
+    {
+        foreach($argument->getNode('body') as $arg) {
+            if($arg instanceof \ProgramCms\ThemeBundle\Node\Argument\ArgumentNode) {
+                if($arg->getAttribute('argumentType') == 'array') {
+                    $argumentArray[$arg->getAttribute('argumentName')] = [];
+                    $this->getArgumentAsArray($arg, $argumentArray[$arg->getAttribute('argumentName')]);
+                }else{
+                    $argumentArray[$arg->getAttribute('argumentName')] = $arg->getNode('body')->getAttribute('data');
+                }
+            }
+        }
     }
 }

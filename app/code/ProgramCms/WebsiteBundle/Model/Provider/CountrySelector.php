@@ -12,10 +12,10 @@ namespace ProgramCms\WebsiteBundle\Model\Provider;
  * Class CountrySelector
  * @package ProgramCms\WebsiteBundle\Model\Provider
  */
-class CountrySelector implements \ProgramCms\ConfigBundle\Model\OptionsArrayProvider
+class CountrySelector extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
 {
 
-    public function getOptionsArray()
+    public function getOptionsArray(): array
     {
         return [
             "AF" => "Afghanistan",

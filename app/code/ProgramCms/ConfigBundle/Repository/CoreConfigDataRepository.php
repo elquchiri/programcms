@@ -45,18 +45,4 @@ class CoreConfigDataRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
-    /**
-     * Returns an array of Customer objects
-     * @return CoreConfigData
-     */
-    public function findDefaultCategory(): array
-    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->orderBy('c.id', 'ASC')
-//            ->getQuery()
-//            ->getResult()
-//        ;
-    }
 }

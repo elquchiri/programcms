@@ -8,6 +8,10 @@
 
 namespace ProgramCms\ThemeBundle\Block\Html\Header;
 
+/**
+ * Class Logo
+ * @package ProgramCms\ThemeBundle\Block\Html\Header
+ */
 class Logo extends \ProgramCms\CoreBundle\View\Element\Template
 {
 

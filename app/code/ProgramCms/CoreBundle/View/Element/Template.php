@@ -28,10 +28,20 @@ class Template extends AbstractBlock
      * @var array
      */
     protected array $_viewVars = [];
+    private \ProgramCms\CoreBundle\Model\Filesystem\DirectoryList $directoryList;
+    private \ProgramCms\RouterBundle\Service\Request $request;
+    protected Environment $environment;
 
-    public function __construct(Environment $environment, array $data = [])
+    public function __construct(
+        \ProgramCms\CoreBundle\View\Element\Template\Context $context,
+        array $data = []
+    )
     {
-        parent::__construct($environment, $data);
+        $this->directoryList = $context->getDirectoryList();
+        $this->request = $context->getRequest();
+        $this->environment = $context->getEnvironment();
+        // Assign efBlock variable helping accessing block object from template.
+        $this->assign(['efBlock' => $this]);
     }
 
     /**
@@ -53,7 +63,9 @@ class Template extends AbstractBlock
      */
     public function setTemplate(string $template): static
     {
-        $this->_template = $template;
+        if(!empty($template)) {
+            $this->_template = $template;
+        }
         return $this;
     }
 
@@ -65,12 +77,19 @@ class Template extends AbstractBlock
     /**
      * Get absolute path to template
      *
-     * @param string|null $template
      * @return string|bool
      */
-    public function getTemplateFile($template = null)
+    public function getTemplateFile(): string
     {
-        return $this->_template;
+        $areaCode = $this->request->getCurrentAreaCode();
+        $templateParts = explode('/', $this->getTemplate());
+        $bundleName = explode('@', $templateParts[0])[1];
+        unset($templateParts[0]);
+        $requestedTemplatePath = implode('/', $templateParts);
+        $templatePath = '@' . str_replace('Bundle', '', $bundleName) . '/' . $areaCode . '/templates/' . $requestedTemplatePath;
+        $themeTemplatePath = $this->directoryList->getRoot() . '/app/design/' . $areaCode . '/ProgramCms/blank/' . $bundleName . '/templates/' . $requestedTemplatePath;
+
+        return is_file($themeTemplatePath) ? '@Themes/' . $areaCode . '/ProgramCms/blank/' . $bundleName . '/templates/' .$requestedTemplatePath : $templatePath;
     }
 
     /**

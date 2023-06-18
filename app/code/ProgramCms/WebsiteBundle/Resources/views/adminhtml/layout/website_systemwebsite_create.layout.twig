@@ -1,3 +1,11 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
 {% EFPage %}
     {% EFReferenceContainer name="buttons.bar" %}
         {% EFBlock name="website.switcher" class="ProgramCms\\UiBundle\\Block\\Toolbar\\WebsiteSwitcher" template="@ProgramCmsUiBundle/toolbar/website_switcher.html.twig" %}{% endEFBlock %}
@@ -5,15 +13,41 @@
     {% endEFReferenceContainer %}
 
     {% EFReferenceContainer name="content" %}
-{#        {% EFBlock name="collapser" class="" %}#}
-{#            {% EFBlock name="form" class="" %}#}
-{#                {% Arguments %}#}
-{#                    {% Argument name="" type="array" %}#}
-{#                        {% Item name="" type="" %}{% endItem %}#}
-{#                    {% endArgument %}#}
-{#                {% endArguments %}#}
-{#            {% endEFBlock %}#}
-{#        {% endEFBlock %}#}
-        {% EFBlock name="users.list" class="ProgramCms\\UserBundle\\Block\\UsersList" template="@ProgramCmsUiBundle/form/form.html.twig" %}{% endEFBlock %}
+        {% EFBlock name="collapser" class="ProgramCms\\UiBundle\\Block\\Collapser\\Collapser" %}
+            {% Arguments %}
+                {% Argument name="label" type="string" %}New Website{% endArgument %}
+            {% endArguments %}
+            {% EFBlock name="form" class="ProgramCms\\UiBundle\\Block\\Form\\Form" %}
+                {% Arguments %}
+                    {% Argument name="fieldSets" type="array" %}
+                        {% Argument name="fieldset1" type="array" %}
+                            {% Argument name="fields" type="array" %}
+                                {% Argument name="name" type="array" %}
+                                    {% Argument name="type" type="string" %}text{% endArgument %}
+                                    {% Argument name="label" type="string" %}Name{% endArgument %}
+                                    {% Argument name="placeholder" type="string" %}Website Name{% endArgument %}
+                                {% endArgument %}
+                                {% Argument name="code" type="array" %}
+                                    {% Argument name="type" type="string" %}text{% endArgument %}
+                                    {% Argument name="label" type="string" %}Code{% endArgument %}
+                                    {% Argument name="placeholder" type="string" %}Code{% endArgument %}
+                                {% endArgument %}
+                                {% Argument name="sort_order" type="array" %}
+                                    {% Argument name="type" type="string" %}text{% endArgument %}
+                                    {% Argument name="label" type="string" %}Sort Order{% endArgument %}
+                                    {% Argument name="placeholder" type="string" %}0{% endArgument %}
+                                {% endArgument %}
+                                {% Argument name="status" type="array" %}
+                                    {% Argument name="type" type="string" %}select{% endArgument %}
+                                    {% Argument name="label" type="string" %}Status{% endArgument %}
+                                    {% Argument name="sourceModel" type="string" %}ProgramCms\\UiBundle\\Model\\Provider\\DataSource\\EnableDisable{% endArgument %}
+                                    {% Argument name="helpMessage" type="string" %}We recommend disabling website on creation.{% endArgument %}
+                                {% endArgument %}
+                            {% endArgument %}
+                        {% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+            {% endEFBlock %}
+        {% endEFBlock %}
     {% endEFReferenceContainer %}
 {% endEFPage %}

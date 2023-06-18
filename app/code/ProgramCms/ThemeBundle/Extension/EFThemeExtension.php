@@ -15,17 +15,9 @@ namespace ProgramCms\ThemeBundle\Extension;
 class EFThemeExtension extends \Twig\Extension\AbstractExtension
 {
     /**
-     * @var \ProgramCms\RouterBundle\Service\Request
-     */
-    protected \ProgramCms\RouterBundle\Service\Request $request;
-    /**
      * @var \ProgramCms\CoreBundle\Model\Utils\BundleManager
      */
     protected \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager;
-    /**
-     * @var \ProgramCms\CoreBundle\Model\Filesystem\DirectoryList
-     */
-    protected \ProgramCms\CoreBundle\Model\Filesystem\DirectoryList $directoryList;
     /**
      * @var \Twig\Environment
      */
@@ -74,21 +66,28 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     public function __construct(
         \Twig\Environment $environment,
         \ProgramCms\ThemeBundle\Model\PageLayout $pageLayout,
-        \ProgramCms\RouterBundle\Service\Request $request,
         \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager,
-        \ProgramCms\CoreBundle\Model\Filesystem\DirectoryList $directoryList
     )
     {
         $this->environment = $environment;
-        $this->request = $request;
         $this->bundleManager = $bundleManager;
-        $this->directoryList = $directoryList;
         $this->efElements = [];
         $this->pageLayout = $pageLayout;
         $this->elementsWithFileName = [];
         $this->currentPageLayout = "";
     }
 
+    /**
+     * @param $containerName
+     */
+    public function addEfRootContainer($containerName)
+    {
+        if (!count($this->efElements)) {
+            $this->efElements[$containerName] = [
+                'type' => 'container'
+            ];
+        }
+    }
     /**
      * @throws \Exception
      */
@@ -98,20 +97,16 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         $targetContainer = $this->findElementPath($this->efElements, $containerParent, $containerPaths);
 
         if ($targetContainer) {
-            $areaCode = $this->request->getCurrentAreaCode();
-            $templateParts = explode('/', $blockTemplate);
-            $bundleName = explode('@', $templateParts[0])[1];
-            $bundle = $this->bundleManager->getBundleByName($bundleName);
-            unset($templateParts[0]);
-            $requestedTemplatePath = implode('/', $templateParts);
-            $templatePath = $bundle['path'] . '/Resources/views/'. $areaCode .'/templates/' . $requestedTemplatePath;
-            $themeTemplatePath = $this->directoryList->getRoot() . '/themes/'. $areaCode . '/ProgramCms/blank/' . $bundle['name'] . '/templates/' .$requestedTemplatePath;
-
             $element = [
                 'type' => 'block',
                 'class' => $blockClass,
-                'template' => is_file($themeTemplatePath) ? '@Themes/' . $areaCode . '/ProgramCms/blank/' . $bundle['name'] . '/templates/' .$requestedTemplatePath : '@' . str_replace('Bundle', '', $bundleName) . '/' . $areaCode .'/templates/' . $requestedTemplatePath
+                'template' => ''
             ];
+
+            if(!empty($blockTemplate)) {
+                $element['template'] = $blockTemplate;
+            }
+
             if(!empty($before)) {
                 $element['before'] = $before;
             }
@@ -126,14 +121,25 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     }
 
     /**
-     * @param $containerName
+     * @param $blockName
+     * @param $arguments
      */
-    public function addEfRootContainer($containerName)
+    public function setArguments($blockName, $arguments)
     {
-        if (!count($this->efElements)) {
-            $this->efElements[$containerName] = [
-                'type' => 'container'
-            ];
+        $nestedContainer = &$this->efElements;
+        $path = [];
+        $targetContainer = $this->findElementPath($this->efElements, $blockName, $path);
+
+        if($targetContainer) {
+            foreach ($path as $index => $key) {
+                // Update $nestedContainer to point to the nested array corresponding to the current key
+                if ($index < count($path) - 1) {
+                    $nestedContainer = &$nestedContainer[$key]['childs'];
+                } else {
+                    $nestedContainer = &$nestedContainer[$key];
+                }
+            }
+            $nestedContainer['arguments'] = json_decode($arguments, true);
         }
     }
 
@@ -294,15 +300,15 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
      * @param array $path
      * @return null
      */
-    public function findElementPath($efContainers, $containerName, &$path = [])
+    public function findElementPath($efContainers, $elementName, &$path = [])
     {
         foreach ($efContainers as $containerKey => $container) {
-            if ($containerKey == $containerName) {
+            if ($containerKey == $elementName) {
                 $path[] = $containerKey;
                 return $container;
             } elseif (isset($container['childs'])) {
                 $subPath = [];
-                $result = $this->findElementPath($container['childs'], $containerName, $subPath);
+                $result = $this->findElementPath($container['childs'], $elementName, $subPath);
                 if ($result !== null) {
                     $path[] = $containerKey;
                     $path = array_merge($path, $subPath);
@@ -464,18 +470,28 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     {
         // Get Block instance from Container class
         $blockClassInstance = $this->bundleManager->getContainer()->get($block['class']);
+
+        if(isset($block['arguments'])) {
+            $blockClassInstance->setData($block['arguments']);
+        }
         if(isset($block['childs'])) {
             foreach($block['childs'] as $childBlockName => $childBlock) {
                 $childBlockClassInstance = $this->bundleManager->getContainer()->get($childBlock['class']);
-                $childBlockClassInstance->setTemplate($childBlock['template']);
+                if(isset($childBlock['arguments'])) {
+                    $childBlockClassInstance->setData($childBlock['arguments']);
+                }
+                if(isset($childBlock['template'])) {
+                    $childBlockClassInstance->setTemplate($childBlock['template']);
+                }
                 $blockClassInstance->addChildBlock($childBlockName, $childBlockClassInstance);
             }
         }
 
-        return $blockClassInstance
-            ->setTemplate($block['template'])
-            ->assign(['efBlock' => $blockClassInstance])
-            ->toHtml();
+        if(isset($block['template'])) {
+            $blockClassInstance->setTemplate($block['template']);
+        }
+
+        return $blockClassInstance->toHtml();
     }
 
     /**
@@ -546,6 +562,8 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
             new \ProgramCms\ThemeBundle\Parser\EFTitleTokenParser($this->environment),
             new \ProgramCms\ThemeBundle\Parser\EFContainerTokenParser(),
             new \ProgramCms\ThemeBundle\Parser\EFBlockTokenParser(),
+            new \ProgramCms\ThemeBundle\Parser\Argument\ArgumentsTokenParser(),
+            new \ProgramCms\ThemeBundle\Parser\Argument\ArgumentTokenParser(),
             new \ProgramCms\ThemeBundle\Parser\EFReferenceBlockTokenParser(),
             new \ProgramCms\ThemeBundle\Parser\EFCssTokenParser(),
             new \ProgramCms\ThemeBundle\Parser\EFJsTokenParser(),

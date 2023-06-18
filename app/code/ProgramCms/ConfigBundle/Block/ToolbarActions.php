@@ -20,11 +20,12 @@ class ToolbarActions extends \ProgramCms\UiBundle\Block\Toolbar\ToolbarActions
     protected \ProgramCms\RouterBundle\Service\Url $url;
 
     public function __construct(
-        Environment $environment,
-        \ProgramCms\RouterBundle\Service\Url $url
+        \ProgramCms\CoreBundle\View\Element\Template\Context $context,
+        \ProgramCms\RouterBundle\Service\Url $url,
+        array $data = []
     )
     {
-        parent::__construct($environment);
+        parent::__construct($context, $data);
         $this->url = $url;
     }
 

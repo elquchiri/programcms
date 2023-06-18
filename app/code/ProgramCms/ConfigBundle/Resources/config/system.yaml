@@ -24,8 +24,8 @@ system_config:
             timezone:
               label: 'Timezone'
               type: 'select'
-              source: ProgramCms\CoreBundle\Model\Provider\TimeZoneSelector
+              source: ProgramCms\UiBundle\Model\Provider\DataSource\TimeZoneSelector
             locale:
               label: 'Locale'
               type: 'select'
-              source: ProgramCms\CoreBundle\Model\Provider\TimeZoneSelector
+              source: ProgramCms\UiBundle\Model\Provider\DataSource\TimeZoneSelector

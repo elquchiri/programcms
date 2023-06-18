@@ -8,6 +8,10 @@
 
 namespace ProgramCms\ThemeBundle\Block\Html;
 
+/**
+ * Class Title
+ * @package ProgramCms\ThemeBundle\Block\Html
+ */
 class Title extends \ProgramCms\CoreBundle\View\Element\Template
 {
 

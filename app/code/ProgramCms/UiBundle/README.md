@@ -1,1 +1,1 @@
-The User bundle contains common infrastructure that provides an ability to apply and use UI in ProgramCMS application.
+The UI bundle contains common infrastructure that provides an ability to apply and use UI in ProgramCMS application.

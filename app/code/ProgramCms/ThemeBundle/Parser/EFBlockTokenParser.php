@@ -20,15 +20,23 @@ class EFBlockTokenParser extends \Twig\TokenParser\AbstractTokenParser
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
+
         $stream->expect(\Twig\Token::NAME_TYPE, 'name');
         $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
         $blockName = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+
         $stream->expect(\Twig\Token::NAME_TYPE, 'class');
         $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
         $blockClass = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
-        $stream->expect(\Twig\Token::NAME_TYPE, 'template');
-        $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
-        $blockTemplate = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+
+        try {
+            $stream->expect(\Twig\Token::NAME_TYPE, 'template');
+            $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
+            $blockTemplate = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+        }catch(SyntaxError $e) {
+            $blockTemplate = '';
+        }
+
         try {
             $stream->expect(\Twig\Token::NAME_TYPE, 'before');
             $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
@@ -44,6 +52,7 @@ class EFBlockTokenParser extends \Twig\TokenParser\AbstractTokenParser
         }catch(SyntaxError $e) {
             $after = '';
         }
+
         $stream->expect(\Twig\Token::BLOCK_END_TYPE);
 
         $body = $this->parser->subparse([$this, 'decideBlockEnd'], true);

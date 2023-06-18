@@ -1,0 +1,11 @@
+<div class="">
+    <h5><a class="" style="color: #000000" data-bs-toggle="collapse" href="#collapseExample" role="button"
+           aria-expanded="false" aria-controls="collapseExample">
+            {{ efBlock.getData('label') }}
+        </a></h5>
+    <div class="collapse show" id="collapseExample">
+        {% for subBlock in efBlock.getChildBlocks() %}
+            {{ subBlock.toHtml()|raw }}
+        {% endfor %}
+    </div>
+</div>

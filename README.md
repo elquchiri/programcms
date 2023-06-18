@@ -24,7 +24,7 @@ Please note that ProgramCMS Project is under development
 - Git
 ## Installation
 
-To install ProgramCms project run :
+To install ProgramCMS project run :
 
 ```bash
   git clone git@github.com:elquchiri/programcms.git
@@ -82,6 +82,6 @@ Backend Dashboard
 
 ## Donation
 
-Your donation will help, Improve and Speed up productivity of The Amazing ProgramCMS CMS.
+Your donation will help, Improve and Speed up productivity of The Amazing ProgramCMS.
 
 [![Donate](https://img.shields.io/badge/Donate-Buymeacoffee-green.svg)](https://www.buymeacoffee.com/elquchiriw?new=1)

@@ -58,7 +58,7 @@
 .menu-items .menu-item {
     display: flex;
     margin-bottom: 39px;
-    padding: 3px 11px 11px 11px;
+    padding: 3px 11px 11px 8px;
 
 }
 .menu-items .menu-item .menu-item-title {
