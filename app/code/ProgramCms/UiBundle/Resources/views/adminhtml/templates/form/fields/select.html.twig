@@ -6,7 +6,7 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<select name="{{ efBlock.getName() }}" class="form-select">
+<select name="{{ efBlock.getName() }}" class="form-select" id="{{ efBlock.getName() }}">
     {% for optionKey, option in efBlock.getOptions() %}
         <option value="{{ optionKey }}">{{ option }}</option>
     {% endfor %}

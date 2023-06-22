@@ -23,6 +23,8 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
     protected \ProgramCms\UiBundle\Model\Element\Form\Fields\Select $select;
     protected \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager;
     protected \ProgramCms\UiBundle\Model\Element\Form\Fields\Password $password;
+    protected \ProgramCms\UiBundle\Model\Element\Form\Fields\Switcher $switcher;
+    protected \ProgramCms\UiBundle\Model\Element\Form\Fields\ImageUploader $imageUploader;
 
     public function __construct(
         \ProgramCms\CoreBundle\View\Element\Template\Context $context,
@@ -33,6 +35,8 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
         \ProgramCms\UiBundle\Model\Element\Form\Fields\TextArea $textArea,
         \ProgramCms\UiBundle\Model\Element\Form\Fields\Password $password,
         \ProgramCms\UiBundle\Model\Element\Form\Fields\Select $select,
+        \ProgramCms\UiBundle\Model\Element\Form\Fields\Switcher $switcher,
+        \ProgramCms\UiBundle\Model\Element\Form\Fields\ImageUploader $imageUploader,
         array $data = []
     )
     {
@@ -44,10 +48,13 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
         $this->form = $form;
         $this->select = $select;
         $this->bundleManager = $bundleManager;
+        $this->switcher = $switcher;
+        $this->imageUploader = $imageUploader;
     }
 
     public function getFieldSets(): array
     {
+        $form = clone $this->form;
         foreach($this->getData("fieldSets") as $fieldset) {
             $fieldsetElement = clone $this->fieldset;
             $fields = $fieldset['fields'];
@@ -56,15 +63,21 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
                 switch($field['type']) {
                     case "text":
                         $fieldElement = clone $this->text;
-                        $fieldElement->setPlaceholder($field['placeholder']);
+                        if(isset($field['placeholder'])) {
+                            $fieldElement->setPlaceholder($field['placeholder']);
+                        }
                         break;
                     case "textArea":
-                        $fieldElement = clone $this->textArea;
-                        $fieldElement->setPlaceholder($field['placeholder']);
+                        $fieldElement = $this->textArea;
+                        if(isset($field['placeholder'])) {
+                            $fieldElement->setPlaceholder($field['placeholder']);
+                        }
                         break;
                     case "password":
                         $fieldElement = clone $this->password;
-                        $fieldElement->setPlaceholder($field['placeholder']);
+                        if(isset($field['placeholder'])) {
+                            $fieldElement->setPlaceholder($field['placeholder']);
+                        }
                         break;
                     case "select":
                         $fieldElement = clone $this->select;
@@ -73,6 +86,12 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
                                 ->get($field['sourceModel'])
                                 ->getOptionsArray()
                         );
+                        break;
+                    case "switcher":
+                        $fieldElement = clone $this->switcher;
+                        break;
+                    case "imageUploader":
+                        $fieldElement = clone $this->imageUploader;
                         break;
                 }
                 // Common attributes
@@ -84,9 +103,9 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
                 $fieldsetElement->addField($fieldElement);
             }
 
-            $this->form->addFieldset($fieldsetElement);
+            $form->addFieldset($fieldsetElement);
         }
 
-        return $this->form->getFieldSets();
+        return $form->getFieldSets();
     }
 }

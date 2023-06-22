@@ -22,6 +22,7 @@ class Text extends \ProgramCms\UiBundle\Model\Element\Form\Fields\Field
     )
     {
         $this->text = $text;
+        $this->placeholder = "";
     }
 
     public function setPlaceholder($placeholder)

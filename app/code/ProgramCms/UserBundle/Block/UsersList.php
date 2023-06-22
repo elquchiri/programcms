@@ -8,7 +8,6 @@
 
 namespace ProgramCms\UserBundle\Block;
 
-use Twig\Environment;
 
 class UsersList extends \ProgramCms\CoreBundle\View\Element\Template
 {

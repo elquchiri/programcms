@@ -14,5 +14,8 @@ namespace ProgramCms\UiBundle\Model\Provider\DataSource;
  */
 interface OptionsInterface
 {
+    /**
+     * @return array
+     */
     public function getOptionsArray(): array;
 }

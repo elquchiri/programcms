@@ -1,0 +1,172 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% EFPage layout="admin-2columns-left" %}
+    {% EFCss ["bundles/programcmscategory/css/category_tree.css"] %}
+    {% EFJs ["bundles/programcmscategory/js/category_tree.js"] %}
+
+    {% EFReferenceContainer name="buttons.bar" %}
+        {% EFBlock name="website.switcher" class="ProgramCms\\UiBundle\\Block\\Toolbar\\WebsiteSwitcher" template="@ProgramCmsUiBundle/toolbar/website_switcher.html.twig" %}{% endEFBlock %}
+        {% EFBlock name="toolbar.actions" class="ProgramCms\\CategoryBundle\\Block\\Toolbar\\ToolbarActions" template="@ProgramCmsUiBundle/toolbar/toolbar_buttons.html.twig" %}{% endEFBlock %}
+    {% endEFReferenceContainer %}
+
+    {% EFReferenceContainer name="sidebar.main" %}
+        {% EFBlock name="category.tree.block" class="ProgramCms\\CategoryBundle\\Block\\CategoryTree" template="@ProgramCmsCategoryBundle/tree.html.twig" %}{% endEFBlock %}
+    {% endEFReferenceContainer %}
+
+    {% EFReferenceContainer name="content" %}
+        {% EFBlock name="collapser" class="ProgramCms\\UiBundle\\Block\\Collapser\\Collapser" %}
+            {% Arguments %}
+                {% Argument name="name" type="string" %}collapser{% endArgument %}
+            {% endArguments %}
+            {% EFBlock name="form" class="ProgramCms\\UiBundle\\Block\\Form\\Form" %}
+                {% Arguments %}
+                    {% Argument name="fieldSets" type="array" %}
+                        {% Argument name="fieldset1" type="array" %}
+                            {% Argument name="fields" type="array" %}
+                                {% Argument name="enable" type="array" %}
+                                    {% Argument name="type" type="string" %}switcher{% endArgument %}
+                                    {% Argument name="label" type="string" %}Enable Category{% endArgument %}
+                                {% endArgument %}
+                                {% Argument name="includeInMenu" type="array" %}
+                                    {% Argument name="type" type="string" %}switcher{% endArgument %}
+                                    {% Argument name="label" type="string" %}Include in Menu{% endArgument %}
+                                {% endArgument %}
+                                {% Argument name="name" type="array" %}
+                                    {% Argument name="type" type="string" %}text{% endArgument %}
+                                    {% Argument name="label" type="string" %}Name{% endArgument %}
+                                    {% Argument name="placeholder" type="string" %}Category Name{% endArgument %}
+                                {% endArgument %}
+                            {% endArgument %}
+                        {% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+            {% endEFBlock %}
+        {% endEFBlock %}
+        {% EFBlock name="collapser2" class="ProgramCms\\UiBundle\\Block\\Collapser\\Collapser" %}
+            {% Arguments %}
+                {% Argument name="name" type="string" %}collapser2{% endArgument %}
+                {% Argument name="label" type="string" %}Content{% endArgument %}
+                {% Argument name="open" type="boolean" %}false{% endArgument %}
+            {% endArguments %}
+            {% EFBlock name="form2" class="ProgramCms\\UiBundle\\Block\\Form\\Form" %}
+                {% Arguments %}
+                    {% Argument name="fieldSets" type="array" %}
+                        {% Argument name="fieldset2" type="array" %}
+                            {% Argument name="fields" type="array" %}
+                                {% Argument name="categoryImage" type="array" %}
+                                    {% Argument name="type" type="string" %}imageUploader{% endArgument %}
+                                    {% Argument name="label" type="string" %}Category Image{% endArgument %}
+                                {% endArgument %}
+                                {% Argument name="description" type="array" %}
+                                    {% Argument name="type" type="string" %}textArea{% endArgument %}
+                                    {% Argument name="label" type="string" %}Description{% endArgument %}
+                                    {% Argument name="placeholder" type="string" %}Description{% endArgument %}
+                                {% endArgument %}
+                            {% endArgument %}
+                        {% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+            {% endEFBlock %}
+        {% endEFBlock %}
+        {% EFBlock name="collapser3" class="ProgramCms\\UiBundle\\Block\\Collapser\\Collapser" %}
+            {% Arguments %}
+                {% Argument name="name" type="string" %}collapser3{% endArgument %}
+                {% Argument name="label" type="string" %}Display Settings{% endArgument %}
+            {% endArguments %}
+            {% EFBlock name="form3" class="ProgramCms\\UiBundle\\Block\\Form\\Form" %}
+                {% Arguments %}
+                    {% Argument name="fieldSets" type="array" %}
+                        {% Argument name="fieldset3" type="array" %}
+                            {% Argument name="fields" type="array" %}
+                                {% Argument name="displayMode" type="array" %}
+                                    {% Argument name="type" type="string" %}select{% endArgument %}
+                                    {% Argument name="label" type="string" %}Display Mode{% endArgument %}
+                                    {% Argument name="sourceModel" type="string" %}ProgramCms\\CategoryBundle\\Model\\Provider\\DataSource\\DisplayMode{% endArgument %}
+                                {% endArgument %}
+                                {% Argument name="sortOrder" type="array" %}
+                                    {% Argument name="type" type="string" %}text{% endArgument %}
+                                    {% Argument name="label" type="string" %}Sort Order{% endArgument %}
+                                    {% Argument name="placeholder" type="string" %}Sort Order{% endArgument %}
+                                {% endArgument %}
+                            {% endArgument %}
+                        {% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+            {% endEFBlock %}
+        {% endEFBlock %}
+        {% EFBlock name="collapser4" class="ProgramCms\\UiBundle\\Block\\Collapser\\Collapser" %}
+            {% Arguments %}
+                {% Argument name="name" type="string" %}collapser4{% endArgument %}
+                {% Argument name="label" type="string" %}Search Engine Optimization{% endArgument %}
+            {% endArguments %}
+            {% EFBlock name="form4" class="ProgramCms\\UiBundle\\Block\\Form\\Form" %}
+                {% Arguments %}
+                    {% Argument name="fieldSets" type="array" %}
+                        {% Argument name="fieldset4" type="array" %}
+                            {% Argument name="fields" type="array" %}
+                                {% Argument name="metaTitle" type="array" %}
+                                    {% Argument name="type" type="string" %}text{% endArgument %}
+                                    {% Argument name="label" type="string" %}Meta Title{% endArgument %}
+                                    {% Argument name="placeholder" type="string" %}Meta Title{% endArgument %}
+                                {% endArgument %}
+                                {% Argument name="metaKeywords" type="array" %}
+                                    {% Argument name="type" type="string" %}text{% endArgument %}
+                                    {% Argument name="label" type="string" %}Meta Keywords{% endArgument %}
+                                    {% Argument name="placeholder" type="string" %}Meta Keywords{% endArgument %}
+                                {% endArgument %}
+                                {% Argument name="metaDescription" type="array" %}
+                                    {% Argument name="type" type="string" %}text{% endArgument %}
+                                    {% Argument name="label" type="string" %}Meta Description{% endArgument %}
+                                    {% Argument name="placeholder" type="string" %}Meta Description{% endArgument %}
+                                {% endArgument %}
+                            {% endArgument %}
+                        {% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+            {% endEFBlock %}
+        {% endEFBlock %}
+        {% EFBlock name="posts" class="ProgramCms\\UiBundle\\Block\\Collapser\\Collapser" %}
+            {% Arguments %}
+                {% Argument name="name" type="string" %}posts{% endArgument %}
+                {% Argument name="label" type="string" %}Posts{% endArgument %}
+            {% endArguments %}
+            {% EFBlock name="postsGrid" class="ProgramCms\\UiBundle\\Block\\Grid\\Grid" %}
+                {% Arguments %}
+                    {% Argument name="dataProvider" type="array" %}
+                        {% Argument name="class" type="string" %}ProgramCms\\PostBundle\\Model\\Provider\\PostDataProvider{% endArgument %}
+                        {% Argument name="primaryFieldName" type="string" %}entity_id{% endArgument %}
+                        {% Argument name="requestFieldName" type="string" %}id{% endArgument %}
+                    {% endArgument %}
+                    {% Argument name="columns" type="array" %}
+                        {% Argument name="id" type="array" %}
+                            {% Argument name="label" type="string" %}#{% endArgument %}
+                            {% Argument name="dataScope" type="string" %}entity_id{% endArgument %}
+                        {% endArgument %}
+                        {% Argument name="title" type="array" %}
+                            {% Argument name="label" type="string" %}Title{% endArgument %}
+                            {% Argument name="dataScope" type="string" %}title{% endArgument %}
+                        {% endArgument %}
+                        {% Argument name="websiteView" type="array" %}
+                            {% Argument name="label" type="string" %}Website View{% endArgument %}
+                            {% Argument name="dataScope" type="string" %}entity_id{% endArgument %}
+                        {% endArgument %}
+                        {% Argument name="status" type="array" %}
+                            {% Argument name="label" type="string" %}Status{% endArgument %}
+                            {% Argument name="dataScope" type="string" %}status{% endArgument %}
+                        {% endArgument %}
+                        {% Argument name="actionsColumn" type="array" %}
+                            {% Argument name="label" type="string" %}Actions{% endArgument %}
+                            {% Argument name="class" type="string" %}ProgramCms\\PostBundle\\Ui\\Component\\Listing\\Column\\CategoryListingActions{% endArgument %}
+                        {% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+            {% endEFBlock %}
+        {% endEFBlock %}
+    {% endEFReferenceContainer %}
+{% endEFPage %}

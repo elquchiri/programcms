@@ -14,14 +14,19 @@ namespace ProgramCms\UiBundle\Model\Element\Form;
  */
 class Fieldset
 {
-    protected array $fields;
+    protected array $fields = [];
+
+    public function __construct()
+    {
+        $this->fields = [];
+    }
 
     public function addField($field)
     {
         $this->fields[] = $field;
     }
 
-    public function getFields()
+    public function getFields(): array
     {
         return $this->fields;
     }

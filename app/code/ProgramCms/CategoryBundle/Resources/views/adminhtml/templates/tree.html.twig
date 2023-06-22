@@ -1,3 +1,17 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="category-buttons">
+    <div class="btn-group" role="group" aria-label="Basic outlined example">
+        <button type="button" class="btn btn-outline-secondary btn-sm add-category" id="root" data-ef-url="">Add Root Category</button>
+        <button type="button" class="btn btn-outline-secondary btn-sm add-category" id="subcategory" data-ef-url="">Add Subcategory</button>
+    </div>
+</div>
 <div class="category-tree">
     <a href="#" class="tree-group" id="collapse">Collapse All</a> | <a href="#" class="tree-group" id="expand">Expand
         All</a>
@@ -7,7 +21,7 @@
                             <span class="title">
                                 <img src="{{ asset('bundles/programcmscategory/images/folder-search.png') }}"/>
                                 <span class="category-name active"
-                                      data-url="{{ path('programcms_category_tree_edit', {id: 4}) }}">
+                                      data-url="">
                                     Default Category
                                     <span>- 4020</span>
                                 </span>

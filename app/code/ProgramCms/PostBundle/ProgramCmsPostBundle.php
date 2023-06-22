@@ -8,7 +8,10 @@
 
 namespace ProgramCms\PostBundle;
 
-
+/**
+ * Class ProgramCmsPostBundle
+ * @package ProgramCms\PostBundle
+ */
 class ProgramCmsPostBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
 {
     public const VERSION = '1.0.0';

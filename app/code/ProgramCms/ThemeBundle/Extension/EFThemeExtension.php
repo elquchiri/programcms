@@ -126,20 +126,20 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
      */
     public function setArguments($blockName, $arguments)
     {
-        $nestedContainer = &$this->efElements;
+        $nestedElement = &$this->efElements;
         $path = [];
-        $targetContainer = $this->findElementPath($this->efElements, $blockName, $path);
+        $targetElement = $this->findElementPath($this->efElements, $blockName, $path);
 
-        if($targetContainer) {
+        if($targetElement) {
             foreach ($path as $index => $key) {
                 // Update $nestedContainer to point to the nested array corresponding to the current key
                 if ($index < count($path) - 1) {
-                    $nestedContainer = &$nestedContainer[$key]['childs'];
+                    $nestedElement = &$nestedElement[$key]['childs'];
                 } else {
-                    $nestedContainer = &$nestedContainer[$key];
+                    $nestedElement = &$nestedElement[$key];
                 }
             }
-            $nestedContainer['arguments'] = json_decode($arguments, true);
+            $nestedElement['arguments'] = json_decode($arguments, true);
         }
     }
 
@@ -469,14 +469,13 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     private function renderEfBlock($block): string
     {
         // Get Block instance from Container class
-        $blockClassInstance = $this->bundleManager->getContainer()->get($block['class']);
-
+        $blockClassInstance = clone $this->bundleManager->getContainer()->get($block['class']);
         if(isset($block['arguments'])) {
             $blockClassInstance->setData($block['arguments']);
         }
         if(isset($block['childs'])) {
             foreach($block['childs'] as $childBlockName => $childBlock) {
-                $childBlockClassInstance = $this->bundleManager->getContainer()->get($childBlock['class']);
+                $childBlockClassInstance = clone $this->bundleManager->getContainer()->get($childBlock['class']);
                 if(isset($childBlock['arguments'])) {
                     $childBlockClassInstance->setData($childBlock['arguments']);
                 }

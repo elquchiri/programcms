@@ -14,7 +14,7 @@ namespace ProgramCms\UiBundle\Model\Element\Form\Fields;
  */
 class TextArea extends \ProgramCms\UiBundle\Model\Element\Form\Fields\Field
 {
-    protected string $placeholder;
+    protected string $placeholder = "";
     protected \ProgramCms\UiBundle\Block\Form\Fields\TextArea $textArea;
 
     public function __construct(

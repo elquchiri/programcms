@@ -2,6 +2,7 @@
     margin-top: 51px;
     flex: 1 1 auto;
     border-top: 1px solid #dddddd;
+    box-shadow: inset 1px 1px 1px #EEEEEE;
     background-color: #eee;
 }
 .footer .footer-content {

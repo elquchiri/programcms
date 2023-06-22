@@ -40,8 +40,6 @@ class Template extends AbstractBlock
         $this->directoryList = $context->getDirectoryList();
         $this->request = $context->getRequest();
         $this->environment = $context->getEnvironment();
-        // Assign efBlock variable helping accessing block object from template.
-        $this->assign(['efBlock' => $this]);
     }
 
     /**
@@ -51,6 +49,10 @@ class Template extends AbstractBlock
     {
         if (!$this->getTemplate()) {
             return '';
+        }
+        // Assign efBlock variable helping accessing block object from template.
+        if(empty($this->_viewVars)) {
+            $this->assign(['efBlock' => $this]);
         }
         return $this->fetchView($this->getTemplateFile());
     }

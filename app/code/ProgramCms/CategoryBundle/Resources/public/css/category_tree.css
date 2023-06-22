@@ -1,7 +1,11 @@
-.category-tree-container {
-    padding-top: 11px;
-}
-.category-tree-container .category-buttons {
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+
+.category-buttons {
     margin-bottom: 21px;
 }
 

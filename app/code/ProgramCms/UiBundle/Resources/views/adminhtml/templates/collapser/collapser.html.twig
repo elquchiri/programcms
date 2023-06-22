@@ -1,11 +1,23 @@
-<div class="">
-    <h5><a class="" style="color: #000000" data-bs-toggle="collapse" href="#collapseExample" role="button"
-           aria-expanded="false" aria-controls="collapseExample">
-            {{ efBlock.getData('label') }}
-        </a></h5>
-    <div class="collapse show" id="collapseExample">
-        {% for subBlock in efBlock.getChildBlocks() %}
-            {{ subBlock.toHtml()|raw }}
-        {% endfor %}
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="collapser">
+    {% if efBlock.hasLabel() %}
+    <a class="collapser-label open" data-bs-toggle="collapse" href="#{{ efBlock.getName() }}" role="button"
+           aria-expanded="false" aria-controls="{{ efBlock.getName() }}">
+            {{ efBlock.getLabel() }}
+        </a>
+    {% endif %}
+    <div class="collapse {% if efBlock.isOpen() %}show{% endif %}" id="{{ efBlock.getName() }}">
+        {% if efBlock.hasLabel() %}<div class="collapser-container">{% endif %}
+            {% for blockName, subBlock in efBlock.getChildBlocks() %}
+                {{ efBlock.getChildHtml(blockName)|raw }}
+            {% endfor %}
+        {% if efBlock.hasLabel() %}</div>{% endif %}
     </div>
 </div>

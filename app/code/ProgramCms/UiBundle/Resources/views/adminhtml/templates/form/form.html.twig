@@ -11,13 +11,13 @@
         {% for field in fieldset.getFields() %}
             <div class="row mb-3">
                 <div class="col-3 text-end">
-                    <label for="inputPassword6" class="col-form-label">{{ field.getLabel() }} *</label>
+                    <label for="{{ field.getName() }}" class="col-form-label">{{ field.getLabel() }} *</label>
                 </div>
                 <div class="col-6">
                     {{ field.getHtml()|raw }}
 
                     {% if field.getHelpMessage() is not empty %}
-                        <div id="emailHelp" class="form-text">{{ field.getHelpMessage() }}</div>
+                        <div id="{{ field.getName() }}emailHelp" class="form-text">{{ field.getHelpMessage() }}</div>
                     {% endif %}
                 </div>
             </div>

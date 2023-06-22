@@ -11,24 +11,19 @@ namespace ProgramCms\AdminBundle\Model;
 
 class MenuConfigSerializer
 {
+    protected \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager;
     /**
      * Stores Hole Merged Configuration
      * @var array
      */
-    private $menu;
-    /**
-     * @var \Symfony\Component\DependencyInjection\Container
-     */
-    private $container;
+    private array $menu;
 
 
     public function __construct(
-        \Symfony\Component\DependencyInjection\Container $container,
-        \ProgramCms\ConfigBundle\Model\Config $config
+        \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager
     )
     {
         $this->menu = [];
-        $this->container = $container;
     }
 
     /**
@@ -38,7 +33,7 @@ class MenuConfigSerializer
     public function parseConfig()
     {
         // Get all bundles
-        $bundles = $this->container->getParameter('kernel.bundles');
+        $bundles = $this->bundleManager->getContainer()->getParameter('kernel.bundles');
         foreach ($bundles as $bundleClass) {
             // Get the configuration file path for the bundle
             $reflectedBundle = new \ReflectionClass($bundleClass);
@@ -51,7 +46,7 @@ class MenuConfigSerializer
                 if (isset($config['tab'])) {
                     if (isset($config['tab']['id']) && isset($config['tab']['label'])) {
                         $tabId = $config['tab']['id'];
-                        $this->configs['tabs'][$tabId] = ['label' => $config['tab']['label']];
+                        $this->config['tabs'][$tabId] = ['label' => $config['tab']['label']];
                     }
                 }
 

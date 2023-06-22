@@ -10,14 +10,4 @@ $(function() {
 
         $(this).next().slideToggle('fast');
     });
-
-    $('.ef-colapse a').click(function(e) {
-        e.preventDefault();
-
-        if(!$(this).hasClass('open')) {
-            $(this).addClass('open');
-        }else{
-            $(this).removeClass('open');
-        }
-    });
 });

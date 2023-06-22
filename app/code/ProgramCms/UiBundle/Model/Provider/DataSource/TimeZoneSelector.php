@@ -15,6 +15,9 @@ namespace ProgramCms\UiBundle\Model\Provider\DataSource;
 class TimeZoneSelector extends Options
 {
 
+    /**
+     * @return array
+     */
     public function getOptionsArray(): array
     {
         $timezone_identifiers = \DateTimeZone::listIdentifiers();

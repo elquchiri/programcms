@@ -12,7 +12,7 @@ namespace ProgramCms\CoreBundle\View\Element;
  * Class AbstractBlock
  * @package ProgramCms\CoreBundle\View\Element
  */
-abstract class AbstractBlock
+abstract class AbstractBlock extends \ProgramCms\CoreBundle\Model\DataObject
 {
     private array $childBlocks = [];
     /**
@@ -20,11 +20,6 @@ abstract class AbstractBlock
      * @var \Twig\Environment
      */
     protected \Twig\Environment $environment;
-    /**
-     * Block arguments data
-     * @var array
-     */
-    protected array $data = [];
 
     public function toHtml(): string
     {
@@ -82,30 +77,5 @@ abstract class AbstractBlock
     public function getChildBlocks(): array
     {
         return $this->childBlocks;
-    }
-
-    /**
-     * @param $argument
-     * @param null $value
-     */
-    public function setData($argument, $value = null)
-    {
-        if(is_array($argument)) {
-            $this->data = $argument;
-        }else{
-            $this->data[$argument] = $value;
-        }
-    }
-
-    /**
-     * @param null $argument
-     * @return array|mixed
-     */
-    public function getData($argument = null)
-    {
-        if($argument) {
-            return $this->data[$argument];
-        }
-        return $this->data;
     }
 }

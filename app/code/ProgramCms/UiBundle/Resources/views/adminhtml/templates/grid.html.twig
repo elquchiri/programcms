@@ -1,3 +1,11 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
 <nav class="navbar navbar-expand-lg">
     <div class="navbar-collapse" id="navbarSupportedContent">
         <form class="d-flex" role="search" style="margin-right: 11px;">
@@ -12,14 +20,10 @@
             </div>
         </form>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
+            <li class="nav-item">
+                <a class="mt-1 btn btn-outline-secondary btn-sm" href="#" role="button">
                     Filters
                 </a>
-                <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="#">Profile</a>
-                </div>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -66,10 +70,11 @@
     </div>
 </nav>
 
-<table class="table table-striped mt-3 admin-table">
+<table class="table table-bordered table-striped mt-3 admin-table">
     <thead class="table-dark">
+    <th></th>
     {% for column in efBlock.getColumns() %}
-        <th>{{ column.title }}</th>
+        <th {% if column.type == 'action' %}class="text-center"{% endif %}>{{ column.title }}</th>
     {% endfor %}
     </thead>
     <tbody>
@@ -77,7 +82,7 @@
     {% for rowColumn in efBlock.getRows() %}
         <tr>
             <td class="text-center">
-                <input type="checkbox" name=""/>
+                <input type="checkbox" class="form-check-input" name=""/>
             </td>
             {% for value in rowColumn %}
                 <td>{{ value.label }}</td>

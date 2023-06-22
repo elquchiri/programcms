@@ -14,7 +14,12 @@ namespace ProgramCms\UiBundle\Model\Element\Form;
  */
 class Form
 {
-    protected array $fieldSets;
+    protected array $fieldSets = [];
+
+    public function __construct()
+    {
+        $this->fieldSets = [];
+    }
 
     public function addFieldset($fieldset)
     {

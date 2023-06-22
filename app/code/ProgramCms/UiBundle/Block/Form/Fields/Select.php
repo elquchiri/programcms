@@ -8,7 +8,10 @@
 
 namespace ProgramCms\UiBundle\Block\Form\Fields;
 
-
+/**
+ * Class Select
+ * @package ProgramCms\UiBundle\Block\Form\Fields
+ */
 class Select extends \ProgramCms\CoreBundle\View\Element\Template
 {
     protected string $_template = "@ProgramCmsUiBundle/form/fields/select.html.twig";

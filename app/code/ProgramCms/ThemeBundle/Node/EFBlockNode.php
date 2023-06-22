@@ -58,6 +58,8 @@ class EFBlockNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInter
                 if($arg->getAttribute('argumentType') == 'array') {
                     $argumentArray[$arg->getAttribute('argumentName')] = [];
                     $this->getArgumentAsArray($arg, $argumentArray[$arg->getAttribute('argumentName')]);
+                }else if($arg->getAttribute('argumentType') == 'boolean') {
+                    $argumentArray[$arg->getAttribute('argumentName')] = $arg->getNode('body')->getAttribute('data') == 'true';
                 }else{
                     $argumentArray[$arg->getAttribute('argumentName')] = $arg->getNode('body')->getAttribute('data');
                 }
