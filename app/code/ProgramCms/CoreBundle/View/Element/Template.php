@@ -28,10 +28,28 @@ class Template extends AbstractBlock
      * @var array
      */
     protected array $_viewVars = [];
-    private \ProgramCms\CoreBundle\Model\Filesystem\DirectoryList $directoryList;
-    private \ProgramCms\RouterBundle\Service\Request $request;
+    /**
+     * @var \ProgramCms\CoreBundle\Model\Filesystem\DirectoryList
+     */
+    protected \ProgramCms\CoreBundle\Model\Filesystem\DirectoryList $directoryList;
+    /**
+     * @var \ProgramCms\RouterBundle\Service\Request
+     */
+    protected \ProgramCms\RouterBundle\Service\Request $request;
+    /**
+     * @var Environment
+     */
     protected Environment $environment;
+    /**
+     * @var \ProgramCms\CoreBundle\View\Page\Config
+     */
+    protected \ProgramCms\CoreBundle\View\Page\Config $pageConfig;
 
+    /**
+     * Template constructor.
+     * @param Template\Context $context
+     * @param array $data
+     */
     public function __construct(
         \ProgramCms\CoreBundle\View\Element\Template\Context $context,
         array $data = []
@@ -40,6 +58,7 @@ class Template extends AbstractBlock
         $this->directoryList = $context->getDirectoryList();
         $this->request = $context->getRequest();
         $this->environment = $context->getEnvironment();
+        $this->pageConfig = $context->getPageConfig();
     }
 
     /**
@@ -115,9 +134,11 @@ class Template extends AbstractBlock
 
     /**
      * Retrieve block view from file (template)
-     *
-     * @param string $fileName
+     * @param $template
      * @return string
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function fetchView($template): string
     {

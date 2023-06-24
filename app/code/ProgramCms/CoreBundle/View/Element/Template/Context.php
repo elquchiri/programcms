@@ -17,18 +17,20 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
 
     protected \Twig\Environment $environment;
     protected \ProgramCms\RouterBundle\Service\Url $url;
-    protected $pageConfig;
+    protected \ProgramCms\CoreBundle\View\Page\Config $pageConfig;
 
     public function __construct(
         \ProgramCms\CoreBundle\Model\Filesystem\DirectoryList $directoryList,
         \ProgramCms\RouterBundle\Service\Request $request,
         \Twig\Environment $environment,
-        \ProgramCms\RouterBundle\Service\Url $url
+        \ProgramCms\RouterBundle\Service\Url $url,
+        \ProgramCms\CoreBundle\View\Page\Config $pageConfig
     )
     {
         parent::__construct($directoryList, $request);
         $this->environment = $environment;
         $this->url = $url;
+        $this->pageConfig = $pageConfig;
     }
 
     public function getEnvironment(): \Twig\Environment
@@ -41,7 +43,7 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
         return $this->url;
     }
 
-    public function getPageConfig()
+    public function getPageConfig(): \ProgramCms\CoreBundle\View\Page\Config
     {
         return $this->pageConfig;
     }

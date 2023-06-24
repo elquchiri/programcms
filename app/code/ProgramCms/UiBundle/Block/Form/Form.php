@@ -68,7 +68,7 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
                         }
                         break;
                     case "textArea":
-                        $fieldElement = $this->textArea;
+                        $fieldElement = clone $this->textArea;
                         if(isset($field['placeholder'])) {
                             $fieldElement->setPlaceholder($field['placeholder']);
                         }
@@ -99,6 +99,9 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
                 $fieldElement->setName($fieldName);
                 if(isset($field['helpMessage'])) {
                     $fieldElement->setHelpMessage($field['helpMessage']);
+                }
+                if(isset($field['isRequired'])) {
+                    $fieldElement->setIsRequired($field['isRequired']);
                 }
                 $fieldsetElement->addField($fieldElement);
             }

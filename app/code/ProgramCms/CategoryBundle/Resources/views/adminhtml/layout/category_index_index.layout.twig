@@ -41,6 +41,7 @@
                                     {% Argument name="type" type="string" %}text{% endArgument %}
                                     {% Argument name="label" type="string" %}Name{% endArgument %}
                                     {% Argument name="placeholder" type="string" %}Category Name{% endArgument %}
+                                    {% Argument name="isRequired" type="true" %}false{% endArgument %}
                                 {% endArgument %}
                             {% endArgument %}
                         {% endArgument %}
@@ -52,7 +53,7 @@
             {% Arguments %}
                 {% Argument name="name" type="string" %}collapser2{% endArgument %}
                 {% Argument name="label" type="string" %}Content{% endArgument %}
-                {% Argument name="open" type="boolean" %}false{% endArgument %}
+                {% Argument name="open" type="boolean" %}true{% endArgument %}
             {% endArguments %}
             {% EFBlock name="form2" class="ProgramCms\\UiBundle\\Block\\Form\\Form" %}
                 {% Arguments %}
@@ -62,6 +63,7 @@
                                 {% Argument name="categoryImage" type="array" %}
                                     {% Argument name="type" type="string" %}imageUploader{% endArgument %}
                                     {% Argument name="label" type="string" %}Category Image{% endArgument %}
+                                    {% Argument name="helpMessage" type="string" %}Maximum file size: 4 MB. Allowed file types: JPG, GIF, PNG.{% endArgument %}
                                 {% endArgument %}
                                 {% Argument name="description" type="array" %}
                                     {% Argument name="type" type="string" %}textArea{% endArgument %}
@@ -110,18 +112,23 @@
                     {% Argument name="fieldSets" type="array" %}
                         {% Argument name="fieldset4" type="array" %}
                             {% Argument name="fields" type="array" %}
+                                {% Argument name="urlKey" type="array" %}
+                                    {% Argument name="type" type="string" %}text{% endArgument %}
+                                    {% Argument name="label" type="string" %}URL Key{% endArgument %}
+                                    {% Argument name="placeholder" type="string" %}URL Key{% endArgument %}
+                                {% endArgument %}
                                 {% Argument name="metaTitle" type="array" %}
                                     {% Argument name="type" type="string" %}text{% endArgument %}
                                     {% Argument name="label" type="string" %}Meta Title{% endArgument %}
                                     {% Argument name="placeholder" type="string" %}Meta Title{% endArgument %}
                                 {% endArgument %}
                                 {% Argument name="metaKeywords" type="array" %}
-                                    {% Argument name="type" type="string" %}text{% endArgument %}
+                                    {% Argument name="type" type="string" %}textArea{% endArgument %}
                                     {% Argument name="label" type="string" %}Meta Keywords{% endArgument %}
                                     {% Argument name="placeholder" type="string" %}Meta Keywords{% endArgument %}
                                 {% endArgument %}
                                 {% Argument name="metaDescription" type="array" %}
-                                    {% Argument name="type" type="string" %}text{% endArgument %}
+                                    {% Argument name="type" type="string" %}textArea{% endArgument %}
                                     {% Argument name="label" type="string" %}Meta Description{% endArgument %}
                                     {% Argument name="placeholder" type="string" %}Meta Description{% endArgument %}
                                 {% endArgument %}
@@ -135,6 +142,7 @@
             {% Arguments %}
                 {% Argument name="name" type="string" %}posts{% endArgument %}
                 {% Argument name="label" type="string" %}Posts{% endArgument %}
+                {% Argument name="open" type="boolean" %}false{% endArgument %}
             {% endArguments %}
             {% EFBlock name="postsGrid" class="ProgramCms\\UiBundle\\Block\\Grid\\Grid" %}
                 {% Arguments %}
@@ -155,6 +163,10 @@
                         {% Argument name="websiteView" type="array" %}
                             {% Argument name="label" type="string" %}Website View{% endArgument %}
                             {% Argument name="dataScope" type="string" %}entity_id{% endArgument %}
+                        {% endArgument %}
+                        {% Argument name="user" type="array" %}
+                            {% Argument name="label" type="string" %}User{% endArgument %}
+                            {% Argument name="dataScope" type="string" %}account_id{% endArgument %}
                         {% endArgument %}
                         {% Argument name="status" type="array" %}
                             {% Argument name="label" type="string" %}Status{% endArgument %}

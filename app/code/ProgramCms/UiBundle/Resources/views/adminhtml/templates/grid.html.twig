@@ -6,6 +6,78 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
+<ul class="nav nav-tabs grid-filters-tabs justify-content-end" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link" id="filters-tab" data-bs-toggle="tab" data-bs-target="#filters" type="button" role="tab" aria-controls="filters" aria-selected="true" href="#">
+            <img src="{{ asset('bundles/programcmsui/images/filters.png') }}"/>
+            Filters
+        </a>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Columns</a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Separated link</a></li>
+        </ul>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Export</a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+        </ul>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade" id="filters" role="tabpanel" aria-labelledby="filters-tab">
+        <div class="grid-filters">
+            <div class="row row-cols-4">
+                <div class="col">
+                    <div class="mt-3">
+                        <label for="exampleInputEmail1" class="form-label">#ID</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="From" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <input type="text" class="form-control" placeholder="To" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mt-3">
+                        <label for="exampleInputEmail1" class="form-label">Title</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mt-3">
+                        <label for="exampleInputEmail1" class="form-label">Website View</label>
+                        <select class="form-select" aria-label="Default select example">
+                            <option value="1">All Website Views</option>
+                            <optgroup label="Main Root Website"></optgroup>
+                            <optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;Main Website"></optgroup>
+                            <option value="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Main Website View</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mt-3">
+                        <label for="exampleInputEmail1" class="form-label">Status</label>
+                        <select class="form-select" aria-label="Default select example">
+                            <option value="1">Enabled</option>
+                            <option value="2">Disabled</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-row-reverse mt-3 mb-3">
+                <input class="btn btn-primary btn-sm ms-2" type="submit" value="Apply Filters">
+                <a href="#filters" class="btn btn-sm" role="button" data-bs-toggle="collapse">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <nav class="navbar navbar-expand-lg">
     <div class="navbar-collapse" id="navbarSupportedContent">
         <form class="d-flex" role="search" style="margin-right: 11px;">
@@ -19,34 +91,9 @@
                 </button>
             </div>
         </form>
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-                <a class="mt-1 btn btn-outline-secondary btn-sm" href="#" role="button">
-                    Filters
-                </a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Columns
-                </a>
-                <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="#">Profile</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Export
-                </a>
-                <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="#">PDF</a>
-                    <a class="dropdown-item" href="#">CSV</a>
-                </div>
-            </li>
-        </ul>
     </div>
 </nav>
+
 <nav class="navbar navbar-expand-lg">
     <div class="navbar-collapse" id="navbarSupportedContent">
         <form class="d-flex me-5" role="search">
@@ -70,7 +117,7 @@
     </div>
 </nav>
 
-<table class="table table-bordered table-striped mt-3 admin-table">
+<table class="table table-bordered table-striped table-hover mt-3 admin-table">
     <thead class="table-dark">
     <th></th>
     {% for column in efBlock.getColumns() %}
@@ -91,11 +138,11 @@
                 <td class="text-center">
                     {% for action in actions %}
                         {% if action.type == 'url' %}
-                            <a href="#">{{ action.label }}</a>
+                            <a href="#" class="ms-2">{{ action.label }}</a>
                         {% endif %}
                         {% if action.type == 'dropdown' %}
                             <div class="btn-group" style="margin-top: -3px;">
-                                <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                <a class="dropdown-toggle ms-1" type="button" data-bs-toggle="dropdown"
                                    data-bs-auto-close="true"
                                    aria-expanded="false">
                                     {{ action.label }}

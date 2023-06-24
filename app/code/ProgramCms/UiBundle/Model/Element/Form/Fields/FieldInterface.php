@@ -28,22 +28,27 @@ interface FieldInterface
      * @return mixed
      */
     public function setLabel($label);
-
     /**
      * @return mixed
      */
     public function getLabel(): string;
-
     /**
      * @return mixed
      */
     public function setHelpMessage(string $helpMessage);
-
     /**
      * @return string
      */
     public function getHelpMessage(): string;
-
+    /**
+     * @param $isRequired
+     * @return mixed
+     */
+    public function setIsRequired($isRequired);
+    /**
+     * @return bool
+     */
+    public function isRequired(): bool;
     /**
      * @return mixed
      */

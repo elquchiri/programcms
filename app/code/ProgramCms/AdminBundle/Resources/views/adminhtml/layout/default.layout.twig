@@ -8,7 +8,7 @@
 #}
 {% EFPage layout="admin-1column" %}
     {% EFCss ['bootstrap.min.css', 'bundles/programcmsadmin/css/sidebar.css', 'bundles/programcmsadmin/css/main-admin.css', 'bundles/programcmsadmin/css/footer-admin.css', 'bundles/programcmsui/css/components/buttons-bar.css', 'bundles/programcmsui/css/components/grid.css', 'bundles/programcmsui/css/components/collapser.css'] %}
-    {% EFJs ['jquery.min.js', 'underscore-umd-min.js', 'popper.min.js', 'bootstrap.bundle.min.js', 'bundles/programcmsadmin/js/sidebar.js', 'bundles/programcmsui/js/toolbar.js', 'bundles/programcmsui/js/collapser.js'] %}
+    {% EFJs ['jquery.min.js', 'underscore-umd-min.js', 'popper.min.js', 'bootstrap.bundle.min.js', 'bundles/programcmsadmin/js/sidebar.js', 'bundles/programcmsui/js/toolbar.js', 'bundles/programcmsui/js/collapser.js', 'bundles/programcmsui/js/grid.js'] %}
 
     {% EFReferenceContainer name="page.menu" %}
         {% EFBlock name="register.content" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsAdminBundle/sidebar.html.twig" %}{% endEFBlock %}
@@ -31,7 +31,7 @@
     {% endEFReferenceContainer %}
     {% EFReferenceContainer name="footer.container" %}
         {% EFContainer name="footer.content" htmlTag="div" htmlClass="footer-content" %}
-            {% EFBlock name="footer.content.block" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsAdminBundle/footer.html.twig" %}{% endEFBlock %}
+            {% EFBlock name="footer.content.block" class="ProgramCms\\AdminBundle\\Block\\Footer" template="@ProgramCmsAdminBundle/footer.html.twig" %}{% endEFBlock %}
         {% endEFContainer %}
     {% endEFReferenceContainer %}
 {% endEFPage %}

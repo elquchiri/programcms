@@ -5,8 +5,37 @@
 }
 
 .admin-table {
-
+    font-size: 14px;
 }
 .admin-table .table-dark {
-    font-size: 14px;
+    font-size: 13px;
+}
+.admin-table tr th {
+    padding: 9px;
+}
+.admin-table tr td {
+    padding: 15px;
+}
+
+.grid-filters {
+    border-bottom: 1px solid #d5d5d5;
+}
+.grid-filters .col label.form-label {
+    font-size: 13px;
+    font-weight: bold;
+}
+.grid-filters .col select, .grid-filters .col input, .grid-filters .col textarea {
+    font-size: 13px;
+}
+.grid-filters-tabs {
+    border-bottom-width: 0;
+}
+.grid-filters-tabs.open {
+    border-bottom-width: 1px;
+}
+.grid-filters-tabs a {
+    color: #495057;
+}
+.grid-filters-tabs a:hover, .grid-filters-tabs a:focus {
+    color: #000000;
 }

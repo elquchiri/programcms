@@ -26,6 +26,10 @@ abstract class Field implements FieldInterface
      * @var string
      */
     protected string $helpMessage = "";
+    /**
+     * @var bool
+     */
+    protected bool $isRequired = false;
 
     /**
      * @param $name
@@ -34,6 +38,7 @@ abstract class Field implements FieldInterface
     public function setName(string $name)
     {
         $this->name = $name;
+        return $this;
     }
 
     /**
@@ -51,6 +56,7 @@ abstract class Field implements FieldInterface
     public function setLabel($label)
     {
         $this->label = $label;
+        return $this;
     }
 
     /**
@@ -61,14 +67,40 @@ abstract class Field implements FieldInterface
         return $this->label;
     }
 
+    /**
+     * @param string $helpMessage
+     * @return $this|mixed
+     */
     public function setHelpMessage(string $helpMessage)
     {
         $this->helpMessage = $helpMessage;
+        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getHelpMessage(): string
     {
         return $this->helpMessage;
+    }
+
+    /**
+     * @param $isRequired
+     * @return $this|mixed
+     */
+    public function setIsRequired($isRequired)
+    {
+        $this->isRequired = $isRequired;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRequired(): bool
+    {
+        return $this->isRequired;
     }
 
     /**

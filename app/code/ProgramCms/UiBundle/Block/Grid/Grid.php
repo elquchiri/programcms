@@ -3,7 +3,7 @@
  * Copyright © ProgramCMS. All rights reserved.
  * See COPYING.txt for license details.
  *
- * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ * Developed by Mohamed E. EL QUCHIRI <elquchiri@gmail.com>
  */
 
 namespace ProgramCms\UiBundle\Block\Grid;
@@ -48,24 +48,28 @@ class Grid extends \ProgramCms\CoreBundle\View\Element\Template
                 ['label' => '5'],
                 ['label' => 'Home Page'],
                 ['label' => 'All Website Views'],
+                ['label' => 'Mohamed E.'],
                 ['label' => 'Enable']
             ],
             [
                 ['label' => '6'],
                 ['label' => '404 Not Found'],
                 ['label' => 'All Website Views'],
+                ['label' => 'Mohamed E.'],
                 ['label' => 'Enable']
             ],
             [
                 ['label' => '7'],
                 ['label' => 'Privacy Policy'],
                 ['label' => 'All Website Views'],
+                ['label' => 'Mohamed E.'],
                 ['label' => 'Enable']
             ],
             [
                 ['label' => '8'],
                 ['label' => 'About us'],
                 ['label' => 'All Website Views'],
+                ['label' => 'Mohamed E.'],
                 ['label' => 'Enable']
             ]
         ]);

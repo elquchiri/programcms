@@ -6,13 +6,10 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\UserBundle\Helper;
+namespace ProgramCms\CoreBundle\View\Result;
 
-/**
- * Class Data
- * @package ProgramCms\UserBundle\Helper
- */
-class Data
+
+interface ResultInterface
 {
 
 }

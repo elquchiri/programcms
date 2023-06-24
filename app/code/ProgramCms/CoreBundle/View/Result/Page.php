@@ -12,14 +12,20 @@ namespace ProgramCms\CoreBundle\View\Result;
  * Class Page
  * @package ProgramCms\CoreBundle\View\Result
  */
-class Page
+class Page extends Layout
 {
+
+    protected \ProgramCms\CoreBundle\View\Page\Config $pageConfig;
+    protected \ProgramCms\RouterBundle\Service\Request $request;
+    protected \Twig\Environment $twig;
 
     public function __construct(
         \ProgramCms\CoreBundle\View\Element\Template\Context $context
     )
     {
         $this->pageConfig = $context->getPageConfig();
+        $this->request = $context->getRequest();
+        $this->twig = $context->getEnvironment();
     }
 
     /**
@@ -28,5 +34,17 @@ class Page
     public function getConfig()
     {
         return $this->pageConfig;
+    }
+
+    public function render(array $parameters = []): string
+    {
+        $currentRouteName = $this->request->getCurrentRouteName();
+
+        $content = $this->twig->render($currentRouteName, $parameters);
+
+        $response ??= new \Symfony\Component\HttpFoundation\Response();
+        $response->setContent($content);
+
+        return $response;
     }
 }

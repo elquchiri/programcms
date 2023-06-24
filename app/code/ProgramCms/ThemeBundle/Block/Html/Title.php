@@ -15,4 +15,11 @@ namespace ProgramCms\ThemeBundle\Block\Html;
 class Title extends \ProgramCms\CoreBundle\View\Element\Template
 {
 
+    /**
+     * @return string
+     */
+    public function getPageTitle(): string
+    {
+        return $this->pageConfig->getTitle()->get();
+    }
 }
