@@ -13,7 +13,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class LogoutController extends \ProgramCms\CoreBundle\Controller\Adminhtml\AbstractController
+class LogoutController extends \ProgramCms\CoreBundle\Controller\Controller
 {
 
     private Security $security;

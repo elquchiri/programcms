@@ -12,10 +12,10 @@ use Twig\Error\SyntaxError;
 use Twig\Token;
 
 /**
- * Class EFReferenceContainerTokenParser
+ * Class ReferenceContainerTokenParser
  * @package ProgramCms\ThemeBundle\Parser
  */
-class EFReferenceContainerTokenParser extends \Twig\TokenParser\AbstractTokenParser
+class ReferenceContainerTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
     public function parse(Token $token)
     {
@@ -33,20 +33,20 @@ class EFReferenceContainerTokenParser extends \Twig\TokenParser\AbstractTokenPar
         }
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        $body = $this->parser->subparse([$this, 'decideBlockEnd'], true);
+        $body = $this->parser->subparse([$this, 'decideReferenceContainerEnd'], true);
 
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new \ProgramCms\ThemeBundle\Node\EFReferenceContainerNode($containerName, $remove, $body, $lineno, $this->getTag());
+        return new \ProgramCms\ThemeBundle\Node\ReferenceContainerNode($containerName, $remove, $body, $lineno, $this->getTag());
     }
 
-    public function decideBlockEnd(Token $token)
+    public function decideReferenceContainerEnd(Token $token)
     {
-        return $token->test('endEFReferenceContainer');
+        return $token->test('endReferenceContainer');
     }
 
     public function getTag()
     {
-        return 'EFReferenceContainer';
+        return 'referenceContainer';
     }
 }

@@ -9,7 +9,7 @@
 namespace ProgramCms\UserBundle\Controller\Edit;
 
 
-class PasswordController extends \ProgramCms\CoreBundle\Controller\Adminhtml\AbstractController
+class PasswordController extends \ProgramCms\CoreBundle\Controller\Controller
 {
 
     public function execute()

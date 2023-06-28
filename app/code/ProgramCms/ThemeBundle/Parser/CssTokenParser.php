@@ -11,10 +11,10 @@ namespace ProgramCms\ThemeBundle\Parser;
 use Twig\Token;
 
 /**
- * Class EFCssTokenParser
+ * Class CssTokenParser
  * @package ProgramCms\ThemeBundle\Parser
  */
-class EFCssTokenParser extends \Twig\TokenParser\AbstractTokenParser
+class CssTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
     public function parse(\Twig\Token $token)
     {
@@ -29,7 +29,7 @@ class EFCssTokenParser extends \Twig\TokenParser\AbstractTokenParser
 
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new \ProgramCms\ThemeBundle\Node\EFCssNode($cssFiles, $lineno, $this->getTag());
+        return new \ProgramCms\ThemeBundle\Node\CssNode($cssFiles, $lineno, $this->getTag());
     }
 
     protected function parseCssFiles()
@@ -58,6 +58,6 @@ class EFCssTokenParser extends \Twig\TokenParser\AbstractTokenParser
 
     public function getTag()
     {
-        return 'EFCss';
+        return 'css';
     }
 }

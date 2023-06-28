@@ -1,4 +1,5 @@
 theme:
   title: 'ProgramCMS Blank Theme'
+  parent: 'programCms/star'
   description: 'This is the default ProgramCMS Theme'
   author: 'Mohamed EL QUCHIRI'

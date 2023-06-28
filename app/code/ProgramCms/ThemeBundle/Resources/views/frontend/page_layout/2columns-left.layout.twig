@@ -1,11 +1,11 @@
-{% EFLayout %}
-    {% EFUpdate handle="1column" %}
-    {% EFReferenceContainer name="columns" %}
-        {% EFContainer name="div.sidebar.main" htmlTag="div" htmlClass="sidebar sidebar-main" %}
-            {% EFContainer name="sidebar.main" %}{% endEFContainer %}
-        {% endEFContainer %}
-        {% EFContainer name="div.sidebar.additional" htmlTag="div" htmlClass="sidebar sidebar-additional" %}
-            {% EFContainer name="sidebar.additional" %}{% endEFContainer %}
-        {% endEFContainer %}
-    {% endEFReferenceContainer %}
-{% endEFLayout %}
+{% layout %}
+    {% update handle="1column" %}
+    {% referenceContainer name="columns" %}
+        {% container name="div.sidebar.main" htmlTag="div" htmlClass="sidebar sidebar-main" %}
+            {% container name="sidebar.main" %}{% endContainer %}
+        {% endContainer %}
+        {% container name="div.sidebar.additional" htmlTag="div" htmlClass="sidebar sidebar-additional" %}
+            {% container name="sidebar.additional" %}{% endContainer %}
+        {% endContainer %}
+    {% endReferenceContainer %}
+{% endLayout %}

@@ -1,5 +1,13 @@
-{% EFPage %}
-    {% EFReferenceContainer name="navbar.collapse" %}
-        {% EFBlock name="account.notifications" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsNotificationBundle/notifications.html.twig" %}{% endEFBlock %}
-    {% endEFReferenceContainer %}
-{% endEFPage %}
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% page %}
+    {% referenceContainer name="navbar.collapse" %}
+        {% block name="account.notifications" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsNotificationBundle/notifications.html.twig" %}{% endBlock %}
+    {% endReferenceContainer %}
+{% endPage %}

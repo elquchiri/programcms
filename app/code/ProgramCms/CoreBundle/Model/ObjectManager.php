@@ -25,6 +25,7 @@ class ObjectManager implements ObjectManagerInterface
     }
 
     /**
+     * Clones a service and returns a new instance of the object
      * @param string $serviceId
      * @return object|null
      */

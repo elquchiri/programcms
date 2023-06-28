@@ -12,7 +12,7 @@ namespace ProgramCms\ThemeBundle\Node;
  * Class EFCssNode
  * @package ProgramCms\ThemeBundle\Node
  */
-class EFCssNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
+class CssNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
 {
     public function __construct($cssFiles, $lineno, $tag = null)
     {
@@ -22,6 +22,6 @@ class EFCssNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterfa
     public function compile(\Twig\Compiler $compiler)
     {
         $cssFiles = implode(',', $this->getAttribute('css_files'));
-        $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\EFThemeExtension')->addEFCss('$cssFiles');");
+        $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addCss('$cssFiles');");
     }
 }

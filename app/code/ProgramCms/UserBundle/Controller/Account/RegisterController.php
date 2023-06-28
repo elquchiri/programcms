@@ -17,7 +17,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  * Class RegisterController
  * @package ProgramCms\UserBundle\Controller\Account
  */
-class RegisterController extends \ProgramCms\CoreBundle\Controller\Adminhtml\AbstractController
+class RegisterController extends \ProgramCms\CoreBundle\Controller\Controller
 {
     private UserPasswordHasherInterface $userPasswordHasher;
     private EntityManagerInterface $entityManager;

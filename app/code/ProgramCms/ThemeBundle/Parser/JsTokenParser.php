@@ -11,10 +11,10 @@ namespace ProgramCms\ThemeBundle\Parser;
 use Twig\Token;
 
 /**
- * Class EFJsTokenParser
+ * Class JsTokenParser
  * @package ProgramCms\ThemeBundle\Parser
  */
-class EFJsTokenParser extends \Twig\TokenParser\AbstractTokenParser
+class JsTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
     public function parse(\Twig\Token $token)
     {
@@ -29,7 +29,7 @@ class EFJsTokenParser extends \Twig\TokenParser\AbstractTokenParser
 
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new \ProgramCms\ThemeBundle\Node\EFJsNode($jsFiles, $lineno, $this->getTag());
+        return new \ProgramCms\ThemeBundle\Node\JsNode($jsFiles, $lineno, $this->getTag());
     }
 
     protected function parseCssFiles()
@@ -58,6 +58,6 @@ class EFJsTokenParser extends \Twig\TokenParser\AbstractTokenParser
 
     public function getTag()
     {
-        return 'EFJs';
+        return 'js';
     }
 }

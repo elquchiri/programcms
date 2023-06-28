@@ -9,7 +9,7 @@
 namespace ProgramCms\CategoryBundle\Controller\Adminhtml\Index;
 
 
-class CreateWithParentController extends \ProgramCms\CoreBundle\Controller\Adminhtml\AbstractController
+class CreateWithParentController extends \ProgramCms\CoreBundle\Controller\Controller
 {
 
     private $categoryRepository;

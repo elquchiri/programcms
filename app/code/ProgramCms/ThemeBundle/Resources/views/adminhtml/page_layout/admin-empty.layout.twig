@@ -6,10 +6,10 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-{% EFLayout %}
-    {% EFContainer name="root" %}
-        {% EFContainer name="page.wrapper" htmlTag="div" htmlClass="page-wrapper" %}
-            {% EFContainer name="page.content" htmlTag="div" htmlClass="content" %}{% endEFContainer %}
-        {% endEFContainer %}
-    {% endEFContainer %}
-{% endEFLayout %}
+{% layout %}
+    {% container name="root" %}
+        {% container name="page.wrapper" htmlTag="div" htmlClass="page-wrapper" %}
+            {% container name="page.content" htmlTag="div" htmlClass="content" %}{% endContainer %}
+        {% endContainer %}
+    {% endContainer %}
+{% endLayout %}

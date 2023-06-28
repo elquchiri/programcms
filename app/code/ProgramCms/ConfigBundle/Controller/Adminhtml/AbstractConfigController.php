@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Class AbstractConfigController
  * @package ProgramCms\ConfigBundle\Controller\Adminhtml
  */
-abstract class AbstractConfigController extends \ProgramCms\CoreBundle\Controller\Adminhtml\AbstractController
+abstract class AbstractConfigController extends \ProgramCms\CoreBundle\Controller\Controller
 {
     protected function loadConfigurations(): Response
     {

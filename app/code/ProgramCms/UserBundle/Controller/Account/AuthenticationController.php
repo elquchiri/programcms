@@ -14,7 +14,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
  * Class AuthenticationController
  * @package ProgramCms\UserBundle\Controller\Account
  */
-class AuthenticationController extends \ProgramCms\CoreBundle\Controller\Adminhtml\AbstractController
+class AuthenticationController extends \ProgramCms\CoreBundle\Controller\Controller
 {
 
     private $authenticationUtils;

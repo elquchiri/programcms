@@ -6,13 +6,13 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\CoreBundle\Controller\Adminhtml;
+namespace ProgramCms\CoreBundle\Controller;
 
 /**
  * Class AbstractController
  * @package ProgramCms\CoreBundle\Controller\Adminhtml
  */
-abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
+abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController implements ControllerInterface
 {
     protected \ProgramCms\RouterBundle\Service\Response $response;
     private \ProgramCms\RouterBundle\Service\Request $request;
@@ -26,11 +26,7 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
         $this->response = $response;
     }
 
-    /**
-     * Overrides method in each Controller
-     * @return mixed
-     */
-    abstract public function execute();
+    abstract public function dispatch();
 
     public function getRequest()
     {

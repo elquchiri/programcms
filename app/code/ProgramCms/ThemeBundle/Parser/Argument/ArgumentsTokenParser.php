@@ -36,6 +36,6 @@ class ArgumentsTokenParser extends \Twig\TokenParser\AbstractTokenParser
 
     public function getTag()
     {
-        return 'Arguments';
+        return 'arguments';
     }
 }

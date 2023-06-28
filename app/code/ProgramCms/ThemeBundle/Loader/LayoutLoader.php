@@ -71,7 +71,7 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
             throw $e;
         }
 
-        $source = "{% EFLayoutStarter %}";
+        $source = "";
         foreach($this->paths as $key => $path) {
             if($key == 'default') {
                 foreach($this->paths['default'] as $defaultPath) {
@@ -84,7 +84,6 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
                 }
             }
         }
-        $source .= "{% endEFLayoutStarter %}";
 
         return new Source($source, $name, $path = '');
     }

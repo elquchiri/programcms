@@ -8,23 +8,15 @@
 
 namespace ProgramCms\ThemeBundle\Parser;
 
-use Twig\Environment;
 use Twig\Token;
 use Twig\Error\SyntaxError;
 
 /**
- * Class EFPageTokenParser
+ * Class PageTokenParser
  * @package ProgramCms\ThemeBundle\Parser
  */
-class EFPageTokenParser extends \Twig\TokenParser\AbstractTokenParser
+class PageTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
-
-    protected Environment $environment;
-
-    public function __construct(Environment $environment)
-    {
-        $this->environment = $environment;
-    }
 
     public function parse(Token $token)
     {
@@ -43,16 +35,16 @@ class EFPageTokenParser extends \Twig\TokenParser\AbstractTokenParser
 
         $stream->expect(\Twig\Token::BLOCK_END_TYPE);
 
-        return new \ProgramCms\ThemeBundle\Node\EFPageNode($this->environment, $pageLayoutName, $body, $lineno, $this->getTag());
+        return new \ProgramCms\ThemeBundle\Node\PageNode($pageLayoutName, $body, $lineno, $this->getTag());
     }
 
     public function decidePageEnd(\Twig\Token $token)
     {
-        return $token->test('endEFPage');
+        return $token->test('endPage');
     }
 
     public function getTag()
     {
-        return 'EFPage';
+        return 'page';
     }
 }

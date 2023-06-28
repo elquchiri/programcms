@@ -9,10 +9,10 @@
 namespace ProgramCms\ThemeBundle\Node;
 
 /**
- * Class EFBlockNode
+ * Class BlockNode
  * @package ProgramCms\ThemeBundle\Node
  */
-class EFBlockNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
+class BlockNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
 {
     public function __construct($blockName, $blockClass, $blockTemplate, $before, $after, $body, $lineno, $tag = null)
     {
@@ -25,19 +25,19 @@ class EFBlockNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInter
 
         foreach($this->getNode('body') as $node) {
             switch($node) {
-                case ($node instanceof \ProgramCms\ThemeBundle\Node\EFBlockNode):
+                case ($node instanceof \ProgramCms\ThemeBundle\Node\BlockNode):
                     $childBlockName = $node->getAttribute('blockName');
                     $childBlockClass = $node->getAttribute('blockClass');
                     $childBlockTemplate = $node->getAttribute('blockTemplate');
                     $before = $node->getAttribute('before');
                     $after = $node->getAttribute('after');
-                    $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\EFThemeExtension')->addEfBlock('$childBlockName', '$childBlockClass', '$childBlockTemplate', '$blockName', '$before', '$after');");
+                    $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addBlock('$childBlockName', '$childBlockClass', '$childBlockTemplate', '$blockName', '$before', '$after');");
                     break;
                 case ($node instanceof \ProgramCms\ThemeBundle\Node\Argument\ArgumentsNode):
                     $arguments = [];
                     $this->getArgumentAsArray($node, $arguments);
                     $arguments = json_encode($arguments);
-                    $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\EFThemeExtension')->setArguments('$blockName', '$arguments');");
+                    $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->setArguments('$blockName', '$arguments');");
                     break;
                 case ($node instanceof \Twig\Node\TextNode):
                     if(empty(trim($node->getAttribute('data')))) {

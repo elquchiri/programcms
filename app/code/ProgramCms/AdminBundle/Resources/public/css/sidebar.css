@@ -22,7 +22,8 @@
     text-decoration: none;
     padding: 11px 0 11px 0;
     color: white;
-    font-size: 12px;
+    font-size: 11px;
+    font-weight: bold;
     text-align: center;
     opacity: 0.8;
     transition: opacity, background-color 0.9s;

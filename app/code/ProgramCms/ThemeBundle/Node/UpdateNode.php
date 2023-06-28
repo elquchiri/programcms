@@ -8,21 +8,18 @@
 
 namespace ProgramCms\ThemeBundle\Node;
 
-use Twig\Environment;
 use Twig\Source;
 
 /**
  * Class EFUpdateNode
  * @package ProgramCms\ThemeBundle\Node
  */
-class EFUpdateNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
+class UpdateNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
 {
-    protected Environment $environment;
 
-    public function __construct(Environment $environment, $handle, $lineno, $tag = null)
+    public function __construct($handle, $lineno, $tag = null)
     {
         parent::__construct([], ['handle' => $handle], $lineno, $tag);
-        $this->environment = $environment;
     }
 
     /**
@@ -30,11 +27,11 @@ class EFUpdateNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInte
      */
     public function compile(\Twig\Compiler $compiler)
     {
-        $efExtension = $this->environment->getExtension('\ProgramCms\ThemeBundle\Extension\EFThemeExtension');
+        $efExtension = $compiler->getEnvironment()->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout();
         $handle = $this->getAttribute('handle');
 
         if($efExtension->canAddPageLayout($handle)) {
-            $efExtension->addEFPageLayout($handle);
+            $efExtension->addPageLayout($handle);
 
             /** @var \ProgramCms\ThemeBundle\Model\PageLayout $pageLayout */
             $pageLayout = $efExtension->getPageLayout();
@@ -43,7 +40,7 @@ class EFUpdateNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInte
             // Prepare layout file to be parsed as by the LayoutNode
             $source = new Source($pageLayoutContents, $handle);
 
-            $nodes = $this->environment->parse($this->environment->tokenize($source));
+            $nodes = $compiler->getEnvironment()->parse($compiler->getEnvironment()->tokenize($source));
 
             $compiler->subcompile($nodes->getNode('body'));
         }

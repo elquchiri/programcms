@@ -11,31 +11,33 @@ namespace ProgramCms\ThemeBundle\Parser;
 use Twig\Token;
 
 /**
- * Class EFLayoutTokenParser
+ * Class TitleTokenParser
  * @package ProgramCms\ThemeBundle\Parser
  */
-class EFLayoutTokenParser extends \Twig\TokenParser\AbstractTokenParser
+class TitleTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
+
     public function parse(Token $token)
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
-        $stream->expect(Token::BLOCK_END_TYPE);
-
-        $body = $this->parser->subparse([$this, 'decideLayoutEnd'], true);
 
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new \ProgramCms\ThemeBundle\Node\EFLayoutNode($body, $lineno, $this->getTag());
+        $body = $this->parser->subparse([$this, 'decideTitleEnd'], true);
+
+        $stream->expect(\Twig\Token::BLOCK_END_TYPE);
+
+        return new \ProgramCms\ThemeBundle\Node\TitleNode($body, $lineno, $this->getTag());
     }
 
-    public function decideLayoutEnd(Token $token)
+    public function decideTitleEnd(\Twig\Token $token)
     {
-        return $token->test('endEFLayout');
+        return $token->test('endTitle');
     }
 
     public function getTag()
     {
-        return 'EFLayout';
+        return 'title';
     }
 }

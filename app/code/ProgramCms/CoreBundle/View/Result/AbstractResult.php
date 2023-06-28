@@ -18,5 +18,5 @@ abstract class AbstractResult implements ResultInterface
     /**
      * @return mixed
      */
-    abstract public function render();
+    abstract public function render(array $parameters = []): \Symfony\Component\HttpFoundation\Response;
 }

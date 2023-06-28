@@ -8,23 +8,15 @@
 
 namespace ProgramCms\ThemeBundle\Parser;
 
-use Twig\Environment;
 use Twig\Token;
 use Twig\Error\SyntaxError;
 
 /**
- * Class EFUpdateTokenParser
+ * Class UpdateTokenParser
  * @package ProgramCms\ThemeBundle\Parser
  */
-class EFUpdateTokenParser extends \Twig\TokenParser\AbstractTokenParser
+class UpdateTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
-
-    protected Environment $environment;
-
-    public function __construct(Environment $environment)
-    {
-        $this->environment = $environment;
-    }
 
     public function parse(Token $token)
     {
@@ -39,16 +31,16 @@ class EFUpdateTokenParser extends \Twig\TokenParser\AbstractTokenParser
         }
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new \ProgramCms\ThemeBundle\Node\EFUpdateNode($this->environment, $handle, $lineno, $this->getTag());
+        return new \ProgramCms\ThemeBundle\Node\UpdateNode($handle, $lineno, $this->getTag());
     }
 
     public function decideUpdateEnd(\Twig\Token $token)
     {
-        return $token->test('endEFUpdate');
+        return $token->test('endUpdate');
     }
 
     public function getTag()
     {
-        return 'EFUpdate';
+        return 'update';
     }
 }

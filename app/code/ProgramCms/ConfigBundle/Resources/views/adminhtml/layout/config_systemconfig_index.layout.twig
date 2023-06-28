@@ -6,21 +6,21 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-{% EFPage layout="admin-2columns-left" %}
-    {% EFCss ['bundles/programcmsconfig/css/menu.css', 'bundles/programcmsui/css/components/ef_collapse.css'] %}
-    {% EFJs ['bundles/programcmsconfig/js/config_menu.js'] %}
-    {% EFTitle %}Configuration{% endEFTitle %}
+{% page layout="admin-2columns-left" %}
+    {% css ['bundles/programcmsconfig/css/menu.css', 'bundles/programcmsui/css/components/ef_collapse.css'] %}
+    {% js ['bundles/programcmsconfig/js/config_menu.js'] %}
+    {% title %}Configuration{% endTitle %}
 
-    {% EFReferenceContainer name="buttons.bar" %}
-        {% EFBlock name="website.switcher" class="ProgramCms\\UiBundle\\Block\\Toolbar\\WebsiteSwitcher" template="@ProgramCmsUiBundle/toolbar/website_switcher.html.twig" %}{% endEFBlock %}
-        {% EFBlock name="toolbar.actions" class="ProgramCms\\UiBundle\\Block\\Toolbar\\ToolbarActions" template="@ProgramCmsUiBundle/toolbar/toolbar_buttons.html.twig" %}{% endEFBlock %}
-    {% endEFReferenceContainer %}
+    {% referenceContainer name="buttons.bar" %}
+        {% block name="website.switcher" class="ProgramCms\\UiBundle\\Block\\Toolbar\\WebsiteSwitcher" template="@ProgramCmsUiBundle/toolbar/website_switcher.html.twig" %}{% endBlock %}
+        {% block name="toolbar.actions" class="ProgramCms\\UiBundle\\Block\\Toolbar\\ToolbarActions" template="@ProgramCmsUiBundle/toolbar/toolbar_buttons.html.twig" %}{% endBlock %}
+    {% endReferenceContainer %}
 
-    {% EFReferenceContainer name="sidebar.main" %}
-        {% EFBlock name="config.menu.block" class="ProgramCms\\ConfigBundle\\Block\\Configuration" template="@ProgramCmsConfigBundle/config_menu.html.twig" %}{% endEFBlock %}
-    {% endEFReferenceContainer %}
+    {% referenceContainer name="sidebar.main" %}
+        {% block name="config.menu.block" class="ProgramCms\\ConfigBundle\\Block\\Configuration" template="@ProgramCmsConfigBundle/config_menu.html.twig" %}{% endBlock %}
+    {% endReferenceContainer %}
 
-    {% EFReferenceContainer name="content" %}
-        {% EFBlock name="config.block" class="ProgramCms\\ConfigBundle\\Block\\Configuration" template="@ProgramCmsConfigBundle/config.html.twig" %}{% endEFBlock %}
-    {% endEFReferenceContainer %}
-{% endEFPage %}
+    {% referenceContainer name="content" %}
+        {% block name="config.block" class="ProgramCms\\ConfigBundle\\Block\\Configuration" template="@ProgramCmsConfigBundle/config.html.twig" %}{% endBlock %}
+    {% endReferenceContainer %}
+{% endPage %}

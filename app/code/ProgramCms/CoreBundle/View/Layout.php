@@ -6,22 +6,26 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\ThemeBundle\Extension;
+namespace ProgramCms\CoreBundle\View;
 
 /**
- * Class EFThemeExtension
- * @package ProgramCms\ThemeBundle\Extension
+ * Class Layout
+ * @package ProgramCms\CoreBundle\View
  */
-class EFThemeExtension extends \Twig\Extension\AbstractExtension
+class Layout implements LayoutInterface
 {
     /**
      * @var \ProgramCms\CoreBundle\Model\Utils\BundleManager
      */
     protected \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager;
     /**
-     * @var \Twig\Environment
+     * @var Page\Config
      */
-    private \Twig\Environment $environment;
+    protected Page\Config $config;
+    /**
+     * @var \ProgramCms\CoreBundle\Model\ObjectManager
+     */
+    protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
     /**
      * PageLayout Model, used to get page layout content
      * @var \ProgramCms\ThemeBundle\Model\PageLayout
@@ -31,32 +35,32 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
      * Saves Page Layouts
      * @var array
      */
-    private array $efPageLayouts = [];
+    private array $pageLayouts = [];
     /**
      * Stores the last page layout, current page
      * @var string
      */
     private string $currentPageLayout;
     /**
-     * Holds elements Tree with All tags
+     * Holds Page key,value elements Tree
      * @var array
      */
-    private array $efElements;
+    private array $elements;
+    /**
+     * Holds blocks objects
+     * @var array
+     */
+    private array $blocks;
     /**
      * Holds All Css files
      * @var array
      */
-    private array $efCss = [];
+    private array $css = [];
     /**
      * Holds All Js files
      * @var array
      */
-    private array $efJs = [];
-    /**
-     * Page title content
-     * @var
-     */
-    private string $efTitle;
+    private array $js = [];
     /**
      * Used to remove unused containers by keeping only those of the last layout
      * @var array
@@ -64,26 +68,29 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     private array $elementsWithFileName;
 
     public function __construct(
-        \Twig\Environment $environment,
         \ProgramCms\ThemeBundle\Model\PageLayout $pageLayout,
         \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager,
+        \ProgramCms\CoreBundle\View\Page\Config $config,
+        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
     )
     {
-        $this->environment = $environment;
-        $this->bundleManager = $bundleManager;
-        $this->efElements = [];
-        $this->pageLayout = $pageLayout;
+        $this->elements = [];
+        $this->blocks = [];
         $this->elementsWithFileName = [];
+        $this->pageLayout = $pageLayout;
         $this->currentPageLayout = "";
+        $this->bundleManager = $bundleManager;
+        $this->config = $config;
+        $this->objectManager = $objectManager;
     }
 
     /**
      * @param $containerName
      */
-    public function addEfRootContainer($containerName)
+    public function addRootContainer($containerName)
     {
-        if (!count($this->efElements)) {
-            $this->efElements[$containerName] = [
+        if (!count($this->elements)) {
+            $this->elements[$containerName] = [
                 'type' => 'container'
             ];
         }
@@ -91,29 +98,29 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     /**
      * @throws \Exception
      */
-    public function addEfBlock($blockName, $blockClass, $blockTemplate, $containerParent, $before = null, $after = null)
+    public function addBlock($blockName, $blockClass, $blockTemplate, $containerParent, $before = null, $after = null)
     {
         $containerPaths = [];
-        $targetContainer = $this->findElementPath($this->efElements, $containerParent, $containerPaths);
+        $targetContainer = $this->findElementPath($this->elements, $containerParent, $containerPaths);
 
         if ($targetContainer) {
-            $element = [
+            $elementArguments = [
                 'type' => 'block',
                 'class' => $blockClass,
                 'template' => ''
             ];
-
             if(!empty($blockTemplate)) {
-                $element['template'] = $blockTemplate;
+                $elementArguments['template'] = $blockTemplate;
             }
-
             if(!empty($before)) {
-                $element['before'] = $before;
+                $elementArguments['before'] = $before;
             }
             if(!empty($after)) {
-                $element['after'] = $after;
+                $elementArguments['after'] = $after;
             }
-            $this->addElement($containerPaths, $blockName, $element);
+            $this->addElement($containerPaths, $blockName, $elementArguments);
+            $block = $this->_createBlock($blockClass, $blockName, $elementArguments);
+            $this->setBlock($blockName, $block);
         } else {
             // Throws Exception if EFContainer's parent not found
             throw new \Exception(sprintf("Cant insert %s, EFContainer's parent \"%s\" not found.", $blockName, $containerParent));
@@ -126,9 +133,9 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
      */
     public function setArguments($blockName, $arguments)
     {
-        $nestedElement = &$this->efElements;
+        $nestedElement = &$this->elements;
         $path = [];
-        $targetElement = $this->findElementPath($this->efElements, $blockName, $path);
+        $targetElement = $this->findElementPath($this->elements, $blockName, $path);
 
         if($targetElement) {
             foreach ($path as $index => $key) {
@@ -144,12 +151,13 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     }
 
     /**
+     * Add Container to Elements Tree
      * @throws \Exception
      */
-    public function addEfContainer($containerName, $containerParent = null, $containerHtmlTag = null, $containerHtmlClass = null, $before = null, $after = null)
+    public function addContainer($containerName, $containerParent = null, $containerHtmlTag = null, $containerHtmlClass = null, $before = null, $after = null)
     {
         $containerPaths = [];
-        $targetContainer = $this->findElementPath($this->efElements, $containerParent, $containerPaths);
+        $targetContainer = $this->findElementPath($this->elements, $containerParent, $containerPaths);
 
         if ($targetContainer) {
             $container = [
@@ -182,7 +190,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
      */
     public function moveElement($elementName, $targetElementName, $before, $after)
     {
-        $element = &$this->efElements;
+        $element = &$this->elements;
 
         $elementPath = [];
         $targetElementPath = [];
@@ -198,7 +206,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
         }
 
         // Find target element (destination)
-        $this->findElementPath($this->efElements, $targetElementName, $targetElementPath);
+        $this->findElementPath($this->elements, $targetElementName, $targetElementPath);
 
         // Remove Element from his original position, make it nullable
         $this->removeElement($elementName);
@@ -252,9 +260,9 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     public function removeElement($name)
     {
         $containerPaths = [];
-        $targetContainer = $this->findElementPath($this->efElements, $name, $containerPaths);
+        $targetContainer = $this->findElementPath($this->elements, $name, $containerPaths);
         if ($targetContainer) {
-            $nestedContainer = &$this->efElements;
+            $nestedContainer = &$this->elements;
             foreach ($containerPaths as $index => $key) {
                 // Update $nestedContainer to point to the nested array corresponding to the current key
                 if($index < count($containerPaths) - 1) {
@@ -326,49 +334,49 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
      */
     public function addElement($keys, $elementName, $element)
     {
-        $nestedContainer = &$this->efElements;
+        $nestedElement = &$this->elements;
         foreach ($keys as $key) {
             // Update $nestedContainer to point to the nested array corresponding to the current key
-            $nestedContainer = &$nestedContainer[$key]['childs'];
+            $nestedElement = &$nestedElement[$key]['childs'];
         }
         // $nestedContainer is the parentContainer childs
-        if($nestedContainer && (isset($element['before']) || isset($element['after']))) {
+        if($nestedElement && (isset($element['before']) || isset($element['after']))) {
             if(isset($element['before'])) {
-                $this->addElementWithPriority($elementName, $element, $nestedContainer, 'before');
+                $this->addElementWithPriority($elementName, $element, $nestedElement, 'before');
             } else if(isset($element['after'])) {
-                $this->addElementWithPriority($elementName, $element, $nestedContainer, 'after');
+                $this->addElementWithPriority($elementName, $element, $nestedElement, 'after');
             }
         }else {
-            $nestedContainer[$elementName] = $element;
+            $nestedElement[$elementName] = $element;
         }
 
-        unset($nestedContainer);
+        unset($nestedElement);
     }
 
     /**
      * @return array
      */
-    public function getEfContainers(): array
+    public function getElements(): array
     {
-        return $this->efElements;
+        return $this->elements;
     }
 
     /**
      * @param $pageLayoutName
      */
-    public function addEFPageLayout($pageLayoutName)
+    public function addPageLayout($pageLayoutName)
     {
         if ($pageLayoutName) {
-            $this->efPageLayouts[$pageLayoutName] = $pageLayoutName;
+            $this->pageLayouts[$pageLayoutName] = $pageLayoutName;
         }
     }
 
     /**
      * @return array
      */
-    public function getEFPageLayouts(): array
+    public function getPageLayouts(): array
     {
-        return $this->efPageLayouts;
+        return $this->pageLayouts;
     }
 
     /**
@@ -377,7 +385,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
      */
     public function canAddPageLayout($pageLayout): bool
     {
-        return !isset($this->efPageLayouts[$pageLayout]);
+        return !isset($this->pageLayouts[$pageLayout]);
     }
 
     /**
@@ -399,11 +407,11 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     /**
      * @param $cssTags
      */
-    public function addEFCss($cssTags)
+    public function addCss($cssTags)
     {
         foreach (explode(',', $cssTags) as $css) {
             if (!empty($css) || $css != '') {
-                $this->efCss[] = $css;
+                $this->css[] = $css;
             }
         }
     }
@@ -411,19 +419,19 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     /**
      * @return array
      */
-    public function getEFCss(): array
+    public function getCss(): array
     {
-        return $this->efCss;
+        return $this->css;
     }
 
     /**
      * @param $jsTags
      */
-    public function addEFJs($jsTags)
+    public function addJs($jsTags)
     {
         foreach (explode(',', $jsTags) as $js) {
             if (!empty($js) || $js != '') {
-                $this->efJs[] = $js;
+                $this->js[] = $js;
             }
         }
     }
@@ -431,9 +439,9 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     /**
      * @return array
      */
-    public function getEFJs(): array
+    public function getJs(): array
     {
-        return $this->efJs;
+        return $this->js;
     }
 
     /**
@@ -445,37 +453,39 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     }
 
     /**
+     * Helper method to set title from configuration
      * @param $title
      */
-    public function setEfTitle($title)
+    public function setTitle(string $title)
     {
-        $this->efTitle = $title;
+        $this->config->getTitle()->set($title);
     }
 
     /**
+     * Helper method to retrieve title from configuration
      * @return string
      */
-    public function getEfTitle(): string
+    public function getTitle(): string
     {
-        return $this->efTitle ?? 'Welcome !';
+        return $this->config->getTitle()->get();
     }
 
     /**
-     * Render EFBlocks Elements
+     * Render Block Element
      * @param $block
      * @return string
      * @throws \ReflectionException
      */
-    private function renderEfBlock($block): string
+    private function renderBlock($block): string
     {
         // Get Block instance from Container class
-        $blockClassInstance = clone $this->bundleManager->getContainer()->get($block['class']);
+        $blockClassInstance = $this->objectManager->create($block['class']);
         if(isset($block['arguments'])) {
             $blockClassInstance->setData($block['arguments']);
         }
         if(isset($block['childs'])) {
             foreach($block['childs'] as $childBlockName => $childBlock) {
-                $childBlockClassInstance = clone $this->bundleManager->getContainer()->get($childBlock['class']);
+                $childBlockClassInstance = $this->objectManager->create($childBlock['class']);
                 if(isset($childBlock['arguments'])) {
                     $childBlockClassInstance->setData($childBlock['arguments']);
                 }
@@ -500,7 +510,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     public function renderPage($container = null): string
     {
         if($container === null) {
-            $container = $this->efElements;
+            $container = $this->elements;
         }
 
         $this->cleanUnusedPageLayoutContainers();
@@ -523,7 +533,7 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
                     }
                 }
             }else if($containerNode && $containerNode['type'] == 'block') {
-                $pageContent .= $this->renderEfBlock($containerNode);
+                $pageContent .= $this->renderBlock($containerNode);
             }
         }
 
@@ -548,26 +558,87 @@ class EFThemeExtension extends \Twig\Extension\AbstractExtension
     }
 
     /**
-     * Defines All ProgramCms's Twig Token Parsers
+     * Create an instance of Block and returns it
+     * @param $blockClass
+     * @param string $name
+     * @param array $arguments
+     * @return object|null
+     */
+    public function _createBlock($blockClass, string $name, array $arguments = []): ?object
+    {
+        // Get Block instance from Container class
+        $blockClassInstance = $this->objectManager->create($blockClass);
+        if(isset($arguments['arguments'])) {
+            $blockClassInstance->setData($arguments['arguments']);
+        }
+        if(isset($arguments['template'])) {
+            $blockClassInstance->setTemplate($arguments['template']);
+        }
+        $this->setBlock($name, $blockClassInstance);
+        return $blockClassInstance;
+    }
+
+    /**
+     * Get Block instance by name
+     * @param string $name
+     * @return false|mixed
+     */
+    public function getBlock(string $name)
+    {
+        return $this->blocks[$name] ?? false;
+    }
+
+    public function getChildBlock(string $parentName, string $alias)
+    {
+
+    }
+
+    public function setChild(string $parentName, string $elementName, string $alias)
+    {
+
+    }
+
+    public function getChildNames(string $parentName)
+    {
+
+    }
+
+    /**
+     * Get all Blocks instances
      * @return array
      */
-    public function getTokenParsers()
+    public function getAllBlocks(): array
     {
-        return [
-            new \ProgramCms\ThemeBundle\Parser\EFLayoutStarterTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\EFPageTokenParser($this->environment),
-            new \ProgramCms\ThemeBundle\Parser\EFUpdateTokenParser($this->environment),
-            new \ProgramCms\ThemeBundle\Parser\EFLayoutTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\EFTitleTokenParser($this->environment),
-            new \ProgramCms\ThemeBundle\Parser\EFContainerTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\EFBlockTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\Argument\ArgumentsTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\Argument\ArgumentTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\EFReferenceBlockTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\EFCssTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\EFJsTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\EFMoveTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\EFReferenceContainerTokenParser()
-        ];
+        return $this->blocks;
+    }
+
+    /**
+     * Get ChildBlocks as a List of Objects
+     * @param string $parentName
+     */
+    public function getChildBlocks(string $parentName)
+    {
+
+    }
+
+    public function getParentName(string $childName)
+    {
+
+    }
+
+    /**
+     * @param $name
+     * @param $block
+     * @return $this
+     */
+    public function setBlock($name, $block)
+    {
+        $this->blocks[$name] = $block;
+        return $this;
+    }
+
+    public function createBlock($type, string $name = '', array $arguments = [])
+    {
+
     }
 }

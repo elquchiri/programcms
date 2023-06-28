@@ -12,7 +12,7 @@ namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\SystemWebsite;
  * Class IndexController
  * @package ProgramCms\UserBundle\Controller\Adminhtml\Index
  */
-class CreateController extends \ProgramCms\CoreBundle\Controller\Adminhtml\AbstractController
+class CreateController extends \ProgramCms\CoreBundle\Controller\Controller
 {
 
     public function __construct(

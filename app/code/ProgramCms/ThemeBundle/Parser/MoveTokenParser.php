@@ -11,31 +11,22 @@ namespace ProgramCms\ThemeBundle\Parser;
 use Twig\Error\SyntaxError;
 
 /**
- * Class EFBlockTokenParser
+ * Class MoveTokenParser
  * @package ProgramCms\ThemeBundle\Parser
  */
-class EFBlockTokenParser extends \Twig\TokenParser\AbstractTokenParser
+class MoveTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
     public function parse(\Twig\Token $token)
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
-
-        $stream->expect(\Twig\Token::NAME_TYPE, 'name');
+        $stream->expect(\Twig\Token::NAME_TYPE, 'element');
         $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
-        $blockName = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+        $elementName = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
 
-        $stream->expect(\Twig\Token::NAME_TYPE, 'class');
+        $stream->expect(\Twig\Token::NAME_TYPE, 'destination');
         $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
-        $blockClass = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
-
-        try {
-            $stream->expect(\Twig\Token::NAME_TYPE, 'template');
-            $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
-            $blockTemplate = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
-        }catch(SyntaxError $e) {
-            $blockTemplate = '';
-        }
+        $destinationName = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
 
         try {
             $stream->expect(\Twig\Token::NAME_TYPE, 'before');
@@ -52,23 +43,22 @@ class EFBlockTokenParser extends \Twig\TokenParser\AbstractTokenParser
         }catch(SyntaxError $e) {
             $after = '';
         }
+        $stream->expect(\Twig\Token::BLOCK_END_TYPE);
+
+        $body = $this->parser->subparse([$this, 'decideMoveEnd'], true);
 
         $stream->expect(\Twig\Token::BLOCK_END_TYPE);
 
-        $body = $this->parser->subparse([$this, 'decideBlockEnd'], true);
-
-        $stream->expect(\Twig\Token::BLOCK_END_TYPE);
-
-        return new \ProgramCms\ThemeBundle\Node\EFBlockNode($blockName, $blockClass, $blockTemplate, $before, $after, $body, $lineno, $this->getTag());
+        return new \ProgramCms\ThemeBundle\Node\MoveNode($elementName, $destinationName, $before, $after, $body, $lineno, $this->getTag());
     }
 
-    public function decideBlockEnd(\Twig\Token $token)
+    public function decideMoveEnd(\Twig\Token $token)
     {
-        return $token->test('endEFBlock');
+        return $token->test('endMove');
     }
 
     public function getTag()
     {
-        return 'EFBlock';
+        return 'move';
     }
 }

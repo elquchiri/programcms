@@ -33,16 +33,25 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
         $this->pageConfig = $pageConfig;
     }
 
+    /**
+     * @return \Twig\Environment
+     */
     public function getEnvironment(): \Twig\Environment
     {
         return $this->environment;
     }
 
+    /**
+     * @return \ProgramCms\RouterBundle\Service\Url
+     */
     public function getUrl()
     {
         return $this->url;
     }
 
+    /**
+     * @return \ProgramCms\CoreBundle\View\Page\Config
+     */
     public function getPageConfig(): \ProgramCms\CoreBundle\View\Page\Config
     {
         return $this->pageConfig;

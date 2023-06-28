@@ -12,7 +12,7 @@ namespace ProgramCms\AdminBundle\Controller\Adminhtml\Dashboard;
  * Class IndexController
  * @package ProgramCms\AdminBundle\Controller\Adminhtml\Dashboard
  */
-class IndexController extends \ProgramCms\CoreBundle\Controller\Adminhtml\AbstractController
+class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
 {
 
     public function execute()

@@ -12,7 +12,7 @@ namespace ProgramCms\CmsBundle\Controller\Index;
  * Class HomeController
  * @package ProgramCms\CmsBundle\Controller
  */
-class IndexController extends \ProgramCms\CoreBundle\Controller\Adminhtml\AbstractController
+class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
 {
 
     public function execute()

@@ -12,7 +12,7 @@ namespace ProgramCms\ThemeBundle\Node;
  * Class EFJsNode
  * @package ProgramCms\ThemeBundle\Node
  */
-class EFJsNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
+class JsNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
 {
     public function __construct($jsFiles, $lineno, $tag = null)
     {
@@ -22,6 +22,6 @@ class EFJsNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterfac
     public function compile(\Twig\Compiler $compiler)
     {
         $jsFiles = implode(',', $this->getAttribute('js_files'));
-        $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\EFThemeExtension')->addEFJs('$jsFiles');");
+        $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addJs('$jsFiles');");
     }
 }

@@ -8,20 +8,16 @@
 
 namespace ProgramCms\ThemeBundle\Node;
 
-use Twig\Environment;
-
 /**
  * Class EFTitleNode
  * @package ProgramCms\ThemeBundle\Node
  */
-class EFTitleNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
+class TitleNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
 {
-    protected Environment $environment;
 
-    public function __construct(Environment $environment, $body, $lineno, $tag = null)
+    public function __construct($body, $lineno, $tag = null)
     {
         parent::__construct(['body' => $body], [], $lineno, $tag);
-        $this->environment = $environment;
     }
 
     /**
@@ -30,7 +26,7 @@ class EFTitleNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInter
      */
     public function compile(\Twig\Compiler $compiler)
     {
-        $efExtension = $this->environment->getExtension('\ProgramCms\ThemeBundle\Extension\EFThemeExtension');
-        $efExtension->setEfTitle($this->getNode('body')->getAttribute('data'));
+        $title = $this->getNode('body')->getAttribute('data');
+        $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->setTitle('$title');");
     }
 }

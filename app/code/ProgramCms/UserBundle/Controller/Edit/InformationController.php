@@ -9,7 +9,7 @@
 namespace ProgramCms\UserBundle\Controller\Edit;
 
 
-class InformationController extends \ProgramCms\CoreBundle\Controller\Adminhtml\AbstractController
+class InformationController extends \ProgramCms\CoreBundle\Controller\Controller
 {
 
     public function execute()

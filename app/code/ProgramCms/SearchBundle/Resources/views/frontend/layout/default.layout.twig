@@ -6,8 +6,8 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-{% EFPage %}
-    {% EFReferenceContainer name="navbar.collapse" %}
-        {% EFBlock name="form.search.mini" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsSearchBundle/form_search_mini.html.twig" before="-" %}{% endEFBlock %}
-    {% endEFReferenceContainer %}
-{% endEFPage %}
+{% page %}
+    {% referenceContainer name="navbar.collapse" %}
+        {% block name="form.search.mini" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsSearchBundle/form_search_mini.html.twig" before="-" %}{% endBlock %}
+    {% endReferenceContainer %}
+{% endPage %}

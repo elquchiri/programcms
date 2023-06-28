@@ -12,7 +12,7 @@ namespace ProgramCms\RouterBundle\Helper;
 class Data
 {
     const PROGRAMCMS_ROUTING_LOADER = 'programcms';
-    const PROGRAMCMS_ROUTING_CLASS_METOHD = 'execute';
+    const PROGRAMCMS_ROUTING_CLASS_METOHD = 'dispatch';
 
     const PROGRAMCMS_AREA_CODE_FRONTEND = 'frontend';
     const PROGRAMCMS_AREA_CODE_ADMINHTML = 'adminhtml';

@@ -9,7 +9,7 @@
 namespace ProgramCms\CategoryBundle\Controller\Adminhtml\Index;
 
 
-class SaveController extends \ProgramCms\CoreBundle\Controller\Adminhtml\AbstractController
+class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
 {
 
     public function execute()

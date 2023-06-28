@@ -1,5 +1,13 @@
-{% EFPage %}
-    {% EFReferenceContainer name="content" %}
-        {% EFBlock name="register.content" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsUserBundle/authentication/register.html.twig" %}{% endEFBlock %}
-    {% endEFReferenceContainer %}
-{% endEFPage %}
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% page %}
+    {% referenceContainer name="content" %}
+        {% block name="register.content" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsUserBundle/authentication/register.html.twig" %}{% endBlock %}
+    {% endReferenceContainer %}
+{% endPage %}

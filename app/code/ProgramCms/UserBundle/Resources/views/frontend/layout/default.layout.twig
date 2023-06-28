@@ -6,8 +6,8 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-{% EFPage %}
-    {% EFReferenceContainer name="navbar.collapse" %}
-        {% EFBlock name="account.dropdown" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsUserBundle/account_dropdown.html.twig" after="-" %}{% endEFBlock %}
-    {% endEFReferenceContainer %}
-{% endEFPage %}
+{% page %}
+    {% referenceContainer name="navbar.collapse" %}
+        {% block name="account.dropdown" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsUserBundle/account_dropdown.html.twig" after="-" %}{% endBlock %}
+    {% endReferenceContainer %}
+{% endPage %}

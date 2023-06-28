@@ -17,7 +17,7 @@ class Title
     /**
      * @var string
      */
-    private string $title;
+    private string $title = "";
 
     /**
      * @param string $title

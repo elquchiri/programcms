@@ -11,10 +11,10 @@ namespace ProgramCms\ThemeBundle\Parser;
 use Twig\Error\SyntaxError;
 
 /**
- * Class EFReferenceBlockTokenParser
+ * Class ReferenceBlockTokenParser
  * @package ProgramCms\ThemeBundle\Parser
  */
-class EFReferenceBlockTokenParser extends \Twig\TokenParser\AbstractTokenParser
+class ReferenceBlockTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
     public function parse(\Twig\Token $token)
     {
@@ -38,16 +38,16 @@ class EFReferenceBlockTokenParser extends \Twig\TokenParser\AbstractTokenParser
 
         $stream->expect(\Twig\Token::BLOCK_END_TYPE);
 
-        return new \ProgramCms\ThemeBundle\Node\EFReferenceBlockNode($blockName, $body, $lineno, $this->getTag());
+        return new \ProgramCms\ThemeBundle\Node\ReferenceBlockNode($blockName, $body, $lineno, $this->getTag());
     }
 
     public function decideReferenceBlockEnd(\Twig\Token $token)
     {
-        return $token->test('endEFReferenceBlock');
+        return $token->test('endReferenceBlock');
     }
 
     public function getTag()
     {
-        return 'EFReferenceBlock';
+        return 'referenceBlock';
     }
 }

@@ -13,7 +13,7 @@ namespace ProgramCms\ThemeBundle\Node;
  * EFLayouts contains only EFContainers and EFReferenceContainers
  * @package ProgramCms\ThemeBundle\Node
  */
-class EFLayoutNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
+class LayoutNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
 {
     public function __construct($body, $lineno, $tag = null)
     {
@@ -27,30 +27,30 @@ class EFLayoutNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInte
 
         foreach($this->getNode('body') as $node) {
             switch ($node) {
-                case ($node instanceof \ProgramCms\ThemeBundle\Node\EFContainerNode):
+                case ($node instanceof \ProgramCms\ThemeBundle\Node\ContainerNode):
                     // Add root container
                     $containerName = $node->getAttribute('containerName');
                     $compiler
-                        ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\EFThemeExtension')->addEfRootContainer('$containerName')")
+                        ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addRootContainer('$containerName')")
                         ->raw(";\n");
                     $compiler
-                        ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\EFThemeExtension')->trackElementWithFileName('$templateName', '$containerName')")
+                        ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->trackElementWithFileName('$templateName', '$containerName')")
                         ->raw(";\n");
                     break;
-                case ($node instanceof \ProgramCms\ThemeBundle\Node\EFReferenceContainerNode):
+                case ($node instanceof \ProgramCms\ThemeBundle\Node\ReferenceContainerNode):
                     foreach ($node->getNode('body') as $subContainerNode) {
-                        if ($subContainerNode instanceof \ProgramCms\ThemeBundle\Node\EFContainerNode) {
+                        if ($subContainerNode instanceof \ProgramCms\ThemeBundle\Node\ContainerNode) {
                             $subContainerName = $subContainerNode->getAttribute('containerName');
                             $compiler
-                                ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\EFThemeExtension')->trackElementWithFileName('$templateName', '$subContainerName')")
+                                ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->trackElementWithFileName('$templateName', '$subContainerName')")
                                 ->raw(";\n");
                         }
                     }
                     break;
-                case ($node instanceof \ProgramCms\ThemeBundle\Node\EFUpdateNode):
+                case ($node instanceof \ProgramCms\ThemeBundle\Node\UpdateNode):
                     $handlerName = $node->getAttribute('handle');
                     $compiler
-                        ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\EFThemeExtension')->trackHandlerWithFileName('$templateName', '$handlerName');");
+                        ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->trackHandlerWithFileName('$templateName', '$handlerName');");
                     break;
             }
         }

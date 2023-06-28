@@ -11,32 +11,30 @@ namespace ProgramCms\ThemeBundle\Parser;
 use Twig\Error\SyntaxError;
 
 /**
- * Class EFContainerTokenParser
+ * Class BlockTokenParser
  * @package ProgramCms\ThemeBundle\Parser
  */
-class EFContainerTokenParser extends \Twig\TokenParser\AbstractTokenParser
+class BlockTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
     public function parse(\Twig\Token $token)
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
+
         $stream->expect(\Twig\Token::NAME_TYPE, 'name');
         $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
-        $containerName = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
-        try {
-            $stream->expect(\Twig\Token::NAME_TYPE, 'htmlTag');
-            $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
-            $containerHtmlTag = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
-        }catch(SyntaxError $e) {
-            $containerHtmlTag = '';
-        }
+        $blockName = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+
+        $stream->expect(\Twig\Token::NAME_TYPE, 'class');
+        $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
+        $blockClass = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
 
         try {
-            $stream->expect(\Twig\Token::NAME_TYPE, 'htmlClass');
+            $stream->expect(\Twig\Token::NAME_TYPE, 'template');
             $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
-            $containerHtmlClass = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+            $blockTemplate = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
         }catch(SyntaxError $e) {
-            $containerHtmlClass = '';
+            $blockTemplate = '';
         }
 
         try {
@@ -54,22 +52,23 @@ class EFContainerTokenParser extends \Twig\TokenParser\AbstractTokenParser
         }catch(SyntaxError $e) {
             $after = '';
         }
+
         $stream->expect(\Twig\Token::BLOCK_END_TYPE);
 
         $body = $this->parser->subparse([$this, 'decideBlockEnd'], true);
 
         $stream->expect(\Twig\Token::BLOCK_END_TYPE);
 
-        return new \ProgramCms\ThemeBundle\Node\EFContainerNode($containerName, $containerHtmlTag, $containerHtmlClass, $before, $after, $body, $lineno, $this->getTag());
+        return new \ProgramCms\ThemeBundle\Node\BlockNode($blockName, $blockClass, $blockTemplate, $before, $after, $body, $lineno, $this->getTag());
     }
 
     public function decideBlockEnd(\Twig\Token $token)
     {
-        return $token->test('endEFContainer');
+        return $token->test('endBlock');
     }
 
     public function getTag()
     {
-        return 'EFContainer';
+        return 'block';
     }
 }

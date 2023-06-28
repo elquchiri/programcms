@@ -16,71 +16,53 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
 {
     protected string $_template = "@ProgramCmsUiBundle/form/form.html.twig";
 
-    protected \ProgramCms\UiBundle\Model\Element\Form\Fieldset $fieldset;
-    protected \ProgramCms\UiBundle\Model\Element\Form\Fields\Text $text;
-    protected \ProgramCms\UiBundle\Model\Element\Form\Fields\TextArea $textArea;
-    protected \ProgramCms\UiBundle\Model\Element\Form\Form $form;
-    protected \ProgramCms\UiBundle\Model\Element\Form\Fields\Select $select;
     protected \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager;
-    protected \ProgramCms\UiBundle\Model\Element\Form\Fields\Password $password;
-    protected \ProgramCms\UiBundle\Model\Element\Form\Fields\Switcher $switcher;
-    protected \ProgramCms\UiBundle\Model\Element\Form\Fields\ImageUploader $imageUploader;
+    protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
 
     public function __construct(
         \ProgramCms\CoreBundle\View\Element\Template\Context $context,
         \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager,
-        \ProgramCms\UiBundle\Model\Element\Form\Form $form,
-        \ProgramCms\UiBundle\Model\Element\Form\Fieldset $fieldset,
-        \ProgramCms\UiBundle\Model\Element\Form\Fields\Text $text,
-        \ProgramCms\UiBundle\Model\Element\Form\Fields\TextArea $textArea,
-        \ProgramCms\UiBundle\Model\Element\Form\Fields\Password $password,
-        \ProgramCms\UiBundle\Model\Element\Form\Fields\Select $select,
-        \ProgramCms\UiBundle\Model\Element\Form\Fields\Switcher $switcher,
-        \ProgramCms\UiBundle\Model\Element\Form\Fields\ImageUploader $imageUploader,
+        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager,
         array $data = []
     )
     {
         parent::__construct($context, $data);
-        $this->fieldset = $fieldset;
-        $this->text = $text;
-        $this->textArea = $textArea;
-        $this->password = $password;
-        $this->form = $form;
-        $this->select = $select;
         $this->bundleManager = $bundleManager;
-        $this->switcher = $switcher;
-        $this->imageUploader = $imageUploader;
+        $this->objectManager = $objectManager;
     }
 
+    /**
+     * @return array
+     */
     public function getFieldSets(): array
     {
-        $form = clone $this->form;
+        $form = $this->objectManager->create(\ProgramCms\UiBundle\Model\Element\Form\Form::class);
         foreach($this->getData("fieldSets") as $fieldset) {
-            $fieldsetElement = clone $this->fieldset;
+            $fieldsetElement = $this->objectManager->create(\ProgramCms\UiBundle\Model\Element\Form\Fieldset::class);
             $fields = $fieldset['fields'];
             foreach($fields as $fieldName => $field) {
                 $fieldElement = null;
                 switch($field['type']) {
                     case "text":
-                        $fieldElement = clone $this->text;
+                        $fieldElement = $this->objectManager->create(\ProgramCms\UiBundle\Model\Element\Form\Fields\Text::class);
                         if(isset($field['placeholder'])) {
                             $fieldElement->setPlaceholder($field['placeholder']);
                         }
                         break;
                     case "textArea":
-                        $fieldElement = clone $this->textArea;
+                        $fieldElement = $this->objectManager->create(\ProgramCms\UiBundle\Model\Element\Form\Fields\TextArea::class);
                         if(isset($field['placeholder'])) {
                             $fieldElement->setPlaceholder($field['placeholder']);
                         }
                         break;
                     case "password":
-                        $fieldElement = clone $this->password;
+                        $fieldElement = $this->objectManager->create(\ProgramCms\UiBundle\Model\Element\Form\Fields\Password::class);
                         if(isset($field['placeholder'])) {
                             $fieldElement->setPlaceholder($field['placeholder']);
                         }
                         break;
                     case "select":
-                        $fieldElement = clone $this->select;
+                        $fieldElement = $this->objectManager->create(\ProgramCms\UiBundle\Model\Element\Form\Fields\Select::class);
                         $fieldElement->setOptions(
                             $this->bundleManager->getContainer()
                                 ->get($field['sourceModel'])
@@ -88,10 +70,10 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
                         );
                         break;
                     case "switcher":
-                        $fieldElement = clone $this->switcher;
+                        $fieldElement = $this->objectManager->create(\ProgramCms\UiBundle\Model\Element\Form\Fields\Switcher::class);
                         break;
                     case "imageUploader":
-                        $fieldElement = clone $this->imageUploader;
+                        $fieldElement = $this->objectManager->create(\ProgramCms\UiBundle\Model\Element\Form\Fields\ImageUploader::class);
                         break;
                 }
                 // Common attributes

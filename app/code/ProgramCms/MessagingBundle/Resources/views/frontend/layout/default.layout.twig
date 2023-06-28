@@ -6,8 +6,8 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-{% EFPage %}
-    {% EFReferenceContainer name="navbar.collapse" %}
-        {% EFBlock name="account.messages" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsMessagingBundle/messages.html.twig" %}{% endEFBlock %}
-    {% endEFReferenceContainer %}
-{% endEFPage %}
+{% page %}
+    {% referenceContainer name="navbar.collapse" %}
+        {% block name="account.messages" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsMessagingBundle/messages.html.twig" %}{% endBlock %}
+    {% endReferenceContainer %}
+{% endPage %}

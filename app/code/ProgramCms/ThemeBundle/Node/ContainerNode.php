@@ -9,10 +9,10 @@
 namespace ProgramCms\ThemeBundle\Node;
 
 /**
- * Class EFContainerNode
+ * Class ContainerNode
  * @package ProgramCms\ThemeBundle\Node
  */
-class EFContainerNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
+class ContainerNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
 {
     public function __construct($containerName, $containerHtmlTag, $containerHtmlClass, $before, $after, $body, $lineno, $tag = null)
     {
@@ -25,21 +25,21 @@ class EFContainerNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureI
 
         foreach($this->getNode('body') as $node) {
             switch($node) {
-                case ($node instanceof \ProgramCms\ThemeBundle\Node\EFBlockNode):
+                case ($node instanceof \ProgramCms\ThemeBundle\Node\BlockNode):
                     $blockName = $node->getAttribute('blockName');
                     $blockClass = $node->getAttribute('blockClass');
                     $blockTemplate = $node->getAttribute('blockTemplate');
                     $before = $node->getAttribute('before');
                     $after = $node->getAttribute('after');
-                    $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\EFThemeExtension')->addEfBlock('$blockName', '$blockClass', '$blockTemplate', '$containerName', '$before', '$after');");
+                    $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addBlock('$blockName', '$blockClass', '$blockTemplate', '$containerName', '$before', '$after');");
                     break;
-                case ($node instanceof \ProgramCms\ThemeBundle\Node\EFContainerNode):
+                case ($node instanceof \ProgramCms\ThemeBundle\Node\ContainerNode):
                     $subContainerName = $node->getAttribute('containerName');
                     $subContainerHtmlTag = $node->getAttribute('containerHtmlTag');
                     $subContainerHtmlClass = $node->getAttribute('containerHtmlClass');
                     $before = $node->getAttribute('before');
                     $after = $node->getAttribute('after');
-                    $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\EFThemeExtension')->addEfContainer('$subContainerName', '$containerName', '$subContainerHtmlTag', '$subContainerHtmlClass', '$before', '$after');");
+                    $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addContainer('$subContainerName', '$containerName', '$subContainerHtmlTag', '$subContainerHtmlClass', '$before', '$after');");
                     break;
             }
         }
