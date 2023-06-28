@@ -8,15 +8,13 @@
 
 namespace ProgramCms\CategoryBundle\Controller\Adminhtml\Index;
 
-use ProgramCms\CoreBundle\Model\ObjectManager;
-
 /**
  * Class IndexController
  * @package ProgramCms\CategoryBundle\Controller\Adminhtml\Index
  */
 class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
 {
-    protected ObjectManager $objectManager;
+    protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
 
     /**
      * IndexController constructor.
@@ -26,7 +24,7 @@ class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
     public function __construct(
         \ProgramCms\RouterBundle\Service\Request $request,
         \ProgramCms\RouterBundle\Service\Response $response,
-        ObjectManager $objectManager
+        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
     )
     {
         parent::__construct($request, $response);
@@ -39,7 +37,6 @@ class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
     public function execute()
     {
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
-        $layout = $pageResult->getLayout()->getBlock('footer.content.block');
         $pageResult->getConfig()->getTitle()->set("Default Category");
         return $pageResult;
     }

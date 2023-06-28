@@ -8,7 +8,10 @@
 
 namespace ProgramCms\UserBundle\Controller\Edit;
 
-
+/**
+ * Class PasswordController
+ * @package ProgramCms\UserBundle\Controller\Edit
+ */
 class PasswordController extends \ProgramCms\CoreBundle\Controller\Controller
 {
 

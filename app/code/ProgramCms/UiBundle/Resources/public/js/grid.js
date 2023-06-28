@@ -4,7 +4,6 @@
  *
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
-
 $(function(){
     var display = false;
 

@@ -8,7 +8,10 @@
 
 namespace ProgramCms\UserBundle\Controller\Edit;
 
-
+/**
+ * Class IndexController
+ * @package ProgramCms\UserBundle\Controller\Edit
+ */
 class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
 {
 

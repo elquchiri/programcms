@@ -8,11 +8,14 @@
 
 namespace ProgramCms\UserBundle\Controller\Account;
 
-
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * Class LogoutController
+ * @package ProgramCms\UserBundle\Controller\Account
+ */
 class LogoutController extends \ProgramCms\CoreBundle\Controller\Controller
 {
 
@@ -21,11 +24,12 @@ class LogoutController extends \ProgramCms\CoreBundle\Controller\Controller
 
     public function __construct(
         \ProgramCms\RouterBundle\Service\Request $request,
+        \ProgramCms\RouterBundle\Service\Response $response,
         Security $security,
         UrlGeneratorInterface $urlGenerator
     )
     {
-        parent::__construct($request);
+        parent::__construct($request, $response);
         $this->security = $security;
         $this->urlGenerator = $urlGenerator;
     }

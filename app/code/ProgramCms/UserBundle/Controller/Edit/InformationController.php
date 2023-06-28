@@ -8,7 +8,10 @@
 
 namespace ProgramCms\UserBundle\Controller\Edit;
 
-
+/**
+ * Class InformationController
+ * @package ProgramCms\UserBundle\Controller\Edit
+ */
 class InformationController extends \ProgramCms\CoreBundle\Controller\Controller
 {
 

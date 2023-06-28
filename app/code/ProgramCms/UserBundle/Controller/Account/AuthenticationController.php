@@ -17,25 +17,29 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class AuthenticationController extends \ProgramCms\CoreBundle\Controller\Controller
 {
 
+    protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
     private $authenticationUtils;
 
     public function __construct(
         \ProgramCms\RouterBundle\Service\Request $request,
         \ProgramCms\RouterBundle\Service\Response $response,
         AuthenticationUtils $authenticationUtils,
+        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
     )
     {
         parent::__construct($request, $response);
         $this->authenticationUtils = $authenticationUtils;
+        $this->objectManager = $objectManager;
     }
 
     public function execute()
     {
         // get the login error if there is one
         $error = $this->authenticationUtils->getLastAuthenticationError();
-
         $lastEmail = $this->authenticationUtils->getLastUsername();
+        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
 
-        return $this->getResponse()->render();
+        $pageResult->getConfig()->getTitle()->set("Authentication");
+        return $pageResult;
     }
 }

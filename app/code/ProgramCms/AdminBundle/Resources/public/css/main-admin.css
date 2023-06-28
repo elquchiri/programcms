@@ -16,11 +16,11 @@ a {
 }
 
 .page-main-actions {
-    padding: 31px 21px 0 21px;
+    padding: 31px 21px 0 31px;
 }
 
 .messages-wrapper {
-    padding: 11px 21px 0 21px;
+    padding: 11px 21px 0 31px;
     font-size: 14px;
 }
 
@@ -32,10 +32,10 @@ a {
     align-items: stretch;
     align-content: stretch;
     height: 100%;
-    margin-left: 120px;
+    margin-left: 110px;
 }
 .content .content-header {
-    padding: 31px 21px 0 21px;
+    padding: 31px 21px 0 31px;
 }
 .content .content-header h2 {
     padding: 0;
@@ -47,5 +47,5 @@ a {
     padding: 5px 0 0 5px;
 }
 .content .content-container {
-    padding: 21px 21px 0 21px;
+    padding: 21px 21px 0 31px;
 }

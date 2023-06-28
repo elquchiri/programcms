@@ -16,8 +16,22 @@ use Symfony\Component\HttpFoundation\Response;
  */
 abstract class AbstractConfigController extends \ProgramCms\CoreBundle\Controller\Controller
 {
-    protected function loadConfigurations(): Response
+
+    protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
+
+    public function __construct(
+        \ProgramCms\RouterBundle\Service\Request $request,
+        \ProgramCms\RouterBundle\Service\Response $response,
+        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
+    )
     {
-        return $this->getResponse()->render();
+        parent::__construct($request, $response);
+        $this->objectManager = $objectManager;
+    }
+
+    protected function loadConfigurations()
+    {
+        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
+        return $pageResult;
     }
 }

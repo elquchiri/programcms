@@ -15,26 +15,25 @@ namespace ProgramCms\UserBundle\Controller\Adminhtml\Index;
 class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
 {
 
-    protected \ProgramCms\CoreBundle\View\Result\Page $page;
+    protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
     private \ProgramCms\UserBundle\Repository\UserRepository $customerRepository;
 
     public function __construct(
         \ProgramCms\RouterBundle\Service\Request $request,
         \ProgramCms\UserBundle\Repository\UserRepository $customerRepository,
         \ProgramCms\RouterBundle\Service\Response $response,
-        \ProgramCms\CoreBundle\View\Result\Page $page
+        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
     )
     {
         parent::__construct($request, $response);
         $this->customerRepository = $customerRepository;
-        $this->page = $page;
+        $this->objectManager = $objectManager;
     }
 
     public function execute()
     {
-        $customer = $this->customerRepository->find(5);
-        $pageResult = $this->page;
-        $pageResult->getConfig()->getTitle()->set("Users");
-        return $pageResult->render();
+        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
+        $pageResult->getConfig()->getTitle()->set("All Users");
+        return $pageResult;
     }
 }

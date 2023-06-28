@@ -1,7 +1,7 @@
 <form id="programcms_config">
     {% for groupId, group in efBlock.getCurrentSectionGroups() %}
-        <div class="ef-colapse">
-            <a data-bs-toggle="collapse" href="#{{ groupId }}" role="button" aria-expanded="false"
+        <div class="collapser">
+            <a class="collapser-label" data-bs-toggle="collapse" href="#{{ groupId }}" role="button" aria-expanded="false"
                aria-controls="collapseExample">
                 {{ group.label }}
             </a>

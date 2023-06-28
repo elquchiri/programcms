@@ -8,26 +8,24 @@
 
 namespace ProgramCms\CategoryBundle\Controller\Adminhtml\Index;
 
-
+/**
+ * Class CreateController
+ * @package ProgramCms\CategoryBundle\Controller\Adminhtml\Index
+ */
 class CreateController extends \ProgramCms\CoreBundle\Controller\Controller
 {
 
     private $categoryRepository;
-    private $toolbar;
 
     public function __construct(
         \ProgramCms\CategoryBundle\Repository\CategoryRepository $categoryRepository,
-        \ProgramCms\UiBundle\Model\Element\Toolbar $toolbar
     )
     {
         $this->categoryRepository = $categoryRepository;
-        $this->toolbar = $toolbar;
     }
 
     public function execute()
     {
-        return $this->render('@ProgramCmsCategory/adminhtml/category_tree.html.twig', [
 
-        ]);
     }
 }

@@ -12,22 +12,22 @@ namespace ProgramCms\CategoryBundle\Controller\Adminhtml\Index;
 class EditController extends \ProgramCms\CoreBundle\Controller\Controller
 {
 
+    protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
     private $categoryRepository;
-    private $toolbar;
 
     public function __construct(
         \ProgramCms\CategoryBundle\Repository\CategoryRepository $categoryRepository,
-        \ProgramCms\UiBundle\Model\Element\Toolbar $toolbar
+        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
     )
     {
         $this->categoryRepository = $categoryRepository;
-        $this->toolbar = $toolbar;
+        $this->objectManager = $objectManager;
     }
 
     public function execute()
     {
-        return $this->render('@ProgramCmsCategory/adminhtml/category_tree.html.twig', [
-
-        ]);
+        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
+        $pageResult->getConfig()->getTitle()->set("Edit Category");
+        return $pageResult;
     }
 }

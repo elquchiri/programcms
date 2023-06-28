@@ -15,16 +15,23 @@ namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\SystemWebsite;
 class CreateController extends \ProgramCms\CoreBundle\Controller\Controller
 {
 
+    protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
+
     public function __construct(
         \ProgramCms\RouterBundle\Service\Request $request,
-        \ProgramCms\RouterBundle\Service\Response $response
+        \ProgramCms\RouterBundle\Service\Response $response,
+        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
     )
     {
         parent::__construct($request, $response);
+        $this->objectManager = $objectManager;
     }
 
     public function execute()
     {
-        return $this->getResponse()->render();
+        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
+
+        $pageResult->getConfig()->getTitle()->set("Authentication");
+        return $pageResult;
     }
 }

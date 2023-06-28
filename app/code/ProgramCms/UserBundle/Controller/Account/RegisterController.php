@@ -19,6 +19,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  */
 class RegisterController extends \ProgramCms\CoreBundle\Controller\Controller
 {
+    protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
     private UserPasswordHasherInterface $userPasswordHasher;
     private EntityManagerInterface $entityManager;
     private \ProgramCms\RouterBundle\Service\Request $request;
@@ -28,12 +29,14 @@ class RegisterController extends \ProgramCms\CoreBundle\Controller\Controller
         \ProgramCms\RouterBundle\Service\Response $response,
         UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager,
+        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
     )
     {
         parent::__construct($request, $response);
         $this->userPasswordHasher = $userPasswordHasher;
         $this->entityManager = $entityManager;
         $this->request = $request;
+        $this->objectManager = $objectManager;
     }
 
     public function execute()
@@ -59,6 +62,8 @@ class RegisterController extends \ProgramCms\CoreBundle\Controller\Controller
             return $this->redirectToRoute('frontend_home');
         }
 
-        return $this->getResponse()->render();
+        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
+        $pageResult->getConfig()->getTitle()->set("Create Account");
+        return $pageResult;
     }
 }

@@ -8,14 +8,15 @@
 
 namespace ProgramCms\CategoryBundle\Controller\Adminhtml\Index;
 
-
+/**
+ * Class SaveController
+ * @package ProgramCms\CategoryBundle\Controller\Adminhtml\Index
+ */
 class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
 {
 
     public function execute()
     {
-        return $this->render('@ProgramCmsCategory/adminhtml/category_tree.html.twig', [
 
-        ]);
     }
 }

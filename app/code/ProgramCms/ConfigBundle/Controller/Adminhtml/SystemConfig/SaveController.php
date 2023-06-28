@@ -21,10 +21,11 @@ class SaveController extends \ProgramCms\ConfigBundle\Controller\Adminhtml\Abstr
         \ProgramCms\RouterBundle\Service\Request $request,
         \ProgramCms\RouterBundle\Service\Response $response,
         \ProgramCms\ConfigBundle\Model\Config $config,
-        \ProgramCms\RouterBundle\Service\Url $url
+        \ProgramCms\RouterBundle\Service\Url $url,
+        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
     )
     {
-        parent::__construct($request, $response);
+        parent::__construct($request, $response, $objectManager);
         $this->config = $config;
         $this->url = $url;
     }
