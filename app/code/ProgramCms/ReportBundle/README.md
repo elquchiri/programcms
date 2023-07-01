@@ -1,0 +1,1 @@
+The Report bundle contains common infrastructure that provides an ability to apply Report features in ProgramCMS application.

@@ -1,0 +1,32 @@
+{
+    "name": "programcms/import-bundle",
+    "description": "Import/Export entities in ProgramCMS application",
+    "license": "MIT",
+    "type": "programcms-bundle",
+    "keywords": [
+        "ProgramCms",
+        "Import",
+        "Export",
+        "Connect",
+        "Process",
+        "Migration",
+        "Generation",
+        "Bundle",
+        "CMS"
+    ],
+    "authors": [
+        {
+            "name": "Mohamed EL QUCHIRI",
+            "email": "elquchiri@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "ProgramCms\\ImportBundle\\": ""
+        }
+    }
+}

@@ -8,15 +8,15 @@
 
 namespace ProgramCms\ConfigBundle\Controller\Adminhtml;
 
-use Symfony\Component\HttpFoundation\Response;
-
 /**
  * Class AbstractConfigController
  * @package ProgramCms\ConfigBundle\Controller\Adminhtml
  */
 abstract class AbstractConfigController extends \ProgramCms\CoreBundle\Controller\Controller
 {
-
+    /**
+     * @var \ProgramCms\CoreBundle\Model\ObjectManager
+     */
     protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
 
     public function __construct(
@@ -31,7 +31,6 @@ abstract class AbstractConfigController extends \ProgramCms\CoreBundle\Controlle
 
     protected function loadConfigurations()
     {
-        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
-        return $pageResult;
+        return $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
     }
 }

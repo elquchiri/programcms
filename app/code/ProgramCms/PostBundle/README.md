@@ -1,0 +1,1 @@
+The Post bundle contains common infrastructure that provides an ability to apply Post features in ProgramCMS application.

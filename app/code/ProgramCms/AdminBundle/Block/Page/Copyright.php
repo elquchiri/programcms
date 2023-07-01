@@ -6,15 +6,16 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\AdminBundle\Block;
+namespace ProgramCms\AdminBundle\Block\Page;
 
 /**
- * Class Footer
- * @package ProgramCms\AdminBundle\Block
+ * Class Copyright
+ * @package ProgramCms\AdminBundle\Block\Page
  */
-class Footer extends \ProgramCms\CoreBundle\View\Element\Template
+class Copyright extends \ProgramCms\CoreBundle\View\Element\Template
 {
     /**
+     * Returns current year for copyright
      * @return string
      */
     public function getCopyrightYear(): string

@@ -1,12 +1,20 @@
 <?php
-
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
 
 namespace ProgramCms\ConfigBundle\Entity;
-
 
 use ProgramCms\ConfigBundle\Repository\CoreConfigDataRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Class CoreConfigData
+ * @package ProgramCms\ConfigBundle\Entity
+ */
 #[ORM\Entity(repositoryClass: CoreConfigDataRepository::class)]
 class CoreConfigData
 {

@@ -1,0 +1,1 @@
+The Content bundle contains common infrastructure that provides an ability to apply Content features in ProgramCMS application.

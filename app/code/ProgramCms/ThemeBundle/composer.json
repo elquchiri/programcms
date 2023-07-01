@@ -2,7 +2,7 @@
     "name": "programcms/theme-bundle",
     "description": "The Theme bundle contains common infrastructure that provides an ability to apply and use themes in ProgramCMS application.",
     "license": "MIT",
-    "type": "symfony-bundle",
+    "type": "programcms-bundle",
     "keywords": [
         "ProgramCMS",
         "Theme",
@@ -22,7 +22,9 @@
         }
     ],
     "require": {
-        "php": ">=8.1"
+        "php": ">=8.1",
+        "programcms/core-bundle": "*",
+        "programcms/router-bundle": "*"
     },
     "minimum-stability": "dev",
     "autoload": {

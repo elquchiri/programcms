@@ -8,7 +8,10 @@
 
 namespace ProgramCms\EavBundle;
 
-
+/**
+ * Class ProgramCmsEavBundle
+ * @package ProgramCms\EavBundle
+ */
 class ProgramCmsEavBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
 {
     public const VERSION = '1.0.0';

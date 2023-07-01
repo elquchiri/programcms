@@ -1,0 +1,33 @@
+{
+    "name": "programcms/ai-bundle",
+    "description": "Represents AI entities and interfaces in ProgramCMS application",
+    "license": "MIT",
+    "type": "programcms-bundle",
+    "keywords": [
+        "ProgramCms",
+        "AI",
+        "Business Intelligence",
+        "Reports",
+        "Connect",
+        "Process",
+        "Learning",
+        "Generation",
+        "Bundle",
+        "CMS"
+    ],
+    "authors": [
+        {
+            "name": "Mohamed EL QUCHIRI",
+            "email": "elquchiri@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "ProgramCms\\AiBundle\\": ""
+        }
+    }
+}

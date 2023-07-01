@@ -8,12 +8,15 @@
 
 namespace ProgramCms\SearchBundle\DependencyInjection;
 
-
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
+/**
+ * Class ProgramCmsSearchExtension
+ * @package ProgramCms\SearchBundle\DependencyInjection
+ */
 class ProgramCmsSearchExtension extends Extension
 {
 

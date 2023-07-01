@@ -1,0 +1,30 @@
+{
+    "name": "programcms/core-bundle",
+    "description": "Represents Core entities and interfaces in ProgramCMS application",
+    "license": "MIT",
+    "type": "programcms-bundle",
+    "keywords": [
+        "ProgramCms",
+        "Core",
+        "Kernel",
+        "Data",
+        "Connect",
+        "Bundle",
+        "CMS"
+    ],
+    "authors": [
+        {
+            "name": "Mohamed EL QUCHIRI",
+            "email": "elquchiri@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "ProgramCms\\CoreBundle\\": ""
+        }
+    }
+}

@@ -1,12 +1,20 @@
 <?php
-
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
 
 namespace ProgramCms\CategoryBundle\Entity;
-
 
 use ProgramCms\CategoryBundle\Repository\CategoryEntityTextRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Class CategoryEntityText
+ * @package ProgramCms\CategoryBundle\Entity
+ */
 #[ORM\Entity(repositoryClass: CategoryEntityTextRepository::class)]
 class CategoryEntityText
 {

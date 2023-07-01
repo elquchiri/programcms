@@ -7,6 +7,11 @@
  */
 #}
 {% page %}
+    {% css ['bundles/programcmsadminnotification/css/admin_notification.css'] %}
+
+    {% referenceContainer name="notifications" %}
+        {% block name="notifications.block" class="ProgramCms\\AdminNotificationBundle\\Block\\Notification" template="@ProgramCmsAdminNotificationBundle/notification.html.twig" %}{% endBlock %}
+    {% endReferenceContainer %}
     {% referenceContainer name="navbar.collapse" %}
         {% block name="admin.notifications" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsAdminNotificationBundle/admin_notifications.html.twig" before="-" %}{% endBlock %}
     {% endReferenceContainer %}

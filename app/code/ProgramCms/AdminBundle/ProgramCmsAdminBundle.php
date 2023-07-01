@@ -8,7 +8,10 @@
 
 namespace ProgramCms\AdminBundle;
 
-
+/**
+ * Class ProgramCmsAdminBundle
+ * @package ProgramCms\AdminBundle
+ */
 class ProgramCmsAdminBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
 {
     public const VERSION = '1.0.0';

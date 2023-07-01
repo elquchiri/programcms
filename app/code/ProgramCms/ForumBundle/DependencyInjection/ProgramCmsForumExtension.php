@@ -8,12 +8,15 @@
 
 namespace ProgramCms\ForumBundle\DependencyInjection;
 
-
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
+/**
+ * Class ProgramCmsForumExtension
+ * @package ProgramCms\ForumBundle\DependencyInjection
+ */
 class ProgramCmsForumExtension extends Extension
 {
 

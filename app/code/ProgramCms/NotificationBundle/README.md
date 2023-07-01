@@ -1,0 +1,1 @@
+The Notification bundle contains common infrastructure that provides an ability to apply Notification System features in ProgramCMS application.

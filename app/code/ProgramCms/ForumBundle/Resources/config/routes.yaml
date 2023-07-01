@@ -1,9 +1,13 @@
-controllers:
-  resource: ../../Controller/
-  type: annotation
-  prefix: /{_locale}
-
-admin_controllers:
-  resource: ../../Controller/Adminhtml/
-  type: annotation
-  prefix: /{_locale}/admin
+# /*
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+# */
+router:
+  frontend:
+    forum_root:
+      frontName: 'forum'
+  adminhtml:
+    forum_root:
+      frontName: 'forum'

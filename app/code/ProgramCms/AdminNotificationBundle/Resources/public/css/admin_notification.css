@@ -1,0 +1,14 @@
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+
+.notifications-container {
+    font-size: 15px;
+    padding: 13px;
+    background-color: #fffbbb;
+    color: #333333;
+    border: 1px solid #dedede;
+}

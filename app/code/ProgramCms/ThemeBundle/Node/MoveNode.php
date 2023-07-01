@@ -9,14 +9,14 @@
 namespace ProgramCms\ThemeBundle\Node;
 
 /**
- * Class EFMoveNode
+ * Class MoveNode
  * @package ProgramCms\ThemeBundle\Node
  */
 class MoveNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
 {
-    public function __construct($elementName, $destinationName, $before, $after, $body, $lineno, $tag = null)
+    public function __construct($elementName, $destinationName, $before, $after, $lineno, $tag = null)
     {
-        parent::__construct(['body' => $body], ['elementName' => $elementName, 'destinationName' => $destinationName, 'before' => $before, 'after' => $after], $lineno, $tag);
+        parent::__construct([], ['elementName' => $elementName, 'destinationName' => $destinationName, 'before' => $before, 'after' => $after], $lineno, $tag);
     }
 
     public function compile(\Twig\Compiler $compiler)
@@ -27,7 +27,5 @@ class MoveNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterfac
         $after = $this->getAttribute('after');
 
         $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->moveElement('$elementName', '$destinationName', '$before', '$after');");
-
-        $compiler->subcompile($this->getNode('body'));
     }
 }

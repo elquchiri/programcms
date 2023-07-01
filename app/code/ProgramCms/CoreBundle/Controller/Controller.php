@@ -18,9 +18,18 @@ abstract class Controller extends AbstractController
     /**
      * Dispatch Request
      * @return mixed
+     * @throws \HttpResponseException
      */
-    public function dispatch()
+    public function dispatch(): mixed
     {
-        return $this->execute()->render();
+        $result = $this->execute();
+        if($result instanceof \ProgramCms\CoreBundle\View\Result\Page) {
+            return $this->execute()->render();
+        }
+        else if($result instanceof \Symfony\Component\HttpFoundation\RedirectResponse) {
+            return $result;
+        }
+
+        throw new \HttpResponseException("Result instance expected.");
     }
 }

@@ -1,0 +1,13 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% page %}
+    {% referenceContainer name="buttons.bar" %}
+        {% block name="toolbar.actions" class="ProgramCms\\ReportBundle\\Block\\Toolbar\\ToolbarActions" template="@ProgramCmsUiBundle/toolbar/toolbar_buttons.html.twig" %}{% endBlock %}
+    {% endReferenceContainer %}
+{% endPage %}

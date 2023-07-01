@@ -8,12 +8,15 @@
 
 namespace ProgramCms\CategoryBundle\DependencyInjection;
 
-
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
+/**
+ * Class ProgramCmsCategoryExtension
+ * @package ProgramCms\CategoryBundle\DependencyInjection
+ */
 class ProgramCmsCategoryExtension extends Extension
 {
 

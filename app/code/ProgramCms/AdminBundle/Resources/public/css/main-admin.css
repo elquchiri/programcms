@@ -3,7 +3,7 @@
 }
 
 html, body {
-    font-family: "Arial", "sans-serif";
+    font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
     height: 100%;
 }
 
@@ -12,7 +12,12 @@ a {
 }
 
 .page-wrapper {
+    margin-left: 100px;
     height: 100%;
+}
+
+.notices-notifications {
+    padding: 0 21px 0 31px;
 }
 
 .page-main-actions {
@@ -32,7 +37,6 @@ a {
     align-items: stretch;
     align-content: stretch;
     height: 100%;
-    margin-left: 110px;
 }
 .content .content-header {
     padding: 31px 21px 0 31px;

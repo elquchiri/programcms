@@ -8,12 +8,15 @@
 
 namespace ProgramCms\ReportBundle\DependencyInjection;
 
-
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
+/**
+ * Class ProgramCmsReportExtension
+ * @package ProgramCms\ReportBundle\DependencyInjection
+ */
 class ProgramCmsReportExtension extends Extension
 {
 

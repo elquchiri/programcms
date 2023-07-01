@@ -1,0 +1,31 @@
+{
+    "name": "programcms/newsletter-bundle",
+    "description": "Represents Newsletter entities and interfaces in ProgramCMS application",
+    "license": "MIT",
+    "type": "programcms-bundle",
+    "keywords": [
+        "ProgramCms",
+        "Newsletter",
+        "Email",
+        "Data Model",
+        "Connect",
+        "Bundle",
+        "CMS"
+    ],
+    "authors": [
+        {
+            "name": "Mohamed EL QUCHIRI",
+            "email": "elquchiri@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "programcms/core-bundle": "*"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "ProgramCms\\NewsletterBundle\\": ""
+        }
+    }
+}

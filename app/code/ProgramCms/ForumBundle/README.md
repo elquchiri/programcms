@@ -1,0 +1,1 @@
+The Forum bundle contains common infrastructure that provides an ability to apply Forum Model features in ProgramCMS application.

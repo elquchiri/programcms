@@ -8,7 +8,10 @@
 
 namespace ProgramCms\ReportBundle;
 
-
+/**
+ * Class ProgramCmsReportBundle
+ * @package ProgramCms\ReportBundle
+ */
 class ProgramCmsReportBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
 {
     public const VERSION = '1.0.0';

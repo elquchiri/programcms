@@ -45,16 +45,7 @@ class MoveTokenParser extends \Twig\TokenParser\AbstractTokenParser
         }
         $stream->expect(\Twig\Token::BLOCK_END_TYPE);
 
-        $body = $this->parser->subparse([$this, 'decideMoveEnd'], true);
-
-        $stream->expect(\Twig\Token::BLOCK_END_TYPE);
-
-        return new \ProgramCms\ThemeBundle\Node\MoveNode($elementName, $destinationName, $before, $after, $body, $lineno, $this->getTag());
-    }
-
-    public function decideMoveEnd(\Twig\Token $token)
-    {
-        return $token->test('endMove');
+        return new \ProgramCms\ThemeBundle\Node\MoveNode($elementName, $destinationName, $before, $after, $lineno, $this->getTag());
     }
 
     public function getTag()

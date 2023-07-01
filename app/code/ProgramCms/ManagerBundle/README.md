@@ -1,0 +1,1 @@
+The Manager bundle contains common infrastructure that provides an ability to apply Manager features in ProgramCMS application.

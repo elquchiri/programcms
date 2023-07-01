@@ -33,7 +33,7 @@ class ToolbarActions extends \ProgramCms\UiBundle\Block\Toolbar\ToolbarActions
     {
         return [
             ["buttonType" => "reset", "buttonTarget" => "button", "buttonAction" => "", "label" => "Reset"],
-            ["buttonType" => "save", "buttonTarget" => "programcms_config", "buttonAction" => $this->url->getUrlByRouteName("adminhtml_config_systemconfig_save"), "label" => "Save Configuration"]
+            ["buttonType" => "save", "buttonTarget" => "programcms_config", "buttonAction" => $this->url->getUrlByRouteName("adminhtml_config_systemconfig_save"), "label" => "Save Config"]
         ];
     }
 }

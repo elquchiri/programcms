@@ -1,17 +1,13 @@
 {
     "name": "programcms/admin-notification-bundle",
-    "description": "Represents Admin entities and interfaces in ProgramCMS application",
+    "description": "Represents Admin Notification entities and interfaces in ProgramCMS application",
     "license": "MIT",
-    "type": "symfony-bundle",
+    "type": "programcms-bundle",
     "keywords": [
         "ProgramCms",
         "Admin",
-        "Role",
-        "Profile",
+        "Notification",
         "Connect",
-        "Sign Up",
-        "Sign In",
-        "Logout",
         "Bundle",
         "CMS"
     ],
@@ -27,7 +23,7 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "ProgramCms\\UserBundle\\": ""
+            "ProgramCms\\AdminNotificationBundle\\": ""
         }
     }
 }

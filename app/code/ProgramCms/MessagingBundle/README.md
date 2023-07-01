@@ -1,0 +1,1 @@
+The Messaging bundle contains common infrastructure that provides an ability to apply Messaging features in ProgramCMS application.

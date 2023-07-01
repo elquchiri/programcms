@@ -14,6 +14,8 @@ namespace ProgramCms\CoreBundle\Controller;
  */
 interface ControllerInterface
 {
-
+    /**
+     * @return mixed
+     */
     public function execute();
 }

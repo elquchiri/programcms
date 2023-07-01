@@ -1,4 +1,6 @@
 {
+    "name": "programcms/programcms1ce",
+    "description": "ProgramCMS 1 (Community Edition, Open Source)",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "dev",
@@ -61,7 +63,10 @@
             "ProgramCms\\MessagingBundle\\": "app/code/ProgramCms/MessagingBundle",
             "ProgramCms\\NotificationBundle\\": "app/code/ProgramCms/NotificationBundle",
             "ProgramCms\\AdminNotificationBundle\\": "app/code/ProgramCms/AdminNotificationBundle",
-            "ProgramCms\\ManagerBundle\\": "app/code/ProgramCms/ManagerBundle"
+            "ProgramCms\\ManagerBundle\\": "app/code/ProgramCms/ManagerBundle",
+            "ProgramCms\\SecurityBundle\\": "app/code/ProgramCms/SecurityBundle",
+            "ProgramCms\\AiBundle\\": "app/code/ProgramCms/AiBundle",
+            "ProgramCms\\ImportBundle\\": "app/code/ProgramCms/ImportBundle"
         }
     },
     "autoload-dev": {

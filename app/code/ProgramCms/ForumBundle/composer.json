@@ -1,0 +1,31 @@
+{
+    "name": "programcms/forum-bundle",
+    "description": "Represents Forum entities and interfaces in ProgramCMS application",
+    "license": "MIT",
+    "type": "programcms-bundle",
+    "keywords": [
+        "ProgramCms",
+        "Forum",
+        "Model",
+        "Data Model",
+        "Connect",
+        "Bundle",
+        "CMS"
+    ],
+    "authors": [
+        {
+            "name": "Mohamed EL QUCHIRI",
+            "email": "elquchiri@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "programcms/core-bundle": "*"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "ProgramCms\\ForumBundle\\": ""
+        }
+    }
+}

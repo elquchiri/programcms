@@ -15,8 +15,25 @@ namespace ProgramCms\AdminBundle\Controller\Adminhtml\Dashboard;
 class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
 {
 
+    protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
+
+    public function __construct(
+        \ProgramCms\RouterBundle\Service\Request $request,
+        \ProgramCms\RouterBundle\Service\Response $response,
+        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
+    )
+    {
+        parent::__construct($request, $response);
+        $this->objectManager = $objectManager;
+    }
+
+    /**
+     * @return object|null
+     */
     public function execute()
     {
-        return $this->getResponse()->render();
+        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
+        $pageResult->getConfig()->getTitle()->set("Dashboard");
+        return $pageResult;
     }
 }

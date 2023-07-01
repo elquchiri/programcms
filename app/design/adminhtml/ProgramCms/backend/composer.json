@@ -1,0 +1,28 @@
+{
+    "name": "programcms/backend-theme",
+    "description": "Represents Backend Theme in ProgramCMS application",
+    "license": "MIT",
+    "type": "programcms-theme",
+    "keywords": [
+        "ProgramCms",
+        "Backend",
+        "Theme",
+        "Bundle",
+        "CMS"
+    ],
+    "authors": [
+        {
+            "name": "Mohamed EL QUCHIRI",
+            "email": "elquchiri@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "ProgramCms\\BackendTheme\\": ""
+        }
+    }
+}

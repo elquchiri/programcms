@@ -2,9 +2,9 @@
     position: fixed;
     left: 0;
     top: 0;
-    width: 110px;
+    width: 100px;
     height: 100%;
-    background-color: #282524;
+    background-color: #373330;
     color: white;
     z-index: 100;
 }
@@ -20,37 +20,47 @@
 .sidebar ul li a {
     display: block;
     text-decoration: none;
-    padding: 11px 0 11px 0;
-    color: white;
-    font-size: 11px;
-    font-weight: bold;
+    padding: 10px 0 9px 0;
     text-align: center;
     opacity: 0.8;
-    transition: opacity, background-color 0.9s;
+    transition: opacity, background-color 0.5s;
 }
-.sidebar ul li a p {
+.sidebar ul li a span {
+    display: block;
     padding: 3px 0 0 0;
     margin: 0;
+    color: #f7f3eb;
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.25px;
+    line-height: 2;
 }
 .sidebar ul li a:hover {
-    background-color: #151515;
+    background-color: #4a4542;
     color: white;
     opacity: 1;
 }
 .sidebar ul li a.active {
-    transition: none;
-    background-color: #393432;
+    background-color: #4a4542;
     color: #ffffff;
     opacity: 1;
+    transition: none;
+}
+/* Exception for copyright logo */
+.sidebar ul li a#programcms {
+    opacity: 1;
+    transition: none;
+    border-bottom: 1px solid #353535;
 }
 
 .menu-items {
     position: fixed;
-    left: 110px;
+    left: 100px;
     top: 0;
     width: 270px;
     min-height: 100%;
-    background-color: #393432;
+    background-color: #4a4542;
     color: white;
     padding: 19px;
     display: none;
@@ -83,6 +93,7 @@
     padding: 9px;
     font-weight: 600;
     margin-bottom: 9px;
+    cursor: default;
 }
 .menu-items ul {
     list-style-type: none;
@@ -102,6 +113,6 @@
     color: #ffffff;
 }
 .menu-items ul li a:hover {
-    background-color: #322f2e;
+    background-color: #423d3a;
     color: #ffffff;
 }

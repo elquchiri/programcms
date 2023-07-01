@@ -30,8 +30,15 @@
         {% block name="page.alerts.block" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsAdminBundle/flashes.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}
     {% referenceContainer name="footer.container" %}
-        {% container name="footer.content" htmlTag="div" htmlClass="footer-content" %}
-            {% block name="footer.content.block" class="ProgramCms\\AdminBundle\\Block\\Footer" template="@ProgramCmsAdminBundle/footer.html.twig" %}{% endBlock %}
+        {% container name="footer.content" htmlTag="div" htmlClass="footer-content row" %}
+            {% container name="footer.legal.copyright" htmlTag="div" htmlClass="col-md-6" %}
+                {% block name="copyright" class="ProgramCms\\AdminBundle\\Block\\Page\\Copyright" template="@ProgramCmsAdminBundle/copyright.html.twig" %}{% endBlock %}
+            {% endContainer %}
+            {% container name="footer.legal.system" htmlTag="div" htmlClass="col-md-6 text-end" %}
+                {% block name="version" class="ProgramCms\\AdminBundle\\Block\\Page\\Footer" template="@ProgramCmsAdminBundle/footer.html.twig" %}{% endBlock %}
+                {% block name="site.update" class="ProgramCms\\CoreBundle\\View\\Element\\Template" template="@ProgramCmsAdminBundle/site_update.html.twig" %}{% endBlock %}
+                {% block name="links" class="ProgramCms\\CoreBundle\\View\\Element\\Template" template="@ProgramCmsAdminBundle/links.html.twig" %}{% endBlock %}
+            {% endContainer %}
         {% endContainer %}
     {% endReferenceContainer %}
 {% endPage %}

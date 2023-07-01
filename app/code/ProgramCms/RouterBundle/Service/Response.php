@@ -8,8 +8,6 @@
 
 namespace ProgramCms\RouterBundle\Service;
 
-use Symfony\Component\Form\FormInterface;
-
 /**
  * Class Response
  * @package ProgramCms\RouterBundle\Service
@@ -26,31 +24,5 @@ class Response
     {
         $this->twig = $twig;
         $this->request = $request;
-    }
-
-    public function render($parameters = []): \Symfony\Component\HttpFoundation\Response
-    {
-        $currentRouteName = $this->request->getCurrentRouteName();
-        $content = $this->twig->render($currentRouteName);
-
-        $response ??= new \Symfony\Component\HttpFoundation\Response();
-
-        if (200 === $response->getStatusCode()) {
-            foreach ($parameters as $v) {
-                if ($v instanceof FormInterface && $v->isSubmitted() && !$v->isValid()) {
-                    $response->setStatusCode(422);
-                    break;
-                }
-            }
-        }
-
-        $response->setContent($content);
-
-        return $response;
-    }
-
-    public function renderJson($jsonData)
-    {
-        return json_encode($jsonData);
     }
 }

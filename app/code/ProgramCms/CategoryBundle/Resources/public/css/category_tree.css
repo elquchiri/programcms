@@ -53,7 +53,7 @@
 }
 .tree ul li span.title {
     color: #232222;
-    background: url("../../images/open-sign.png") no-repeat;
+    background: url("../images/open-sign.png") no-repeat;
     padding-left: 21px;
 }
 .tree ul li span.title .category-name {
@@ -61,7 +61,7 @@
 }
 .tree ul li span.title.closed {
     color: #232222;
-    background: url("../../images/close-sign.png") no-repeat;
+    background: url("../images/close-sign.png") no-repeat;
     padding-left: 21px;
 }
 .tree ul li span.active {

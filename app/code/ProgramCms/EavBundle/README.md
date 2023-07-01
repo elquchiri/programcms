@@ -1,0 +1,1 @@
+The EAV bundle contains common infrastructure that provides an ability to apply EAV Model features in ProgramCMS application.

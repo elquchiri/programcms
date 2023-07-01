@@ -30,6 +30,9 @@ class SaveController extends \ProgramCms\ConfigBundle\Controller\Adminhtml\Abstr
         $this->url = $url;
     }
 
+    /**
+     * @return mixed|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function execute()
     {
         $request = $this->getRequest()->getCurrentRequest();

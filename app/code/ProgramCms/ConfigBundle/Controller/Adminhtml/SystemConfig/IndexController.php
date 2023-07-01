@@ -14,7 +14,9 @@ namespace ProgramCms\ConfigBundle\Controller\Adminhtml\SystemConfig;
  */
 class IndexController extends \ProgramCms\ConfigBundle\Controller\Adminhtml\AbstractConfigController
 {
-
+    /**
+     * @return object|null
+     */
     public function execute()
     {
         return $this->loadConfigurations();

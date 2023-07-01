@@ -2,7 +2,7 @@
     "name": "programcms/website-bundle",
     "description": "Represents Website entities in ProgramCMS application",
     "license": "MIT",
-    "type": "symfony-bundle",
+    "type": "programcms-bundle",
     "keywords": [
         "ProgramCms",
         "Website",

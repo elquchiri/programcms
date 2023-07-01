@@ -78,4 +78,14 @@ abstract class AbstractBlock extends \ProgramCms\CoreBundle\Model\DataObject
     {
         return $this->childBlocks;
     }
+
+    /**
+     * @param $name
+     * @param null $value
+     * @return AbstractBlock
+     */
+    public function setAttribute($name, $value = null)
+    {
+        return $this->setData($name, $value);
+    }
 }

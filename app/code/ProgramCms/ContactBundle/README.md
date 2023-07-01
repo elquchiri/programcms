@@ -1,0 +1,1 @@
+The Comment bundle contains common infrastructure that provides an ability to apply Comment features in ProgramCMS application.

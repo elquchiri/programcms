@@ -14,7 +14,13 @@ namespace ProgramCms\CoreBundle\Controller;
  */
 abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController implements ControllerInterface
 {
+    /**
+     * @var \ProgramCms\RouterBundle\Service\Response
+     */
     protected \ProgramCms\RouterBundle\Service\Response $response;
+    /**
+     * @var \ProgramCms\RouterBundle\Service\Request
+     */
     private \ProgramCms\RouterBundle\Service\Request $request;
 
     public function __construct(
@@ -26,14 +32,23 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
         $this->response = $response;
     }
 
-    abstract public function dispatch();
+    /**
+     * @return mixed
+     */
+    abstract public function dispatch(): mixed;
 
-    public function getRequest()
+    /**
+     * @return \ProgramCms\RouterBundle\Service\Request
+     */
+    public function getRequest(): \ProgramCms\RouterBundle\Service\Request
     {
         return $this->request;
     }
 
-    public function getResponse()
+    /**
+     * @return \ProgramCms\RouterBundle\Service\Response
+     */
+    public function getResponse(): \ProgramCms\RouterBundle\Service\Response
     {
         return $this->response;
     }

@@ -14,11 +14,9 @@
         {% block name="website.switcher" class="ProgramCms\\UiBundle\\Block\\Toolbar\\WebsiteSwitcher" template="@ProgramCmsUiBundle/toolbar/website_switcher.html.twig" %}{% endBlock %}
         {% block name="toolbar.actions" class="ProgramCms\\CategoryBundle\\Block\\Toolbar\\ToolbarActions" template="@ProgramCmsUiBundle/toolbar/toolbar_buttons.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}
-
     {% referenceContainer name="sidebar.main" %}
         {% block name="category.tree.block" class="ProgramCms\\CategoryBundle\\Block\\CategoryTree" template="@ProgramCmsCategoryBundle/tree.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}
-
     {% referenceContainer name="content" %}
         {% block name="collapser" class="ProgramCms\\UiBundle\\Block\\Collapser\\Collapser" %}
             {% arguments %}

@@ -7,6 +7,9 @@
  */
 #}
 {% page %}
+    {% referenceContainer name="buttons.bar" %}
+        {% block name="website.switcher" class="ProgramCms\\UiBundle\\Block\\Toolbar\\WebsiteSwitcher" template="@ProgramCmsUiBundle/toolbar/website_switcher.html.twig" %}{% endBlock %}
+    {% endReferenceContainer %}
     {% referenceContainer name="content" %}
         {% block name="dashboard.content" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsAdminBundle/home.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}

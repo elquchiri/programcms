@@ -54,9 +54,14 @@ class ConfigSerializer
             // Get the configuration file path for the bundle
             $reflectedBundle = new \ReflectionClass($bundleClass);
             $bundleDirectory = dirname($reflectedBundle->getFileName());
-            $configFilePath = $bundleDirectory . '/Resources/config/system.yaml';
+            $configFilePath = $bundleDirectory . '/Resources/config/adminhtml/system.yaml';
             // Load the configuration file
             if (file_exists($configFilePath)) {
+                if(!isset(\Symfony\Component\Yaml\Yaml::parseFile($configFilePath)['system_config'])) {
+                    // Ignore current configuration if system_config argument not found
+                    continue;
+                }
+
                 $config = \Symfony\Component\Yaml\Yaml::parseFile($configFilePath)['system_config'];
 
                 if (isset($config['tab'])) {

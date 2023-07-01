@@ -8,7 +8,10 @@
 
 namespace ProgramCms\CategoryBundle\Controller\Adminhtml\Index;
 
-
+/**
+ * Class EditController
+ * @package ProgramCms\CategoryBundle\Controller\Adminhtml\Index
+ */
 class EditController extends \ProgramCms\CoreBundle\Controller\Controller
 {
 

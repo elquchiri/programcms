@@ -2,7 +2,7 @@
     "name": "programcms/user-bundle",
     "description": "Represents User entities in ProgramCMS application",
     "license": "MIT",
-    "type": "symfony-bundle",
+    "type": "programcms-bundle",
     "keywords": [
         "ProgramCms",
         "User",

@@ -10,7 +10,7 @@
     {% update handle="admin-empty" %}
     {% referenceContainer name="page.wrapper" %}
         {% container name="notices.wrapper" before="-" %}
-            {% container name="notifications" %}{% endContainer %}
+            {% container name="notifications" htmlTag="div" htmlClass="notices-notifications" %}{% endContainer %}
             {% container name="notification.window" before="-" %}{% endContainer %}
         {% endContainer %}
         {% container name="header.container" htmlTag="header" htmlClass="page-header" before="main.content" %}{% endContainer %}
