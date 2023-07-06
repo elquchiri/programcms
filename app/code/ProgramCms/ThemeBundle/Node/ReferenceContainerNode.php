@@ -42,9 +42,10 @@ class ReferenceContainerNode extends \Twig\Node\Node implements \Twig\Node\NodeC
                         $subContainerName = $node->getAttribute('containerName');
                         $subContainerHtmlTag = $node->getAttribute('containerHtmlTag');
                         $subContainerHtmlClass = $node->getAttribute('containerHtmlClass');
+                        $subContainerIdClass = $node->getAttribute('containerIdClass');
                         $before = $node->getAttribute('before');
                         $after = $node->getAttribute('after');
-                        $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addContainer('$subContainerName', '$containerName', '$subContainerHtmlTag', '$subContainerHtmlClass', '$before', '$after');");
+                        $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addContainer('$subContainerName', '$containerName', '$subContainerHtmlTag', '$subContainerHtmlClass', '$subContainerIdClass', '$before', '$after');");
                         break;
                 }
             }

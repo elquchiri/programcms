@@ -14,9 +14,9 @@ namespace ProgramCms\ThemeBundle\Node;
  */
 class ContainerNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
 {
-    public function __construct($containerName, $containerHtmlTag, $containerHtmlClass, $before, $after, $body, $lineno, $tag = null)
+    public function __construct($containerName, $containerHtmlTag, $containerHtmlClass, $containerIdClass, $before, $after, $body, $lineno, $tag = null)
     {
-        parent::__construct(['body' => $body], ['containerName' => $containerName, 'containerHtmlTag' => $containerHtmlTag, 'containerHtmlClass' => $containerHtmlClass, 'before' => $before, 'after' => $after], $lineno, $tag);
+        parent::__construct(['body' => $body], ['containerName' => $containerName, 'containerHtmlTag' => $containerHtmlTag, 'containerHtmlClass' => $containerHtmlClass, 'containerIdClass' => $containerIdClass, 'before' => $before, 'after' => $after], $lineno, $tag);
     }
 
     public function compile(\Twig\Compiler $compiler)
@@ -37,9 +37,10 @@ class ContainerNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInt
                     $subContainerName = $node->getAttribute('containerName');
                     $subContainerHtmlTag = $node->getAttribute('containerHtmlTag');
                     $subContainerHtmlClass = $node->getAttribute('containerHtmlClass');
+                    $subContainerIdClass = $node->getAttribute('containerIdClass');
                     $before = $node->getAttribute('before');
                     $after = $node->getAttribute('after');
-                    $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addContainer('$subContainerName', '$containerName', '$subContainerHtmlTag', '$subContainerHtmlClass', '$before', '$after');");
+                    $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addContainer('$subContainerName', '$containerName', '$subContainerHtmlTag', '$subContainerHtmlClass', '$subContainerIdClass', '$before', '$after');");
                     break;
             }
         }

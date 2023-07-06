@@ -8,22 +8,32 @@
 
 namespace ProgramCms\CategoryBundle\Controller\Adminhtml\Index;
 
+use ProgramCms\CategoryBundle\Repository\CategoryRepository;
+
 /**
  * Class CreateWithParentController
  * @package ProgramCms\CategoryBundle\Controller\Adminhtml\Index
  */
 class CreateWithParentController extends \ProgramCms\CoreBundle\Controller\Controller
 {
-
-    private $categoryRepository;
+    /**
+     * @var CategoryRepository
+     */
+    private CategoryRepository $categoryRepository;
 
     public function __construct(
-        \ProgramCms\CategoryBundle\Repository\CategoryRepository $categoryRepository,
+        \ProgramCms\RouterBundle\Service\Request $request,
+        \ProgramCms\RouterBundle\Service\Response $response,
+        CategoryRepository $categoryRepository
     )
     {
+        parent::__construct($request, $response);
         $this->categoryRepository = $categoryRepository;
     }
 
+    /**
+     * @return mixed|void
+     */
     public function execute()
     {
 

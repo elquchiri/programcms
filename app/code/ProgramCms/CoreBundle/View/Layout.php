@@ -175,11 +175,12 @@ class Layout implements LayoutInterface
      * @return $this
      * @throws Exception
      */
-    public function addContainer($name, $parent = '', $containerHtmlTag = '', $containerHtmlClass = '', $before = '', $after = ''): static
+    public function addContainer($name, $parent = '', $containerHtmlTag = '', $containerHtmlClass = '', $subContainerIdClass = '', $before = '', $after = ''): static
     {
         $data = [];
         $data['htmlTag'] ??= $containerHtmlTag;
         $data['htmlClass'] ??= $containerHtmlClass;
+        $data['htmlId'] ??= $subContainerIdClass;
         $data['before'] ??= $before;
         $data['after'] ??= $after;
         $name = $this->structure->createStructuralElement($name, Element::TYPE_CONTAINER, $data);

@@ -23,7 +23,7 @@ class Template extends AbstractBlock
      */
     protected string $_template;
 
-    protected \ProgramCms\CoreBundle\View\Element\Template\BlockInterface $templateContext;
+    protected \ProgramCms\CoreBundle\View\Element\BlockInterface $templateContext;
     /**
      * Assigned variables for view
      *

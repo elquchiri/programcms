@@ -8,13 +8,18 @@
 
 namespace ProgramCms\CategoryBundle\Controller\Adminhtml\Index;
 
+use ProgramCms\CoreBundle\Model\ObjectManager;
+
 /**
  * Class IndexController
  * @package ProgramCms\CategoryBundle\Controller\Adminhtml\Index
  */
 class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
 {
-    protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
+    /**
+     * @var ObjectManager
+     */
+    protected ObjectManager $objectManager;
 
     /**
      * IndexController constructor.
@@ -24,7 +29,7 @@ class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
     public function __construct(
         \ProgramCms\RouterBundle\Service\Request $request,
         \ProgramCms\RouterBundle\Service\Response $response,
-        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
+        ObjectManager $objectManager
     )
     {
         parent::__construct($request, $response);

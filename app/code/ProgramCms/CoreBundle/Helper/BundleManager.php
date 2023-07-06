@@ -14,5 +14,9 @@ namespace ProgramCms\CoreBundle\Helper;
  */
 class BundleManager
 {
+    /**
+     * Called to check weather bundle extends ProgramCmsCoreBundle class
+     * @see \ProgramCms\CoreBundle\Model\Utils\BundleManager::getAllBundles
+     */
     public const PROGRAMCMS_METHOD_DEFINER = 'isProgramCmsBundle';
 }
