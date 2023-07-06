@@ -10,7 +10,6 @@ namespace ProgramCms\CoreBundle\View\Element;
 
 use Exception;
 use InvalidArgumentException;
-use ProgramCms\CoreBundle\View\Element\Template\BlockInterface;
 use ProgramCms\CoreBundle\View\Layout;
 
 /**

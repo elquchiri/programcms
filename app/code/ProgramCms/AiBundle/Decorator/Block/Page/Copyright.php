@@ -22,6 +22,7 @@ use Symfony\Component\DependencyInjection\Attribute\MapDecorated;
 class Copyright extends \ProgramCms\AdminBundle\Block\Page\Copyright
 {
     protected \ProgramCms\AdminBundle\Block\Page\Copyright $subject;
+    const PROGRAMCMS_BIRTHDAY = 2022;
 
     public function __construct(
         \ProgramCms\CoreBundle\View\Element\Template\Context $context,
@@ -40,8 +41,7 @@ class Copyright extends \ProgramCms\AdminBundle\Block\Page\Copyright
     public function toHtml(): string
     {
         $copyRightHtmlOutput = $this->_toHtml();
-        $programCmsBirthday = 2022;
-        if(($yearsOfExistence = $this->subject->getCopyrightYear() - $programCmsBirthday) >= 1) {
+        if(($yearsOfExistence = $this->subject->getCopyrightYear() - self::PROGRAMCMS_BIRTHDAY) >= 1) {
             $copyRightHtmlOutput .= sprintf("<p>%s Year%s Of Existence</p>", $yearsOfExistence, $yearsOfExistence > 1 ? "s" : "");
         }
 

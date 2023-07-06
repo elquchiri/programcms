@@ -6,7 +6,7 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\CoreBundle\View\Element\Template;
+namespace ProgramCms\CoreBundle\View\Element;
 
 /**
  * Interface BlockInterface
