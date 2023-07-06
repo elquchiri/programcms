@@ -21,9 +21,9 @@
         {% endContainer %}
         {% container name="header.wrapper" htmlTag="div" htmlClass="panel content" %}
             {% container name="navbar" htmlTag="nav" htmlClass="navbar navbar-expand-lg container" %}
-                {# Website LOGO EFBlock #}
+                {# Website LOGO Block #}
                 {% block name="logo" class="ProgramCms\\ThemeBundle\\Block\\Html\\Header\\Logo" template="@ProgramCmsThemeBundle/logo.html.twig" %}{% endBlock %}
-                {# Website Navbar Toggler EFBlock #}
+                {# Website Navbar Toggler Block #}
                 {% block name="navbar.togller" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsThemeBundle/navbar_toggler.html.twig" %}{% endBlock %}
                 {# Website Navbar Fast Access Container #}
                 {% container name="navbar.collapse" htmlTag="div" htmlClass="collapse navbar-collapse justify-content-end" %}{% endContainer %}
@@ -32,10 +32,10 @@
     {% endReferenceContainer %}
 
     {% referenceContainer name="page.top" %}
-        {# Navigation Section EFBlock #}
+        {# Navigation Section Block #}
         {% block name="navigation.bar" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsThemeBundle/navigation.bar.html.twig" %}{% endBlock %}
         {% container name="top.container" htmlTag="div" htmlClass="top-container" %}{% endContainer %}
-        {# Breadcrump EFBlock #}
+        {# Breadcrump Block #}
         {% block name="breadcrumb" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsThemeBundle/breadcrumb.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}
 

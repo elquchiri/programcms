@@ -7,7 +7,7 @@
 system_config:
   tab:
     id: 'core_category'
-    label: 'Category'
+    label: 'Catalog'
   sections:
     category:
       label: 'Category'

@@ -32,6 +32,8 @@ class UpdateNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterf
 
         if($efExtension->canAddPageLayout($handle)) {
             $efExtension->addPageLayout($handle);
+            $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addPageLayout('$handle');");
+
 
             /** @var \ProgramCms\ThemeBundle\Model\PageLayout $pageLayout */
             $pageLayout = $efExtension->getPageLayout();

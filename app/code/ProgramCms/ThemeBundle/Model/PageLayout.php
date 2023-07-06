@@ -39,7 +39,7 @@ class PageLayout
         $areaCode = $this->request->getCurrentAreaCode();
         $layoutPageContents = '';
         // Get all bundles
-        $bundles = $this->bundleManager->getAllEfBundles();
+        $bundles = $this->bundleManager->getAllBundles();
         foreach ($bundles as $bundle) {
             $pageLayoutPath = $bundle['path'] . '/Resources/views/'. $areaCode .'/page_layout/' . $pageLayoutName . '.layout.twig';
             $themeLayoutPath = $this->directoryList->getRoot() . '/themes/'. $areaCode . '/blank/' . $bundle['name'] . '/page_layout/' . $pageLayoutName . '.layout.twig';

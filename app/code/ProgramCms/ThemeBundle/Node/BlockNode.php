@@ -44,7 +44,7 @@ class BlockNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterfa
                         break;
                     }
                 default:
-                    throw new \Exception(sprintf("%s is not a supported Tag inside EFBlocks.", $node->getNodeTag()));
+                    throw new \Exception(sprintf("%s is not a supported Tag inside Blocks.", $node->getNodeTag()));
             }
         }
 

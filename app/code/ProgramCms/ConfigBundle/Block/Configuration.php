@@ -14,9 +14,17 @@ namespace ProgramCms\ConfigBundle\Block;
  */
 class Configuration extends \ProgramCms\CoreBundle\View\Element\Template
 {
-
+    /**
+     * @var \ProgramCms\ConfigBundle\Model\ConfigSerializer
+     */
     protected \ProgramCms\ConfigBundle\Model\ConfigSerializer $configSerializer;
+    /**
+     * @var \ProgramCms\RouterBundle\Service\Request
+     */
     protected \ProgramCms\RouterBundle\Service\Request $request;
+    /**
+     * @var \ProgramCms\CoreBundle\Model\ObjectManager
+     */
     protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
 
     public function __construct(

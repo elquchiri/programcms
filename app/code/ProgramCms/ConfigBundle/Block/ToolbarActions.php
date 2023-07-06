@@ -8,8 +8,6 @@
 
 namespace ProgramCms\ConfigBundle\Block;
 
-use Twig\Environment;
-
 /**
  * Class ToolbarActions
  * @package ProgramCms\UiBundle\Block\Toolbar

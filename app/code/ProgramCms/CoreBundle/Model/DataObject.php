@@ -9,6 +9,7 @@
 namespace ProgramCms\CoreBundle\Model;
 
 /**
+ * Represents a Data Object Entity
  * Class DataObject
  * @package ProgramCms\CoreBundle\Model
  */

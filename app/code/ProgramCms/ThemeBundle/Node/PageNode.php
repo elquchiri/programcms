@@ -38,11 +38,12 @@ class PageNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterfac
         $pageLayoutName = $this->getAttribute('pageLayoutName');
         // Overrides page layout, used when rendering final page
         if(!empty($pageLayoutName)) {
-            $efExtension->setCurrentPageLayout($pageLayoutName);
+            $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->setCurrentPageLayout('$pageLayoutName');");
         }
 
         if($efExtension->canAddPageLayout($pageLayoutName)) {
             $efExtension->addPageLayout($pageLayoutName);
+            $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addPageLayout('$pageLayoutName');");
 
             $pageLayoutContents = $efExtension->getPageLayout()->getPageLayoutContents($pageLayoutName);
             // We use the layout file name to use it later in the EFLayoutNode class

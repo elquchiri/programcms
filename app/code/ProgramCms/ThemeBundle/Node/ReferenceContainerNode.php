@@ -26,7 +26,7 @@ class ReferenceContainerNode extends \Twig\Node\Node implements \Twig\Node\NodeC
 
         if($remove) {
             // Remove container from Elements Tree
-            $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->removeElement('$containerName');");
+            $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addElementToRemove('$containerName');");
         }else {
             foreach ($this->getNode('body') as $node) {
                 switch ($node) {

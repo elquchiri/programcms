@@ -18,11 +18,22 @@ use Twig\Source;
 class LayoutLoader implements \Twig\Loader\LoaderInterface
 {
     const DEFAULT_LAYOUT_FILE = 'default.layout.twig';
-
+    /**
+     * @var \ProgramCms\RouterBundle\Service\Request
+     */
     private \ProgramCms\RouterBundle\Service\Request $request;
+    /**
+     * @var \ProgramCms\CoreBundle\Model\Utils\BundleManager
+     */
     private \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager;
+    /**
+     * @var \ProgramCms\CoreBundle\Model\Filesystem\DirectoryList
+     */
     private \ProgramCms\CoreBundle\Model\Filesystem\DirectoryList $directoryList;
-    private array $paths;
+    /**
+     * @var array
+     */
+    private array $paths = [];
 
     public function __construct(
         \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager,
@@ -35,12 +46,15 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
         $this->directoryList = $directoryList;
     }
 
-    private function initLayoutPaths($layoutName)
+    /**
+     * @param $layoutName
+     */
+    private function _initLayoutPaths($layoutName)
     {
         $areaCode = $this->request->getCurrentAreaCode();
 
         // Get all bundles
-        $bundles = $this->bundleManager->getAllEfBundles();
+        $bundles = $this->bundleManager->getAllBundles();
         foreach ($bundles as $bundle) {
             $layoutPath = $bundle['path'] . '/Resources/views/'. $areaCode .'/layout/';
             $themeLayoutPath = $this->directoryList->getRoot() . '/themes/'. $areaCode . '/ProgramCms/backend/' . $bundle['name'] . '/layout/';
@@ -60,13 +74,18 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
         }
     }
 
+    /**
+     * @param string $name
+     * @return Source
+     * @throws LoaderError
+     */
     public function getSourceContext(string $name): Source
     {
         // Parse and populate current layout paths
-        $this->initLayoutPaths($name);
+        $this->_initLayoutPaths($name);
 
         try {
-            $this->validateLayout($name);
+            $this->_validateLayout($name);
         } catch (LoaderError $e) {
             throw $e;
         }
@@ -92,23 +111,36 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
      * @param string $name
      * @throws LoaderError
      */
-    private function validateLayout(string $name): void
+    private function _validateLayout(string $name): void
     {
         if (false !== strpos($name, "\0")) {
             throw new LoaderError('A layout name cannot contain NUL bytes.');
         }
     }
 
+    /**
+     * @param string $name
+     * @return string
+     */
     public function getCacheKey(string $name): string
     {
         return $name;
     }
 
+    /**
+     * @param string $name
+     * @param int $time
+     * @return bool
+     */
     public function isFresh(string $name, int $time): bool
     {
         return true;
     }
 
+    /**
+     * @param string $name
+     * @return bool
+     */
     public function exists(string $name): bool
     {
         return true;

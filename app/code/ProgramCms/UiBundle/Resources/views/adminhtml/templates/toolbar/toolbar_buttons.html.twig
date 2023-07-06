@@ -8,7 +8,7 @@
 #}
 <div class="collapse navbar-collapse justify-content-end">
     <ul class="navbar-nav">
-        {% for button in efBlock.getButtons() %}
+        {% for button in block.getButtons() %}
             <li class="nav-item">
                 {% if button.buttonType == 'save' %}
                     <button class="btn btn-primary ef-toolbar-btn" data-ef-btn-type="{{ button.buttonType }}"

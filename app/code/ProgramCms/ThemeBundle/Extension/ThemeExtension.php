@@ -27,6 +27,7 @@ class ThemeExtension extends \Twig\Extension\AbstractExtension
     }
 
     /**
+     * Accessing Layout from ThemeExtension
      * @return \ProgramCms\CoreBundle\View\Layout
      */
     public function getLayout(): \ProgramCms\CoreBundle\View\Layout
@@ -35,7 +36,7 @@ class ThemeExtension extends \Twig\Extension\AbstractExtension
     }
 
     /**
-     * Defines All ProgramCms's Twig Token Parsers
+     * Defines All Twig Token Parsers
      * @return array
      */
     public function getTokenParsers()

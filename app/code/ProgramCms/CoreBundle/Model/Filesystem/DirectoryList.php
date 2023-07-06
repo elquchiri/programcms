@@ -8,7 +8,10 @@
 
 namespace ProgramCms\CoreBundle\Model\Filesystem;
 
-
+/**
+ * Class DirectoryList
+ * @package ProgramCms\CoreBundle\Model\Filesystem
+ */
 class DirectoryList
 {
     protected \Symfony\Component\HttpKernel\KernelInterface $kernel;

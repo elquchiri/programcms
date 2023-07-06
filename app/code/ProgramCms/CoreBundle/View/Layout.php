@@ -8,6 +8,9 @@
 
 namespace ProgramCms\CoreBundle\View;
 
+use Exception;
+use ProgramCms\CoreBundle\View\Layout\Element;
+
 /**
  * Class Layout
  * @package ProgramCms\CoreBundle\View
@@ -25,7 +28,14 @@ class Layout implements LayoutInterface
     /**
      * @var \ProgramCms\CoreBundle\Model\ObjectManager
      */
+    /**
+     * @var \ProgramCms\CoreBundle\Model\ObjectManager
+     */
     protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
+    /**
+     * @var \ProgramCms\CoreBundle\View\Layout\Data\Structure
+     */
+    protected \ProgramCms\CoreBundle\View\Layout\Data\Structure $structure;
     /**
      * PageLayout Model, used to get page layout content
      * @var \ProgramCms\ThemeBundle\Model\PageLayout
@@ -42,15 +52,23 @@ class Layout implements LayoutInterface
      */
     private string $currentPageLayout;
     /**
-     * Holds Page key,value elements Tree
-     * @var array
-     */
-    private array $elements;
-    /**
      * Holds blocks objects
      * @var array
      */
     private array $blocks;
+    /**
+     * Cache of elements to output during rendering
+     * @var array
+     */
+    protected array $_output = [];
+    /**
+     * @var array
+     */
+    protected array $_elementsToRemove = [];
+    /**
+     * @var array
+     */
+    protected array $_elementsToMove = [];
     /**
      * Holds All Css files
      * @var array
@@ -68,13 +86,13 @@ class Layout implements LayoutInterface
     private array $elementsWithFileName;
 
     public function __construct(
+        \ProgramCms\CoreBundle\View\Layout\Data\Structure $structure,
         \ProgramCms\ThemeBundle\Model\PageLayout $pageLayout,
         \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager,
         \ProgramCms\CoreBundle\View\Page\Config $config,
         \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
     )
     {
-        $this->elements = [];
         $this->blocks = [];
         $this->elementsWithFileName = [];
         $this->pageLayout = $pageLayout;
@@ -82,49 +100,64 @@ class Layout implements LayoutInterface
         $this->bundleManager = $bundleManager;
         $this->config = $config;
         $this->objectManager = $objectManager;
+        $this->structure = $structure;
     }
 
     /**
-     * @param $containerName
+     * Add parent containers to output
+     * @return $this
      */
-    public function addRootContainer($containerName)
+    protected function addToOutputRootContainers(): static
     {
-        if (!count($this->elements)) {
-            $this->elements[$containerName] = [
-                'type' => 'container'
-            ];
+        foreach ($this->structure->getElements() as $name => $element) {
+            if ($element['type'] === Element::TYPE_CONTAINER && empty($element['parent'])) {
+                $this->addOutputElement($name);
+            }
         }
+        return $this;
     }
-    /**
-     * @throws \Exception
-     */
-    public function addBlock($blockName, $blockClass, $blockTemplate, $containerParent, $before = null, $after = null)
-    {
-        $containerPaths = [];
-        $targetContainer = $this->findElementPath($this->elements, $containerParent, $containerPaths);
 
-        if ($targetContainer) {
-            $elementArguments = [
-                'type' => 'block',
-                'class' => $blockClass,
-                'template' => ''
-            ];
-            if(!empty($blockTemplate)) {
-                $elementArguments['template'] = $blockTemplate;
-            }
-            if(!empty($before)) {
-                $elementArguments['before'] = $before;
-            }
-            if(!empty($after)) {
-                $elementArguments['after'] = $after;
-            }
-            $this->addElement($containerPaths, $blockName, $elementArguments);
-            $block = $this->_createBlock($blockClass, $blockName, $elementArguments);
-            $this->setBlock($blockName, $block);
-        } else {
-            // Throws Exception if EFContainer's parent not found
-            throw new \Exception(sprintf("Cant insert %s, EFContainer's parent \"%s\" not found.", $blockName, $containerParent));
+    /**
+     * Generate Layout Elements
+     * @throws Exception
+     */
+    public function generateElements()
+    {
+        $this->_processElementsToMove();
+        $this->_processElementsToRemove();
+        $this->_cleanUnusedPageLayoutContainers();
+    }
+
+    /**
+     * Add Block to structure
+     * @throws Exception
+     */
+    public function addBlock($name, $class, $blockTemplate = '', $parent = '', $before = '', $after = ''): ?object
+    {
+        $data = [];
+        $data['before'] ??= $before;
+        $data['after'] ??= $after;
+        $block = $this->_createBlock($class, $name, ['template' => $blockTemplate]);
+        $name = $this->structure->createStructuralElement(
+            $name,
+            Element::TYPE_BLOCK,
+            $data
+        );
+        $this->setBlock($name, $block);
+        if ($parent) {
+            $this->structure->setAsChild($name, $parent);
         }
+        $block->setNameInLayout($name);
+        $block->setLayout($this);
+        $block->setTemplateContext($block);
+
+        if(!empty($before)) {
+            $this->reorderChild($parent, $name, $before, false);
+        }else if(!empty($after)) {
+            $this->reorderChild($parent, $name, $before);
+        }
+
+        return $block;
     }
 
     /**
@@ -133,53 +166,34 @@ class Layout implements LayoutInterface
      */
     public function setArguments($blockName, $arguments)
     {
-        $nestedElement = &$this->elements;
-        $path = [];
-        $targetElement = $this->findElementPath($this->elements, $blockName, $path);
-
-        if($targetElement) {
-            foreach ($path as $index => $key) {
-                // Update $nestedContainer to point to the nested array corresponding to the current key
-                if ($index < count($path) - 1) {
-                    $nestedElement = &$nestedElement[$key]['childs'];
-                } else {
-                    $nestedElement = &$nestedElement[$key];
-                }
-            }
-            $nestedElement['arguments'] = json_decode($arguments, true);
-        }
+        $block = $this->getBlock($blockName);
+        $block->setData(json_decode($arguments, true));
     }
 
     /**
-     * Add Container to Elements Tree
-     * @throws \Exception
+     * Add Container to structure
+     * @return $this
+     * @throws Exception
      */
-    public function addContainer($containerName, $containerParent = null, $containerHtmlTag = null, $containerHtmlClass = null, $before = null, $after = null)
+    public function addContainer($name, $parent = '', $containerHtmlTag = '', $containerHtmlClass = '', $before = '', $after = ''): static
     {
-        $containerPaths = [];
-        $targetContainer = $this->findElementPath($this->elements, $containerParent, $containerPaths);
-
-        if ($targetContainer) {
-            $container = [
-                'type' => 'container'
-            ];
-            if(!empty($containerHtmlTag)) {
-                $container['htmlTag'] = $containerHtmlTag;
-            }
-            if(!empty($containerHtmlClass)) {
-                $container['htmlClass'] = $containerHtmlClass;
-            }
-            if(!empty($before)) {
-                $container['before'] = $before;
-            }
-            if(!empty($after)) {
-                $container['after'] = $after;
-            }
-            $this->addElement($containerPaths, $containerName, $container);
-        } else {
-            // Throws Exception if EFContainer's parent not found
-            throw new \Exception(sprintf("Cant insert %s, EFContainer's parent \"%s\" not found.", $containerName, $containerParent));
+        $data = [];
+        $data['htmlTag'] ??= $containerHtmlTag;
+        $data['htmlClass'] ??= $containerHtmlClass;
+        $data['before'] ??= $before;
+        $data['after'] ??= $after;
+        $name = $this->structure->createStructuralElement($name, Element::TYPE_CONTAINER, $data);
+        if ($parent) {
+            $this->structure->setAsChild($name, $parent);
         }
+
+        if(!empty($before)) {
+            $this->reorderChild($parent, $name, $before, false);
+        }else if(!empty($after)) {
+            $this->reorderChild($parent, $name, $before);
+        }
+
+        return $this;
     }
 
     /**
@@ -188,92 +202,49 @@ class Layout implements LayoutInterface
      * @param $before
      * @param $after
      */
-    public function moveElement($elementName, $targetElementName, $before, $after)
+    private function _moveElement($element, $destination, $before, $after)
     {
-        $element = &$this->elements;
-
-        $elementPath = [];
-        $targetElementPath = [];
-
-        // Find element
-        $elementArray = $this->findElementPath($element, $elementName, $elementPath);
+        $alias = $this->structure->getChildAlias($this->structure->getParentId($element), $element);
+        $this->structure->unsetChild($element, $alias);
         if(!empty($before)) {
-            $elementArray['before'] = $before;
-        }else if(!empty($after)) {
-            $elementArray['after'] = $after;
+            $siblingName = $before;
+            $isAfter = false;
         }else{
-            $elementArray['after'] = '-';
+            $siblingName = $after;
+            $isAfter = true;
         }
-
-        // Find target element (destination)
-        $this->findElementPath($this->elements, $targetElementName, $targetElementPath);
-
-        // Remove Element from his original position, make it nullable
-        $this->removeElement($elementName);
-
-        if(!empty($targetElementPath)) {
-            // Add Element
-            $this->addElement($targetElementPath, $elementName, $elementArray);
+        try {
+            $this->structure->setAsChild($element, $destination, $alias);
+            $this->structure->reorderChildElement($destination, $element, $siblingName, $isAfter);
+        } catch (\OutOfBoundsException $e) {
+            // Log 'Broken reference: ' . $e->getMessage()
         }
     }
 
     /**
-     * @param $containerName
-     * @param $container
-     * @param $nestedContainer
-     * @param $priority
+     * @param $element
+     * @param $destination
+     * @param $before
+     * @param $after
      */
-    private function addElementWithPriority($containerName, $container, &$nestedContainer, $priority)
+    public function addElementToMove($element, $destination, $before, $after)
     {
-        $targetElementName = $container[$priority];
-        if($targetElementName == '-') {
-            switch($priority) {
-                case 'before':
-                    $nestedContainer = [$containerName => $container] + $nestedContainer;
-                    break;
-                case 'after':
-                    $nestedContainer = $nestedContainer + [$containerName => $container];
-                    break;
-            }
-        }else if(isset($nestedContainer[$targetElementName])) {
-            // gets position of the element inside his parent $nestedContainer
-            $position = array_flip(array_keys($nestedContainer))[$targetElementName];
-            switch($priority) {
-                case 'before':
-                    $arr1 = array_slice($nestedContainer,0, $position);
-                    $arr2 = array_slice($nestedContainer, $position, count($nestedContainer));
-                    $nestedContainer = $arr1 + [$containerName => $container] + $arr2;
-                    break;
-                case 'after':
-                    $arr3 = array_slice($nestedContainer,0, $position + 1);
-                    $arr4 = array_slice($nestedContainer, $position + 1, count($nestedContainer));
-                    $nestedContainer = $arr3 + [$containerName => $container] + $arr4;
-                    break;
-            }
-        }
+        $this->_elementsToMove[] = [
+            'element' => $element,
+            'destination' => $destination,
+            'before' => $before,
+            'after' => $after
+        ];
     }
 
     /**
-     * Remove element from Tree
+     * Remove element from structure
      * @param $name
+     * @throws Exception
      */
-    public function removeElement($name)
+    public function addElementToRemove($name)
     {
-        $containerPaths = [];
-        $targetContainer = $this->findElementPath($this->elements, $name, $containerPaths);
-        if ($targetContainer) {
-            $nestedContainer = &$this->elements;
-            foreach ($containerPaths as $index => $key) {
-                // Update $nestedContainer to point to the nested array corresponding to the current key
-                if($index < count($containerPaths) - 1) {
-                    $nestedContainer = &$nestedContainer[$key]['childs'];
-                }else{
-                    $nestedContainer = &$nestedContainer[$key];
-                }
-            }
-            // Make element nullable
-            $nestedContainer = NULL;
-        }
+        $this->_elementsToRemove[] = $name;
     }
 
     /**
@@ -292,73 +263,6 @@ class Layout implements LayoutInterface
     public function trackHandlerWithFileName($templateName, $handlerName)
     {
         $this->elementsWithFileName[$templateName]['handlers'][] = $handlerName;
-    }
-
-    /**
-     * @return array
-     */
-    public function getElementsWithFileName(): array
-    {
-        return $this->elementsWithFileName;
-    }
-
-    /**
-     * @param $efContainers
-     * @param $containerName
-     * @param array $path
-     * @return null
-     */
-    public function findElementPath($efContainers, $elementName, &$path = [])
-    {
-        foreach ($efContainers as $containerKey => $container) {
-            if ($containerKey == $elementName) {
-                $path[] = $containerKey;
-                return $container;
-            } elseif (isset($container['childs'])) {
-                $subPath = [];
-                $result = $this->findElementPath($container['childs'], $elementName, $subPath);
-                if ($result !== null) {
-                    $path[] = $containerKey;
-                    $path = array_merge($path, $subPath);
-                    return $result;
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
-     * @param $keys
-     * @param $elementName
-     * @param $element
-     */
-    public function addElement($keys, $elementName, $element)
-    {
-        $nestedElement = &$this->elements;
-        foreach ($keys as $key) {
-            // Update $nestedContainer to point to the nested array corresponding to the current key
-            $nestedElement = &$nestedElement[$key]['childs'];
-        }
-        // $nestedContainer is the parentContainer childs
-        if($nestedElement && (isset($element['before']) || isset($element['after']))) {
-            if(isset($element['before'])) {
-                $this->addElementWithPriority($elementName, $element, $nestedElement, 'before');
-            } else if(isset($element['after'])) {
-                $this->addElementWithPriority($elementName, $element, $nestedElement, 'after');
-            }
-        }else {
-            $nestedElement[$elementName] = $element;
-        }
-
-        unset($nestedElement);
-    }
-
-    /**
-     * @return array
-     */
-    public function getElements(): array
-    {
-        return $this->elements;
     }
 
     /**
@@ -405,6 +309,7 @@ class Layout implements LayoutInterface
     }
 
     /**
+     * Adds CSS files to be added to page
      * @param $cssTags
      */
     public function addCss($cssTags)
@@ -425,6 +330,7 @@ class Layout implements LayoutInterface
     }
 
     /**
+     * Adds JS files to be added to page
      * @param $jsTags
      */
     public function addJs($jsTags)
@@ -471,90 +377,120 @@ class Layout implements LayoutInterface
     }
 
     /**
-     * Render Block Element
+     * Render Block element
      * @param $block
      * @return string
      * @throws \ReflectionException
      */
-    private function renderBlock($block): string
+    protected function _renderBlock($name): string
     {
-        // Get Block instance from Container class
-        $blockClassInstance = $this->objectManager->create($block['class']);
-        if(isset($block['arguments'])) {
-            $blockClassInstance->setData($block['arguments']);
-        }
-        if(isset($block['childs'])) {
-            foreach($block['childs'] as $childBlockName => $childBlock) {
-                $childBlockClassInstance = $this->objectManager->create($childBlock['class']);
-                if(isset($childBlock['arguments'])) {
-                    $childBlockClassInstance->setData($childBlock['arguments']);
-                }
-                if(isset($childBlock['template'])) {
-                    $childBlockClassInstance->setTemplate($childBlock['template']);
-                }
-                $blockClassInstance->addChildBlock($childBlockName, $childBlockClassInstance);
-            }
-        }
-
-        if(isset($block['template'])) {
-            $blockClassInstance->setTemplate($block['template']);
-        }
-
-        return $blockClassInstance->toHtml();
+        $block = $this->getBlock($name);
+        return $block ? $block->toHtml() : '';
     }
 
     /**
-     * Parses Tag Nodes Tree and creates final body content
+     * Render Container element
+     * @param $name
      * @return string
+     * @throws Exception
      */
-    public function renderPage($container = null): string
+    protected function _renderContainer($name): string
     {
-        if($container === null) {
-            $container = $this->elements;
+        $html = '';
+        $children = $this->getChildNames($name);
+        foreach ($children as $child) {
+            $html .= $this->renderElement($child);
+        }
+        if ($html == '' || !$this->structure->getAttribute($name, Element::CONTAINER_OPT_HTML_TAG)) {
+            return $html;
         }
 
-        $this->cleanUnusedPageLayoutContainers();
-
-        $pageContent = '';
-        foreach($container as $containerNode) {
-            if($containerNode && $containerNode['type'] == 'container') {
-                // Render only containers with sub-elements
-                if(isset($containerNode['childs']) && count($containerNode['childs'])) {
-                    if (isset($containerNode['htmlTag'])) {
-                        // Renderable container case, prepares & adds Html Elements
-                        $htmlClass = isset($containerNode['htmlClass']) ? 'class="' . $containerNode['htmlClass'] . '"' : '';
-                        $pageContent .= "<" . $containerNode['htmlTag'] . " " . $htmlClass . ">";
-                    }
-                    // Render internal elements if exists
-                    $pageContent .= $this->renderPage($containerNode['childs']);
-
-                    if (isset($containerNode['htmlTag'])) {
-                        $pageContent .= "</" . $containerNode['htmlTag'] . ">";
-                    }
-                }
-            }else if($containerNode && $containerNode['type'] == 'block') {
-                $pageContent .= $this->renderBlock($containerNode);
-            }
+        $htmlId = $this->structure->getAttribute($name, Element::CONTAINER_OPT_HTML_ID);
+        if ($htmlId) {
+            $htmlId = ' id="' . $htmlId . '"';
         }
 
-        return $pageContent;
+        $htmlClass = $this->structure->getAttribute($name, Element::CONTAINER_OPT_HTML_CLASS);
+        if ($htmlClass) {
+            $htmlClass = ' class="' . $htmlClass . '"';
+        }
+
+        $htmlTag = $this->structure->getAttribute($name, Element::CONTAINER_OPT_HTML_TAG);
+
+        $html = sprintf('<%1$s%2$s%3$s>%4$s</%1$s>', $htmlTag, $htmlId, $htmlClass, $html);
+
+        return $html;
     }
 
     /**
-     * Clean Unused Page Layout containers in the elements tree
+     * Clean Unused Page Layout containers in the structure
      */
-    private function cleanUnusedPageLayoutContainers()
+    private function _cleanUnusedPageLayoutContainers(): void
     {
-        // Clean unneeded Page Layout containers
-        foreach($this->elementsWithFileName as $layoutFileName => $layout) {
-            if($layoutFileName != $this->currentPageLayout && isset($layout['handlers']) && !in_array($layoutFileName, $layout['handlers'])) {
-                foreach($layout as $layoutKey => $layoutContainerName) {
-                    if(!is_array($layoutContainerName) && $layoutKey != 'handlers') {
-                        $this->removeElement($layoutContainerName);
+        $currentPageLayout = $this->elementsWithFileName[$this->currentPageLayout];
+        $pageLayouts = $this->elementsWithFileName;
+        if(isset($currentPageLayout['handlers'])) {
+            foreach ($currentPageLayout['handlers'] as $key => $layout) {
+                if(isset($this->elementsWithFileName[$layout]['handlers'])) {
+                    foreach ($this->elementsWithFileName[$layout]['handlers'] as $handle) {
+                        unset($pageLayouts[$handle]);
+                    }
+                }
+                unset($pageLayouts[$layout]);
+            }
+        }
+        unset($pageLayouts[$this->currentPageLayout]);
+
+        if(count($pageLayouts)) {
+            // Clean unneeded Page Layout containers
+            foreach($pageLayouts as $pageLayoutToRemove) {
+                foreach($pageLayoutToRemove as $key => $pageLayoutContainer) {
+                    if ($key != 'handlers') {
+                        $this->structure->unsetElement($pageLayoutContainer);
                     }
                 }
             }
         }
+    }
+
+    /**
+     * Add an element to output
+     * @param string $name
+     * @return $this
+     */
+    public function addOutputElement(string $name): static
+    {
+        $this->_output[$name] = $name;
+        return $this;
+    }
+
+    /**
+     * Remove an element from output
+     *
+     * @param string $name
+     * @return $this
+     */
+    public function removeOutputElement(string $name): static
+    {
+        if (isset($this->_output[$name])) {
+            unset($this->_output[$name]);
+        }
+        return $this;
+    }
+
+    /**
+     * Get all blocks marked for output
+     * @return string
+     * @throws Exception
+     */
+    public function getOutput(): string
+    {
+        $this->addToOutputRootContainers();
+        $out = '';
+        foreach ($this->_output as $name) {
+            $out .= $this->renderElement($name);
+        }
+        return $out;
     }
 
     /**
@@ -567,11 +503,13 @@ class Layout implements LayoutInterface
     public function _createBlock($blockClass, string $name, array $arguments = []): ?object
     {
         // Get Block instance from Container class
+        //$blockClassInstance = $this->objectManager->create($blockClass);
         $blockClassInstance = $this->objectManager->create($blockClass);
+
         if(isset($arguments['arguments'])) {
             $blockClassInstance->setData($arguments['arguments']);
         }
-        if(isset($arguments['template'])) {
+        if(isset($arguments['template']) && !empty($arguments['template'])) {
             $blockClassInstance->setTemplate($arguments['template']);
         }
         $this->setBlock($name, $blockClassInstance);
@@ -583,24 +521,71 @@ class Layout implements LayoutInterface
      * @param string $name
      * @return false|mixed
      */
-    public function getBlock(string $name)
+    public function getBlock(string $name): \ProgramCms\CoreBundle\View\Element\AbstractBlock
     {
         return $this->blocks[$name] ?? false;
     }
 
-    public function getChildBlock(string $parentName, string $alias)
+    /**
+     * @param string $parentName
+     * @param string $alias
+     * @return false|mixed|Element\AbstractBlock
+     * @throws Exception
+     */
+    public function getChildBlock(string $parentName, string $alias): mixed
     {
-
+        $name = $this->structure->getChildId($parentName, $alias);
+        if ($this->isBlock($name)) {
+            return $this->getBlock($name);
+        }
+        return false;
     }
 
-    public function setChild(string $parentName, string $elementName, string $alias)
+    /**
+     * @param string $parentName
+     * @param string $elementName
+     * @param string $alias
+     * @return $this
+     * @throws Exception
+     */
+    public function setChild(string $parentName, string $elementName, string $alias): static
     {
-
+        $this->structure->setAsChild($elementName, $parentName);
+        return $this;
     }
 
-    public function getChildNames(string $parentName)
+    /**
+     * Reorder a child of a specified element
+     * @param string $parentName
+     * @param string $childName
+     * @param string|int|null $offsetOrSibling
+     * @param bool $after
+     * @return void
+     */
+    public function reorderChild(string $parentName, string $childName, $offsetOrSibling, bool $after = true)
     {
+        $this->structure->reorderChildElement($parentName, $childName, $offsetOrSibling, $after);
+    }
 
+    /**
+     * Get child name by alias
+     *
+     * @param string $parentName
+     * @param string $alias
+     * @return bool|string
+     */
+    public function getChildName(string $parentName, string $alias): bool|string
+    {
+        return $this->structure->getChildId($parentName, $alias);
+    }
+
+    /**
+     * @param string $parentName
+     * @return array
+     */
+    public function getChildNames(string $parentName): array
+    {
+        return array_keys($this->structure->getChildren($parentName));
     }
 
     /**
@@ -615,15 +600,27 @@ class Layout implements LayoutInterface
     /**
      * Get ChildBlocks as a List of Objects
      * @param string $parentName
+     * @return array
      */
-    public function getChildBlocks(string $parentName)
+    public function getChildBlocks(string $parentName): array
     {
-
+        $blocks = [];
+        foreach ($this->structure->getChildren($parentName) as $childName => $alias) {
+            $block = $this->getBlock($childName);
+            if ($block) {
+                $blocks[$alias] = $block;
+            }
+        }
+        return $blocks;
     }
 
-    public function getParentName(string $childName)
+    /**
+     * @param string $childName
+     * @return string|bool
+     */
+    public function getParentName(string $childName): string|bool
     {
-
+        return $this->structure->getParentId($childName);
     }
 
     /**
@@ -631,14 +628,78 @@ class Layout implements LayoutInterface
      * @param $block
      * @return $this
      */
-    public function setBlock($name, $block)
+    public function setBlock($name, $block): static
     {
         $this->blocks[$name] = $block;
         return $this;
     }
 
+    /**
+     * @param $type
+     * @param string $name
+     * @param array $arguments
+     * @return mixed|void
+     * @throws Exception
+     */
     public function createBlock($type, string $name = '', array $arguments = [])
     {
+        $name = $this->structure->createStructuralElement($name, Element::TYPE_BLOCK);
+        $block = $this->_createBlock($type, $name, $arguments);
+        $block->setLayout($this);
+        return $block;
+    }
 
+    /**
+     * @param $name
+     * @return bool
+     * @throws Exception
+     */
+    public function isBlock($name): bool
+    {
+        if ($this->structure->hasElement($name)) {
+            return Element::TYPE_BLOCK === $this->structure->getAttribute($name, 'type');
+        }
+        return false;
+    }
+
+    /**
+     * Render an Element
+     * @param $name
+     * @return string
+     * @throws Exception
+     */
+    public function renderElement($name): string
+    {
+        try {
+            if ($this->isBlock($name)) {
+                $result = $this->_renderBlock($name);
+            } else {
+                $result = $this->_renderContainer($name);
+            }
+        } catch (\Exception $e) {
+            throw $e;
+        }
+        return $result;
+    }
+
+    /**
+     * Process elements to remove
+     * @throws Exception
+     */
+    private function _processElementsToRemove(): void
+    {
+        foreach($this->_elementsToRemove as $element) {
+            $this->structure->unsetElement($element);
+        }
+    }
+
+    /**
+     * Process elements to move
+     */
+    private function _processElementsToMove(): void
+    {
+        foreach($this->_elementsToMove as $element) {
+            $this->_moveElement($element['element'], $element['destination'], $element['before'], $element['after']);
+        }
     }
 }

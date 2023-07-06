@@ -31,7 +31,7 @@ class LayoutNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterf
                     // Add root container
                     $containerName = $node->getAttribute('containerName');
                     $compiler
-                        ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addRootContainer('$containerName')")
+                        ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addContainer('$containerName')")
                         ->raw(";\n");
                     $compiler
                         ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->trackElementWithFileName('$templateName', '$containerName')")

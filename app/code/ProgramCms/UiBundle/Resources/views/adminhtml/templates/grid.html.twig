@@ -120,13 +120,13 @@
 <table class="table table-bordered table-striped table-hover mt-3 admin-table">
     <thead class="table-dark">
     <th></th>
-    {% for column in efBlock.getColumns() %}
+    {% for column in block.getColumns() %}
         <th {% if column.type == 'action' %}class="text-center"{% endif %}>{{ column.title }}</th>
     {% endfor %}
     </thead>
     <tbody>
-    {% set actions = efBlock.getActions() %}
-    {% for rowColumn in efBlock.getRows() %}
+    {% set actions = block.getActions() %}
+    {% for rowColumn in block.getRows() %}
         <tr>
             <td class="text-center">
                 <input type="checkbox" class="form-check-input" name=""/>
@@ -134,7 +134,7 @@
             {% for value in rowColumn %}
                 <td>{{ value.label }}</td>
             {% endfor %}
-            {% if efBlock.getActions() is defined %}
+            {% if block.getActions() is defined %}
                 <td class="text-center">
                     {% for action in actions %}
                         {% if action.type == 'url' %}

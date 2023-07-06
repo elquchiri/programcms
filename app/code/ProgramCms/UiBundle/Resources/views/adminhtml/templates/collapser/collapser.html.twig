@@ -7,17 +7,15 @@
  */
 #}
 <div class="collapser">
-    {% if efBlock.hasLabel() %}
-    <a class="collapser-label open" data-bs-toggle="collapse" href="#{{ efBlock.getName() }}" role="button"
-           aria-expanded="false" aria-controls="{{ efBlock.getName() }}">
-            {{ efBlock.getLabel() }}
+    {% if block.hasLabel() %}
+    <a class="collapser-label open" data-bs-toggle="collapse" href="#{{ block.getName() }}" role="button"
+           aria-expanded="false" aria-controls="{{ block.getName() }}">
+            {{ block.getLabel() }}
         </a>
     {% endif %}
-    <div class="collapse {% if efBlock.isOpen() %}show{% endif %}" id="{{ efBlock.getName() }}">
-        {% if efBlock.hasLabel() %}<div class="collapser-container">{% endif %}
-            {% for blockName, subBlock in efBlock.getChildBlocks() %}
-                {{ efBlock.getChildHtml(blockName)|raw }}
-            {% endfor %}
-        {% if efBlock.hasLabel() %}</div>{% endif %}
+    <div class="collapse {% if block.isOpen() %}show{% endif %}" id="{{ block.getName() }}">
+        {% if block.hasLabel() %}<div class="collapser-container">{% endif %}
+            {{ block.getChildHtml()|raw }}
+        {% if block.hasLabel() %}</div>{% endif %}
     </div>
 </div>

@@ -22,6 +22,8 @@ class Template extends AbstractBlock
      * @var string
      */
     protected string $_template;
+
+    protected \ProgramCms\CoreBundle\View\Element\Template\BlockInterface $templateContext;
     /**
      * Assigned variables for view
      *
@@ -59,6 +61,36 @@ class Template extends AbstractBlock
         $this->request = $context->getRequest();
         $this->environment = $context->getEnvironment();
         $this->pageConfig = $context->getPageConfig();
+        $this->templateContext = $this;
+        parent::__construct($context, $data);
+    }
+
+    /**
+     * Internal constructor, that is called from real constructor
+     *
+     * @return void
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+
+        /*
+         * In case template was passed through constructor
+         * we assign it to block's property _template
+         * Mainly for those cases when block created
+         */
+        if ($this->hasData('template')) {
+            $this->setTemplate($this->getData('template'));
+        }
+    }
+
+    /**
+     * Set Template Context
+     * @param $templateContext
+     */
+    public function setTemplateContext($templateContext)
+    {
+        $this->templateContext = $templateContext;
     }
 
     /**
@@ -68,10 +100,6 @@ class Template extends AbstractBlock
     {
         if (!$this->getTemplate()) {
             return '';
-        }
-        // Assign efBlock variable helping accessing block object from template.
-        if(empty($this->_viewVars)) {
-            $this->assign(['efBlock' => $this]);
         }
         return $this->fetchView($this->getTemplateFile());
     }
@@ -143,6 +171,10 @@ class Template extends AbstractBlock
     public function fetchView($template): string
     {
         try {
+            // Assign block variable helping accessing block object from template.
+            if(empty($this->_viewVars)) {
+                $this->assign(['block' => $this->templateContext]);
+            }
             return $this->environment->render($template, $this->_viewVars);
         } catch (\Exception $e) {
             throw $e;

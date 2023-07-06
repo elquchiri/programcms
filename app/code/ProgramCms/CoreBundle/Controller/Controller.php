@@ -8,6 +8,8 @@
 
 namespace ProgramCms\CoreBundle\Controller;
 
+use HttpResponseException;
+
 /**
  * Class Controller
  * @package ProgramCms\CoreBundle\Controller
@@ -18,7 +20,7 @@ abstract class Controller extends AbstractController
     /**
      * Dispatch Request
      * @return mixed
-     * @throws \HttpResponseException
+     * @throws HttpResponseException
      */
     public function dispatch(): mixed
     {
@@ -30,6 +32,6 @@ abstract class Controller extends AbstractController
             return $result;
         }
 
-        throw new \HttpResponseException("Result instance expected.");
+        throw new HttpResponseException("Unexpected Result instance.");
     }
 }

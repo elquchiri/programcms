@@ -37,14 +37,14 @@ class Copyright extends \ProgramCms\AdminBundle\Block\Page\Copyright
      * After Decorator
      * @return string
      */
-//    public function toHtml(): string
-//    {
-//        $copyRightHtmlOutput = $this->subject->toHtml();
-//        $programCmsBirthday = 2022;
-//        if(($yearsOfExistence = $this->subject->getCopyrightYear() - $programCmsBirthday) >= 1) {
-//            $copyRightHtmlOutput .= sprintf("<p>%s %s</p>", $yearsOfExistence, "Years Of Existence");
-//        }
-//
-//        return $copyRightHtmlOutput;
-//    }
+    public function toHtml(): string
+    {
+        $copyRightHtmlOutput = $this->_toHtml();
+        $programCmsBirthday = 2022;
+        if(($yearsOfExistence = $this->subject->getCopyrightYear() - $programCmsBirthday) >= 1) {
+            $copyRightHtmlOutput .= sprintf("<p>%s Year%s Of Existence</p>", $yearsOfExistence, $yearsOfExistence > 1 ? "s" : "");
+        }
+
+        return $copyRightHtmlOutput;
+    }
 }

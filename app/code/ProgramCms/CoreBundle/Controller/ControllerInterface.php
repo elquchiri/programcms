@@ -15,6 +15,7 @@ namespace ProgramCms\CoreBundle\Controller;
 interface ControllerInterface
 {
     /**
+     * Called internally on dispatch
      * @return mixed
      */
     public function execute();

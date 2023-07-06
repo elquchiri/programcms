@@ -22,7 +22,7 @@ class ProgramCmsCoreBundle extends Bundle
      * Define bundle as ProgramCms Bundle Type
      * @return bool
      */
-    public function isProgramCmsBundle()
+    public function isProgramCmsBundle(): bool
     {
         return true;
     }
@@ -30,7 +30,7 @@ class ProgramCmsCoreBundle extends Bundle
     /**
      * @return string
      */
-    public function getVersion()
+    public function getVersion(): string
     {
         return self::VERSION;
     }

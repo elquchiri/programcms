@@ -16,8 +16,13 @@ use Symfony\Component\Form\FormInterface;
  */
 class Page extends Layout
 {
-
+    /**
+     * @var \ProgramCms\CoreBundle\View\Page\Config
+     */
     protected \ProgramCms\CoreBundle\View\Page\Config $pageConfig;
+    /**
+     * @var \Twig\Environment
+     */
     protected \Twig\Environment $env;
 
     public function __construct(
@@ -40,20 +45,22 @@ class Page extends Layout
     }
 
     /**
+     * Merge base template and render Page
      * @param array $parameters
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
+     * @throws \Exception
      */
     public function render(array $parameters = []): \Symfony\Component\HttpFoundation\Response
     {
-        $efCss = $this->layout->getCss();
-        $efJs = $this->layout->getJs();
-        $efTitle = $this->layout->getTitle();
-        $html = $this->layout->renderPage();
+        $css = $this->layout->getCss();
+        $js = $this->layout->getJs();
+        $title = $this->layout->getTitle();
+        $html = $this->layout->getOutput();
 
-        $content = $this->env->render('@ProgramCmsTheme/base.html.twig', ['efCss' => $efCss, 'efJs' => $efJs, 'efTitle' => $efTitle, 'html' => $html]);
+        $content = $this->env->render('@ProgramCmsTheme/base.html.twig', ['efCss' => $css, 'efJs' => $js, 'efTitle' => $title, 'html' => $html]);
 
         $response ??= new \Symfony\Component\HttpFoundation\Response();
         if (200 === $response->getStatusCode()) {

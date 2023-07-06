@@ -1,5 +1,5 @@
 <form id="programcms_config">
-    {% for groupId, group in efBlock.getCurrentSectionGroups() %}
+    {% for groupId, group in block.getCurrentSectionGroups() %}
         <div class="collapser">
             <a class="collapser-label" data-bs-toggle="collapse" href="#{{ groupId }}" role="button" aria-expanded="false"
                aria-controls="collapseExample">
@@ -58,5 +58,5 @@
             </div>
         </div>
     {% endfor %}
-    <input type="hidden" name="section_id" value="{{ efBlock.getSectionId() }}"/>
+    <input type="hidden" name="section_id" value="{{ block.getSectionId() }}"/>
 </form>

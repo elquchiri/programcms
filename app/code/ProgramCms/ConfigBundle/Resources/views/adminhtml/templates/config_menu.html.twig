@@ -1,6 +1,6 @@
 <div class="config-menu">
     <ul>
-        {% for tab in efBlock.getTabs() %}
+        {% for tab in block.getTabs() %}
             <li class="root {% if tab.active is defined %}open{% endif %}">
                 <a href="#">{{ tab.label }}</a>
             </li>

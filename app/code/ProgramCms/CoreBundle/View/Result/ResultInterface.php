@@ -8,7 +8,10 @@
 
 namespace ProgramCms\CoreBundle\View\Result;
 
-
+/**
+ * Interface ResultInterface
+ * @package ProgramCms\CoreBundle\View\Result
+ */
 interface ResultInterface
 {
 

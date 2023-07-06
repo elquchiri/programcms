@@ -8,26 +8,88 @@
 
 namespace ProgramCms\CoreBundle\View\Element;
 
+use Exception;
+use InvalidArgumentException;
+use ProgramCms\CoreBundle\View\Element\Template\BlockInterface;
+use ProgramCms\CoreBundle\View\Layout;
+
 /**
  * Class AbstractBlock
  * @package ProgramCms\CoreBundle\View\Element
  */
-abstract class AbstractBlock extends \ProgramCms\CoreBundle\Model\DataObject
+abstract class AbstractBlock extends \ProgramCms\CoreBundle\Model\DataObject implements BlockInterface
 {
-    private array $childBlocks = [];
+    /**
+     * Block name in layout
+     * @var string
+     */
+    protected string $_nameInLayout;
     /**
      * Twig Environment instance
      * @var \Twig\Environment
      */
     protected \Twig\Environment $environment;
+    /**
+     * Current Block Layout
+     * @var Layout
+     */
+    protected Layout $layout;
 
+    public function __construct(
+        \ProgramCms\CoreBundle\View\Element\Template\Context $context,
+        array $data = []
+    )
+    {
+        $this->layout = $context->getLayout();
+        $this->_construct();
+    }
+
+    /**
+     * Internal constructor, that is called from real constructor
+     * @return void
+     */
+    protected function _construct()
+    {
+        // Please override this one instead of overriding real __construct constructor
+    }
+
+    /**
+     * Set current block's name in layout
+     * @param $name
+     */
+    public function setNameInLayout($name)
+    {
+        $this->_nameInLayout = $name;
+    }
+
+    /**
+     * Get block's name in layout
+     * @return string
+     */
+    public function getNameInLayout(): string
+    {
+        return $this->_nameInLayout;
+    }
+
+    /**
+     * Accessing layout from Template classes
+     * @return Layout
+     */
+    public function getLayout(): Layout
+    {
+        return $this->layout;
+    }
+
+    /**
+     * @return string
+     */
     public function toHtml(): string
     {
         return $this->_toHtml();
     }
 
     /**
-     * Created to be Overridden
+     * Created to be Overridden, called in toHtml public method
      * @return string
      */
     protected function _toHtml(): string
@@ -37,54 +99,55 @@ abstract class AbstractBlock extends \ProgramCms\CoreBundle\Model\DataObject
 
     /**
      * Retrieve child block content by name
-     *
      * @param string $alias
      * @return string
+     * @throws Exception
      */
-    public function getChildHtml(string $name): string
+    public function getChildHtml(string $alias = ''): string
     {
-        $childBlock = $this->getChildBlock($name);
-        return $childBlock->toHtml();
+        $layout = $this->getLayout();
+        if (!$layout) {
+            return '';
+        }
+        $name = $this->getNameInLayout();
+        $out = '';
+        if ($alias) {
+            $childName = $layout->getChildName($name, $alias);
+            if ($childName) {
+                $out = $layout->renderElement($childName);
+            }
+        } else {
+            foreach ($layout->getChildNames($name) as $child) {
+                $out .= $layout->renderElement($child);
+            }
+        }
+
+        return $out;
     }
 
     /**
      * @param string $alias
-     * @throws \InvalidArgumentException
-     * @return object
+     * @throws InvalidArgumentException
      */
-    public function getChildBlock(string $name): object
+    public function getChildBlock(string $alias)
     {
-        if (!isset($this->childBlocks[$name])) {
-            throw new \InvalidArgumentException("Requested ChildBlock Not found");
+        $layout = $this->getLayout();
+        if (!$layout) {
+            return false;
         }
-
-        return $this->childBlocks[$name];
-    }
-
-    /**
-     * @param $childBlockName
-     * @param $childBlockInstance
-     */
-    public function addChildBlock($childBlockName, $childBlockInstance)
-    {
-        $this->childBlocks[$childBlockName] = $childBlockInstance;
-    }
-
-    /**
-     * Get all block's childs
-     * @return array
-     */
-    public function getChildBlocks(): array
-    {
-        return $this->childBlocks;
+        $name = $layout->getChildName($this->getNameInLayout(), $alias);
+        if ($name) {
+            return $layout->getBlock($name);
+        }
+        return false;
     }
 
     /**
      * @param $name
      * @param null $value
-     * @return AbstractBlock
+     * @return $this
      */
-    public function setAttribute($name, $value = null)
+    public function setAttribute($name, $value = null): static
     {
         return $this->setData($name, $value);
     }

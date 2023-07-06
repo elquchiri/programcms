@@ -9,6 +9,7 @@
 namespace ProgramCms\CoreBundle\Model\Utils;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use ProgramCms\CoreBundle\Helper\BundleManager as BundleManagerHelper;
 
 /**
  * Class BundleManager
@@ -25,34 +26,54 @@ class BundleManager
         $this->container = $container;
     }
 
+    /**
+     * Get container instance
+     * @return ContainerInterface
+     */
     public function getContainer(): ContainerInterface
     {
         return $this->container;
     }
 
-    public function getAllEfBundles(): array
+    /**
+     * Get parameter from container
+     * @param $parameter
+     * @return array|bool|float|int|string|\UnitEnum|null
+     */
+    public function getContainerParameter($parameter)
     {
-        $efBundles = [];
-        foreach ($this->container->getParameter('kernel.bundles') as $bundleName => $bundleClass) {
+        return $this->container->getParameter($parameter);
+    }
+
+    /**
+     * Get All registered ProgramCMS bundles
+     * @return array
+     * @throws \ReflectionException
+     */
+    public function getAllBundles(): array
+    {
+        $bundles = [];
+        foreach ($this->getContainerParameter('kernel.bundles') as $bundleName => $bundleClass) {
             $reflectedBundle = new \ReflectionClass($bundleClass);
-            if ($reflectedBundle->hasMethod('isProgramCmsBundle') && $reflectedBundle->getMethod('isProgramCmsBundle')) {
+            if ($reflectedBundle->hasMethod(BundleManagerHelper::PROGRAMCMS_METHOD_DEFINER) && $reflectedBundle->getMethod(BundleManagerHelper::PROGRAMCMS_METHOD_DEFINER)) {
                 $bundleDirectory = dirname($reflectedBundle->getFileName());
-                $efBundles[$bundleName] = [
+                $bundles[$bundleName] = [
                     'name' => $reflectedBundle->getShortName(),
                     'path' => $bundleDirectory
                 ];
             }
         }
 
-        return $efBundles;
+        return $bundles;
     }
 
     /**
+     * Get bundle by name
      * @throws \Exception
      */
     public function getBundleByName($bundleName)
     {
-        $bundles = $this->getAllEfBundles();
+        $bundles = $this->getAllBundles();
         if(isset($bundles[$bundleName])) {
             return $bundles[$bundleName];
         }

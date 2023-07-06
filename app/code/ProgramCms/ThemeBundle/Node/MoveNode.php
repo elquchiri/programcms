@@ -26,6 +26,6 @@ class MoveNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterfac
         $before = $this->getAttribute('before');
         $after = $this->getAttribute('after');
 
-        $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->moveElement('$elementName', '$destinationName', '$before', '$after');");
+        $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addElementToMove('$elementName', '$destinationName', '$before', '$after');");
     }
 }
