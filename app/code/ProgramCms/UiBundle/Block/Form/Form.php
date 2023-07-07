@@ -62,7 +62,11 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
                         }
                         break;
                     case "select":
+                    case "multiselect":
                         $fieldElement = $this->objectManager->create(\ProgramCms\UiBundle\Model\Element\Form\Fields\Select::class);
+                        if($field['type'] == 'multiselect') {
+                            $fieldElement->setMultiSelect(true);
+                        }
                         $fieldElement->setOptions(
                             $this->bundleManager->getContainer()
                                 ->get($field['sourceModel'])
@@ -84,6 +88,9 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
                 }
                 if(isset($field['isRequired'])) {
                     $fieldElement->setIsRequired($field['isRequired']);
+                }
+                if(isset($field['value'])) {
+                    $fieldElement->setValue($field['value']);
                 }
                 $fieldsetElement->addField($fieldElement);
             }

@@ -161,7 +161,7 @@ class Template extends AbstractBlock
     }
 
     /**
-     * Retrieve block view from file (template)
+     * Render block view from file (template)
      * @param $template
      * @return string
      * @throws \Twig\Error\LoaderError

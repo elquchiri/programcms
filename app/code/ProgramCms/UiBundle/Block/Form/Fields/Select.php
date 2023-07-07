@@ -25,4 +25,9 @@ class Select extends \ProgramCms\CoreBundle\View\Element\Template
     {
         return $this->getData('options');
     }
+
+    public function isMultiSelect()
+    {
+        return $this->getData('isMultiSelect');
+    }
 }

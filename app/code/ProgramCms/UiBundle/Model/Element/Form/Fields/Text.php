@@ -39,7 +39,8 @@ class Text extends \ProgramCms\UiBundle\Model\Element\Form\Fields\Field
     {
         $this->text->setData([
             "name" => $this->getName(),
-            "placeholder" => $this->getPlaceholder()
+            "placeholder" => $this->getPlaceholder(),
+            "value" => $this->getValue()
         ]);
 
         return $this->text->toHtml();

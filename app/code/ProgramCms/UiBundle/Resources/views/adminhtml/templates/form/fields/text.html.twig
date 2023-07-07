@@ -6,5 +6,12 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<input type="text" name="{{ block.getName() }}" id="{{ block.getName() }}" class="form-control" placeholder="{{ block.getPlaceholder() }}"
-       aria-describedby="{{ block.getPlaceholder() }}" />
+<input
+    type="text"
+    name="{{ block.getName() }}"
+    id="{{ block.getName() }}"
+    class="form-control"
+    placeholder="{{ block.getPlaceholder() }}"
+    value="{% if block.hasValue() %}{{ block.getValue() }}{% endif %}"
+    aria-describedby="{{ block.getPlaceholder() }}"
+/>

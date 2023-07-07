@@ -11,9 +11,9 @@
         {% for button in block.getButtons() %}
             <li class="nav-item">
                 {% if button.buttonType == 'save' %}
-                    <button class="btn btn-primary ef-toolbar-btn" data-ef-btn-type="{{ button.buttonType }}"
-                            data-ef-btn-target="{{ button.buttonTarget }}"
-                            data-ef-btn-action="{{ button.buttonAction }}" type="button">
+                    <button class="btn btn-primary ef-toolbar-btn" data-btn-type="{{ button.buttonType }}"
+                            data-btn-target="{{ button.buttonTarget }}"
+                            data-btn-action="{{ button.buttonAction }}" type="button">
                         {{ button.label }}
                     </button>
                 {% elseif button.buttonType == 'back' %}
@@ -23,7 +23,7 @@
                     </button>
                 {% else %}
                     <button class="btn btn-{{ button.buttonType }} ef-toolbar-btn"
-                            data-ef-btn-type="{{ button.buttonType }}" type="button">
+                            data-btn-type="{{ button.buttonType }}" type="button">
                         {{ button.label }}
                     </button>
                 {% endif %}

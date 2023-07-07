@@ -39,15 +39,15 @@ class Configuration extends \ProgramCms\CoreBundle\View\Element\Template
         $this->request = $context->getRequest();
         $this->objectManager = $objectManager;
         // Init Config Serializer
-        $this->initConfigSerializer();
+        $this->_initConfigSerializer();
     }
 
     /**
      * @throws \ReflectionException
      */
-    private function initConfigSerializer()
+    private function _initConfigSerializer()
     {
-        if($this->request->getParam('sectionId')) {
+        if ($this->request->getParam('sectionId')) {
             $this->configSerializer->setSectionId($this->request->getParam('sectionId'));
         }
 
@@ -55,25 +55,49 @@ class Configuration extends \ProgramCms\CoreBundle\View\Element\Template
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function getTabs()
+    public function getTabs(): array
     {
         return $this->configSerializer->getConfigNavigation();
     }
 
-    public function getCurrentSectionGroups()
+    /**
+     * @throws \Exception
+     */
+    protected function _prepareLayout()
     {
+        $layout = $this->getLayout();
         $currentSectionGroups = $this->configSerializer->getCurrenSectionGroups();
-        foreach($currentSectionGroups as $groupId => $group) {
-            $collapser = $this->objectManager->create(\ProgramCms\UiBundle\Block\Collapser\Collapser::class);
+        foreach ($currentSectionGroups as $groupId => $group) {
+            $collapser = $layout->createBlock(\ProgramCms\UiBundle\Block\Collapser\Collapser::class, 'collapse-' . $groupId);
             $collapser->setData("label", $group['label']);
-            $form = $this->objectManager->create(\ProgramCms\UiBundle\Block\Form\Form::class);
+            $collapser->setName('collapse-' . $groupId);
+            $collapser->setTemplateContext($collapser);
+
+            $form = $layout->createBlock(\ProgramCms\UiBundle\Block\Form\Form::class, 'form-' . $groupId);
+            $form->setTemplateContext($form);
+            // Field sets
+            $fieldSets = [
+                "fieldSets" => [
+                    "fieldset1" => [
+                        "fields" => []
+                    ]
+                ]
+            ];
+            // Add fields to form
+            foreach ($group['fields'] as $fieldId => $field) {
+                $fieldSets['fieldSets']['fieldset1']['fields'][$groupId . '/' . $fieldId] = $field;
+            }
+
+            $form->setData($fieldSets);
+            $collapser->setChild('form-' . $groupId, $form);
+            $this->setChild('collapse-' . $groupId, $collapser);
         }
-        return $currentSectionGroups;
     }
 
     /**
+     * Get current section id
      * @return string
      */
     public function getSectionId(): string

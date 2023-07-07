@@ -25,4 +25,9 @@ class Text extends \ProgramCms\CoreBundle\View\Element\Template
     {
         return $this->getData('placeholder');
     }
+
+    public function getValue()
+    {
+        return $this->getData('value');
+    }
 }

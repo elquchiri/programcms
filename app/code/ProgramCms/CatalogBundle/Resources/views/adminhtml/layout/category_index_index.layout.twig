@@ -1,0 +1,182 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% page layout="admin-2columns-left" %}
+    {% css ["bundles/programcmscatalog/css/category_tree.css"] %}
+    {% js ["bundles/programcmscatalog/js/category_tree.js"] %}
+
+    {% referenceContainer name="buttons.bar" %}
+        {% block name="website.switcher" class="ProgramCms\\UiBundle\\Block\\Toolbar\\WebsiteSwitcher" template="@ProgramCmsUiBundle/toolbar/website_switcher.html.twig" %}{% endBlock %}
+        {% block name="toolbar.actions" class="ProgramCms\\CatalogBundle\\Block\\Toolbar\\ToolbarActions" template="@ProgramCmsUiBundle/toolbar/toolbar_buttons.html.twig" %}{% endBlock %}
+    {% endReferenceContainer %}
+    {% referenceContainer name="sidebar.main" %}
+        {% block name="category.tree.block" class="ProgramCms\\CatalogBundle\\Block\\CategoryTree" template="@ProgramCmsCatalogBundle/tree.html.twig" %}{% endBlock %}
+    {% endReferenceContainer %}
+    {% referenceContainer name="content" %}
+        {% block name="collapser" class="ProgramCms\\UiBundle\\Block\\Collapser\\Collapser" %}
+            {% arguments %}
+                {% argument name="name" type="string" %}collapser{% endArgument %}
+            {% endArguments %}
+            {% block name="form" class="ProgramCms\\UiBundle\\Block\\Form\\Form" %}
+                {% arguments %}
+                    {% argument name="fieldSets" type="array" %}
+                        {% argument name="fieldset1" type="array" %}
+                            {% argument name="fields" type="array" %}
+                                {% argument name="enable" type="array" %}
+                                    {% argument name="type" type="string" %}switcher{% endArgument %}
+                                    {% argument name="label" type="string" %}Enable Category{% endArgument %}
+                                {% endArgument %}
+                                {% argument name="includeInMenu" type="array" %}
+                                    {% argument name="type" type="string" %}switcher{% endArgument %}
+                                    {% argument name="label" type="string" %}Include in Menu{% endArgument %}
+                                {% endArgument %}
+                                {% argument name="name" type="array" %}
+                                    {% argument name="type" type="string" %}text{% endArgument %}
+                                    {% argument name="label" type="string" %}Name{% endArgument %}
+                                    {% argument name="placeholder" type="string" %}Category Name{% endArgument %}
+                                    {% argument name="isRequired" type="true" %}false{% endArgument %}
+                                {% endArgument %}
+                            {% endArgument %}
+                        {% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+            {% endBlock %}
+        {% endBlock %}
+        {% block name="collapser2" class="ProgramCms\\UiBundle\\Block\\Collapser\\Collapser" %}
+            {% arguments %}
+                {% argument name="name" type="string" %}collapser2{% endArgument %}
+                {% argument name="label" type="string" %}Content{% endArgument %}
+                {% argument name="open" type="boolean" %}true{% endArgument %}
+            {% endArguments %}
+            {% block name="form2" class="ProgramCms\\UiBundle\\Block\\Form\\Form" %}
+                {% arguments %}
+                    {% argument name="fieldSets" type="array" %}
+                        {% argument name="fieldset2" type="array" %}
+                            {% argument name="fields" type="array" %}
+                                {% argument name="categoryImage" type="array" %}
+                                    {% argument name="type" type="string" %}imageUploader{% endArgument %}
+                                    {% argument name="label" type="string" %}Category Image{% endArgument %}
+                                    {% argument name="helpMessage" type="string" %}Maximum file size: 4 MB. Allowed file types: JPG, GIF, PNG.{% endArgument %}
+                                {% endArgument %}
+                                {% argument name="description" type="array" %}
+                                    {% argument name="type" type="string" %}textArea{% endArgument %}
+                                    {% argument name="label" type="string" %}Description{% endArgument %}
+                                    {% argument name="placeholder" type="string" %}Description{% endArgument %}
+                                {% endArgument %}
+                            {% endArgument %}
+                        {% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+            {% endBlock %}
+        {% endBlock %}
+        {% block name="collapser3" class="ProgramCms\\UiBundle\\Block\\Collapser\\Collapser" %}
+            {% arguments %}
+                {% argument name="name" type="string" %}collapser3{% endArgument %}
+                {% argument name="label" type="string" %}Display Settings{% endArgument %}
+            {% endArguments %}
+            {% block name="form3" class="ProgramCms\\UiBundle\\Block\\Form\\Form" %}
+                {% arguments %}
+                    {% argument name="fieldSets" type="array" %}
+                        {% argument name="fieldset3" type="array" %}
+                            {% argument name="fields" type="array" %}
+                                {% argument name="displayMode" type="array" %}
+                                    {% argument name="type" type="string" %}select{% endArgument %}
+                                    {% argument name="label" type="string" %}Display Mode{% endArgument %}
+                                    {% argument name="sourceModel" type="string" %}ProgramCms\\CatalogBundle\\Model\\Provider\\DataSource\\DisplayMode{% endArgument %}
+                                {% endArgument %}
+                                {% argument name="sortOrder" type="array" %}
+                                    {% argument name="type" type="string" %}text{% endArgument %}
+                                    {% argument name="label" type="string" %}Sort Order{% endArgument %}
+                                    {% argument name="placeholder" type="string" %}Sort Order{% endArgument %}
+                                {% endArgument %}
+                            {% endArgument %}
+                        {% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+            {% endBlock %}
+        {% endBlock %}
+        {% block name="collapser4" class="ProgramCms\\UiBundle\\Block\\Collapser\\Collapser" %}
+            {% arguments %}
+                {% argument name="name" type="string" %}collapser4{% endArgument %}
+                {% argument name="label" type="string" %}Search Engine Optimization{% endArgument %}
+            {% endArguments %}
+            {% block name="form4" class="ProgramCms\\UiBundle\\Block\\Form\\Form" %}
+                {% arguments %}
+                    {% argument name="fieldSets" type="array" %}
+                        {% argument name="fieldset4" type="array" %}
+                            {% argument name="fields" type="array" %}
+                                {% argument name="urlKey" type="array" %}
+                                    {% argument name="type" type="string" %}text{% endArgument %}
+                                    {% argument name="label" type="string" %}URL Key{% endArgument %}
+                                    {% argument name="placeholder" type="string" %}URL Key{% endArgument %}
+                                {% endArgument %}
+                                {% argument name="metaTitle" type="array" %}
+                                    {% argument name="type" type="string" %}text{% endArgument %}
+                                    {% argument name="label" type="string" %}Meta Title{% endArgument %}
+                                    {% argument name="placeholder" type="string" %}Meta Title{% endArgument %}
+                                {% endArgument %}
+                                {% argument name="metaKeywords" type="array" %}
+                                    {% argument name="type" type="string" %}textArea{% endArgument %}
+                                    {% argument name="label" type="string" %}Meta Keywords{% endArgument %}
+                                    {% argument name="placeholder" type="string" %}Meta Keywords{% endArgument %}
+                                {% endArgument %}
+                                {% argument name="metaDescription" type="array" %}
+                                    {% argument name="type" type="string" %}textArea{% endArgument %}
+                                    {% argument name="label" type="string" %}Meta Description{% endArgument %}
+                                    {% argument name="placeholder" type="string" %}Meta Description{% endArgument %}
+                                {% endArgument %}
+                            {% endArgument %}
+                        {% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+            {% endBlock %}
+        {% endBlock %}
+        {% block name="posts" class="ProgramCms\\UiBundle\\Block\\Collapser\\Collapser" %}
+            {% arguments %}
+                {% argument name="name" type="string" %}posts{% endArgument %}
+                {% argument name="label" type="string" %}Posts{% endArgument %}
+                {% argument name="open" type="boolean" %}false{% endArgument %}
+            {% endArguments %}
+            {% block name="postsGrid" class="ProgramCms\\UiBundle\\Block\\Grid\\Grid" %}
+                {% arguments %}
+                    {% argument name="dataProvider" type="array" %}
+                        {% argument name="class" type="string" %}ProgramCms\\PostBundle\\Model\\Provider\\PostDataProvider{% endArgument %}
+                        {% argument name="primaryFieldName" type="string" %}entity_id{% endArgument %}
+                        {% argument name="requestFieldName" type="string" %}id{% endArgument %}
+                    {% endArgument %}
+                    {% argument name="columns" type="array" %}
+                        {% argument name="id" type="array" %}
+                            {% argument name="label" type="string" %}#{% endArgument %}
+                            {% argument name="dataScope" type="string" %}entity_id{% endArgument %}
+                        {% endArgument %}
+                        {% argument name="title" type="array" %}
+                            {% argument name="label" type="string" %}Title{% endArgument %}
+                            {% argument name="dataScope" type="string" %}title{% endArgument %}
+                        {% endArgument %}
+                        {% argument name="websiteView" type="array" %}
+                            {% argument name="label" type="string" %}Website View{% endArgument %}
+                            {% argument name="dataScope" type="string" %}entity_id{% endArgument %}
+                        {% endArgument %}
+                        {% argument name="user" type="array" %}
+                            {% argument name="label" type="string" %}User{% endArgument %}
+                            {% argument name="dataScope" type="string" %}account_id{% endArgument %}
+                        {% endArgument %}
+                        {% argument name="status" type="array" %}
+                            {% argument name="label" type="string" %}Status{% endArgument %}
+                            {% argument name="dataScope" type="string" %}status{% endArgument %}
+                        {% endArgument %}
+                        {% argument name="actionsColumn" type="array" %}
+                            {% argument name="label" type="string" %}Actions{% endArgument %}
+                            {% argument name="class" type="string" %}ProgramCms\\PostBundle\\Ui\\Component\\Listing\\Column\\CategoryListingActions{% endArgument %}
+                        {% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+            {% endBlock %}
+        {% endBlock %}
+    {% endReferenceContainer %}
+{% endPage %}

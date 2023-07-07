@@ -13,11 +13,11 @@
 
     {% referenceContainer name="buttons.bar" %}
         {% block name="website.switcher" class="ProgramCms\\UiBundle\\Block\\Toolbar\\WebsiteSwitcher" template="@ProgramCmsUiBundle/toolbar/website_switcher.html.twig" %}{% endBlock %}
-        {% block name="toolbar.actions" class="ProgramCms\\ConfigBundle\\Block\\ToolbarActions" template="@ProgramCmsUiBundle/toolbar/toolbar_buttons.html.twig" %}{% endBlock %}
+        {% block name="toolbar.actions" class="ProgramCms\\ConfigBundle\\Block\\Toolbar\\ToolbarActions" template="@ProgramCmsUiBundle/toolbar/toolbar_buttons.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}
 
     {% referenceContainer name="sidebar.main" %}
-        {% block name="config.menu.block" class="ProgramCms\\ConfigBundle\\Block\\Configuration" template="@ProgramCmsConfigBundle/config_menu.html.twig" %}{% endBlock %}
+        {% block name="config.menu.block" class="ProgramCms\\ConfigBundle\\Block\\ConfigTabs" template="@ProgramCmsConfigBundle/config_menu.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}
 
     {% referenceContainer name="content" %}

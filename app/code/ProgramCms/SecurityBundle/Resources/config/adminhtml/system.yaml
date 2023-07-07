@@ -35,7 +35,7 @@ system_config:
               label: 'Locale'
               type: 'select'
               source: ProgramCms\UiBundle\Model\Provider\DataSource\TimeZoneSelector
-    web:
+    google_recaptcha:
       label: 'Google reCAPTCHA'
       tab: 'core_security'
       groups:

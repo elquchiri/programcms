@@ -6,7 +6,12 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<select name="{{ block.getName() }}" class="form-select" id="{{ block.getName() }}">
+<select
+    name="{{ block.getName() }}"
+    class="form-select {% if block.isMultiSelect() %}multiselect{% endif %}"
+    id="{{ block.getName() }}"
+    {% if block.isMultiSelect() %}multiple{% endif %}
+>
     {% for optionKey, option in block.getOptions() %}
         <option value="{{ optionKey }}">{{ option }}</option>
     {% endfor %}

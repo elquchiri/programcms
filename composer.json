@@ -51,7 +51,7 @@
             "ProgramCms\\ContentBundle\\": "app/code/ProgramCms/ContentBundle",
             "ProgramCms\\PostBundle\\": "app/code/ProgramCms/PostBundle",
             "ProgramCms\\WebsiteBundle\\": "app/code/ProgramCms/WebsiteBundle",
-            "ProgramCms\\CategoryBundle\\": "app/code/ProgramCms/CategoryBundle",
+            "ProgramCms\\CatalogBundle\\": "app/code/ProgramCms/CatalogBundle",
             "ProgramCms\\EavBundle\\": "app/code/ProgramCms/EavBundle",
             "ProgramCms\\UiBundle\\": "app/code/ProgramCms/UiBundle",
             "ProgramCms\\ConfigBundle\\": "app/code/ProgramCms/ConfigBundle",

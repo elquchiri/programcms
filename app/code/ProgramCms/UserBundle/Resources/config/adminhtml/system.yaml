@@ -1,9 +1,9 @@
-# /*
+##
 #  Copyright © ProgramCMS. All rights reserved.
 #  See COPYING.txt for license details.
 #
 #  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
-# */
+##
 system_config:
   tab:
     id: 'user'
@@ -17,11 +17,11 @@ system_config:
           label: 'Login Options'
           fields:
             redirect_user_after_login:
-              type: 'yesno'
+              type: 'switcher'
               label: 'Redirect User to Account Dashboard after Logging in'
               defaultValue: 1
             approve_new_users:
-              type: 'yesno'
+              type: 'switcher'
               label: 'Approve Users on registration before they can Logging in'
         account_sharing:
           label: 'Account Sharing Options'

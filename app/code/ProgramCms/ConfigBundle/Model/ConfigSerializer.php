@@ -111,8 +111,7 @@ class ConfigSerializer
                                             ];
 
                                             if ($field['type'] == 'select' || $field['type'] == 'multiselect') {
-                                                $source = new \ReflectionClass($field['source']);
-                                                $this->configs['current_section']['groups'][$groupId]['fields'][$fieldId]['source'] = $source->newInstance()->getOptionsArray();
+                                                $this->configs['current_section']['groups'][$groupId]['fields'][$fieldId]['sourceModel'] = $field['source'];
                                             }
                                         }
                                     }
@@ -145,9 +144,9 @@ class ConfigSerializer
 
     /**
      * Get Configuration Navigation to render
-     * @return mixed
+     * @return array
      */
-    public function getConfigNavigation()
+    public function getConfigNavigation(): array
     {
         return $this->configs['tabs'];
     }

@@ -7,5 +7,13 @@
  */
 #}
 <div class="form-check form-switch pt-1">
-    <input class="form-check-input ef-checkbox-switcher" name="{{ block.getName() }}" type="checkbox" role="switch" id="{{ block.getName() }}">
+    <input type="hidden" name="{{ block.getName() }}" value="off"/>
+    <input
+        class="form-check-input ef-checkbox-switcher"
+        name="{{ block.getName() }}"
+        type="checkbox"
+        role="switch"
+        id="{{ block.getName() }}"
+        {% if block.hasValue() and block.getValue() == 'on' %}checked{% endif %}
+    >
 </div>

@@ -6,11 +6,11 @@
  */
 $(function() {
     $('.ef-toolbar-btn').click(function(e) {
-        let btnType = $(this).data('ef-btn-type');
-        let action = $(this).data('ef-btn-action');
+        let btnType = $(this).data('btn-type');
+        let action = $(this).data('btn-action');
 
         if(btnType == 'save') {
-            let btnTarget = $(this).data('ef-btn-target');
+            let btnTarget = $(this).data('btn-target');
 
             $('form#' + btnTarget)
                 .attr('action', action)

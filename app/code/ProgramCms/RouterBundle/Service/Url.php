@@ -25,11 +25,19 @@ class Url
         $this->urlGenerator = $urlGenerator;
     }
 
+    /**
+     * @return string
+     */
     public function getBaseUrl(): string
     {
         return $this->urlGenerator->generate('', [], UrlGeneratorInterface::ABSOLUTE_URL);
     }
 
+    /**
+     * @param $routeName
+     * @param array $params
+     * @return string
+     */
     public function getUrlByRouteName($routeName, $params = [])
     {
         $urlParams = "";

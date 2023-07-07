@@ -8,6 +8,7 @@
 
 namespace ProgramCms\AiBundle\Decorator\Block\Page;
 
+use Exception;
 use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
 use Symfony\Component\DependencyInjection\Attribute\MapDecorated;
 
@@ -37,12 +38,13 @@ class Copyright extends \ProgramCms\AdminBundle\Block\Page\Copyright
     /**
      * After Decorator
      * @return string
+     * @throws Exception
      */
     public function toHtml(): string
     {
         $copyRightHtmlOutput = $this->_toHtml();
         if(($yearsOfExistence = $this->subject->getCopyrightYear() - self::PROGRAMCMS_BIRTHDAY) >= 1) {
-            $copyRightHtmlOutput .= sprintf("<p>%s Year%s Of Existence</p>", $yearsOfExistence, $yearsOfExistence > 1 ? "s" : "");
+            $copyRightHtmlOutput .= sprintf("<p class=\"mt-1\" style=\"font-size: 11px; font-weight: bold;\">%s Year%s Of Existence, by <a href=\"mailto: elquchiri@gmail.com\">Med E.</a></p>", $yearsOfExistence, $yearsOfExistence > 1 ? "s" : "");
         }
 
         return $copyRightHtmlOutput;

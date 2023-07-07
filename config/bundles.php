@@ -19,7 +19,7 @@ return [
     ProgramCms\WebsiteBundle\ProgramCmsWebsiteBundle::class => ['all' => true],
     ProgramCms\CmsBundle\ProgramCmsCmsBundle::class => ['all' => true],
     ProgramCms\ContentBundle\ProgramCmsContentBundle::class => ['all' => true],
-    ProgramCms\CategoryBundle\ProgramCmsCategoryBundle::class => ['all' => true],
+    ProgramCms\CatalogBundle\ProgramCmsCatalogBundle::class => ['all' => true],
     ProgramCms\PostBundle\ProgramCmsPostBundle::class => ['all' => true],
     ProgramCms\UserBundle\ProgramCmsUserBundle::class => ['all' => true],
     ProgramCms\ForumBundle\ProgramCmsForumBundle::class => ['all' => true],

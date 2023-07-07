@@ -53,6 +53,27 @@ abstract class AbstractBlock extends \ProgramCms\CoreBundle\Model\DataObject imp
     }
 
     /**
+     * @param Layout $layout
+     * @return $this
+     */
+    public function setLayout(Layout $layout): static
+    {
+        $this->layout = $layout;
+        $this->_prepareLayout();
+        return $this;
+    }
+
+    /**
+     * Preparing global layout
+     * You can redefine this method in child classes for changing layout
+     * @return $this
+     */
+    protected function _prepareLayout()
+    {
+        return $this;
+    }
+
+    /**
      * Set current block's name in layout
      * @param $name
      */
@@ -149,5 +170,47 @@ abstract class AbstractBlock extends \ProgramCms\CoreBundle\Model\DataObject imp
     public function setAttribute($name, $value = null): static
     {
         return $this->setData($name, $value);
+    }
+
+    /**
+     * Set Child Block
+     * @param $alias
+     * @param $block
+     * @return $this
+     * @throws Exception
+     */
+    public function setChild($alias, $block)
+    {
+        $layout = $this->getLayout();
+        if (!$layout) {
+            return $this;
+        }
+        $thisName = $this->getNameInLayout();
+        if ($layout->getChildName($thisName, $alias)) {
+            $this->unsetChild($alias);
+        }
+        if ($block instanceof self) {
+            $block = $block->getNameInLayout();
+        }
+
+        $layout->setChild($thisName, $block, $alias);
+
+        return $this;
+    }
+
+    /**
+     * Unset child block
+     *
+     * @param  string $alias
+     * @return $this
+     */
+    public function unsetChild($alias)
+    {
+        $layout = $this->getLayout();
+        if (!$layout) {
+            return $this;
+        }
+        $layout->unsetChild($this->getNameInLayout(), $alias);
+        return $this;
     }
 }

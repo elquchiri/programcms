@@ -590,7 +590,18 @@ class Layout implements LayoutInterface
     }
 
     /**
-     * Get all Blocks instances
+     * @param $parentName
+     * @param $alias
+     * @return $this
+     */
+    public function unsetChild($parentName, $alias): self
+    {
+        $this->structure->unsetChild($parentName, $alias);
+        return $this;
+    }
+
+    /**
+     * Get Layout Block instances
      * @return array
      */
     public function getAllBlocks(): array
@@ -647,6 +658,7 @@ class Layout implements LayoutInterface
         $name = $this->structure->createStructuralElement($name, Element::TYPE_BLOCK);
         $block = $this->_createBlock($type, $name, $arguments);
         $block->setLayout($this);
+        $block->setNameInLayout($name);
         return $block;
     }
 

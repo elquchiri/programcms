@@ -31,6 +31,8 @@ abstract class Field implements FieldInterface
      */
     protected bool $isRequired = false;
 
+    protected $value;
+
     /**
      * @param $name
      * @return mixed|void
@@ -101,6 +103,21 @@ abstract class Field implements FieldInterface
     public function isRequired(): bool
     {
         return $this->isRequired;
+    }
+
+    /**
+     * @param $value
+     */
+    public function setValue($value) {
+        $this->value = $value;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
     }
 
     /**
