@@ -6,7 +6,7 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\CatalogBundle\Controller\Adminhtml\Index;
+namespace ProgramCms\CatalogBundle\Controller\Adminhtml\Category;
 
 use ProgramCms\CatalogBundle\Repository\CategoryRepository;
 

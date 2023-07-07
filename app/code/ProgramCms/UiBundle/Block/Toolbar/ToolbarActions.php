@@ -14,7 +14,14 @@ namespace ProgramCms\UiBundle\Block\Toolbar;
  */
 class ToolbarActions extends \ProgramCms\CoreBundle\View\Element\Template
 {
+    /**
+     * @var string
+     */
+    protected string $_template = "@ProgramCmsUiBundle/toolbar/toolbar_buttons.html.twig";
 
+    /**
+     * @return array
+     */
     public function getButtons(): array
     {
         return [];

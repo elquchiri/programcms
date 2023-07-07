@@ -35,8 +35,8 @@ system_config:
               label: 'Locale'
               type: 'select'
               source: ProgramCms\UiBundle\Model\Provider\DataSource\TimeZoneSelector
-    web:
-      label: 'Web'
+    comments:
+      label: 'Comments'
       tab: 'core_post'
       groups:
         country_options:

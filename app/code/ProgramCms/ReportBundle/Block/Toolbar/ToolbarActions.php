@@ -29,7 +29,7 @@ class ToolbarActions extends \ProgramCms\UiBundle\Block\Toolbar\ToolbarActions
     public function getButtons(): array
     {
         return [
-            ["buttonType" => "save", "buttonTarget" => "programcms_config", "buttonAction" => $this->url->getUrlByRouteName("adminhtml_category_index_save"), "label" => "Reload Data"]
+            ["buttonType" => "save", "buttonTarget" => "programcms_config", "buttonAction" => "", "label" => "Reload Data"]
         ];
     }
 }

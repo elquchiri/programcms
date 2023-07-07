@@ -6,21 +6,16 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\CatalogBundle\Controller\Adminhtml\Index;
+namespace ProgramCms\CatalogBundle\Controller\Adminhtml\Category;
 
 use ProgramCms\CatalogBundle\Repository\CategoryRepository;
-use ProgramCms\CoreBundle\Model\ObjectManager;
 
 /**
- * Class EditController
+ * Class CreateWithParentController
  * @package ProgramCms\CatalogBundle\Controller\Adminhtml\Index
  */
-class EditController extends \ProgramCms\CoreBundle\Controller\Controller
+class CreateWithParentController extends \ProgramCms\CoreBundle\Controller\Controller
 {
-    /**
-     * @var ObjectManager
-     */
-    protected ObjectManager $objectManager;
     /**
      * @var CategoryRepository
      */
@@ -29,22 +24,18 @@ class EditController extends \ProgramCms\CoreBundle\Controller\Controller
     public function __construct(
         \ProgramCms\RouterBundle\Service\Request $request,
         \ProgramCms\RouterBundle\Service\Response $response,
-        CategoryRepository $categoryRepository,
-        ObjectManager $objectManager
+        CategoryRepository $categoryRepository
     )
     {
         parent::__construct($request, $response);
         $this->categoryRepository = $categoryRepository;
-        $this->objectManager = $objectManager;
     }
 
     /**
-     * @return mixed|object|null
+     * @return mixed|void
      */
     public function execute()
     {
-        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
-        $pageResult->getConfig()->getTitle()->set("Edit Category");
-        return $pageResult;
+
     }
 }

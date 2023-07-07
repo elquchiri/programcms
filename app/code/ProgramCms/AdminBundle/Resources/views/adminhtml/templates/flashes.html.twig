@@ -9,15 +9,15 @@
 {% for label, messages in app.flashes %}
     {% for message in messages %}
         {% if label == 'success' %}
-            <div class="alert alert-success" role="alert">
+            <div class="alert flash-message alert-success flash-message-success" role="alert">
                 {{ message }}
             </div>
         {% elseif label == 'danger' %}
-            <div class="alert alert-danger" role="alert">
+            <div class="alert flash-message alert-danger flash-message-danger" role="alert">
                 {{ message }}
             </div>
         {% else %}
-            <div class="alert alert-secondary" role="alert">
+            <div class="alert flash-message alert-secondary" role="alert">
                 {{ message }}
             </div>
         {% endif %}

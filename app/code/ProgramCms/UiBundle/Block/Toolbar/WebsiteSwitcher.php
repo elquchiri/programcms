@@ -8,8 +8,11 @@
 
 namespace ProgramCms\UiBundle\Block\Toolbar;
 
-
+/**
+ * Class WebsiteSwitcher
+ * @package ProgramCms\UiBundle\Block\Toolbar
+ */
 class WebsiteSwitcher extends \ProgramCms\CoreBundle\View\Element\Template
 {
-
+    protected string $_template = "@ProgramCmsUiBundle/toolbar/website_switcher.html.twig";
 }

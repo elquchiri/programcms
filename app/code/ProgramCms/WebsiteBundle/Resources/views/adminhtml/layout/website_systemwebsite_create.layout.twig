@@ -8,8 +8,8 @@
 #}
 {% page %}
     {% referenceContainer name="buttons.bar" %}
-        {% block name="website.switcher" class="ProgramCms\\UiBundle\\Block\\Toolbar\\WebsiteSwitcher" template="@ProgramCmsUiBundle/toolbar/website_switcher.html.twig" %}{% endBlock %}
-        {% block name="toolbar.actions" class="ProgramCms\\WebsiteBundle\\Block\\Toolbar\\CreateToolbarActions" template="@ProgramCmsUiBundle/toolbar/toolbar_buttons.html.twig" %}{% endBlock %}
+        {% block name="website.switcher" class="ProgramCms\\UiBundle\\Block\\Toolbar\\WebsiteSwitcher" %}{% endBlock %}
+        {% block name="toolbar.actions" class="ProgramCms\\WebsiteBundle\\Block\\Toolbar\\CreateToolbarActions" %}{% endBlock %}
     {% endReferenceContainer %}
 
     {% referenceContainer name="content" %}

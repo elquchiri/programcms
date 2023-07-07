@@ -14,9 +14,17 @@ namespace ProgramCms\UiBundle\Block\Form;
  */
 class Form extends \ProgramCms\CoreBundle\View\Element\Template
 {
+    /**
+     * @var string
+     */
     protected string $_template = "@ProgramCmsUiBundle/form/form.html.twig";
-
+    /**
+     * @var \ProgramCms\CoreBundle\Model\Utils\BundleManager
+     */
     protected \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager;
+    /**
+     * @var \ProgramCms\CoreBundle\Model\ObjectManager
+     */
     protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
 
     public function __construct(
