@@ -44,7 +44,7 @@ class Copyright extends \ProgramCms\AdminBundle\Block\Page\Copyright
     {
         $copyRightHtmlOutput = $this->_toHtml();
         if(($yearsOfExistence = $this->subject->getCopyrightYear() - self::PROGRAMCMS_BIRTHDAY) >= 1) {
-            $copyRightHtmlOutput .= sprintf("<p class=\"mt-1\" style=\"font-size: 11px; font-weight: bold;\">%s Year%s Of Existence, by <a href=\"mailto: elquchiri@gmail.com\">Med E.</a></p>", $yearsOfExistence, $yearsOfExistence > 1 ? "s" : "");
+            $copyRightHtmlOutput .= sprintf("<p class=\"mt-1\" style=\"font-size: 11px; font-weight: bold;\">%s Year%s Of Existence, by <a href=\"mailto: elquchiri@gmail.com\">Med ELQ.</a></p>", $yearsOfExistence, $yearsOfExistence > 1 ? "s" : "");
         }
 
         return $copyRightHtmlOutput;

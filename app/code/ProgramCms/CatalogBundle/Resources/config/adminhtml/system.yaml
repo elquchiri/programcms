@@ -35,29 +35,3 @@ system_config:
               label: 'Locale'
               type: 'select'
               source: ProgramCms\UiBundle\Model\Provider\DataSource\TimeZoneSelector
-    web:
-      label: 'Web'
-      tab: 'core_category'
-      groups:
-        country_options:
-          label: 'Country Options'
-          fields:
-            default_country:
-              label: 'Default Country'
-              type: 'select'
-              source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
-            allowed_countries:
-              label: 'Allow Countries'
-              type: 'multiselect'
-              source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
-        local_options:
-          label: 'Locale Options'
-          fields:
-            timezone:
-              label: 'Timezone'
-              type: 'select'
-              source: ProgramCms\UiBundle\Model\Provider\DataSource\TimeZoneSelector
-            locale:
-              label: 'Locale'
-              type: 'select'
-              source: ProgramCms\UiBundle\Model\Provider\DataSource\TimeZoneSelector

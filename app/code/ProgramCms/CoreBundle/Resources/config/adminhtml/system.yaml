@@ -8,6 +8,7 @@ system_config:
   tab:
     id: 'core_advanced'
     label: 'Advanced'
+    sortOrder: 99999
   sections:
     system:
       label: 'System'

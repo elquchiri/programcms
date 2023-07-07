@@ -18,7 +18,7 @@ class ConfigSerializer
      * Stores Hole Merged Configuration
      * @var array
      */
-    private $configs;
+    private array $configs;
     /**
      * Holds current sectionId in URL
      * @var
@@ -28,6 +28,9 @@ class ConfigSerializer
      * @var \Symfony\Component\DependencyInjection\Container
      */
     private $container;
+    /**
+     * @var Config
+     */
     private Config $config;
 
 
@@ -37,7 +40,7 @@ class ConfigSerializer
     )
     {
         $this->configs = [];
-        $this->sectionId = null;
+        $this->sectionId = "";
         $this->container = $container;
         $this->config = $config;
     }
@@ -67,7 +70,10 @@ class ConfigSerializer
                 if (isset($config['tab'])) {
                     if (isset($config['tab']['id']) && isset($config['tab']['label'])) {
                         $tabId = $config['tab']['id'];
-                        $this->configs['tabs'][$tabId] = ['label' => $config['tab']['label']];
+                        $this->configs['tabs'][$tabId] = [
+                            'label' => $config['tab']['label'],
+                            'sortOrder' => $config['tab']['sortOrder'] ?? 999
+                        ];
                     }
                 }
 
@@ -75,7 +81,7 @@ class ConfigSerializer
                     foreach ($config['sections'] as $sectionId => $section) {
                         // If no sectionId defined, get the first one as default
                         // Globally used with index action, so we pick the default section
-                        if (!isset($this->sectionId)) {
+                        if (empty($this->sectionId)) {
                             $this->sectionId = $sectionId;
                         }
                         if (isset($section['tab'])) {
@@ -148,7 +154,7 @@ class ConfigSerializer
      */
     public function getConfigNavigation(): array
     {
-        return $this->configs['tabs'];
+        return $this->_sortArrayByKey($this->configs['tabs'], 'sortOrder', 'asc');
     }
 
     /**
@@ -158,5 +164,21 @@ class ConfigSerializer
     public function getCurrenSectionGroups(): array
     {
         return $this->configs['current_section']['groups'] ?? [];
+    }
+
+    private function _sortArrayByKey($array, $key, $sortOrder) {
+        usort($array, function($a, $b) use ($key, $sortOrder) {
+            if ($a[$key] == $b[$key]) {
+                return 0;
+            }
+
+            if ($sortOrder === 'asc') {
+                return ($a[$key] < $b[$key]) ? -1 : 1;
+            } else if ($sortOrder === 'desc') {
+                return ($a[$key] > $b[$key]) ? -1 : 1;
+            }
+        });
+
+        return $array;
     }
 }

@@ -32,6 +32,7 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->scalarNode('id')->end()
                         ->scalarNode('label')->end()
+                        ->scalarNode('sortOrder')->end()
                     ->end()
                 ->end()
                 ->arrayNode('sections')

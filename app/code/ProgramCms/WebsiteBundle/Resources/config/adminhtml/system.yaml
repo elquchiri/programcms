@@ -8,6 +8,7 @@ system_config:
   tab:
     id: 'core_general'
     label: 'General'
+    sortOrder: 0
   sections:
     general:
       label: 'General'
