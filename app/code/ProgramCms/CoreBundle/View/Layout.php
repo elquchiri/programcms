@@ -424,6 +424,21 @@ class Layout implements LayoutInterface
     }
 
     /**
+     * @param string $pageLayout
+     * @param array $pageLayouts
+     */
+    private function _removePageLayout(string $pageLayout, array &$pageLayouts)
+    {
+        $pageLayoutArray = $pageLayouts[$pageLayout];
+        if(isset($pageLayoutArray['handlers'])) {
+            foreach($pageLayoutArray['handlers'] as $handler) {
+                $this->_removePageLayout($handler, $pageLayouts);
+            }
+        }
+        unset($pageLayouts[$pageLayout]);
+    }
+
+    /**
      * Clean Unused Page Layout containers in the structure
      */
     private function _cleanUnusedPageLayoutContainers(): void
@@ -431,13 +446,8 @@ class Layout implements LayoutInterface
         $currentPageLayout = $this->elementsWithFileName[$this->currentPageLayout];
         $pageLayouts = $this->elementsWithFileName;
         if(isset($currentPageLayout['handlers'])) {
-            foreach ($currentPageLayout['handlers'] as $key => $layout) {
-                if(isset($this->elementsWithFileName[$layout]['handlers'])) {
-                    foreach ($this->elementsWithFileName[$layout]['handlers'] as $handle) {
-                        unset($pageLayouts[$handle]);
-                    }
-                }
-                unset($pageLayouts[$layout]);
+            foreach($currentPageLayout['handlers'] as $layout) {
+                $this->_removePageLayout($layout, $pageLayouts);
             }
         }
         unset($pageLayouts[$this->currentPageLayout]);
