@@ -2,7 +2,7 @@
     position: fixed;
     left: 0;
     top: 0;
-    width: 100px;
+    width: 91px;
     height: 100%;
     background-color: #373330;
     color: white;
@@ -56,7 +56,7 @@
 
 .menu-items {
     position: fixed;
-    left: 100px;
+    left: 91px;
     top: 0;
     width: 270px;
     min-height: 100%;

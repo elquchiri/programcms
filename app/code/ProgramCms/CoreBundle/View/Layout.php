@@ -132,12 +132,15 @@ class Layout implements LayoutInterface
      * Add Block to structure
      * @throws Exception
      */
-    public function addBlock($name, $class, $blockTemplate = '', $parent = '', $before = '', $after = ''): ?object
+    public function addBlock($name, $class, $blockTemplate = '', $parent = '', $before = '', $after = '', $arguments = ''): ?object
     {
         $data = [];
         $data['before'] ??= $before;
         $data['after'] ??= $after;
         $block = $this->_createBlock($class, $name, ['template' => $blockTemplate]);
+        if(!empty($arguments)) {
+            $block->addData(json_decode($arguments, true));
+        }
         $name = $this->structure->createStructuralElement(
             $name,
             Element::TYPE_BLOCK,
@@ -152,22 +155,12 @@ class Layout implements LayoutInterface
         $block->setTemplateContext($block);
 
         if(!empty($before)) {
-            $this->reorderChild($parent, $name, $before, false);
+            $this->addElementToMove($name, $parent, $before, '');
         }else if(!empty($after)) {
-            $this->reorderChild($parent, $name, $before);
+            $this->addElementToMove($name, $parent, '', $after);
         }
 
         return $block;
-    }
-
-    /**
-     * @param $blockName
-     * @param $arguments
-     */
-    public function setArguments($blockName, $arguments)
-    {
-        $block = $this->getBlock($blockName);
-        $block->setData(json_decode($arguments, true));
     }
 
     /**
@@ -187,11 +180,10 @@ class Layout implements LayoutInterface
         if ($parent) {
             $this->structure->setAsChild($name, $parent);
         }
-
         if(!empty($before)) {
-            $this->reorderChild($parent, $name, $before, false);
+            $this->addElementToMove($name, $parent, $before, '');
         }else if(!empty($after)) {
-            $this->reorderChild($parent, $name, $before);
+            $this->addElementToMove($name, $parent, '', $after);
         }
 
         return $this;
@@ -215,7 +207,7 @@ class Layout implements LayoutInterface
             $isAfter = true;
         }
         try {
-            $this->structure->setAsChild($element, $destination, $alias);
+            $this->structure->setAsChild($element, $destination);
             $this->structure->reorderChildElement($destination, $element, $siblingName, $isAfter);
         } catch (\OutOfBoundsException $e) {
             // Log 'Broken reference: ' . $e->getMessage()
@@ -514,11 +506,11 @@ class Layout implements LayoutInterface
     public function _createBlock($blockClass, string $name, array $arguments = []): ?object
     {
         // Get Block instance from Container class
-        //$blockClassInstance = $this->objectManager->create($blockClass);
         $blockClassInstance = $this->objectManager->create($blockClass);
 
-        if(isset($arguments['arguments'])) {
-            $blockClassInstance->setData($arguments['arguments']);
+        if(!empty($arguments)) {
+            // Init block's arguments in construction step
+            $blockClassInstance->setData($arguments);
         }
         if(isset($arguments['template']) && !empty($arguments['template'])) {
             $blockClassInstance->setTemplate($arguments['template']);
@@ -555,11 +547,10 @@ class Layout implements LayoutInterface
     /**
      * @param string $parentName
      * @param string $elementName
-     * @param string $alias
      * @return $this
      * @throws Exception
      */
-    public function setChild(string $parentName, string $elementName, string $alias): static
+    public function setChild(string $parentName, string $elementName): static
     {
         $this->structure->setAsChild($elementName, $parentName);
         return $this;
@@ -667,7 +658,7 @@ class Layout implements LayoutInterface
     {
         $name = $this->structure->createStructuralElement($name, Element::TYPE_BLOCK);
         $block = $this->_createBlock($type, $name, $arguments);
-        $block->setLayout($this);
+        $block->setTemplateContext($block);
         $block->setNameInLayout($name);
         return $block;
     }

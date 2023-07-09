@@ -9,14 +9,13 @@
 namespace ProgramCms\UiBundle\Block\Form\Fields;
 
 /**
- * Class ImageUploader
+ * Class PlainText
  * @package ProgramCms\UiBundle\Block\Form\Fields
  */
-class ImageUploader extends \ProgramCms\UiBundle\Block\Form\Fields\Field
+class PlainText extends \ProgramCms\UiBundle\Block\Form\Fields\Field
 {
     /**
      * @var string
      */
-    protected string $_template = "@ProgramCmsUiBundle/form/fields/image_uploader.html.twig";
-
+    protected string $_template = "@ProgramCmsUiBundle/form/fields/plain_text.html.twig";
 }

@@ -9,7 +9,7 @@ $(function() {
     let activeMenuItem = null;
     let activeMenuItemId = null;
 
-    let leftPixels = 100;
+    let leftPixels = 91;
     let sideBarWidth = 270;
 
     $('.sidebar ul li a').click(function(e) {

@@ -8,7 +8,8 @@
 #}
 <ul class="nav nav-tabs grid-filters-tabs justify-content-end" role="tablist">
     <li class="nav-item">
-        <a class="nav-link" id="filters-tab" data-bs-toggle="tab" data-bs-target="#filters" type="button" role="tab" aria-controls="filters" aria-selected="true" href="#">
+        <a class="nav-link" id="filters-tab" data-bs-toggle="tab" data-bs-target="#filters" type="button" role="tab"
+           aria-controls="filters" aria-selected="true" href="#">
             <img src="{{ asset('bundles/programcmsui/images/filters.png') }}"/>
             Filters
         </a>
@@ -19,7 +20,9 @@
             <li><a class="dropdown-item" href="#">Action</a></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
-            <li><hr class="dropdown-divider"></li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
             <li><a class="dropdown-item" href="#">Separated link</a></li>
         </ul>
     </li>
@@ -38,8 +41,10 @@
                     <div class="mt-3">
                         <label for="exampleInputEmail1" class="form-label">#ID</label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="From" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            <input type="text" class="form-control" placeholder="To" aria-label="Username" aria-describedby="basic-addon1">
+                            <input type="text" class="form-control" placeholder="From" id="exampleInputEmail1"
+                                   aria-describedby="emailHelp">
+                            <input type="text" class="form-control" placeholder="To" aria-label="Username"
+                                   aria-describedby="basic-addon1">
                         </div>
                     </div>
                 </div>
@@ -78,11 +83,12 @@
     </div>
 </div>
 
-<nav class="navbar navbar-expand-lg">
-    <div class="navbar-collapse" id="navbarSupportedContent">
-        <form class="d-flex" role="search" style="margin-right: 11px;">
+
+<form role="search">
+    <div class="row">
+        <div class="col-sm-5">
             <div class="input-group">
-                <input type="text" style="width: 300px" class="form-control" placeholder="Search by Keyword .."
+                <input type="text" class="form-control" placeholder="Search by Keyword .."
                        aria-label="Recipient's username" aria-describedby="button-addon2">
                 <button class="btn" type="button" id="button-addon2"
                         style="border: 1px solid #CCC; border-left: 0; padding-top: 0;">
@@ -90,9 +96,10 @@
                          style="width: 15px; height: 15px"/>
                 </button>
             </div>
-        </form>
+        </div>
     </div>
-</nav>
+</form>
+
 
 <nav class="navbar navbar-expand-lg">
     <div class="navbar-collapse" id="navbarSupportedContent">

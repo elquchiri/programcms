@@ -8,6 +8,8 @@
 
 namespace ProgramCms\UiBundle\Block\Form;
 
+use Exception;
+
 /**
  * Class Form
  * @package ProgramCms\UiBundle\Block\Form
@@ -18,94 +20,27 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
      * @var string
      */
     protected string $_template = "@ProgramCmsUiBundle/form/form.html.twig";
-    /**
-     * @var \ProgramCms\CoreBundle\Model\Utils\BundleManager
-     */
-    protected \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager;
-    /**
-     * @var \ProgramCms\CoreBundle\Model\ObjectManager
-     */
-    protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
 
-    public function __construct(
-        \ProgramCms\CoreBundle\View\Element\Template\Context $context,
-        \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager,
-        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager,
-        array $data = []
-    )
+    /**
+     * Get form name in layout
+     * @return string
+     */
+    public function getName(): string
     {
-        parent::__construct($context, $data);
-        $this->bundleManager = $bundleManager;
-        $this->objectManager = $objectManager;
+        return $this->getNameInLayout();
     }
 
     /**
-     * @return array
+     * @return Form|void
+     * @throws Exception
      */
-    public function getFieldSets(): array
+    protected function _prepareLayout()
     {
-        $form = $this->objectManager->create(\ProgramCms\UiBundle\Model\Element\Form\Form::class);
-        foreach($this->getData("fieldSets") as $fieldset) {
-            $fieldsetElement = $this->objectManager->create(\ProgramCms\UiBundle\Model\Element\Form\Fieldset::class);
-            $fields = $fieldset['fields'];
-            foreach($fields as $fieldName => $field) {
-                $fieldElement = null;
-                switch($field['type']) {
-                    case "text":
-                        $fieldElement = $this->objectManager->create(\ProgramCms\UiBundle\Model\Element\Form\Fields\Text::class);
-                        if(isset($field['placeholder'])) {
-                            $fieldElement->setPlaceholder($field['placeholder']);
-                        }
-                        break;
-                    case "textArea":
-                        $fieldElement = $this->objectManager->create(\ProgramCms\UiBundle\Model\Element\Form\Fields\TextArea::class);
-                        if(isset($field['placeholder'])) {
-                            $fieldElement->setPlaceholder($field['placeholder']);
-                        }
-                        break;
-                    case "password":
-                        $fieldElement = $this->objectManager->create(\ProgramCms\UiBundle\Model\Element\Form\Fields\Password::class);
-                        if(isset($field['placeholder'])) {
-                            $fieldElement->setPlaceholder($field['placeholder']);
-                        }
-                        break;
-                    case "select":
-                    case "multiselect":
-                        $fieldElement = $this->objectManager->create(\ProgramCms\UiBundle\Model\Element\Form\Fields\Select::class);
-                        if($field['type'] == 'multiselect') {
-                            $fieldElement->setMultiSelect(true);
-                        }
-                        $fieldElement->setOptions(
-                            $this->bundleManager->getContainer()
-                                ->get($field['sourceModel'])
-                                ->getOptionsArray()
-                        );
-                        break;
-                    case "switcher":
-                        $fieldElement = $this->objectManager->create(\ProgramCms\UiBundle\Model\Element\Form\Fields\Switcher::class);
-                        break;
-                    case "imageUploader":
-                        $fieldElement = $this->objectManager->create(\ProgramCms\UiBundle\Model\Element\Form\Fields\ImageUploader::class);
-                        break;
-                }
-                // Common attributes
-                $fieldElement->setLabel($field['label']);
-                $fieldElement->setName($fieldName);
-                if(isset($field['helpMessage'])) {
-                    $fieldElement->setHelpMessage($field['helpMessage']);
-                }
-                if(isset($field['isRequired'])) {
-                    $fieldElement->setIsRequired($field['isRequired']);
-                }
-                if(isset($field['value'])) {
-                    $fieldElement->setValue($field['value']);
-                }
-                $fieldsetElement->addField($fieldElement);
-            }
-
-            $form->addFieldset($fieldsetElement);
+        $layout = $this->getLayout();
+        if($this->hasData('buttons')) {
+            $toolbarActions = $layout->createBlock(\ProgramCms\UiBundle\Block\Toolbar\ToolbarActions::class, 'toolbar.actions', $this->getData('buttons'));
+            $layout->setChild('buttons.bar', $toolbarActions->getNameInLayout());
+            $toolbarActions->setLayout($layout);
         }
-
-        return $form->getFieldSets();
     }
 }

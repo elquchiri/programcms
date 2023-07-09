@@ -10,8 +10,7 @@
     name="{{ block.getName() }}"
     class="form-select {% if block.isMultiSelect() %}multiselect{% endif %}"
     id="{{ block.getName() }}"
-    {% if block.isMultiSelect() %}multiple{% endif %}
->
+    {% if block.isMultiSelect() == true %}multiple{% endif %}>
     {% for optionKey, option in block.getOptions() %}
         <option value="{{ optionKey }}">{{ option }}</option>
     {% endfor %}

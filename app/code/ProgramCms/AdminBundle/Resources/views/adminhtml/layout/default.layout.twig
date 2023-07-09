@@ -36,7 +36,7 @@
             {% endContainer %}
             {% container name="footer.legal.system" htmlTag="div" htmlClass="col-md-6 text-end" %}
                 {% block name="version" class="ProgramCms\\AdminBundle\\Block\\Page\\Footer" template="@ProgramCmsAdminBundle/footer.html.twig" %}{% endBlock %}
-                {% block name="site.update" class="ProgramCms\\CoreBundle\\View\\Element\\Template" template="@ProgramCmsAdminBundle/site_update.html.twig" %}{% endBlock %}
+                {% block name="site.update" class="ProgramCms\\AdminBundle\\Block\\Legal\\SiteUpdate" template="@ProgramCmsAdminBundle/site_update.html.twig" %}{% endBlock %}
                 {% block name="links" class="ProgramCms\\CoreBundle\\View\\Element\\Template" template="@ProgramCmsAdminBundle/links.html.twig" %}{% endBlock %}
             {% endContainer %}
         {% endContainer %}

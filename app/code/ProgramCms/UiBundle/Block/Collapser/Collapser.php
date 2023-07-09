@@ -14,7 +14,18 @@ namespace ProgramCms\UiBundle\Block\Collapser;
  */
 class Collapser extends \ProgramCms\CoreBundle\View\Element\Template
 {
+    /**
+     * @var string
+     */
     protected string $_template = "@ProgramCmsUiBundle/collapser/collapser.html.twig";
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->getNameInLayout();
+    }
 
     /**
      * @return string
@@ -23,6 +34,7 @@ class Collapser extends \ProgramCms\CoreBundle\View\Element\Template
     {
         return $this->hasData('label') ? $this->getData('label') : "";
     }
+
     /**
      * @return bool
      */
@@ -30,15 +42,17 @@ class Collapser extends \ProgramCms\CoreBundle\View\Element\Template
     {
         return $this->hasData('label');
     }
+
     /**
+     * Detects weather collapser is open
      * @return bool
      */
     public function isOpen(): bool
     {
-        if(!$this->hasLabel()) {
+        if (!$this->hasLabel()) {
             return true;
         }
-        if($this->hasData('open')) {
+        if ($this->hasData('open')) {
             return $this->getData('open');
         }
         return false;

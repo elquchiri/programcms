@@ -12,17 +12,11 @@ namespace ProgramCms\UiBundle\Block\Form\Fields;
  * Class Text
  * @package ProgramCms\UiBundle\Block\Form\Fields
  */
-class TextArea extends \ProgramCms\CoreBundle\View\Element\Template
+class TextArea extends \ProgramCms\UiBundle\Block\Form\Fields\Field
 {
+    /**
+     * @var string
+     */
     protected string $_template = "@ProgramCmsUiBundle/form/fields/textarea.html.twig";
 
-    public function getName()
-    {
-        return $this->getData('name');
-    }
-
-    public function getPlaceholder()
-    {
-        return $this->getData('placeholder');
-    }
 }

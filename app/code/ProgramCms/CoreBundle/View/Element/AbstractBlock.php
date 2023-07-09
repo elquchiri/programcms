@@ -83,6 +83,19 @@ abstract class AbstractBlock extends \ProgramCms\CoreBundle\Model\DataObject imp
     }
 
     /**
+     * Retrieves sorted list of child names
+     * @return array
+     */
+    public function getChildNames(): array
+    {
+        $layout = $this->getLayout();
+        if (!$layout) {
+            return [];
+        }
+        return $layout->getChildNames($this->getNameInLayout());
+    }
+
+    /**
      * Get block's name in layout
      * @return string
      */
@@ -147,9 +160,9 @@ abstract class AbstractBlock extends \ProgramCms\CoreBundle\Model\DataObject imp
 
     /**
      * @param string $alias
-     * @throws InvalidArgumentException
+     * @return false|mixed|AbstractBlock
      */
-    public function getChildBlock(string $alias)
+    public function getChildBlock(string $alias): mixed
     {
         $layout = $this->getLayout();
         if (!$layout) {
@@ -160,6 +173,18 @@ abstract class AbstractBlock extends \ProgramCms\CoreBundle\Model\DataObject imp
             return $layout->getBlock($name);
         }
         return false;
+    }
+
+    /**
+     * @return array
+     */
+    public function getChildBlocks(): array
+    {
+        $layout = $this->getLayout();
+        if (!$layout) {
+            return [];
+        }
+        return $layout->getChildBlocks($this->getNameInLayout());
     }
 
     /**
@@ -179,7 +204,7 @@ abstract class AbstractBlock extends \ProgramCms\CoreBundle\Model\DataObject imp
      * @return $this
      * @throws Exception
      */
-    public function setChild($alias, $block)
+    public function setChild($alias, $block): static
     {
         $layout = $this->getLayout();
         if (!$layout) {
@@ -204,7 +229,7 @@ abstract class AbstractBlock extends \ProgramCms\CoreBundle\Model\DataObject imp
      * @param  string $alias
      * @return $this
      */
-    public function unsetChild($alias)
+    public function unsetChild($alias): static
     {
         $layout = $this->getLayout();
         if (!$layout) {

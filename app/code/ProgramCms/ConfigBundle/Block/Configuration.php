@@ -23,21 +23,20 @@ class Configuration extends \ProgramCms\CoreBundle\View\Element\Template
      */
     protected \ProgramCms\RouterBundle\Service\Request $request;
     /**
-     * @var \ProgramCms\CoreBundle\Model\ObjectManager
+     * @var \ProgramCms\RouterBundle\Service\Url
      */
-    protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
+    private \ProgramCms\RouterBundle\Service\Url $url;
 
     public function __construct(
         \ProgramCms\CoreBundle\View\Element\Template\Context $context,
         \ProgramCms\ConfigBundle\Model\ConfigSerializer $configSerializer,
-        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager,
         array $data = []
     )
     {
         parent::__construct($context, $data);
         $this->configSerializer = $configSerializer;
         $this->request = $context->getRequest();
-        $this->objectManager = $objectManager;
+        $this->url = $context->getUrl();
         // Init Config Serializer
         $this->_initConfigSerializer();
     }
@@ -50,7 +49,6 @@ class Configuration extends \ProgramCms\CoreBundle\View\Element\Template
         if ($this->request->getParam('sectionId')) {
             $this->configSerializer->setSectionId($this->request->getParam('sectionId'));
         }
-
         $this->configSerializer->parseConfig();
     }
 
@@ -69,31 +67,36 @@ class Configuration extends \ProgramCms\CoreBundle\View\Element\Template
     {
         $layout = $this->getLayout();
         $currentSectionGroups = $this->configSerializer->getCurrenSectionGroups();
+        $form = $layout->createBlock(
+            \ProgramCms\UiBundle\Block\Form\Form::class,
+            'form',
+            [
+                'buttons' => [
+                    [
+                        'buttonType' => 'save',
+                        'buttonTarget' => 'form',
+                        'buttonAction' => $this->url->getUrlByRouteName('adminhtml_config_systemconfig_save'),
+                        'label' => 'Save Config'
+                    ]
+                ]
+            ]);
+        $form->setLayout($layout);
         foreach ($currentSectionGroups as $groupId => $group) {
             $collapser = $layout->createBlock(\ProgramCms\UiBundle\Block\Collapser\Collapser::class, 'collapse-' . $groupId);
             $collapser->setData("label", $group['label']);
-            $collapser->setName('collapse-' . $groupId);
-            $collapser->setTemplateContext($collapser);
 
-            $form = $layout->createBlock(\ProgramCms\UiBundle\Block\Form\Form::class, 'form-' . $groupId);
-            $form->setTemplateContext($form);
-            // Field sets
-            $fieldSets = [
-                "fieldSets" => [
-                    "fieldset1" => [
-                        "fields" => []
-                    ]
-                ]
-            ];
+            // Fields
+            $fields = ['fields' => []];
             // Add fields to form
             foreach ($group['fields'] as $fieldId => $field) {
-                $fieldSets['fieldSets']['fieldset1']['fields'][$groupId . '/' . $fieldId] = $field;
+                $fields['fields'][$groupId . '/' . $fieldId] = $field;
             }
-
-            $form->setData($fieldSets);
-            $collapser->setChild('form-' . $groupId, $form);
-            $this->setChild('collapse-' . $groupId, $collapser);
+            $fieldset = $layout->createBlock(\ProgramCms\UiBundle\Block\Form\Fieldset::class, 'fieldset-' . $groupId, $fields);
+            $fieldset->setLayout($layout);
+            $collapser->setChild('fieldset-' . $groupId, $fieldset);
+            $form->setChild('collapse-' . $groupId, $collapser);
         }
+        $this->setChild('form', $form);
     }
 
     /**

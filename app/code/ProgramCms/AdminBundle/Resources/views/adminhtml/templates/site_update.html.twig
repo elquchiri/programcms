@@ -1,4 +1,12 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
 <p class="mt-1" style="font-size: 11px; font-weight: 600; color: #0f5132">
-    This Site is Up-to-Date
+    {{ block.getUpdatePhrase() }}
     <img src="{{ asset('bundles/programcmsadmin/images/updated-site.png') }}" class="mr-3">
 </p>

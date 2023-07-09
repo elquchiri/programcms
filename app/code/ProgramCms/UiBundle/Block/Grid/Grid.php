@@ -14,7 +14,7 @@ namespace ProgramCms\UiBundle\Block\Grid;
  */
 class Grid extends \ProgramCms\CoreBundle\View\Element\Template
 {
-    protected string $_template = "@ProgramCmsUiBundle/grid.html.twig";
+    protected string $_template = "@ProgramCmsUiBundle/grid/grid.html.twig";
 
     protected \ProgramCms\UiBundle\Model\Element\Grid $grid;
 

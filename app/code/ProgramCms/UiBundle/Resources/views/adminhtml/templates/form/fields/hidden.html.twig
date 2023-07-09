@@ -7,10 +7,8 @@
  */
 #}
 <input
-    type="text"
+    type="hidden"
     name="{{ block.getName() }}"
     id="{{ block.getName() }}"
-    class="form-control"
-    {% if block.hasPlaceholder() %}placeholder="{{ block.getPlaceholder() }}"{% endif %}
     {% if block.hasValue() %}value="{{ block.getValue() }}"{% endif %}
     aria-describedby="{{ block.getName() }}"/>

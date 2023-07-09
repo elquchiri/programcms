@@ -12,22 +12,36 @@ namespace ProgramCms\UiBundle\Block\Form\Fields;
  * Class Select
  * @package ProgramCms\UiBundle\Block\Form\Fields
  */
-class Select extends \ProgramCms\CoreBundle\View\Element\Template
+class Select extends \ProgramCms\UiBundle\Block\Form\Fields\Field
 {
+    /**
+     * @var string
+     */
     protected string $_template = "@ProgramCmsUiBundle/form/fields/select.html.twig";
 
-    public function getName()
-    {
-        return $this->getData('name');
-    }
-
-    public function getOptions()
+    /**
+     * @return array
+     */
+    public function getOptions(): array
     {
         return $this->getData('options');
     }
 
-    public function isMultiSelect()
+    /**
+     * @return bool
+     */
+    public function isMultiSelect(): bool
     {
-        return $this->getData('isMultiSelect');
+        return $this->hasData('multiSelect') && $this->getData('multiSelect');
+    }
+
+    /**
+     * @param $multiSelect
+     * @return $this
+     */
+    public function setMultiSelect($multiSelect): static
+    {
+        $this->setData('multiSelect', true);
+        return $this;
     }
 }

@@ -6,35 +6,6 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-
-    {% for fieldset in block.getFieldSets() %}
-        {% for field in fieldset.getFields() %}
-            <div class="row mb-3">
-                <div class="col-3 text-end">
-                    <label for="{{ field.getName() }}" class="col-form-label"
-                           style="font-size: 14px; font-weight: 600;">
-                        {{ field.getLabel() }}
-                        {% if field.isRequired() %}
-                            <span class="text-danger">*</span>
-                        {% endif %}
-                        <div class="text-muted" style="font-size: 11px; font-weight: normal;">[Website View]</div>
-                    </label>
-                </div>
-                <div class="col-6">
-                    {{ field.getHtml()|raw }}
-
-                    {% if field.getHelpMessage() is not empty %}
-                        <div id="{{ field.getName() }}emailHelp" class="form-text">{{ field.getHelpMessage() }}</div>
-                    {% endif %}
-
-                    <div class="mt-2 form-check">
-                        <input type="checkbox" class="form-check-input" id="use_default_{{ field.getName() }}">
-                        <label class="form-check-label" for="use_default_{{ field.getName() }}"
-                               style="font-size: 14px;">
-                            Use default value
-                        </label>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    {% endfor %}
+<form id="{{ block.getName() }}">
+    {{ block.getChildHtml()|raw }}
+</form>

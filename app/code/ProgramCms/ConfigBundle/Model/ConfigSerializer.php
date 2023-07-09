@@ -166,6 +166,12 @@ class ConfigSerializer
         return $this->configs['current_section']['groups'] ?? [];
     }
 
+    /**
+     * @param $array
+     * @param $key
+     * @param $sortOrder
+     * @return mixed
+     */
     private function _sortArrayByKey($array, $key, $sortOrder) {
         usort($array, function($a, $b) use ($key, $sortOrder) {
             if ($a[$key] == $b[$key]) {

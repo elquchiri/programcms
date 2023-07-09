@@ -12,12 +12,11 @@ namespace ProgramCms\UiBundle\Block\Form\Fields;
  * Class Switcher
  * @package ProgramCms\UiBundle\Block\Form\Fields
  */
-class Switcher extends \ProgramCms\CoreBundle\View\Element\Template
+class Switcher extends \ProgramCms\UiBundle\Block\Form\Fields\Field
 {
+    /**
+     * @var string
+     */
     protected string $_template = "@ProgramCmsUiBundle/form/fields/switcher.html.twig";
 
-    public function getName()
-    {
-        return $this->getData('name');
-    }
 }

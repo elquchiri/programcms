@@ -27,6 +27,24 @@ class DataObject
     protected static array $_underscoreCache = [];
 
     /**
+     * Add Data to the object and keeps previous data
+     * @param array $arr
+     * @return $this
+     */
+    public function addData(array $arr): static
+    {
+        if ($this->data === []) {
+            $this->setData($arr);
+            return $this;
+        }
+
+        foreach ($arr as $index => $value) {
+            $this->setData($index, $value);
+        }
+        return $this;
+    }
+
+    /**
      * @param $argument
      * @param null $value
      */

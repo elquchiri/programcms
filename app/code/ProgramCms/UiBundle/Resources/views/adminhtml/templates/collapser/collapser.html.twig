@@ -8,7 +8,7 @@
 #}
 <div class="collapser">
     {% if block.hasLabel() %}
-    <a class="collapser-label open" data-bs-toggle="collapse" href="#{{ block.getName() }}" role="button"
+        <a class="collapser-label open" data-bs-toggle="collapse" href="#{{ block.getName() }}" role="button"
            aria-expanded="false" aria-controls="{{ block.getName() }}">
             {{ block.getLabel() }}
         </a>
@@ -16,6 +16,6 @@
     <div class="collapse {% if block.isOpen() %}show{% endif %}" id="{{ block.getName() }}">
         {% if block.hasLabel() %}<div class="collapser-container">{% endif %}
             {{ block.getChildHtml()|raw }}
-        {% if block.hasLabel() %}</div>{% endif %}
+            {% if block.hasLabel() %}</div>{% endif %}
     </div>
 </div>

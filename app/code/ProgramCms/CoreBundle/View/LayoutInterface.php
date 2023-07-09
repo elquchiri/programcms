@@ -33,7 +33,7 @@ interface LayoutInterface
      * @param string $alias
      * @return mixed
      */
-    public function setChild(string $parentName, string $elementName, string $alias);
+    public function setChild(string $parentName, string $elementName);
 
     /**
      * @param string $parentName

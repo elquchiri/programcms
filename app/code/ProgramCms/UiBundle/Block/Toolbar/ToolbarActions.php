@@ -24,6 +24,6 @@ class ToolbarActions extends \ProgramCms\CoreBundle\View\Element\Template
      */
     public function getButtons(): array
     {
-        return [];
+        return $this->getData();
     }
 }
