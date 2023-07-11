@@ -16,13 +16,34 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class Url
 {
+    /**
+     * @var UrlGeneratorInterface
+     */
     protected UrlGeneratorInterface $urlGenerator;
+    /**
+     * @var \ProgramCms\CoreBundle\App\AreaList
+     */
+    protected \ProgramCms\CoreBundle\App\AreaList $areaList;
+    /**
+     * @var Request
+     */
+    protected Request $request;
 
+    /**
+     * Url constructor.
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param \ProgramCms\CoreBundle\App\AreaList $areaList
+     * @param Request $request
+     */
     public function __construct(
-        UrlGeneratorInterface $urlGenerator
+        UrlGeneratorInterface $urlGenerator,
+        \ProgramCms\CoreBundle\App\AreaList $areaList,
+        \ProgramCms\RouterBundle\Service\Request $request
     )
     {
         $this->urlGenerator = $urlGenerator;
+        $this->areaList = $areaList;
+        $this->request = $request;
     }
 
     /**
@@ -34,12 +55,14 @@ class Url
     }
 
     /**
+     * Generate Url Path by Name
      * @param $routeName
      * @param array $params
      * @return string
      */
-    public function getUrlByRouteName($routeName, $params = [])
+    public function getUrlByRouteName($routeName, array $params = []): string
     {
+        $routeName = $this->areaList->getCodeByFrontName($this->request->getFrontName()) . '_' . $routeName;
         $urlParams = "";
         foreach($params as $key => $value) {
             $urlParams .= "/" . $key . "/" . $value;

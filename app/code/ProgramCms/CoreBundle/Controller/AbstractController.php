@@ -8,48 +8,54 @@
 
 namespace ProgramCms\CoreBundle\Controller;
 
+use ProgramCms\RouterBundle\Service\Request;
+use ProgramCms\RouterBundle\Service\Response;
+
 /**
  * Class AbstractController
- * @package ProgramCms\CoreBundle\Controller\Adminhtml
+ * @package ProgramCms\CoreBundle\Controller
  */
 abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController implements ControllerInterface
 {
     /**
-     * @var \ProgramCms\RouterBundle\Service\Response
+     * @var Request
      */
-    protected \ProgramCms\RouterBundle\Service\Response $response;
+    protected Request $request;
     /**
-     * @var \ProgramCms\RouterBundle\Service\Request
+     * @var Response
      */
-    private \ProgramCms\RouterBundle\Service\Request $request;
+    protected Response $response;
 
+    /**
+     * AbstractController constructor.
+     * @param Context $context
+     */
     public function __construct(
-        \ProgramCms\RouterBundle\Service\Request $request,
-        \ProgramCms\RouterBundle\Service\Response $response
+        \ProgramCms\CoreBundle\Controller\Context $context
     )
     {
-        $this->request = $request;
-        $this->response = $response;
+        $this->request = $context->getRequest();
+        $this->response = $context->getResponse();
+    }
+
+    /**
+     * @return Request
+     */
+    public function getRequest(): Request
+    {
+        return $this->request;
+    }
+
+    /**
+     * @return Response
+     */
+    public function getResponse(): Response
+    {
+        return $this->response;
     }
 
     /**
      * @return mixed
      */
     abstract public function dispatch(): mixed;
-
-    /**
-     * @return \ProgramCms\RouterBundle\Service\Request
-     */
-    public function getRequest(): \ProgramCms\RouterBundle\Service\Request
-    {
-        return $this->request;
-    }
-
-    /**
-     * @return \ProgramCms\RouterBundle\Service\Response
-     */
-    public function getResponse(): \ProgramCms\RouterBundle\Service\Response
-    {
-        return $this->response;
-    }
 }

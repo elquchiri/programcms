@@ -27,13 +27,12 @@ class EditController extends \ProgramCms\CoreBundle\Controller\Controller
     private CategoryRepository $categoryRepository;
 
     public function __construct(
-        \ProgramCms\RouterBundle\Service\Request $request,
-        \ProgramCms\RouterBundle\Service\Response $response,
+        \ProgramCms\CoreBundle\Controller\Context $context,
         CategoryRepository $categoryRepository,
         ObjectManager $objectManager
     )
     {
-        parent::__construct($request, $response);
+        parent::__construct($context);
         $this->categoryRepository = $categoryRepository;
         $this->objectManager = $objectManager;
     }

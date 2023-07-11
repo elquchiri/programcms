@@ -14,11 +14,9 @@ namespace ProgramCms\CatalogBundle\Controller\Adminhtml\Category;
  */
 class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
 {
-    public function __construct(\ProgramCms\RouterBundle\Service\Request $request, \ProgramCms\RouterBundle\Service\Response $response)
-    {
-        parent::__construct($request, $response);
-    }
-
+    /**
+     * @return mixed|void
+     */
     public function execute()
     {
 

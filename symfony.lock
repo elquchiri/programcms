@@ -33,20 +33,6 @@
             "./migrations/.gitignore"
         ]
     },
-    "phpunit/phpunit": {
-        "version": "9.6",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "9.6",
-            "ref": "7364a21d87e658eb363c5020c072ecfdc12e2326"
-        },
-        "files": [
-            "./.env.test",
-            "./phpunit.xml.dist",
-            "./tests/bootstrap.php"
-        ]
-    },
     "symfony/console": {
         "version": "6.2",
         "recipe": {
@@ -123,21 +109,6 @@
             "./config/packages/monolog.yaml"
         ]
     },
-    "symfony/phpunit-bridge": {
-        "version": "6.3",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "6.3",
-            "ref": "01dfaa98c58f7a7b5a9b30e6edb7074af7ed9819"
-        },
-        "files": [
-            "./.env.test",
-            "./bin/phpunit",
-            "./phpunit.xml.dist",
-            "./tests/bootstrap.php"
-        ]
-    },
     "symfony/routing": {
         "version": "6.2",
         "recipe": {
@@ -161,6 +132,20 @@
         },
         "files": [
             "./config/packages/security.yaml"
+        ]
+    },
+    "symfony/stimulus-bundle": {
+        "version": "2.10",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.9",
+            "ref": "05c45071c7ecacc1e48f94bc43c1f8d4405fb2b2"
+        },
+        "files": [
+            "./assets/bootstrap.js",
+            "./assets/controllers.json",
+            "./assets/controllers/hello_controller.js"
         ]
     },
     "symfony/translation": {
@@ -215,6 +200,22 @@
         "files": [
             "./config/packages/web_profiler.yaml",
             "./config/routes/web_profiler.yaml"
+        ]
+    },
+    "symfony/webpack-encore-bundle": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.0",
+            "ref": "13ebe04e25085e2ff0bcb0f9218b561d8b5089f3"
+        },
+        "files": [
+            "./assets/app.js",
+            "./assets/styles/app.css",
+            "./config/packages/webpack_encore.yaml",
+            "./package.json",
+            "./webpack.config.js"
         ]
     },
     "symfonycasts/verify-email-bundle": {

@@ -19,11 +19,15 @@
 
         <title>{{ efTitle }}</title>
 
+        {# 'app' must match the first argument to addEntry() in webpack.config.js #}
+        {{ encore_entry_link_tags('app') }}
         {# Merge All Css Files #}
         {% for cssFile in efCss %}
             <link rel="stylesheet" type="text/css" href="{{ asset(cssFile) }}" />
         {% endfor %}
 
+        {# Load global app js file #}
+        {{ encore_entry_link_tags('app') }}
         {# Merge All Javascript Files #}
         {% for jsFile in efJs %}
             <script type="text/javascript" src="{{ asset(jsFile) }}"></script>

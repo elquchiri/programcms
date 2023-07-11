@@ -23,13 +23,12 @@ class LogoutController extends \ProgramCms\CoreBundle\Controller\Controller
     private UrlGeneratorInterface $urlGenerator;
 
     public function __construct(
-        \ProgramCms\RouterBundle\Service\Request $request,
-        \ProgramCms\RouterBundle\Service\Response $response,
+        \ProgramCms\CoreBundle\Controller\Context $context,
         Security $security,
         UrlGeneratorInterface $urlGenerator
     )
     {
-        parent::__construct($request, $response);
+        parent::__construct($context);
         $this->security = $security;
         $this->urlGenerator = $urlGenerator;
     }

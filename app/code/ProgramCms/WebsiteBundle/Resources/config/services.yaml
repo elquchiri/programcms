@@ -16,3 +16,7 @@ services:
       - '../../DependencyInjection/'
       - '../../Resources/'
       - '../../Tests/'
+
+#  ProgramCms\CoreBundle\App\AreaList:
+#    arguments:
+#        - { frontend: {frontName: 'frontend', router: 'frontend'} }

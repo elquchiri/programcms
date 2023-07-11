@@ -25,14 +25,13 @@ class SaveController extends \ProgramCms\ConfigBundle\Controller\Adminhtml\Abstr
     protected \ProgramCms\RouterBundle\Service\Url $url;
 
     public function __construct(
-        \ProgramCms\RouterBundle\Service\Request $request,
-        \ProgramCms\RouterBundle\Service\Response $response,
+        \ProgramCms\CoreBundle\Controller\Context $context,
         \ProgramCms\ConfigBundle\Model\Config $config,
         \ProgramCms\RouterBundle\Service\Url $url,
         \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
     )
     {
-        parent::__construct($request, $response, $objectManager);
+        parent::__construct($context, $objectManager);
         $this->config = $config;
         $this->url = $url;
     }

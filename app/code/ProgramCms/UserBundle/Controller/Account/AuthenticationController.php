@@ -16,18 +16,22 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
  */
 class AuthenticationController extends \ProgramCms\CoreBundle\Controller\Controller
 {
-
+    /**
+     * @var \ProgramCms\CoreBundle\Model\ObjectManager
+     */
     protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
+    /**
+     * @var AuthenticationUtils
+     */
     private $authenticationUtils;
 
     public function __construct(
-        \ProgramCms\RouterBundle\Service\Request $request,
-        \ProgramCms\RouterBundle\Service\Response $response,
+        \ProgramCms\CoreBundle\Controller\Context $context,
         AuthenticationUtils $authenticationUtils,
         \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
     )
     {
-        parent::__construct($request, $response);
+        parent::__construct($context);
         $this->authenticationUtils = $authenticationUtils;
         $this->objectManager = $objectManager;
     }

@@ -20,22 +20,21 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class RegisterController extends \ProgramCms\CoreBundle\Controller\Controller
 {
     protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
-    private UserPasswordHasherInterface $userPasswordHasher;
-    private EntityManagerInterface $entityManager;
-    private \ProgramCms\RouterBundle\Service\Request $request;
+    protected UserPasswordHasherInterface $userPasswordHasher;
+    protected EntityManagerInterface $entityManager;
+    protected \ProgramCms\RouterBundle\Service\Request $request;
 
     public function __construct(
-        \ProgramCms\RouterBundle\Service\Request $request,
-        \ProgramCms\RouterBundle\Service\Response $response,
+        \ProgramCms\CoreBundle\Controller\Context $context,
         UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager,
         \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
     )
     {
-        parent::__construct($request, $response);
+        parent::__construct($context);
         $this->userPasswordHasher = $userPasswordHasher;
         $this->entityManager = $entityManager;
-        $this->request = $request;
+        $this->request = $context->getRequest();
         $this->objectManager = $objectManager;
     }
 

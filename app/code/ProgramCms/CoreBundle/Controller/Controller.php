@@ -9,6 +9,8 @@
 namespace ProgramCms\CoreBundle\Controller;
 
 use HttpResponseException;
+use ProgramCms\CoreBundle\App\AreaList;
+use ProgramCms\CoreBundle\App\State;
 
 /**
  * Class Controller
@@ -16,6 +18,25 @@ use HttpResponseException;
  */
 abstract class Controller extends AbstractController
 {
+    /**
+     * @var State
+     */
+    protected State $_state;
+    /**
+     * @var AreaList
+     */
+    protected AreaList $_areaList;
+
+    /**
+     * Controller constructor.
+     * @param Context $context
+     */
+    public function __construct(Context $context)
+    {
+        parent::__construct($context);
+        $this->_areaList = $context->getAreaList();
+        $this->_state = $context->getState();
+    }
 
     /**
      * Dispatch Request
@@ -24,6 +45,8 @@ abstract class Controller extends AbstractController
      */
     public function dispatch(): mixed
     {
+        $areaCode = $this->_areaList->getCodeByFrontName($this->getRequest()->getFrontName());
+        $this->_state->setAreaCode($areaCode);
         $result = $this->execute();
         if($result instanceof \ProgramCms\CoreBundle\View\Result\Page) {
             return $this->execute()->render();

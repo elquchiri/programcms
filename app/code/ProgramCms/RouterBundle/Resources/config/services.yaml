@@ -16,6 +16,6 @@ services:
     arguments:
       $container: '@service_container'
 
-  ProgramCms\RouterBundle\Service\Request:
-    arguments:
-      $requestStack: '@request_stack'
+#  ProgramCms\RouterBundle\Service\Request:
+#    arguments:
+#      $requestStack: '@request_stack'

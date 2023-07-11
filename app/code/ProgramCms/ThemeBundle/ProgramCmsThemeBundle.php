@@ -8,7 +8,10 @@
 
 namespace ProgramCms\ThemeBundle;
 
-
+/**
+ * Class ProgramCmsThemeBundle
+ * @package ProgramCms\ThemeBundle
+ */
 class ProgramCmsThemeBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
 {
     public const VERSION = '1.0.0';

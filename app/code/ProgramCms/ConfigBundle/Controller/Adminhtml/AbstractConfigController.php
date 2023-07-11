@@ -20,15 +20,17 @@ abstract class AbstractConfigController extends \ProgramCms\CoreBundle\Controlle
     protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
 
     public function __construct(
-        \ProgramCms\RouterBundle\Service\Request $request,
-        \ProgramCms\RouterBundle\Service\Response $response,
+        \ProgramCms\CoreBundle\Controller\Context $context,
         \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
     )
     {
-        parent::__construct($request, $response);
+        parent::__construct($context);
         $this->objectManager = $objectManager;
     }
 
+    /**
+     * @return object|null
+     */
     protected function loadConfigurations()
     {
         return $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);

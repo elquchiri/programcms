@@ -19,6 +19,10 @@ class ThemeExtension extends \Twig\Extension\AbstractExtension
      */
     protected \ProgramCms\CoreBundle\View\Layout $layout;
 
+    /**
+     * ThemeExtension constructor.
+     * @param \ProgramCms\CoreBundle\View\Layout $layout
+     */
     public function __construct(
         \ProgramCms\CoreBundle\View\Layout $layout
     )

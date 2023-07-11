@@ -75,7 +75,7 @@ class Configuration extends \ProgramCms\CoreBundle\View\Element\Template
                     [
                         'buttonType' => 'save',
                         'buttonTarget' => 'form',
-                        'buttonAction' => $this->url->getUrlByRouteName('adminhtml_config_systemconfig_save'),
+                        'buttonAction' => 'config_systemconfig_save',
                         'label' => 'Save Config'
                     ]
                 ]

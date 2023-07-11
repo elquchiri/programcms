@@ -8,6 +8,8 @@
 
 namespace ProgramCms\ConfigBundle\Block;
 
+use ReflectionException;
+
 /**
  * Class Configuration
  * @package ProgramCms\ConfigBundle\Block
@@ -23,6 +25,13 @@ class ConfigTabs extends \ProgramCms\CoreBundle\View\Element\Template
      */
     protected \ProgramCms\RouterBundle\Service\Request $request;
 
+    /**
+     * ConfigTabs constructor.
+     * @param \ProgramCms\CoreBundle\View\Element\Template\Context $context
+     * @param \ProgramCms\ConfigBundle\Model\ConfigSerializer $configSerializer
+     * @param array $data
+     * @throws ReflectionException
+     */
     public function __construct(
         \ProgramCms\CoreBundle\View\Element\Template\Context $context,
         \ProgramCms\ConfigBundle\Model\ConfigSerializer $configSerializer,
@@ -33,25 +42,24 @@ class ConfigTabs extends \ProgramCms\CoreBundle\View\Element\Template
         $this->configSerializer = $configSerializer;
         $this->request = $context->getRequest();
         // Init Config Serializer
-        $this->initConfigSerializer();
+        $this->_initConfigSerializer();
     }
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
-    private function initConfigSerializer()
+    private function _initConfigSerializer()
     {
         if($this->request->getParam('sectionId')) {
             $this->configSerializer->setSectionId($this->request->getParam('sectionId'));
         }
-
         $this->configSerializer->parseConfig();
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function getTabs()
+    public function getTabs(): array
     {
         return $this->configSerializer->getConfigNavigation();
     }

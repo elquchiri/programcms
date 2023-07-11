@@ -21,12 +21,11 @@ class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
     protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
 
     public function __construct(
-        \ProgramCms\RouterBundle\Service\Request $request,
-        \ProgramCms\RouterBundle\Service\Response $response,
+        \ProgramCms\CoreBundle\Controller\Context $context,
         \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
     )
     {
-        parent::__construct($request, $response);
+        parent::__construct($context);
         $this->objectManager = $objectManager;
     }
 

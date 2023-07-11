@@ -91,7 +91,7 @@ class Structure
      * @param int|null $position
      * @return void
      * @throws Exception if attempting to set parent as child to its child (recursively)
-     *@see _insertChild() for position explanation
+     * @see _insertChild() for position explanation
      */
     public function setAsChild(string $elementId, string $parentId, int $position = null)
     {
@@ -147,7 +147,6 @@ class Structure
 
     /**
      * Get element attribute
-     *
      * @param string $elementId
      * @param string $attribute
      * @return mixed
@@ -174,7 +173,6 @@ class Structure
 
     /**
      * Get name of parent element
-     *
      * @param string $childId
      * @return string|bool
      */
@@ -185,7 +183,6 @@ class Structure
 
     /**
      * Set an arbitrary value to specified element attribute
-     *
      * @param string $elementId
      * @param string $attribute
      * @param mixed $value
@@ -207,7 +204,6 @@ class Structure
 
     /**
      * Whether specified element exists
-     *
      * @param string $elementId
      * @return bool
      */
@@ -245,16 +241,8 @@ class Structure
 
     /**
      * Insert an existing element as a child to existing element
-     *
      * The element must not be a child to any other element
      * The target parent element must not have it as a child already
-     *
-     * Offset -- into which position to insert:
-     *   0     -- set as 1st
-     *   1,  2 -- after 1st, second, etc...
-     *  -1, -2 -- before last, before second last, etc...
-     *   null  -- set as last
-     *
      * @param string $targetParentId
      * @param string $elementId
      * @param int|null $offset
@@ -307,7 +295,6 @@ class Structure
 
     /**
      * Get element alias by name
-     *
      * @param string $parentId
      * @param string $childId
      * @return string|bool
@@ -343,9 +330,7 @@ class Structure
 
     /**
      * Reorder a child element relatively to specified position
-     *
      * Returns new position of the reordered element
-     *
      * @param string $parentId
      * @param string $childId
      * @param int|null $position
@@ -376,7 +361,6 @@ class Structure
 
     /**
      * Check if specified element exists
-     *
      * @param string $elementId
      * @return void
      * @throws Exception if doesn't exist
@@ -392,7 +376,6 @@ class Structure
 
     /**
      * Check if it is an array
-     *
      * @param array $value
      * @return void
      * @throws Exception

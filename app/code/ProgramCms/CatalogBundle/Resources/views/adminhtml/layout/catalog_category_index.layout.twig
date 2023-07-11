@@ -12,7 +12,6 @@
 
     {% referenceContainer name="buttons.bar" %}
         {% block name="website.switcher" class="ui.block.toolbar.website_switcher" %}{% endBlock %}
-        {% block name="toolbar.actions" class="ProgramCms\\CatalogBundle\\Block\\Toolbar\\ToolbarActions" %}{% endBlock %}
     {% endReferenceContainer %}
     {% referenceContainer name="sidebar.main" %}
         {% block name="category.tree.block" class="ProgramCms\\CatalogBundle\\Block\\CategoryTree" template="@ProgramCmsCatalogBundle/tree.html.twig" %}{% endBlock %}
@@ -20,7 +19,15 @@
     {% referenceContainer name="content" %}
         {% block name="form" class="ui.block.form" %}
             {% arguments %}
-                {% argument name="save_url" type="string" %}catalog/category/save{% endArgument %}
+                {% argument name="buttons" type="array" %}
+                    {% argument name="saveButton" type="array" %}
+                        {# Todo: Auto Add buttonType and buttonTarget in Form Block #}
+                        {% argument name="buttonType" type="string" %}save{% endArgument %}
+                        {% argument name="buttonTarget" type="string" %}form{% endArgument %}
+                        {% argument name="buttonAction" type="string" %}catalog_category_save{% endArgument %}
+                        {% argument name="label" type="string" %}Save Category{% endArgument %}
+                        {% endArgument %}
+                {% endArgument %}
             {% endArguments %}
             {% block name="collapser" class="ui.block.collapser" %}
                 {% block name="fieldset" class="ui.block.form.fieldset" %}
