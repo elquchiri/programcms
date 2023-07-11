@@ -17,9 +17,11 @@ Please note that ProgramCMS Project is under development
 
 ## Requirements
 
-- Apache 2 
+- Apache 2 or Nginx
 - PHP 8.1
 - MySQL 8
+- Node
+- Redis
 - Composer 2
 - Git
 ## Installation
