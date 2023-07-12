@@ -1,0 +1,62 @@
+/*!
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+
+* {
+  margin: 0;
+}
+
+html, body {
+  font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+.page-wrapper {
+  margin-left: 91px;
+  height: 100%;
+}
+
+.notices-notifications {
+  padding: 0 21px 0 31px;
+}
+
+.page-main-actions {
+  padding: 31px 21px 0 31px;
+}
+
+.messages-wrapper {
+  padding: 11px 21px 0 31px;
+  font-size: 14px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+  height: 100%;
+}
+.content .content-header {
+  padding: 31px 21px 0 31px;
+}
+.content .content-header h2 {
+  padding: 0;
+  margin: 0;
+}
+.content .content-header .content-header-tip {
+  color: #888;
+  font-size: 12px;
+  padding: 5px 0 0 5px;
+}
+.content .content-container {
+  padding: 21px 21px 0 31px;
+}

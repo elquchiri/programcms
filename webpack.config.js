@@ -1,9 +1,3 @@
-/*
- * Copyright © ProgramCMS. All rights reserved.
- * See COPYING.txt for license details.
- *
- * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
- */
 const Encore = require('@symfony/webpack-encore');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
@@ -75,8 +69,7 @@ Encore
     // requires WebpackEncoreBundle 1.4 or higher
     //.enableIntegrityHashes(Encore.isProduction())
 
-    // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+    .autoProvidejQuery()
 ;
 
 module.exports = Encore.getWebpackConfig();

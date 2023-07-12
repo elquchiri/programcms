@@ -27,7 +27,7 @@
         {% endfor %}
 
         {# Load global app js file #}
-        {{ encore_entry_link_tags('app') }}
+        {{ encore_entry_script_tags('app') }}
         {# Merge All Javascript Files #}
         {% for jsFile in efJs %}
             <script type="text/javascript" src="{{ asset(jsFile) }}"></script>

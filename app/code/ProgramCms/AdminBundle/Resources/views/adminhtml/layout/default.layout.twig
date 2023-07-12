@@ -7,8 +7,8 @@
  */
 #}
 {% page layout="admin-1column" %}
-    {% css ['bootstrap.min.css', 'bundles/programcmsadmin/css/sidebar.css', 'bundles/programcmsadmin/css/main-admin.css', 'bundles/programcmsadmin/css/footer-admin.css', 'bundles/programcmsui/css/components/buttons-bar.css', 'bundles/programcmsadmin/css/flashes.css', 'bundles/programcmsui/css/components/grid.css', 'bundles/programcmsui/css/components/collapser.css'] %}
-    {% js ['jquery.min.js', 'underscore-umd-min.js', 'popper.min.js', 'bootstrap.bundle.min.js', 'bundles/programcmsadmin/js/sidebar.js', 'bundles/programcmsui/js/toolbar.js', 'bundles/programcmsui/js/collapser.js', 'bundles/programcmsui/js/grid.js'] %}
+    {% css ['bundles/programcmsui/css/components/buttons-bar.css', 'bundles/programcmsui/css/components/grid.css', 'bundles/programcmsui/css/components/collapser.css'] %}
+    {% js ['underscore-umd-min.js', 'bundles/programcmsui/js/toolbar.js', 'bundles/programcmsui/js/collapser.js', 'bundles/programcmsui/js/grid.js'] %}
 
     {% referenceContainer name="page.menu" %}
         {% block name="register.content" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsAdminBundle/sidebar.html.twig" %}{% endBlock %}
