@@ -6,13 +6,13 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\BundleDependencyBundle;
+namespace ProgramCms\DependencyBundle;
 
 /**
  * Class ProgramCmsMarketingBundle
  * @package ProgramCms\MarketingBundle
  */
-class ProgramCmsBundleDependencyBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
+class ProgramCmsDependencyBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
 {
     public const VERSION = '1.0.0';
 }

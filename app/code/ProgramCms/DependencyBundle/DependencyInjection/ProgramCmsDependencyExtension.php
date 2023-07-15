@@ -6,7 +6,7 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\BundleDependencyBundle\DependencyInjection;
+namespace ProgramCms\DependencyBundle\DependencyInjection;
 
 use Exception;
 use Symfony\Component\Config\FileLocator;
@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  * Class ProgramCmsMarketingExtension
  * @package ProgramCms\MarketingBundle\DependencyInjection
  */
-class ProgramCmsBundleDependencyExtension extends Extension
+class ProgramCmsDependencyExtension extends Extension
 {
     /**
      * @return string

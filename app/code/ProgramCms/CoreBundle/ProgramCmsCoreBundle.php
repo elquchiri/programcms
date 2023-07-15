@@ -9,7 +9,7 @@
 namespace ProgramCms\CoreBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use ProgramCms\BundleDependencyBundle\DependentBundleInterface;
+use ProgramCms\DependencyBundle\DependentBundleInterface;
 
 /**
  * Class ProgramCmsCoreBundle
@@ -37,7 +37,6 @@ class ProgramCmsCoreBundle extends Bundle implements DependentBundleInterface
     }
 
     /**
-     * @param KernelInterface $kernel
      * @return array
      */
     public static function getDependencies(): array

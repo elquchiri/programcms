@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace ProgramCms\BundleDependencyBundle;
+namespace ProgramCms\DependencyBundle;
 
 /**
  * Interface DependentBundleInterface
@@ -17,6 +17,7 @@ namespace ProgramCms\BundleDependencyBundle;
 interface DependentBundleInterface
 {
     /**
+     * Define Bundle's Dependencies
      * @return array
      */
     public static function getDependencies(): array;

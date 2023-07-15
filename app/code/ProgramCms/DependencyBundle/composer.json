@@ -1,6 +1,6 @@
 {
-    "name": "programcms/marketing-bundle",
-    "description": "Represents Marketing entities and interfaces in ProgramCMS application",
+    "name": "programcms/dependency-bundle",
+    "description": "Represents Dependency entities and interfaces in ProgramCMS application",
     "license": "MIT",
     "type": "programcms-bundle",
     "keywords": [
@@ -29,7 +29,7 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "ProgramCms\\MarketingBundle\\": ""
+            "ProgramCms\\DependencyBundle\\": ""
         }
     }
 }

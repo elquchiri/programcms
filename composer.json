@@ -43,7 +43,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/",
-			"ProgramCms\\BundleDependencyBundle\\": "app/code/ProgramCms/BundleDependencyBundle",
+			"ProgramCms\\DependencyBundle\\": "app/code/ProgramCms/DependencyBundle",
 			"ProgramCms\\CoreBundle\\": "app/code/ProgramCms/CoreBundle",
 			"ProgramCms\\UserBundle\\": "app/code/ProgramCms/UserBundle",
             "ProgramCms\\ThemeBundle\\": "app/code/ProgramCms/ThemeBundle",

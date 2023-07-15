@@ -10,9 +10,10 @@ services:
     autoconfigure: true
     public: true
 
-  ProgramCms\BundleDependencyBundle\:
+  ProgramCms\DependencyBundle\:
     resource: '../../'
     exclude:
       - '../../DependencyInjection/'
+      - '../../Exception/'
       - '../../Resources/'
       - '../../Tests/'
