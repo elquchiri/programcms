@@ -9,12 +9,13 @@
 namespace ProgramCms\CoreBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use ProgramCms\BundleDependencyBundle\DependentBundleInterface;
 
 /**
  * Class ProgramCmsCoreBundle
  * @package ProgramCms\CoreBundle
  */
-class ProgramCmsCoreBundle extends Bundle
+class ProgramCmsCoreBundle extends Bundle implements DependentBundleInterface
 {
     public const VERSION = '1.0.0';
 
@@ -33,5 +34,14 @@ class ProgramCmsCoreBundle extends Bundle
     public function getVersion(): string
     {
         return self::VERSION;
+    }
+
+    /**
+     * @param KernelInterface $kernel
+     * @return array
+     */
+    public static function getDependencies(): array
+    {
+        return [];
     }
 }

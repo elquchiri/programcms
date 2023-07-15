@@ -1,0 +1,18 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  ProgramCms\BundleDependencyBundle\:
+    resource: '../../'
+    exclude:
+      - '../../DependencyInjection/'
+      - '../../Resources/'
+      - '../../Tests/'
