@@ -24,10 +24,25 @@ trait BundleDependenciesResolver
      * @return array
      * @throws ReflectionException
      */
-    protected function _getBundleInstances(array $bundles): array
+    protected function _getBundleInstances(\Symfony\Component\HttpKernel\KernelInterface $kernel, array $bundles): array
     {
         $builtBundles = [];
-        $bundleStack = $this->_prepareBundleDependencies($bundles);
+        $cacheFile = $kernel->getCacheDir().'/kernelDependenciesStack.php';
+
+        if(file_exists($cacheFile)) {
+            $bundleStack = include $cacheFile;
+        }else{
+            $bundleStack = $this->_prepareBundleDependencies($bundles);
+            if (!is_dir($kernel->getCacheDir())) {
+                mkdir($kernel->getCacheDir(), 0777, true);
+            }
+            // Cache resolved dependencies in cache stack
+            $this->_cacheBuiltBundleStack(
+                $bundleStack,
+                $cacheFile
+            );
+        }
+
         foreach ($bundleStack as $bundle) {
             $builtBundles[] = $this->_getBundleDefinitionInstance($bundle);
         }
@@ -127,5 +142,25 @@ trait BundleDependenciesResolver
         }
 
         return $bundle;
+    }
+
+    /**
+     * @param array $bundleStack
+     * @param string $cacheFile
+     */
+    private function _cacheBuiltBundleStack(array $bundleStack, string $cacheFile)
+    {
+        foreach ($bundleStack as $bundle) {
+            if (is_object($bundle)) {
+                $kernelNamespace = get_class($this);
+                $bundleNamespace = get_class($bundle);
+                throw new BundleStackNotCacheableException($kernelNamespace, $bundleNamespace);
+            }
+        }
+
+        file_put_contents(
+            $cacheFile,
+            '<?php return '.var_export($bundleStack, true).';'
+        );
     }
 }

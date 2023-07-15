@@ -28,9 +28,25 @@ class Kernel extends BaseKernel
      */
     public function registerBundles(): iterable
     {
-        $contents = require $this->getProjectDir() . '/config/bundles.php';
+        $contents = require $this->getBundlesFilePath();
         $bundlesClasses = array_keys($contents);
 
-        return $this->_getBundleInstances($bundlesClasses);
+        return $this->_getBundleInstances($this, $bundlesClasses);
+    }
+
+    /**
+     * @return string
+     */
+    public function getConfigDir(): string
+    {
+        return $this->getProjectDir() . '/config';
+    }
+
+    /**
+     * @return string
+     */
+    public function getBundlesFilePath(): string
+    {
+        return $this->getConfigDir() . '/bundles.php';
     }
 }

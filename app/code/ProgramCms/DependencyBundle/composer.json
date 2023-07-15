@@ -5,9 +5,9 @@
     "type": "programcms-bundle",
     "keywords": [
         "ProgramCms",
-        "Marketing",
-        "Text",
-        "Profile",
+        "Dependency",
+        "Bundle Dependency",
+        "require",
         "Connect",
         "Bundle",
         "CMS"
@@ -19,12 +19,7 @@
         }
     ],
     "require": {
-        "php": ">=8.1",
-        "programcms/core-bundle": "*",
-        "programcms/router-bundle": "*",
-        "programcms/theme-bundle": "*",
-        "programcms/eav-bundle": "*",
-        "programcms/ui-bundle": "*"
+        "php": ">=8.1"
     },
     "minimum-stability": "dev",
     "autoload": {

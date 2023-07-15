@@ -3,7 +3,6 @@
 return [
     Symfony\Bundle\FrameworkBundle\FrameworkBundle::class => ['all' => true],
     Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle::class => ['all' => true],
-    ProgramCms\DependencyBundle\ProgramCmsDependencyBundle::class => ['all' => true],
     ProgramCms\CoreBundle\ProgramCmsCoreBundle::class => ['all' => true],
     ProgramCms\EavBundle\ProgramCmsEavBundle::class => ['all' => true],
     ProgramCms\ThemeBundle\ProgramCmsThemeBundle::class => ['all' => true],

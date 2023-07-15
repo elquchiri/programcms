@@ -1,1 +1,1 @@
-The Marketing bundle contains common infrastructure that provides an ability to apply Marketing features in ProgramCMS application.
+The Dependency bundle contains common infrastructure that provides an ability to apply Dependency features in ProgramCMS application.
