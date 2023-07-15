@@ -1,0 +1,36 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+menu:
+  content:
+    label: 'Content'
+    htmlClass: 'sidebar-content'
+    sortOrder: 5
+    groups:
+      elements:
+        label: 'Elements'
+        sortOrder: 1
+        actions:
+          help:
+            label: "Pages"
+            action: ''
+            sortOrder: 1
+          about:
+            label: 'Blocks'
+            action: ''
+            sortOrder: 2
+      design:
+        label: 'Design'
+        sortOrder: 8
+        actions:
+          config:
+            label: 'Configuration'
+            action: ''
+            sortOrder: 2
+          themes:
+            label: 'Themes'
+            action: ''
+            sortOrder: 1

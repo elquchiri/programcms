@@ -1,0 +1,26 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+menu:
+  manager:
+    label: 'Manager'
+    htmlClass: 'sidebar-manager'
+    sortOrder: 9999
+    groups:
+      default:
+        actions:
+          installedPlugins:
+            label: "Installed Bundles"
+            action: ''
+            sortOrder: 1
+          storeBundles:
+            label: 'Browse Store Bundles »'
+            action: ''
+            sortOrder: 2
+          storeThemes:
+            label: 'Browse Store Themes »'
+            action: ''
+            sortOrder: 3

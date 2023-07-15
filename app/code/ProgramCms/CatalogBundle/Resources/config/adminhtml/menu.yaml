@@ -1,0 +1,22 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+menu:
+  catalog:
+    label: 'Catalog'
+    htmlClass: 'sidebar-catalog'
+    sortOrder: 4
+    groups:
+      default:
+        actions:
+          posts:
+            label: "Posts"
+            action: 'user_index_index'
+            sortOrder: 1
+          categories:
+            label: 'Categories'
+            action: 'catalog_category_index'
+            sortOrder: 2

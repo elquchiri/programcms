@@ -16,7 +16,7 @@ class SiteUpdate extends \ProgramCms\CoreBundle\View\Element\Template
 {
     /**
      * Returns site update phrase
-     * Little thing that doesn't do much
+     * Little code that doesn't do much
      * Just a desire to keep the two phrases
      * @return string
      */

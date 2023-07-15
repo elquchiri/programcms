@@ -4,3 +4,67 @@
 #
 #  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
 ##
+menu:
+  programcms:
+    label: 'ProgramCMS'
+    htmlClass: 'sidebar-logo'
+    sortOrder: 1
+    groups:
+      default:
+        actions:
+          help:
+            label: "Help"
+            action: 'catalog_category_index'
+            sortOrder: 1
+          about:
+            label: 'About'
+            action: ''
+            sortOrder: 2
+          gettingstarted:
+            label: 'Getting Started'
+            action: ''
+            sortOrder: 3
+          updates:
+            label: 'Check for Updates'
+            action: ''
+            sortOrder: 4
+      upgrade:
+        label: 'Upgrade'
+        actions:
+          extensions:
+            label: 'Get Extensions & Themes »'
+            action: ''
+          programcmsplus:
+            label: 'Upgrade to ProgramCMS Plus »'
+            action: ''
+  dashboard:
+    label: 'Dashboard'
+    htmlClass: 'sidebar-dashboard'
+    action: 'admin_dashboard_index'
+    sortOrder: 2
+  system:
+    label: 'System'
+    htmlClass: 'sidebar-system'
+    sortOrder: 9
+    groups:
+      dataTransfer:
+        label: 'Data Transfer'
+        actions:
+          import:
+            label: 'Import'
+            action: ''
+          export:
+            label: 'Export'
+            action: ''
+          history:
+            label: 'History'
+            action: ''
+      roles:
+        label: 'Roles'
+        actions:
+          roles:
+            label: 'Roles'
+            action: ''
+          adminUsers:
+            label: 'Admin Users'
+            action: ''

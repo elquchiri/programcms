@@ -1,0 +1,35 @@
+{
+    "name": "programcms/marketing-bundle",
+    "description": "Represents Marketing entities and interfaces in ProgramCMS application",
+    "license": "MIT",
+    "type": "programcms-bundle",
+    "keywords": [
+        "ProgramCms",
+        "Marketing",
+        "Text",
+        "Profile",
+        "Connect",
+        "Bundle",
+        "CMS"
+    ],
+    "authors": [
+        {
+            "name": "Mohamed EL QUCHIRI",
+            "email": "elquchiri@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "programcms/core-bundle": "*",
+        "programcms/router-bundle": "*",
+        "programcms/theme-bundle": "*",
+        "programcms/eav-bundle": "*",
+        "programcms/ui-bundle": "*"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "ProgramCms\\MarketingBundle\\": ""
+        }
+    }
+}

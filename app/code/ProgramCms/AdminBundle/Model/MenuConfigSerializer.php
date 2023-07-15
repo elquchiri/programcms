@@ -8,87 +8,84 @@
 
 namespace ProgramCms\AdminBundle\Model;
 
+use ReflectionException;
 
+/**
+ * Class MenuConfigSerializer
+ * @package ProgramCms\AdminBundle\Model
+ */
 class MenuConfigSerializer
 {
+    /**
+     * @var \ProgramCms\CoreBundle\Model\Utils\BundleManager
+     */
     protected \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager;
     /**
-     * Stores Hole Merged Configuration
+     * @var \ProgramCms\RouterBundle\Service\Url
+     */
+    protected \ProgramCms\RouterBundle\Service\Url $url;
+    protected \ProgramCms\CoreBundle\Data\Process\Sort $sort;
+    /**
+     * Stores Hole Merged Menu elements
      * @var array
      */
-    private array $menu;
+    private array $menu = [];
 
-
+    /**
+     * MenuConfigSerializer constructor.
+     * @param \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager
+     */
     public function __construct(
-        \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager
+        \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager,
+        \ProgramCms\RouterBundle\Service\Url $url,
+        \ProgramCms\CoreBundle\Data\Process\Sort $sort
     )
     {
         $this->menu = [];
+        $this->bundleManager = $bundleManager;
+        $this->url = $url;
+        $this->sort = $sort;
     }
 
     /**
      * Parse all Bundle's configurations
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
-    public function parseConfig()
+    public function parseMenuConfig()
     {
         // Get all bundles
-        $bundles = $this->bundleManager->getContainer()->getParameter('kernel.bundles');
-        foreach ($bundles as $bundleClass) {
+        $bundles = $this->bundleManager->getAllBundles();
+        foreach ($bundles as $bundle) {
             // Get the configuration file path for the bundle
-            $reflectedBundle = new \ReflectionClass($bundleClass);
-            $bundleDirectory = dirname($reflectedBundle->getFileName());
-            $configFilePath = $bundleDirectory . '/Resources/config/adminhtml/menu.yaml';
+            $configFilePath = $bundle['path'] . '/Resources/config/adminhtml/menu.yaml';
             // Load the configuration file
             if (file_exists($configFilePath)) {
-                $config = \Symfony\Component\Yaml\Yaml::parseFile($configFilePath)['menu'];
+                $parser = \Symfony\Component\Yaml\Yaml::parseFile($configFilePath);
+                if (isset($parser['menu'])) {
+                    $menu = $parser['menu'];
 
-                if (isset($config['tab'])) {
-                    if (isset($config['tab']['id']) && isset($config['tab']['label'])) {
-                        $tabId = $config['tab']['id'];
-                        $this->config['tabs'][$tabId] = ['label' => $config['tab']['label']];
-                    }
-                }
+                    foreach ($menu as $menuItemKey => $menuItem) {
+                        $this->menu[$menuItemKey] = [
+                            'label' => $menuItem['label'] ?? '',
+                            'htmlClass' => $menuItem['htmlClass'] ?? '',
+                            'sortOrder' => $menuItem['sortOrder'] ?? 5,
+                            'action' => isset($menuItem['action']) ? $this->_getUrl($menuItem['action']) : '#'
+                        ];
 
-                if (isset($config['sections'])) {
-                    foreach ($config['sections'] as $sectionId => $section) {
-                        // If no sectionId defined, get the first one as default
-                        // Globally used with index action, so we pick the default section
-                        if (!isset($this->sectionId)) {
-                            $this->sectionId = $sectionId;
-                        }
-                        if (isset($section['tab'])) {
-                            $targetTabId = $section['tab'];
-                            $this->configs['tabs'][$targetTabId]['sections'][$sectionId] = [
-                                'label' => $section['label'],
-                                'active' => $sectionId == $this->sectionId
-                            ];
-                            // Activate tab to show sections on view
-                            if ($sectionId == $this->sectionId) {
-                                $this->configs['tabs'][$targetTabId]['active'] = true;
-                            }
-                        }
-                        // If current loop sectionId == current http section_id parameter, then merge groups & fields
-                        if ($sectionId == $this->sectionId) {
-                            //$this->sectionId = $sectionId;
-                            foreach ($section['groups'] as $groupId => $group) {
-                                if (isset($group['label'])) {
-                                    $this->configs['current_section']['groups'][$groupId] = [
-                                        'label' => $group['label'],
-                                        'fields' => []
-                                    ];
-                                }
-                                if (isset($group['fields'])) {
-                                    foreach ($group['fields'] as $fieldId => $field) {
-                                        $this->configs['current_section']['groups'][$groupId]['fields'][$fieldId] = [
-                                            'label' => $field['label'],
-                                            'type' => $field['type']
+                        if (isset($menuItem['groups'])) {
+                            foreach ($menuItem['groups'] as $groupKey => $group) {
+                                $this->menu[$menuItemKey]['groups'][$groupKey] = [
+                                    'label' => $groupKey == 'default' ? '' : $group['label'] ?? '',
+                                    'sortOrder' => $group['sortOrder'] ?? 5
+                                ];
+
+                                if (isset($group['actions'])) {
+                                    foreach ($group['actions'] as $actionKey => $action) {
+                                        $this->menu[$menuItemKey]['groups'][$groupKey]['actions'][$actionKey] = [
+                                            'label' => $action['label'] ?? '',
+                                            'action' => isset($action['action']) ? $this->_getUrl($action['action']) : '',
+                                            'sortOrder' => $action['sortOrder'] ?? 5
                                         ];
-
-                                        if ($field['type'] == 'select' || $field['type'] == 'multiselect') {
-                                            $source = new \ReflectionClass($field['source']);
-                                            $this->configs['current_section']['groups'][$groupId]['fields'][$fieldId]['source'] = $source->newInstance()->getOptionsArray();
-                                        }
                                     }
                                 }
                             }
@@ -96,6 +93,37 @@ class MenuConfigSerializer
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMenu(): array
+    {
+        foreach($this->menu as $menuItemKey => $menuItem) {
+            if (isset($menuItem['groups'])) {
+                $this->menu[$menuItemKey]['groups'] = $this->sort->sortArrayByKey($menuItem['groups'], 'sortOrder', 'asc');
+                foreach ($menuItem['groups'] as $groupKey => $group) {
+                    $this->menu[$menuItemKey]['groups'][$groupKey]['actions'] = $this->sort->sortArrayByKey($group['actions'], 'sortOrder', 'asc');
+                }
+            }
+        }
+
+        return $this->sort->sortArrayByKey($this->menu, 'sortOrder', 'asc');
+    }
+
+    /**
+     * @param $action
+     * @return string
+     */
+    private function _getUrl($action): string
+    {
+        // Redirect to current url if action is defined but empty
+        if(empty($action) || $action === '/') {
+            return "";
+        }else{
+            return $this->url->getUrlByRouteName($action);
         }
     }
 }

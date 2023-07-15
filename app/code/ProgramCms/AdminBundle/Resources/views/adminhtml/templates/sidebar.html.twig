@@ -1,268 +1,47 @@
-<div class="sidebar">
-    <ul>
-        <li>
-            <a href="/" id="programcms">
-                <img width="27" height="27" src="{{ asset('bundles/programcmstheme/images/favicon/favicon-circle-32x32.png') }}"/>
-                <span>ProgramCMS</span>
-            </a>
-        </li>
-        <li>
-            <a href="" id="dashboard">
-                <img src="{{ asset('bundles/programcmsadmin/images/dashboard.png') }}"/>
-                <span>Dashboard</span>
-            </a>
-        </li>
-        <li>
-            <a href="/" id="clients">
-                <img src="{{ asset('bundles/programcmsadmin/images/user.png') }}"/>
-                <span>Users</span>
-            </a>
-        </li>
-        <li>
-            <a href="/" id="forums">
-                <img src="{{ asset('bundles/programcmsadmin/images/catalog.png') }}"/>
-                <span>Catalog</span>
-            </a>
-        </li>
-        <li>
-            <a href="/" id="content">
-                <img src="{{ asset('bundles/programcmsadmin/images/content.png') }}"/>
-                <span>Content</span>
-            </a>
-        </li>
-        <li>
-            <a href="/" id="marketing">
-                <img src="{{ asset('bundles/programcmsadmin/images/marketing.png') }}"/>
-                <span>Marketing</span>
-            </a>
-        </li>
-        <li>
-            <a href="/" id="reports">
-                <img src="{{ asset('bundles/programcmsadmin/images/report.png') }}"/>
-                <span>Reports</span>
-            </a>
-        </li>
-        <li>
-            <a href="/" id="ef-websites">
-                <img src="{{ asset('bundles/programcmsadmin/images/websites.png') }}"/>
-                <span>Websites</span>
-            </a>
-        </li>
-        <li>
-            <a href="/" id="system">
-                <img src="{{ asset('bundles/programcmsadmin/images/system.png') }}"/>
-                <span>System</span>
-            </a>
-        </li>
-        <li>
-            <a href="/" id="ef-manager">
-                <img src="{{ asset('bundles/programcmsadmin/images/install.png') }}"/>
-                <span>Manager</span>
-            </a>
-        </li>
-        <li>
-            <a href="/" id="ef-help">
-                <img src="{{ asset('bundles/programcmsadmin/images/help.png') }}"/>
-                <span>Help !</span>
-            </a>
-        </li>
-    </ul>
-</div>
-
-<div class="menu-items" id="programcms">
-    <div class="menu-item">
-        <div class="menu-item-title">ProgramCMS &copy;</div>
-        <div class="close-sign">&#x2715;</div>
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div data-controller="sidebar">
+    <div class="sidebar">
+        <ul>
+            {% for menuItemKey, menuItem in block.getMenu() %}
+                <li>
+                    <a data-sidebar-target="menuItemLink"
+                        data-action="click->sidebar#menuItemClick"
+                        {% if menuItem.htmlClass is defined %}class="{{ menuItem.htmlClass }}"{% endif %}
+                        href="{% if menuItem.action is defined %}{{ menuItem.action }}{% endif %}"
+                        id="{{ menuItemKey }}">
+                        <span>{{ menuItem.label }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
-    <ul>
-        <li>
-            <a href="#">Help</a>
-        </li>
-        <li>
-            <a href="#">About</a>
-        </li>
-        <li>
-            <a href="#">Getting Started</a>
-        </li>
-        <li>
-            <a href="#">Check for Updates</a>
-        </li>
-    </ul>
-    <div class="menu-item-group-title">Upgrade</div>
-    <ul>
-        <li>
-            <a href="#">Get Extensions & Themes &#187;</a>
-        </li>
-        <li>
-            <a href="#">Upgrade to ProgramCMS Plus &#187;</a>
-        </li>
-    </ul>
-</div>
-<div class="menu-items" id="clients">
-    <div class="menu-item">
-        <div class="menu-item-title">Users</div>
-        <div class="close-sign">&#x2715;</div>
-    </div>
-    <ul>
-        <li>
-            <a href="{{ path('adminhtml_user_index_index') }}">All Users</a>
-        </li>
-        <li>
-            <a href="#">Now Online</a>
-        </li>
-        <li>
-            <a href="#">User Groups</a>
-        </li>
-    </ul>
-</div>
-<div class="menu-items" id="content">
-    <div class="menu-item">
-        <div class="menu-item-title">Content</div>
-        <div class="close-sign">&#x2715;</div>
-    </div>
-    <div class="menu-item-group-title">Elements</div>
-    <ul>
-        <li>
-            <a href="">Pages</a>
-        </li>
-        <li>
-            <a href="#">Blocks</a>
-        </li>
-    </ul>
-    <div class="menu-item-group-title">Design</div>
-    <ul>
-        <li>
-            <a href="#">Configuration</a>
-        </li>
-        <li>
-            <a href="#">Themes</a>
-        </li>
-    </ul>
-</div>
-<div class="menu-items" id="forums">
-    <div class="menu-item">
-        <div class="menu-item-title">Catalog</div>
-        <div class="close-sign">&#x2715;</div>
-    </div>
-    <ul>
-        <li>
-            <a href="#">Posts</a>
-        </li>
-        <li>
-            <a href="">Categories</a>
-        </li>
-    </ul>
-</div>
-<div class="menu-items" id="marketing">
-    <div class="menu-item">
-        <div class="menu-item-title">Marketing</div>
-        <div class="close-sign">&#x2715;</div>
-    </div>
-    <ul>
-        <li>
-            <a href="#">About EF</a>
-        </li>
-        <li>
-            <a href="#">Contribute to EF Project</a>
-        </li>
-    </ul>
-</div>
-<div class="menu-items" id="reports">
-    <div class="menu-item">
-        <div class="menu-item-title">Reports</div>
-        <div class="close-sign">&#x2715;</div>
-    </div>
-    <ul>
-        <li>
-            <a href="#">About EF</a>
-        </li>
-        <li>
-            <a href="#">Contribute to EF Project</a>
-        </li>
-    </ul>
-</div>
-<div class="menu-items" id="ef-websites">
-    <div class="menu-item">
-        <div class="menu-item-title">Websites</div>
-        <div class="close-sign">&#x2715;</div>
-    </div>
-    <div class="menu-item-group-title">Settings</div>
-    <ul>
-        <li>
-            <a href="">All Web Sites</a>
-        </li>
-        <li>
-            <a href="{{ path('adminhtml_config_systemconfig_index') }}">Configuration</a>
-        </li>
-        <li>
-            <a href="">Terms and Conditions</a>
-        </li>
-    </ul>
-    <div class="menu-item-group-title">Attributes</div>
-    <ul>
-        <li>
-            <a href="">Category</a>
-        </li>
-        <li>
-            <a href="">Post</a>
-        </li>
-        <li>
-            <a href="">User</a>
-        </li>
-    </ul>
-</div>
-<div class="menu-items" id="system">
-    <div class="menu-item">
-        <div class="menu-item-title">System</div>
-        <div class="close-sign">&#x2715;</div>
-    </div>
-    <div class="menu-item-group-title">Data Transfer</div>
-    <ul>
-        <li>
-            <a href="#">Import</a>
-        </li>
-        <li>
-            <a href="#">Export</a>
-        </li>
-        <li>
-            <a href="#">History</a>
-        </li>
-    </ul>
-    <div class="menu-item-group-title">Roles</div>
-    <ul>
-        <li>
-            <a href="#">Roles</a>
-        </li>
-        <li>
-            <a href="#">Admin Users</a>
-        </li>
-    </ul>
-</div>
-<div class="menu-items" id="ef-manager">
-    <div class="menu-item">
-        <div class="menu-item-title">Manager</div>
-        <div class="close-sign">&#x2715;</div>
-    </div>
-    <ul>
-        <li>
-            <a href="#">Installed Plugins</a>
-        </li>
-        <li>
-            <a href="#">Browse Store Plugins &#187;</a>
-        </li>
-    </ul>
-</div>
-<div class="menu-items" id="ef-help">
-    <div class="menu-item">
-        <div class="menu-item-title">Help Center</div>
-        <div class="close-sign">&#x2715;</div>
-    </div>
-    <ul>
-        <li>
-            <a href="#">About EF</a>
-        </li>
-        <li>
-            <a href="#">Contribute to EF Project</a>
-        </li>
-    </ul>
+    {% for menuItemKey, menuItem in block.getMenu() %}
+        <div data-sidebar-target="menuItem" class="menu-items" id="{{ menuItemKey }}">
+            <div class="menu-item">
+                <div class="menu-item-title">{{ menuItem.label }}</div>
+                <div class="close-sign" data-sidebar-target="closeSign" data-action="click->sidebar#closeSignClick">&#x2715;</div>
+            </div>
+            {% if menuItem.groups is defined %}
+                {% for group in menuItem.groups %}
+                    {% if group.label is defined and group.label is not empty %}
+                        <div class="menu-item-group-title">{{ group.label }}</div>
+                    {% endif %}
+                    <ul>
+                        {% for action in group.actions %}
+                            <li>
+                                <a href="{{ action.action }}">{{ action.label }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endfor %}
 </div>

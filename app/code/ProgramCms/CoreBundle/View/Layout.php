@@ -40,22 +40,22 @@ class Layout implements LayoutInterface
      * PageLayout Model, used to get page layout content
      * @var \ProgramCms\ThemeBundle\Model\PageLayout
      */
-    private \ProgramCms\ThemeBundle\Model\PageLayout $pageLayout;
+    protected \ProgramCms\ThemeBundle\Model\PageLayout $pageLayout;
     /**
      * Saves Page Layouts
      * @var array
      */
-    private array $pageLayouts = [];
+    protected array $pageLayouts = [];
     /**
      * Stores the last page layout, current page
      * @var string
      */
-    private string $currentPageLayout;
+    protected string $currentPageLayout;
     /**
      * Holds blocks objects
      * @var array
      */
-    private array $blocks;
+    protected array $blocks;
     /**
      * Cache of elements to output during rendering
      * @var array
@@ -73,17 +73,17 @@ class Layout implements LayoutInterface
      * Holds All Css files
      * @var array
      */
-    private array $css = [];
+    protected array $css = [];
     /**
      * Holds All Js files
      * @var array
      */
-    private array $js = [];
+    protected array $js = [];
     /**
      * Used to remove unused containers by keeping only those of the last layout
      * @var array
      */
-    private array $elementsWithFileName;
+    protected array $elementsWithFileName;
 
     public function __construct(
         \ProgramCms\CoreBundle\View\Layout\Data\Structure $structure,

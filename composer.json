@@ -68,7 +68,8 @@
             "ProgramCms\\ManagerBundle\\": "app/code/ProgramCms/ManagerBundle",
             "ProgramCms\\SecurityBundle\\": "app/code/ProgramCms/SecurityBundle",
             "ProgramCms\\AiBundle\\": "app/code/ProgramCms/AiBundle",
-            "ProgramCms\\ImportBundle\\": "app/code/ProgramCms/ImportBundle"
+            "ProgramCms\\ImportBundle\\": "app/code/ProgramCms/ImportBundle",
+            "ProgramCms\\MarketingBundle\\": "app/code/ProgramCms/MarketingBundle"
         }
     },
     "autoload-dev": {

@@ -1,0 +1,18 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+menu:
+  marketing:
+    label: 'Marketing'
+    htmlClass: 'sidebar-marketing'
+    sortOrder: 6
+    groups:
+      default:
+        actions:
+          help:
+            label: "Help"
+            action: 'catalog_category_index'
+            sortOrder: 1

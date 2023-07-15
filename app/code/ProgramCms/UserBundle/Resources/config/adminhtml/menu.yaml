@@ -1,14 +1,26 @@
-# /*
+##
 #  Copyright © ProgramCMS. All rights reserved.
 #  See COPYING.txt for license details.
 #
 #  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
-# */
+##
 menu:
-  menu1:
-    label: 'Dashboard'
-    icon: ''
-    items:
-      clients:
-        label: 'All Clients'
-        path: ''
+  users:
+    label: 'Users'
+    htmlClass: 'sidebar-users'
+    sortOrder: 3
+    groups:
+      default:
+        actions:
+          help:
+            label: "All Users"
+            action: 'user_index_index'
+            sortOrder: 1
+          about:
+            label: 'Now Online'
+            action: ''
+            sortOrder: 2
+          gettingstarted:
+            label: 'User Groups'
+            action: ''
+            sortOrder: 3

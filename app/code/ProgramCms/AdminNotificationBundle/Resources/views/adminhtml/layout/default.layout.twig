@@ -7,8 +7,6 @@
  */
 #}
 {% page %}
-    {% css ['bundles/programcmsadminnotification/css/admin_notification.css'] %}
-
     {% referenceContainer name="notifications" %}
         {% block name="notifications.block" class="ProgramCms\\AdminNotificationBundle\\Block\\Notification" template="@ProgramCmsAdminNotificationBundle/notification.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}

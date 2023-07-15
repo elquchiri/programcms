@@ -11,7 +11,7 @@
     {% js ['underscore-umd-min.js', 'bundles/programcmsui/js/toolbar.js', 'bundles/programcmsui/js/collapser.js', 'bundles/programcmsui/js/grid.js'] %}
 
     {% referenceContainer name="page.menu" %}
-        {% block name="register.content" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsAdminBundle/sidebar.html.twig" %}{% endBlock %}
+        {% block name="sidebar" class="ProgramCms\\AdminBundle\\Block\\Sidebar" template="@ProgramCmsAdminBundle/sidebar.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}
     {% referenceContainer name="main.top" %}
         {% container name="navbar.header" htmlTag="nav" htmlClass="navbar navbar-expand-lg container-fluid content-header" %}

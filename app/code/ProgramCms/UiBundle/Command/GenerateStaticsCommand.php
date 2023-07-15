@@ -35,6 +35,7 @@ class GenerateStaticsCommand extends Command
 
         // Destination file path
         $appScssPath = 'assets/styles/app.scss';
+        $controllersFolderPath = 'assets/controllers';
 
         // Clear existing contents of app.scss
         file_put_contents($appScssPath, '');
@@ -44,8 +45,13 @@ class GenerateStaticsCommand extends Command
         foreach ($bundles as $bundle) {
             $reflectedBundle = new \ReflectionClass(get_class($bundle));
             if($reflectedBundle->hasMethod('isProgramCmsBundle')) {
+                $assetsFolder = $bundle->getPath() . '/Resources/views/adminhtml/assets/';
+                /**
+                 * Locate _bundle.scss entry files
+                 * Merge entry points into main app
+                 */
                 // Bundle resources directory
-                $bundleResourcesDir = $bundle->getPath() . '/Resources/views/adminhtml/assets/css/source/';
+                $bundleResourcesDir = $assetsFolder . 'css/source/';
                 $bundleName = $bundle->getName();
                 $bundle = $this->getApplication()->getKernel()->getBundle($bundleName);
                 $bundlePath = $bundle->getPath();
@@ -65,6 +71,21 @@ class GenerateStaticsCommand extends Command
                 foreach ($bundleScssFiles as $scssFile) {
                     $importStatement = sprintf('@import "%s%s";', $relativePath, '/Resources/views/adminhtml/assets/css/source/_bundle.scss');
                     file_put_contents($appScssPath, $importStatement.PHP_EOL, FILE_APPEND);
+                }
+
+                /**
+                 * Get all JavaScript files in the source directory
+                 * Copy the content of each JavaScript file to the destination directory
+                 */
+                $jsFiles = glob($assetsFolder . 'js/controllers/*.js');
+                $fileSystem = new \Symfony\Component\Filesystem\Filesystem();
+                foreach ($jsFiles as $file) {
+                    $filename = basename($file);
+                    $destinationFile = $controllersFolderPath . '/' . $filename;
+
+                    // Copy the file content
+                    $content = file_get_contents($file);
+                    $fileSystem->dumpFile($destinationFile, $content);
                 }
             }
         }

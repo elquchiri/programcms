@@ -16,7 +16,6 @@ use Exception;
  */
 class Structure extends \ProgramCms\CoreBundle\Data\Structure
 {
-
     /**
      * Register an element in structure, predefine element type internally
      * @param string $name
@@ -33,18 +32,14 @@ class Structure extends \ProgramCms\CoreBundle\Data\Structure
 
     /**
      * Reorder a child of a specified element
-     *
-     * If $offsetOrSibling is null, it will put the element to the end
-     * If $offsetOrSibling is numeric (integer) value, it will put the element after/before specified position
-     * Otherwise -- after/before specified sibling
-     *
      * @param string $parentName
      * @param string $childName
-     * @param string|int|null $offsetOrSibling
+     * @param int|string|null $offsetOrSibling
      * @param bool $after
      * @return void
+     * @throws Exception
      */
-    public function reorderChildElement($parentName, $childName, $offsetOrSibling, $after = true)
+    public function reorderChildElement(string $parentName, string $childName, int|string|null $offsetOrSibling, bool $after = true)
     {
         if (is_numeric($offsetOrSibling)) {
             $offset = abs((int) $offsetOrSibling) * ($after ? 1 : -1);
@@ -71,7 +66,6 @@ class Structure extends \ProgramCms\CoreBundle\Data\Structure
 
     /**
      * Search for an array element using needle, but needle may be '-', which means "first" or "last" element
-     *
      * Returns first or last element in the haystack, or the $needle argument
      *
      * @param string $needle
@@ -79,7 +73,7 @@ class Structure extends \ProgramCms\CoreBundle\Data\Structure
      * @param bool $isLast
      * @return string
      */
-    protected function _filterSearchMinus($needle, array $haystack, $isLast)
+    protected function _filterSearchMinus(string $needle, array $haystack, bool $isLast): string
     {
         if ('-' === $needle) {
             if ($isLast) {
@@ -92,21 +86,15 @@ class Structure extends \ProgramCms\CoreBundle\Data\Structure
 
     /**
      * Reorder an element relatively to its sibling
-     *
-     * $offset possible values:
-     *    1,  2 -- set after the sibling towards end -- by 1, by 2 positions, etc
-     *   -1, -2 -- set before the sibling towards start -- by 1, by 2 positions, etc...
-     *
-     * Both $childId and $siblingId must be children of the specified $parentId
      * Returns new position of the reordered element
-     *
      * @param string $parentId
      * @param string $childId
      * @param string $siblingId
      * @param int $offset
      * @return int
+     * @throws Exception
      */
-    public function reorderToSibling($parentId, $childId, $siblingId, $offset)
+    public function reorderToSibling($parentId, $childId, $siblingId, $offset): int
     {
         $this->_getChildOffset($parentId, $childId);
         if ($childId === $siblingId) {
@@ -125,6 +113,7 @@ class Structure extends \ProgramCms\CoreBundle\Data\Structure
      * @param string $siblingId
      * @param int $delta
      * @return int
+     * @throws Exception
      */
     private function _getRelativeOffset($parentId, $siblingId, $delta)
     {

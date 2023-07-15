@@ -4,3 +4,33 @@
 #
 #  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
 ##
+menu:
+  website:
+    label: 'Websites'
+    htmlClass: 'sidebar-website'
+    sortOrder: 8
+    groups:
+      settings:
+        label: 'Settings'
+        actions:
+          websites:
+            label: 'All Web Sites'
+            action: ''
+          config:
+            label: 'Configuration'
+            action: ''
+          terms:
+            label: 'Terms and Conditions'
+            action: ''
+      attributes:
+        label: 'Attributes'
+        actions:
+          category:
+            label: 'Category'
+            action: ''
+          post:
+            label: 'Post'
+            action: ''
+          user:
+            label: 'User'
+            action: ''
