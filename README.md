@@ -65,9 +65,13 @@ Frontend Home Page
 
 ![image](public/images/frontend-demo.png)
 
-Backend Dashboard
+Backend Demo
+- Catalog Categories
 
-![image](public/images/backend-demo.png)
+![image](public/images/backend-category-demo.png)
+- Central Configuration
+
+![image](public/images/backend-config-demo.png)
 
 ## Contribution
 
