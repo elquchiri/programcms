@@ -6,9 +6,9 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<div class="collapser">
+<div class="collapser" data-controller="collapser">
     {% if block.hasLabel() %}
-        <a class="collapser-label open" data-bs-toggle="collapse" href="#{{ block.getName() }}" role="button"
+        <a class="collapser-label open" data-action="collapser#collapserClick" data-bs-toggle="collapse" href="#{{ block.getName() }}" role="button"
            aria-expanded="false" aria-controls="{{ block.getName() }}">
             {{ block.getLabel() }}
         </a>

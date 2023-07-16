@@ -57,7 +57,7 @@ class SaveController extends \ProgramCms\ConfigBundle\Controller\Adminhtml\Abstr
             // Flash success message
             $this->addFlash('success', 'Configuration Saved Succefully.');
 
-            return $this->redirect($this->url->getUrlByRouteName('adminhtml_config_systemconfig_edit', ['sectionId' => $sectionId]));
+            return $this->redirect($this->url->getUrlByRouteName('config_systemconfig_edit', ['sectionId' => $sectionId]));
         }
         // Flash error message
         $this->addFlash('danger', 'Error Saving Configuration Data, please try again.');

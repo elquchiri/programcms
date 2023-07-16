@@ -48,7 +48,7 @@ class Request
      */
     public function getParam($param): mixed
     {
-        return $this->request->query->has($param) ? $this->request->query->get($param) : '';
+        return $this->getParameters()[$param] ?? '';
     }
 
     /**

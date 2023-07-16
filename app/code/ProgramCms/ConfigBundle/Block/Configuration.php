@@ -8,6 +8,8 @@
 
 namespace ProgramCms\ConfigBundle\Block;
 
+use ReflectionException;
+
 /**
  * Class Configuration
  * @package ProgramCms\ConfigBundle\Block
@@ -27,6 +29,13 @@ class Configuration extends \ProgramCms\CoreBundle\View\Element\Template
      */
     private \ProgramCms\RouterBundle\Service\Url $url;
 
+    /**
+     * Configuration constructor.
+     * @param \ProgramCms\CoreBundle\View\Element\Template\Context $context
+     * @param \ProgramCms\ConfigBundle\Model\ConfigSerializer $configSerializer
+     * @param array $data
+     * @throws ReflectionException
+     */
     public function __construct(
         \ProgramCms\CoreBundle\View\Element\Template\Context $context,
         \ProgramCms\ConfigBundle\Model\ConfigSerializer $configSerializer,
@@ -42,7 +51,7 @@ class Configuration extends \ProgramCms\CoreBundle\View\Element\Template
     }
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     private function _initConfigSerializer()
     {
@@ -96,6 +105,11 @@ class Configuration extends \ProgramCms\CoreBundle\View\Element\Template
             $collapser->setChild('fieldset-' . $groupId, $fieldset);
             $form->setChild('collapse-' . $groupId, $collapser);
         }
+        $hiddenInput = $layout->createBlock(\ProgramCms\UiBundle\Block\Form\Fields\Hidden::class, 'section_id', [
+            'value' => $this->configSerializer->getSectionId()
+        ]);
+        $form->setChild('section_id', $hiddenInput);
+
         $this->setChild('form', $form);
     }
 

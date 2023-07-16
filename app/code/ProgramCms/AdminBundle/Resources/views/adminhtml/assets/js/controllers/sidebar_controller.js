@@ -77,7 +77,7 @@ export default class extends Controller {
     hideCurrentMenuItemTarget() {
         const menuItemId = this.activeMenuItem.getAttribute('id');
         const targetMenu = this.findMenuItemTarget(menuItemId);
-        this.animateMenuItem(menuItemId, `-${this.constructor.sideBarWidth}px`, () => {
+        this.animateMenuItem(targetMenu, `-${this.constructor.sideBarWidth}px`, () => {
             targetMenu.style.display = 'none';
         });
         this.activeMenuItem = null;
@@ -89,15 +89,15 @@ export default class extends Controller {
         const targetMenu = this.findMenuItemTarget(menuItemId);
         targetMenu.style.left = `-${this.constructor.sideBarWidth}px`;
         targetMenu.style.display = 'block';
-        this.animateMenuItem(menuItemId, `${this.constructor.leftPixels}px`);
+        this.animateMenuItem(targetMenu, `${this.constructor.leftPixels}px`);
 
         // Clean Active links and Activate current
         this.removeActiveClassFromMenuItems();
         menuItem.classList.add('active');
     }
 
-    animateMenuItem(menuItemId, leftPosition, callback) {
-        $('.menu-items#' + menuItemId).animate(
+    animateMenuItem(menuItem, leftPosition, callback) {
+        $(menuItem).animate(
             { left: leftPosition },
             300,
             callback

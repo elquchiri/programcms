@@ -24,7 +24,6 @@ class ProgramCmsAdminNotificationBundle extends \ProgramCms\CoreBundle\ProgramCm
         return [
             \ProgramCms\CoreBundle\ProgramCmsCoreBundle::class,
             \ProgramCms\ThemeBundle\ProgramCmsThemeBundle::class,
-            \ProgramCms\ConfigBundle\ProgramCmsConfigBundle::class
         ];
     }
 }

@@ -6,23 +6,23 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<div class="collapse navbar-collapse justify-content-end">
+<div class="collapse navbar-collapse justify-content-end" data-controller="toolbar">
     <ul class="navbar-nav">
         {% for button in block.getButtons() %}
             <li class="nav-item">
-                {% if button.buttonType == 'save' %}
-                    <button class="btn btn-primary ef-toolbar-btn" data-btn-type="{{ button.buttonType }}"
+                {% if button.buttonType == 'save' or button.buttonType == 'primary' %}
+                    <button data-action="toolbar#buttonClick" class="btn btn-primary ef-toolbar-btn" data-btn-type="{{ button.buttonType }}"
                             data-btn-target="{{ button.buttonTarget }}"
                             data-btn-action="{{ button.buttonAction }}" type="button">
                         {{ button.label }}
                     </button>
                 {% elseif button.buttonType == 'back' %}
-                    <button class="btn btn" type="button">
+                    <button data-action="toolbar#buttonClick" class="btn btn" type="button">
                         <img style="margin-bottom: 2px;" src="{{ asset('bundles/programcmsadmin/images/back.png') }}" />
                         {{ button.label }}
                     </button>
                 {% else %}
-                    <button class="btn btn-{{ button.buttonType }} ef-toolbar-btn"
+                    <button data-action="toolbar#buttonClick" class="btn btn-{{ button.buttonType }} ef-toolbar-btn"
                             data-btn-type="{{ button.buttonType }}" type="button">
                         {{ button.label }}
                     </button>

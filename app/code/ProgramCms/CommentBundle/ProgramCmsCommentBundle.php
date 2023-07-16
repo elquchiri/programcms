@@ -24,7 +24,6 @@ class ProgramCmsCommentBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundl
         return [
             \ProgramCms\CoreBundle\ProgramCmsCoreBundle::class,
             \ProgramCms\ThemeBundle\ProgramCmsThemeBundle::class,
-            \ProgramCms\ConfigBundle\ProgramCmsConfigBundle::class
         ];
     }
 }

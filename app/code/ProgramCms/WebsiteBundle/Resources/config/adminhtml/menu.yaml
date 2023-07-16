@@ -15,10 +15,10 @@ menu:
         actions:
           websites:
             label: 'All Web Sites'
-            action: ''
+            action: 'website_systemwebsite_index'
           config:
             label: 'Configuration'
-            action: ''
+            action: 'config_systemconfig_index'
           terms:
             label: 'Terms and Conditions'
             action: ''

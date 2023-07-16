@@ -7,9 +7,6 @@
  */
 #}
 {% page layout="admin-1column" %}
-    {% css ['bundles/programcmsui/css/components/buttons-bar.css', 'bundles/programcmsui/css/components/grid.css', 'bundles/programcmsui/css/components/collapser.css'] %}
-    {% js ['underscore-umd-min.js', 'bundles/programcmsui/js/toolbar.js', 'bundles/programcmsui/js/collapser.js', 'bundles/programcmsui/js/grid.js'] %}
-
     {% referenceContainer name="page.menu" %}
         {% block name="sidebar" class="ProgramCms\\AdminBundle\\Block\\Sidebar" template="@ProgramCmsAdminBundle/sidebar.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}

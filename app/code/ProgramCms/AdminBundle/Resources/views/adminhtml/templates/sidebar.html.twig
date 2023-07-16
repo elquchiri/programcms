@@ -12,7 +12,7 @@
             {% for menuItemKey, menuItem in block.getMenu() %}
                 <li>
                     <a data-sidebar-target="menuItemLink"
-                        data-action="click->sidebar#menuItemClick"
+                        data-action="sidebar#menuItemClick"
                         {% if menuItem.htmlClass is defined %}class="{{ menuItem.htmlClass }}"{% endif %}
                         href="{% if menuItem.action is defined %}{{ menuItem.action }}{% endif %}"
                         id="{{ menuItemKey }}">

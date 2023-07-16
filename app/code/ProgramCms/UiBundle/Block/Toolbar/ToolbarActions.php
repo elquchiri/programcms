@@ -44,11 +44,13 @@ class ToolbarActions extends \ProgramCms\CoreBundle\View\Element\Template
     public function getButtons(): array
     {
         // Transform url names to paths
+        $buttons = [];
         foreach($this->getData() as $button) {
             if(isset($button['buttonAction']) && !empty($button['buttonAction'])) {
                 $button['buttonAction'] = $this->url->getUrlByRouteName($button['buttonAction']);
+                $buttons[] = $button;
             }
         }
-        return $this->getData();
+        return $buttons;
     }
 }
