@@ -68,10 +68,10 @@ Frontend Home Page
 Backend Demo
 - Catalog Categories
 
-![image](public/images/backend-category-demo.png)
+![image](public/images/backend-category-demo.PNG)
 - Central Configuration
 
-![image](public/images/backend-config-demo.png)
+![image](public/images/backend-config-demo.PNG)
 
 ## Contribution
 
