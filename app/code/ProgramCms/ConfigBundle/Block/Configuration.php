@@ -72,7 +72,7 @@ class Configuration extends \ProgramCms\CoreBundle\View\Element\Template
     /**
      * @throws \Exception
      */
-    protected function _prepareLayout()
+    protected function _prepareLayout(): static
     {
         $layout = $this->getLayout();
         $currentSectionGroups = $this->configSerializer->getCurrenSectionGroups();
@@ -105,12 +105,14 @@ class Configuration extends \ProgramCms\CoreBundle\View\Element\Template
             $collapser->setChild('fieldset-' . $groupId, $fieldset);
             $form->setChild('collapse-' . $groupId, $collapser);
         }
+
+        // Add hidden input to send sectionId parameter
         $hiddenInput = $layout->createBlock(\ProgramCms\UiBundle\Block\Form\Fields\Hidden::class, 'section_id', [
             'value' => $this->configSerializer->getSectionId()
         ]);
         $form->setChild('section_id', $hiddenInput);
 
-        $this->setChild('form', $form);
+        return $this->setChild('form', $form);
     }
 
     /**
