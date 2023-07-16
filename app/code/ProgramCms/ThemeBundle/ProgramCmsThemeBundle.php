@@ -15,4 +15,14 @@ namespace ProgramCms\ThemeBundle;
 class ProgramCmsThemeBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
 {
     public const VERSION = '1.0.0';
+
+    /**
+     * @return string[]
+     */
+    public static function getDependencies(): array
+    {
+        return [
+            \ProgramCms\CoreBundle\ProgramCmsCoreBundle::class,
+        ];
+    }
 }

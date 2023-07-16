@@ -15,4 +15,16 @@ namespace ProgramCms\ImportBundle;
 class ProgramCmsImportBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
 {
     public const VERSION = '1.0.0';
+
+    /**
+     * @return string[]
+     */
+    public static function getDependencies(): array
+    {
+        return [
+            \ProgramCms\CoreBundle\ProgramCmsCoreBundle::class,
+            \ProgramCms\ThemeBundle\ProgramCmsThemeBundle::class,
+            \ProgramCms\ConfigBundle\ProgramCmsConfigBundle::class
+        ];
+    }
 }
