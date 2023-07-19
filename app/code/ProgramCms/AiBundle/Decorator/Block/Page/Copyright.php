@@ -22,9 +22,21 @@ use Symfony\Component\DependencyInjection\Attribute\MapDecorated;
 )]
 class Copyright extends \ProgramCms\AdminBundle\Block\Page\Copyright
 {
+    /**
+     * @var \ProgramCms\AdminBundle\Block\Page\Copyright
+     */
     protected \ProgramCms\AdminBundle\Block\Page\Copyright $subject;
+    /**
+     * ProgramCMS's Year of Creation
+     */
     const PROGRAMCMS_BIRTHDAY = 2022;
 
+    /**
+     * Copyright constructor.
+     * @param \ProgramCms\CoreBundle\View\Element\Template\Context $context
+     * @param \ProgramCms\AdminBundle\Block\Page\Copyright $subject
+     * @param array $data
+     */
     public function __construct(
         \ProgramCms\CoreBundle\View\Element\Template\Context $context,
         #[MapDecorated] \ProgramCms\AdminBundle\Block\Page\Copyright $subject,

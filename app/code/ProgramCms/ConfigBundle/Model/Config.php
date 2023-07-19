@@ -20,7 +20,7 @@ class Config
     private \ProgramCms\ConfigBundle\Repository\CoreConfigDataRepository $coreConfigDataRepository;
 
     public function __construct(
-        \App\Kernel $kernel,
+        \ProgramCms\CoreBundle\App\Kernel $kernel,
         \ProgramCms\ConfigBundle\Repository\CoreConfigDataRepository $coreConfigDataRepository
     )
     {

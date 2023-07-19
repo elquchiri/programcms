@@ -10,9 +10,25 @@ menu:
     htmlClass: 'sidebar-marketing'
     sortOrder: 6
     groups:
-      default:
+      communications:
+        label: 'Communications'
         actions:
-          help:
-            label: "Help"
-            action: 'catalog_category_index'
+          emailTemplates:
+            label: "Email Templates"
+            action: ''
+            sortOrder: 1
+          newsletterSubscribers:
+            label: "Newsletter Subscribers"
+            action: ''
+            sortOrder: 1
+      seoSearch:
+        label: 'SEO & Search'
+        actions:
+          urlRewrites:
+            label: "URL Rewrites"
+            action: ''
+            sortOrder: 1
+          searchTerms:
+            label: "Search Terms"
+            action: ''
             sortOrder: 1

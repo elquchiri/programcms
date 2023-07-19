@@ -14,10 +14,10 @@ namespace ProgramCms\CoreBundle\Model\Filesystem;
  */
 class DirectoryList
 {
-    protected \Symfony\Component\HttpKernel\KernelInterface $kernel;
+    protected \ProgramCms\CoreBundle\App\Kernel $kernel;
 
     public function __construct(
-        \Symfony\Component\HttpKernel\KernelInterface $kernel
+        \ProgramCms\CoreBundle\App\Kernel $kernel
     )
     {
         $this->kernel = $kernel;

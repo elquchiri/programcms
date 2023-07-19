@@ -24,10 +24,10 @@ trait BundleDependenciesResolver
      * @return array
      * @throws ReflectionException
      */
-    protected function _getBundleInstances(\Symfony\Component\HttpKernel\KernelInterface $kernel, array $bundles): array
+    protected function _getBundleInstances(\ProgramCms\CoreBundle\App\Kernel $kernel, array $bundles): array
     {
         $builtBundles = [];
-        $cacheFile = $kernel->getCacheDir().'/kernelDependenciesStack.php';
+        $cacheFile = $kernel->getCacheDir() . '/kernelDependenciesStack.php';
 
         if(file_exists($cacheFile)) {
             $bundleStack = include $cacheFile;

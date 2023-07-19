@@ -1,7 +1,13 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
 services:
   _defaults:
-    autowire: true      # Automatically injects dependencies in your services.
-    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    autowire: true
+    autoconfigure: true
     public: true
 
   ProgramCms\RouterBundle\:
@@ -15,7 +21,3 @@ services:
     tags: [ routing.loader ]
     arguments:
       $container: '@service_container'
-
-#  ProgramCms\RouterBundle\Service\Request:
-#    arguments:
-#      $requestStack: '@request_stack'

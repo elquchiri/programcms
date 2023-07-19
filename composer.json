@@ -42,7 +42,6 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/",
 			"ProgramCms\\DependencyBundle\\": "app/code/ProgramCms/DependencyBundle",
 			"ProgramCms\\CoreBundle\\": "app/code/ProgramCms/CoreBundle",
 			"ProgramCms\\UserBundle\\": "app/code/ProgramCms/UserBundle",
@@ -70,7 +69,9 @@
             "ProgramCms\\SecurityBundle\\": "app/code/ProgramCms/SecurityBundle",
             "ProgramCms\\AiBundle\\": "app/code/ProgramCms/AiBundle",
             "ProgramCms\\ImportBundle\\": "app/code/ProgramCms/ImportBundle",
-            "ProgramCms\\MarketingBundle\\": "app/code/ProgramCms/MarketingBundle"
+            "ProgramCms\\MarketingBundle\\": "app/code/ProgramCms/MarketingBundle",
+            "ProgramCms\\BackendTheme\\": "app/design/adminhtml/ProgramCms/Backend",
+            "ProgramCms\\BlankTheme\\": "app/design/frontend/ProgramCms/Blank"
         }
     },
     "autoload-dev": {
