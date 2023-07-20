@@ -35,9 +35,9 @@ To install ProgramCMS project run :
   Edit .env file to match your database
   DATABASE_URL="mysql://root:@127.0.0.1:3306/programcms?serverVersion=8&charset=utf8mb4"
   
-  php bin/console make:migration
-  php bin/console doctrine:migrations:migrate
-  bin/console assets:install
+  php bin/pcms make:migration
+  php bin/pcms doctrine:migrations:migrate
+  php bin/pcms generate:statics
 ```
 
 
