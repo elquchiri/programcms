@@ -8,6 +8,8 @@
 
 namespace ProgramCms\UiBundle\DataProvider;
 
+use Doctrine\Common\Collections\AbstractLazyCollection;
+
 /**
  * Interface DataProviderInterface
  * @package ProgramCms\UiBundle\DataProvider
@@ -31,4 +33,9 @@ interface DataProviderInterface
      * @return mixed
      */
     public function getData(): array;
+
+    /**
+     * @return array
+     */
+    public function getCollection(): AbstractLazyCollection;
 }

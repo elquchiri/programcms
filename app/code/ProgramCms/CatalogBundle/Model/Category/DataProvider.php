@@ -20,9 +20,11 @@ class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvide
     protected \ProgramCms\CatalogBundle\Repository\CategoryRepository $categoryRepository;
 
     public function __construct(
-        \ProgramCms\CatalogBundle\Repository\CategoryRepository $categoryRepository
+        \ProgramCms\CatalogBundle\Repository\CategoryRepository $categoryRepository,
+        \ProgramCms\CatalogBundle\Model\Collection\Category\Collection $collection
     )
     {
+        $this->collection = $collection;
         $this->categoryRepository = $categoryRepository;
     }
 
