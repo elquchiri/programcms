@@ -26,12 +26,15 @@ abstract class AbstractCollection extends \Doctrine\Common\Collections\AbstractL
      * @var Connection
      */
     protected Connection $connection;
+    protected \Doctrine\ORM\EntityManagerInterface $entityManager;
 
     public function __construct(
-        Connection $connection
+        Connection $connection,
+        \Doctrine\ORM\EntityManagerInterface $entityManager
     )
     {
         $this->connection = $connection;
+        $this->entityManager = $entityManager;
         $this->_construct();
     }
 
@@ -43,9 +46,10 @@ abstract class AbstractCollection extends \Doctrine\Common\Collections\AbstractL
     /**
      * @param string $entity
      */
-    protected function _initEntity(string $entity)
+    protected function _initEntity(string $entityClass)
     {
-        $this->entity = $entity;
+        $classMetadata = $this->entityManager->getClassMetadata($entityClass);
+        $this->entity = $classMetadata->getTableName();
     }
 
     /**
@@ -56,7 +60,7 @@ abstract class AbstractCollection extends \Doctrine\Common\Collections\AbstractL
         $this->collection = new ArrayCollection(
             $this->connection->createQueryBuilder()
                 ->select('*')
-                ->from($this->entity)
+                ->from($this->entity, 'mainTable')
                 ->fetchAllAssociative()
         );
     }

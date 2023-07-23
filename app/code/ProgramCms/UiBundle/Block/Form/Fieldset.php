@@ -43,6 +43,7 @@ class Fieldset extends \ProgramCms\CoreBundle\View\Element\Template
     {
         $layout = $this->getLayout();
         if($this->hasData('fields')) {
+            $providedData = $this->getData('providedData');
             foreach ($this->getData("fields") as $fieldName => $field) {
                 switch ($field['type']) {
                     case "text":
@@ -94,6 +95,11 @@ class Fieldset extends \ProgramCms\CoreBundle\View\Element\Template
                     if (isset($field['isRequired'])) {
                         $fieldBlock->setIsRequired($field['isRequired']);
                     }
+                    // Populate field by provided value
+                    if(isset($providedData[$fieldName]) && !empty($providedData[$fieldName])) {
+                        $fieldBlock->setValue($providedData[$fieldName]);
+                    }
+                    // Populate field by static value
                     if (isset($field['value'])) {
                         $fieldBlock->setValue($field['value']);
                     }

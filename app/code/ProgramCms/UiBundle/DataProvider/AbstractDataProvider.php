@@ -9,6 +9,7 @@
 namespace ProgramCms\UiBundle\DataProvider;
 
 use Doctrine\Common\Collections\AbstractLazyCollection;
+use ProgramCms\CoreBundle\Model\Db\Collection\AbstractCollection;
 
 /**
  * Class AbstractDataProvider
@@ -34,9 +35,9 @@ abstract class AbstractDataProvider implements DataProviderInterface
      */
     protected array $data = [];
     /**
-     * @var AbstractLazyCollection
+     * @var AbstractCollection
      */
-    protected AbstractLazyCollection $collection;
+    protected AbstractCollection $collection;
 
     /**
      * Get primary field name
@@ -56,7 +57,10 @@ abstract class AbstractDataProvider implements DataProviderInterface
         return $this->requestFieldName;
     }
 
-    public function getCollection(): AbstractLazyCollection
+    /**
+     * @return AbstractCollection
+     */
+    public function getCollection(): AbstractCollection
     {
         return $this->collection;
     }
@@ -68,10 +72,5 @@ abstract class AbstractDataProvider implements DataProviderInterface
     public function getData(): array
     {
         return $this->getCollection()->toArray();
-    }
-
-    public function addFilter()
-    {
-
     }
 }

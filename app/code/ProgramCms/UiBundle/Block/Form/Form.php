@@ -21,6 +21,22 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
      * @var string
      */
     protected string $_template = "@ProgramCmsUiBundle/form/form.html.twig";
+    /**
+     * @var ObjectManager
+     */
+    protected ObjectManager $objectManager;
+
+    public function __construct(
+        \ProgramCms\CoreBundle\View\Element\Template\Context $context,
+        \ProgramCms\RouterBundle\Service\Request $request,
+        ObjectManager $objectManager,
+        array $data = []
+    )
+    {
+        parent::__construct($context, $data);
+        $this->objectManager = $objectManager;
+        $this->request = $request;
+    }
 
     /**
      * Get form name in layout
@@ -38,6 +54,22 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
     protected function _prepareLayout()
     {
         $layout = $this->getLayout();
+
+        if($this->hasData('dataProvider')) {
+            $config = $this->getData('dataProvider');
+            /** @var \ProgramCms\UiBundle\DataProvider\AbstractDataProvider $dataProvider */
+            $dataProvider = $this->objectManager->create($config['class']);
+            $data = $dataProvider->getData();
+            if(isset($config['primaryFieldName']) && isset($config['requestFieldName'])) {
+                $entityId = (int) $this->request->getParam($config['requestFieldName']);
+                $data = $dataProvider
+                    ->getCollection()
+                    ->filter(function($entity) use($entityId, $config) {
+                        return $entity[$config['primaryFieldName']] === $entityId;
+                    })
+                    ->current();
+            }
+        }
         if($this->hasData('buttons')) {
             $toolbarActions = $layout->createBlock(\ProgramCms\UiBundle\Block\Toolbar\ToolbarActions::class, 'toolbar.actions', $this->getData('buttons'));
             $layout->setChild('buttons.bar', $toolbarActions->getNameInLayout());
@@ -52,12 +84,20 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
                     ['label' => $fieldset['label'] ?? '', 'open' => $fieldset['open'] ?? false]
                 );
                 if(isset($fieldset['fields'])) {
-                    $fieldsetBlock = $layout->createBlock(\ProgramCms\UiBundle\Block\Form\Fieldset::class, $name, $fieldset);
+                    $fieldsetBlock = $layout->createBlock(
+                        \ProgramCms\UiBundle\Block\Form\Fieldset::class,
+                        $name,
+                        array_merge($fieldset, ['providedData' => $data])
+                    );
                     $fieldsetBlock->setLayout($layout);
                     $collapseBlock->setChild($name, $fieldsetBlock);
                 }
                 if(isset($fieldset['grid'])) {
-                    $fieldsetBlock = $layout->createBlock(\ProgramCms\UiBundle\Block\Grid\Grid::class, $name, $fieldset['grid']);
+                    $fieldsetBlock = $layout->createBlock(
+                        \ProgramCms\UiBundle\Block\Grid\Grid::class,
+                        $name,
+                        $fieldset['grid']
+                    );
                     $fieldsetBlock->setLayout($layout);
                     $collapseBlock->setChild($name, $fieldsetBlock);
                 }

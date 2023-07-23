@@ -37,5 +37,5 @@ interface DataProviderInterface
     /**
      * @return array
      */
-    public function getCollection(): AbstractLazyCollection;
+    public function getCollection();
 }

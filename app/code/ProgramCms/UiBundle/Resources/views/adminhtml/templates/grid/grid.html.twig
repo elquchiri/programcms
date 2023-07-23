@@ -6,165 +6,167 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<ul class="nav nav-tabs grid-filters-tabs justify-content-end" role="tablist">
-    <li class="nav-item">
-        <a class="nav-link" id="filters-tab" data-bs-toggle="tab" data-bs-target="#filters" type="button" role="tab"
-           aria-controls="filters" aria-selected="true" href="#">
-            <img src="{{ asset('bundles/programcmsui/images/filters.png') }}"/>
-            Filters
-        </a>
-    </li>
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Columns</a>
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-            <li>
-                <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="#">Separated link</a></li>
-        </ul>
-    </li>
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Export</a>
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-        </ul>
-    </li>
-</ul>
-<div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade" id="filters" role="tabpanel" aria-labelledby="filters-tab">
-        <div class="grid-filters">
-            <div class="row row-cols-4">
-                <div class="col">
-                    <div class="mt-3">
-                        <label for="exampleInputEmail1" class="form-label">#ID</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="From" id="exampleInputEmail1"
-                                   aria-describedby="emailHelp">
-                            <input type="text" class="form-control" placeholder="To" aria-label="Username"
-                                   aria-describedby="basic-addon1">
+<div data-controller="grid">
+    <ul class="nav nav-tabs grid-filters-tabs justify-content-end" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link" id="filters-tab" data-bs-toggle="tab" data-bs-target="#filters" type="button" role="tab"
+               aria-controls="filters" aria-selected="true" href="#">
+                <img src="{{ asset('bundles/programcmsui/images/filters.png') }}"/>
+                Filters
+            </a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Columns</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Separated link</a></li>
+            </ul>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Export</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+            </ul>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade" id="filters" role="tabpanel" aria-labelledby="filters-tab">
+            <div class="grid-filters">
+                <div class="row row-cols-4">
+                    <div class="col">
+                        <div class="mt-3">
+                            <label for="exampleInputEmail1" class="form-label">#ID</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="From" id="exampleInputEmail1"
+                                       aria-describedby="emailHelp">
+                                <input type="text" class="form-control" placeholder="To" aria-label="Username"
+                                       aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mt-3">
+                            <label for="exampleInputEmail1" class="form-label">Title</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mt-3">
+                            <label for="exampleInputEmail1" class="form-label">Website View</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option value="1">All Website Views</option>
+                                <optgroup label="Main Root Website"></optgroup>
+                                <optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;Main Website"></optgroup>
+                                <option value="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Main Website View</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mt-3">
+                            <label for="exampleInputEmail1" class="form-label">Status</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option value="1">Enabled</option>
+                                <option value="2">Disabled</option>
+                            </select>
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="mt-3">
-                        <label for="exampleInputEmail1" class="form-label">Title</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </div>
+                <div class="d-flex flex-row-reverse mt-3 mb-3">
+                    <input class="btn btn-primary btn-sm ms-2" type="submit" value="Apply Filters">
+                    <a href="#filters" class="btn btn-sm" role="button" data-bs-toggle="collapse">Cancel</a>
                 </div>
-                <div class="col">
-                    <div class="mt-3">
-                        <label for="exampleInputEmail1" class="form-label">Website View</label>
-                        <select class="form-select" aria-label="Default select example">
-                            <option value="1">All Website Views</option>
-                            <optgroup label="Main Root Website"></optgroup>
-                            <optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;Main Website"></optgroup>
-                            <option value="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Main Website View</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="mt-3">
-                        <label for="exampleInputEmail1" class="form-label">Status</label>
-                        <select class="form-select" aria-label="Default select example">
-                            <option value="1">Enabled</option>
-                            <option value="2">Disabled</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex flex-row-reverse mt-3 mb-3">
-                <input class="btn btn-primary btn-sm ms-2" type="submit" value="Apply Filters">
-                <a href="#filters" class="btn btn-sm" role="button" data-bs-toggle="collapse">Cancel</a>
             </div>
         </div>
     </div>
-</div>
 
 
-<form role="search">
-    <div class="row">
-        <div class="col-sm-5">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search by Keyword .."
-                       aria-label="Recipient's username" aria-describedby="button-addon2">
-                <button class="btn" type="button" id="button-addon2"
-                        style="border: 1px solid #CCC; border-left: 0; padding-top: 0;">
-                    <img src="{{ asset('bundles/programcmsforum/images/search.png') }}"
-                         style="width: 15px; height: 15px"/>
-                </button>
+    <form role="search">
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search by Keyword .."
+                           aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn" type="button" id="button-addon2"
+                            style="border: 1px solid #CCC; border-left: 0; padding-top: 0;">
+                        <img src="{{ asset('bundles/programcmsforum/images/search.png') }}"
+                             style="width: 15px; height: 15px"/>
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
 
 
-<nav class="navbar navbar-expand-lg">
-    <div class="navbar-collapse" id="navbarSupportedContent">
-        <form class="d-flex me-5" role="search">
-            <div class="form-floating">
-                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                    <option selected>Select an Action</option>
-                    <option value="1">Delete</option>
-                    <option value="2">Activate</option>
-                    <option value="3">Desactivate</option>
-                </select>
-                <label for="floatingSelect">Bulk Actions</label>
+    <nav class="navbar navbar-expand-lg">
+        <div class="navbar-collapse" id="navbarSupportedContent">
+            <form class="d-flex me-5" role="search">
+                <div class="form-floating">
+                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                        <option selected>Select an Action</option>
+                        <option value="1">Delete</option>
+                        <option value="2">Activate</option>
+                        <option value="3">Desactivate</option>
+                    </select>
+                    <label for="floatingSelect">Bulk Actions</label>
+                </div>
+            </form>
+            <span class="mb-0">3 records found</span>
+
+            <div class="input-group flex-nowrap mb-3 justify-content-end ms-auto mt-2" style="width: 120px;">
+                <button class="btn pagination-left-button" type="button" id="button-addon1"></button>
+                <input type="text" class="form-control text-center" value="1">
+                <button class="btn" style="border: 1px solid #dedede;" type="button" id="button-addon1">></button>
             </div>
-        </form>
-        <span class="mb-0">3 records found</span>
-
-        <div class="input-group flex-nowrap mb-3 justify-content-end ms-auto mt-2" style="width: 120px;">
-            <button class="btn pagination-left-button" type="button" id="button-addon1"></button>
-            <input type="text" class="form-control text-center" value="1">
-            <button class="btn" style="border: 1px solid #dedede;" type="button" id="button-addon1">></button>
         </div>
-    </div>
-</nav>
+    </nav>
 
-<table class="table table-bordered table-striped table-hover mt-3 admin-table">
-    <thead class="table-dark">
-    <th></th>
-    {% for column in block.getColumns() %}
-        <th {% if column.type == 'action' %}class="text-center"{% endif %}>{{ column.title }}</th>
-    {% endfor %}
-    </thead>
-    <tbody>
-    {% set actions = block.getActions() %}
-    {% for rowColumn in block.getRows() %}
-        <tr>
-            <td class="text-center">
-                <input type="checkbox" class="form-check-input" name=""/>
-            </td>
-            {% for value in rowColumn %}
-                <td>{{ value.label }}</td>
-            {% endfor %}
-            {% if block.getActions() is defined %}
+    <table class="table table-bordered table-striped table-hover mt-3 admin-table">
+        <thead class="table-dark">
+        <th></th>
+        {% for column in block.getColumns() %}
+            <th {% if column.type == 'action' %}class="text-center"{% endif %}>{{ column.title }}</th>
+        {% endfor %}
+        </thead>
+        <tbody>
+        {% set actions = block.getActions() %}
+        {% for rowColumn in block.getRows() %}
+            <tr>
                 <td class="text-center">
-                    {% for action in actions %}
-                        {% if action.type == 'url' %}
-                            <a href="#" class="ms-2">{{ action.label }}</a>
-                        {% endif %}
-                        {% if action.type == 'dropdown' %}
-                            <div class="btn-group" style="margin-top: -3px;">
-                                <a class="dropdown-toggle ms-1" type="button" data-bs-toggle="dropdown"
-                                   data-bs-auto-close="true"
-                                   aria-expanded="false">
-                                    {{ action.label }}
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    {% for subAction in action.actions %}
-                                        <li><a class="dropdown-item" href="#">{{ subAction.label }}</a></li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
+                    <input type="checkbox" class="form-check-input" name=""/>
                 </td>
-            {% endif %}
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+                {% for value in rowColumn %}
+                    <td>{{ value.label }}</td>
+                {% endfor %}
+                {% if block.getActions() is defined %}
+                    <td class="text-center">
+                        {% for action in actions %}
+                            {% if action.type == 'url' %}
+                                <a href="#" class="ms-2">{{ action.label }}</a>
+                            {% endif %}
+                            {% if action.type == 'dropdown' %}
+                                <div class="btn-group dropstart" style="margin-top: -3px;">
+                                    <a class="dropdown-toggle ms-1" type="button" data-bs-toggle="dropdown"
+                                       data-bs-auto-close="true"
+                                       aria-expanded="false">
+                                        {{ action.label }}
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        {% for subAction in action.actions %}
+                                            <li><a class="dropdown-item" href="#">{{ subAction.label }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
