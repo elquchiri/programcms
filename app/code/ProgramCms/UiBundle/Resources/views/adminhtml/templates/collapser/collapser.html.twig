@@ -7,13 +7,13 @@
  */
 #}
 <div class="collapser" data-controller="collapser">
-    {% if block.hasLabel() %}
+    {% if block.hasLabel() and block.getLabel() is not empty %}
         <a class="collapser-label open" data-action="collapser#collapserClick" data-bs-toggle="collapse" href="#{{ block.getName() }}" role="button"
            aria-expanded="false" aria-controls="{{ block.getName() }}">
             {{ block.getLabel() }}
         </a>
     {% endif %}
-    <div class="collapse {% if block.isOpen() %}show{% endif %}" id="{{ block.getName() }}">
+    <div class="collapse {% if block.isOpen() or (block.hasLabel() and block.getLabel() is empty) %}show{% endif %}" id="{{ block.getName() }}">
         {% if block.hasLabel() %}<div class="collapser-container">{% endif %}
             {{ block.getChildHtml()|raw }}
             {% if block.hasLabel() %}</div>{% endif %}
