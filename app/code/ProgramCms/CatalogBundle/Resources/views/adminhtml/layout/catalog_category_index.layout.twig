@@ -16,6 +16,7 @@
     {% referenceContainer name="content" %}
         {% block name="form" class="ui.block.form" %}
             {% arguments %}
+                {% argument name="label" type="string" %}Category Information{% endArgument %}
                 {% argument name="dataProvider" type="array" %}
                     {% argument name="class" type="string" %}ProgramCms\CatalogBundle\Model\Category\DataProvider{% endArgument %}
                     {% argument name="primaryFieldName" type="string" %}entity_id{% endArgument %}
@@ -30,6 +31,10 @@
                         {% argument name="label" type="string" %}Save Category{% endArgument %}
                     {% endArgument %}
                 {% endArgument %}
+{#                {% argument name="layout" type="array" %}#}
+{#                    {% argument name="navContainerName" type="string" %}sidebar.main{% endArgument %}#}
+{#                    {% argument name="type" type="string" %}tabs{% endArgument %}#}
+{#                {% endArgument %}#}
                 {% argument name="fieldsets" type="array" %}
                     {% argument name="fieldset" type="array" %}
                         {% argument name="fields" type="array" %}
@@ -46,10 +51,6 @@
                                 {% argument name="label" type="string" %}Name{% endArgument %}
                                 {% argument name="placeholder" type="string" %}Category Name{% endArgument %}
                                 {% argument name="isRequired" type="boolean" %}false{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="created_at" type="array" %}
-                                {% argument name="type" type="string" %}text{% endArgument %}
-                                {% argument name="label" type="string" %}Created At{% endArgument %}
                             {% endArgument %}
 {#                            {% argument name="num" type="array" %}#}
 {#                                {% argument name="type" type="string" %}plainText{% endArgument %}#}

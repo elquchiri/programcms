@@ -12,11 +12,9 @@
     {% referenceContainer name="buttons.bar" %}
         {% block name="website.switcher" class="ui.block.toolbar.website_switcher" %}{% endBlock %}
     {% endReferenceContainer %}
-
     {% referenceContainer name="sidebar.main" %}
         {% block name="config.menu.block" class="ProgramCms\\ConfigBundle\\Block\\ConfigTabs" template="@ProgramCmsConfigBundle/config_menu.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}
-
     {% referenceContainer name="content" %}
         {% block name="config.block" class="ProgramCms\\ConfigBundle\\Block\\Configuration" template="@ProgramCmsConfigBundle/config.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}

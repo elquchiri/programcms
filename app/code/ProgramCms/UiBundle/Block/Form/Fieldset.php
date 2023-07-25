@@ -42,8 +42,12 @@ class Fieldset extends \ProgramCms\CoreBundle\View\Element\Template
     protected function _prepareLayout()
     {
         $layout = $this->getLayout();
+        // Data from DataProvider
+        $providedData = [];
         if($this->hasData('fields')) {
-            $providedData = $this->getData('providedData');
+            if($this->hasData('providedData')) {
+                $providedData = $this->getData('providedData');
+            }
             foreach ($this->getData("fields") as $fieldName => $field) {
                 switch ($field['type']) {
                     case "text":

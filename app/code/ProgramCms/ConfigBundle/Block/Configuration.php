@@ -76,6 +76,18 @@ class Configuration extends \ProgramCms\CoreBundle\View\Element\Template
     {
         $layout = $this->getLayout();
         $currentSectionGroups = $this->configSerializer->getCurrenSectionGroups();
+        $fieldSets = [];
+
+        foreach ($currentSectionGroups as $groupId => $group) {
+            // Fields
+            $fields = ['fields' => []];
+            // Add fields to form
+            foreach ($group['fields'] as $fieldId => $field) {
+                $fields['fields'][$groupId . '/' . $fieldId] = $field;
+            }
+            $fieldSets['fieldset-' . $groupId] = array_merge(['label' => $group['label']], $fields);
+        }
+
         $form = $layout->createBlock(
             \ProgramCms\UiBundle\Block\Form\Form::class,
             'form',
@@ -87,24 +99,10 @@ class Configuration extends \ProgramCms\CoreBundle\View\Element\Template
                         'buttonAction' => 'config_systemconfig_save',
                         'label' => 'Save Config'
                     ]
-                ]
+                ],
+                'fieldsets' => $fieldSets
             ]);
         $form->setLayout($layout);
-        foreach ($currentSectionGroups as $groupId => $group) {
-            $collapser = $layout->createBlock(\ProgramCms\UiBundle\Block\Collapser\Collapser::class, 'collapse-' . $groupId);
-            $collapser->setData("label", $group['label']);
-
-            // Fields
-            $fields = ['fields' => []];
-            // Add fields to form
-            foreach ($group['fields'] as $fieldId => $field) {
-                $fields['fields'][$groupId . '/' . $fieldId] = $field;
-            }
-            $fieldset = $layout->createBlock(\ProgramCms\UiBundle\Block\Form\Fieldset::class, 'fieldset-' . $groupId, $fields);
-            $fieldset->setLayout($layout);
-            $collapser->setChild('fieldset-' . $groupId, $fieldset);
-            $form->setChild('collapse-' . $groupId, $collapser);
-        }
 
         // Add hidden input to send sectionId parameter
         $hiddenInput = $layout->createBlock(\ProgramCms\UiBundle\Block\Form\Fields\Hidden::class, 'section_id', [

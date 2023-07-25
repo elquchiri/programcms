@@ -1,12 +1,20 @@
 <?php
-
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
 
 namespace ProgramCms\EavBundle\Entity;
-
 
 use ProgramCms\EavBundle\Repository\EavAttributeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Class EavAttribute
+ * @package ProgramCms\EavBundle\Entity
+ */
 #[ORM\Entity(repositoryClass: EavAttributeRepository::class)]
 class EavAttribute
 {

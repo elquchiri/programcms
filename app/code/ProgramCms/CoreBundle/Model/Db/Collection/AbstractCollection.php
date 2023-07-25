@@ -26,6 +26,9 @@ abstract class AbstractCollection extends \Doctrine\Common\Collections\AbstractL
      * @var Connection
      */
     protected Connection $connection;
+    /**
+     * @var \Doctrine\ORM\EntityManagerInterface
+     */
     protected \Doctrine\ORM\EntityManagerInterface $entityManager;
 
     public function __construct(

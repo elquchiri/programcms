@@ -241,6 +241,18 @@ class Layout implements LayoutInterface
     }
 
     /**
+     * Remove all childs of an element
+     * @throws Exception
+     */
+    public function cleanElementChildren($name)
+    {
+        $children = $this->getChildNames($name);
+        foreach($children as $childName) {
+            $this->addElementToRemove($childName);
+        }
+    }
+
+    /**
      * @param $templateName
      * @param $elementName
      */
