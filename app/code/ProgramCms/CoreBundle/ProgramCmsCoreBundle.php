@@ -8,6 +8,7 @@
 
 namespace ProgramCms\CoreBundle;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use ProgramCms\DependencyBundle\DependentBundleInterface;
 
@@ -34,6 +35,15 @@ class ProgramCmsCoreBundle extends Bundle implements DependentBundleInterface
     public function getVersion(): string
     {
         return self::VERSION;
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     */
+    public function build(ContainerBuilder $container)
+    {
+        parent::build($container);
+        $container->addCompilerPass(new \ProgramCms\CoreBundle\DependencyInjection\Compiler\MakeServicesPublicCompilerPass());
     }
 
     /**

@@ -32,12 +32,22 @@ class EavAttribute
     #[ORM\Column(length: 255)]
     private ?string $backend_type = null;
 
+    /**
+     * Frontend field type (text, date, ...)
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     private ?string $frontend_input = null;
-
+    /**
+     * Field Label
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     private ?string $frontend_label = null;
-
+    /**
+     * format field frontend data before get value
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     private ?string $frontend_model = null;
 

@@ -5,11 +5,6 @@
 #  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
 ##
 services:
-  _defaults:
-    autowire: true
-    autoconfigure: true
-    public: true
-
   ProgramCms\ThemeBundle\:
     resource: '../../'
     exclude:
@@ -22,4 +17,8 @@ services:
 
   ProgramCms\ThemeBundle\Loader\LayoutLoader:
     tags:
-      - { name: 'twig.loader', priority: -1 } # Used to be able to continue to twig default loader
+      - { name: 'twig.loader', priority: -1 } # Used to be able to continue to twig default loader*
+
+  ProgramCms\ThemeBundle\Extension\ThemeExtension:
+    tags:
+      - { name: 'twig.extension' }

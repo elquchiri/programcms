@@ -24,6 +24,9 @@ class Category
     private ?int $entity_id = null;
 
     #[ORM\Column]
+    private ?int $attribute_set_id = null;
+
+    #[ORM\Column]
     private ?int $parent = null;
 
     #[ORM\Column(length: 255)]

@@ -56,6 +56,7 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
     {
         $layout = $this->getLayout();
         $useLayout = false;
+        $tabs = [];
 
         if($this->hasData('layout')) {
             $useLayout = true;
