@@ -70,6 +70,7 @@
             "ProgramCms\\AiBundle\\": "app/code/ProgramCms/AiBundle",
             "ProgramCms\\ImportBundle\\": "app/code/ProgramCms/ImportBundle",
             "ProgramCms\\MarketingBundle\\": "app/code/ProgramCms/MarketingBundle",
+            "ProgramCms\\DataPatchBundle\\": "app/code/ProgramCms/DataPatchBundle",
             "ProgramCms\\BackendTheme\\": "app/design/adminhtml/ProgramCms/Backend",
             "ProgramCms\\BlankTheme\\": "app/design/frontend/ProgramCms/Blank"
         }

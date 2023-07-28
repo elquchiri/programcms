@@ -39,6 +39,9 @@ class MakeServicesPublicCompilerPass implements \Symfony\Component\DependencyInj
                                 $definition
                                     ->addTag('controller.service_arguments')
                                     ->addTag('container.service_subscriber');
+                            }else if($reflection->isSubclassOf(\Symfony\Component\Console\Command\Command::class)) {
+                                $definition
+                                    ->addTag('console.command');
                             }
                         }
                     }

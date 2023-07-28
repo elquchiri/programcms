@@ -30,6 +30,7 @@ return [
     ProgramCms\AiBundle\ProgramCmsAiBundle::class => ['all' => true],
     ProgramCms\ImportBundle\ProgramCmsImportBundle::class => ['all' => true],
     ProgramCms\MarketingBundle\ProgramCmsMarketingBundle::class => ['all' => true],
+    ProgramCms\DataPatchBundle\ProgramCmsDataPatchBundle::class => ['all' => true],
     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
     Symfony\Bundle\TwigBundle\TwigBundle::class => ['all' => true],
     Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true],

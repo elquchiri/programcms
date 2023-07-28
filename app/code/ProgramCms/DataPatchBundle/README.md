@@ -1,0 +1,1 @@
+The CMS bundle contains common infrastructure that provides an ability to apply DataPatching features in ProgramCMS application.

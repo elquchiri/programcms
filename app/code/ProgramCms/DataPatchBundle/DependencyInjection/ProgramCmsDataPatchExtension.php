@@ -6,7 +6,7 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\CmsBundle\DependencyInjection;
+namespace ProgramCms\DataPatchBundle\DependencyInjection;
 
 use Exception;
 use Symfony\Component\Config\FileLocator;
@@ -15,10 +15,10 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
- * Class ProgramCmsCmsExtension
- * @package ProgramCms\CmsBundle\DependencyInjection
+ * Class ProgramCmsDataPatchExtension
+ * @package ProgramCms\DataPatchBundle\DependencyInjection
  */
-class ProgramCmsCmsExtension extends Extension
+class ProgramCmsDataPatchExtension extends Extension
 {
     /**
      * @param array $configs

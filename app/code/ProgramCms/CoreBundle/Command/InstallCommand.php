@@ -18,8 +18,8 @@ use Symfony\Component\Console\Attribute\AsCommand;
  * @package ProgramCms\CoreBundle\Command
  */
 #[AsCommand(
-    name: 'install',
-    aliases: ['install'],
+    name: 'setup:install',
+    aliases: ['set:ins'],
     hidden: false
 )]
 class InstallCommand extends Command
