@@ -13,16 +13,40 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
+/**
+ * Class ProgramCmsRouteLoader
+ * @package ProgramCms\RouterBundle\Routing
+ */
 class ProgramCmsRouteLoader extends Loader
 {
+    /**
+     * @var \ProgramCms\CoreBundle\Data\Process\Find
+     */
+    protected \ProgramCms\CoreBundle\Data\Process\Find $find;
+    /**
+     * @var RouteCollection
+     */
     private $routes;
+    /**
+     * @var ContainerInterface
+     */
     private ContainerInterface $container;
+    /**
+     * @var string
+     */
     private string $frontName;
+    /**
+     * @var string
+     */
     private string $frontAdminName;
+    /**
+     * @var bool
+     */
     private bool $isLoaded;
 
     public function __construct(
         ContainerInterface $container,
+        \ProgramCms\CoreBundle\Data\Process\Find $find,
         string $env = null
     )
     {
@@ -32,13 +56,25 @@ class ProgramCmsRouteLoader extends Loader
         $this->frontName = '';
         $this->frontAdminName = '';
         $this->isLoaded = false;
+        $this->find = $find;
     }
 
+    /**
+     * @param mixed $resource
+     * @param string|null $type
+     * @return bool
+     */
     public function supports(mixed $resource, string $type = null): bool
     {
         return $type === \ProgramCms\RouterBundle\Helper\Data::PROGRAMCMS_ROUTING_LOADER;
     }
 
+    /**
+     * @param mixed $resource
+     * @param string|null $type
+     * @return RouteCollection
+     * @throws \ReflectionException
+     */
     public function load(mixed $resource, string $type = null): RouteCollection
     {
         if (true === $this->isLoaded) {
@@ -89,7 +125,7 @@ class ProgramCmsRouteLoader extends Loader
                                 continue;
                             }
 
-                            if ($controllerClass = $this->findClass($file)) {
+                            if ($controllerClass = $this->find->findClass($file)) {
                                 $refl = new \ReflectionClass($controllerClass);
                                 if ($refl->isAbstract()) {
                                     continue;
@@ -112,6 +148,10 @@ class ProgramCmsRouteLoader extends Loader
         return $this->routes;
     }
 
+    /**
+     * @param $controllerClass
+     * @param $areaCode
+     */
     public function addRoute($controllerClass, $areaCode)
     {
         $parts = explode('\\', $controllerClass);
@@ -142,72 +182,5 @@ class ProgramCmsRouteLoader extends Loader
 
         // Add the route to the collection
         $this->routes->add($routeName, $route);
-    }
-
-    /**
-     * Returns the full class name for the first class in the file.
-     */
-    protected function findClass(string $file): string|false
-    {
-        $class = false;
-        $namespace = false;
-        $tokens = token_get_all(file_get_contents($file));
-
-        if (1 === \count($tokens) && \T_INLINE_HTML === $tokens[0][0]) {
-            throw new \InvalidArgumentException(sprintf('The file "%s" does not contain PHP code. Did you forgot to add the "<?php" start tag at the beginning of the file?', $file));
-        }
-
-        $nsTokens = [\T_NS_SEPARATOR => true, \T_STRING => true];
-        if (\defined('T_NAME_QUALIFIED')) {
-            $nsTokens[\T_NAME_QUALIFIED] = true;
-        }
-        for ($i = 0; isset($tokens[$i]); ++$i) {
-            $token = $tokens[$i];
-            if (!isset($token[1])) {
-                continue;
-            }
-
-            if (true === $class && \T_STRING === $token[0]) {
-                return $namespace . '\\' . $token[1];
-            }
-
-            if (true === $namespace && isset($nsTokens[$token[0]])) {
-                $namespace = $token[1];
-                while (isset($tokens[++$i][1], $nsTokens[$tokens[$i][0]])) {
-                    $namespace .= $tokens[$i][1];
-                }
-                $token = $tokens[$i];
-            }
-
-            if (\T_CLASS === $token[0]) {
-                // Skip usage of ::class constant and anonymous classes
-                $skipClassToken = false;
-                for ($j = $i - 1; $j > 0; --$j) {
-                    if (!isset($tokens[$j][1])) {
-                        if ('(' === $tokens[$j] || ',' === $tokens[$j]) {
-                            $skipClassToken = true;
-                        }
-                        break;
-                    }
-
-                    if (\T_DOUBLE_COLON === $tokens[$j][0] || \T_NEW === $tokens[$j][0]) {
-                        $skipClassToken = true;
-                        break;
-                    } elseif (!\in_array($tokens[$j][0], [\T_WHITESPACE, \T_DOC_COMMENT, \T_COMMENT])) {
-                        break;
-                    }
-                }
-
-                if (!$skipClassToken) {
-                    $class = true;
-                }
-            }
-
-            if (\T_NAMESPACE === $token[0]) {
-                $namespace = true;
-            }
-        }
-
-        return false;
     }
 }
