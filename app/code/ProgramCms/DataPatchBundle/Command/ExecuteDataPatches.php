@@ -14,6 +14,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use ProgramCms\DataPatchBundle\Helper\Data as DataHelper;
 
 /**
  * Class ExecuteDataPatches
@@ -79,7 +80,7 @@ class ExecuteDataPatches extends Command
         foreach ($bundles as $bundle) {
             $reflectedBundle = new \ReflectionClass(get_class($bundle));
             $bundlePath = $bundle->getPath();
-            $dataPatchDir = $bundlePath . '/Migrations';
+            $dataPatchDir = $bundlePath . '/' . DataHelper::MIGRATION_DIR;
             // Check if bundle has Migrations
             if (is_dir($dataPatchDir)) {
                 $files = iterator_to_array(new \RecursiveIteratorIterator(
@@ -92,12 +93,14 @@ class ExecuteDataPatches extends Command
                     \RecursiveIteratorIterator::LEAVES_ONLY
                 ));
                 foreach ($files as $file) {
-                    if (!$file->isFile() || !str_ends_with($file->getFilename(), '.php')) {
+                    if (!$file->isFile() || !str_ends_with($file->getFilename(), '.' . DataHelper::MIGRATION_EXTENSION)) {
                         continue;
                     }
 
                     if ($dataPatchClass = $this->findClass($file)) {
-                        if(!$this->dataPatchRepository->findOneBy(['patch_name' => $dataPatchClass])) {
+                        if(!$this->dataPatchRepository->findOneBy([
+                            DataHelper::MIGRATION_PATCH_NAME_COLUMN => $dataPatchClass
+                        ])) {
                             $this->_runDataPatch($dataPatchClass);
                             $this->_persistDataPatch($dataPatchClass);
                         }
