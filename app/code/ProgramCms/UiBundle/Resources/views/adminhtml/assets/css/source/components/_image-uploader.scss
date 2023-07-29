@@ -1,0 +1,26 @@
+/*!
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+
+.image-uploader {
+  border: 1px solid #dedede;
+  background: url('../../../../../../public/images/upload.png') no-repeat center 13px;
+  width: 125px;
+  height: 125px;
+  margin-top: 13px;
+  padding-top: 69px;
+  font-size: 13px;
+  text-align: center;
+  border-radius: 3px;
+  color: $primary;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.5s;
+
+  &:hover {
+    opacity: 1;
+  }
+}

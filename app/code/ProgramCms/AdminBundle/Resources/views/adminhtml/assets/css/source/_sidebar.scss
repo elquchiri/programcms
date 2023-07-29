@@ -13,7 +13,7 @@
   height: 100%;
   background-color: #373330;
   color: white;
-  z-index: 100;
+  z-index: 1022;
   overflow-y: hidden;
 
   ul {
@@ -87,14 +87,13 @@
   color: white;
   padding: 19px;
   display: none;
-  z-index: 99;
+  z-index: 1021;
 }
 
 .menu-items .menu-item {
   display: flex;
   margin-bottom: 39px;
   padding: 3px 11px 11px 8px;
-
 }
 
 .menu-items .menu-item .menu-item-title {

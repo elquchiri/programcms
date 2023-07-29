@@ -6,88 +6,90 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<div class="category-buttons">
-    <div class="btn-group" role="group" aria-label="Basic outlined example">
-        <button type="button" class="btn btn-outline-secondary btn-sm add-category" id="root" data-ef-url="">New Root
-            Category
-        </button>
-        <button type="button" class="btn btn-outline-secondary btn-sm add-category" id="subcategory" data-ef-url="">Add
-            Subcategory
-        </button>
+<div class="sticky-md-top">
+    <div class="category-buttons pt-3">
+        <div class="btn-group" role="group" aria-label="Basic outlined example">
+            <button type="button" class="btn btn-outline-secondary btn-sm add-category" id="root" data-ef-url="">New Root
+                Category
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-sm add-category" id="subcategory" data-ef-url="">Add
+                Subcategory
+            </button>
+        </div>
     </div>
-</div>
-<div class="category-tree" data-controller="category-tree">
-    <a href="#" class="tree-group" id="collapse">Collapse All</a> | <a href="#" class="tree-group" id="expand">Expand
-        All</a>
-    <div class="tree">
-        <ul>
-            <li>
-                            <span class="title">
-                                <img src="{{ asset('bundles/programcmscatalog/images/folder-search.png') }}"/>
-                                <span class="category-name active"
-                                      data-url="">
-                                    Default Category
-                                    <span>- 4020</span>
-                                </span>
-                            </span>
-                <ul class="child">
-                    <li>
-                                    <span class="title">
-                                        <img src="{{ asset('bundles/programcmscatalog/images/folder-search.png') }}"/>
-                                        <span class="category-name">
-                                            Physics
-                                            <span>- 15</span>
-                                        </span>
+    <div class="category-tree" data-controller="category-tree">
+        <a href="#" class="tree-group" id="collapse">Collapse All</a> | <a href="#" class="tree-group" id="expand">Expand
+            All</a>
+        <div class="tree">
+            <ul>
+                <li>
+                                <span class="title">
+                                    <img src="{{ asset('bundles/programcmscatalog/images/folder-search.png') }}"/>
+                                    <span class="category-name active"
+                                          data-url="">
+                                        Default Category
+                                        <span>- 4020</span>
                                     </span>
-                        <ul class="child">
-                            <li>
-                                            <span class="title">
-                                                <img src="{{ asset('bundles/programcmscatalog/images/folder-open.png') }}"/>
-                                                <span class="category-name">US Movies</span>
+                                </span>
+                    <ul class="child">
+                        <li>
+                                        <span class="title">
+                                            <img src="{{ asset('bundles/programcmscatalog/images/folder-search.png') }}"/>
+                                            <span class="category-name">
+                                                Physics
+                                                <span>- 15</span>
                                             </span>
-                            </li>
-                            <li>
-                                            <span class="title">
-                                                <img src="{{ asset('bundles/programcmscatalog/images/folder-open.png') }}"/>
-                                                <span class="category-name">
-                                                    Photoshop Technics
-                                                    <span>- 10</span>
+                                        </span>
+                            <ul class="child">
+                                <li>
+                                                <span class="title">
+                                                    <img src="{{ asset('bundles/programcmscatalog/images/folder-open.png') }}"/>
+                                                    <span class="category-name">US Movies</span>
                                                 </span>
+                                </li>
+                                <li>
+                                                <span class="title">
+                                                    <img src="{{ asset('bundles/programcmscatalog/images/folder-open.png') }}"/>
+                                                    <span class="category-name">
+                                                        Photoshop Technics
+                                                        <span>- 10</span>
+                                                    </span>
+                                                </span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                                        <span class="title">
+                                            <img src="{{ asset('bundles/programcmscatalog/images/folder-search.png') }}"/>
+                                            <span class="category-name">
+                                                Politics
+                                                <span>- 420</span>
                                             </span>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                                    <span class="title">
-                                        <img src="{{ asset('bundles/programcmscatalog/images/folder-search.png') }}"/>
-                                        <span class="category-name">
-                                            Politics
-                                            <span>- 420</span>
                                         </span>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                                <span class="title">
+                                    <img src="{{ asset('bundles/programcmscatalog/images/folder-search.png') }}"/>
+                                    <span class="category-name">
+                                        Frensh Website
+                                        <span>- 4020</span>
                                     </span>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                            <span class="title">
-                                <img src="{{ asset('bundles/programcmscatalog/images/folder-search.png') }}"/>
-                                <span class="category-name">
-                                    Frensh Website
-                                    <span>- 4020</span>
                                 </span>
-                            </span>
-                <ul class="child">
-                    <li>
-                                    <span class="title">
-                                        <img src="{{ asset('bundles/programcmscatalog/images/folder-search.png') }}"/>
-                                        <span class="category-name">
-                                            Politique
-                                            <span>- 15</span>
+                    <ul class="child">
+                        <li>
+                                        <span class="title">
+                                            <img src="{{ asset('bundles/programcmscatalog/images/folder-search.png') }}"/>
+                                            <span class="category-name">
+                                                Politique
+                                                <span>- 15</span>
+                                            </span>
                                         </span>
-                                    </span>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>

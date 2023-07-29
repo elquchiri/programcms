@@ -10,5 +10,6 @@
     name="{{ block.getName() }}"
     id="{{ block.getName() }}"
     class="form-control"
+    rows="5"
     {% if block.hasPlaceholder() %}placeholder="{{ block.getPlaceholder() }}"{% endif %}
     aria-describedby="{{ block.getName() }}">{% if block.hasValue() %}{{ block.getValue() }}"{% endif %}</textarea>
