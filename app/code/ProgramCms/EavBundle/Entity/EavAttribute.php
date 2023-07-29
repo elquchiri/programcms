@@ -8,6 +8,7 @@
 
 namespace ProgramCms\EavBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use ProgramCms\EavBundle\Repository\EavAttributeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -23,8 +24,9 @@ class EavAttribute
     #[ORM\Column]
     private ?int $attribute_id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?int $entity_type_id = null;
+    #[ORM\ManyToOne(targetEntity: EavEntityType::class, inversedBy: 'attributes')]
+    #[ORM\JoinColumn(name: 'entity_type_id', referencedColumnName: 'entity_type_id')]
+    private ?EavEntityType $entityType = null;
 
     #[ORM\Column(length: 255)]
     private ?string $attribute_code = null;
@@ -60,99 +62,150 @@ class EavAttribute
     #[ORM\Column(length: 255)]
     private ?string $note = null;
 
+    #[ORM\OneToMany(mappedBy: 'attribute', targetEntity: EavAttributeLabel::class)]
+    private Collection $attributeLabels;
+
+    /**
+     * @return int|null
+     */
     public function getAttributeId(): ?int
     {
         return $this->attribute_id;
     }
 
+    /**
+     * @param int $attribute_id
+     * @return $this
+     */
     public function setAttributeId(int $attribute_id): self
     {
         $this->attribute_id = $attribute_id;
-
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getEntityTypeId(): ?string
     {
         return $this->entity_type_id;
     }
 
+    /**
+     * @param string $entity_type_id
+     * @return $this
+     */
     public function setEntityTypeId(string $entity_type_id): self
     {
         $this->entity_type_id = $entity_type_id;
-
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getAttributeCode(): ?string
     {
         return $this->attribute_code;
     }
 
+    /**
+     * @param string $attribute_code
+     * @return $this
+     */
     public function setAttributeCode(string $attribute_code): self
     {
         $this->attribute_code = $attribute_code;
-
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getFrontendInput(): ?string
     {
         return $this->frontend_input;
     }
 
+    /**
+     * @param string $frontend_input
+     * @return $this
+     */
     public function setFrontendInput(string $frontend_input): self
     {
         $this->frontend_input = $frontend_input;
-
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getFrontendLabel(): ?string
     {
         return $this->frontend_label;
     }
 
+    /**
+     * @param string $frontend_label
+     * @return $this
+     */
     public function setFrontendLabel(string $frontend_label): self
     {
         $this->frontend_label = $frontend_label;
-
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getIsRequired(): ?string
     {
         return $this->is_required;
     }
 
+    /**
+     * @param string $is_required
+     * @return $this
+     */
     public function setIsRequired(string $is_required): self
     {
         $this->is_required = $is_required;
-
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getDefaultValue(): ?string
     {
         return $this->default_value;
     }
 
+    /**
+     * @param string $default_value
+     * @return $this
+     */
     public function setDefaultValue(string $default_value): self
     {
         $this->default_value = $default_value;
-
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getNote(): ?string
     {
         return $this->note;
     }
 
+    /**
+     * @param string $note
+     * @return $this
+     */
     public function setNote(string $note): self
     {
         $this->note = $note;
-
         return $this;
     }
 }
