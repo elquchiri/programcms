@@ -52,20 +52,20 @@ class EavAttributeGroup
     }
 
     /**
-     * @return int|null
+     * @return EavAttributeSet
      */
-    public function getAttributeSetId(): ?int
+    public function getAttributeSet(): EavAttributeSet
     {
-        return $this->attribute_set_id;
+        return $this->attributeSet;
     }
 
     /**
-     * @param int $attribute_set_id
+     * @param EavAttributeSet $attributeSet
      * @return $this
      */
-    public function setAttributeSetId(int $attribute_set_id): self
+    public function setAttributeSet(EavAttributeSet $attributeSet): self
     {
-        $this->attribute_set_id = $attribute_set_id;
+        $this->attributeSet = $attributeSet;
         return $this;
     }
 

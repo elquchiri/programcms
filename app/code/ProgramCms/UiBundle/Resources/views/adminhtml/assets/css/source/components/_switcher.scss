@@ -1,0 +1,31 @@
+/*!
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+
+.switcher-field {
+  .checkbox-switcher {
+    height: 17px;
+    margin-top: 9px;
+    cursor: pointer;
+  }
+
+  label {
+    &.status {
+      padding-top: 7px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+
+      &.status-yes {
+        color: $primary;
+      }
+
+      &.status-no {
+        color: rgb(134, 134, 134);
+      }
+    }
+  }
+}

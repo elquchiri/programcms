@@ -8,6 +8,7 @@
 
 namespace ProgramCms\EavBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use ProgramCms\EavBundle\Repository\EavAttributeRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -47,7 +48,7 @@ class EavAttribute
     #[ORM\Column(length: 255)]
     private ?string $frontend_label = null;
     /**
-     * format field frontend data before get value
+     * format field frontend data before getting value
      * @var string|null
      */
     #[ORM\Column(length: 255)]
@@ -64,6 +65,14 @@ class EavAttribute
 
     #[ORM\OneToMany(mappedBy: 'attribute', targetEntity: EavAttributeLabel::class)]
     private Collection $attributeLabels;
+
+    /**
+     * EavAttribute constructor.
+     */
+    public function __construct()
+    {
+        $this->attributeLabels = new ArrayCollection();
+    }
 
     /**
      * @return int|null
@@ -84,20 +93,20 @@ class EavAttribute
     }
 
     /**
-     * @return string|null
+     * @return EavEntityType
      */
-    public function getEntityTypeId(): ?string
+    public function getEntityType(): EavEntityType
     {
-        return $this->entity_type_id;
+        return $this->entityType;
     }
 
     /**
-     * @param string $entity_type_id
+     * @param EavEntityType $entityType
      * @return $this
      */
-    public function setEntityTypeId(string $entity_type_id): self
+    public function setEntityType(EavEntityType $entityType): self
     {
-        $this->entity_type_id = $entity_type_id;
+        $this->entityType = $entityType;
         return $this;
     }
 
@@ -116,6 +125,24 @@ class EavAttribute
     public function setAttributeCode(string $attribute_code): self
     {
         $this->attribute_code = $attribute_code;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBackendType(): string
+    {
+        return $this->backend_type;
+    }
+
+    /**
+     * @param string $backendType
+     * @return $this
+     */
+    public function setBackendType(string $backendType): self
+    {
+        $this->backend_type = $backendType;
         return $this;
     }
 

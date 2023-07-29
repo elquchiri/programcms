@@ -8,6 +8,7 @@
 
 namespace ProgramCms\EavBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use ProgramCms\EavBundle\Repository\EavAttributeSetRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -35,6 +36,14 @@ class EavAttributeSet
     private Collection $attributeSetGroups;
 
     /**
+     * EavAttributeSet constructor.
+     */
+    public function __construct()
+    {
+        $this->attributeSetGroups = new ArrayCollection();
+    }
+
+    /**
      * @return int|null
      */
     public function getAttributeSetId(): ?int
@@ -46,27 +55,27 @@ class EavAttributeSet
      * @param int $attribute_set_id
      * @return $this
      */
-    public function setAttributeSetId(int $attribute_set_id): self
+    public function setAttributeSetId(int $attributeSetId): self
     {
-        $this->attribute_set_id = $attribute_set_id;
+        $this->attribute_set_id = $attributeSetId;
         return $this;
     }
 
     /**
-     * @return string|null
+     * @return EavEntityType
      */
-    public function getEntityTypeId(): ?string
+    public function getEntityType(): EavEntityType
     {
-        return $this->entity_type_id;
+        return $this->entityType;
     }
 
     /**
-     * @param int $entity_type_id
+     * @param EavEntityType $entityType
      * @return $this
      */
-    public function setEntityTypeId(int $entity_type_id): self
+    public function setEntityType(EavEntityType $entityType): self
     {
-        $this->entity_type_id = $entity_type_id;
+        $this->entityType = $entityType;
         return $this;
     }
 
@@ -85,6 +94,43 @@ class EavAttributeSet
     public function setAttributeSetName(string $attribute_set_name): self
     {
         $this->attribute_set_name = $attribute_set_name;
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection|Collection
+     */
+    public function getAttributeSetGroups(): ArrayCollection|Collection
+    {
+        return $this->attributeSetGroups;
+    }
+
+    /**
+     * @param EavAttributeGroup $attributeGroup
+     * @return $this
+     */
+    public function addAttributeSetGroup(EavAttributeGroup $attributeGroup): self
+    {
+        if(!$this->attributeSetGroups->contains($attributeGroup)) {
+            $this->attributeSetGroups[] = $attributeGroup;
+            $attributeGroup->setAttributeSet($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param EavAttributeGroup $attributeGroup
+     * @return $this
+     */
+    public function removeAttributeSetGroup(EavAttributeGroup $attributeGroup): self
+    {
+        if($this->attributeSetGroups->removeElement($attributeGroup)) {
+            if($attributeGroup->getAttributeSet() === $this) {
+                $attributeGroup->setAttributeSet(null);
+            }
+        }
+
         return $this;
     }
 }

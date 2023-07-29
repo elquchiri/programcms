@@ -53,21 +53,20 @@ class EavAttributeLabel
     }
 
     /**
-     * @return string|null
+     * @return EavAttribute
      */
-    public function getAttributeId(): ?string
+    public function getAttribute(): EavAttribute
     {
-        return $this->attribute_id;
+        return $this->attribute;
     }
 
     /**
-     * @param string $attribute_id
+     * @param EavAttribute $attribute
      * @return $this
      */
-    public function setAttributeId(string $attribute_id): self
+    public function setAttribute(EavAttribute $attribute): self
     {
-        $this->attribute_id = $attribute_id;
-
+        $this->attribute = $attribute;
         return $this;
     }
 
@@ -86,7 +85,6 @@ class EavAttributeLabel
     public function setWebsiteViewId(string $website_view_id): self
     {
         $this->website_view_id = $website_view_id;
-
         return $this;
     }
 
@@ -105,7 +103,6 @@ class EavAttributeLabel
     public function setValue(string $value): self
     {
         $this->value = $value;
-
         return $this;
     }
 }

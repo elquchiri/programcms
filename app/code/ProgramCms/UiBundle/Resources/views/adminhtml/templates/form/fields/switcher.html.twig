@@ -6,7 +6,11 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<div class="form-check form-switch">
+<div
+    class="form-check form-switch switcher-field"
+    data-controller="switcher-field"
+    data-action="click->switcher-field#switcherClick"
+>
     <input type="hidden" name="{{ block.getName() }}" value="off"/>
     <input
         class="form-check-input checkbox-switcher"
@@ -15,4 +19,5 @@
         role="switch"
         id="{{ block.getName() }}"
         {% if block.hasValue() and block.getValue() == 'on' %}checked{% endif %}>
+    <label class="status" for="status"></label>
 </div>

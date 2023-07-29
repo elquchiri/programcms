@@ -35,18 +35,11 @@ class EavEntityAttribute
     #[ORM\Column(length: 255)]
     private ?int $attribute_id = null;
 
-    /**
-     * @return int|null
-     */
     public function getEntityAttributeId(): ?int
     {
         return $this->entity_attribute_id;
     }
 
-    /**
-     * @param int $entity_attribute_id
-     * @return $this
-     */
     public function setEntityAttributeId(int $entity_attribute_id): self
     {
         $this->entity_attribute_id = $entity_attribute_id;
@@ -54,18 +47,11 @@ class EavEntityAttribute
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getEntityTypeId(): ?int
     {
         return $this->entity_type_id;
     }
 
-    /**
-     * @param int $entity_type_id
-     * @return $this
-     */
     public function setEntityTypeId(int $entity_type_id): self
     {
         $this->entity_type_id = $entity_type_id;
@@ -73,18 +59,11 @@ class EavEntityAttribute
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getAttributeGroupId(): ?int
     {
         return $this->attribute_group_id;
     }
 
-    /**
-     * @param int $attribute_group_id
-     * @return $this
-     */
     public function setAttributeGroupId(int $attribute_group_id): self
     {
         $this->attribute_group_id = $attribute_group_id;
@@ -92,18 +71,11 @@ class EavEntityAttribute
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAttributeSetId(): ?string
     {
         return $this->attribute_set_id;
     }
 
-    /**
-     * @param string $attribute_set_id
-     * @return $this
-     */
     public function setAttributeSetId(string $attribute_set_id): self
     {
         $this->attribute_set_id = $attribute_set_id;
@@ -111,18 +83,11 @@ class EavEntityAttribute
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAttributeId(): ?string
     {
         return $this->attribute_id;
     }
 
-    /**
-     * @param string $attribute_id
-     * @return $this
-     */
     public function setAttributeId(string $attribute_id): self
     {
         $this->attribute_id = $attribute_id;
