@@ -40,7 +40,7 @@ class EavAttributeSet
      */
     public function __construct()
     {
-        $this->attributeSetGroups = new ArrayCollection();
+        $this->groups = new ArrayCollection();
     }
 
     /**
@@ -100,9 +100,9 @@ class EavAttributeSet
     /**
      * @return ArrayCollection|Collection
      */
-    public function getAttributeSetGroups(): ArrayCollection|Collection
+    public function getgroups(): ArrayCollection|Collection
     {
-        return $this->attributeSetGroups;
+        return $this->groups;
     }
 
     /**
@@ -111,8 +111,8 @@ class EavAttributeSet
      */
     public function addAttributeSetGroup(EavAttributeGroup $attributeGroup): self
     {
-        if(!$this->attributeSetGroups->contains($attributeGroup)) {
-            $this->attributeSetGroups[] = $attributeGroup;
+        if(!$this->groups->contains($attributeGroup)) {
+            $this->groups[] = $attributeGroup;
             $attributeGroup->setAttributeSet($this);
         }
 
@@ -125,7 +125,7 @@ class EavAttributeSet
      */
     public function removeAttributeSetGroup(EavAttributeGroup $attributeGroup): self
     {
-        if($this->attributeSetGroups->removeElement($attributeGroup)) {
+        if($this->groups->removeElement($attributeGroup)) {
             if($attributeGroup->getAttributeSet() === $this) {
                 $attributeGroup->setAttributeSet(null);
             }

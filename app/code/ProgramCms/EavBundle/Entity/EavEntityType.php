@@ -58,7 +58,6 @@ class EavEntityType
     public function setEntityTypeId(int $entity_type_id): self
     {
         $this->entity_type_id = $entity_type_id;
-
         return $this;
     }
 
@@ -77,7 +76,6 @@ class EavEntityType
     public function setEntityTypeCode(string $entity_type_code): self
     {
         $this->entity_type_code = $entity_type_code;
-
         return $this;
     }
 

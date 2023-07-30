@@ -8,6 +8,8 @@
 
 namespace ProgramCms\EavBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use ProgramCms\EavBundle\Repository\EavAttributeGroupRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,6 +34,20 @@ class EavAttributeGroup
 
     #[ORM\Column(length: 255)]
     private ?string $attribute_group_code = null;
+
+    #[ORM\JoinTable(name: 'eav_attribute_group_relation')]
+    #[ORM\ManyToMany(targetEntity: EavAttribute::class, inversedBy: 'groups')]
+    #[ORM\JoinColumn(name: 'attribute_group_id', referencedColumnName: 'attribute_group_id')]
+    #[ORM\InverseJoinColumn(name: 'attribute_id', referencedColumnName: 'attribute_id')]
+    private Collection $attributes;
+
+    /**
+     * EavAttributeGroup constructor.
+     */
+    public function __construct()
+    {
+        $this->attributes = new ArrayCollection();
+    }
 
     /**
      * @return int|null
@@ -102,6 +118,37 @@ class EavAttributeGroup
     public function setAttributeGroupCode(string $attribute_group_code): self
     {
         $this->attribute_group_code = $attribute_group_code;
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection|Collection
+     */
+    public function getAttributes(): ArrayCollection|Collection
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * @param EavAttribute $attribute
+     * @return $this
+     */
+    public function addAttribute(EavAttribute $attribute): static
+    {
+        if(!$this->attributes->contains($attribute)) {
+            $this->attributes[] = $attribute;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param EavAttribute $attribute
+     * @return $this
+     */
+    public function removeAttribute(EavAttribute $attribute): static
+    {
+        $this->attributes->removeElement($attribute);
         return $this;
     }
 }

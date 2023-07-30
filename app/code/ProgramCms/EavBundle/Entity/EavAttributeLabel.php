@@ -8,14 +8,14 @@
 
 namespace ProgramCms\EavBundle\Entity;
 
-use ProgramCms\EavBundle\Repository\EavEntityLabelRepository;
+use ProgramCms\EavBundle\Repository\EavAttributeLabelRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class EavAttributeLabel
  * @package ProgramCms\EavBundle\Entity
  */
-#[ORM\Entity(repositoryClass: EavEntityLabelRepository::class)]
+#[ORM\Entity(repositoryClass: EavAttributeLabelRepository::class)]
 class EavAttributeLabel
 {
     #[ORM\Id]

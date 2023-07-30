@@ -6,7 +6,7 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\CatalogBundle\Migrations;
+namespace ProgramCms\CatalogBundle\Migrations\Category;
 
 /**
  * Class CreateDefaultCategory

@@ -16,16 +16,25 @@ use Symfony\Component\Console\Command\Command;
  * @package ProgramCms\UiBundle\Command
  */
 #[AsCommand(
-    name: 'generate:statics',
-    aliases: ['gen:st'],
+    name: 'assets:compile',
+    aliases: ['ass:com'],
     hidden: false
 )]
 class GenerateStaticsCommand extends Command
 {
+    /**
+     * @var array
+     */
+    protected array $bundleScssFiles = [];
+    /**
+     * @var array
+     */
+    protected array $extendsScssFiles = [];
+
     protected function configure()
     {
-        $this->setDescription('Compile and merge bundle SCSS files into app.scss')
-            ->setHelp('This command compiles and merges bundle SCSS files into the app.scss file');
+        $this->setDescription('Compile and merge bundle SCSS and JS files into the app')
+            ->setHelp('This command compiles and merges bundle SCSS and JS files into the app');
     }
 
     protected function execute(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output)
@@ -33,61 +42,41 @@ class GenerateStaticsCommand extends Command
         // Get all bundles
         $bundles = $this->getApplication()->getKernel()->getBundles();
 
-        // Destination file path
-        $appScssPath = 'assets/styles/app.scss';
-        $controllersFolderPath = 'assets/controllers';
-
-        // Clear existing contents of app.scss
-        file_put_contents($appScssPath, '');
-        file_put_contents($appScssPath, "@import '~bootstrap/scss/bootstrap';");
-
         // Loop through bundles
         foreach ($bundles as $bundle) {
             $reflectedBundle = new \ReflectionClass(get_class($bundle));
             if($reflectedBundle->hasMethod('isProgramCmsBundle')) {
-                $assetsFolder = $bundle->getPath() . '/Resources/views/adminhtml/assets/';
+                $bundlePath = $bundle->getPath();
                 /**
                  * Locate _bundle.scss entry files
                  * Merge entry points into main app
                  */
-                // Bundle resources directory
-                $bundleResourcesDir = $assetsFolder . 'css/source/';
-                $bundleName = $bundle->getName();
-                $bundle = $this->getApplication()->getKernel()->getBundle($bundleName);
-                $bundlePath = $bundle->getPath();
-
-                // Get the project root path
-                $projectPath = $this->getApplication()->getKernel()->getProjectDir();
-
-                // Calculate the relative path
-                $relativePath = str_replace($projectPath, '', $bundlePath);
-
-                // Remove the leading slash if present
-                $relativePath = '../../' . ltrim(str_replace('\\', '/', $relativePath), '/');
-
-                // Find _bundle.scss files
-                $bundleScssFiles = glob($bundleResourcesDir . '_bundle.scss');
-                // Merge SCSS files into app.scss
-                foreach ($bundleScssFiles as $scssFile) {
-                    $importStatement = sprintf('@import "%s%s";', $relativePath, '/Resources/views/adminhtml/assets/css/source/_bundle.scss');
-                    file_put_contents($appScssPath, $importStatement.PHP_EOL, FILE_APPEND);
-                }
-
+                $this->_populateBundleScssFiles($bundlePath);
+                $this->_populateExtendsScssFiles($bundlePath);
                 /**
                  * Get all JavaScript files in the source directory
                  * Copy the content of each JavaScript file to the destination directory
                  */
-                $jsFiles = glob($assetsFolder . 'js/controllers/*.js');
-                $fileSystem = new \Symfony\Component\Filesystem\Filesystem();
-                foreach ($jsFiles as $file) {
-                    $filename = basename($file);
-                    $destinationFile = $controllersFolderPath . '/' . $filename;
-
-                    // Copy the file content
-                    $content = file_get_contents($file);
-                    $fileSystem->dumpFile($destinationFile, $content);
-                }
+                $this->_processJsControllers($bundlePath);
             }
+        }
+
+        // Destination file path
+        $appScssPath = 'assets/styles/app.scss';
+
+        // Clear existing contents of app.scss
+        file_put_contents($appScssPath, '');
+
+        // Load _extends files to override UI
+        foreach ($this->extendsScssFiles as $scss) {
+            file_put_contents($appScssPath, $scss, FILE_APPEND);
+        }
+        // Add Bootstrap
+        file_put_contents($appScssPath, '@import "~bootstrap/scss/bootstrap";', FILE_APPEND);
+
+        // Load _bundle files to UI
+        foreach ($this->bundleScssFiles as $scss) {
+            file_put_contents($appScssPath, $scss, FILE_APPEND);
         }
 
         // Run npm run dev command
@@ -100,5 +89,66 @@ class GenerateStaticsCommand extends Command
         $output->writeln('Styles compilation complete.');
 
         return Command::SUCCESS;
+    }
+
+    /**
+     * @param string $bundlePath
+     */
+    protected function _populateBundleScssFiles(string $bundlePath): void
+    {
+        $assetsFolder = $bundlePath . '/Resources/views/adminhtml/assets/css/source/';
+        // Find _bundle.scss files
+        $bundleScssFiles = glob($assetsFolder . '_bundle.scss');
+        if(!empty($bundleScssFiles)) {
+            $relativePath = $this->_getRelativePath($bundlePath);
+            $importStatement = sprintf('@import "%s%s";', $relativePath, '/Resources/views/adminhtml/assets/css/source/_bundle.scss');
+            $this->bundleScssFiles[] = $importStatement.PHP_EOL;
+        }
+    }
+
+    /**
+     * @param string $bundlePath
+     */
+    protected function _populateExtendsScssFiles(string $bundlePath): void
+    {
+        $assetsFolder = $bundlePath . '/Resources/views/adminhtml/assets/css/source/';
+        // Find _bundle.scss files
+        $bundleScssFiles = glob($assetsFolder . '_extends.scss');
+        if(!empty($bundleScssFiles)) {
+            $relativePath = $this->_getRelativePath($bundlePath);
+            $importStatement = sprintf('@import "%s%s";', $relativePath, '/Resources/views/adminhtml/assets/css/source/_extends.scss');
+            $this->extendsScssFiles[] = $importStatement.PHP_EOL;
+        }
+    }
+
+    /**
+     * @param string $bundlePath
+     * @return string
+     */
+    protected function _getRelativePath(string $bundlePath): string
+    {
+        $projectPath = $this->getApplication()->getKernel()->getProjectDir();
+        // Calculate the relative path
+        $relativePath = str_replace($projectPath, '', $bundlePath);
+        // Remove the leading slash if present
+        return '../../' . ltrim(str_replace('\\', '/', $relativePath), '/');
+    }
+
+    /**
+     * @param string $bundlePath
+     */
+    protected function _processJsControllers(string $bundlePath): void
+    {
+        $controllersFolderPath = 'assets/controllers';
+        $assetsFolder = $bundlePath . '/Resources/views/adminhtml/assets/';
+        $jsFiles = glob($assetsFolder . 'js/controllers/*.js');
+        $fileSystem = new \Symfony\Component\Filesystem\Filesystem();
+        foreach ($jsFiles as $file) {
+            $filename = basename($file);
+            $destinationFile = $controllersFolderPath . '/' . $filename;
+            // Copy the file content
+            $content = file_get_contents($file);
+            $fileSystem->dumpFile($destinationFile, $content);
+        }
     }
 }

@@ -6,7 +6,7 @@
  */
 
 .image-uploader {
-  border: 1px solid #dedede;
+  border: 1px solid #dee2e6;
   background: url('../../../../../../public/images/upload.png') no-repeat center 13px;
   width: 125px;
   height: 125px;
@@ -19,6 +19,9 @@
   cursor: pointer;
   opacity: 0.8;
   transition: opacity 0.5s;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 
   &:hover {
     opacity: 1;
