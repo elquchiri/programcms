@@ -91,3 +91,8 @@ Backend Demo
 Your donation will help, Improve and Speed up productivity of The Amazing ProgramCMS.
 
 [![Donate](https://img.shields.io/badge/Donate-Buymeacoffee-green.svg)](https://www.buymeacoffee.com/elquchiriw?new=1)
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/elquchiri/programcms/master/public/images/logo.png">
+<img src="https://raw.githubusercontent.com/elquchiri/programcms/master/public/images/logo-anime.png">
+</p>
