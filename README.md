@@ -1,6 +1,8 @@
+<b>Stay informed of developments on:</b>
 <p>
 <a href="https://t.me/programcms"><img src="https://img.shields.io/badge/Chat-Telegram-blue.svg"></a>
 <a href="http://join.slack.com/t/programcms/shared_invite/zt-1qbsdh8sw-_rFQJsEI4qAbdhorYz4RWQ"><img src="https://img.shields.io/badge/Chat-Slack-2EB67D.svg"></a>
+<a href="http://join.slack.com/t/programcms/shared_invite/zt-1qbsdh8sw-_rFQJsEI4qAbdhorYz4RWQ"><img src="https://img.shields.io/badge/Forum AR-Startimes-333333.svg"></a>
 </p>
 <p><img src="https://raw.githubusercontent.com/elquchiri/programcms/master/public/images/programcms-logo-presentation.png"></p>
 
