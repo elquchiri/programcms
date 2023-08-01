@@ -2,7 +2,7 @@
 <a href="https://t.me/programcms"><img src="https://img.shields.io/badge/Chat-Telegram-blue.svg"></a>
 <a href="http://join.slack.com/t/programcms/shared_invite/zt-1qbsdh8sw-_rFQJsEI4qAbdhorYz4RWQ"><img src="https://img.shields.io/badge/Chat-Slack-2EB67D.svg"></a>
 </p>
-<p><img src="https://raw.githubusercontent.com/elquchiri/programcms/master/public/images/programcms-logo.png"></p>
+<p><img src="https://raw.githubusercontent.com/elquchiri/programcms/master/public/images/programcms-logo-presentation.png"></p>
 
 ProgramCMS provides you with a complete, trustworthy CMS & easy to use PHP Framework to build and deploy All kind of Web Sites.
 
