@@ -8,6 +8,7 @@
 
 namespace ProgramCms\CoreBundle\DependencyInjection\Compiler;
 
+use ReflectionException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
@@ -18,7 +19,7 @@ class MakeServicesPublicCompilerPass implements \Symfony\Component\DependencyInj
 {
     /**
      * @param ContainerBuilder $container
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function process(ContainerBuilder $container)
     {

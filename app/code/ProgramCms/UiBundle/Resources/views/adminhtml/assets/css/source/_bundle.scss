@@ -12,3 +12,43 @@
 @import "components/tabs";
 @import "components/switcher";
 @import "components/image-uploader";
+
+.form-select {
+  cursor: pointer;
+  background-image: none;
+  position: relative;
+}
+
+/* Remove IE arrow */
+select::-ms-expand {
+  display: none;
+}
+/* Custom Select wrapper */
+.select {
+  position: relative;
+  border-radius: .25em;
+  overflow: hidden;
+}
+/* Arrow */
+.select::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2.1em;
+  height: 100%;
+  background-image: url('../../../../../public/images/arrows-bg.svg'),linear-gradient(#e3e3e3, #e3e3e3),linear-gradient(#adadad, #adadad);
+  background-position: calc(100% - 12px) -34px,100%,calc(100% - 3.2rem) 0;
+  background-size: auto,3.2rem 100%,1px 100%;
+  background-repeat: no-repeat;
+  border: 1px solid $input-border-color;
+  transition: .25s all ease;
+  pointer-events: none;
+}
+/* Transition */
+.select:hover::after {
+  color: #f39c12;
+}
+
+
+

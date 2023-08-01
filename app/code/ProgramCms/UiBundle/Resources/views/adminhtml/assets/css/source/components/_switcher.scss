@@ -13,14 +13,18 @@
   }
 
   label {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
     &.status {
       padding-top: 7px;
+      padding-left: 5px;
       font-size: 13px;
       font-weight: bold;
       cursor: pointer;
 
       &.status-yes {
-        color: #6b6d8a;
+        color: $primary;
       }
 
       &.status-no {

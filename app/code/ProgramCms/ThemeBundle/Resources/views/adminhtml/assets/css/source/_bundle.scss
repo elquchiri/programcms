@@ -1,4 +1,11 @@
 .sidebar ul li a.sidebar-logo {
-  padding-top: 37px;
-  background-image: url("../../../../../public/images/favicon/favicon-circle-27x27.png");
+  padding-top: 45px;
+  background-image: url("../../../../../public/images/favicon/logo.png");
+  opacity: 1;
+  transition: background-image 0.5s;
+  border-bottom: 1px solid #403a3a;
+
+  &:hover {
+    background-image: url("../../../../../public/images/favicon/logo-anime.png");
+  }
 }

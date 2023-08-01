@@ -21,8 +21,8 @@ use ProgramCms\DataPatchBundle\Helper\Data as DataHelper;
  * @package ProgramCms\DataPatchBundle\Command
  */
 #[AsCommand(
-    name: 'data-patch:upgrade',
-    aliases: ['dpa:upg'],
+    name: 'setup:data-patch',
+    aliases: ['set:dpt'],
     hidden: false
 )]
 class ExecuteDataPatches extends Command

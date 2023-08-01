@@ -64,7 +64,7 @@ class EavAttribute
     private ?string $note = null;
 
     #[ORM\OneToMany(mappedBy: 'attribute', targetEntity: EavAttributeLabel::class)]
-    private Collection $attributeLabels;
+    private Collection $labels;
 
     #[ORM\ManyToMany(targetEntity: EavAttributeGroup::class, mappedBy: 'attributes')]
     private Collection $groups;
@@ -272,6 +272,37 @@ class EavAttribute
                 $group->removeAttribute($this);
             }
         }
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getLabels(): Collection
+    {
+        return $this->labels;
+    }
+
+    /**
+     * @param EavAttributeLabel $label
+     * @return $this
+     */
+    public function addLabel(EavAttributeLabel $label): static
+    {
+        if(!$this->labels->contains($label)) {
+            $this->labels[] = $label;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param EavAttributeLabel $label
+     * @return $this
+     */
+    public function removeLabel(EavAttributeLabel $label): static
+    {
+        $this->labels->removeElement($label);
         return $this;
     }
 }

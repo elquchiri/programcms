@@ -113,4 +113,22 @@ abstract class Field extends \ProgramCms\CoreBundle\View\Element\Template implem
     {
         return $this->getData('value');
     }
+
+    /**
+     * @param $isRequired
+     * @return $this
+     */
+    public function setIsRequired($isRequired): static
+    {
+        $this->setData('isRequired', $isRequired);
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRequired(): bool
+    {
+        return $this->hasData('isRequired') ? $this->getData('isRequired') : false;
+    }
 }

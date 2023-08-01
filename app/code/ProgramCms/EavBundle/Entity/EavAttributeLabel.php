@@ -23,7 +23,7 @@ class EavAttributeLabel
     #[ORM\Column]
     private ?int $attribute_label_id = null;
 
-    #[ORM\ManyToOne(targetEntity: EavAttribute::class, inversedBy: 'attributeLabels')]
+    #[ORM\ManyToOne(targetEntity: EavAttribute::class, inversedBy: 'labels')]
     #[ORM\JoinColumn(name: 'attribute_id', referencedColumnName: 'attribute_id')]
     private ?EavAttribute $attribute = null;
 

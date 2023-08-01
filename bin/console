@@ -1,0 +1,29 @@
+#!/usr/bin/env php
+<?php
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+
+use ProgramCms\CoreBundle\App\Kernel;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+
+if (!is_file(dirname(__DIR__).'/vendor/autoload_runtime.php')) {
+    throw new LogicException('ProgramCMS Runtime is missing. Try running "composer require symfony/runtime".');
+}
+
+/* PHP version validation */
+if (!defined('PHP_VERSION_ID') || PHP_VERSION_ID < 80100) {
+    echo 'ProgramCMS supports PHP 8.1.0 or later. ' .
+        'Please read ProgramCMS System Requirements';
+}
+
+require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
+
+return function (array $context) {
+    $kernel = new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
+
+    return new Application($kernel);
+};

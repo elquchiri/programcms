@@ -70,13 +70,6 @@
   }
 }
 
-/* Exception for copyright logo */
-.sidebar ul li a#programcms {
-  opacity: 1;
-  transition: none;
-  border-bottom: 1px solid #353535;
-}
-
 .menu-items {
   position: fixed;
   left: 91px;
@@ -137,7 +130,7 @@
   display: block;
   text-decoration: none;
   text-align: left;
-  padding: 9px;
+  padding: 11px;
   font-size: 14px;
   transition: none;
   color: #ffffff;
