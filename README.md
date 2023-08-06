@@ -67,11 +67,17 @@ Frontend Home Page
 
 ![image](public/images/frontend-demo.png)
 
+
 Backend Demo
+
+- Website Manager
+
+![image](public/images/backend-website-demo.PNG)
+
 - Catalog Categories
 
 ![image](public/images/backend-category-demo.PNG)
-- Central Configuration
+- Centralized Configuration
 
 ![image](public/images/backend-config-demo.PNG)
 
