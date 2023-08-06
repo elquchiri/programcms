@@ -72,14 +72,14 @@ Backend Demo
 
 - Website Manager
 
-![image](public/images/backend-website-demo.PNG)
+![image](public/images/backend-website-demo.png)
 
 - Catalog Categories
 
-![image](public/images/backend-category-demo.PNG)
+![image](public/images/backend-category-demo.png)
 - Centralized Configuration
 
-![image](public/images/backend-config-demo.PNG)
+![image](public/images/backend-config-demo.png)
 
 ## Contribution
 
