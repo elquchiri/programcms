@@ -32,9 +32,9 @@ class Config
      * @param $path
      * @param string $scopeType
      * @param int $scopeCode
-     * @return mixed|string|null
+     * @return mixed
      */
-    public function getConfigValue($path, $scopeType = self::SCOPE_TYPE_DEFAULT, $scopeCode = 0)
+    public function getConfigValue($path, string $scopeType = self::SCOPE_TYPE_DEFAULT, int $scopeCode = 0): mixed
     {
         // Find configuration in core_config_data
         $result = $this->coreConfigDataRepository->findOneBy([
@@ -56,7 +56,7 @@ class Config
      * @param string $scopeType
      * @param int $scopeCode
      */
-    public function setConfigValue($path, $value, $scopeType = self::SCOPE_TYPE_DEFAULT, $scopeCode = 0)
+    public function setConfigValue($path, $value, string $scopeType = self::SCOPE_TYPE_DEFAULT, int $scopeCode = 0)
     {
         $config = $this->coreConfigDataRepository->findOneBy([
             'path' => $path,

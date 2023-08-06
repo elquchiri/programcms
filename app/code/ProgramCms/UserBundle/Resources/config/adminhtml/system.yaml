@@ -14,7 +14,7 @@ system_config:
       tab: 'user'
       groups:
         login_options:
-          label: 'Login Options'
+          label: 'Sign in Options'
           fields:
             redirect_user_after_login:
               type: 'switcher'

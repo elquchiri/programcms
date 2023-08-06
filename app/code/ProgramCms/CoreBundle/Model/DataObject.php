@@ -96,27 +96,69 @@ class DataObject
         }
         return $this;
     }
+
     /**
      * @param string $name
      * @param array $arguments
+     * @throws \Exception
      */
-    public function __call(string $name, array $arguments)
+    public function __call(string $method, array $arguments)
     {
-        switch (substr($name, 0, 3)) {
+        switch (substr($method, 0, 3)) {
             case 'get':
-                $key = $this->_underscore(substr($name, 3));
+                $key = $this->_underscore(substr($method, 3));
                 return $this->getData($key);
             case 'set':
-                $key = $this->_underscore(substr($name, 3));
+                $key = $this->_underscore(substr($method, 3));
                 $value = isset($arguments[0]) ? $arguments[0] : null;
                 return $this->setData($key, $value);
             case 'uns':
-                $key = $this->_underscore(substr($name, 3));
+                $key = $this->_underscore(substr($method, 3));
                 return $this->unsetData($key);
             case 'has':
-                $key = $this->_underscore(substr($name, 3));
+                $key = $this->_underscore(substr($method, 3));
                 return $this->hasData($key);
         }
+        throw new \Exception(
+            sprintf('Invalid method %1::%2', get_class($this), $method)
+        );
+    }
+
+    /**
+     * Set object data with calling setter method
+     * @param string $key
+     * @param mixed $value
+     * @return $this
+     */
+    public function setDataUsingMethod(string $key, mixed $value): static
+    {
+        $method = 'set' . str_replace('_', '', ucwords($key, '_'));
+        $this->{$method}($value);
+        return $this;
+    }
+
+    /**
+     * Get object data by key with calling getter method
+     * @param string $key
+     * @param mixed|null $args
+     * @return mixed
+     */
+    public function getDataUsingMethod(string $key, mixed $args = null): mixed
+    {
+        $method = 'get' . str_replace('_', '', ucwords($key, '_'));
+        return $this->{$method}($args);
+    }
+
+    /**
+     * Has object data by key by checking method
+     * @param string $key
+     * @param mixed|null $args
+     * @return mixed
+     */
+    public function hasDataUsingMethod(string $key, mixed $args = null): mixed
+    {
+        $method = 'get' . str_replace('_', '', ucwords($key, '_'));
+        return method_exists($this, $method);
     }
 
     /**

@@ -10,6 +10,8 @@ namespace ProgramCms\UiBundle\Block\Form;
 
 use Exception;
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\CoreBundle\View\Element\Template\Context;
+use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;
 
 /**
@@ -27,9 +29,16 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
      */
     protected ObjectManager $objectManager;
 
+    /**
+     * Form constructor.
+     * @param Context $context
+     * @param Request $request
+     * @param ObjectManager $objectManager
+     * @param array $data
+     */
     public function __construct(
-        \ProgramCms\CoreBundle\View\Element\Template\Context $context,
-        \ProgramCms\RouterBundle\Service\Request $request,
+        Context $context,
+        Request $request,
         ObjectManager $objectManager,
         array $data = []
     )
@@ -72,12 +81,20 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
             $data = $dataProvider->getData();
             if(isset($config['primaryFieldName']) && isset($config['requestFieldName'])) {
                 $entityId = (int) $this->request->getParam($config['requestFieldName']);
-                $data = $dataProvider
-                    ->getCollection()
-                    ->filter(function($entity) use($entityId, $config) {
-                        return $entity[$config['primaryFieldName']] === $entityId;
-                    })
-                    ->current();
+                if(!empty($entityId)) {
+                    $data = $dataProvider
+                        ->getCollection()
+                        ->filter(function ($entity) use ($entityId, $config) {
+                            return $entity->getDataUsingMethod($config['primaryFieldName']) === $entityId;
+                        })
+                        ->current();
+
+                    // Add hidden input to send sectionId parameter
+                    $hiddenInput = $layout->createBlock(\ProgramCms\UiBundle\Block\Form\Fields\Hidden::class, $config['requestFieldName'], [
+                        'value' => $entityId
+                    ]);
+                    $this->setChild($config['requestFieldName'], $hiddenInput);
+                }
             }
         }
 

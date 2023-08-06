@@ -22,12 +22,20 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class WebsiteRootRepository extends ServiceEntityRepository
 {
+    /**
+     * WebsiteRootRepository constructor.
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Website::class);
+        parent::__construct($registry, WebsiteRoot::class);
     }
 
-    public function save(WebsiteRoot $entity, bool $flush = false): void
+    /**
+     * @param WebsiteRoot $entity
+     * @param bool $flush
+     */
+    public function save(WebsiteRoot $entity, bool $flush = true): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -36,7 +44,11 @@ class WebsiteRootRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(WebsiteRoot $entity, bool $flush = false): void
+    /**
+     * @param WebsiteRoot $entity
+     * @param bool $flush
+     */
+    public function remove(WebsiteRoot $entity, bool $flush = true): void
     {
         $this->getEntityManager()->remove($entity);
 

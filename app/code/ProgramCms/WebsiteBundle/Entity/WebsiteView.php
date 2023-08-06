@@ -12,97 +12,124 @@ use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: WebsiteViewRepository::class)]
-class WebsiteView
+class WebsiteView extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
 {
+    /**
+     * @var int|null
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $website_view_id = null;
-
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     private ?string $website_view_code = null;
-
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     private ?string $website_view_name = null;
-
-    #[ORM\Column(length: 255)]
-    private ?int $website_root_id = null;
-
-    #[ORM\Column(length: 255)]
-    private ?int $website_id = null;
-
-    #[ORM\Column(length: 255)]
+    /**
+     * @var int|null
+     */
+    #[ORM\ManyToOne(targetEntity: Website::class, inversedBy: 'websiteViews')]
+    #[ORM\JoinColumn(name: 'website_id', referencedColumnName: 'website_id')]
+    private ?Website $website = null;
+    /**
+     * @var int|null
+     */
+    #[ORM\Column]
     private ?int $is_active = null;
 
+    /**
+     * @return int|null
+     */
     public function getWebsiteViewId(): ?int
     {
         return $this->website_view_id;
     }
 
+    /**
+     * @param int $website_view_id
+     * @return $this
+     */
     public function setWebsiteViewId(int $website_view_id): self
     {
         $this->website_view_id = $website_view_id;
-
         return $this;
     }
 
-    public function getWebsiteViewCode(): ?int
+    /**
+     * @return string|null
+     */
+    public function getWebsiteViewCode(): ?string
     {
         return $this->website_view_code;
     }
 
-    public function setWebsiteViewCode(int $website_view_code): self
+    /**
+     * @param string $website_view_code
+     * @return $this
+     */
+    public function setWebsiteViewCode(string $website_view_code): self
     {
         $this->website_view_code = $website_view_code;
-
         return $this;
     }
 
-    public function getWebsiteViewName(): ?int
+    /**
+     * @return string|null
+     */
+    public function getWebsiteViewName(): ?string
     {
         return $this->website_view_name;
     }
 
-    public function setWebsiteViewName(int $website_view_name): self
+    /**
+     * @param string $website_view_name
+     * @return $this
+     */
+    public function setWebsiteViewName(string $website_view_name): self
     {
         $this->website_view_name = $website_view_name;
-
         return $this;
     }
 
-    public function getWebsiteRootId(): ?int
+    /**
+     * @return Website|null
+     */
+    public function getWebsite(): ?Website
     {
-        return $this->website_root_id;
+        return $this->website;
     }
 
-    public function setWebsiteRootId(int $website_root_id): self
+    /**
+     * @param Website $website
+     * @return $this
+     */
+    public function setWebsite(Website $website): self
     {
-        $this->website_root_id = $website_root_id;
-
+        $this->website = $website;
         return $this;
     }
 
-    public function getWebsiteId(): ?int
+    /**
+     * @return bool|null
+     */
+    public function getIsActive(): ?bool
     {
-        return $this->website_id;
+        return (bool) $this->is_active;
     }
 
-    public function setWebsiteId(int $website_id): self
-    {
-        $this->website_id = $website_id;
-
-        return $this;
-    }
-
-    public function getIsActive(): ?string
-    {
-        return $this->is_active;
-    }
-
-    public function setIsActive(string $is_active): self
+    /**
+     * @param int $is_active
+     * @return $this
+     */
+    public function setIsActive(int $is_active): self
     {
         $this->is_active = $is_active;
-
         return $this;
     }
 }

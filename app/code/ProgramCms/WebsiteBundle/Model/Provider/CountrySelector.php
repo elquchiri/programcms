@@ -14,7 +14,9 @@ namespace ProgramCms\WebsiteBundle\Model\Provider;
  */
 class CountrySelector extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
 {
-
+    /**
+     * @return string[]
+     */
     public function getOptionsArray(): array
     {
         return [

@@ -16,7 +16,9 @@
                         {% if menuItem.htmlClass is defined %}class="{{ menuItem.htmlClass }}"{% endif %}
                         href="{% if menuItem.action is defined %}{{ menuItem.action }}{% endif %}"
                         id="{{ menuItemKey }}">
-                        <span>{{ menuItem.label }}</span>
+                        {% if menuItemKey != 'programcms' %}
+                            <span>{{ menuItem.label }}</span>
+                        {% endif %}
                     </a>
                 </li>
             {% endfor %}

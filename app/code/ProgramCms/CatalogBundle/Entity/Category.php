@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package ProgramCms\CatalogBundle\Entity
  */
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
-class Category
+class Category extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

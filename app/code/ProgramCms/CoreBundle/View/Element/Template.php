@@ -8,6 +8,7 @@
 
 namespace ProgramCms\CoreBundle\View\Element;
 
+use ProgramCms\RouterBundle\Service\Request;
 use Twig\Environment;
 
 /**
@@ -22,7 +23,9 @@ class Template extends AbstractBlock
      * @var string
      */
     protected string $_template;
-
+    /**
+     * @var BlockInterface|Template
+     */
     protected \ProgramCms\CoreBundle\View\Element\BlockInterface $templateContext;
     /**
      * Assigned variables for view
@@ -35,9 +38,9 @@ class Template extends AbstractBlock
      */
     protected \ProgramCms\CoreBundle\Model\Filesystem\DirectoryList $directoryList;
     /**
-     * @var \ProgramCms\RouterBundle\Service\Request
+     * @var Request
      */
-    protected \ProgramCms\RouterBundle\Service\Request $request;
+    protected Request $request;
     /**
      * @var Environment
      */
@@ -179,5 +182,13 @@ class Template extends AbstractBlock
         } catch (\Exception $e) {
             throw $e;
         }
+    }
+
+    /**
+     * @return Request
+     */
+    public function getRequest(): Request
+    {
+        return $this->request;
     }
 }

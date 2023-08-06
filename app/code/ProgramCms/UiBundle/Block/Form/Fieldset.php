@@ -9,6 +9,7 @@
 namespace ProgramCms\UiBundle\Block\Form;
 
 use Exception;
+use ProgramCms\CoreBundle\Model\DataObject;
 
 /**
  * Class Fieldset
@@ -100,16 +101,27 @@ class Fieldset extends \ProgramCms\CoreBundle\View\Element\Template
                         $fieldBlock->setIsRequired($field['isRequired']);
                     }
                     // Populate field by provided value
-                    if(isset($providedData[$fieldName]) && !empty($providedData[$fieldName])) {
-                        $fieldBlock->setValue($providedData[$fieldName]);
-                    }
-                    // Populate field by static value
-                    if (isset($field['value'])) {
-                        $fieldBlock->setValue($field['value']);
+                    if($providedData instanceof DataObject) {
+                        if (!empty($providedData->hasDataUsingMethod($fieldName))) {
+                            $fieldBlock->setValue($providedData->getDataUsingMethod($fieldName));
+                        }
+                    }else {
+                        // Populate field by static value
+                        if (isset($field['value'])) {
+                            $fieldBlock->setValue($field['value']);
+                        }
                     }
                     $this->setChild($fieldName, $fieldBlock);
                 }
             }
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isScopeUsed(): bool
+    {
+        return !empty($this->getRequest()->getParam('website'));
     }
 }

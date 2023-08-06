@@ -32,7 +32,7 @@ interface DataProviderInterface
      * Get data
      * @return mixed
      */
-    public function getData(): array;
+    public function getData(): mixed;
 
     /**
      * @return array

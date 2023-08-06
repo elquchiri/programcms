@@ -69,7 +69,7 @@ abstract class AbstractDataProvider implements DataProviderInterface
      * Get Data
      * @return array
      */
-    public function getData(): array
+    public function getData(): mixed
     {
         return $this->getCollection()->toArray();
     }

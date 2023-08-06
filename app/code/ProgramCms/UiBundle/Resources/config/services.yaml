@@ -24,3 +24,5 @@ services:
   # alias Form block
   ui.block.form:
     class: ProgramCms\UiBundle\Block\Form\Form
+  ui.block.grid:
+    class: ProgramCms\UiBundle\Block\Grid\Grid

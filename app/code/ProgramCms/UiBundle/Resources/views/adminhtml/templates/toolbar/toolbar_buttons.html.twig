@@ -16,6 +16,10 @@
                             data-btn-action="{{ button.buttonAction }}" type="button">
                         {{ button.label }}
                     </button>
+                {% elseif button.buttonType == 'secondary' %}
+                    <button data-action="toolbar#buttonClick" class="btn btn" type="button">
+                        {{ button.label }}
+                    </button>
                 {% elseif button.buttonType == 'back' %}
                     <button data-action="toolbar#buttonClick" class="btn btn" type="button">
                         <img style="margin-bottom: 2px;" src="{{ asset('bundles/programcmsadmin/images/back.png') }}" />

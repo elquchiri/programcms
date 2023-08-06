@@ -11,7 +11,10 @@
         {% block name="website.switcher" class="ui.block.toolbar.website_switcher" %}{% endBlock %}
     {% endReferenceContainer %}
     {% referenceContainer name="sidebar.main" %}
-        {% block name="category.tree.block" class="ProgramCms\\CatalogBundle\\Block\\CategoryTree" template="@ProgramCmsCatalogBundle/tree.html.twig" %}{% endBlock %}
+        {% container name="tree.container" htmlTag="div" htmlClass="sticky-md-top" %}
+            {% block name="category.tree.block" class="ProgramCms\\CatalogBundle\\Block\\CategoryTreeButtons" template="@ProgramCmsCatalogBundle/tree_buttons.html.twig" %}{% endBlock %}
+            {% block name="category.tree" class="ProgramCms\\UiBundle\\Block\\Tree\\Tree" %}{% endBlock %}
+        {% endContainer %}
     {% endReferenceContainer %}
     {% referenceContainer name="content" %}
         {% block name="form" class="ui.block.form" %}

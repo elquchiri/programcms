@@ -9,8 +9,7 @@
 namespace ProgramCms\CoreBundle\Model\Db\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Exception;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * Class AbstractCollection
@@ -23,20 +22,14 @@ abstract class AbstractCollection extends \Doctrine\Common\Collections\AbstractL
      */
     protected string $entity;
     /**
-     * @var Connection
+     * @var EntityManagerInterface
      */
-    protected Connection $connection;
-    /**
-     * @var \Doctrine\ORM\EntityManagerInterface
-     */
-    protected \Doctrine\ORM\EntityManagerInterface $entityManager;
+    protected EntityManagerInterface $entityManager;
 
     public function __construct(
-        Connection $connection,
-        \Doctrine\ORM\EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager
     )
     {
-        $this->connection = $connection;
         $this->entityManager = $entityManager;
         $this->_construct();
     }
@@ -47,24 +40,27 @@ abstract class AbstractCollection extends \Doctrine\Common\Collections\AbstractL
     }
 
     /**
-     * @param string $entity
+     * @param string $entityClass
      */
     protected function _initEntity(string $entityClass)
     {
-        $classMetadata = $this->entityManager->getClassMetadata($entityClass);
-        $this->entity = $classMetadata->getTableName();
+        $this->entity = $entityClass;
     }
 
     /**
-     * @throws Exception
+     * Used internally to populate collection
+     * @return void
      */
     protected function doInitialize()
     {
-        $this->collection = new ArrayCollection(
-            $this->connection->createQueryBuilder()
-                ->select('*')
-                ->from($this->entity, 'mainTable')
-                ->fetchAllAssociative()
+        $query = $this->entityManager->createQuery(
+            "SELECT mainEntity FROM {$this->entity} mainEntity"
         );
+
+        /**
+         * Init Data Collection
+         * Can be processed by end users to sort, add, delete or get items
+         */
+        $this->collection = new ArrayCollection($query->getResult());
     }
 }

@@ -12,7 +12,7 @@ namespace ProgramCms\CatalogBundle\Block;
  * Class CategoryTree
  * @package ProgramCms\CatalogBundle\Block
  */
-class CategoryTree extends \ProgramCms\CoreBundle\View\Element\Template
+class CategoryTreeButtons extends \ProgramCms\CoreBundle\View\Element\Template
 {
 
 }

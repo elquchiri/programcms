@@ -99,7 +99,7 @@ export default class extends Controller {
     animateMenuItem(menuItem, leftPosition, callback) {
         $(menuItem).animate(
             { left: leftPosition },
-            300,
+            250,
             callback
         );
     }
