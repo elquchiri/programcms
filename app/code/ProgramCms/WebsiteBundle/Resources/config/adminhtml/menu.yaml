@@ -15,7 +15,7 @@ menu:
         actions:
           websites:
             label: 'All Web Sites'
-            action: 'website_websiteroot_index'
+            action: 'website_website_index'
           config:
             label: 'Configuration'
             action: 'config_systemconfig_index'

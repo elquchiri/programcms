@@ -6,11 +6,11 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteRoot;
+namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\Website;
 
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\RouterBundle\Service\Url;
-use ProgramCms\WebsiteBundle\Repository\WebsiteRootRepository;
+use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
@@ -24,25 +24,25 @@ class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
      */
     protected Url $url;
     /**
-     * @var WebsiteRootRepository
+     * @var WebsiteRepository
      */
-    protected WebsiteRootRepository $websiteRootRepository;
+    protected WebsiteRepository $websiteRepository;
 
     /**
      * IndexController constructor.
      * @param Context $context
      * @param Url $url
-     * @param WebsiteRootRepository $websiteRootRepository
+     * @param WebsiteRepository $websiteRepository
      */
     public function __construct(
         Context $context,
         Url $url,
-        WebsiteRootRepository $websiteRootRepository,
+        WebsiteRepository $websiteRepository,
     )
     {
         parent::__construct($context);
         $this->url = $url;
-        $this->websiteRootRepository = $websiteRootRepository;
+        $this->websiteRepository = $websiteRepository;
     }
 
     /**
@@ -51,7 +51,7 @@ class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
      */
     public function execute()
     {
-        $defaultWebsiteRoot = $this->websiteRootRepository->findOneBy(['is_default' => 1]);
-        return $this->redirect($this->url->getUrlByRouteName('website_websiteroot_edit', ['id' => $defaultWebsiteRoot->getWebsiteRootId()]));
+        $defaultWebsite = $this->websiteRepository->findOneBy(['is_default' => 1]);
+        return $this->redirect($this->url->getUrlByRouteName('website_website_edit', ['id' => $defaultWebsite->getWebsiteId()]));
     }
 }

@@ -6,7 +6,7 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\WebsiteBundle\Model\Collection\RootWebsite;
+namespace ProgramCms\WebsiteBundle\Model\Collection\Website;
 
 /**
  * Class Collection
@@ -19,6 +19,6 @@ class Collection extends \ProgramCms\CoreBundle\Model\Db\Collection\AbstractColl
      */
     protected function _construct()
     {
-        $this->_initEntity(\ProgramCms\WebsiteBundle\Entity\WebsiteRoot::class);
+        $this->_initEntity(\ProgramCms\WebsiteBundle\Entity\Website::class);
     }
 }

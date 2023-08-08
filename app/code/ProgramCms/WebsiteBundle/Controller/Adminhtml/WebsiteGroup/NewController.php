@@ -6,10 +6,7 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteRoot;
-
-use ProgramCms\CoreBundle\Controller\Context;
-use ProgramCms\CoreBundle\Model\ObjectManager;
+namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteGroup;
 
 /**
  * Class NewRootWebsite
@@ -18,18 +15,18 @@ use ProgramCms\CoreBundle\Model\ObjectManager;
 class NewController extends \ProgramCms\CoreBundle\Controller\Controller
 {
     /**
-     * @var ObjectManager
+     * @var \ProgramCms\CoreBundle\Model\ObjectManager
      */
-    protected ObjectManager $objectManager;
+    protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
 
     /**
      * NewController constructor.
-     * @param Context $context
-     * @param ObjectManager $objectManager
+     * @param \ProgramCms\CoreBundle\Controller\Context $context
+     * @param \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
      */
     public function __construct(
-        Context $context,
-        ObjectManager $objectManager
+        \ProgramCms\CoreBundle\Controller\Context $context,
+        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
     )
     {
         parent::__construct($context);
@@ -43,7 +40,7 @@ class NewController extends \ProgramCms\CoreBundle\Controller\Controller
     {
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
 
-        $pageResult->getConfig()->getTitle()->set("New Root Website");
+        $pageResult->getConfig()->getTitle()->set("New Website Group");
         return $pageResult;
     }
 }

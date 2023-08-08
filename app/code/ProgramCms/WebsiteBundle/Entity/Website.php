@@ -23,29 +23,41 @@ class Website extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
     #[ORM\Column]
     private ?int $website_id = null;
     /**
-     * @var WebsiteRoot|null
+     * @var int|null
      */
-    #[ORM\ManyToOne(targetEntity: WebsiteRoot::class, inversedBy: 'websites')]
-    #[ORM\JoinColumn(name: 'website_root_id', referencedColumnName: 'website_root_id')]
-    private ?WebsiteRoot $websiteRoot = null;
-    /**
-     * @var string|null
-     */
-    #[ORM\Column(length: 255)]
-    private ?string $website_code = null;
+    #[ORM\Column]
+    private ?string $is_active = null;
     /**
      * @var string|null
      */
     #[ORM\Column(length: 255)]
     private ?string $website_name = null;
     /**
+     * @var string|null
+     */
+    #[ORM\Column(length: 255)]
+    private ?string $website_code = null;
+    /**
      * @var int|null
      */
-    #[ORM\Column]
-    private ?int $root_category_id = null;
-
-    #[ORM\OneToMany(mappedBy: 'website', targetEntity: WebsiteView::class)]
-    private ?Collection $websiteViews = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $sort_order = null;
+    /**
+     * @var Website|null
+     */
+    #[ORM\ManyToOne(targetEntity: WebsiteGroup::class)]
+    #[ORM\JoinColumn(name: 'default_website_group_id', referencedColumnName: 'website_group_id')]
+    private ?WebsiteGroup $defaultGroup;
+    /**
+     * @var int|null
+     */
+    #[ORM\Column(nullable: true)]
+    private ?int $is_default = null;
+    /**
+     * @var Collection|null
+     */
+    #[ORM\OneToMany(mappedBy: 'website', targetEntity: WebsiteGroup::class)]
+    private ?Collection $groups = null;
 
     /**
      * @return int|null
@@ -62,44 +74,24 @@ class Website extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
     public function setWebsiteId(int $website_id): self
     {
         $this->website_id = $website_id;
-
-        return $this;
-    }
-
-    /**
-     * @return WebsiteRoot|null
-     */
-    public function getWebsiteRoot(): ?WebsiteRoot
-    {
-        return $this->websiteRoot;
-    }
-
-    /**
-     * @param WebsiteRoot $websiteRoot
-     * @return $this
-     */
-    public function setWebsiteRoot(WebsiteRoot $websiteRoot): self
-    {
-        $this->websiteRoot = $websiteRoot;
         return $this;
     }
 
     /**
      * @return string|null
      */
-    public function getWebsiteCode(): ?string
+    public function getIsActive(): ?string
     {
-        return $this->website_code;
+        return $this->is_active;
     }
 
     /**
-     * @param string $website_code
+     * @param string $is_active
      * @return $this
      */
-    public function setWebsiteCode(string $website_code): self
+    public function setIsActive(string $is_active): static
     {
-        $this->website_code = $website_code;
-
+        $this->is_active = $is_active;
         return $this;
     }
 
@@ -118,60 +110,121 @@ class Website extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
     public function setWebsiteName(string $website_name): self
     {
         $this->website_name = $website_name;
-
         return $this;
     }
 
     /**
      * @return string|null
      */
-    public function getRootCategoryId(): ?string
+    public function getWebsiteCode(): ?string
     {
-        return $this->root_category_id;
+        return $this->website_code;
     }
 
     /**
-     * @param string $root_category_id
+     * @param string $website_code
      * @return $this
      */
-    public function setRootCategoryId(string $root_category_id): self
+    public function setWebsiteCode(string $website_code): self
     {
-        $this->root_category_id = $root_category_id;
+        $this->website_code = $website_code;
+        return $this;
+    }
 
+    /**
+     * @return int|null
+     */
+    public function getSortOrder(): ?int
+    {
+        return $this->sort_order;
+    }
+
+    /**
+     * @param string $sort_order
+     * @return $this
+     */
+    public function setSortOrder(string|int $sort_order): static
+    {
+        $this->sort_order = (int) $sort_order;
+        return $this;
+    }
+
+    /**
+     * @return WebsiteGroup|null
+     */
+    public function getDefaultGroup(): ?WebsiteGroup
+    {
+        return $this->defaultGroup;
+    }
+
+    /**
+     * @param WebsiteGroup $group
+     * @return $this
+     */
+    public function setDefaultGroup(WebsiteGroup $group): static
+    {
+        $this->defaultGroup = $group;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getDefaultGroupId(): ?int
+    {
+        return $this->getDefaultGroup()->getWebsiteGroupId();
+    }
+
+
+    /**
+     * @return string|null
+     */
+    public function getIsDefault(): ?string
+    {
+        return $this->is_default;
+    }
+
+    /**
+     * @param int $is_default
+     * @return $this
+     */
+    public function setIsDefault(int $is_default): self
+    {
+        $this->is_default = $is_default;
         return $this;
     }
 
     /**
      * @return Collection|null
      */
-    public function getWebsiteViews(): ?Collection
+    public function getGroups(): ?Collection
     {
-        return $this->websiteViews;
+        return $this->groups;
     }
 
     /**
-     * @param WebsiteView $websiteView
+     * @param Website $website
      * @return $this
      */
-    public function addWebsiteView(WebsiteView $websiteView): static
+    public function addGroup(WebsiteGroup $websiteGroup): static
     {
-        if(!$this->websiteViews->contains($websiteView)) {
-            $this->websiteViews[] = $websiteView;
-            $websiteView->setWebsite($this);
+        if(!$this->groups->contains($websiteGroup)) {
+            $this->groups[] = $websiteGroup;
+            $websiteGroup->setWebsite($this);
         }
 
         return $this;
     }
 
     /**
-     * @param WebsiteView $websiteView
+     * @param Website $website
      * @return $this
      */
-    public function removeWebsiteView(WebsiteView $websiteView): static
+    public function removeGroup(WebsiteGroup $websiteGroup): static
     {
-        if($this->websiteViews->removeElement($websiteView)) {
-            if($websiteView->getWebsite() === $this) {
-                $websiteView->setWebsite(null);
+        if($this->groups->removeElement($websiteGroup)) {
+            if($websiteGroup->getWebsite() === $this) {
+                $websiteGroup->setWebsite(null);
             }
         }
 

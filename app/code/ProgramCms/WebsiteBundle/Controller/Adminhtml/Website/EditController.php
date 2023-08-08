@@ -10,30 +10,34 @@ namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\Website;
 
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
 
 /**
- * Class NewRootWebsite
+ * Class EditRootWebsiteController
  * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\SystemWebsite
  */
-class NewController extends \ProgramCms\CoreBundle\Controller\Controller
+class EditController extends \ProgramCms\CoreBundle\Controller\Controller
 {
     /**
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+    protected WebsiteRepository $websiteRepository;
 
     /**
-     * NewController constructor.
+     * EditController constructor.
      * @param Context $context
      * @param ObjectManager $objectManager
      */
     public function __construct(
         Context $context,
+        WebsiteRepository $websiteRepository,
         ObjectManager $objectManager
     )
     {
         parent::__construct($context);
         $this->objectManager = $objectManager;
+        $this->websiteRepository = $websiteRepository;
     }
 
     /**
@@ -42,8 +46,8 @@ class NewController extends \ProgramCms\CoreBundle\Controller\Controller
     public function execute()
     {
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
-
-        $pageResult->getConfig()->getTitle()->set("New Root Website");
+        $website = $this->websiteRepository->findOneBy(['website_id' => $this->getRequest()->getParam('id')]);
+        $pageResult->getConfig()->getTitle()->set(sprintf('Edit website: %s', $website->getWebsiteName()));
         return $pageResult;
     }
 }

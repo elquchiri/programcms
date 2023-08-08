@@ -6,13 +6,13 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteRoot;
+namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteGroup;
 
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 
 /**
- * Class EditRootWebsiteController
+ * Class NewRootWebsite
  * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\SystemWebsite
  */
 class EditController extends \ProgramCms\CoreBundle\Controller\Controller
@@ -23,7 +23,7 @@ class EditController extends \ProgramCms\CoreBundle\Controller\Controller
     protected ObjectManager $objectManager;
 
     /**
-     * EditController constructor.
+     * NewController constructor.
      * @param Context $context
      * @param ObjectManager $objectManager
      */
@@ -43,7 +43,7 @@ class EditController extends \ProgramCms\CoreBundle\Controller\Controller
     {
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
 
-        $pageResult->getConfig()->getTitle()->set("Edit Root Website");
+        $pageResult->getConfig()->getTitle()->set("Edit Website Group");
         return $pageResult;
     }
 }

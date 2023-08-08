@@ -6,11 +6,11 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\WebsiteBundle\Model\Website\Form;
+namespace ProgramCms\WebsiteBundle\Model\WebsiteGroup\Form;
 
 use ProgramCms\RouterBundle\Service\Request;
-use ProgramCms\WebsiteBundle\Model\Collection\Website\Collection;
-use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
+use ProgramCms\WebsiteBundle\Model\Collection\WebsiteGroup\Collection;
+use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
 
 /**
  * Class DataProvider
@@ -23,25 +23,25 @@ class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvide
      */
     protected Request $request;
     /**
-     * @var WebsiteRepository
+     * @var WebsiteGroupRepository
      */
-    protected WebsiteRepository $websiteRepository;
+    protected WebsiteGroupRepository $websiteGroupRepository;
 
     /**
      * DataProvider constructor.
      * @param Collection $collection
-     * @param WebsiteRepository $websiteRepository
+     * @param WebsiteGroupRepository $websiteGroupRepository
      * @param Request $request
      */
     public function __construct(
         Collection $collection,
-        WebsiteRepository $websiteRepository,
+        WebsiteGroupRepository $websiteGroupRepository,
         Request $request
     )
     {
         $this->collection = $collection;
         $this->request = $request;
-        $this->websiteRepository = $websiteRepository;
+        $this->websiteGroupRepository = $websiteGroupRepository;
     }
 
     /**
@@ -50,8 +50,8 @@ class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvide
     public function getData(): mixed
     {
         if(!empty($this->request->getParam('id'))) {
-            $websiteId = $this->request->getParam('id');
-            return $this->websiteRepository->findOneBy(['website_id' => $websiteId]);
+            $websiteGroupId = $this->request->getParam('id');
+            return $this->websiteGroupRepository->findOneBy(['website_group_id' => $websiteGroupId]);
         }
 
         return parent::getData();

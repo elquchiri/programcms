@@ -32,11 +32,11 @@ class WebsiteView extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
     #[ORM\Column(length: 255)]
     private ?string $website_view_name = null;
     /**
-     * @var int|null
+     * @var WebsiteGroup|null
      */
-    #[ORM\ManyToOne(targetEntity: Website::class, inversedBy: 'websiteViews')]
-    #[ORM\JoinColumn(name: 'website_id', referencedColumnName: 'website_id')]
-    private ?Website $website = null;
+    #[ORM\ManyToOne(targetEntity: WebsiteGroup::class, inversedBy: 'websiteViews')]
+    #[ORM\JoinColumn(name: 'website_group_id', referencedColumnName: 'website_group_id')]
+    private ?WebsiteGroup $websiteGroup = null;
     /**
      * @var int|null
      */
@@ -98,20 +98,20 @@ class WebsiteView extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
     }
 
     /**
-     * @return Website|null
+     * @return WebsiteGroup|null
      */
-    public function getWebsite(): ?Website
+    public function getWebsiteGroup(): ?WebsiteGroup
     {
-        return $this->website;
+        return $this->websiteGroup;
     }
 
     /**
-     * @param Website $website
+     * @param WebsiteGroup $websiteGroup
      * @return $this
      */
-    public function setWebsite(Website $website): self
+    public function setWebsiteGroup(WebsiteGroup $websiteGroup): self
     {
-        $this->website = $website;
+        $this->websiteGroup = $websiteGroup;
         return $this;
     }
 

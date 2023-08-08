@@ -6,14 +6,14 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteRoot;
+namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\Website;
 
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\RouterBundle\Service\Url;
-use ProgramCms\WebsiteBundle\Entity\WebsiteRoot;
+use ProgramCms\WebsiteBundle\Entity\Website;
+use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
 use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
-use ProgramCms\WebsiteBundle\Repository\WebsiteRootRepository;
 
 /**
  * Class SaveWebsiteRootController
@@ -26,35 +26,38 @@ class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
      */
     protected Url $url;
     /**
-     * @var WebsiteRootRepository
+     * @var WebsiteRepository
      */
-    protected WebsiteRootRepository $websiteRootRepository;
+    protected WebsiteRepository $websiteRepository;
     /**
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
-    protected WebsiteRepository $websiteRepository;
+    /**
+     * @var WebsiteGroupRepository
+     */
+    protected WebsiteGroupRepository $websiteGroupRepository;
 
     /**
      * SaveController constructor.
      * @param Context $context
      * @param Url $url
-     * @param WebsiteRootRepository $websiteRootRepository
+     * @param WebsiteRepository $websiteRepository
      * @param ObjectManager $objectManager
      */
     public function __construct(
         Context $context,
         Url $url,
-        WebsiteRootRepository $websiteRootRepository,
         WebsiteRepository $websiteRepository,
+        WebsiteGroupRepository $websiteGroupRepository,
         ObjectManager $objectManager
     )
     {
         parent::__construct($context);
         $this->url = $url;
-        $this->websiteRootRepository = $websiteRootRepository;
-        $this->objectManager = $objectManager;
         $this->websiteRepository = $websiteRepository;
+        $this->objectManager = $objectManager;
+        $this->websiteGroupRepository = $websiteGroupRepository;
     }
 
     /**
@@ -65,38 +68,38 @@ class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
         $request = $this->getRequest()->getCurrentRequest();
         if($request->getMethod() == 'POST') {
             $formData = $request->request->all();
-            $websiteRootId = $formData['id'] ?? "";
+            $websiteId = $formData['id'] ?? "";
 
-            /** @var WebsiteRoot $websiteRoot */
-            $websiteRoot = $this->websiteRootRepository->findOneBy(['website_root_id' => $websiteRootId]);
-            if(!$websiteRoot) {
-                $websiteRoot = $this->objectManager->create(WebsiteRoot::class);
+            /** @var Website $website */
+            $website = $this->websiteRepository->findOneBy(['website_id' => $websiteId]);
+            if(!$website) {
+                $website = $this->objectManager->create(Website::class);
             }
 
             // Populate WebsiteRoot Entity
             foreach($formData as $name => $value) {
                 if($name != 'id') {
-                    if($websiteRoot->hasDataUsingMethod($name)) {
-                        $websiteRoot->setDataUsingMethod($name, $value);
+                    if($website->hasDataUsingMethod($name)) {
+                        $website->setDataUsingMethod($name, $value);
                     }
                 }
                 // Default Website
-                if(isset($formData['default_website_id'])) {
-                    $website = $this->websiteRepository->findOneBy(['website_id' => $formData['default_website_id']]);
-                    $websiteRoot->setDefaultWebsite($website);
+                if(isset($formData['default_website_group_id'])) {
+                    $websiteGroup = $this->websiteGroupRepository->findOneBy(['website_group_id' => $formData['default_website_group_id']]);
+                    $website->setDefaultGroup($websiteGroup);
                 }
             }
 
             // Save WebsiteRoot
-            $this->websiteRootRepository->save($websiteRoot);
+            $this->websiteRepository->save($website, true);
 
             // Flash success message
-            $this->addFlash('success', 'Root Website Saved Succefully.');
+            $this->addFlash('success', 'Website Successfully Saved.');
 
-            return $this->redirect($this->url->getUrlByRouteName('website_websiteroot_edit', ['id' => $websiteRoot->getWebsiteRootId()]));
+            return $this->redirect($this->url->getUrlByRouteName('website_website_edit', ['id' => $website->getWebsiteId()]));
         }
         // Flash error message
-        $this->addFlash('danger', 'Error Saving Root Website Data, please try again.');
+        $this->addFlash('danger', 'Error Saving Website Data, please try again.');
         return $this->redirectToRoute('adminhtml_config_systemconfig_index');
     }
 }

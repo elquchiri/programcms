@@ -10,9 +10,8 @@ namespace ProgramCms\WebsiteBundle\Model\Website;
 
 use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\WebsiteBundle\Entity\Website;
-use ProgramCms\WebsiteBundle\Entity\WebsiteRoot;
 use ProgramCms\WebsiteBundle\Entity\WebsiteView;
-use ProgramCms\WebsiteBundle\Model\Collection\RootWebsite\Collection;
+use ProgramCms\WebsiteBundle\Model\Collection\Website\Collection;
 
 /**
  * Class DataProvider
@@ -42,28 +41,28 @@ class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvide
     {
         // Tree structure holding all websites data
         $tree = [];
-        /** @var WebsiteRoot $rootWebsite */
-        foreach(parent::getData() as $rootWebsite) {
+        /** @var Website $website */
+        foreach(parent::getData() as $website) {
             $root = [
-                'label' => $rootWebsite->getWebsiteRootName(),
-                'is_active' => (int) $this->request->getParam('id') === $rootWebsite->getWebsiteRootId(),
-                'count' => $rootWebsite->getWebsites()->count()
+                'label' => $website->getWebsiteName(),
+                'is_active' => (int) $this->request->getParam('id') === $website->getWebsiteId(),
+                'count' => $website->getGroups()->count()
             ];
 
-            if(!$rootWebsite->getWebsites()->isEmpty()) {
-                $websites = $rootWebsite->getWebsites()->toArray();
+            if(!$website->getGroups()->isEmpty()) {
+                $groups = $website->getGroups()->toArray();
                 /** @var Website $website */
-                foreach($websites as $website) {
-                    $root['children'][$website->getWebsiteCode()] = [
-                        'label' => $website->getWebsiteName(),
+                foreach($groups as $group) {
+                    $root['children'][$group->getWebsiteGroupCode()] = [
+                        'label' => $group->getWebsiteGroupName(),
                         'is_active' => false,
-                        'count' => $website->getWebsiteViews()->count()
+                        'count' => $group->getWebsiteViews()->count()
                     ];
 
-                    if(!$website->getWebsiteViews()->isEmpty()) {
+                    if(!$group->getWebsiteViews()->isEmpty()) {
                         /** @var WebsiteView $websiteView */
-                        foreach($website->getWebsiteViews()->toArray() as $websiteView) {
-                            $root['children'][$website->getWebsiteCode()]['children'][$websiteView->getWebsiteViewCode()] = [
+                        foreach($group->getWebsiteViews()->toArray() as $websiteView) {
+                            $root['children'][$group->getWebsiteGroupCode()]['children'][$websiteView->getWebsiteViewCode()] = [
                                 'label' => $websiteView->getWebsiteViewName(),
                                 'is_active' => false
                             ];
@@ -71,7 +70,7 @@ class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvide
                     }
                 }
             }
-            $tree[$rootWebsite->getWebsiteRootCode()] = $root;
+            $tree[$website->getWebsiteCode()] = $root;
         }
 
         return $tree;
