@@ -51,7 +51,7 @@ class RemoveController extends \ProgramCms\CoreBundle\Controller\Controller
         if($website) {
             $this->websiteRepository->remove($website, true);
             // Flash success message
-            $this->addFlash('success', 'Website Successfully Removed.');
+            $this->addFlash('success', sprintf('Website %s Successfully Removed.', $website->getWebsiteName()));
         }
 
         return $this->redirectToRoute('adminhtml_website_website_index');

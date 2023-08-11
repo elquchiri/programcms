@@ -59,7 +59,7 @@ class RemoveController extends \ProgramCms\CoreBundle\Controller\Controller
         if($websiteGroup) {
             $this->websiteGroupRepository->remove($websiteGroup, true);
             // Flash success message
-            $this->addFlash('success', 'Website Group Successfully Removed.');
+            $this->addFlash('success', sprintf('Website Group %s Successfully Removed.', $websiteGroup->getWebsiteGroupName()));
         }
 
         return $this->redirect(

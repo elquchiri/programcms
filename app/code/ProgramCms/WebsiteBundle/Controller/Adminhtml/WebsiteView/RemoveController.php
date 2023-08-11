@@ -62,7 +62,7 @@ class RemoveController extends \ProgramCms\CoreBundle\Controller\Controller
         if($websiteView) {
             $this->websiteViewRepository->remove($websiteView, true);
             // Flash success message
-            $this->addFlash('success', 'Website View Successfully Removed.');
+            $this->addFlash('success', sprintf('Website View %s Successfully Removed.', $websiteView->getWebsiteViewName()));
         }
 
         return $this->redirect(
