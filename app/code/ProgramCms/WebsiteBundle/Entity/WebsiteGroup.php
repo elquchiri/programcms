@@ -9,7 +9,9 @@
 namespace ProgramCms\WebsiteBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
+use JetBrains\PhpStorm\Pure;
 use ProgramCms\CatalogBundle\Entity\Category;
+use ProgramCms\WebsiteBundle\Model\Provider\DataSource\WebsiteViews;
 use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -30,6 +32,11 @@ class WebsiteGroup extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
     #[ORM\JoinColumn(name: 'website_id', referencedColumnName: 'website_id')]
     private ?Website $website = null;
     /**
+     * @var int|null
+     */
+    #[ORM\Column(nullable: true)]
+    private ?int $is_active = null;
+    /**
      * @var string|null
      */
     #[ORM\Column(length: 255)]
@@ -39,6 +46,17 @@ class WebsiteGroup extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
      */
     #[ORM\Column(length: 255)]
     private ?string $website_group_name = null;
+    /**
+     * @var int|null
+     */
+    #[ORM\Column(nullable: true)]
+    private ?int $sort_order = null;
+    /**
+     * @var WebsiteView|null
+     */
+    #[ORM\ManyToOne(targetEntity: WebsiteView::class)]
+    #[ORM\JoinColumn(name: 'default_website_view_id', referencedColumnName: 'website_view_id')]
+    private ?WebsiteView $defaultWebsiteView;
     /**
      * @var Category|null
      */
@@ -86,6 +104,32 @@ class WebsiteGroup extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
     }
 
     /**
+     * @return int
+     */
+    #[Pure] public function getWebsiteId(): int
+    {
+        return $this->website->getWebsiteId();
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getIsActive(): ?int
+    {
+        return $this->is_active;
+    }
+
+    /**
+     * @param string $is_active
+     * @return $this
+     */
+    public function setIsActive(string $is_active): static
+    {
+        $this->is_active = $is_active === 'on' ? 1 : 0;
+        return $this;
+    }
+
+    /**
      * @return string|null
      */
     public function getWebsiteGroupCode(): ?string
@@ -119,6 +163,50 @@ class WebsiteGroup extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
     {
         $this->website_group_name = $website_group_name;
         return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getSortOrder(): ?int
+    {
+        return $this->sort_order;
+    }
+
+    /**
+     * @param string|int $sort_order
+     * @return $this
+     */
+    public function setSortOrder(string|int $sort_order): static
+    {
+        $this->sort_order = (int) $sort_order;
+        return $this;
+    }
+
+    /**
+     * @return WebsiteView|null
+     */
+    public function getDefaultWebsiteView(): ?WebsiteView
+    {
+        return $this->defaultWebsiteView;
+    }
+
+    /**
+     * @param WebsiteView $websiteView
+     * @return $this
+     */
+    public function setDefaultWebsiteView(WebsiteView $websiteView): static
+    {
+        $this->defaultWebsiteView = $websiteView;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    #[Pure] public function getDefaultWebsiteViewId(): ?int
+    {
+        return $this->defaultWebsiteView->getWebsiteViewId();
     }
 
     /**

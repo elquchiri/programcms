@@ -10,34 +10,43 @@ namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteGroup;
 
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\RouterBundle\Service\Url;
 use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
 
 /**
  * Class NewRootWebsite
- * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteGroup
+ * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteView
  */
-class EditController extends \ProgramCms\CoreBundle\Controller\Controller
+class RemoveController extends \ProgramCms\CoreBundle\Controller\Controller
 {
     /**
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+    /**
+     * @var WebsiteGroupRepository
+     */
     protected WebsiteGroupRepository $websiteGroupRepository;
+    protected Url $url;
 
     /**
      * NewController constructor.
      * @param Context $context
+     * @param WebsiteGroupRepository $websiteGroupRepository
      * @param ObjectManager $objectManager
+     * @param Url $url
      */
     public function __construct(
         Context $context,
         WebsiteGroupRepository $websiteGroupRepository,
-        ObjectManager $objectManager
+        ObjectManager $objectManager,
+        Url $url
     )
     {
         parent::__construct($context);
         $this->objectManager = $objectManager;
         $this->websiteGroupRepository = $websiteGroupRepository;
+        $this->url = $url;
     }
 
     /**
@@ -45,11 +54,16 @@ class EditController extends \ProgramCms\CoreBundle\Controller\Controller
      */
     public function execute()
     {
-        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
-        $websiteGroup = $this->websiteGroupRepository->findOneBy(['website_group_id' => $this->getRequest()->getParam('id')]);
-        $pageResult->getConfig()->getTitle()->set(
-            sprintf("Edit Group: %s", $websiteGroup->getWebsiteGroupName())
+        $websiteGroupId = $this->request->getParam('website_group_id');
+        $websiteGroup = $this->websiteGroupRepository->findOneBy(['website_group_id' => $websiteGroupId]);
+        if($websiteGroup) {
+            $this->websiteGroupRepository->remove($websiteGroup, true);
+            // Flash success message
+            $this->addFlash('success', 'Website Group Successfully Removed.');
+        }
+
+        return $this->redirect(
+            $this->url->getUrlByRouteName('website_website_edit', ['id' => $websiteGroup->getWebsite()->getWebsiteId()])
         );
-        return $pageResult;
     }
 }

@@ -9,7 +9,9 @@
 namespace ProgramCms\WebsiteBundle\Model\Website;
 
 use ProgramCms\RouterBundle\Service\Request;
+use ProgramCms\RouterBundle\Service\Url;
 use ProgramCms\WebsiteBundle\Entity\Website;
+use ProgramCms\WebsiteBundle\Entity\WebsiteGroup;
 use ProgramCms\WebsiteBundle\Entity\WebsiteView;
 use ProgramCms\WebsiteBundle\Model\Collection\Website\Collection;
 
@@ -19,19 +21,30 @@ use ProgramCms\WebsiteBundle\Model\Collection\Website\Collection;
  */
 class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvider
 {
+    /**
+     * @var Request
+     */
     protected Request $request;
+    /**
+     * @var Url
+     */
+    protected Url $url;
 
     /**
      * DataProvider constructor.
      * @param Collection $collection
+     * @param Request $request
+     * @param Url $url
      */
     public function __construct(
         Collection $collection,
-        Request $request
+        Request $request,
+        Url $url
     )
     {
         $this->collection = $collection;
         $this->request = $request;
+        $this->url = $url;
     }
 
     /**
@@ -41,22 +54,27 @@ class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvide
     {
         // Tree structure holding all websites data
         $tree = [];
+        $routeName = $this->url->getRouteName();
+        $id = $this->request->getParam('id');
+
         /** @var Website $website */
         foreach(parent::getData() as $website) {
             $root = [
                 'label' => $website->getWebsiteName(),
-                'is_active' => (int) $this->request->getParam('id') === $website->getWebsiteId(),
-                'count' => $website->getGroups()->count()
+                'is_active' => $routeName === 'website_website_edit' && (int)$id === $website->getWebsiteId(),
+                'count' => $website->getGroups()->count(),
+                'url' => $this->url->getUrlByRouteName('website_website_edit', ['id' => $website->getWebsiteId()])
             ];
 
             if(!$website->getGroups()->isEmpty()) {
                 $groups = $website->getGroups()->toArray();
-                /** @var Website $website */
+                /** @var WebsiteGroup $group */
                 foreach($groups as $group) {
                     $root['children'][$group->getWebsiteGroupCode()] = [
                         'label' => $group->getWebsiteGroupName(),
-                        'is_active' => false,
-                        'count' => $group->getWebsiteViews()->count()
+                        'is_active' => $routeName === 'website_websitegroup_edit' && (int)$id === $group->getWebsiteGroupId(),
+                        'count' => $group->getWebsiteViews()->count(),
+                        'url' => $this->url->getUrlByRouteName('website_websitegroup_edit', ['id' => $group->getWebsiteGroupId()])
                     ];
 
                     if(!$group->getWebsiteViews()->isEmpty()) {
@@ -64,7 +82,8 @@ class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvide
                         foreach($group->getWebsiteViews()->toArray() as $websiteView) {
                             $root['children'][$group->getWebsiteGroupCode()]['children'][$websiteView->getWebsiteViewCode()] = [
                                 'label' => $websiteView->getWebsiteViewName(),
-                                'is_active' => false
+                                'is_active' => $routeName === 'website_websiteview_edit' && (int)$id === $websiteView->getWebsiteViewId(),
+                                'url' => $this->url->getUrlByRouteName('website_websiteview_edit', ['id' => $websiteView->getWebsiteViewId()])
                             ];
                         }
                     }

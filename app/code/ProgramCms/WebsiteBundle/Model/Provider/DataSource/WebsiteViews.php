@@ -10,22 +10,22 @@ namespace ProgramCms\WebsiteBundle\Model\Provider\DataSource;
 
 use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
-use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
+use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
 
 /**
  * Class Websites
  * @package ProgramCms\WebsiteBundle\Model\Provider\DataSource
  */
-class Groups extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
+class WebsiteViews extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
 {
     /**
      * @var Request
      */
     protected Request $request;
     /**
-     * @var WebsiteRepository
+     * @var WebsiteViewRepository
      */
-    protected WebsiteRepository $websiteRepository;
+    protected WebsiteViewRepository $websiteViewRepository;
     /**
      * @var WebsiteGroupRepository
      */
@@ -34,17 +34,17 @@ class Groups extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
     /**
      * Websites constructor.
      * @param Request $request
-     * @param WebsiteRepository $websiteRepository
+     * @param WebsiteViewRepository $websiteViewRepository
      * @param WebsiteGroupRepository $websiteGroupRepository
      */
     public function __construct(
         Request $request,
-        WebsiteRepository $websiteRepository,
+        WebsiteViewRepository $websiteViewRepository,
         WebsiteGroupRepository $websiteGroupRepository
     )
     {
         $this->request = $request;
-        $this->websiteRepository = $websiteRepository;
+        $this->websiteViewRepository = $websiteViewRepository;
         $this->websiteGroupRepository = $websiteGroupRepository;
     }
 
@@ -55,21 +55,16 @@ class Groups extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
     {
         $options = [];
 
-        if(in_array($this->request->getCurrentRouteName(), ['website_website_edit', 'website_website_new'])
-            && !empty($this->request->getParam('id'))
-        ) {
-            $websiteId = $this->request->getParam('id');
-            $groups = $this->websiteRepository
-                ->findOneBy(['website_id' => $websiteId])
-                ->getGroups();
-        }else{
-            $groups = $this->websiteGroupRepository->findAll();
+        if(!empty($this->request->getParam('id'))) {
+            $groupId = $this->request->getParam('id');
+            $websiteViews = $this->websiteGroupRepository
+                ->findOneBy(['website_group_id' => $groupId])
+                ->getWebsiteViews();
+        }else {
+            $websiteViews = $this->websiteViewRepository->findAll();
         }
-        /**
-         * Populate Options
-         */
-        foreach($groups as $group) {
-            $options[$group->getWebsiteGroupId()] = $group->getWebsiteGroupName();
+        foreach($websiteViews as $view) {
+            $options[$view->getWebsiteViewId()] = $view->getWebsiteViewName();
         }
 
         return $options;

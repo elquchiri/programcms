@@ -6,15 +6,15 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteGroup;
+namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteView;
 
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
-use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
+use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
 
 /**
  * Class NewRootWebsite
- * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteGroup
+ * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteView
  */
 class EditController extends \ProgramCms\CoreBundle\Controller\Controller
 {
@@ -22,7 +22,7 @@ class EditController extends \ProgramCms\CoreBundle\Controller\Controller
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
-    protected WebsiteGroupRepository $websiteGroupRepository;
+    protected WebsiteViewRepository $websiteViewRepository;
 
     /**
      * NewController constructor.
@@ -31,13 +31,13 @@ class EditController extends \ProgramCms\CoreBundle\Controller\Controller
      */
     public function __construct(
         Context $context,
-        WebsiteGroupRepository $websiteGroupRepository,
+        WebsiteViewRepository $websiteViewRepository,
         ObjectManager $objectManager
     )
     {
         parent::__construct($context);
         $this->objectManager = $objectManager;
-        $this->websiteGroupRepository = $websiteGroupRepository;
+        $this->websiteViewRepository = $websiteViewRepository;
     }
 
     /**
@@ -46,9 +46,9 @@ class EditController extends \ProgramCms\CoreBundle\Controller\Controller
     public function execute()
     {
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
-        $websiteGroup = $this->websiteGroupRepository->findOneBy(['website_group_id' => $this->getRequest()->getParam('id')]);
+        $websiteView = $this->websiteViewRepository->findOneBy(['website_view_id' => $this->getRequest()->getParam('id')]);
         $pageResult->getConfig()->getTitle()->set(
-            sprintf("Edit Group: %s", $websiteGroup->getWebsiteGroupName())
+            sprintf("Edit Website View: %s", $websiteView->getWebsiteViewName())
         );
         return $pageResult;
     }

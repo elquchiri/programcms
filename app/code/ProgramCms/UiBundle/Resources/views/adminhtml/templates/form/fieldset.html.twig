@@ -8,34 +8,40 @@
 #}
 <div class="fieldset">
     {% for field in block.getChildBlocks() %}
-        <div class="row mb-3">
-            <div class="col-3 text-end">
-                <label for="{{ field.getName() }}" class="col-form-label"
-                       style="font-size: 14px; font-weight: 600;">
-                    {{ field.getLabel() }}
-                    {% if field.isRequired() %}
-                        <span class="text-danger">*</span>
-                    {% endif %}
-                    <div class="text-muted" style="font-size: 11px; font-weight: normal;">[Website View]</div>
-                </label>
-            </div>
-            <div class="col-6">
-                {{ field.toHtml()|raw }}
-
-                {% if field.hasHelpMessage() %}
-                    <div id="{{ field.getName() }}emailHelp"
-                         class="form-text">{{ field.getHelpMessage() }}</div>
-                {% endif %}
-                {% if block.isScopeUsed() %}
-                <div class="mt-2 form-check">
-                    <input type="checkbox" class="form-check-input" id="use_default_{{ field.getName() }}">
-                    <label class="form-check-label" for="use_default_{{ field.getName() }}"
-                           style="font-size: 14px;">
-                        Use default value
+        {% if(field.isVisible()) %}
+            {% if(field.hasLabel()) %}
+            <div class="row mb-3">
+                <div class="col-3 text-end">
+                    <label for="{{ field.getName() }}" class="col-form-label"
+                           style="font-size: 14px; font-weight: 600;">
+                        {{ field.getLabel() }}
+                        {% if field.isRequired() %}
+                            <span class="text-danger">*</span>
+                        {% endif %}
+                        <div class="text-muted" style="font-size: 11px; font-weight: normal;">[Website View]</div>
                     </label>
                 </div>
-                {% endif %}
+                <div class="col-6">
+                    {{ field.toHtml()|raw }}
+
+                    {% if field.hasHelpMessage() %}
+                        <div id="{{ field.getName() }}emailHelp"
+                             class="form-text">{{ field.getHelpMessage() }}</div>
+                    {% endif %}
+                    {% if block.isScopeUsed() %}
+                    <div class="mt-2 form-check">
+                        <input type="checkbox" class="form-check-input" id="use_default_{{ field.getName() }}">
+                        <label class="form-check-label" for="use_default_{{ field.getName() }}"
+                               style="font-size: 14px;">
+                            Use default value
+                        </label>
+                    </div>
+                    {% endif %}
+                </div>
             </div>
-        </div>
+            {% else %}
+                {{ field.toHtml()|raw }}
+            {% endif %}
+        {% endif %}
     {% endfor %}
 </div>

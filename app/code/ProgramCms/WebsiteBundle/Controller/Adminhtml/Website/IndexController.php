@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Class IndexController
- * @package ProgramCms\WebsiteBundle\Controller\Adminhtml
+ * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\Website
  */
 class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
 {

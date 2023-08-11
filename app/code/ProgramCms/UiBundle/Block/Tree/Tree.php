@@ -60,15 +60,17 @@ class Tree extends \ProgramCms\CoreBundle\View\Element\Template
         $treeHtml = "";
         foreach($tree as $item) {
             $active = isset($item['is_active']) && is_bool($item['is_active']) && $item['is_active'] ? 'active' : '';
-            $count = isset($item['count']) && $item['count'] > 0 ? '<span>- ' . $item['count'] . '</span>' : '';
+            $count = isset($item['count']) && $item['count'] > 0 ? '<span>&middot; ' . $item['count'] . '</span>' : '';
+            $url = isset($item['url']) && is_string($item['url']) ? $item['url'] : '';
+            $folderIcon = $count > 0 ? 'folder-search' : 'folder-open';
             /**
              * Append Item Label and other data attributes
              */
             $treeHtml .= <<<HTML
             <li>
                 <span class="title">
-                    <img src="/bundles/programcmscatalog/images/folder-search.png"/>
-                    <span class="category-name {$active}" data-url="">
+                    <img src="/bundles/programcmsui/images/{$folderIcon}.png"/>
+                    <span class="category-name {$active}" data-url="{$url}">
                         {$item['label']}
                         {$count}
                     </span>
@@ -96,8 +98,9 @@ class Tree extends \ProgramCms\CoreBundle\View\Element\Template
      */
     protected function _generateHtml(): string
     {
+        $isOpen = $this->isOpen() ? "true" : "false";
         return <<<HTML
-        <div class="category-tree" data-controller="category-tree">
+        <div class="category-tree" data-controller="tree" data-tree-open-value="{$isOpen}">
             <a href="#" class="tree-group" id="collapse">Collapse All</a> | <a href="#" class="tree-group" id="expand">Expand All</a>
             <div class="tree">
                 <ul>
@@ -114,5 +117,13 @@ class Tree extends \ProgramCms\CoreBundle\View\Element\Template
     public function _toHtml(): string
     {
         return $this->_generateHtml();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOpen(): bool
+    {
+        return $this->hasData('isOpen') && (bool)$this->getData('isOpen');
     }
 }

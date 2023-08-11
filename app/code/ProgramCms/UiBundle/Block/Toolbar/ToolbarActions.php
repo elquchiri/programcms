@@ -8,6 +8,8 @@
 
 namespace ProgramCms\UiBundle\Block\Toolbar;
 
+use ProgramCms\CoreBundle\Model\ObjectManager;
+
 /**
  * Class ToolbarActions
  * @package ProgramCms\UiBundle\Block\Toolbar
@@ -22,6 +24,7 @@ class ToolbarActions extends \ProgramCms\CoreBundle\View\Element\Template
      * @var \ProgramCms\RouterBundle\Service\Url
      */
     protected \ProgramCms\RouterBundle\Service\Url $url;
+    protected ObjectManager $objectManager;
 
     /**
      * ToolbarActions constructor.
@@ -30,11 +33,13 @@ class ToolbarActions extends \ProgramCms\CoreBundle\View\Element\Template
      */
     public function __construct(
         \ProgramCms\CoreBundle\View\Element\Template\Context $context,
+        ObjectManager $objectManager,
         array $data = []
     )
     {
         parent::__construct($context, $data);
         $this->url = $context->getUrl();
+        $this->objectManager = $objectManager;
     }
 
     /**
@@ -46,8 +51,14 @@ class ToolbarActions extends \ProgramCms\CoreBundle\View\Element\Template
         // Transform url names to paths
         $buttons = [];
         foreach($this->getData() as $button) {
-            if(isset($button['buttonAction']) && !empty($button['buttonAction'])) {
-                $button['buttonAction'] = $this->url->getUrlByRouteName($button['buttonAction']);
+            if(is_string($button)) {
+                $dataSource = $this->objectManager->create($button);
+                $buttons[] = $dataSource->getData();
+            }
+            else if(is_array($button)) {
+                if (isset($button['buttonAction']) && !empty($button['buttonAction'])) {
+                    $button['buttonAction'] = $this->url->getUrlByRouteName($button['buttonAction']);
+                }
                 $buttons[] = $button;
             }
         }

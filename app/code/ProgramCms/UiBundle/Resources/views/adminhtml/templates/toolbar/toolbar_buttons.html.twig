@@ -17,11 +17,19 @@
                         {{ button.label }}
                     </button>
                 {% elseif button.buttonType == 'secondary' %}
-                    <button data-action="toolbar#buttonClick" class="btn btn" type="button">
+                    <button
+                            data-action="toolbar#buttonClick"
+                            class="btn btn"
+                            data-btn-action="{{ button.buttonAction }}"
+                            data-btn-type="{{ button.buttonType }}"
+                            type="button">
                         {{ button.label }}
                     </button>
                 {% elseif button.buttonType == 'back' %}
-                    <button data-action="toolbar#buttonClick" class="btn btn" type="button">
+                    <button data-action="toolbar#buttonClick"
+                            class="btn btn"
+                            data-btn-action="{{ button.buttonAction }}"
+                            type="button">
                         <img style="margin-bottom: 2px;" src="{{ asset('bundles/programcmsadmin/images/back.png') }}" />
                         {{ button.label }}
                     </button>

@@ -13,6 +13,7 @@
         {% block name="category.tree.block" class="ProgramCms\\CatalogBundle\\Block\\CategoryTreeButtons" template="@ProgramCmsWebsiteBundle/new_root_website.html.twig" %}{% endBlock %}
         {% block name="category.tree" class="ProgramCms\\UiBundle\\Block\\Tree\\Tree" %}
             {% arguments %}
+                {% argument name="isOpen" type="boolean" %}true{% endArgument %}
                 {% argument name="dataProvider" type="array" %}
                     {% argument name="class" type="string" %}ProgramCms\WebsiteBundle\Model\Website\DataProvider{% endArgument %}
                 {% endArgument %}
@@ -29,16 +30,8 @@
                     {% argument name="requestFieldName" type="string" %}id{% endArgument %}
                 {% endArgument %}
                 {% argument name="buttons" type="array" %}
-                    {% argument name="add" type="array" %}
-                        {% argument name="buttonType" type="string" %}secondary{% endArgument %}
-                        {% argument name="buttonAction" type="string" %}website_website_new{% endArgument %}
-                        {% argument name="label" type="string" %}Add Group{% endArgument %}
-                    {% endArgument %}
-                    {% argument name="remove" type="array" %}
-                        {% argument name="buttonType" type="string" %}secondary{% endArgument %}
-                        {% argument name="buttonAction" type="string" %}website_website_new{% endArgument %}
-                        {% argument name="label" type="string" %}Remove{% endArgument %}
-                    {% endArgument %}
+                    {% argument name="add" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\Button\AddGroupButton{% endArgument %}
+                    {% argument name="remove" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\Button\RemoveWebsiteButton{% endArgument %}
                     {% argument name="saveButton" type="array" %}
                         {% argument name="buttonType" type="string" %}save{% endArgument %}
                         {% argument name="buttonTarget" type="string" %}form{% endArgument %}
@@ -70,7 +63,7 @@
                                 {% argument name="label" type="string" %}Sort Order{% endArgument %}
                                 {% argument name="placeholder" type="string" %}0{% endArgument %}
                             {% endArgument %}
-                            {% argument name="default_group_id" type="array" %}
+                            {% argument name="default_website_group_id" type="array" %}
                                 {% argument name="type" type="string" %}select{% endArgument %}
                                 {% argument name="label" type="string" %}Default Group{% endArgument %}
                                 {% argument name="sourceModel" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\DataSource\Groups{% endArgument %}

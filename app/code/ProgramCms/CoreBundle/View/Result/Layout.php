@@ -14,6 +14,7 @@ namespace ProgramCms\CoreBundle\View\Result;
  */
 class Layout extends AbstractResult
 {
+    const LAYOUT_EXTENSION = 'layout.twig';
     /**
      * @var \ProgramCms\CoreBundle\View\Layout
      */
@@ -52,7 +53,7 @@ class Layout extends AbstractResult
     private function _initLayout()
     {
         $currentRouteName = $this->request->getCurrentRouteName();
-        $this->env->render($currentRouteName);
+        $this->env->render($currentRouteName . '.' . self::LAYOUT_EXTENSION);
         // Generate Layout Elements
         $this->getLayout()->generateElements();
     }

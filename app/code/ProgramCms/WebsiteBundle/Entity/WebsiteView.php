@@ -42,6 +42,11 @@ class WebsiteView extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
      */
     #[ORM\Column]
     private ?int $is_active = null;
+    /**
+     * @var int|null
+     */
+    #[ORM\Column(nullable: true)]
+    private ?int $sort_order = null;
 
     /**
      * @return int|null
@@ -116,20 +121,46 @@ class WebsiteView extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
     }
 
     /**
-     * @return bool|null
+     * @return int|null
      */
-    public function getIsActive(): ?bool
+    public function getWebsiteGroupId(): ?int
     {
-        return (bool) $this->is_active;
+        return $this->websiteGroup->getWebsiteGroupId();
     }
 
     /**
-     * @param int $is_active
+     * @return int|null
+     */
+    public function getIsActive(): ?int
+    {
+        return $this->is_active;
+    }
+
+    /**
+     * @param string $is_active
      * @return $this
      */
-    public function setIsActive(int $is_active): self
+    public function setIsActive(string $is_active): static
     {
-        $this->is_active = $is_active;
+        $this->is_active = $is_active === 'on' ? 1 : 0;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getSortOrder(): ?int
+    {
+        return $this->sort_order;
+    }
+
+    /**
+     * @param string|int $sort_order
+     * @return $this
+     */
+    public function setSortOrder(string|int $sort_order): static
+    {
+        $this->sort_order = (int) $sort_order;
         return $this;
     }
 }

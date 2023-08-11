@@ -10,7 +10,7 @@ namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteGroup;
 
 /**
  * Class NewRootWebsite
- * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\SystemWebsite
+ * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteGroup
  */
 class NewController extends \ProgramCms\CoreBundle\Controller\Controller
 {

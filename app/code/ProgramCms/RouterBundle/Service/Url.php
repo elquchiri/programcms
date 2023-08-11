@@ -69,4 +69,12 @@ class Url
         }
         return $this->urlGenerator->generate($routeName, [], UrlGeneratorInterface::ABSOLUTE_URL) . $urlParams;
     }
+
+    /**
+     * @return string
+     */
+    public function getRouteName(): string
+    {
+        return $this->request->getCurrentRouteName();
+    }
 }

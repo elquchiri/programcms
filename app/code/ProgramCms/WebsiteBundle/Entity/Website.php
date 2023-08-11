@@ -25,8 +25,8 @@ class Website extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
     /**
      * @var int|null
      */
-    #[ORM\Column]
-    private ?string $is_active = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $is_active = null;
     /**
      * @var string|null
      */
@@ -43,7 +43,7 @@ class Website extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
     #[ORM\Column(nullable: true)]
     private ?int $sort_order = null;
     /**
-     * @var Website|null
+     * @var WebsiteGroup|null
      */
     #[ORM\ManyToOne(targetEntity: WebsiteGroup::class)]
     #[ORM\JoinColumn(name: 'default_website_group_id', referencedColumnName: 'website_group_id')]
@@ -78,9 +78,9 @@ class Website extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
     }
 
     /**
-     * @return string|null
+     * @return int|null
      */
-    public function getIsActive(): ?string
+    public function getIsActive(): ?int
     {
         return $this->is_active;
     }
@@ -91,7 +91,7 @@ class Website extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
      */
     public function setIsActive(string $is_active): static
     {
-        $this->is_active = $is_active;
+        $this->is_active = $is_active === 'on' ? 1 : 0;
         return $this;
     }
 
@@ -140,7 +140,7 @@ class Website extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
     }
 
     /**
-     * @param string $sort_order
+     * @param string|int $sort_order
      * @return $this
      */
     public function setSortOrder(string|int $sort_order): static
@@ -170,7 +170,7 @@ class Website extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
     /**
      * @return int|null
      */
-    public function getDefaultGroupId(): ?int
+    public function getDefaultWebsiteGroupId(): ?int
     {
         return $this->getDefaultGroup()->getWebsiteGroupId();
     }

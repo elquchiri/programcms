@@ -41,6 +41,14 @@ abstract class Field extends \ProgramCms\CoreBundle\View\Element\Template implem
     }
 
     /**
+     * @return bool
+     */
+    public function hasLabel(): bool
+    {
+        return $this->hasData('label') && !empty($this->getData('label'));
+    }
+
+    /**
      * @param $helpMessage
      * @return $this
      */
@@ -118,7 +126,7 @@ abstract class Field extends \ProgramCms\CoreBundle\View\Element\Template implem
      * @param $isRequired
      * @return $this
      */
-    public function setIsRequired($isRequired): static
+    public function setIsRequired(bool $isRequired): static
     {
         $this->setData('isRequired', $isRequired);
         return $this;
@@ -130,5 +138,24 @@ abstract class Field extends \ProgramCms\CoreBundle\View\Element\Template implem
     public function isRequired(): bool
     {
         return $this->hasData('isRequired') ? $this->getData('isRequired') : false;
+    }
+
+    /**
+     * @param bool $isVisible
+     * @return $this|Field
+     */
+    public function setIsVisible(bool $isVisible): static
+    {
+        $this->setData('isVisible', $isVisible);
+        return $this;
+    }
+
+    /**
+     * Visible by default
+     * @return bool
+     */
+    public function isVisible(): bool
+    {
+        return $this->hasData('isVisible') ? $this->getData('isVisible') : true;
     }
 }

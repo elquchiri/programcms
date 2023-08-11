@@ -14,7 +14,7 @@ use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
 
 /**
  * Class EditRootWebsiteController
- * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\SystemWebsite
+ * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\Website
  */
 class EditController extends \ProgramCms\CoreBundle\Controller\Controller
 {
@@ -47,7 +47,9 @@ class EditController extends \ProgramCms\CoreBundle\Controller\Controller
     {
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
         $website = $this->websiteRepository->findOneBy(['website_id' => $this->getRequest()->getParam('id')]);
-        $pageResult->getConfig()->getTitle()->set(sprintf('Edit website: %s', $website->getWebsiteName()));
+        $pageResult->getConfig()->getTitle()->set(
+            sprintf("Edit Website: %s", $website->getWebsiteName())
+        );
         return $pageResult;
     }
 }

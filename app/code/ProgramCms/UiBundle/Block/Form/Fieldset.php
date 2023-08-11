@@ -69,6 +69,9 @@ class Fieldset extends \ProgramCms\CoreBundle\View\Element\Template
                             $fieldBlock->setPlaceholder($field['placeholder']);
                         }
                         break;
+                    case "hidden":
+                        $fieldBlock = $layout->createBlock(\ProgramCms\UiBundle\Block\Form\Fields\Hidden::class, $fieldName);
+                        break;
                     case "select":
                     case "multiselect":
                         $fieldBlock = $layout->createBlock(\ProgramCms\UiBundle\Block\Form\Fields\Select::class, $fieldName);
@@ -93,13 +96,20 @@ class Fieldset extends \ProgramCms\CoreBundle\View\Element\Template
                 }
                 // Common attributes
                 if (isset($fieldBlock)) {
-                    $fieldBlock->setLabel($field['label']);
+                    // Label
+                    $fieldBlock->setLabel($field['label'] ?? '');
                     if (isset($field['helpMessage'])) {
                         $fieldBlock->setHelpMessage($field['helpMessage']);
                     }
+                    // Validation
                     if (isset($field['isRequired'])) {
-                        $fieldBlock->setIsRequired($field['isRequired']);
+                        $fieldBlock->setIsRequired((bool)$field['isRequired']);
                     }
+                    // Visibility
+                    if (isset($field['isVisible'])) {
+                        $fieldBlock->setIsVisible((bool)$field['isVisible']);
+                    }
+
                     // Populate field by provided value
                     if($providedData instanceof DataObject) {
                         if (!empty($providedData->hasDataUsingMethod($fieldName))) {

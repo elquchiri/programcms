@@ -106,7 +106,7 @@ class Request
     public function getCurrentRouteName(): string
     {
         $layoutNameElements = explode("_", $this->getFullRouteName());
-        return $layoutNameElements[1] . '_' . $layoutNameElements[2] . '_' . $layoutNameElements[3] . '.layout.twig';
+        return $layoutNameElements[1] . '_' . $layoutNameElements[2] . '_' . $layoutNameElements[3];
     }
 
     /**

@@ -6,18 +6,18 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\WebsiteBundle\Model\WebsiteGroup\Form;
+namespace ProgramCms\WebsiteBundle\Model\WebsiteView\Form;
 
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\RouterBundle\Service\Request;
-use ProgramCms\WebsiteBundle\Entity\WebsiteGroup;
-use ProgramCms\WebsiteBundle\Model\Collection\WebsiteGroup\Collection;
+use ProgramCms\WebsiteBundle\Entity\WebsiteView;
+use ProgramCms\WebsiteBundle\Model\Collection\WebsiteView\Collection;
 use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
-use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
+use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
 
 /**
  * Class DataProvider
- * @package ProgramCms\WebsiteBundle\Model\WebsiteGroup\Form
+ * @package ProgramCms\WebsiteBundle\Model\WebsiteView\Form
  */
 class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvider
 {
@@ -33,18 +33,23 @@ class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvide
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
-    protected WebsiteRepository $websiteRepository;
+    /**
+     * @var WebsiteViewRepository
+     */
+    protected WebsiteViewRepository $websiteViewRepository;
 
     /**
      * DataProvider constructor.
      * @param Collection $collection
      * @param WebsiteGroupRepository $websiteGroupRepository
+     * @param WebsiteViewRepository $websiteViewRepository
      * @param Request $request
+     * @param ObjectManager $objectManager
      */
     public function __construct(
         Collection $collection,
         WebsiteGroupRepository $websiteGroupRepository,
-        WebsiteRepository $websiteRepository,
+        WebsiteViewRepository $websiteViewRepository,
         Request $request,
         ObjectManager $objectManager
     )
@@ -53,7 +58,7 @@ class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvide
         $this->request = $request;
         $this->websiteGroupRepository = $websiteGroupRepository;
         $this->objectManager = $objectManager;
-        $this->websiteRepository = $websiteRepository;
+        $this->websiteViewRepository = $websiteViewRepository;
     }
 
     /**
@@ -62,15 +67,15 @@ class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvide
     public function getData(): mixed
     {
         if(!empty($this->request->getParam('id'))) {
-            $websiteGroupId = $this->request->getParam('id');
-            return $this->websiteGroupRepository->findOneBy(['website_group_id' => $websiteGroupId]);
+            $websiteViewId = $this->request->getParam('id');
+            return $this->websiteViewRepository->findOneBy(['website_view_id' => $websiteViewId]);
         }
-        else if(!empty($this->request->getParam('website_id'))) {
-            $websiteId = $this->request->getParam('website_id');
-            $websiteGroup = $this->objectManager->create(WebsiteGroup::class);
-            $website = $this->websiteRepository->findOneBy(['website_id' => $websiteId]);
-            $websiteGroup->setWebsite($website);
-            return $websiteGroup;
+        else if(!empty($this->request->getParam('website_group_id'))) {
+            $websiteGroupId = $this->request->getParam('website_group_id');
+            $websiteView = $this->objectManager->create(WebsiteView::class);
+            $websiteGroup = $this->websiteGroupRepository->findOneBy(['website_group_id' => $websiteGroupId]);
+            $websiteView->setWebsiteGroup($websiteGroup);
+            return $websiteView;
         }
 
         return parent::getData();

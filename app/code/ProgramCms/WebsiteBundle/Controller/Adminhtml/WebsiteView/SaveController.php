@@ -6,18 +6,19 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\Website;
+namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteView;
 
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\RouterBundle\Service\Url;
-use ProgramCms\WebsiteBundle\Entity\Website;
+use ProgramCms\WebsiteBundle\Entity\WebsiteView;
 use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
+use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
 use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
 
 /**
  * Class SaveWebsiteRootController
- * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\Website
+ * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteView
  */
 class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
 {
@@ -26,9 +27,9 @@ class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
      */
     protected Url $url;
     /**
-     * @var WebsiteRepository
+     * @var WebsiteViewRepository
      */
-    protected WebsiteRepository $websiteRepository;
+    protected WebsiteViewRepository $websiteViewRepository;
     /**
      * @var ObjectManager
      */
@@ -42,20 +43,21 @@ class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
      * SaveController constructor.
      * @param Context $context
      * @param Url $url
-     * @param WebsiteRepository $websiteRepository
+     * @param WebsiteViewRepository $websiteViewRepository
+     * @param WebsiteGroupRepository $websiteGroupRepository
      * @param ObjectManager $objectManager
      */
     public function __construct(
         Context $context,
         Url $url,
-        WebsiteRepository $websiteRepository,
+        WebsiteViewRepository $websiteViewRepository,
         WebsiteGroupRepository $websiteGroupRepository,
         ObjectManager $objectManager
     )
     {
         parent::__construct($context);
         $this->url = $url;
-        $this->websiteRepository = $websiteRepository;
+        $this->websiteViewRepository = $websiteViewRepository;
         $this->objectManager = $objectManager;
         $this->websiteGroupRepository = $websiteGroupRepository;
     }
@@ -68,39 +70,37 @@ class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
         $request = $this->getRequest()->getCurrentRequest();
         if($request->getMethod() == 'POST') {
             $formData = $request->request->all();
-            $websiteId = $formData['id'] ?? "";
+            $websiteViewId = $formData['id'] ?? "";
 
-            /** @var Website $website */
-            $website = $this->websiteRepository->findOneBy(['website_id' => $websiteId]);
-            if(!$website) {
-                $website = $this->objectManager->create(Website::class);
+            /** @var WebsiteView $websiteView */
+            $websiteView = $this->websiteViewRepository->findOneBy(['website_view_id' => $websiteViewId]);
+            if(!$websiteView) {
+                $websiteView = $this->objectManager->create(WebsiteView::class);
             }
-
-            // Populate Website Entity
+            // Populate WebsiteView Entity
             foreach($formData as $name => $value) {
-                // Default Website
-                if($name === 'default_website_group_id') {
+                if($name == 'website_group_id') {
                     $websiteGroup = $this->websiteGroupRepository->findOneBy(['website_group_id' => $value]);
-                    $website->setDefaultGroup($websiteGroup);
+                    if($websiteGroup) {
+                        $websiteView->setWebsiteGroup($websiteGroup);
+                    }
                     continue;
                 }
-                if($name != 'id') {
-                    if($website->hasDataUsingMethod($name)) {
-                        $website->setDataUsingMethod($name, $value);
-                    }
+                if($websiteView->hasDataUsingMethod($name)) {
+                    $websiteView->setDataUsingMethod($name, $value);
                 }
             }
 
             // Save WebsiteRoot
-            $this->websiteRepository->save($website, true);
+            $this->websiteViewRepository->save($websiteView, true);
 
             // Flash success message
-            $this->addFlash('success', 'Website Successfully Saved.');
+            $this->addFlash('success', 'Website View Successfully Saved.');
 
-            return $this->redirect($this->url->getUrlByRouteName('website_website_edit', ['id' => $website->getWebsiteId()]));
+            return $this->redirect($this->url->getUrlByRouteName('website_websiteview_edit', ['id' => $websiteView->getWebsiteViewId()]));
         }
         // Flash error message
-        $this->addFlash('danger', 'Error Saving Website Data, please try again.');
+        $this->addFlash('danger', 'Error Saving Website View Data, please try again.');
         return $this->redirectToRoute('adminhtml_website_website_index');
     }
 }

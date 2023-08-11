@@ -23,6 +23,10 @@ export default class extends Controller {
                 .attr('action', action)
                 .attr('method', 'POST')
                 .submit();
+        }else if(btnType === 'back') {
+            window.history.back();
+        }else{
+            window.location = action;
         }
     }
 }

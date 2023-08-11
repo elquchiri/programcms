@@ -29,8 +29,11 @@
                 {% endArgument %}
                 {% argument name="buttons" type="array" %}
                     {% argument name="back" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\Button\BackToWebsiteButton{% endArgument %}
-                    {% argument name="add" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\Button\AddWebsiteViewButton{% endArgument %}
-                    {% argument name="remove" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\Button\RemoveWebsiteGroupButton{% endArgument %}
+                    {% argument name="remove" type="array" %}
+                        {% argument name="buttonType" type="string" %}secondary{% endArgument %}
+                        {% argument name="buttonAction" type="string" %}website_website_new{% endArgument %}
+                        {% argument name="label" type="string" %}Remove{% endArgument %}
+                    {% endArgument %}
                     {% argument name="saveButton" type="array" %}
                         {% argument name="buttonType" type="string" %}save{% endArgument %}
                         {% argument name="buttonTarget" type="string" %}form{% endArgument %}
@@ -61,13 +64,14 @@
                                 {% argument name="type" type="string" %}text{% endArgument %}
                                 {% argument name="label" type="string" %}Sort Order{% endArgument %}
                                 {% argument name="placeholder" type="string" %}0{% endArgument %}
+                                {% argument name="value" type="string" %}0{% endArgument %}
                             {% endArgument %}
-                            {% argument name="root_category_id" type="array" %}
-                                {% argument name="type" type="string" %}select{% endArgument %}
-                                {% argument name="label" type="string" %}Root Category{% endArgument %}
-                                {% argument name="sourceModel" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\DataSource\Groups{% endArgument %}
-                                {% argument name="isRequired" type="boolean" %}true{% endArgument %}
-                            {% endArgument %}
+{#                            {% argument name="root_category" type="array" %}#}
+{#                                {% argument name="type" type="string" %}select{% endArgument %}#}
+{#                                {% argument name="label" type="string" %}Root Category{% endArgument %}#}
+{#                                {% argument name="sourceModel" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\DataSource\Groups{% endArgument %}#}
+{#                                {% argument name="isRequired" type="boolean" %}true{% endArgument %}#}
+{#                            {% endArgument %}#}
                             {% argument name="default_website_view_id" type="array" %}
                                 {% argument name="type" type="string" %}select{% endArgument %}
                                 {% argument name="label" type="string" %}Default View{% endArgument %}
@@ -75,10 +79,7 @@
                                 {% argument name="isRequired" type="boolean" %}true{% endArgument %}
                             {% endArgument %}
                             {% argument name="website_id" type="array" %}
-                                {% argument name="type" type="string" %}select{% endArgument %}
-                                {% argument name="label" type="string" %}Website{% endArgument %}
-                                {% argument name="sourceModel" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\DataSource\Websites{% endArgument %}
-                                {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                                {% argument name="type" type="string" %}hidden{% endArgument %}
                             {% endArgument %}
                         {% endArgument %}
                     {% endArgument %}

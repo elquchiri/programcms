@@ -21,21 +21,24 @@
     {% referenceContainer name="content" %}
         {% block name="form" class="ui.block.form" %}
             {% arguments %}
-                {% argument name="label" type="string" %}Website Group Information{% endArgument %}
+                {% argument name="label" type="string" %}Website View Information{% endArgument %}
                 {% argument name="dataProvider" type="array" %}
-                    {% argument name="class" type="string" %}ProgramCms\WebsiteBundle\Model\WebsiteGroup\Form\DataProvider{% endArgument %}
-                    {% argument name="primaryFieldName" type="string" %}website_group_id{% endArgument %}
+                    {% argument name="class" type="string" %}ProgramCms\WebsiteBundle\Model\WebsiteView\Form\DataProvider{% endArgument %}
+                    {% argument name="primaryFieldName" type="string" %}website_view_id{% endArgument %}
                     {% argument name="requestFieldName" type="string" %}id{% endArgument %}
                 {% endArgument %}
                 {% argument name="buttons" type="array" %}
-                    {% argument name="back" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\Button\BackToWebsiteButton{% endArgument %}
-                    {% argument name="add" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\Button\AddWebsiteViewButton{% endArgument %}
-                    {% argument name="remove" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\Button\RemoveWebsiteGroupButton{% endArgument %}
+                    {% argument name="back" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\Button\BackToWebsiteGroupButton{% endArgument %}
+                    {% argument name="remove" type="array" %}
+                        {% argument name="buttonType" type="string" %}secondary{% endArgument %}
+                        {% argument name="buttonAction" type="string" %}website_website_new{% endArgument %}
+                        {% argument name="label" type="string" %}Remove{% endArgument %}
+                    {% endArgument %}
                     {% argument name="saveButton" type="array" %}
                         {% argument name="buttonType" type="string" %}save{% endArgument %}
                         {% argument name="buttonTarget" type="string" %}form{% endArgument %}
-                        {% argument name="buttonAction" type="string" %}website_websitegroup_save{% endArgument %}
-                        {% argument name="label" type="string" %}Save Group{% endArgument %}
+                        {% argument name="buttonAction" type="string" %}website_websiteview_save{% endArgument %}
+                        {% argument name="label" type="string" %}Save View{% endArgument %}
                     {% endArgument %}
                 {% endArgument %}
                 {% argument name="fieldsets" type="array" %}
@@ -43,15 +46,15 @@
                         {% argument name="fields" type="array" %}
                             {% argument name="is_active" type="array" %}
                                 {% argument name="type" type="string" %}switcher{% endArgument %}
-                                {% argument name="label" type="string" %}Enable Group{% endArgument %}
+                                {% argument name="label" type="string" %}Enable Website View{% endArgument %}
                             {% endArgument %}
-                            {% argument name="website_group_name" type="array" %}
+                            {% argument name="website_view_name" type="array" %}
                                 {% argument name="type" type="string" %}text{% endArgument %}
                                 {% argument name="label" type="string" %}Name{% endArgument %}
-                                {% argument name="placeholder" type="string" %}Group Name{% endArgument %}
+                                {% argument name="placeholder" type="string" %}Name{% endArgument %}
                                 {% argument name="isRequired" type="boolean" %}true{% endArgument %}
                             {% endArgument %}
-                            {% argument name="website_group_code" type="array" %}
+                            {% argument name="website_view_code" type="array" %}
                                 {% argument name="type" type="string" %}text{% endArgument %}
                                 {% argument name="label" type="string" %}Code{% endArgument %}
                                 {% argument name="placeholder" type="string" %}Code{% endArgument %}
@@ -61,24 +64,10 @@
                                 {% argument name="type" type="string" %}text{% endArgument %}
                                 {% argument name="label" type="string" %}Sort Order{% endArgument %}
                                 {% argument name="placeholder" type="string" %}0{% endArgument %}
+                                {% argument name="value" type="string" %}0{% endArgument %}
                             {% endArgument %}
-                            {% argument name="root_category_id" type="array" %}
-                                {% argument name="type" type="string" %}select{% endArgument %}
-                                {% argument name="label" type="string" %}Root Category{% endArgument %}
-                                {% argument name="sourceModel" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\DataSource\Groups{% endArgument %}
-                                {% argument name="isRequired" type="boolean" %}true{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="default_website_view_id" type="array" %}
-                                {% argument name="type" type="string" %}select{% endArgument %}
-                                {% argument name="label" type="string" %}Default View{% endArgument %}
-                                {% argument name="sourceModel" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\DataSource\WebsiteViews{% endArgument %}
-                                {% argument name="isRequired" type="boolean" %}true{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="website_id" type="array" %}
-                                {% argument name="type" type="string" %}select{% endArgument %}
-                                {% argument name="label" type="string" %}Website{% endArgument %}
-                                {% argument name="sourceModel" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\DataSource\Websites{% endArgument %}
-                                {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                            {% argument name="website_group_id" type="array" %}
+                                {% argument name="type" type="string" %}hidden{% endArgument %}
                             {% endArgument %}
                         {% endArgument %}
                     {% endArgument %}

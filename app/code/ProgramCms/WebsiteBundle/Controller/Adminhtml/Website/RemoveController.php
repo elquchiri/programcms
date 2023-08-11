@@ -10,30 +10,35 @@ namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\Website;
 
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
 
 /**
  * Class NewRootWebsite
- * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\Website
+ * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteView
  */
-class NewController extends \ProgramCms\CoreBundle\Controller\Controller
+class RemoveController extends \ProgramCms\CoreBundle\Controller\Controller
 {
     /**
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+    protected WebsiteRepository $websiteRepository;
 
     /**
      * NewController constructor.
      * @param Context $context
+     * @param WebsiteRepository $websiteRepository
      * @param ObjectManager $objectManager
      */
     public function __construct(
         Context $context,
+        WebsiteRepository $websiteRepository,
         ObjectManager $objectManager
     )
     {
         parent::__construct($context);
         $this->objectManager = $objectManager;
+        $this->websiteRepository = $websiteRepository;
     }
 
     /**
@@ -41,9 +46,14 @@ class NewController extends \ProgramCms\CoreBundle\Controller\Controller
      */
     public function execute()
     {
-        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
+        $websiteId = $this->request->getParam('website_id');
+        $website = $this->websiteRepository->findOneBy(['website_id' => $websiteId]);
+        if($website) {
+            $this->websiteRepository->remove($website, true);
+            // Flash success message
+            $this->addFlash('success', 'Website Successfully Removed.');
+        }
 
-        $pageResult->getConfig()->getTitle()->set("New Website");
-        return $pageResult;
+        return $this->redirectToRoute('adminhtml_website_website_index');
     }
 }

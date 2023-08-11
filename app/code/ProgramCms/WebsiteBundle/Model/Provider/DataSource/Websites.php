@@ -9,14 +9,13 @@
 namespace ProgramCms\WebsiteBundle\Model\Provider\DataSource;
 
 use ProgramCms\RouterBundle\Service\Request;
-use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
 use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
 
 /**
  * Class Websites
  * @package ProgramCms\WebsiteBundle\Model\Provider\DataSource
  */
-class Groups extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
+class Websites extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
 {
     /**
      * @var Request
@@ -26,26 +25,19 @@ class Groups extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
      * @var WebsiteRepository
      */
     protected WebsiteRepository $websiteRepository;
-    /**
-     * @var WebsiteGroupRepository
-     */
-    protected WebsiteGroupRepository $websiteGroupRepository;
 
     /**
      * Websites constructor.
      * @param Request $request
      * @param WebsiteRepository $websiteRepository
-     * @param WebsiteGroupRepository $websiteGroupRepository
      */
     public function __construct(
         Request $request,
         WebsiteRepository $websiteRepository,
-        WebsiteGroupRepository $websiteGroupRepository
     )
     {
         $this->request = $request;
         $this->websiteRepository = $websiteRepository;
-        $this->websiteGroupRepository = $websiteGroupRepository;
     }
 
     /**
@@ -55,21 +47,12 @@ class Groups extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
     {
         $options = [];
 
-        if(in_array($this->request->getCurrentRouteName(), ['website_website_edit', 'website_website_new'])
-            && !empty($this->request->getParam('id'))
-        ) {
-            $websiteId = $this->request->getParam('id');
-            $groups = $this->websiteRepository
-                ->findOneBy(['website_id' => $websiteId])
-                ->getGroups();
-        }else{
-            $groups = $this->websiteGroupRepository->findAll();
-        }
+        $websites = $this->websiteRepository->findAll();
         /**
          * Populate Options
          */
-        foreach($groups as $group) {
-            $options[$group->getWebsiteGroupId()] = $group->getWebsiteGroupName();
+        foreach($websites as $website) {
+            $options[$website->getWebsiteId()] = $website->getWebsiteName();
         }
 
         return $options;
