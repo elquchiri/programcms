@@ -71,8 +71,8 @@
             "ProgramCms\\ImportBundle\\": "app/code/ProgramCms/ImportBundle",
             "ProgramCms\\MarketingBundle\\": "app/code/ProgramCms/MarketingBundle",
             "ProgramCms\\DataPatchBundle\\": "app/code/ProgramCms/DataPatchBundle",
-            "ProgramCms\\BackendTheme\\": "app/design/adminhtml/ProgramCms/Backend",
-            "ProgramCms\\BlankTheme\\": "app/design/frontend/ProgramCms/Blank"
+            "ProgramCms\\Backend\\": "app/design/adminhtml/ProgramCms/Backend",
+            "ProgramCms\\Blank\\": "app/design/frontend/ProgramCms/Blank"
         }
     },
     "autoload-dev": {
@@ -99,6 +99,9 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "post-package-install": [
+            "ProgramCms\\ThemeBundle\\Composer\\InstallTheme::execute"
         ]
     },
     "conflict": {

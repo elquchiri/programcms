@@ -25,7 +25,7 @@
          * Merge All static Css files
          */
         #}
-        {{ encore_entry_link_tags('app') }}
+        {{ encore_entry_link_tags('app', null, 'app_backend') }}
         {% for cssFile in efCss %}
             <link rel="stylesheet" type="text/css" href="{{ asset(cssFile) }}" />
         {% endfor %}
@@ -44,6 +44,6 @@
         {% for jsFile in efJs %}
             <script type="text/javascript" src="{{ asset(jsFile) }}"></script>
         {% endfor %}
-        {{ encore_entry_script_tags('app') }}
+        {{ encore_entry_script_tags('app', null, 'app_backend') }}
     </body>
 </html>

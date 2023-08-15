@@ -32,5 +32,5 @@ menu:
             sortOrder: 2
           themes:
             label: 'Themes'
-            action: ''
+            action: 'theme_index_index'
             sortOrder: 1

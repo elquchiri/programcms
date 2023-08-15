@@ -15,6 +15,12 @@ export default class extends Controller {
         let button = event.currentTarget;
         let btnType = $(button).data('btn-type');
         let action = $(button).data('btn-action');
+        let confirm = $(button).data('btn-confirm');
+
+        if(confirm !== '') {
+            $('.confirm-modal').modal('show');
+            return;
+        }
 
         if(btnType === 'save') {
             let btnTarget = $(button).data('btn-target');
@@ -23,8 +29,6 @@ export default class extends Controller {
                 .attr('action', action)
                 .attr('method', 'POST')
                 .submit();
-        }else if(btnType === 'back') {
-            window.history.back();
         }else{
             window.location = action;
         }

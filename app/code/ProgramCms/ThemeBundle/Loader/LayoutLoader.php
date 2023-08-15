@@ -59,13 +59,13 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
             $layoutPath = $bundle['path'] . '/Resources/views/'. $areaCode .'/layout/';
             $themeLayoutPath = $this->directoryList->getRoot() . '/themes/'. $areaCode . '/ProgramCms/backend/' . $bundle['name'] . '/layout/';
 
-            // Get all layout files
+            // Get all default files
             if(is_file($themeLayoutPath . self::DEFAULT_LAYOUT_FILE)) {
                 $this->paths['default'][] = $themeLayoutPath . self::DEFAULT_LAYOUT_FILE;
             }else if(is_file($layoutPath . self::DEFAULT_LAYOUT_FILE)) {
                 $this->paths['default'][] = $layoutPath . self::DEFAULT_LAYOUT_FILE;
             }
-            // Get all default files
+            // Get all page layout files
             if(is_file($themeLayoutPath . $layoutName)) {
                 $this->paths['layout'][] = $themeLayoutPath . $layoutName;
             } elseif (is_file($layoutPath . $layoutName)) {

@@ -50,17 +50,24 @@ class ToolbarActions extends \ProgramCms\CoreBundle\View\Element\Template
     {
         // Transform url names to paths
         $buttons = [];
-        foreach($this->getData() as $button) {
-            if(is_string($button)) {
-                $dataSource = $this->objectManager->create($button);
-                $buttons[] = $dataSource->getData();
+        $button = [];
+        foreach($this->getData() as $buttonData) {
+            if(is_string($buttonData)) {
+                $dataSource = $this->objectManager->create($buttonData);
+                $button = $dataSource->getData();
             }
-            else if(is_array($button)) {
-                if (isset($button['buttonAction']) && !empty($button['buttonAction'])) {
-                    $button['buttonAction'] = $this->url->getUrlByRouteName($button['buttonAction']);
+            else if(is_array($buttonData)) {
+                $button = $buttonData;
+                // Button Action
+                if (isset($buttonData['buttonAction']) && !empty($buttonData['buttonAction'])) {
+                    $button['buttonAction'] = $this->url->getUrlByRouteName($buttonData['buttonAction']);
                 }
-                $buttons[] = $button;
             }
+
+            // Button confirm modal
+            $button['confirm'] = isset($button['confirm']) ? json_encode($button['confirm']) : '';
+
+            $buttons[] = $button;
         }
         return $buttons;
     }

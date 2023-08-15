@@ -14,7 +14,7 @@ use ProgramCms\RouterBundle\Service\Url;
 use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
 
 /**
- * Class NewRootWebsite
+ * Class RemoveController
  * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteView
  */
 class RemoveController extends \ProgramCms\CoreBundle\Controller\Controller

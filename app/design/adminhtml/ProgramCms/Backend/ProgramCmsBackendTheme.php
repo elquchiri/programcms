@@ -6,7 +6,7 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\BackendTheme;
+namespace ProgramCms\Backend;
 
 /**
  * Class ProgramCmsBackendTheme
@@ -19,6 +19,25 @@ class ProgramCmsBackendTheme extends \ProgramCms\ThemeBundle\Framework\BackendTh
      */
     public function getName(): string
     {
-        return 'ProgramCms/Backend';
+        return 'ProgramCMS Backend Theme';
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return "This is the default ProgramCMS Backend Theme";
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getAuthors(): array
+    {
+        return [
+            'name' => "Mohamed EL QUCHIRI",
+            'email' => 'elquchiri@gmail.com'
+        ];
     }
 }

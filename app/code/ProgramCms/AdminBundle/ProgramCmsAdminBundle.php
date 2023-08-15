@@ -23,7 +23,7 @@ class ProgramCmsAdminBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
     {
         return [
             \ProgramCms\CoreBundle\ProgramCmsCoreBundle::class,
-            \ProgramCms\ThemeBundle\ProgramCmsThemeBundle::class,
+            \ProgramCms\ThemeBundle\ProgramCmsThemeBundle::class
         ];
     }
 }

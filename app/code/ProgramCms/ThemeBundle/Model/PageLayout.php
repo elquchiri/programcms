@@ -8,20 +8,40 @@
 
 namespace ProgramCms\ThemeBundle\Model;
 
+use ProgramCms\CoreBundle\Model\Filesystem\DirectoryList;
+use ProgramCms\CoreBundle\Model\Utils\BundleManager;
+use ProgramCms\RouterBundle\Service\Request;
+use ReflectionException;
+
 /**
  * Class PageLayout
  * @package ProgramCms\ThemeBundle\Model
  */
 class PageLayout
 {
-    protected \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager;
-    protected \ProgramCms\CoreBundle\Model\Filesystem\DirectoryList $directoryList;
-    protected \ProgramCms\RouterBundle\Service\Request $request;
+    /**
+     * @var BundleManager
+     */
+    protected BundleManager $bundleManager;
+    /**
+     * @var DirectoryList
+     */
+    protected DirectoryList $directoryList;
+    /**
+     * @var Request
+     */
+    protected Request $request;
 
+    /**
+     * PageLayout constructor.
+     * @param BundleManager $bundleManager
+     * @param DirectoryList $directoryList
+     * @param Request $request
+     */
     public function __construct(
-        \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager,
-        \ProgramCms\CoreBundle\Model\Filesystem\DirectoryList $directoryList,
-        \ProgramCms\RouterBundle\Service\Request $request
+        BundleManager $bundleManager,
+        DirectoryList $directoryList,
+        Request $request
     )
     {
         $this->bundleManager = $bundleManager;
@@ -33,6 +53,7 @@ class PageLayout
      * Combine Requested PageLayoutName files found in bundles, picks from theme first
      * @param $pageLayoutName
      * @return string
+     * @throws ReflectionException
      */
     public function getPageLayoutContents($pageLayoutName): string
     {

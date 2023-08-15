@@ -48,7 +48,14 @@ class RemoveWebsiteGroupButton implements \ProgramCms\UiBundle\DataProvider\Butt
         return [
             'buttonType' => 'secondary',
             'buttonAction' => $this->url->getUrlByRouteName('website_websitegroup_remove', ['website_group_id' => $this->request->getParam('id')]),
-            'label' => 'Remove'
+            'label' => 'Remove',
+            'confirm' => [
+                'text' => 'Do you really want to remove this item ?',
+                'options' => [
+                    'yes' => 'Yes',
+                    'no' => 'No'
+                ]
+            ]
         ];
     }
 }

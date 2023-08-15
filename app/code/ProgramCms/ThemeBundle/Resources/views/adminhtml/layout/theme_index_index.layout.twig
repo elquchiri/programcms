@@ -1,0 +1,43 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% page %}
+    {% referenceContainer name="content" %}
+        {% block name="themes.grid" class="ui.block.grid" %}
+            {% arguments %}
+                {% argument name="dataProvider" type="array" %}
+                    {% argument name="class" type="string" %}ProgramCms\ThemeBundle\Model\Theme\Grid\DataProvider{% endArgument %}
+                    {% argument name="primaryFieldName" type="string" %}theme_id{% endArgument %}
+                    {% argument name="requestFieldName" type="string" %}id{% endArgument %}
+                {% endArgument %}
+                {% argument name="columns" type="array" %}
+                    {% argument name="theme_id" type="array" %}
+                        {% argument name="label" type="string" %}#{% endArgument %}
+                        {% argument name="dataScope" type="string" %}theme_id{% endArgument %}
+                    {% endArgument %}
+                    {% argument name="theme_title" type="array" %}
+                        {% argument name="label" type="string" %}Theme Title{% endArgument %}
+                        {% argument name="dataScope" type="string" %}theme_title{% endArgument %}
+                    {% endArgument %}
+                    {% argument name="parent_theme_title" type="array" %}
+                        {% argument name="label" type="string" %}Parent Theme{% endArgument %}
+                        {% argument name="dataScope" type="string" %}parent_theme_title{% endArgument %}
+                    {% endArgument %}
+                    {% argument name="theme_path" type="array" %}
+                        {% argument name="label" type="string" %}Theme Path{% endArgument %}
+                        {% argument name="dataScope" type="string" %}theme_path{% endArgument %}
+                    {% endArgument %}
+                    {% argument name="actionsColumn" type="array" %}
+                        {% argument name="label" type="string" %}Actions{% endArgument %}
+                        {% argument name="class" type="string" %}ProgramCms\\PostBundle\\Ui\\Component\\Listing\\Column\\CategoryListingActions{% endArgument %}
+                    {% endArgument %}
+                {% endArgument %}
+            {% endArguments %}
+        {% endBlock %}
+    {% endReferenceContainer %}
+{% endPage %}

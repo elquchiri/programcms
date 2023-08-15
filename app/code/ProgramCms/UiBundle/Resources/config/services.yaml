@@ -15,14 +15,15 @@ services:
   # alias WebSiteSwitcher block
   ui.block.toolbar.website_switcher:
     class: ProgramCms\UiBundle\Block\Toolbar\WebsiteSwitcher
-  # alias Collapser block
+  # alias Collapser
   ui.block.collapser:
     class: ProgramCms\UiBundle\Block\Collapser\Collapser
-  # alias Fieldset block
+  # alias Fieldset
   ui.block.form.fieldset:
     class: ProgramCms\UiBundle\Block\Form\Fieldset
-  # alias Form block
+  # alias Form
   ui.block.form:
     class: ProgramCms\UiBundle\Block\Form\Form
+  # alias Grid
   ui.block.grid:
     class: ProgramCms\UiBundle\Block\Grid\Grid

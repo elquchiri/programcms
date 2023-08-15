@@ -36,6 +36,7 @@ class PageNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterfac
     {
         $efExtension = $compiler->getEnvironment()->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout();
         $pageLayoutName = $this->getAttribute('pageLayoutName');
+        //dd($pageLayoutName);
         // Overrides page layout, used when rendering final page
         if(!empty($pageLayoutName)) {
             $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->setCurrentPageLayout('$pageLayoutName');");

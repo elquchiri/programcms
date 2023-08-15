@@ -12,7 +12,7 @@
 .tree {
     position: relative;
     margin-top: 5px;
-    font-size: 0.88rem;
+    font-size: 0.875rem;
     font-weight: 400;
     line-height: 1.5;
     color: #212529;
@@ -57,6 +57,8 @@
 }
 .tree ul li span.title .category-name {
     color: #232222;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 .tree ul li span.title.closed {
     color: #232222;
@@ -67,7 +69,9 @@
     background-color: #f5d6c7;
     color: #000000;
     border-radius: 3px;
-    padding: 0 3px;
+    padding: 0 3px 3px 3px;
+    font-weight: bold;
+    font-size: 0.874rem;
 }
 .tree ul li:before {
     position: absolute;

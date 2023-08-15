@@ -31,14 +31,19 @@ class GenerateStaticsCommand extends Command
      */
     protected array $extendsScssFiles = [];
 
+    const AREAS = ['adminhtml', 'frontend'];
+
     protected function configure()
     {
-        $this->setDescription('Compile and merge bundle SCSS and JS files into the app')
+        $this->setDescription('Compile and merge bundle SCSS and JS files in the app')
             ->setHelp('This command compiles and merges bundle SCSS and JS files into the app');
     }
 
     protected function execute(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output)
     {
+        // Create Website Views structure folders
+
+
         // Get all bundles
         $bundles = $this->getApplication()->getKernel()->getBundles();
 
@@ -57,12 +62,12 @@ class GenerateStaticsCommand extends Command
                  * Get all JavaScript files in the source directory
                  * Copy the content of each JavaScript file to the destination directory
                  */
-                $this->_processJsControllers($bundlePath);
+                //$this->_processJsFiles($bundlePath);
             }
         }
 
         // Destination file path
-        $appScssPath = 'assets/styles/app.scss';
+        $appScssPath = 'assets/frontend/ProgramCms/Blank/en_US/app.scss';
 
         // Clear existing contents of app.scss
         file_put_contents($appScssPath, '');
@@ -83,10 +88,10 @@ class GenerateStaticsCommand extends Command
         $output->writeln('Compiling styles using npm run dev...');
         $npmRunCommand = 'npm run dev';
         $output->writeln(shell_exec($npmRunCommand));
-        $assetsInstallCommand = 'php bin/console assets:install';
+        $assetsInstallCommand = 'php bin/pcms assets:install';
         $output->writeln(shell_exec($assetsInstallCommand));
 
-        $output->writeln('Styles compilation complete.');
+        $output->writeln('Assets compilation complete successfully.');
 
         return Command::SUCCESS;
     }
@@ -96,13 +101,15 @@ class GenerateStaticsCommand extends Command
      */
     protected function _populateBundleScssFiles(string $bundlePath): void
     {
-        $assetsFolder = $bundlePath . '/Resources/views/adminhtml/assets/css/source/';
-        // Find _bundle.scss files
-        $bundleScssFiles = glob($assetsFolder . '_bundle.scss');
-        if(!empty($bundleScssFiles)) {
-            $relativePath = $this->_getRelativePath($bundlePath);
-            $importStatement = sprintf('@import "%s%s";', $relativePath, '/Resources/views/adminhtml/assets/css/source/_bundle.scss');
-            $this->bundleScssFiles[] = $importStatement.PHP_EOL;
+        foreach(self::AREAS as $area) {
+            $assetsFolder = $bundlePath . "/Resources/views/{$area}/assets/css/source/";
+            // Find _bundle.scss files
+            $bundleScssFiles = glob($assetsFolder . '_bundle.scss');
+            if (!empty($bundleScssFiles)) {
+                $relativePath = $this->_getRelativePath($bundlePath);
+                $importStatement = sprintf('@import "%s%s";', $relativePath, "/Resources/views/{$area}/assets/css/source/_bundle.scss");
+                $this->bundleScssFiles[] = $importStatement . PHP_EOL;
+            }
         }
     }
 
@@ -111,13 +118,15 @@ class GenerateStaticsCommand extends Command
      */
     protected function _populateExtendsScssFiles(string $bundlePath): void
     {
-        $assetsFolder = $bundlePath . '/Resources/views/adminhtml/assets/css/source/';
-        // Find _bundle.scss files
-        $bundleScssFiles = glob($assetsFolder . '_extends.scss');
-        if(!empty($bundleScssFiles)) {
-            $relativePath = $this->_getRelativePath($bundlePath);
-            $importStatement = sprintf('@import "%s%s";', $relativePath, '/Resources/views/adminhtml/assets/css/source/_extends.scss');
-            $this->extendsScssFiles[] = $importStatement.PHP_EOL;
+        foreach(self::AREAS as $area) {
+            $assetsFolder = $bundlePath . "/Resources/views/{$area}/assets/css/source/";
+            // Find _extends.scss files
+            $bundleScssFiles = glob($assetsFolder . '_extends.scss');
+            if (!empty($bundleScssFiles)) {
+                $relativePath = $this->_getRelativePath($bundlePath);
+                $importStatement = sprintf('@import "%s%s";', $relativePath, "/Resources/views/{$area}/assets/css/source/_extends.scss");
+                $this->extendsScssFiles[] = $importStatement . PHP_EOL;
+            }
         }
     }
 
@@ -131,13 +140,13 @@ class GenerateStaticsCommand extends Command
         // Calculate the relative path
         $relativePath = str_replace($projectPath, '', $bundlePath);
         // Remove the leading slash if present
-        return '../../' . ltrim(str_replace('\\', '/', $relativePath), '/');
+        return '../../../../../' . ltrim(str_replace('\\', '/', $relativePath), '/');
     }
 
     /**
      * @param string $bundlePath
      */
-    protected function _processJsControllers(string $bundlePath): void
+    protected function _processJsFiles(string $bundlePath): void
     {
         $controllersFolderPath = 'assets/controllers';
         $assetsFolder = $bundlePath . '/Resources/views/adminhtml/assets/';

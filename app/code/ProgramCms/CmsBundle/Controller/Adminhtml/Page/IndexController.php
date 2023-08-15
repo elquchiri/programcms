@@ -8,6 +8,8 @@
 
 namespace ProgramCms\CmsBundle\Controller\Adminhtml\Page;
 
+use ProgramCms\CoreBundle\Model\ObjectManager;
+
 /**
  * Class IndexController
  * @package ProgramCms\CmsBundle\Controller\Adminhtml\Page
@@ -15,22 +17,29 @@ namespace ProgramCms\CmsBundle\Controller\Adminhtml\Page;
 class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
 {
     /**
-     * @var \ProgramCms\CoreBundle\Model\ObjectManager
+     * @var ObjectManager
      */
-    protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
+    protected ObjectManager $objectManager;
 
+    /**
+     * IndexController constructor.
+     * @param \ProgramCms\CoreBundle\Controller\Context $context
+     * @param ObjectManager $objectManager
+     */
     public function __construct(
         \ProgramCms\CoreBundle\Controller\Context $context,
-        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
+        ObjectManager $objectManager
     )
     {
         parent::__construct($context);
         $this->objectManager = $objectManager;
     }
 
+    /**
+     * @return object|null
+     */
     public function execute()
     {
-        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
-        return $pageResult;
+        return $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
     }
 }

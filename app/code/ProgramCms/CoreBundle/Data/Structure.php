@@ -118,10 +118,8 @@ class Structure
 
     /**
      * Remove element with specified ID from the structure
-     *
      * Can recursively delete all child elements.
      * Returns false if there was no element found, therefore was nothing to delete.
-     *
      * @param string $elementId
      * @param bool $recursive
      * @return bool
@@ -222,7 +220,6 @@ class Structure
 
     /**
      * Traverse through hierarchy and detect if the "potential parent" is a parent recursively to specified "child"
-     *
      * @param string $childId
      * @param string $potentialParentId
      * @return bool
@@ -380,7 +377,7 @@ class Structure
      * @return void
      * @throws Exception
      */
-    private function _assertArray($value)
+    private function _assertArray(mixed $value)
     {
         if (!is_array($value)) {
             throw new Exception("An array expected: " . var_export($value, 1));

@@ -12,7 +12,7 @@ use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 
 /**
- * Class NewRootWebsite
+ * Class NewController
  * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteView
  */
 class NewController extends \ProgramCms\CoreBundle\Controller\Controller

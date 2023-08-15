@@ -8,6 +8,8 @@
 
 namespace ProgramCms\ReportBundle\Block\Toolbar;
 
+use ProgramCms\CoreBundle\Model\ObjectManager;
+
 /**
  * Class ToolbarActions
  * @package ProgramCms\ReportBundle\Block\Toolbar
@@ -17,14 +19,6 @@ class ToolbarActions extends \ProgramCms\UiBundle\Block\Toolbar\ToolbarActions
 
     protected \ProgramCms\RouterBundle\Service\Url $url;
 
-    public function __construct(
-        \ProgramCms\CoreBundle\View\Element\Template\Context $context,
-        array $data = []
-    )
-    {
-        parent::__construct($context, $data);
-        $this->url = $context->getUrl();
-    }
 
     public function getButtons(): array
     {

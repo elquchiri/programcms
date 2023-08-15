@@ -6,7 +6,7 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\BlankTheme;
+namespace ProgramCms\Blank;
 
 /**
  * Class ProgramCmsBlankTheme
@@ -19,6 +19,25 @@ class ProgramCmsBlankTheme extends \ProgramCms\ThemeBundle\Framework\Theme
      */
     public function getName(): string
     {
-        return 'ProgramCms/Blank';
+        return 'ProgramCMS Blank Theme';
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return "This is the default ProgramCMS Frontend Theme";
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getAuthors(): array
+    {
+        return [
+            'name' => "Mohamed EL QUCHIRI",
+            'email' => 'elquchiri@gmail.com'
+        ];
     }
 }

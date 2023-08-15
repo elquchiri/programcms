@@ -22,7 +22,7 @@ class ProgramCmsThemeBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
     public static function getDependencies(): array
     {
         return [
-            \ProgramCms\CoreBundle\ProgramCmsCoreBundle::class,
+            \ProgramCms\CoreBundle\ProgramCmsCoreBundle::class
         ];
     }
 }

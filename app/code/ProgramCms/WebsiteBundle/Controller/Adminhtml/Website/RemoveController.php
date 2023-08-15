@@ -13,7 +13,7 @@ use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
 
 /**
- * Class NewRootWebsite
+ * Class NewWebsite
  * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteView
  */
 class RemoveController extends \ProgramCms\CoreBundle\Controller\Controller
@@ -22,6 +22,9 @@ class RemoveController extends \ProgramCms\CoreBundle\Controller\Controller
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+    /**
+     * @var WebsiteRepository
+     */
     protected WebsiteRepository $websiteRepository;
 
     /**

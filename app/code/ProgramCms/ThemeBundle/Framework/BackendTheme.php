@@ -23,4 +23,20 @@ abstract class BackendTheme extends AbstractTheme
     {
         return 'ProgramCms/Backend';
     }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return '';
+    }
+
+    /**
+     * @return array
+     */
+    public function getAuthors(): array
+    {
+        return [];
+    }
 }

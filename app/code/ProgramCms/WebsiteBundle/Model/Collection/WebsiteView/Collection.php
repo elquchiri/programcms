@@ -10,7 +10,7 @@ namespace ProgramCms\WebsiteBundle\Model\Collection\WebsiteView;
 
 /**
  * Class Collection
- * @package ProgramCms\WebsiteBundle\Model\Collection\RootWebsite
+ * @package ProgramCms\WebsiteBundle\Model\Collection\Website
  */
 class Collection extends \ProgramCms\CoreBundle\Model\Db\Collection\AbstractCollection
 {

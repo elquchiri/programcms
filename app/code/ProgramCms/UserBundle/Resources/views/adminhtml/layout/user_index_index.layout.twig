@@ -7,5 +7,55 @@
  */
 #}
 {% page %}
-    {% referenceContainer name="content" %}{% endReferenceContainer %}
+    {% referenceContainer name="content" %}
+        {% block name="themes" class="ui.block.grid" %}
+            {% arguments %}
+                {% argument name="columns" type="array" %}
+                    {% argument name="selectionsColumn" type="array" %}
+                        {% argument name="dataScope" type="string" %}entity_id{% endArgument %}
+                    {% endArgument %}
+                    {% argument name="id" type="array" %}
+                        {% argument name="label" type="string" %}#{% endArgument %}
+                        {% argument name="dataScope" type="string" %}entity_id{% endArgument %}
+                    {% endArgument %}
+                    {% argument name="name" type="array" %}
+                        {% argument name="label" type="string" %}Name{% endArgument %}
+                        {% argument name="dataScope" type="string" %}title{% endArgument %}
+                    {% endArgument %}
+                    {% argument name="email" type="array" %}
+                        {% argument name="label" type="string" %}Email{% endArgument %}
+                        {% argument name="dataScope" type="string" %}entity_id{% endArgument %}
+                    {% endArgument %}
+                    {% argument name="group" type="array" %}
+                        {% argument name="label" type="string" %}Group{% endArgument %}
+                        {% argument name="dataScope" type="string" %}account_id{% endArgument %}
+                    {% endArgument %}
+                    {% argument name="telephone" type="array" %}
+                        {% argument name="label" type="string" %}Telephone{% endArgument %}
+                        {% argument name="dataScope" type="string" %}account_id{% endArgument %}
+                    {% endArgument %}
+                    {% argument name="telephone" type="array" %}
+                        {% argument name="label" type="string" %}Website{% endArgument %}
+                        {% argument name="dataScope" type="string" %}account_id{% endArgument %}
+                    {% endArgument %}
+                    {% argument name="Sex" type="array" %}
+                        {% argument name="label" type="string" %}Sex{% endArgument %}
+                        {% argument name="dataScope" type="string" %}account_id{% endArgument %}
+                    {% endArgument %}
+                    {% argument name="created_at" type="array" %}
+                        {% argument name="label" type="string" %}User Since{% endArgument %}
+                        {% argument name="dataScope" type="string" %}account_id{% endArgument %}
+                    {% endArgument %}
+                    {% argument name="status" type="array" %}
+                        {% argument name="label" type="string" %}Status{% endArgument %}
+                        {% argument name="dataScope" type="string" %}status{% endArgument %}
+                    {% endArgument %}
+                    {% argument name="actionsColumn" type="array" %}
+                        {% argument name="label" type="string" %}Actions{% endArgument %}
+                        {% argument name="class" type="string" %}ProgramCms\\PostBundle\\Ui\\Component\\Listing\\Column\\CategoryListingActions{% endArgument %}
+                    {% endArgument %}
+                {% endArgument %}
+            {% endArguments %}
+        {% endBlock %}
+    {% endReferenceContainer %}
 {% endPage %}

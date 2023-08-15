@@ -1,0 +1,4 @@
+
+const messages = {
+    "hello": "Hello"
+};

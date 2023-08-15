@@ -16,7 +16,12 @@
     font-size: 13px;
 }
 .admin-table tr th {
-    padding: 9px;
+    padding: 11px 15px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #1a1d20;
+    }
 }
 .admin-table tr td {
     padding: 15px;
@@ -43,4 +48,11 @@
 }
 .grid-filters-tabs a:hover, .grid-filters-tabs a:focus {
     color: #000000;
+}
+
+#filters-tab {
+    background-image: url("../../../../../../public/images/filters.png");
+    background-repeat: no-repeat;
+    background-position: 9px 9px;
+    padding-left: 35px;
 }

@@ -13,6 +13,7 @@
                 {% if button.buttonType == 'save' or button.buttonType == 'primary' %}
                     <button data-action="toolbar#buttonClick" class="btn btn-primary ef-toolbar-btn" data-btn-type="{{ button.buttonType }}"
                             data-btn-target="{{ button.buttonTarget }}"
+                            data-btn-confirm="{{ button.confirm }}"
                             data-btn-action="{{ button.buttonAction }}" type="button">
                         {{ button.label }}
                     </button>
@@ -22,20 +23,26 @@
                             class="btn btn"
                             data-btn-action="{{ button.buttonAction }}"
                             data-btn-type="{{ button.buttonType }}"
+                            data-btn-confirm="{{ button.confirm }}"
                             type="button">
                         {{ button.label }}
                     </button>
                 {% elseif button.buttonType == 'back' %}
                     <button data-action="toolbar#buttonClick"
                             class="btn btn"
+                            data-btn-type="{{ button.buttonType }}"
                             data-btn-action="{{ button.buttonAction }}"
+                            data-btn-confirm="{{ button.confirm }}"
                             type="button">
-                        <img style="margin-bottom: 2px;" src="{{ asset('bundles/programcmsadmin/images/back.png') }}" />
+                        <img style="margin-bottom: 2px; margin-right: 3px;" src="{{ asset('bundles/programcmsadmin/images/back.png') }}" />
                         {{ button.label }}
                     </button>
                 {% else %}
-                    <button data-action="toolbar#buttonClick" class="btn btn-{{ button.buttonType }} ef-toolbar-btn"
-                            data-btn-type="{{ button.buttonType }}" type="button">
+                    <button data-action="toolbar#buttonClick"
+                            class="btn btn-{{ button.buttonType }} ef-toolbar-btn"
+                            data-btn-type="{{ button.buttonType }}" type="button"
+                            data-btn-confirm="{{ button.confirm }}"
+                            data-btn-action="{{ button.buttonAction }}">
                         {{ button.label }}
                     </button>
                 {% endif %}

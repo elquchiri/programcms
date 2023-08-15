@@ -18,9 +18,9 @@ class Grid
     private array $data = [];
     private array $actions = [];
 
-    public function addColumn($title, $type = 'text'): static
+    public function addColumn(string $key, string $title, string $type = 'text'): static
     {
-        $this->columns[] = [
+        $this->columns[$key] = [
             'title' => $title,
             'type'  => $type
         ];

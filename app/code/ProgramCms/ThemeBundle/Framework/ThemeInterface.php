@@ -23,4 +23,14 @@ interface ThemeInterface
      * @return string
      */
     public function getParent(): string;
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string;
+
+    /**
+     * @return array
+     */
+    public function getAuthors(): array;
 }

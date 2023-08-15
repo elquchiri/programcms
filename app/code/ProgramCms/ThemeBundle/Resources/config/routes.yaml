@@ -1,0 +1,13 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+router:
+  frontend:
+    theme_root:
+      frontName: 'theme'
+  adminhtml:
+    theme_root:
+      frontName: 'theme'

@@ -23,4 +23,20 @@ abstract class Theme extends AbstractTheme
     {
         return 'ProgramCms/Blank';
     }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return '';
+    }
+
+    /**
+     * @return array
+     */
+    public function getAuthors(): array
+    {
+        return [];
+    }
 }

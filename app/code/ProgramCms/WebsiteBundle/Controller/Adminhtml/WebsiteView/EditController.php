@@ -13,7 +13,7 @@ use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
 
 /**
- * Class NewRootWebsite
+ * Class EditController
  * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteView
  */
 class EditController extends \ProgramCms\CoreBundle\Controller\Controller
