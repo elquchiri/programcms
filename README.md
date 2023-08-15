@@ -39,6 +39,7 @@ To install ProgramCMS project run :
   
   php bin/pcms make:migration
   php bin/pcms doctrine:migrations:migrate
+  php bin/pcms setup:data-patch
   php bin/pcms assets:compile
 ```
 
