@@ -32,6 +32,10 @@ export default class extends Controller {
         });
     }
 
+    /**
+     * @param menuItemId
+     * @returns {*}
+     */
     findMenuItemTarget(menuItemId) {
         return this.menuItemTargets.find(
             (menuItem) => menuItem.getAttribute('id') === menuItemId
@@ -69,6 +73,9 @@ export default class extends Controller {
         }
     }
 
+    /**
+     * @param event
+     */
     closeSignClick(event) {
         event.preventDefault();
         this.hideCurrentMenuItemTarget();
@@ -83,6 +90,9 @@ export default class extends Controller {
         this.activeMenuItem = null;
     }
 
+    /**
+     * @param menuItem
+     */
     showMenuItemTarget(menuItem) {
         this.activeMenuItem = menuItem;
         const menuItemId = menuItem.getAttribute('id');
@@ -96,6 +106,11 @@ export default class extends Controller {
         menuItem.classList.add('active');
     }
 
+    /**
+     * @param menuItem
+     * @param leftPosition
+     * @param callback
+     */
     animateMenuItem(menuItem, leftPosition, callback) {
         $(menuItem).animate(
             { left: leftPosition },

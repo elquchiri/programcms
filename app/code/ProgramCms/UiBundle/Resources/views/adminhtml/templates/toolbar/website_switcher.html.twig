@@ -1,14 +1,28 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
 <ul class="navbar-nav mb-2 mb-lg-0">
     <span style="padding-top: 8px; font-size: 13px; font-weight: bold">Scope:</span>
-    <li class="nav-item dropdown">
+    <li class="nav-item dropend">
         <a class="nav-link dropdown-toggle" style="font-size: 14px;" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            All Websites
+            {{ block.getCurrentScopeLabel() }}
         </a>
-        <div class="dropdown-menu" style="font-size: 14px;">
-            <a class="dropdown-item disabled" href="#">All Website Views</a>
-            <a class="dropdown-item disabled" href="#">Main Root Website</a>
-            <a class="dropdown-item disabled" style="padding-left: 30px;" href="#">Main Website</a>
-            <a class="dropdown-item" style="padding-left: 45px;" href="#">Main Website View</a>
-        </div>
+        <ul class="dropdown-menu" style="font-size: 14px;">
+            <a class="dropdown-item" href="{{ block.getUrl() }}">All Website Views</a>
+            {% for website in block.getAllWebsites() %}
+                <a class="dropdown-item" href="{{ block.getUrl() }}/website/{{ website.getWebsiteId() }}">{{ website.getWebsiteName() }}</a>
+                {% for websiteGroup in website.getGroups() %}
+                    <a class="dropdown-item" style="padding-left: 30px;" href="{{ block.getUrl() }}/website_group/{{ websiteGroup.getWebsiteGroupId() }}">{{ websiteGroup.getWebsiteGroupName() }}</a>
+                    {% for websiteView in websiteGroup.getWebsiteViews() %}
+                        <a class="dropdown-item" style="padding-left: 45px;" href="{{ block.getUrl() }}/website_view/{{ websiteView.getWebsiteViewId() }}">{{ websiteView.getWebsiteViewName() }}</a>
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}
+        </ul>
     </li>
 </ul>

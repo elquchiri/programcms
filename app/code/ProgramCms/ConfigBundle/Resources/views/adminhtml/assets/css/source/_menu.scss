@@ -29,10 +29,15 @@
 .config-menu ul.child li {
     border: 0;
 }
+.config-menu ul.child li a {
+    font-size: 15px;
+}
 .config-menu ul.child li a.active {
     border-left: 4px solid #d7520b;
     background-color: #ffffff;
     border-right: 0;
+    font-weight: bold;
+    font-size: 14px;
 }
 .config-menu ul li a {
     display: block;

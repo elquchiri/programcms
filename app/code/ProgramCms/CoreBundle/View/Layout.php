@@ -10,6 +10,7 @@ namespace ProgramCms\CoreBundle\View;
 
 use Exception;
 use ProgramCms\CoreBundle\View\Layout\Element;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class Layout
@@ -84,12 +85,18 @@ class Layout implements LayoutInterface
      * @var array
      */
     protected array $elementsWithFileName;
+    /**
+     * Translate Data
+     * @var TranslatorInterface
+     */
+    protected TranslatorInterface $translator;
 
     public function __construct(
         \ProgramCms\CoreBundle\View\Layout\Data\Structure $structure,
         \ProgramCms\ThemeBundle\Model\PageLayout $pageLayout,
         \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager,
         \ProgramCms\CoreBundle\View\Page\Config $config,
+        TranslatorInterface $translator,
         \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
     )
     {
@@ -101,6 +108,7 @@ class Layout implements LayoutInterface
         $this->config = $config;
         $this->objectManager = $objectManager;
         $this->structure = $structure;
+        $this->translator = $translator;
     }
 
     /**
@@ -369,7 +377,7 @@ class Layout implements LayoutInterface
      */
     public function setTitle(string $title)
     {
-        $this->config->getTitle()->set($title);
+        $this->config->getTitle()->set($this->translator->trans($title));
     }
 
     /**

@@ -15,7 +15,7 @@ namespace ProgramCms\ConfigBundle\Controller\Adminhtml\SystemConfig;
 class EditController extends \ProgramCms\ConfigBundle\Controller\Adminhtml\AbstractConfigController
 {
     /**
-     * @return mixed|object|null
+     * @return object|null
      */
     public function execute()
     {

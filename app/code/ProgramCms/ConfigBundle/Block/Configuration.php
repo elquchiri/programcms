@@ -8,6 +8,10 @@
 
 namespace ProgramCms\ConfigBundle\Block;
 
+use Exception;
+use JetBrains\PhpStorm\Pure;
+use ProgramCms\ConfigBundle\Model\ConfigSerializer;
+use ProgramCms\CoreBundle\View\Element\Template\Context;
 use ReflectionException;
 
 /**
@@ -17,35 +21,30 @@ use ReflectionException;
 class Configuration extends \ProgramCms\CoreBundle\View\Element\Template
 {
     /**
-     * @var \ProgramCms\ConfigBundle\Model\ConfigSerializer
+     * @var ConfigSerializer
      */
-    protected \ProgramCms\ConfigBundle\Model\ConfigSerializer $configSerializer;
+    protected ConfigSerializer $configSerializer;
     /**
      * @var \ProgramCms\RouterBundle\Service\Request
      */
     protected \ProgramCms\RouterBundle\Service\Request $request;
-    /**
-     * @var \ProgramCms\RouterBundle\Service\Url
-     */
-    private \ProgramCms\RouterBundle\Service\Url $url;
 
     /**
      * Configuration constructor.
-     * @param \ProgramCms\CoreBundle\View\Element\Template\Context $context
-     * @param \ProgramCms\ConfigBundle\Model\ConfigSerializer $configSerializer
+     * @param Context $context
+     * @param ConfigSerializer $configSerializer
      * @param array $data
      * @throws ReflectionException
      */
     public function __construct(
-        \ProgramCms\CoreBundle\View\Element\Template\Context $context,
-        \ProgramCms\ConfigBundle\Model\ConfigSerializer $configSerializer,
+        Context $context,
+        ConfigSerializer $configSerializer,
         array $data = []
     )
     {
         parent::__construct($context, $data);
         $this->configSerializer = $configSerializer;
         $this->request = $context->getRequest();
-        $this->url = $context->getUrl();
         // Init Config Serializer
         $this->_initConfigSerializer();
     }
@@ -70,7 +69,7 @@ class Configuration extends \ProgramCms\CoreBundle\View\Element\Template
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     protected function _prepareLayout(): static
     {
@@ -117,7 +116,7 @@ class Configuration extends \ProgramCms\CoreBundle\View\Element\Template
      * Get current section id
      * @return string
      */
-    public function getSectionId(): string
+    #[Pure] public function getSectionId(): string
     {
         return $this->configSerializer->getSectionId();
     }

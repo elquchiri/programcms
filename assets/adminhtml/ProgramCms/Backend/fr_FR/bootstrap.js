@@ -7,6 +7,7 @@ import SwitcherField from './UiBundle/js/controllers/switcher-field_controller'
 import Tabs from './UiBundle/js/controllers/tabs_controller'
 import Toolbar from './UiBundle/js/controllers/toolbar_controller'
 import Tree from './UiBundle/js/controllers/tree_controller'
+import ConfigMenu from './ConfigBundle/js/controllers/config-menu_controller'
 
 // Registers Stimulus controllers from controllers.json and in the controllers/ directory
 export const app = startStimulusApp(require.context(
@@ -22,3 +23,4 @@ app.register('switcher-field', SwitcherField);
 app.register('tabs', Tabs);
 app.register('toolbar', Toolbar);
 app.register('tree', Tree);
+app.register('config-menu', ConfigMenu);

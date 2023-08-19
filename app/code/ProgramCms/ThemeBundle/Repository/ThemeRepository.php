@@ -56,4 +56,13 @@ class ThemeRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    /**
+     * Find All Frontend Themes
+     * @return Theme[]
+     */
+    public function getAllFrontendThemes(): array
+    {
+        return $this->findBy(['area' => 'frontend']);
+    }
 }

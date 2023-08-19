@@ -8,6 +8,9 @@
 
 namespace ProgramCms\ConfigBundle\Controller\Adminhtml;
 
+use ProgramCms\CoreBundle\Controller\Context;
+use ProgramCms\CoreBundle\Model\ObjectManager;
+
 /**
  * Class AbstractConfigController
  * @package ProgramCms\ConfigBundle\Controller\Adminhtml
@@ -15,13 +18,18 @@ namespace ProgramCms\ConfigBundle\Controller\Adminhtml;
 abstract class AbstractConfigController extends \ProgramCms\CoreBundle\Controller\Controller
 {
     /**
-     * @var \ProgramCms\CoreBundle\Model\ObjectManager
+     * @var ObjectManager
      */
-    protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
+    protected ObjectManager $objectManager;
 
+    /**
+     * AbstractConfigController constructor.
+     * @param Context $context
+     * @param ObjectManager $objectManager
+     */
     public function __construct(
-        \ProgramCms\CoreBundle\Controller\Context $context,
-        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
+        Context $context,
+        ObjectManager $objectManager
     )
     {
         parent::__construct($context);

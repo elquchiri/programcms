@@ -11,7 +11,7 @@ namespace ProgramCms\ConfigBundle\Block;
 use ReflectionException;
 
 /**
- * Class Configuration
+ * Class ConfigTabs
  * @package ProgramCms\ConfigBundle\Block
  */
 class ConfigTabs extends \ProgramCms\CoreBundle\View\Element\Template

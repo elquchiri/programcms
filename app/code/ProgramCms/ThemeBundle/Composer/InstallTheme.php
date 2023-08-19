@@ -18,6 +18,9 @@ use Composer\Installer\PackageEvent;
  */
 class InstallTheme
 {
+    /**
+     * @param PackageEvent $event
+     */
     public static function execute(PackageEvent $event)
     {
         $installedPackage = $event->getOperation()->getPackage();

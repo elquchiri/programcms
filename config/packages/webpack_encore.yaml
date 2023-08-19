@@ -1,5 +1,5 @@
 webpack_encore:
     output_path: false
     builds:
-        app_frontend: '%kernel.project_dir%/public/build/frontend/programcms/frontend/en_us'
+        app_frontend: '%kernel.project_dir%/public/build/frontend/programcms/blank/en_us'
         app_backend: '%kernel.project_dir%/public/build/adminhtml/programcms/backend/fr_fr'

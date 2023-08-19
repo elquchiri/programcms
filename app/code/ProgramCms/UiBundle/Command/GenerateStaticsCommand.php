@@ -67,21 +67,29 @@ class GenerateStaticsCommand extends Command
         }
 
         // Destination file path
-        $appScssPath = 'assets/frontend/ProgramCms/Blank/en_US/app.scss';
+        $appScssPaths = [
+            'frontend' => 'assets/frontend/ProgramCms/Blank/en_US/app.scss',
+            'adminhtml' => 'assets/adminhtml/ProgramCms/Backend/fr_FR/app.scss'
+        ];
+        foreach($appScssPaths as $area => $appScssPath) {
+            // Clear existing contents of app.scss
+            file_put_contents($appScssPath, '');
 
-        // Clear existing contents of app.scss
-        file_put_contents($appScssPath, '');
+            // Load _extends files to override UI
+            if(isset($this->extendsScssFiles[$area])) {
+                foreach ($this->extendsScssFiles[$area] as $scss) {
+                    file_put_contents($appScssPath, $scss, FILE_APPEND);
+                }
+            }
+            // Add Bootstrap
+            file_put_contents($appScssPath, '@import "~bootstrap/scss/bootstrap";', FILE_APPEND);
 
-        // Load _extends files to override UI
-        foreach ($this->extendsScssFiles as $scss) {
-            file_put_contents($appScssPath, $scss, FILE_APPEND);
-        }
-        // Add Bootstrap
-        file_put_contents($appScssPath, '@import "~bootstrap/scss/bootstrap";', FILE_APPEND);
-
-        // Load _bundle files to UI
-        foreach ($this->bundleScssFiles as $scss) {
-            file_put_contents($appScssPath, $scss, FILE_APPEND);
+            // Load _bundle files to UI
+            if(isset($this->bundleScssFiles[$area])) {
+                foreach ($this->bundleScssFiles[$area] as $scss) {
+                    file_put_contents($appScssPath, $scss, FILE_APPEND);
+                }
+            }
         }
 
         // Run npm run dev command
@@ -108,7 +116,7 @@ class GenerateStaticsCommand extends Command
             if (!empty($bundleScssFiles)) {
                 $relativePath = $this->_getRelativePath($bundlePath);
                 $importStatement = sprintf('@import "%s%s";', $relativePath, "/Resources/views/{$area}/assets/css/source/_bundle.scss");
-                $this->bundleScssFiles[] = $importStatement . PHP_EOL;
+                $this->bundleScssFiles[$area][] = $importStatement . PHP_EOL;
             }
         }
     }
@@ -125,7 +133,7 @@ class GenerateStaticsCommand extends Command
             if (!empty($bundleScssFiles)) {
                 $relativePath = $this->_getRelativePath($bundlePath);
                 $importStatement = sprintf('@import "%s%s";', $relativePath, "/Resources/views/{$area}/assets/css/source/_extends.scss");
-                $this->extendsScssFiles[] = $importStatement . PHP_EOL;
+                $this->extendsScssFiles[$area][] = $importStatement . PHP_EOL;
             }
         }
     }

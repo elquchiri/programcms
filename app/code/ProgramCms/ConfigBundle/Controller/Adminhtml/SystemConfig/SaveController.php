@@ -8,6 +8,12 @@
 
 namespace ProgramCms\ConfigBundle\Controller\Adminhtml\SystemConfig;
 
+use ProgramCms\ConfigBundle\Model\Config;
+use ProgramCms\CoreBundle\Controller\Context;
+use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\RouterBundle\Service\Url;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 /**
  * Save Application's Configuration
  * Class SaveController
@@ -16,19 +22,26 @@ namespace ProgramCms\ConfigBundle\Controller\Adminhtml\SystemConfig;
 class SaveController extends \ProgramCms\ConfigBundle\Controller\Adminhtml\AbstractConfigController
 {
     /**
-     * @var \ProgramCms\ConfigBundle\Model\Config
+     * @var Config
      */
-    protected \ProgramCms\ConfigBundle\Model\Config $config;
+    protected Config $config;
     /**
-     * @var \ProgramCms\RouterBundle\Service\Url
+     * @var Url
      */
-    protected \ProgramCms\RouterBundle\Service\Url $url;
+    protected Url $url;
 
+    /**
+     * SaveController constructor.
+     * @param Context $context
+     * @param Config $config
+     * @param Url $url
+     * @param ObjectManager $objectManager
+     */
     public function __construct(
-        \ProgramCms\CoreBundle\Controller\Context $context,
-        \ProgramCms\ConfigBundle\Model\Config $config,
-        \ProgramCms\RouterBundle\Service\Url $url,
-        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
+        Context $context,
+        Config $config,
+        Url $url,
+        ObjectManager $objectManager
     )
     {
         parent::__construct($context, $objectManager);
@@ -38,7 +51,7 @@ class SaveController extends \ProgramCms\ConfigBundle\Controller\Adminhtml\Abstr
 
     /**
      * Save App Config
-     * @return mixed|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function execute()
     {

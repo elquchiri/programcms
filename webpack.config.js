@@ -15,11 +15,11 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 
 Encore
     // directory where compiled assets will be stored
-    .setOutputPath('public/build/frontend/programcms/frontend/en_us')
+    .setOutputPath('public/build/frontend/programcms/blank/en_us')
     // public path used by the web server to access the output path
-    .setPublicPath('/build/frontend/programcms/frontend/en_us')
+    .setPublicPath('/build/frontend/programcms/blank/en_us')
     // only needed for CDN's or subdirectory deploy
-    .setManifestKeyPrefix('build/frontend/programcms/frontend/en_us/')
+    .setManifestKeyPrefix('build/frontend/programcms/blank/en_us/')
 
     .addEntry('app', './assets/frontend/ProgramCms/Blank/en_US/app.js')
 

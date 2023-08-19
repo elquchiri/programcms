@@ -32,7 +32,16 @@ class WebsiteGroupRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param Website $entity
+     * @param int $websiteGroupId
+     * @return WebsiteGroup|null
+     */
+    public function getById(int $websiteGroupId): ?WebsiteGroup
+    {
+        return $this->findOneBy(['website_group_id' => $websiteGroupId]);
+    }
+
+    /**
+     * @param WebsiteGroup $entity
      * @param bool $flush
      */
     public function save(WebsiteGroup $entity, bool $flush = true): void
@@ -45,7 +54,7 @@ class WebsiteGroupRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param Website $entity
+     * @param WebsiteGroup $entity
      * @param bool $flush
      */
     public function remove(WebsiteGroup $entity, bool $flush = true): void

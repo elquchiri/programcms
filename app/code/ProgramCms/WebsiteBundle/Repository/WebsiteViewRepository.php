@@ -22,11 +22,28 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class WebsiteViewRepository extends ServiceEntityRepository
 {
+    /**
+     * WebsiteViewRepository constructor.
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, WebsiteView::class);
     }
 
+    /**
+     * @param int $websiteViewId
+     * @return WebsiteView|null
+     */
+    public function getById(int $websiteViewId): ?WebsiteView
+    {
+        return $this->findOneBy(['website_view_id' => $websiteViewId]);
+    }
+
+    /**
+     * @param WebsiteView $entity
+     * @param bool $flush
+     */
     public function save(WebsiteView $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -36,6 +53,10 @@ class WebsiteViewRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @param WebsiteView $entity
+     * @param bool $flush
+     */
     public function remove(WebsiteView $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);

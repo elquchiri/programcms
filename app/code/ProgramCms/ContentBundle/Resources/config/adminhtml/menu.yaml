@@ -28,7 +28,7 @@ menu:
         actions:
           config:
             label: 'Configuration'
-            action: ''
+            action: 'theme_index_config'
             sortOrder: 2
           themes:
             label: 'Themes'

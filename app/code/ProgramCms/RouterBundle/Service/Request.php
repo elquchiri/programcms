@@ -8,6 +8,9 @@
 
 namespace ProgramCms\RouterBundle\Service;
 
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\RouterInterface;
+
 /**
  * Class Request
  * @package ProgramCms\RouterBundle\Service
@@ -19,22 +22,22 @@ class Request
      */
     protected \Symfony\Component\HttpFoundation\Request $request;
     /**
-     * @var \Symfony\Component\Routing\RouterInterface
+     * @var RouterInterface
      */
-    protected \Symfony\Component\Routing\RouterInterface $router;
+    protected RouterInterface $router;
     /**
-     * @var \Symfony\Component\HttpFoundation\RequestStack
+     * @var RequestStack
      */
-    protected \Symfony\Component\HttpFoundation\RequestStack $requestStack;
+    protected RequestStack $requestStack;
 
     /**
      * Request constructor.
-     * @param \Symfony\Component\Routing\RouterInterface $router
-     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param RouterInterface $router
+     * @param RequestStack $requestStack
      */
     public function __construct(
-        \Symfony\Component\Routing\RouterInterface $router,
-        \Symfony\Component\HttpFoundation\RequestStack $requestStack
+        RouterInterface $router,
+        RequestStack $requestStack
     )
     {
         $this->request = \Symfony\Component\HttpFoundation\Request::createFromGlobals();
@@ -134,5 +137,15 @@ class Request
         if(count($fullRouteName)) {
             return $fullRouteName[0];
         }
+
+        return '';
+    }
+
+    /**
+     * @param string $local
+     */
+    public function setLocal(string $local)
+    {
+        $this->request->setLocale($local);
     }
 }

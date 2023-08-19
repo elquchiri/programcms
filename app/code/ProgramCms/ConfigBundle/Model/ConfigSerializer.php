@@ -8,12 +8,17 @@
 
 namespace ProgramCms\ConfigBundle\Model;
 
+use ReflectionException;
+use Symfony\Component\DependencyInjection\Container;
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 /**
  * Class ConfigSerializer
  * @package ProgramCms\ConfigBundle\Model
  */
 class ConfigSerializer
 {
+    protected TranslatorInterface $translator;
     /**
      * Stores Hole Merged Configuration
      * @var array
@@ -25,7 +30,7 @@ class ConfigSerializer
      */
     private $sectionId;
     /**
-     * @var \Symfony\Component\DependencyInjection\Container
+     * @var Container
      */
     private $container;
     /**
@@ -33,9 +38,15 @@ class ConfigSerializer
      */
     private Config $config;
 
-
+    /**
+     * ConfigSerializer constructor.
+     * @param Container $container
+     * @param TranslatorInterface $translator
+     * @param Config $config
+     */
     public function __construct(
-        \Symfony\Component\DependencyInjection\Container $container,
+        Container $container,
+        TranslatorInterface $translator,
         \ProgramCms\ConfigBundle\Model\Config $config
     )
     {
@@ -43,11 +54,12 @@ class ConfigSerializer
         $this->sectionId = "";
         $this->container = $container;
         $this->config = $config;
+        $this->translator = $translator;
     }
 
     /**
      * Parse all Bundle's configurations
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function parseConfig()
     {
@@ -71,7 +83,7 @@ class ConfigSerializer
                     if (isset($config['tab']['id']) && isset($config['tab']['label'])) {
                         $tabId = $config['tab']['id'];
                         $this->configs['tabs'][$tabId] = [
-                            'label' => $config['tab']['label'],
+                            'label' => $this->translator->trans($config['tab']['label']),
                             'sortOrder' => $config['tab']['sortOrder'] ?? 999
                         ];
                     }
@@ -87,7 +99,7 @@ class ConfigSerializer
                         if (isset($section['tab'])) {
                             $targetTabId = $section['tab'];
                             $this->configs['tabs'][$targetTabId]['sections'][$sectionId] = [
-                                'label' => $section['label'],
+                                'label' => $this->translator->trans($section['label']),
                                 'active' => $sectionId == $this->sectionId
                             ];
                             // Activate tab to show sections on view
@@ -102,15 +114,16 @@ class ConfigSerializer
                                 foreach ($section['groups'] as $groupId => $group) {
                                     if (isset($group['label'])) {
                                         $this->configs['current_section']['groups'][$groupId] = [
-                                            'label' => $group['label'],
+                                            'label' => $this->translator->trans($group['label']),
                                             'fields' => []
                                         ];
                                     }
                                     if (isset($group['fields'])) {
                                         foreach ($group['fields'] as $fieldId => $field) {
                                             $this->configs['current_section']['groups'][$groupId]['fields'][$fieldId] = [
-                                                'label' => $field['label'],
+                                                'label' => $this->translator->trans($field['label']),
                                                 'type' => $field['type'],
+                                                'helpMessage' => $field['helpMessage'] ?? '',
                                                 'value' => $this->config->getConfigValue(
                                                     $this->sectionId . '/' . $groupId . '/' . $fieldId
                                                 )

@@ -25,17 +25,19 @@
                     {{ field.toHtml()|raw }}
 
                     {% if field.hasHelpMessage() %}
-                        <div id="{{ field.getName() }}emailHelp"
-                             class="form-text">{{ field.getHelpMessage() }}</div>
+                        <div id="{{ field.getName() }}emailHelp" class="form-text" style="font-size: 13px; margin-top: 5px;">
+                            {{ field.getHelpMessage() }}
+                        </div>
                     {% endif %}
+
                     {% if block.isScopeUsed() %}
-                    <div class="mt-2 form-check">
-                        <input type="checkbox" class="form-check-input" id="use_default_{{ field.getName() }}">
-                        <label class="form-check-label" for="use_default_{{ field.getName() }}"
-                               style="font-size: 14px;">
-                            Use default value
-                        </label>
-                    </div>
+                        <div class="mt-2 form-check">
+                            <input type="checkbox" class="form-check-input" id="use_default_{{ field.getName() }}">
+                            <label class="form-check-label" for="use_default_{{ field.getName() }}"
+                                   style="font-size: 14px;">
+                                Use default value
+                            </label>
+                        </div>
                     {% endif %}
                 </div>
             </div>

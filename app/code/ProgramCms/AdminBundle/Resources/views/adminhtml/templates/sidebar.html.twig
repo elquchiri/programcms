@@ -6,7 +6,7 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<div data-controller="sidebar">
+<div data-controller="sidebar" data-action="keydown.esc->sidebar#closeSignClick">
     <div class="sidebar">
         <ul>
             {% for menuItemKey, menuItem in block.getMenu() %}

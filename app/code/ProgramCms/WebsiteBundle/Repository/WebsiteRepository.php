@@ -32,6 +32,15 @@ class WebsiteRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param int $websiteId
+     * @return Website|null
+     */
+    public function getById(int $websiteId): ?Website
+    {
+        return $this->findOneBy(['website_id' => $websiteId]);
+    }
+
+    /**
      * @param Website $entity
      * @param bool $flush
      */

@@ -62,3 +62,15 @@ system_config:
               label: 'Locale'
               type: 'select'
               source: ProgramCms\UiBundle\Model\Provider\DataSource\TimeZoneSelector
+    theme_config:
+      label: 'Theme Configuration'
+      tab: 'core_general'
+      groups:
+        country_options:
+          label: 'Theme Configuration'
+          fields:
+            applied_theme:
+              label: 'Applied Theme'
+              type: 'select'
+              source: ProgramCms\ThemeBundle\Model\Provider\DataSource\ThemeSelector
+              helpMessage: 'If no value is specified, the system default is used. The system default may be modified by third-party bundles.'

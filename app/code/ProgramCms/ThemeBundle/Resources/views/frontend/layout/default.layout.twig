@@ -7,9 +7,6 @@
  */
 #}
 {% page layout="3columns" %}
-    {% css ['bundles/programcmstheme/css/main.css', 'bundles/programcmstheme/css/top-panel.css', 'bundles/programcmstheme/css/footer.css', 'bundles/programcmstheme/css/breadcrumb.css'] %}
-    {% js ['underscore-umd-min.js', 'popper.min.js', 'bootstrap.bundle.min.js'] %}
-
     {% referenceContainer name="header.container" %}
         {% container name="header.panel.wrapper" htmlTag="div" htmlClass="panel wrapper" %}
             {% container name="header.panel" htmlTag="div" htmlClass="panel header container" %}
@@ -30,7 +27,7 @@
             {% endContainer %}
         {% endContainer %}
     {% endReferenceContainer %}
-
+    {# Page Top Container #}
     {% referenceContainer name="page.top" %}
         {# Navigation Section Block #}
         {% block name="navigation.bar" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsThemeBundle/navigation.bar.html.twig" %}{% endBlock %}
@@ -38,11 +35,12 @@
         {# Breadcrump Block #}
         {% block name="breadcrumb" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsThemeBundle/breadcrumb.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}
-
+    {# Main Container #}
     {% referenceContainer name="main" %}
+        {# Main Page Content Container #}
         {% container name="content" %}{% endContainer %}
     {% endReferenceContainer %}
-
+    {#  Footer Container#}
     {% referenceContainer name="footer.container" %}
         {% container name="footer" htmlTag="div" htmlClass="footer content" %}
             {% block name="footer.content" class="ProgramCms\\WebsiteBundle\\Block\\WebsiteSwitcher" template="@ProgramCmsThemeBundle/footer.html.twig" %}{% endBlock %}

@@ -8,6 +8,7 @@
 
 namespace ProgramCms\RouterBundle\Service;
 
+use ProgramCms\CoreBundle\App\AreaList;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
@@ -21,9 +22,9 @@ class Url
      */
     protected UrlGeneratorInterface $urlGenerator;
     /**
-     * @var \ProgramCms\CoreBundle\App\AreaList
+     * @var AreaList
      */
-    protected \ProgramCms\CoreBundle\App\AreaList $areaList;
+    protected AreaList $areaList;
     /**
      * @var Request
      */
@@ -32,12 +33,12 @@ class Url
     /**
      * Url constructor.
      * @param UrlGeneratorInterface $urlGenerator
-     * @param \ProgramCms\CoreBundle\App\AreaList $areaList
+     * @param AreaList $areaList
      * @param Request $request
      */
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
-        \ProgramCms\CoreBundle\App\AreaList $areaList,
+        AreaList $areaList,
         \ProgramCms\RouterBundle\Service\Request $request
     )
     {
@@ -76,5 +77,13 @@ class Url
     public function getRouteName(): string
     {
         return $this->request->getCurrentRouteName();
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrentUrl(): string
+    {
+        return $this->request->getPathInfo();
     }
 }
