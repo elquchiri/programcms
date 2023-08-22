@@ -43,7 +43,7 @@ class ProgramCmsCoreBundle extends Bundle implements DependentBundleInterface
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
-        $container->addCompilerPass(new \ProgramCms\CoreBundle\DependencyInjection\Compiler\MakeServicesPublicCompilerPass());
+        // Add Compiler Passes here
     }
 
     /**

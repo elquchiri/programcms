@@ -93,11 +93,15 @@ class Fieldset extends \ProgramCms\CoreBundle\View\Element\Template
                     case "imageUploader":
                         $fieldBlock = $layout->createBlock(\ProgramCms\UiBundle\Block\Form\Fields\ImageUploader::class, $fieldName);
                         break;
+                    case "image":
+                        $fieldBlock = $layout->createBlock(\ProgramCms\UiBundle\Block\Form\Fields\Image::class, $fieldName);
+                        break;
                 }
                 // Common attributes
                 if (isset($fieldBlock)) {
                     // Label
                     $fieldBlock->setLabel($field['label'] ?? '');
+                    // Help Message
                     if (isset($field['helpMessage'])) {
                         $fieldBlock->setHelpMessage($field['helpMessage']);
                     }

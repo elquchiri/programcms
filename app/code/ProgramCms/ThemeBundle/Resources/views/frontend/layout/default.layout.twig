@@ -10,8 +10,6 @@
     {% referenceContainer name="header.container" %}
         {% container name="header.panel.wrapper" htmlTag="div" htmlClass="panel wrapper" %}
             {% container name="header.panel" htmlTag="div" htmlClass="panel header container" %}
-                {# Website switcher dropdown #}
-                {% block name="website.switcher" class="ProgramCms\\WebsiteBundle\\Block\\WebsiteSwitcher" template="@ProgramCmsWebsiteBundle/website_switcher.html.twig" %}{% endBlock %}
                 {# Account navigation links #}
                 {% block name="website.navigation" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsUserBundle/account_navigation.html.twig" %}{% endBlock %}
             {% endContainer %}

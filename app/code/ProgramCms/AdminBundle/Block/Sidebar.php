@@ -8,6 +8,7 @@
 
 namespace ProgramCms\AdminBundle\Block;
 
+use ProgramCms\AdminBundle\Model\MenuConfigSerializer;
 use ReflectionException;
 
 /**
@@ -17,16 +18,16 @@ use ReflectionException;
 class Sidebar extends \ProgramCms\CoreBundle\View\Element\Template
 {
     /**
-     * @var \ProgramCms\AdminBundle\Model\MenuConfigSerializer
+     * @var MenuConfigSerializer
      */
-    protected \ProgramCms\AdminBundle\Model\MenuConfigSerializer $menuConfigSerializer;
+    protected MenuConfigSerializer $menuConfigSerializer;
 
     /**
      * @throws ReflectionException
      */
     public function __construct(
         \ProgramCms\CoreBundle\View\Element\Template\Context $context,
-        \ProgramCms\AdminBundle\Model\MenuConfigSerializer $menuConfigSerializer,
+        MenuConfigSerializer $menuConfigSerializer,
         array $data = []
     )
     {

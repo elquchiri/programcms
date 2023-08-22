@@ -8,11 +8,24 @@
 
 namespace ProgramCms\UiBundle\Model\Element;
 
-
+/**
+ * Class Toolbar
+ * @package ProgramCms\UiBundle\Model\Element
+ */
 class Toolbar
 {
+    /**
+     * @var array
+     */
     private array $buttons = [];
 
+    /**
+     * @param $buttonTitle
+     * @param $buttonURL
+     * @param $buttonType
+     * @param null $buttonTarget
+     * @return $this
+     */
     public function addButton($buttonTitle, $buttonURL, $buttonType, $buttonTarget = null): Toolbar
     {
         $this->buttons[] = [
@@ -25,6 +38,9 @@ class Toolbar
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getButtons(): array
     {
         return $this->buttons;

@@ -8,7 +8,15 @@
 
 namespace ProgramCms\CoreBundle\View\Result;
 
+use Exception;
+use ProgramCms\CoreBundle\View\Element\Template\Context;
+use ProgramCms\CoreBundle\View\Page\Config;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 /**
  * Class Page
@@ -17,23 +25,28 @@ use Symfony\Component\Form\FormInterface;
 class Page extends Layout
 {
     /**
-     * @var \ProgramCms\CoreBundle\View\Page\Config
+     * @var Config
      */
-    protected \ProgramCms\CoreBundle\View\Page\Config $pageConfig;
+    protected Config $pageConfig;
     /**
-     * @var \Twig\Environment
+     * @var Environment
      */
-    protected \Twig\Environment $env;
+    protected Environment $env;
 
+    /**
+     * Page constructor.
+     * @param Context $context
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
     public function __construct(
-        \ProgramCms\CoreBundle\View\Element\Template\Context $context,
-        \ProgramCms\CoreBundle\View\Layout $layout
+        Context $context,
     )
     {
-        parent::__construct($context, $layout);
+        parent::__construct($context);
         $this->pageConfig = $context->getPageConfig();
         $this->env = $context->getEnvironment();
-        $this->layout = $layout;
     }
 
     /**
@@ -47,22 +60,23 @@ class Page extends Layout
     /**
      * Merge base template and render Page
      * @param array $parameters
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     * @throws \Exception
+     * @return Response
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     * @throws Exception
      */
-    public function render(array $parameters = []): \Symfony\Component\HttpFoundation\Response
+    public function render(array $parameters = []): Response
     {
-        $css = $this->layout->getCss();
-        $js = $this->layout->getJs();
-        $title = $this->layout->getTitle();
-        $html = $this->layout->getOutput();
+        $layout = $this->getLayout();
+        $css = $layout->getCss();
+        $js = $layout->getJs();
+        $title = $layout->getTitle();
+        $html = $layout->getOutput();
 
         $content = $this->env->render('@ProgramCmsTheme/base.html.twig', ['efCss' => $css, 'efJs' => $js, 'efTitle' => $title, 'html' => $html]);
 
-        $response ??= new \Symfony\Component\HttpFoundation\Response();
+        $response ??= new Response();
         if (200 === $response->getStatusCode()) {
             foreach ($parameters as $v) {
                 if ($v instanceof FormInterface && $v->isSubmitted() && !$v->isValid()) {

@@ -57,6 +57,7 @@ class PageNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterfac
         foreach($this->getNode('body') as $node) {
             switch($node) {
                 case ($node instanceof \ProgramCms\ThemeBundle\Node\ReferenceContainerNode):
+                case ($node instanceof \ProgramCms\ThemeBundle\Node\ReferenceBlockNode):
                 case ($node instanceof \ProgramCms\ThemeBundle\Node\CssNode):
                 case ($node instanceof \ProgramCms\ThemeBundle\Node\JsNode):
                 case ($node instanceof \ProgramCms\ThemeBundle\Node\TitleNode):

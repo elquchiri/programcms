@@ -12,6 +12,7 @@ use ProgramCms\CoreBundle\App\AreaList;
 use ProgramCms\CoreBundle\App\State;
 use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\RouterBundle\Service\Response;
+use Symfony\Component\Translation\LocaleSwitcher;
 
 /**
  * Class Context
@@ -35,6 +36,10 @@ class Context implements ContextInterface
      * @var State
      */
     protected State $state;
+    /**
+     * @var LocaleSwitcher
+     */
+    protected LocaleSwitcher $localeSwitcher;
 
     /**
      * Context constructor.
@@ -47,13 +52,15 @@ class Context implements ContextInterface
         Request $request,
         Response $response,
         AreaList $areaList,
-        State $state
+        State $state,
+        LocaleSwitcher $localeSwitcher
     )
     {
         $this->request = $request;
         $this->response = $response;
         $this->areaList = $areaList;
         $this->state = $state;
+        $this->localeSwitcher = $localeSwitcher;
     }
 
     /**
@@ -86,5 +93,13 @@ class Context implements ContextInterface
     public function getState(): State
     {
         return $this->state;
+    }
+
+    /**
+     * @return LocaleSwitcher
+     */
+    public function getLocaleSwitcher(): LocaleSwitcher
+    {
+        return $this->localeSwitcher;
     }
 }

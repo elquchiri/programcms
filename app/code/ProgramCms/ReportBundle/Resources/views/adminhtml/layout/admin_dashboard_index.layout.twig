@@ -8,6 +8,21 @@
 #}
 {% page %}
     {% referenceContainer name="buttons.bar" %}
-        {% block name="toolbar.actions" class="ProgramCms\\ReportBundle\\Block\\Toolbar\\ToolbarActions" %}{% endBlock %}
+        {% block name="dashboard.buttons" class="ProgramCms\\UiBundle\\Block\\Toolbar\\ToolbarActions" %}
+            {% arguments %}
+                {% argument name="reload_reports" type="array" %}
+                    {% argument name="buttonType" type="string" %}primary{% endArgument %}
+                    {% argument name="buttonTarget" type="string" %}form{% endArgument %}
+                    {% argument name="buttonAction" type="string" %}catalog_category_save{% endArgument %}
+                    {% argument name="label" type="string" %}Reload Data{% endArgument %}
+                {% endArgument %}
+            {% endArguments %}
+        {% endBlock %}
     {% endReferenceContainer %}
+    {# Dashboard Home Page #}
+    {% referenceBlock name="dashboard.home" %}
+        {% block name="websites.evolution" class="ProgramCms\\AdminBundle\\Block\\Dashboard\\AdvancedReporting" template="@ProgramCmsReportBundle/websites_evolution.html.twig" %}{% endBlock %}
+        {% block name="lastsearch.terms" class="ProgramCms\\AdminBundle\\Block\\Dashboard\\AdvancedReporting" template="@ProgramCmsReportBundle/last_search_terms.html.twig" %}{% endBlock %}
+        {% block name="tabs.report" class="ProgramCms\\AdminBundle\\Block\\Dashboard\\AdvancedReporting" template="@ProgramCmsReportBundle/tabs.html.twig" %}{% endBlock %}
+    {% endReferenceBlock %}
 {% endPage %}

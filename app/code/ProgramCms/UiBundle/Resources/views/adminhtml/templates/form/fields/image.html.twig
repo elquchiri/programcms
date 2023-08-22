@@ -1,0 +1,14 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<img
+    id="{{ block.getName() }}"
+    alt="{{ block.getLabel() }}"
+    src="{{ asset(block.getSrc()) }}"
+    style="width: 100%; height: 300px; margin-top: 11px;"
+    aria-describedby="{{ block.getName() }}" />

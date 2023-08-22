@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Class User
+ * @package ProgramCms\UserBundle\Entity
+ */
 #[ORM\Entity(repositoryClass: \ProgramCms\UserBundle\Repository\UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -36,7 +40,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = [];
 
     #[ORM\Column(type: 'string')]
-    private $password;
+    private string $password;
 
     public function getId(): ?int
     {
@@ -46,7 +50,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setId(int $id): self
     {
         $this->id = $id;
-
         return $this;
     }
 
@@ -58,7 +61,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUserFirstname(string $user_firstname): self
     {
         $this->user_firstname = $user_firstname;
-
         return $this;
     }
 
@@ -70,7 +72,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUserLastname(string $user_lastname): self
     {
         $this->user_lastname = $user_lastname;
-
         return $this;
     }
 
@@ -82,7 +83,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUserNickname(string $user_nickname): self
     {
         $this->user_nickname = $user_nickname;
-
         return $this;
     }
 
@@ -94,7 +94,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -110,7 +109,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
-
         return $this;
     }
 

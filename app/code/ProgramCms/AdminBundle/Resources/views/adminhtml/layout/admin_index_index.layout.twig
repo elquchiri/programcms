@@ -8,6 +8,6 @@
 #}
 {% page layout="admin-login" %}
     {% referenceContainer name="login.content" %}
-        {% block name="dashboard.content" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsAdminBundle/home.html.twig" %}{% endBlock %}
+        {% block name="admin.login" class="ProgramCms\\AdminBundle\\Block\\Account\\Login" template="@ProgramCmsAdminBundle/login.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}
 {% endPage %}

@@ -10,11 +10,21 @@
     <ul class="navbar-nav">
         {% for button in block.getButtons() %}
             <li class="nav-item">
-                {% if button.buttonType == 'save' or button.buttonType == 'primary' %}
+                {% if button.buttonType == 'save' %}
                     <button data-action="toolbar#buttonClick" class="btn btn-primary ef-toolbar-btn" data-btn-type="{{ button.buttonType }}"
                             data-btn-target="{{ button.buttonTarget }}"
                             data-btn-confirm="{{ button.confirm }}"
                             data-btn-action="{{ button.buttonAction }}" type="button">
+                        {{ button.label }}
+                    </button>
+                {% elseif button.buttonType == 'primary' %}
+                    <button
+                            data-action="toolbar#buttonClick"
+                            class="btn btn-primary"
+                            data-btn-action="{{ button.buttonAction }}"
+                            data-btn-type="{{ button.buttonType }}"
+                            data-btn-confirm="{{ button.confirm }}"
+                            type="button">
                         {{ button.label }}
                     </button>
                 {% elseif button.buttonType == 'secondary' %}

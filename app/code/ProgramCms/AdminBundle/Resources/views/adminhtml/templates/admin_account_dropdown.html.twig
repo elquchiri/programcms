@@ -1,3 +1,11 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
 <ul class="navbar-nav mb-2 mb-lg-0">
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -5,10 +13,10 @@
             Admin
         </a>
         <div class="dropdown-menu dropdown-menu-end">
-            <a class="dropdown-item" href="#">Account Setting (Admin)</a>
+            <a class="dropdown-item" href="{{ block.getAccountSettingsUrl() }}">Account Setting (Admin)</a>
             <a class="dropdown-item" href="#">User View</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ path('frontend_user_account_logout') }}">Logout</a>
+            <a class="dropdown-item" href="{{ block.getLogoutUrl() }}">Logout</a>
         </div>
     </li>
 </ul>

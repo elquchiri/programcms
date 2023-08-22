@@ -16,7 +16,7 @@
             {% block name="page.title" class="ProgramCms\\ThemeBundle\\Block\\Html\\Title" template="@ProgramCmsThemeBundle/title.html.twig" %}{% endBlock %}
             {# Admin Navbar Fast Access Container #}
             {% container name="navbar.collapse" htmlTag="div" htmlClass="collapse navbar-collapse justify-content-end" %}
-                {% block name="account.dropdown" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsAdminBundle/admin_account_dropdown.html.twig" %}{% endBlock %}
+                {% block name="account.dropdown" class="ProgramCms\\AdminBundle\\Block\\Account\\Navigation" template="@ProgramCmsAdminBundle/admin_account_dropdown.html.twig" %}{% endBlock %}
             {% endContainer %}
         {% endContainer %}
     {% endReferenceContainer %}

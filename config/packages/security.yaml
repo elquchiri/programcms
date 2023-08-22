@@ -1,24 +1,37 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
 security:
-    # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
-    # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+
     providers:
         users_in_memory: { memory: null }
-        #This user provider knows how to (re)load users from a storage (e.g. a database)
-        # based on a "user identifier" (e.g. the user's email address or username).
-        #The configuration above uses Doctrine to load the User entity using the email property as "user identifier".
         app_user_provider:
             entity:
                 class: ProgramCms\UserBundle\Entity\User
+                property: email
+        app_admin_provider:
+            entity:
+                class: ProgramCms\AdminBundle\Entity\AdminUser
                 property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        admin:
+            pattern: ^/admin/
+            lazy: true
+            provider: app_admin_provider
+            custom_authenticator: ProgramCms\AdminBundle\Security\LoginAuthenticator
+            logout:
+                path: adminhtml_admin_systemaccount_logout
+                target: adminhtml_admin_index_index
         main:
             lazy: true
-            # Use Provider defined in 'providers' section in top of that file
             provider: app_user_provider
 #            form_login:
 #                login_path: frontend_home
@@ -27,28 +40,15 @@ security:
             custom_authenticator: ProgramCms\UserBundle\Security\LoginAuthenticator
             logout:
                 path: electro_forums_user_logout
-                # where to redirect after logout
-                # target: app_any_route
 
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#the-firewall
-
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
-
-    # Easy way to control access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
     access_control:
+        - { path: '^/admin/admin/index/index', roles: PUBLIC_ACCESS }
         # - { path: ^/user/register, roles: ROLE_USER }
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: '^/admin', roles: ROLE_ADMIN }
 
 when@test:
     security:
         password_hashers:
-            # By default, password hashers are resource intensive and take time. This is
-            # important to generate secure password hashes. In tests however, secure hashes
-            # are not important, waste resources and increase test times. The following
-            # reduces the work factor to the lowest possible values.
             Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
                 algorithm: auto
                 cost: 4 # Lowest possible value for bcrypt

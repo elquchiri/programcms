@@ -26,16 +26,23 @@ abstract class Controller extends AbstractController
      * @var AreaList
      */
     protected AreaList $_areaList;
+    /**
+     * @var \Symfony\Component\Translation\LocaleSwitcher
+     */
+    protected \Symfony\Component\Translation\LocaleSwitcher $localeSwitcher;
 
     /**
      * Controller constructor.
      * @param Context $context
      */
-    public function __construct(Context $context)
+    public function __construct(
+        Context $context,
+    )
     {
         parent::__construct($context);
         $this->_areaList = $context->getAreaList();
         $this->_state = $context->getState();
+        $this->localeSwitcher = $context->getLocaleSwitcher();
     }
 
     /**
@@ -45,6 +52,7 @@ abstract class Controller extends AbstractController
      */
     public function dispatch(): mixed
     {
+        //$this->localeSwitcher->setLocale('ar');
         $areaCode = $this->_areaList->getCodeByFrontName($this->getRequest()->getFrontName());
         $this->_state->setAreaCode($areaCode);
         $result = $this->execute();

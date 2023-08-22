@@ -52,6 +52,8 @@ class Grid extends \ProgramCms\CoreBundle\View\Element\Template
 
     protected function _prepareLayout()
     {
+        $layout = $this->getLayout();
+
         // Data from DataProvider
         $data = [];
         $providedData = [];
@@ -73,12 +75,34 @@ class Grid extends \ProgramCms\CoreBundle\View\Element\Template
                 }
             }
         }
+
+        // Add Buttons
+        if($this->hasData('buttons')) {
+            $toolbarActions = $layout->createBlock(
+                \ProgramCms\UiBundle\Block\Toolbar\ToolbarActions::class,
+                'toolbar.actions',
+                $this->getData('buttons')
+            );
+            $layout->setChild('buttons.bar', $toolbarActions->getNameInLayout());
+            $toolbarActions->setLayout($layout);
+        }
+
         // Process Data
         foreach($data as $theme) {
             $row = [];
-            foreach($this->getColumns() as $key => $value) {
-                if(!in_array($key, ['actionsColumn', 'selectionsColumn'])) {
-                    $row[$key] = $theme->getDataUsingMethod($key);
+            foreach($this->getColumns() as $key => $column) {
+                if($key !== 'selectionsColumn') {
+                    if(isset($column['class']) && !empty($column['class'])) {
+                        $columnProvider = $this->objectManager->create($column['class']);
+                        if($key === 'actionsColumn') {
+                            $actions = $columnProvider->prepareData($theme);
+                            $row[$key] = $this->_prepareActions($actions);
+                            continue;
+                        }
+                        $row[$key] = $columnProvider->prepareData($theme);
+                    }else{
+                        $row[$key] = $theme->getDataUsingMethod($key);
+                    }
                 }
             }
             $providedData[] = $row;
@@ -96,11 +120,11 @@ class Grid extends \ProgramCms\CoreBundle\View\Element\Template
         $columns = $this->getData('columns');
         foreach($columns as $key => $column) {
             if($key == 'actionsColumn') {
-                $this->grid->addColumn($key, $column['label'], 'action');
+                $this->grid->addColumn($key, $column['label'], 'actions', $column['class'] ?? '');
             }else if($key == 'selectionsColumn') {
                 $this->grid->addColumn($key, '');
             }else{
-                $this->grid->addColumn($key, $column['label']);
+                $this->grid->addColumn($key, $column['label'], 'text', $column['class'] ?? '');
             }
         }
         return $this->grid->getColumns();
@@ -119,12 +143,6 @@ class Grid extends \ProgramCms\CoreBundle\View\Element\Template
      */
     public function getActions(): array
     {
-        $this->grid->addAction([
-            'label' => 'Visualize',
-            'url' => '',
-            'type' => 'url'
-        ]);
-
         return $this->grid->getActions();
     }
 
@@ -134,5 +152,15 @@ class Grid extends \ProgramCms\CoreBundle\View\Element\Template
     public function getCount(): int
     {
         return count($this->grid->getData());
+    }
+
+    public function _prepareActions(array $actions)
+    {
+        $html = "";
+        foreach($actions as $action) {
+            $html .= "<a href=\"{$action['url']}\">{$action['label']}</a>";
+        }
+
+        return $html;
     }
 }

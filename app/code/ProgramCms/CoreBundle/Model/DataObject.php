@@ -47,8 +47,9 @@ class DataObject
     /**
      * @param $argument
      * @param null $value
+     * @return DataObject
      */
-    public function setData($argument, $value = null): static
+    public function setData($argument, mixed $value = null): static
     {
         if(is_array($argument)) {
             $this->data = $argument;

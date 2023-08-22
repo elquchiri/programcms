@@ -1,0 +1,19 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{{ block.getChildHtml('dashboard.advanced.reporting')|raw }}
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        {{ block.getChildHtml('websites.evolution')|raw }}
+        {{ block.getChildHtml('lastsearch.terms')|raw }}
+    </div>
+    <div class="col-md-8">
+        {{ block.getChildHtml('tabs.report')|raw }}
+    </div>
+</div>

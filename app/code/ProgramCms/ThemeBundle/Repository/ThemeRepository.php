@@ -32,6 +32,15 @@ class ThemeRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param int $themeId
+     * @return Theme|null
+     */
+    public function getById(int $themeId): ?Theme
+    {
+        return $this->findOneBy(['theme_id' => $themeId]);
+    }
+
+    /**
      * @param Theme $entity
      * @param bool $flush
      */

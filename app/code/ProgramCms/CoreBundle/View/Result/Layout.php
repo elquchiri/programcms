@@ -8,6 +8,12 @@
 
 namespace ProgramCms\CoreBundle\View\Result;
 
+use ProgramCms\RouterBundle\Service\Request;
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
+
 /**
  * Class Layout
  * @package ProgramCms\CoreBundle\View\Result
@@ -20,35 +26,34 @@ class Layout extends AbstractResult
      */
     protected \ProgramCms\CoreBundle\View\Layout $layout;
     /**
-     * @var \ProgramCms\RouterBundle\Service\Request
+     * @var Request
      */
-    protected \ProgramCms\RouterBundle\Service\Request $request;
+    protected Request $request;
     /**
-     * @var \Twig\Environment
+     * @var Environment
      */
-    protected \Twig\Environment $env;
+    protected Environment $env;
 
     /**
-     * @throws \Twig\Error\SyntaxError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\LoaderError
+     * @throws SyntaxError
+     * @throws RuntimeError
+     * @throws LoaderError
      */
     public function __construct(
         \ProgramCms\CoreBundle\View\Element\Template\Context $context,
-        \ProgramCms\CoreBundle\View\Layout $layout
     )
     {
         $this->request = $context->getRequest();
         $this->env = $context->getEnvironment();
-        $this->layout = $layout;
+        $this->layout = $context->getLayout();
         // Construct Layout Elements
         $this->_initLayout();
     }
 
     /**
-     * @throws \Twig\Error\SyntaxError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\LoaderError
+     * @throws SyntaxError
+     * @throws RuntimeError
+     * @throws LoaderError
      */
     private function _initLayout()
     {

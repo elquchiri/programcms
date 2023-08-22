@@ -1,0 +1,41 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="login-container">
+    <a href="{{ block.getAdminLoginUrl() }}">
+        <img style="width: 100%;" src="{{ asset('bundles/programcmstheme/images/programcms-logo-presentation.png') }}"/>
+    </a>
+    <h4 class="mt-3 mb-4 welcome-message" style="color: #379DFF">Welcome, please sign in</h4>
+
+    {% if block.getError() is not empty %}
+        <div class="alert flash-message alert-danger flash-message-danger">{{ block.getError() }}</div>
+    {% endif %}
+
+    <form method="POST" action="{{ block.getSubmitUrl() }}" id="user_authentication_register">
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <span class="text-danger">*</span>
+            <input type="email" class="form-control" id="email" name="email" value="{{ block.getLastEmail() }}" autofocus/>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <span class="text-danger">*</span>
+            <div class="input-group">
+                <input type="password" class="form-control" id="password" name="password"/>
+                <span class="input-group-text" id="basic-addon1"><img src="{{ asset('bundles/programcmsadmin/images/see.png') }}" /> </span>
+            </div>
+            <div class="mt-2">
+                <a href="#">Forgot your password?</a>
+            </div>
+        </div>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">Sign In</button>
+        </div>
+    </form>
+</div>

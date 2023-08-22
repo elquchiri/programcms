@@ -8,22 +8,41 @@
 
 namespace ProgramCms\AdminBundle\Controller\Adminhtml\Index;
 
+use ProgramCms\CoreBundle\Controller\Context;
+use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\CoreBundle\View\Result\Page;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+
 /**
  * Class IndexController
  * @package ProgramCms\AdminBundle\Controller\Adminhtml\Index
  */
 class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
 {
+    /**
+     * @var ObjectManager
+     */
+    protected ObjectManager $objectManager;
+    /**
+     * @var AuthenticationUtils
+     */
+    protected AuthenticationUtils $authenticationUtils;
 
-    protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
-
+    /**
+     * IndexController constructor.
+     * @param Context $context
+     * @param ObjectManager $objectManager
+     * @param AuthenticationUtils $authenticationUtils
+     */
     public function __construct(
-        \ProgramCms\CoreBundle\Controller\Context $context,
-        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
+        Context $context,
+        ObjectManager $objectManager,
+        AuthenticationUtils $authenticationUtils
     )
     {
         parent::__construct($context);
         $this->objectManager = $objectManager;
+        $this->authenticationUtils = $authenticationUtils;
     }
 
     /**
@@ -31,8 +50,18 @@ class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
      */
     public function execute()
     {
-        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
-        $pageResult->getConfig()->getTitle()->set("ProgramCMS Admin");
+        // get the login error if there is one
+        $error = $this->authenticationUtils->getLastAuthenticationError();
+
+        /** @var Page $pageResult */
+        $pageResult = $this->objectManager->create(Page::class);
+        $pageResult->getConfig()->getTitle()->set("ProgramCMS Admin Panel");
+
+        if($error) {
+            $lastEmail = $this->authenticationUtils->getLastUsername();
+            $pageResult->getLayout()->getBlock('admin.login')->setData('error', $error->getMessage());
+            $pageResult->getLayout()->getBlock('admin.login')->setData('lastEmail', $lastEmail);
+        }
         return $pageResult;
     }
 }

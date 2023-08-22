@@ -8,6 +8,8 @@
 
 namespace ProgramCms\UserBundle\Controller\Account;
 
+use ProgramCms\CoreBundle\Controller\Context;
+use ProgramCms\CoreBundle\Model\ObjectManager;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
@@ -17,18 +19,24 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class AuthenticationController extends \ProgramCms\CoreBundle\Controller\Controller
 {
     /**
-     * @var \ProgramCms\CoreBundle\Model\ObjectManager
+     * @var ObjectManager
      */
-    protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
+    protected ObjectManager $objectManager;
     /**
      * @var AuthenticationUtils
      */
-    private $authenticationUtils;
+    private AuthenticationUtils $authenticationUtils;
 
+    /**
+     * AuthenticationController constructor.
+     * @param Context $context
+     * @param AuthenticationUtils $authenticationUtils
+     * @param ObjectManager $objectManager
+     */
     public function __construct(
-        \ProgramCms\CoreBundle\Controller\Context $context,
+        Context $context,
         AuthenticationUtils $authenticationUtils,
-        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
+        ObjectManager $objectManager
     )
     {
         parent::__construct($context);
@@ -36,6 +44,9 @@ class AuthenticationController extends \ProgramCms\CoreBundle\Controller\Control
         $this->objectManager = $objectManager;
     }
 
+    /**
+     * @return object|null
+     */
     public function execute()
     {
         // get the login error if there is one

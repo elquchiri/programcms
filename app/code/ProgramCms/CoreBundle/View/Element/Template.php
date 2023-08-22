@@ -8,6 +8,8 @@
 
 namespace ProgramCms\CoreBundle\View\Element;
 
+use ProgramCms\CoreBundle\Model\Filesystem\DirectoryList;
+use ProgramCms\CoreBundle\View\Page\Config;
 use ProgramCms\RouterBundle\Service\Request;
 use Twig\Environment;
 
@@ -34,9 +36,9 @@ class Template extends AbstractBlock
      */
     protected array $_viewVars = [];
     /**
-     * @var \ProgramCms\CoreBundle\Model\Filesystem\DirectoryList
+     * @var DirectoryList
      */
-    protected \ProgramCms\CoreBundle\Model\Filesystem\DirectoryList $directoryList;
+    protected DirectoryList $directoryList;
     /**
      * @var Request
      */
@@ -46,9 +48,9 @@ class Template extends AbstractBlock
      */
     protected Environment $environment;
     /**
-     * @var \ProgramCms\CoreBundle\View\Page\Config
+     * @var Config
      */
-    protected \ProgramCms\CoreBundle\View\Page\Config $pageConfig;
+    protected Config $pageConfig;
 
     /**
      * Template constructor.

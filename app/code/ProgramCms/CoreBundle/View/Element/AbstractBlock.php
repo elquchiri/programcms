@@ -34,6 +34,11 @@ abstract class AbstractBlock extends \ProgramCms\CoreBundle\Model\DataObject imp
      */
     protected Layout $layout;
 
+    /**
+     * AbstractBlock constructor.
+     * @param Template\Context $context
+     * @param array $data
+     */
     public function __construct(
         \ProgramCms\CoreBundle\View\Element\Template\Context $context,
         array $data = []

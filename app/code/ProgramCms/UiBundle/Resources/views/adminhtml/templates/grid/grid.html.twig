@@ -124,7 +124,7 @@
     <table class="table table-bordered table-striped table-hover mt-3 admin-table">
         <thead class="table-dark">
             {% for column in block.getColumns() %}
-                <th {% if column.type == 'action' %}class="text-center"{% endif %}>{{ column.title }}</th>
+                <th {% if column.type == 'actions' %}class="text-center"{% endif %}>{{ column.title }}</th>
             {% endfor %}
         </thead>
         {% if block.getCount() > 0 %}
@@ -138,33 +138,9 @@
                 </td>
                 {% endif %}
                 {# Populate Grid Data #}
-                {% for value in rowColumn %}
-                    <td>{{ value }}</td>
+                {% for columnKey, columnValue in rowColumn %}
+                    <td {% if columnKey == 'actionsColumn' %}class="text-center"{% endif %}>{{ columnValue|raw }}</td>
                 {% endfor %}
-                {# Setup Grid Actions #}
-                {% if block.getActions() is defined %}
-                    <td class="text-center">
-                        {% for action in actions %}
-                            {% if action.type == 'url' %}
-                                <a href="#" class="ms-2">{{ action.label }}</a>
-                            {% endif %}
-                            {% if action.type == 'dropdown' %}
-                                <div class="btn-group dropstart" style="margin-top: -3px;">
-                                    <a class="dropdown-toggle ms-1" type="button" data-bs-toggle="dropdown"
-                                       data-bs-auto-close="true"
-                                       aria-expanded="false">
-                                        {{ action.label }}
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        {% for subAction in action.actions %}
-                                            <li><a class="dropdown-item" href="#">{{ subAction.label }}</a></li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    </td>
-                {% endif %}
             </tr>
         {% endfor %}
         </tbody>

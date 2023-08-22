@@ -1,15 +1,23 @@
-<section class="h-100">
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<section class="h-100 mb-5">
     <header class="container h-100">
         <div class="d-flex align-items-center justify-content-center h-100">
             <div class="d-flex flex-column">
                 <div class="card" style="border: none">
                     <div class="card-body" style="width: 29rem;">
                         <h2>Create an Account</h2>
-                        <p>Join our Community and grant access.</p>
+                        <p class="mb-5" style="color: #888888">Join our Community and grant access.</p>
                         <form method="POST" id="user_authentication_register">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Email</label>
-                                <input type="email" class="form-control" name="email" />
+                                <input type="email" class="form-control" name="email" placeholder="Your Email Address" />
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
@@ -17,7 +25,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="username" class="form-label">Nick-Name</label>
-                                <input type="text" class="form-control" name="user_nickname" />
+                                <input type="text" class="form-control" name="user_nickname" placeholder="Choose a representative Username" />
                                 <div id="emailHelp" class="form-text">
                                     This will be your identifier in the website.
                                 </div>
@@ -43,7 +51,7 @@
                                 </label>
                             </div>
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                            <div style="">
+                            <div class="mt-5">
                                 <button type="submit" class="btn btn-primary btn-block" style="width: 100%;">Create my
                                     Account
                                 </button>

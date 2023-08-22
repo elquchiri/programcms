@@ -9,6 +9,7 @@
 namespace ProgramCms\UiBundle\Block\Toolbar;
 
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\RouterBundle\Service\Url;
 
 /**
  * Class ToolbarActions
@@ -21,9 +22,12 @@ class ToolbarActions extends \ProgramCms\CoreBundle\View\Element\Template
      */
     protected string $_template = "@ProgramCmsUiBundle/toolbar/toolbar_buttons.html.twig";
     /**
-     * @var \ProgramCms\RouterBundle\Service\Url
+     * @var Url
      */
-    protected \ProgramCms\RouterBundle\Service\Url $url;
+    protected Url $url;
+    /**
+     * @var ObjectManager
+     */
     protected ObjectManager $objectManager;
 
     /**
@@ -52,23 +56,25 @@ class ToolbarActions extends \ProgramCms\CoreBundle\View\Element\Template
         $buttons = [];
         $button = [];
         foreach($this->getData() as $buttonData) {
-            if(is_string($buttonData)) {
+            if(is_string($buttonData) && !empty($buttonData)) {
                 $dataSource = $this->objectManager->create($buttonData);
                 $button = $dataSource->getData();
+                // Button confirm modal
+                $button['confirm'] = isset($button['confirm']) ? json_encode($button['confirm']) : '';
+                $buttons[] = $button;
             }
             else if(is_array($buttonData)) {
                 $button = $buttonData;
                 // Button Action
                 if (isset($buttonData['buttonAction']) && !empty($buttonData['buttonAction'])) {
                     $button['buttonAction'] = $this->url->getUrlByRouteName($buttonData['buttonAction']);
+                    // Button confirm modal
+                    $button['confirm'] = isset($button['confirm']) ? json_encode($button['confirm']) : '';
+                    $buttons[] = $button;
                 }
             }
-
-            // Button confirm modal
-            $button['confirm'] = isset($button['confirm']) ? json_encode($button['confirm']) : '';
-
-            $buttons[] = $button;
         }
+
         return $buttons;
     }
 }

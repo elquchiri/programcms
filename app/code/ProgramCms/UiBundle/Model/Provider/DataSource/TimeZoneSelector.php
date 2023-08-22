@@ -20,8 +20,6 @@ class TimeZoneSelector extends Options
      */
     public function getOptionsArray(): array
     {
-        $timezone_identifiers = \DateTimeZone::listIdentifiers();
-
-        return $timezone_identifiers;
+        return \DateTimeZone::listIdentifiers();
     }
 }

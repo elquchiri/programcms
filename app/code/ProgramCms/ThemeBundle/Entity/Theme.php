@@ -46,8 +46,13 @@ class Theme extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
     /**
      * @var string|null
      */
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column]
     private ?string $theme_path = null;
+    /**
+     * @var string|null
+     */
+    #[ORM\Column(nullable: true)]
+    private ?string $preview_image;
 
     /**
      * @return int|null
@@ -168,5 +173,23 @@ class Theme extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
     {
         $this->theme_path = $theme_path;
         return $this;
+    }
+
+    /**
+     * @param string $preview_image
+     * @return $this
+     */
+    public function setPreviewImage(string $preview_image): static
+    {
+        $this->preview_image = $preview_image;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPreviewImage(): ?string
+    {
+        return $this->preview_image;
     }
 }

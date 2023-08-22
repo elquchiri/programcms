@@ -8,6 +8,9 @@
 
 namespace ProgramCms\AdminBundle\Model;
 
+use ProgramCms\CoreBundle\Data\Process\Sort;
+use ProgramCms\CoreBundle\Model\Utils\BundleManager;
+use ProgramCms\RouterBundle\Service\Url;
 use ReflectionException;
 
 /**
@@ -17,14 +20,17 @@ use ReflectionException;
 class MenuConfigSerializer
 {
     /**
-     * @var \ProgramCms\CoreBundle\Model\Utils\BundleManager
+     * @var BundleManager
      */
-    protected \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager;
+    protected BundleManager $bundleManager;
     /**
-     * @var \ProgramCms\RouterBundle\Service\Url
+     * @var Url
      */
-    protected \ProgramCms\RouterBundle\Service\Url $url;
-    protected \ProgramCms\CoreBundle\Data\Process\Sort $sort;
+    protected Url $url;
+    /**
+     * @var Sort
+     */
+    protected Sort $sort;
     /**
      * Stores Hole Merged Menu elements
      * @var array
@@ -33,12 +39,14 @@ class MenuConfigSerializer
 
     /**
      * MenuConfigSerializer constructor.
-     * @param \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager
+     * @param BundleManager $bundleManager
+     * @param Url $url
+     * @param Sort $sort
      */
     public function __construct(
-        \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager,
-        \ProgramCms\RouterBundle\Service\Url $url,
-        \ProgramCms\CoreBundle\Data\Process\Sort $sort
+        BundleManager $bundleManager,
+        Url $url,
+        Sort $sort
     )
     {
         $this->menu = [];
@@ -48,7 +56,7 @@ class MenuConfigSerializer
     }
 
     /**
-     * Parse all Bundle's configurations
+     * Parse all Bundle's Menu configurations
      * @throws ReflectionException
      */
     public function parseMenuConfig()

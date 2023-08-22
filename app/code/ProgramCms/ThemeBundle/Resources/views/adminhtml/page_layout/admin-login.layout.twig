@@ -9,18 +9,22 @@
 {% layout %}
     {% update handle="admin-empty" %}
 
-    {% referenceContainer name="page.menu" remove="true" %}{% endReferenceContainer %}
-    {% referenceContainer name="main.top" remove="true" %}{% endReferenceContainer %}
-    {% referenceContainer name="page.main.actions" remove="true" %}{% endReferenceContainer %}
-
     {% referenceContainer name="page.content" %}
-        {% container name="login.header" htmlTag="header" htmlClass="login-header" %}{% endContainer %}
-        {% container name="login.content" htmlTag="div" htmlClass="login-content" %}{% endContainer %}
-        {% container name="login.footer" htmlTag="footer" htmlClass="login-footer" %}{% endContainer %}
+        {% container name="login.admin.wrapper" htmlTag="div" htmlClass="login-wrapper" %}
+            {% container name="login.admin.container" htmlTag="div" htmlClass="login-admin-container" %}
+                {% container name="login.header" htmlTag="header" htmlClass="login-header" %}{% endContainer %}
+                {% container name="login.content" htmlTag="div" htmlClass="login-content" %}{% endContainer %}
+                {% container name="login.footer" htmlTag="footer" htmlClass="login-footer" %}{% endContainer %}
+            {% endContainer %}
+        {% endContainer %}
     {% endReferenceContainer %}
 
     {% move element="copyright" destination="login.footer" before="-" %}
     {% move element="page.alerts.block" destination="login.content" before="-" %}
-    {% referenceContainer name="page.wrapper" remove="true" %}{% endReferenceContainer %}
 
+    {% referenceContainer name="page.menu" remove="true" %}{% endReferenceContainer %}
+    {% referenceContainer name="main.top" remove="true" %}{% endReferenceContainer %}
+    {% referenceContainer name="page.main.actions" remove="true" %}{% endReferenceContainer %}
+    {% referenceContainer name="page.messages" remove="true" %}{% endReferenceContainer %}
+    {% referenceContainer name="footer.container" remove="true" %}{% endReferenceContainer %}
 {% endLayout %}

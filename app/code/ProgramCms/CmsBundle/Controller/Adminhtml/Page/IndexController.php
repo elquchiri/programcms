@@ -8,6 +8,7 @@
 
 namespace ProgramCms\CmsBundle\Controller\Adminhtml\Page;
 
+use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 
 /**
@@ -23,11 +24,11 @@ class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
 
     /**
      * IndexController constructor.
-     * @param \ProgramCms\CoreBundle\Controller\Context $context
+     * @param Context $context
      * @param ObjectManager $objectManager
      */
     public function __construct(
-        \ProgramCms\CoreBundle\Controller\Context $context,
+        Context $context,
         ObjectManager $objectManager
     )
     {

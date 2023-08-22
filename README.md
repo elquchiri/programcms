@@ -64,12 +64,11 @@ To install ProgramCMS project run :
 
 ## Demo
 
-Frontend Home Page
+####Backend Demo
 
-![image](public/images/frontend-demo.png)
+- Admin Panel
 
-
-Backend Demo
+![image](public/images/backend-admin-login-demo.png)
 
 - Website Manager
 
@@ -81,6 +80,11 @@ Backend Demo
 - Centralized Configuration
 
 ![image](public/images/backend-config-demo.png)
+
+####Frontend Home Page
+
+![image](public/images/frontend-demo.png)
+
 
 ## Contribution
 

@@ -5,6 +5,11 @@
 #  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
 ##
 services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
   ProgramCms\PostBundle\:
     resource: '../../'
     exclude:

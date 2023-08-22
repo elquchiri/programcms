@@ -1,6 +1,7 @@
 import { startStimulusApp } from '@symfony/stimulus-bridge';
 
 import Sidebar from './AdminBundle/js/controllers/sidebar_controller'
+import Report from './AdminBundle/js/controllers/report_controller'
 import Collapser from './UiBundle/js/controllers/collapser_controller'
 import Grid from './UiBundle/js/controllers/grid_controller'
 import SwitcherField from './UiBundle/js/controllers/switcher-field_controller'
@@ -24,3 +25,4 @@ app.register('tabs', Tabs);
 app.register('toolbar', Toolbar);
 app.register('tree', Tree);
 app.register('config-menu', ConfigMenu);
+app.register('report', Report);

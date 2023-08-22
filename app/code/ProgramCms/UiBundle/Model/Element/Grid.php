@@ -14,41 +14,84 @@ namespace ProgramCms\UiBundle\Model\Element;
  */
 class Grid
 {
+    /**
+     * @var array
+     */
     private array $columns = [];
+    /**
+     * @var array
+     */
     private array $data = [];
+    /**
+     * @var array
+     */
     private array $actions = [];
 
-    public function addColumn(string $key, string $title, string $type = 'text'): static
+    /**
+     * @param string $key
+     * @param string $title
+     * @param string $type
+     * @return $this
+     */
+    public function addColumn(string $key, string $title, string $type = 'text', string $class = ''): static
     {
         $this->columns[$key] = [
             'title' => $title,
-            'type'  => $type
+            'type' => $type,
+            'class'  => $class
         ];
 
         return $this;
     }
 
-    public function addAction($action)
+    /**
+     * @param $action
+     * @return mixed
+     */
+    public function addAction($action): static
     {
-        return $this->actions[] = $action;
+        $this->actions[] = $action;
+        return $this;
     }
 
+    /**
+     * @param array $actions
+     * @return $this
+     */
+    public function setActions(array $actions): static
+    {
+        $this->actions = $actions;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
     public function getActions(): array
     {
         return $this->actions ?? [];
     }
 
+    /**
+     * @return array
+     */
     public function getColumns(): array
     {
         return $this->columns;
     }
 
+    /**
+     * @param $data
+     */
     public function populate($data)
     {
         $this->data = $data;
     }
 
-    public function getData()
+    /**
+     * @return array
+     */
+    public function getData(): array
     {
         return $this->data;
     }

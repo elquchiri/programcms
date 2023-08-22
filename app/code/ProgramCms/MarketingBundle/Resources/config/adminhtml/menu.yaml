@@ -32,3 +32,10 @@ menu:
             label: "Search Terms"
             action: ''
             sortOrder: 1
+      earn:
+        label: 'Earn & Monetization'
+        actions:
+          urlRewrites:
+            label: "Google Adsense"
+            action: ''
+            sortOrder: 1
