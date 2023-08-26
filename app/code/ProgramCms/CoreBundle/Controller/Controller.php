@@ -11,6 +11,8 @@ namespace ProgramCms\CoreBundle\Controller;
 use HttpResponseException;
 use ProgramCms\CoreBundle\App\AreaList;
 use ProgramCms\CoreBundle\App\State;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Translation\LocaleSwitcher;
 
 /**
  * Class Controller
@@ -27,9 +29,13 @@ abstract class Controller extends AbstractController
      */
     protected AreaList $_areaList;
     /**
-     * @var \Symfony\Component\Translation\LocaleSwitcher
+     * @var LocaleSwitcher
      */
-    protected \Symfony\Component\Translation\LocaleSwitcher $localeSwitcher;
+    protected LocaleSwitcher $localeSwitcher;
+    /**
+     * @var Security
+     */
+    protected Security $security;
 
     /**
      * Controller constructor.
@@ -43,6 +49,7 @@ abstract class Controller extends AbstractController
         $this->_areaList = $context->getAreaList();
         $this->_state = $context->getState();
         $this->localeSwitcher = $context->getLocaleSwitcher();
+        $this->security = $context->getSecurity();
     }
 
     /**
@@ -52,7 +59,10 @@ abstract class Controller extends AbstractController
      */
     public function dispatch(): mixed
     {
-        //$this->localeSwitcher->setLocale('ar');
+        $user = $this->security->getUser();
+        if($user) {
+            $this->localeSwitcher->setLocale($user->getInterfaceLocale());
+        }
         $areaCode = $this->_areaList->getCodeByFrontName($this->getRequest()->getFrontName());
         $this->_state->setAreaCode($areaCode);
         $result = $this->execute();

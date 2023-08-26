@@ -16,7 +16,7 @@ use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
 use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
 
 /**
- * Class SaveWebsiteRootController
+ * Class SaveController
  * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\Website
  */
 class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
@@ -93,7 +93,6 @@ class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
 
             // Save WebsiteRoot
             $this->websiteRepository->save($website, true);
-
             // Flash success message
             $this->addFlash('success', 'Website Successfully Saved.');
 

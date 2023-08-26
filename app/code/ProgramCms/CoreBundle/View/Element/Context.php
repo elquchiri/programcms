@@ -8,31 +8,50 @@
 
 namespace ProgramCms\CoreBundle\View\Element;
 
+use ProgramCms\CoreBundle\Model\Filesystem\DirectoryList;
+use ProgramCms\RouterBundle\Service\Request;
+
 /**
  * Class Context
  * @package ProgramCms\CoreBundle\View\Element
  */
 class Context
 {
+    /**
+     * @var DirectoryList
+     */
+    protected DirectoryList $directoryList;
+    /**
+     * @var Request
+     */
+    protected Request $request;
 
-    protected \ProgramCms\CoreBundle\Model\Filesystem\DirectoryList $directoryList;
-    protected \ProgramCms\RouterBundle\Service\Request $request;
-
+    /**
+     * Context constructor.
+     * @param DirectoryList $directoryList
+     * @param Request $request
+     */
     public function __construct(
-        \ProgramCms\CoreBundle\Model\Filesystem\DirectoryList $directoryList,
-        \ProgramCms\RouterBundle\Service\Request $request
+        DirectoryList $directoryList,
+        Request $request
     )
     {
         $this->directoryList = $directoryList;
         $this->request = $request;
     }
 
-    public function getDirectoryList()
+    /**
+     * @return DirectoryList
+     */
+    public function getDirectoryList(): DirectoryList
     {
         return $this->directoryList;
     }
 
-    public function getRequest(): \ProgramCms\RouterBundle\Service\Request
+    /**
+     * @return Request
+     */
+    public function getRequest(): Request
     {
         return $this->request;
     }

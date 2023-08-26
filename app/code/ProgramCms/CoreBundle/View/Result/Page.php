@@ -9,10 +9,12 @@
 namespace ProgramCms\CoreBundle\View\Result;
 
 use Exception;
+use ProgramCms\CoreBundle\Helper\Language;
 use ProgramCms\CoreBundle\View\Element\Template\Context;
 use ProgramCms\CoreBundle\View\Page\Config;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Translation\LocaleSwitcher;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -32,6 +34,14 @@ class Page extends Layout
      * @var Environment
      */
     protected Environment $env;
+    /**
+     * @var LocaleSwitcher
+     */
+    protected LocaleSwitcher $localeSwitcher;
+    /**
+     * @var Language
+     */
+    protected Language $language;
 
     /**
      * Page constructor.
@@ -47,12 +57,14 @@ class Page extends Layout
         parent::__construct($context);
         $this->pageConfig = $context->getPageConfig();
         $this->env = $context->getEnvironment();
+        $this->localeSwitcher = $context->getLocaleSwitcher();
+        $this->language = $context->getLanguageHelper();
     }
 
     /**
      * Get Page Configuration
      */
-    public function getConfig()
+    public function getConfig(): Config
     {
         return $this->pageConfig;
     }
@@ -73,8 +85,20 @@ class Page extends Layout
         $js = $layout->getJs();
         $title = $layout->getTitle();
         $html = $layout->getOutput();
+        $locale = $this->localeSwitcher->getLocale();
+        $dir = $this->language->getDir($locale);
 
-        $content = $this->env->render('@ProgramCmsTheme/base.html.twig', ['efCss' => $css, 'efJs' => $js, 'efTitle' => $title, 'html' => $html]);
+        $theme = sprintf('app_backend_%s', $locale);
+
+        $content = $this->env->render('@ProgramCmsTheme/base.html.twig', [
+            'dir' => $dir,
+            'lang' => $locale,
+            'theme' => $theme,
+            'css' => $css,
+            'js' => $js,
+            'title' => $title,
+            'html' => $html
+        ]);
 
         $response ??= new Response();
         if (200 === $response->getStatusCode()) {

@@ -13,6 +13,8 @@ use ProgramCms\CoreBundle\App\State;
 use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\RouterBundle\Service\Response;
 use Symfony\Component\Translation\LocaleSwitcher;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class Context
@@ -40,6 +42,11 @@ class Context implements ContextInterface
      * @var LocaleSwitcher
      */
     protected LocaleSwitcher $localeSwitcher;
+    /**
+     * @var Security
+     */
+    protected Security $security;
+    protected TranslatorInterface $translator;
 
     /**
      * Context constructor.
@@ -47,13 +54,18 @@ class Context implements ContextInterface
      * @param Response $response
      * @param AreaList $areaList
      * @param State $state
+     * @param LocaleSwitcher $localeSwitcher
+     * @param Security $security
+     * @param TranslatorInterface $translator
      */
     public function __construct(
         Request $request,
         Response $response,
         AreaList $areaList,
         State $state,
-        LocaleSwitcher $localeSwitcher
+        LocaleSwitcher $localeSwitcher,
+        Security $security,
+        TranslatorInterface $translator
     )
     {
         $this->request = $request;
@@ -61,6 +73,8 @@ class Context implements ContextInterface
         $this->areaList = $areaList;
         $this->state = $state;
         $this->localeSwitcher = $localeSwitcher;
+        $this->security = $security;
+        $this->translator = $translator;
     }
 
     /**
@@ -101,5 +115,21 @@ class Context implements ContextInterface
     public function getLocaleSwitcher(): LocaleSwitcher
     {
         return $this->localeSwitcher;
+    }
+
+    /**
+     * @return Security
+     */
+    public function getSecurity(): Security
+    {
+        return $this->security;
+    }
+
+    /**
+     * @return TranslatorInterface
+     */
+    public function getTranslator(): TranslatorInterface
+    {
+        return $this->translator;
     }
 }

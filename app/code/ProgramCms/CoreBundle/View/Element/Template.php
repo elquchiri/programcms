@@ -11,6 +11,7 @@ namespace ProgramCms\CoreBundle\View\Element;
 use ProgramCms\CoreBundle\Model\Filesystem\DirectoryList;
 use ProgramCms\CoreBundle\View\Page\Config;
 use ProgramCms\RouterBundle\Service\Request;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 /**
@@ -26,7 +27,7 @@ class Template extends AbstractBlock
      */
     protected string $_template;
     /**
-     * @var BlockInterface|Template
+     * @var BlockInterface
      */
     protected \ProgramCms\CoreBundle\View\Element\BlockInterface $templateContext;
     /**
@@ -51,6 +52,10 @@ class Template extends AbstractBlock
      * @var Config
      */
     protected Config $pageConfig;
+    /**
+     * @var TranslatorInterface
+     */
+    protected TranslatorInterface $translator;
 
     /**
      * Template constructor.
@@ -66,6 +71,7 @@ class Template extends AbstractBlock
         $this->request = $context->getRequest();
         $this->environment = $context->getEnvironment();
         $this->pageConfig = $context->getPageConfig();
+        $this->translator = $context->getTranslator();
         $this->templateContext = $this;
         parent::__construct($context, $data);
     }
@@ -192,5 +198,15 @@ class Template extends AbstractBlock
     public function getRequest(): Request
     {
         return $this->request;
+    }
+
+    /**
+     * Translation Helper method
+     * @param string $message
+     * @return string
+     */
+    public function trans(string $message): string
+    {
+        return $this->translator->trans($message);
     }
 }

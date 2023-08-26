@@ -10,6 +10,9 @@ namespace ProgramCms\UiBundle\Block\Form;
 
 use Exception;
 use ProgramCms\CoreBundle\Model\DataObject;
+use ProgramCms\CoreBundle\Model\Utils\BundleManager;
+use ProgramCms\CoreBundle\View\Element\Template\Context;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class Fieldset
@@ -22,22 +25,35 @@ class Fieldset extends \ProgramCms\CoreBundle\View\Element\Template
      */
     protected string $_template = "@ProgramCmsUiBundle/form/fieldset.html.twig";
     /**
-     * @var \ProgramCms\CoreBundle\Model\Utils\BundleManager
+     * @var BundleManager
      */
-    protected \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager;
+    protected BundleManager $bundleManager;
+    /**
+     * @var TranslatorInterface
+     */
+    protected TranslatorInterface $translator;
 
+    /**
+     * Fieldset constructor.
+     * @param Context $context
+     * @param TranslatorInterface $translator
+     * @param BundleManager $bundleManager
+     * @param array $data
+     */
     public function __construct(
-        \ProgramCms\CoreBundle\View\Element\Template\Context $context,
-        \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager,
+        Context $context,
+        TranslatorInterface $translator,
+        BundleManager $bundleManager,
         array $data = []
     )
     {
         parent::__construct($context, $data);
         $this->bundleManager = $bundleManager;
+        $this->translator = $translator;
     }
 
     /**
-     * @return Fieldset|void
+     * @return void
      * @throws Exception
      */
     protected function _prepareLayout()
@@ -100,10 +116,10 @@ class Fieldset extends \ProgramCms\CoreBundle\View\Element\Template
                 // Common attributes
                 if (isset($fieldBlock)) {
                     // Label
-                    $fieldBlock->setLabel($field['label'] ?? '');
+                    $fieldBlock->setLabel($this->translator->trans($field['label']) ?? '');
                     // Help Message
                     if (isset($field['helpMessage'])) {
-                        $fieldBlock->setHelpMessage($field['helpMessage']);
+                        $fieldBlock->setHelpMessage($this->translator->trans($field['helpMessage']));
                     }
                     // Validation
                     if (isset($field['isRequired'])) {

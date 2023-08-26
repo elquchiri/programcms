@@ -8,6 +8,7 @@
 
 namespace ProgramCms\UserBundle\Controller\Account;
 
+use ProgramCms\CoreBundle\Controller\Context;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -18,12 +19,23 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class LogoutController extends \ProgramCms\CoreBundle\Controller\Controller
 {
+    /**
+     * @var Security
+     */
+    protected Security $security;
+    /**
+     * @var UrlGeneratorInterface
+     */
+    protected UrlGeneratorInterface $urlGenerator;
 
-    private Security $security;
-    private UrlGeneratorInterface $urlGenerator;
-
+    /**
+     * LogoutController constructor.
+     * @param Context $context
+     * @param Security $security
+     * @param UrlGeneratorInterface $urlGenerator
+     */
     public function __construct(
-        \ProgramCms\CoreBundle\Controller\Context $context,
+        Context $context,
         Security $security,
         UrlGeneratorInterface $urlGenerator
     )
@@ -33,6 +45,9 @@ class LogoutController extends \ProgramCms\CoreBundle\Controller\Controller
         $this->urlGenerator = $urlGenerator;
     }
 
+    /**
+     * @return RedirectResponse
+     */
     public function execute()
     {
         // logout the user in on the current firewall

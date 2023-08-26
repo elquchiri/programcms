@@ -46,6 +46,8 @@ class WebsiteSwitcher extends \ProgramCms\CoreBundle\View\Element\Template
      * WebsiteSwitcher constructor.
      * @param Context $context
      * @param WebsiteRepository $websiteRepository
+     * @param WebsiteGroupRepository $websiteGroupRepository
+     * @param WebsiteViewRepository $websiteViewRepository
      * @param Url $url
      * @param Request $request
      * @param array $data
@@ -102,6 +104,6 @@ class WebsiteSwitcher extends \ProgramCms\CoreBundle\View\Element\Template
             return $websiteView->getWebsiteViewName();
         }
 
-        return 'All Websites';
+        return $this->trans('All Websites');
     }
 }

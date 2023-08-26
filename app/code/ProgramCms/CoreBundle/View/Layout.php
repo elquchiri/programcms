@@ -9,7 +9,10 @@
 namespace ProgramCms\CoreBundle\View;
 
 use Exception;
+use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\CoreBundle\Model\Utils\BundleManager;
 use ProgramCms\CoreBundle\View\Layout\Element;
+use ProgramCms\ThemeBundle\Model\PageLayout;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -19,29 +22,29 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class Layout implements LayoutInterface
 {
     /**
-     * @var \ProgramCms\CoreBundle\Model\Utils\BundleManager
+     * @var BundleManager
      */
-    protected \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager;
+    protected BundleManager $bundleManager;
     /**
      * @var Page\Config
      */
     protected Page\Config $config;
     /**
-     * @var \ProgramCms\CoreBundle\Model\ObjectManager
+     * @var ObjectManager
      */
     /**
-     * @var \ProgramCms\CoreBundle\Model\ObjectManager
+     * @var ObjectManager
      */
-    protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
+    protected ObjectManager $objectManager;
     /**
      * @var \ProgramCms\CoreBundle\View\Layout\Data\Structure
      */
     protected \ProgramCms\CoreBundle\View\Layout\Data\Structure $structure;
     /**
      * PageLayout Model, used to get page layout content
-     * @var \ProgramCms\ThemeBundle\Model\PageLayout
+     * @var PageLayout
      */
-    protected \ProgramCms\ThemeBundle\Model\PageLayout $pageLayout;
+    protected PageLayout $pageLayout;
     /**
      * Saves Page Layouts
      * @var array
@@ -85,19 +88,21 @@ class Layout implements LayoutInterface
      * @var array
      */
     protected array $elementsWithFileName;
-    /**
-     * Translate Data
-     * @var TranslatorInterface
-     */
-    protected TranslatorInterface $translator;
 
+    /**
+     * Layout constructor.
+     * @param Layout\Data\Structure $structure
+     * @param PageLayout $pageLayout
+     * @param BundleManager $bundleManager
+     * @param Page\Config $config
+     * @param ObjectManager $objectManager
+     */
     public function __construct(
         \ProgramCms\CoreBundle\View\Layout\Data\Structure $structure,
-        \ProgramCms\ThemeBundle\Model\PageLayout $pageLayout,
-        \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager,
+        PageLayout $pageLayout,
+        BundleManager $bundleManager,
         \ProgramCms\CoreBundle\View\Page\Config $config,
-        TranslatorInterface $translator,
-        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
+        ObjectManager $objectManager
     )
     {
         $this->blocks = [];
@@ -108,7 +113,6 @@ class Layout implements LayoutInterface
         $this->config = $config;
         $this->objectManager = $objectManager;
         $this->structure = $structure;
-        $this->translator = $translator;
     }
 
     /**
@@ -364,20 +368,20 @@ class Layout implements LayoutInterface
     }
 
     /**
-     * @return \ProgramCms\ThemeBundle\Model\PageLayout
+     * @return PageLayout
      */
-    public function getPageLayout(): \ProgramCms\ThemeBundle\Model\PageLayout
+    public function getPageLayout(): PageLayout
     {
         return $this->pageLayout;
     }
 
     /**
      * Helper method to set title from configuration
-     * @param $title
+     * @param string $title
      */
     public function setTitle(string $title)
     {
-        $this->config->getTitle()->set($this->translator->trans($title));
+        $this->config->getTitle()->set($title);
     }
 
     /**

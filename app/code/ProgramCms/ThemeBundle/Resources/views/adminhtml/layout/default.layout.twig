@@ -29,7 +29,7 @@
     {% referenceContainer name="footer.container" %}
         {% container name="footer.content" htmlTag="div" htmlClass="footer-content row" %}
             {% container name="footer.legal.copyright" htmlTag="div" htmlClass="col-md-6" %}
-                {% block name="copyright" class="ProgramCms\\AdminBundle\\Block\\Page\\Copyright" template="@ProgramCmsAdminBundle/copyright.html.twig" %}{% endBlock %}
+                {% block name="copyright" class="ProgramCms\\AdminBundle\\Block\\Page\\Copyright" %}{% endBlock %}
             {% endContainer %}
             {% container name="footer.legal.system" htmlTag="div" htmlClass="col-md-6 text-end" %}
                 {% block name="version" class="ProgramCms\\AdminBundle\\Block\\Page\\Footer" template="@ProgramCmsAdminBundle/footer.html.twig" %}{% endBlock %}

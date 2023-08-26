@@ -8,7 +8,9 @@
 
 namespace ProgramCms\AdminBundle\Controller\Adminhtml\Dashboard;
 
+use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class IndexController
@@ -20,14 +22,26 @@ class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+    /**
+     * @var TranslatorInterface
+     */
+    protected TranslatorInterface $translator;
 
+    /**
+     * IndexController constructor.
+     * @param Context $context
+     * @param ObjectManager $objectManager
+     * @param TranslatorInterface $translator
+     */
     public function __construct(
-        \ProgramCms\CoreBundle\Controller\Context $context,
-        ObjectManager $objectManager
+        Context $context,
+        ObjectManager $objectManager,
+        TranslatorInterface $translator
     )
     {
         parent::__construct($context);
         $this->objectManager = $objectManager;
+        $this->translator = $translator;
     }
 
     /**
@@ -36,7 +50,9 @@ class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
     public function execute(): object
     {
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
-        $pageResult->getConfig()->getTitle()->set("Dashboard");
+        $pageResult->getConfig()->getTitle()->set(
+            $this->translator->trans("Dashboard")
+        );
         return $pageResult;
     }
 }

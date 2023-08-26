@@ -8,6 +8,10 @@
 
 namespace ProgramCms\UiBundle\Block\Collapser;
 
+use JetBrains\PhpStorm\Pure;
+use ProgramCms\CoreBundle\View\Element\Template\Context;
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 /**
  * Class Collapser
  * @package ProgramCms\UiBundle\Block\Collapser
@@ -18,11 +22,31 @@ class Collapser extends \ProgramCms\CoreBundle\View\Element\Template
      * @var string
      */
     protected string $_template = "@ProgramCmsUiBundle/collapser/collapser.html.twig";
+    /**
+     * @var TranslatorInterface
+     */
+    protected TranslatorInterface $translator;
+
+    /**
+     * Collapser constructor.
+     * @param Context $context
+     * @param TranslatorInterface $translator
+     * @param array $data
+     */
+    public function __construct(
+        Context $context,
+        TranslatorInterface $translator,
+        array $data = []
+    )
+    {
+        parent::__construct($context, $data);
+        $this->translator = $translator;
+    }
 
     /**
      * @return string
      */
-    public function getName(): string
+    #[Pure] public function getName(): string
     {
         return $this->getNameInLayout();
     }
@@ -32,7 +56,7 @@ class Collapser extends \ProgramCms\CoreBundle\View\Element\Template
      */
     public function getLabel(): string
     {
-        return $this->hasData('label') ? $this->getData('label') : "";
+        return $this->hasData('label') ? $this->translator->trans($this->getData('label')) : "";
     }
 
     /**

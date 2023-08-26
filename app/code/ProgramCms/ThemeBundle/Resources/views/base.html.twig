@@ -7,7 +7,7 @@
  */
 #}
 <!doctype html>
-<html lang="en">
+<html dir="{{ dir }}" lang="{{ lang }}">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,7 +17,7 @@
         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('bundles/programcmstheme/images/favicon/logo.png') }}">
         <link rel="manifest" href="{{ asset('bundles/programcmstheme/images/favicon/site.webmanifest') }}">
         {# Page Title #}
-        <title>{{ efTitle }}</title>
+        <title>{{ title }}</title>
 
         {#
         /*
@@ -25,8 +25,8 @@
          * Merge All static Css files
          */
         #}
-        {{ encore_entry_link_tags('app', null, 'app_frontend') }}
-        {% for cssFile in efCss %}
+        {{ encore_entry_link_tags('app', null, theme) }}
+        {% for cssFile in css %}
             <link rel="stylesheet" type="text/css" href="{{ asset(cssFile) }}" />
         {% endfor %}
     </head>
@@ -41,9 +41,9 @@
          * Ensure JS files being loaded after DOM ready
          */
         #}
-        {% for jsFile in efJs %}
+        {% for jsFile in js %}
             <script type="text/javascript" src="{{ asset(jsFile) }}"></script>
         {% endfor %}
-        {{ encore_entry_script_tags('app', null, 'app_frontend') }}
+        {{ encore_entry_script_tags('app', null, theme) }}
     </body>
 </html>

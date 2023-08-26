@@ -15,7 +15,7 @@
                             data-btn-target="{{ button.buttonTarget }}"
                             data-btn-confirm="{{ button.confirm }}"
                             data-btn-action="{{ button.buttonAction }}" type="button">
-                        {{ button.label }}
+                        {{ button.label|trans }}
                     </button>
                 {% elseif button.buttonType == 'primary' %}
                     <button
@@ -25,7 +25,7 @@
                             data-btn-type="{{ button.buttonType }}"
                             data-btn-confirm="{{ button.confirm }}"
                             type="button">
-                        {{ button.label }}
+                        {{ button.label|trans }}
                     </button>
                 {% elseif button.buttonType == 'secondary' %}
                     <button
@@ -35,7 +35,7 @@
                             data-btn-type="{{ button.buttonType }}"
                             data-btn-confirm="{{ button.confirm }}"
                             type="button">
-                        {{ button.label }}
+                        {{ button.label|trans }}
                     </button>
                 {% elseif button.buttonType == 'back' %}
                     <button data-action="toolbar#buttonClick"
@@ -45,7 +45,7 @@
                             data-btn-confirm="{{ button.confirm }}"
                             type="button">
                         <img style="margin-bottom: 2px; margin-right: 3px;" src="{{ asset('bundles/programcmsadmin/images/back.png') }}" />
-                        {{ button.label }}
+                        {{ button.label|trans }}
                     </button>
                 {% else %}
                     <button data-action="toolbar#buttonClick"
@@ -53,7 +53,7 @@
                             data-btn-type="{{ button.buttonType }}" type="button"
                             data-btn-confirm="{{ button.confirm }}"
                             data-btn-action="{{ button.buttonAction }}">
-                        {{ button.label }}
+                        {{ button.label|trans }}
                     </button>
                 {% endif %}
             </li>

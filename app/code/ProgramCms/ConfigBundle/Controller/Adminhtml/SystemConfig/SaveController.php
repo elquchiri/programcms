@@ -13,6 +13,7 @@ use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\RouterBundle\Service\Url;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Save Application's Configuration
@@ -29,24 +30,28 @@ class SaveController extends \ProgramCms\ConfigBundle\Controller\Adminhtml\Abstr
      * @var Url
      */
     protected Url $url;
+    protected TranslatorInterface $translator;
 
     /**
      * SaveController constructor.
      * @param Context $context
      * @param Config $config
      * @param Url $url
+     * @param TranslatorInterface $translator
      * @param ObjectManager $objectManager
      */
     public function __construct(
         Context $context,
         Config $config,
         Url $url,
+        TranslatorInterface $translator,
         ObjectManager $objectManager
     )
     {
         parent::__construct($context, $objectManager);
         $this->config = $config;
         $this->url = $url;
+        $this->translator = $translator;
     }
 
     /**
@@ -68,7 +73,9 @@ class SaveController extends \ProgramCms\ConfigBundle\Controller\Adminhtml\Abstr
                 }
             }
             // Flash success message
-            $this->addFlash('success', 'Configuration Successfully Saved.');
+            $this->addFlash('success',
+                $this->translator->trans('Configuration Successfully Saved.')
+            );
 
             return $this->redirect($this->url->getUrlByRouteName('config_systemconfig_edit', ['sectionId' => $sectionId]));
         }

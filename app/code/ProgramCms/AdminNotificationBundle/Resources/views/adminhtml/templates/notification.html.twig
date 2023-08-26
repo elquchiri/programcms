@@ -1,3 +1,13 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
 <div class="notifications-container">
-    One or more of the Cache Types are invalidated: Page Cache. Please go to <a href="#">Cache Management</a> and refresh cache types.
+    {% for notification in block.getNotifications() %}
+        {{ notification|raw }}
+    {% endfor %}
 </div>

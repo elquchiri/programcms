@@ -22,11 +22,11 @@ class LogoutController extends \ProgramCms\CoreBundle\Controller\Controller
     /**
      * @var Security
      */
-    private Security $security;
+    protected Security $security;
     /**
      * @var UrlGeneratorInterface
      */
-    private UrlGeneratorInterface $urlGenerator;
+    protected UrlGeneratorInterface $urlGenerator;
 
     /**
      * LogoutController constructor.

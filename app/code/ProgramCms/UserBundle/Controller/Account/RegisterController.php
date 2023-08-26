@@ -9,8 +9,12 @@
 namespace ProgramCms\UserBundle\Controller\Account;
 
 use Doctrine\ORM\EntityManagerInterface;
+use ProgramCms\CoreBundle\Controller\Context;
+use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\UserBundle\Entity\User;
 use ProgramCms\UserBundle\Form\UserRegistrationType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
@@ -19,16 +23,35 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  */
 class RegisterController extends \ProgramCms\CoreBundle\Controller\Controller
 {
-    protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
+    /**
+     * @var ObjectManager
+     */
+    protected ObjectManager $objectManager;
+    /**
+     * @var UserPasswordHasherInterface
+     */
     protected UserPasswordHasherInterface $userPasswordHasher;
+    /**
+     * @var EntityManagerInterface
+     */
     protected EntityManagerInterface $entityManager;
-    protected \ProgramCms\RouterBundle\Service\Request $request;
+    /**
+     * @var Request
+     */
+    protected Request $request;
 
+    /**
+     * RegisterController constructor.
+     * @param Context $context
+     * @param UserPasswordHasherInterface $userPasswordHasher
+     * @param EntityManagerInterface $entityManager
+     * @param ObjectManager $objectManager
+     */
     public function __construct(
-        \ProgramCms\CoreBundle\Controller\Context $context,
+        Context $context,
         UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager,
-        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
+        ObjectManager $objectManager
     )
     {
         parent::__construct($context);
@@ -38,6 +61,9 @@ class RegisterController extends \ProgramCms\CoreBundle\Controller\Controller
         $this->objectManager = $objectManager;
     }
 
+    /**
+     * @return object|RedirectResponse|null
+     */
     public function execute()
     {
         $user = new User();

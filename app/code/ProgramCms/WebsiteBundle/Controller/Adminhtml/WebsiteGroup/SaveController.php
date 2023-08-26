@@ -17,7 +17,7 @@ use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
 use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
 
 /**
- * Class SaveWebsiteRootController
+ * Class SaveController
  * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteGroup
  */
 class SaveController extends \ProgramCms\CoreBundle\Controller\Controller

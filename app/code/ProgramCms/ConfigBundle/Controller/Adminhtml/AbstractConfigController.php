@@ -10,6 +10,7 @@ namespace ProgramCms\ConfigBundle\Controller\Adminhtml;
 
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class AbstractConfigController
@@ -21,6 +22,10 @@ abstract class AbstractConfigController extends \ProgramCms\CoreBundle\Controlle
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+    /**
+     * @var TranslatorInterface
+     */
+    protected TranslatorInterface $translator;
 
     /**
      * AbstractConfigController constructor.
@@ -34,6 +39,7 @@ abstract class AbstractConfigController extends \ProgramCms\CoreBundle\Controlle
     {
         parent::__construct($context);
         $this->objectManager = $objectManager;
+        $this->translator = $context->getTranslator();
     }
 
     /**
@@ -41,6 +47,10 @@ abstract class AbstractConfigController extends \ProgramCms\CoreBundle\Controlle
      */
     protected function loadConfigurations()
     {
-        return $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
+        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
+        $pageResult->getConfig()->getTitle()->set(
+            $this->translator->trans("Configuration")
+        );
+        return $pageResult;
     }
 }

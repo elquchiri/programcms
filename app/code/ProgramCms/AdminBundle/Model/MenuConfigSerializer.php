@@ -12,6 +12,7 @@ use ProgramCms\CoreBundle\Data\Process\Sort;
 use ProgramCms\CoreBundle\Model\Utils\BundleManager;
 use ProgramCms\RouterBundle\Service\Url;
 use ReflectionException;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class MenuConfigSerializer
@@ -32,6 +33,10 @@ class MenuConfigSerializer
      */
     protected Sort $sort;
     /**
+     * @var TranslatorInterface
+     */
+    protected TranslatorInterface $translator;
+    /**
      * Stores Hole Merged Menu elements
      * @var array
      */
@@ -42,17 +47,20 @@ class MenuConfigSerializer
      * @param BundleManager $bundleManager
      * @param Url $url
      * @param Sort $sort
+     * @param TranslatorInterface $translator
      */
     public function __construct(
         BundleManager $bundleManager,
         Url $url,
-        Sort $sort
+        Sort $sort,
+        TranslatorInterface $translator
     )
     {
         $this->menu = [];
         $this->bundleManager = $bundleManager;
         $this->url = $url;
         $this->sort = $sort;
+        $this->translator = $translator;
     }
 
     /**
@@ -74,7 +82,7 @@ class MenuConfigSerializer
 
                     foreach ($menu as $menuItemKey => $menuItem) {
                         $this->menu[$menuItemKey] = [
-                            'label' => $menuItem['label'] ?? '',
+                            'label' => $this->translator->trans($menuItem['label']) ?? '',
                             'htmlClass' => $menuItem['htmlClass'] ?? '',
                             'sortOrder' => $menuItem['sortOrder'] ?? 5,
                             'action' => isset($menuItem['action']) ? $this->_getUrl($menuItem['action']) : '#'
@@ -83,14 +91,14 @@ class MenuConfigSerializer
                         if (isset($menuItem['groups'])) {
                             foreach ($menuItem['groups'] as $groupKey => $group) {
                                 $this->menu[$menuItemKey]['groups'][$groupKey] = [
-                                    'label' => $groupKey == 'default' ? '' : $group['label'] ?? '',
+                                    'label' => $groupKey == 'default' ? '' : $this->translator->trans($group['label']) ?? '',
                                     'sortOrder' => $group['sortOrder'] ?? 5
                                 ];
 
                                 if (isset($group['actions'])) {
                                     foreach ($group['actions'] as $actionKey => $action) {
                                         $this->menu[$menuItemKey]['groups'][$groupKey]['actions'][$actionKey] = [
-                                            'label' => $action['label'] ?? '',
+                                            'label' => $this->translator->trans($action['label']) ?? '',
                                             'action' => isset($action['action']) ? $this->_getUrl($action['action']) : '',
                                             'sortOrder' => $action['sortOrder'] ?? 5
                                         ];

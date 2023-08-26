@@ -6,48 +6,24 @@
  */
 
 const Encore = require('@symfony/webpack-encore');
+const path = require('path');
 
-// Manually configure the runtime environment if not already configured yet by the "encore" command.
-// It's useful when you use tools that rely on webpack.config.js file.
 if (!Encore.isRuntimeEnvironmentConfigured()) {
     Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
 }
 
 Encore
-    // directory where compiled assets will be stored
     .setOutputPath('public/build/frontend/programcms/blank/en_us')
-    // public path used by the web server to access the output path
     .setPublicPath('/build/frontend/programcms/blank/en_us')
-    // only needed for CDN's or subdirectory deploy
     .setManifestKeyPrefix('build/frontend/programcms/blank/en_us/')
-
     .addEntry('app', './assets/frontend/ProgramCms/Blank/en_US/app.js')
-
-    // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
-
-    // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/frontend/ProgramCms/Blank/en_US/controllers.json')
-
-    // will require an extra script tag for runtime.js
-    // but, you probably want this, unless you're building a single-page app
     .enableSingleRuntimeChunk()
-
     .cleanupOutputBeforeBuild()
-    .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
-    // enables hashed filenames (e.g. app.abc123.css)
     .enableVersioning(Encore.isProduction())
-
-    // enables and configure @babel/preset-env polyfills
-    .configureBabelPresetEnv((config) => {
-        config.useBuiltIns = 'usage';
-        config.corejs = '3.23';
-    })
-
-    // enables Sass/SCSS support
     .enableSassLoader()
-
     .autoProvidejQuery()
 ;
 
@@ -57,45 +33,67 @@ conf1.name = 'conf1';
 Encore.reset();
 
 Encore
-    // directory where compiled assets will be stored
-    .setOutputPath('public/build/adminhtml/programcms/backend/fr_fr')
+    .setOutputPath('public/build/adminhtml/programcms/backend/fr_FR')
     // public path used by the web server to access the output path
-    .setPublicPath('/build/adminhtml/programcms/backend/fr_fr')
-    // only needed for CDN's or subdirectory deploy
-    .setManifestKeyPrefix('build/adminhtml/programcms/backend/fr_fr/')
-
+    .setPublicPath('/build/adminhtml/programcms/backend/fr_FR')
     .addEntry('app', './assets/adminhtml/ProgramCms/Backend/fr_FR/app.js')
-
-    // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
-
-    // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/adminhtml/ProgramCms/Backend/fr_FR/controllers.json')
-
-    // will require an extra script tag for runtime.js
-    // but, you probably want this, unless you're building a single-page app
     .enableSingleRuntimeChunk()
-
     .cleanupOutputBeforeBuild()
-    .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
-    // enables hashed filenames (e.g. app.abc123.css)
     .enableVersioning(Encore.isProduction())
-
-    // enables and configure @babel/preset-env polyfills
-    .configureBabelPresetEnv((config) => {
-        config.useBuiltIns = 'usage';
-        config.corejs = '3.23';
-    })
-
-    // enables Sass/SCSS support
     .enableSassLoader()
-
     .autoProvidejQuery()
 ;
 
 const conf2 = Encore.getWebpackConfig();
 conf2.name = 'const2';
 
+Encore.reset();
 
-module.exports = [conf1, conf2];
+Encore
+    .setOutputPath('public/build/adminhtml/programcms/backend/ar_MA')
+    .setPublicPath('/build/adminhtml/programcms/backend/ar_MA')
+    .addEntry('app', './assets/adminhtml/ProgramCms/Backend/ar_MA/app.js')
+    .splitEntryChunks()
+    .enableStimulusBridge('./assets/adminhtml/ProgramCms/Backend/ar_MA/controllers.json')
+    .enableSingleRuntimeChunk()
+    .cleanupOutputBeforeBuild()
+    .enableSourceMaps(!Encore.isProduction())
+    .enableVersioning(Encore.isProduction())
+    .enableSassLoader()
+    .enablePostCssLoader((options) => {
+        options.postcssOptions = {
+            config: path.resolve(__dirname, 'postcss.config.js'),
+        };
+    })
+    // .configureFilenames({
+    //     js: '[name].js',
+    //     css: '[name].css',
+    // })
+    // .addLoader({
+    //     test: /rtl-styles\.js$/,
+    //     use: [
+    //         'style-loader',
+    //         'css-loader',
+    //         'rtlcss-loader', // Apply rtlcss transformation
+    //         {
+    //             loader: 'postcss-loader',
+    //             options: {
+    //                 postcssOptions: {
+    //                     config: path.resolve(__dirname, 'postcss.config.js'),
+    //                 },
+    //             },
+    //         },
+    //         'sass-loader',
+    //     ],
+    // })
+    .autoProvidejQuery()
+;
+
+const conf3 = Encore.getWebpackConfig();
+conf3.name = 'const3';
+
+
+module.exports = [conf1, conf2, conf3];

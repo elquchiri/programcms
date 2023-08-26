@@ -88,7 +88,7 @@
         <div class="row">
             <div class="col-sm-5">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search by Keyword .."
+                    <input type="text" class="form-control" placeholder="{{ block.trans('Search by Keyword ..') }}"
                            aria-label="Recipient's username" aria-describedby="button-addon2">
                     <button class="btn" type="button" id="button-addon2"
                             style="border: 1px solid #CCC; border-left: 0; padding-top: 0;">
@@ -105,13 +105,13 @@
         <div class="navbar-collapse" id="navbarSupportedContent">
             <form class="d-flex me-5" role="search">
                     <select style="width: 250px;" class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                        <option selected>Select an Action</option>
+                        <option selected>{{ block.trans('Select an Action') }}</option>
                         <option value="1">Delete</option>
                         <option value="2">Activate</option>
                         <option value="3">Desactivate</option>
                     </select>
             </form>
-            <span class="mb-0">{{ block.getCount() }} records found</span>
+            <span class="mb-0">{{ block.getCount() }} {{ block.trans('records found') }}</span>
 
             <div class="input-group flex-nowrap mb-3 justify-content-end ms-auto mt-2" style="width: 120px;">
                 <button class="btn pagination-left-button" type="button" id="button-addon1"></button>

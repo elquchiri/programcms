@@ -58,6 +58,7 @@ To install ProgramCMS project run :
 - Strong Administration Dashboard
 - Automatic Routing System based on Controller Path
 - Themes System
+- Full RTL Support (Thanks to Mohammad Younes for <a href="https://rtlcss.com/index.html">RTLCSS</a>)
 - Layouts, Containers, Blocks and Templates Engine
 - Aspect-Oriented Programming Style
 - Data Based AI to process, generate and translate content

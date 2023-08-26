@@ -11,6 +11,7 @@ namespace ProgramCms\AiBundle\Decorator\Block\Page;
 use Exception;
 use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
 use Symfony\Component\DependencyInjection\Attribute\MapDecorated;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class Copyright AI Decorator
@@ -34,17 +35,19 @@ class Copyright extends \ProgramCms\AdminBundle\Block\Page\Copyright
     /**
      * Copyright constructor.
      * @param \ProgramCms\CoreBundle\View\Element\Template\Context $context
+     * @param TranslatorInterface $translator
      * @param \ProgramCms\AdminBundle\Block\Page\Copyright $subject
      * @param array $data
      */
     public function __construct(
         \ProgramCms\CoreBundle\View\Element\Template\Context $context,
+        TranslatorInterface $translator,
         #[MapDecorated] \ProgramCms\AdminBundle\Block\Page\Copyright $subject,
         array $data = []
     )
     {
         $this->subject = $subject;
-        parent::__construct($context, $data);
+        parent::__construct($context, $translator, $data);
     }
 
     /**

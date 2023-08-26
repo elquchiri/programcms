@@ -42,7 +42,7 @@
             "ref": "da0c8be8157600ad34f10ff0c9cc91232522e047"
         },
         "files": [
-            "./bin/console"
+            "./bin/pcms"
         ]
     },
     "symfony/flex": {
