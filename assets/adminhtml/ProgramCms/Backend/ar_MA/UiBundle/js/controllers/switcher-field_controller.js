@@ -8,11 +8,21 @@
 import {Controller} from "@hotwired/stimulus";
 
 export default class SwitcherField extends Controller {
+    /**
+     * @type {{no: {default: string, type: StringConstructor}, yes: {default: string, type: StringConstructor}}}
+     */
+    static values = {
+        yes: { type: String, default: 'Yes' },
+        no: { type: String, default: 'No' },
+    }
 
     connect() {
         this._updateSwitcher(this.element);
     }
 
+    /**
+     * @param event
+     */
     switcherClick(event) {
         let switcher = event.currentTarget;
         this._updateSwitcher(switcher);
@@ -26,9 +36,9 @@ export default class SwitcherField extends Controller {
         let statusLabel = $(switcher).find('label.status');
         let checkbox = $(switcher).find('input[role=switch]');
         if(checkbox.prop('checked')) {
-            statusLabel.removeClass('status-no').addClass('status-yes').html('Yes');
+            statusLabel.removeClass('status-no').addClass('status-yes').html(this.yesValue);
         }else{
-            statusLabel.removeClass('status-yes').addClass('status-no').html('No');
+            statusLabel.removeClass('status-yes').addClass('status-no').html(this.noValue);
         }
     }
 }

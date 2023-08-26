@@ -19,4 +19,12 @@ class Switcher extends \ProgramCms\UiBundle\Block\Form\Fields\Field
      */
     protected string $_template = "@ProgramCmsUiBundle/form/fields/switcher.html.twig";
 
+    /**
+     * @return bool
+     */
+    public function isChecked(): bool
+    {
+        return $this->hasData('value') && $this->getValue() == 'on';
+    }
+
 }

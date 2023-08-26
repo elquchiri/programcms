@@ -23,6 +23,7 @@ class SiteUpdate extends \ProgramCms\CoreBundle\View\Element\Template
     public function getUpdatePhrase(): string
     {
         $phrases = ["You're using the latest version", "This Site is Up-to-Date"];
-        return $phrases[array_rand($phrases)];
+
+        return $this->trans($phrases[array_rand($phrases)]);
     }
 }

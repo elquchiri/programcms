@@ -9,6 +9,8 @@
 <div
     class="form-check form-switch switcher-field"
     data-controller="switcher-field"
+    data-switcher-field-yes-value="{{ block.trans('Yes') }}"
+    data-switcher-field-no-value="{{ block.trans('No') }}"
     data-action="click->switcher-field#switcherClick">
     <input type="hidden" name="{{ block.getName() }}" value="off"/>
     <input
@@ -17,6 +19,6 @@
         type="checkbox"
         role="switch"
         id="{{ block.getName() }}"
-        {% if block.hasValue() and block.getValue() %}checked{% endif %}>
+        {% if block.isChecked() %}checked{% endif %}>
     <label class="status" for="status"></label>
 </div>
