@@ -26,9 +26,9 @@ class ConfigSerializer
     private array $configs;
     /**
      * Holds current sectionId in URL
-     * @var
+     * @var string
      */
-    private $sectionId;
+    private string $sectionId;
     /**
      * @var Container
      */

@@ -6,13 +6,10 @@
 ##
 menu:
   catalog:
-    label: 'Catalog'
-    htmlClass: 'sidebar-catalog'
-    sortOrder: 4
     groups:
       default:
         actions:
-          categories:
-            label: 'Categories'
-            action: 'catalog_category_index'
-            sortOrder: 2
+          posts:
+            label: 'Posts'
+            action: 'post_index_index'
+            sortOrder: 1

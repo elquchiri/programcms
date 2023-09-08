@@ -13,8 +13,9 @@ import { Controller } from '@hotwired/stimulus';
  */
 export default class Sidebar extends Controller {
     static targets = ['menuItem', 'menuItemLink', 'closeSign'];
-    static sideBarWidth = 270;
-    static leftPixels = 91;
+    static sideBarWidth = $('.menu-items').css('width');
+    static leftPixels = $('.sidebar').css('width');
+    static dir = $('html').attr('dir') == 'rtl' ? 'right' : 'left';
 
     connect() {
         this.activeMenuItem = null;
@@ -32,6 +33,10 @@ export default class Sidebar extends Controller {
         });
     }
 
+    /**
+     * @param menuItemId
+     * @returns {*}
+     */
     findMenuItemTarget(menuItemId) {
         return this.menuItemTargets.find(
             (menuItem) => menuItem.getAttribute('id') === menuItemId
@@ -69,6 +74,9 @@ export default class Sidebar extends Controller {
         }
     }
 
+    /**
+     * @param event
+     */
     closeSignClick(event) {
         event.preventDefault();
         this.hideCurrentMenuItemTarget();
@@ -77,32 +85,40 @@ export default class Sidebar extends Controller {
     hideCurrentMenuItemTarget() {
         const menuItemId = this.activeMenuItem.getAttribute('id');
         const targetMenu = this.findMenuItemTarget(menuItemId);
-        this.animateMenuItem(targetMenu, `-${this.constructor.sideBarWidth}px`, () => {
+        this.animateMenuItem(targetMenu, `-${this.constructor.sideBarWidth}`, () => {
             targetMenu.style.display = 'none';
         });
         this.activeMenuItem = null;
     }
 
+    /**
+     * @param menuItem
+     */
     showMenuItemTarget(menuItem) {
         this.activeMenuItem = menuItem;
         const menuItemId = menuItem.getAttribute('id');
         const targetMenu = this.findMenuItemTarget(menuItemId);
-        targetMenu.style.left = `-${this.constructor.sideBarWidth}px`;
+        targetMenu.style[this.constructor.dir] = `-${this.constructor.sideBarWidth}`;
         targetMenu.style.display = 'block';
-        this.animateMenuItem(targetMenu, `${this.constructor.leftPixels}px`);
+        this.animateMenuItem(targetMenu, `${this.constructor.leftPixels}`);
 
         // Clean Active links and Activate current
         this.removeActiveClassFromMenuItems();
         menuItem.classList.add('active');
     }
 
+    /**
+     * @param menuItem
+     * @param leftPosition
+     * @param callback
+     */
     animateMenuItem(menuItem, leftPosition, callback) {
+        let css = {};
+        css[this.constructor.dir] = leftPosition;
         $(menuItem).animate(
-            { left: leftPosition },
+            css,
             250,
             callback
         );
     }
 }
-
-export { Sidebar }

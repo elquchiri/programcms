@@ -24,7 +24,7 @@ class Switcher extends \ProgramCms\UiBundle\Block\Form\Fields\Field
      */
     public function isChecked(): bool
     {
-        return $this->hasData('value') && $this->getValue() == 'on';
+        return $this->hasData('value') && in_array($this->getValue(), ['on', 1]);
     }
 
 }

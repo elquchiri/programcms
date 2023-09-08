@@ -71,39 +71,46 @@ class MenuConfigSerializer
     {
         // Get all bundles
         $bundles = $this->bundleManager->getAllBundles();
+        $menuTree = [];
         foreach ($bundles as $bundle) {
             // Get the configuration file path for the bundle
             $configFilePath = $bundle['path'] . '/Resources/config/adminhtml/menu.yaml';
             // Load the configuration file
             if (file_exists($configFilePath)) {
                 $parser = \Symfony\Component\Yaml\Yaml::parseFile($configFilePath);
-                if (isset($parser['menu'])) {
-                    $menu = $parser['menu'];
+                if(isset($parser['menu'])) {
+                    $menuTree = array_merge_recursive($menuTree, $parser);
+                }
+            }
+        }
+        /**
+         * Process Menu Config
+         */
+        if (isset($menuTree['menu'])) {
+            $menu = $menuTree['menu'];
 
-                    foreach ($menu as $menuItemKey => $menuItem) {
-                        $this->menu[$menuItemKey] = [
-                            'label' => $this->translator->trans($menuItem['label']) ?? '',
-                            'htmlClass' => $menuItem['htmlClass'] ?? '',
-                            'sortOrder' => $menuItem['sortOrder'] ?? 5,
-                            'action' => isset($menuItem['action']) ? $this->_getUrl($menuItem['action']) : '#'
+            foreach ($menu as $menuItemKey => $menuItem) {
+                $this->menu[$menuItemKey] = [
+                    'label' => $menuItem['label'] ? $this->translator->trans($menuItem['label']) : '',
+                    'htmlClass' => $menuItem['htmlClass'] ?? '',
+                    'sortOrder' => $menuItem['sortOrder'] ?? 5,
+                    'action' => isset($menuItem['action']) ? $this->_getUrl($menuItem['action']) : '#'
+                ];
+
+                if (isset($menuItem['groups'])) {
+                    foreach ($menuItem['groups'] as $groupKey => $group) {
+                        $this->menu[$menuItemKey]['groups'][$groupKey] = [
+                            'label' => $groupKey == 'default' ? '' : $this->translator->trans($group['label']) ?? '',
+                            'sortOrder' => $group['sortOrder'] ?? 5
                         ];
 
-                        if (isset($menuItem['groups'])) {
-                            foreach ($menuItem['groups'] as $groupKey => $group) {
-                                $this->menu[$menuItemKey]['groups'][$groupKey] = [
-                                    'label' => $groupKey == 'default' ? '' : $this->translator->trans($group['label']) ?? '',
-                                    'sortOrder' => $group['sortOrder'] ?? 5
+                        if (isset($group['actions'])) {
+                            foreach ($group['actions'] as $actionKey => $action) {
+                                $this->menu[$menuItemKey]['groups'][$groupKey]['actions'][$actionKey] = [
+                                    'label' => $this->translator->trans($action['label']) ?? '',
+                                    'action' => isset($action['action']) ? $this->_getUrl($action['action']) : '',
+                                    'sortOrder' => $action['sortOrder'] ?? 5
                                 ];
-
-                                if (isset($group['actions'])) {
-                                    foreach ($group['actions'] as $actionKey => $action) {
-                                        $this->menu[$menuItemKey]['groups'][$groupKey]['actions'][$actionKey] = [
-                                            'label' => $this->translator->trans($action['label']) ?? '',
-                                            'action' => isset($action['action']) ? $this->_getUrl($action['action']) : '',
-                                            'sortOrder' => $action['sortOrder'] ?? 5
-                                        ];
-                                    }
-                                }
                             }
                         }
                     }

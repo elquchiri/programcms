@@ -110,7 +110,7 @@ class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
             $this->websiteGroupRepository->save($websiteGroup, true);
 
             // Flash success message
-            $this->addFlash('success', 'Website Group Successfully Saved.');
+            $this->addFlash('success', $this->trans('Website Group Successfully Saved.'));
 
             return $this->redirect($this->url->getUrlByRouteName('website_websitegroup_edit', ['id' => $websiteGroup->getWebsiteGroupId()]));
         }

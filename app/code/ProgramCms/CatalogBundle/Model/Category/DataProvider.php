@@ -8,6 +8,9 @@
 
 namespace ProgramCms\CatalogBundle\Model\Category;
 
+use ProgramCms\CatalogBundle\Model\Collection\Category\Collection;
+use ProgramCms\CatalogBundle\Repository\CategoryRepository;
+
 /**
  * Class DataProvider
  * @package ProgramCms\CatalogBundle\Model\Category
@@ -15,18 +18,18 @@ namespace ProgramCms\CatalogBundle\Model\Category;
 class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvider
 {
     /**
-     * @var \ProgramCms\CatalogBundle\Repository\CategoryRepository
+     * @var CategoryRepository
      */
-    protected \ProgramCms\CatalogBundle\Repository\CategoryRepository $categoryRepository;
+    protected CategoryRepository $categoryRepository;
 
     /**
      * DataProvider constructor.
-     * @param \ProgramCms\CatalogBundle\Repository\CategoryRepository $categoryRepository
-     * @param \ProgramCms\CatalogBundle\Model\Collection\Category\Collection $collection
+     * @param CategoryRepository $categoryRepository
+     * @param Collection $collection
      */
     public function __construct(
-        \ProgramCms\CatalogBundle\Repository\CategoryRepository $categoryRepository,
-        \ProgramCms\CatalogBundle\Model\Collection\Category\Collection $collection
+        CategoryRepository $categoryRepository,
+        Collection $collection
     )
     {
         $this->collection = $collection;

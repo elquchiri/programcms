@@ -48,7 +48,7 @@ class EditController extends \ProgramCms\CoreBundle\Controller\Controller
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
         $websiteGroup = $this->websiteGroupRepository->findOneBy(['website_group_id' => $this->getRequest()->getParam('id')]);
         $pageResult->getConfig()->getTitle()->set(
-            sprintf("Edit Group: %s", $websiteGroup->getWebsiteGroupName())
+            sprintf("%s: %s", $this->trans('Edit Group'), $websiteGroup->getWebsiteGroupName())
         );
         return $pageResult;
     }

@@ -6,5 +6,8 @@
 # */
 router:
   frontend:
-    user_root:
+    post_root:
+      frontName: 'post'
+  adminhtml:
+    post_root:
       frontName: 'post'

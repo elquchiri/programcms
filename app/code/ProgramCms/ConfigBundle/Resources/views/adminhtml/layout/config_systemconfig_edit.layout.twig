@@ -10,7 +10,11 @@
     {% title %}Configuration{% endTitle %}
 
     {% referenceContainer name="buttons.bar" %}
-        {% block name="website.switcher" class="ui.block.toolbar.website_switcher" %}{% endBlock %}
+        {% block name="website.switcher" class="ui.block.toolbar.website_switcher" %}
+            {% arguments %}
+                {% argument name="default_label" type="string" %}Default Config{% endArgument %}
+            {% endArguments %}
+        {% endBlock %}
     {% endReferenceContainer %}
     {% referenceContainer name="sidebar.main" %}
         {% block name="config.menu.block" class="ProgramCms\\ConfigBundle\\Block\\ConfigTabs" template="@ProgramCmsConfigBundle/config_menu.html.twig" %}{% endBlock %}

@@ -104,6 +104,13 @@ class WebsiteSwitcher extends \ProgramCms\CoreBundle\View\Element\Template
             return $websiteView->getWebsiteViewName();
         }
 
-        return $this->trans('All Websites');
+        return $this->_getDefaultLabel();
+    }
+
+    /**
+     * @return string
+     */
+    protected function _getDefaultLabel(): string {
+        return $this->hasData('default_label') ? $this->trans($this->getData('default_label')) : $this->trans('All Websites');
     }
 }

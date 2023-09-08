@@ -9,16 +9,16 @@
 namespace ProgramCms\UiBundle\Model\Provider\DataSource;
 
 /**
- * Class TimeZoneSelector
+ * Class LocaleSelector
  * @package ProgramCms\UiBundle\Model\Provider\DataSource
  */
-class TimeZoneSelector extends Options
+class LocaleSelector extends Options
 {
     /**
      * @return array
      */
     public function getOptionsArray(): array
     {
-        return \Symfony\Component\Intl\Timezones::getNames();
+        return \Symfony\Component\Intl\Locales::getNames();
     }
 }

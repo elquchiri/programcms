@@ -52,7 +52,7 @@
 }
 .tree ul li span.title {
     color: #232222;
-    background: url("../../../../../../public/images/open-sign.png") no-repeat;
+    background: url("../../../../../../public/images/open-sign.png") no-repeat 0 center;
     padding-left: 21px;
 }
 .tree ul li span.title .category-name {
@@ -62,7 +62,7 @@
 }
 .tree ul li span.title.closed {
     color: #232222;
-    background: url("../../../../../../public/images/close-sign.png") no-repeat;
+    background: url("../../../../../../public/images/close-sign.png") no-repeat 0 center;
     padding-left: 21px;
 }
 .tree ul li span.active {

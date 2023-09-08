@@ -35,7 +35,7 @@ system_config:
             locale:
               label: 'Locale'
               type: 'select'
-              source: ProgramCms\UiBundle\Model\Provider\DataSource\TimeZoneSelector
+              source: ProgramCms\UiBundle\Model\Provider\DataSource\LocaleSelector
     web:
       label: 'Web'
       tab: 'core_general'
@@ -51,17 +51,6 @@ system_config:
               label: 'Allow Countries'
               type: 'multiselect'
               source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
-        local_options:
-          label: 'Locale Options'
-          fields:
-            timezone:
-              label: 'Timezone'
-              type: 'select'
-              source: ProgramCms\UiBundle\Model\Provider\DataSource\TimeZoneSelector
-            locale:
-              label: 'Locale'
-              type: 'select'
-              source: ProgramCms\UiBundle\Model\Provider\DataSource\TimeZoneSelector
     theme_config:
       label: 'Theme Configuration'
       tab: 'core_general'

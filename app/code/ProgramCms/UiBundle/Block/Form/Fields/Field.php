@@ -89,7 +89,7 @@ abstract class Field extends \ProgramCms\CoreBundle\View\Element\Template implem
      */
     public function getPlaceholder(): string
     {
-        return $this->getData('placeholder');
+        return $this->trans($this->getData('placeholder'));
     }
 
     /**

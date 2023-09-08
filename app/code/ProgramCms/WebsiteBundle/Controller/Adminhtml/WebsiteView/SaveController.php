@@ -95,7 +95,7 @@ class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
             $this->websiteViewRepository->save($websiteView, true);
 
             // Flash success message
-            $this->addFlash('success', 'Website View Successfully Saved.');
+            $this->addFlash('success', $this->trans('Website View Successfully Saved.'));
 
             return $this->redirect($this->url->getUrlByRouteName('website_websiteview_edit', ['id' => $websiteView->getWebsiteViewId()]));
         }

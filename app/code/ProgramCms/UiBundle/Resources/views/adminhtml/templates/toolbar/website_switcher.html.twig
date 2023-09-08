@@ -6,20 +6,20 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<ul class="navbar-nav mb-2 mb-lg-0">
+<ul class="navbar-nav website-switcher mb-2 mb-lg-0">
     <span style="padding-top: 8px; font-size: 13px; font-weight: bold">{{ block.trans('Scope:') }}</span>
     <li class="nav-item dropend">
-        <a class="nav-link dropdown-toggle" style="font-size: 14px;" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ block.getCurrentScopeLabel() }}
         </a>
-        <ul class="dropdown-menu" style="font-size: 14px;">
-            <a class="dropdown-item" href="{{ block.getUrl() }}">All Website Views</a>
+        <ul class="dropdown-menu">
+            <a class="dropdown-item" href="{{ block.getUrl() }}">{{ block.getCurrentScopeLabel() }}</a>
             {% for website in block.getAllWebsites() %}
                 <a class="dropdown-item" href="{{ block.getUrl() }}/website/{{ website.getWebsiteId() }}">{{ website.getWebsiteName() }}</a>
                 {% for websiteGroup in website.getGroups() %}
-                    <a class="dropdown-item" style="padding-left: 30px;" href="{{ block.getUrl() }}/website_group/{{ websiteGroup.getWebsiteGroupId() }}">{{ websiteGroup.getWebsiteGroupName() }}</a>
+                    <a class="dropdown-item website-switcher-group" href="{{ block.getUrl() }}/website_group/{{ websiteGroup.getWebsiteGroupId() }}">{{ websiteGroup.getWebsiteGroupName() }}</a>
                     {% for websiteView in websiteGroup.getWebsiteViews() %}
-                        <a class="dropdown-item" style="padding-left: 45px;" href="{{ block.getUrl() }}/website_view/{{ websiteView.getWebsiteViewId() }}">{{ websiteView.getWebsiteViewName() }}</a>
+                        <a class="dropdown-item website-switcher-view" href="{{ block.getUrl() }}/website_view/{{ websiteView.getWebsiteViewId() }}">{{ websiteView.getWebsiteViewName() }}</a>
                     {% endfor %}
                 {% endfor %}
             {% endfor %}

@@ -10,7 +10,7 @@
 }
 
 html, body {
-  font-family: 'Arial', sans-serif;
+  font-family: 'Arial', 'sans-serif';
   height: 100%;
 }
 
@@ -23,7 +23,14 @@ a {
 }
 
 .main-wrapper {
+  height: 100%;
   margin-left: 91px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
 }
 
 .notices-notifications {
@@ -40,12 +47,6 @@ a {
 }
 
 .content {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: stretch;
-  align-content: stretch;
   height: 100%;
 }
 .content .content-header {

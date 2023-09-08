@@ -13,6 +13,7 @@ use ProgramCms\CoreBundle\App\AreaList;
 use ProgramCms\CoreBundle\App\State;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Translation\LocaleSwitcher;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class Controller
@@ -36,6 +37,10 @@ abstract class Controller extends AbstractController
      * @var Security
      */
     protected Security $security;
+    /**
+     * @var TranslatorInterface
+     */
+    protected TranslatorInterface $translator;
 
     /**
      * Controller constructor.
@@ -50,6 +55,7 @@ abstract class Controller extends AbstractController
         $this->_state = $context->getState();
         $this->localeSwitcher = $context->getLocaleSwitcher();
         $this->security = $context->getSecurity();
+        $this->translator = $context->getTranslator();
     }
 
     /**
@@ -74,5 +80,14 @@ abstract class Controller extends AbstractController
         }
 
         throw new HttpResponseException("Unexpected Result instance.");
+    }
+
+    /**
+     * @param string $message
+     * @return string
+     */
+    public function trans(string $message): string
+    {
+        return $this->translator->trans($message);
     }
 }

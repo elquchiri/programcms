@@ -46,6 +46,9 @@ class Context implements ContextInterface
      * @var Security
      */
     protected Security $security;
+    /**
+     * @var TranslatorInterface
+     */
     protected TranslatorInterface $translator;
 
     /**

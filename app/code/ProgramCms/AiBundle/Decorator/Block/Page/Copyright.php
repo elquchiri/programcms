@@ -9,6 +9,7 @@
 namespace ProgramCms\AiBundle\Decorator\Block\Page;
 
 use Exception;
+use ProgramCms\CoreBundle\View\Element\Template\Context;
 use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
 use Symfony\Component\DependencyInjection\Attribute\MapDecorated;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -34,13 +35,13 @@ class Copyright extends \ProgramCms\AdminBundle\Block\Page\Copyright
 
     /**
      * Copyright constructor.
-     * @param \ProgramCms\CoreBundle\View\Element\Template\Context $context
+     * @param Context $context
      * @param TranslatorInterface $translator
      * @param \ProgramCms\AdminBundle\Block\Page\Copyright $subject
      * @param array $data
      */
     public function __construct(
-        \ProgramCms\CoreBundle\View\Element\Template\Context $context,
+        Context $context,
         TranslatorInterface $translator,
         #[MapDecorated] \ProgramCms\AdminBundle\Block\Page\Copyright $subject,
         array $data = []
@@ -63,7 +64,7 @@ class Copyright extends \ProgramCms\AdminBundle\Block\Page\Copyright
                 "<p class=\"mt-1\" style=\"font-size: 11px; font-weight: bold;\">".
                 $this->trans("%s Year Of Existence").
                 $this->trans(", by").
-                "<a href=\"mailto: elquchiri@gmail.com\">".
+                "<a href=\"mailto: elquchiri@gmail.com\"> ".
                 $this->trans("Med ELQ").
                 "</a></p>", $yearsOfExistence);
         }

@@ -101,7 +101,7 @@ class Tree extends \ProgramCms\CoreBundle\View\Element\Template
         $isOpen = $this->isOpen() ? "true" : "false";
         return <<<HTML
         <div class="category-tree" data-controller="tree" data-tree-open-value="{$isOpen}">
-            <a href="#" class="tree-group" id="collapse">Collapse All</a> | <a href="#" class="tree-group" id="expand">Expand All</a>
+            <a href="#" class="tree-group" id="collapse">{$this->trans('Collapse All')}</a> | <a href="#" class="tree-group" id="expand">{$this->trans('Expand All')}</a>
             <div class="tree">
                 <ul>
                     {$this->_generateTreeHtml($this->getTree())}

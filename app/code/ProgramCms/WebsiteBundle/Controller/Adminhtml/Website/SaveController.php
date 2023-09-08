@@ -14,6 +14,7 @@ use ProgramCms\RouterBundle\Service\Url;
 use ProgramCms\WebsiteBundle\Entity\Website;
 use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
 use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Class SaveController
@@ -61,7 +62,7 @@ class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function execute()
     {
@@ -94,7 +95,7 @@ class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
             // Save WebsiteRoot
             $this->websiteRepository->save($website, true);
             // Flash success message
-            $this->addFlash('success', 'Website Successfully Saved.');
+            $this->addFlash('success', $this->trans('Website Successfully Saved.'));
 
             return $this->redirect($this->url->getUrlByRouteName('website_website_edit', ['id' => $website->getWebsiteId()]));
         }

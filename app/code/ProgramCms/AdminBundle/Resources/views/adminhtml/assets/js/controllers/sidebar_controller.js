@@ -11,10 +11,11 @@ import { Controller } from '@hotwired/stimulus';
  * Sidebar Controller
  * Manage Backoffice entries and pages
  */
-export default class extends Controller {
+export default class Sidebar extends Controller {
     static targets = ['menuItem', 'menuItemLink', 'closeSign'];
-    static sideBarWidth = 270;
-    static leftPixels = 91;
+    static sideBarWidth = $('.menu-items').css('width');
+    static leftPixels = $('.sidebar').css('width');
+    static dir = $('html').attr('dir') == 'rtl' ? 'right' : 'left';
 
     connect() {
         this.activeMenuItem = null;
@@ -84,7 +85,7 @@ export default class extends Controller {
     hideCurrentMenuItemTarget() {
         const menuItemId = this.activeMenuItem.getAttribute('id');
         const targetMenu = this.findMenuItemTarget(menuItemId);
-        this.animateMenuItem(targetMenu, `-${this.constructor.sideBarWidth}px`, () => {
+        this.animateMenuItem(targetMenu, `-${this.constructor.sideBarWidth}`, () => {
             targetMenu.style.display = 'none';
         });
         this.activeMenuItem = null;
@@ -97,9 +98,9 @@ export default class extends Controller {
         this.activeMenuItem = menuItem;
         const menuItemId = menuItem.getAttribute('id');
         const targetMenu = this.findMenuItemTarget(menuItemId);
-        targetMenu.style.left = `-${this.constructor.sideBarWidth}px`;
+        targetMenu.style[this.constructor.dir] = `-${this.constructor.sideBarWidth}`;
         targetMenu.style.display = 'block';
-        this.animateMenuItem(targetMenu, `${this.constructor.leftPixels}px`);
+        this.animateMenuItem(targetMenu, `${this.constructor.leftPixels}`);
 
         // Clean Active links and Activate current
         this.removeActiveClassFromMenuItems();
@@ -112,8 +113,10 @@ export default class extends Controller {
      * @param callback
      */
     animateMenuItem(menuItem, leftPosition, callback) {
+        let css = {};
+        css[this.constructor.dir] = leftPosition;
         $(menuItem).animate(
-            { left: leftPosition },
+            css,
             250,
             callback
         );

@@ -48,7 +48,7 @@ class EditController extends \ProgramCms\CoreBundle\Controller\Controller
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
         $websiteView = $this->websiteViewRepository->findOneBy(['website_view_id' => $this->getRequest()->getParam('id')]);
         $pageResult->getConfig()->getTitle()->set(
-            sprintf("Edit Website View: %s", $websiteView->getWebsiteViewName())
+            sprintf("%s: %s", $this->trans('Edit Website View'), $websiteView->getWebsiteViewName())
         );
         return $pageResult;
     }
