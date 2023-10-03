@@ -67,7 +67,11 @@ class ToolbarActions extends \ProgramCms\CoreBundle\View\Element\Template
                 $button = $buttonData;
                 // Button Action
                 if (isset($buttonData['buttonAction']) && !empty($buttonData['buttonAction'])) {
-                    $button['buttonAction'] = $this->url->getUrlByRouteName($buttonData['buttonAction']);
+                    if($buttonData['buttonAction'] == '#') {
+                        $button['buttonAction'] = '#';
+                    }else {
+                        $button['buttonAction'] = $this->url->getUrlByRouteName($buttonData['buttonAction']);
+                    }
                     // Button confirm modal
                     $button['confirm'] = isset($button['confirm']) ? json_encode($button['confirm']) : '';
                     $buttons[] = $button;

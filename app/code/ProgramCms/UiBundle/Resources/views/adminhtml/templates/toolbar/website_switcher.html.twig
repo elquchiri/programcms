@@ -13,7 +13,7 @@
             {{ block.getCurrentScopeLabel() }}
         </a>
         <ul class="dropdown-menu">
-            <a class="dropdown-item" href="{{ block.getUrl() }}">{{ block.getCurrentScopeLabel() }}</a>
+            <a class="dropdown-item" href="{{ block.getUrl() }}">{{ block.getDefaultLabel() }}</a>
             {% for website in block.getAllWebsites() %}
                 <a class="dropdown-item" href="{{ block.getUrl() }}/website/{{ website.getWebsiteId() }}">{{ website.getWebsiteName() }}</a>
                 {% for websiteGroup in website.getGroups() %}

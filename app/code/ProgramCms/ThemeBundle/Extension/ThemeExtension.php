@@ -8,6 +8,8 @@
 
 namespace ProgramCms\ThemeBundle\Extension;
 
+use ProgramCms\CoreBundle\View\Layout;
+
 /**
  * Class ThemeExtension
  * @package ProgramCms\ThemeBundle\Extension
@@ -15,16 +17,16 @@ namespace ProgramCms\ThemeBundle\Extension;
 class ThemeExtension extends \Twig\Extension\AbstractExtension
 {
     /**
-     * @var \ProgramCms\CoreBundle\View\Layout
+     * @var Layout
      */
-    protected \ProgramCms\CoreBundle\View\Layout $layout;
+    protected Layout $layout;
 
     /**
      * ThemeExtension constructor.
-     * @param \ProgramCms\CoreBundle\View\Layout $layout
+     * @param Layout $layout
      */
     public function __construct(
-        \ProgramCms\CoreBundle\View\Layout $layout
+        Layout $layout
     )
     {
         $this->layout = $layout;
@@ -32,9 +34,9 @@ class ThemeExtension extends \Twig\Extension\AbstractExtension
 
     /**
      * Accessing Layout from ThemeExtension
-     * @return \ProgramCms\CoreBundle\View\Layout
+     * @return Layout
      */
-    public function getLayout(): \ProgramCms\CoreBundle\View\Layout
+    public function getLayout(): Layout
     {
         return $this->layout;
     }

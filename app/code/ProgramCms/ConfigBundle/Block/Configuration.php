@@ -95,7 +95,7 @@ class Configuration extends \ProgramCms\CoreBundle\View\Element\Template
                     [
                         'buttonType' => 'save',
                         'buttonTarget' => 'form',
-                        'buttonAction' => 'config_systemconfig_save',
+                        'buttonAction' => '#',
                         'label' => 'Save Config'
                     ]
                 ],

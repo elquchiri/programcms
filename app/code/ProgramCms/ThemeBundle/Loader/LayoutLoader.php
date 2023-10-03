@@ -8,6 +8,10 @@
 
 namespace ProgramCms\ThemeBundle\Loader;
 
+use ProgramCms\CoreBundle\Model\Filesystem\DirectoryList;
+use ProgramCms\CoreBundle\Model\Utils\BundleManager;
+use ProgramCms\RouterBundle\Service\Request;
+use ReflectionException;
 use Twig\Error\LoaderError;
 use Twig\Source;
 
@@ -19,26 +23,32 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
 {
     const DEFAULT_LAYOUT_FILE = 'default.layout.twig';
     /**
-     * @var \ProgramCms\RouterBundle\Service\Request
+     * @var Request
      */
-    private \ProgramCms\RouterBundle\Service\Request $request;
+    private Request $request;
     /**
-     * @var \ProgramCms\CoreBundle\Model\Utils\BundleManager
+     * @var BundleManager
      */
-    private \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager;
+    private BundleManager $bundleManager;
     /**
-     * @var \ProgramCms\CoreBundle\Model\Filesystem\DirectoryList
+     * @var DirectoryList
      */
-    private \ProgramCms\CoreBundle\Model\Filesystem\DirectoryList $directoryList;
+    private DirectoryList $directoryList;
     /**
      * @var array
      */
     private array $paths = [];
 
+    /**
+     * LayoutLoader constructor.
+     * @param BundleManager $bundleManager
+     * @param DirectoryList $directoryList
+     * @param Request $request
+     */
     public function __construct(
-        \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager,
-        \ProgramCms\CoreBundle\Model\Filesystem\DirectoryList $directoryList,
-        \ProgramCms\RouterBundle\Service\Request $request
+        BundleManager $bundleManager,
+        DirectoryList $directoryList,
+        Request $request
     )
     {
         $this->bundleManager = $bundleManager;
@@ -48,6 +58,7 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
 
     /**
      * @param $layoutName
+     * @throws ReflectionException
      */
     private function _initLayoutPaths($layoutName)
     {
@@ -77,7 +88,7 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
     /**
      * @param string $name
      * @return Source
-     * @throws LoaderError
+     * @throws LoaderError|ReflectionException
      */
     public function getSourceContext(string $name): Source
     {

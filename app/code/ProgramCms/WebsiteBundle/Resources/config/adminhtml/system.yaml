@@ -13,6 +13,7 @@ system_config:
     general:
       label: 'General'
       tab: 'core_general'
+      scope: 'default|website|websiteView'
       groups:
         country_options:
           label: 'Country Options'
