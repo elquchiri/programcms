@@ -6,7 +6,7 @@
 ##
 menu:
   programcms:
-    label: 'ProgramCMS'
+    label: 'Welcome'
     htmlClass: 'sidebar-logo'
     sortOrder: 1
     groups:

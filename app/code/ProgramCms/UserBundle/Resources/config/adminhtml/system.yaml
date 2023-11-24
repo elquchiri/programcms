@@ -12,41 +12,53 @@ system_config:
     user_configuration:
       label: 'User Configuration'
       tab: 'user'
+      scope: 'default|website|website_view'
       groups:
         login_options:
           label: 'Sign in Options'
+          scope: 'default|website|website_view'
           fields:
             redirect_user_after_login:
               type: 'switcher'
               label: 'Redirect User to Account Dashboard after Logging in'
               defaultValue: 1
+              scope: 'default|website|website_view'
             approve_new_users:
               type: 'switcher'
               label: 'Approve Users on registration before they can Logging in'
+              scope: 'default|website|website_view'
         account_sharing:
           label: 'Account Sharing Options'
+          scope: 'default|website|website_view'
           fields:
             share_user:
               type: 'select'
               label: 'Share User Accounts'
               source: ProgramCms\UserBundle\Model\Provider\AccountSharingOptions
+              scope: 'default|website|website_view'
     newsletter:
       label: 'Newsletter'
       tab: 'user'
+      scope: 'default|website|website_view'
       groups:
         group1:
           label: 'My Group'
+          scope: 'default|website|website_view'
           fields:
             field1:
               type: 'text'
               label: 'Enable module'
+              scope: 'default|website|website_view'
     login_as_user:
       label: 'Login as User'
       tab: 'user'
+      scope: 'default|website|website_view'
       groups:
         login_as_user_settings:
           label: 'Login as User Settings'
+          scope: 'default|website|website_view'
           fields:
             field1:
               type: 'text'
               label: 'Enable module'
+              scope: 'default|website|website_view'

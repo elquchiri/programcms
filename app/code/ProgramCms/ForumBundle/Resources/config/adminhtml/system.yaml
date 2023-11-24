@@ -12,15 +12,19 @@ system_config:
     forum:
       label: 'Forum'
       tab: 'core_forum'
+      scope: 'default|website|website_view'
       groups:
         country_options:
           label: 'Country Options'
+          scope: 'default|website|website_view'
           fields:
             default_country:
               label: 'Default Country'
               type: 'select'
               source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
+              scope: 'default|website|website_view'
             allowed_countries:
               label: 'Allow Countries'
               type: 'multiselect'
               source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
+              scope: 'default|website|website_view'

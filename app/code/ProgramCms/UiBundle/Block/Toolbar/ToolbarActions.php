@@ -68,6 +68,7 @@ class ToolbarActions extends \ProgramCms\CoreBundle\View\Element\Template
                 // Button Action
                 if (isset($buttonData['buttonAction']) && !empty($buttonData['buttonAction'])) {
                     if($buttonData['buttonAction'] == '#') {
+                        // Forward to the same action (url)
                         $button['buttonAction'] = '#';
                     }else {
                         $button['buttonAction'] = $this->url->getUrlByRouteName($buttonData['buttonAction']);

@@ -1,0 +1,15 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+menu:
+  marketing:
+    groups:
+      communication:
+        actions:
+          newsletterSubscribers:
+            label: "Newsletter Subscribers"
+            action: ''
+            sortOrder: 1

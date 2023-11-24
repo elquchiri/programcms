@@ -42,7 +42,7 @@ class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
     public function execute(): ?object
     {
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
-        $pageResult->getConfig()->getTitle()->set("Themes");
+        $pageResult->getConfig()->getTitle()->set($this->trans("Themes"));
         return $pageResult;
     }
 }

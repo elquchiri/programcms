@@ -66,24 +66,15 @@ class Fieldset extends \ProgramCms\CoreBundle\View\Element\Template
                 $providedData = $this->getData('providedData');
             }
             foreach ($this->getData("fields") as $fieldName => $field) {
-                switch ($field['type']) {
+                switch($field['type']) {
                     case "text":
                         $fieldBlock = $layout->createBlock(\ProgramCms\UiBundle\Block\Form\Fields\Text::class, $fieldName);
-                        if (isset($field['placeholder'])) {
-                            $fieldBlock->setPlaceholder($field['placeholder']);
-                        }
                         break;
                     case "textArea":
                         $fieldBlock = $layout->createBlock(\ProgramCms\UiBundle\Block\Form\Fields\TextArea::class, $fieldName);
-                        if (isset($field['placeholder'])) {
-                            $fieldBlock->setPlaceholder($field['placeholder']);
-                        }
                         break;
                     case "password":
                         $fieldBlock = $layout->createBlock(\ProgramCms\UiBundle\Block\Form\Fields\Password::class, $fieldName);
-                        if (isset($field['placeholder'])) {
-                            $fieldBlock->setPlaceholder($field['placeholder']);
-                        }
                         break;
                     case "hidden":
                         $fieldBlock = $layout->createBlock(\ProgramCms\UiBundle\Block\Form\Fields\Hidden::class, $fieldName);
@@ -113,45 +104,36 @@ class Fieldset extends \ProgramCms\CoreBundle\View\Element\Template
                         $fieldBlock = $layout->createBlock(\ProgramCms\UiBundle\Block\Form\Fields\Image::class, $fieldName);
                         break;
                 }
-                // Common attributes
-                if (isset($fieldBlock)) {
-                    // Label
-                    $fieldBlock->setLabel($this->translator->trans($field['label']) ?? '');
-                    // Help Message
-                    if (isset($field['helpMessage'])) {
-                        $fieldBlock->setHelpMessage($this->translator->trans($field['helpMessage']));
+                foreach($field as $fieldAttributeKey => $fieldAttributeValue) {
+                    if($fieldAttributeKey == 'type') {
+                        continue;
                     }
-                    // Validation
-                    if (isset($field['isRequired'])) {
-                        $fieldBlock->setIsRequired((bool)$field['isRequired']);
+                    if(in_array($fieldAttributeKey, ['select', 'multiselect'])) {
+                        $fieldBlock->setOptions(
+                            $this->bundleManager->getContainer()
+                                ->get($field['sourceModel'])
+                                ->getOptionsArray());
+                        continue;
                     }
-                    // Visibility
-                    if (isset($field['isVisible'])) {
-                        $fieldBlock->setIsVisible((bool)$field['isVisible']);
-                    }
-
-                    // Populate field by provided value
-                    if($providedData instanceof DataObject) {
-                        if (!empty($providedData->hasDataUsingMethod($fieldName))) {
-                            $fieldBlock->setValue($providedData->getDataUsingMethod($fieldName));
+                    if($fieldAttributeKey == 'value') {
+                        if ($providedData instanceof DataObject) {
+                            if (!empty($providedData->hasDataUsingMethod($fieldName))) {
+                                $fieldBlock->setValue($providedData->getDataUsingMethod($fieldName));
+                            }
+                        } else {
+                            // Populate field by static value
+                            if (isset($field['value'])) {
+                                $fieldBlock->setValue($field['value']);
+                            }
                         }
-                    }else {
-                        // Populate field by static value
-                        if (isset($field['value'])) {
-                            $fieldBlock->setValue($field['value']);
-                        }
+                        continue;
                     }
-                    $this->setChild($fieldName, $fieldBlock);
+                    if(isset($fieldBlock)) {
+                        $fieldBlock->setData($fieldAttributeKey, $fieldAttributeValue);
+                    }
                 }
+                $this->setChild($fieldName, $fieldBlock);
             }
         }
-    }
-
-    /**
-     * @return bool
-     */
-    public function isScopeUsed(): bool
-    {
-        return !empty($this->getRequest()->getParam('website'));
     }
 }

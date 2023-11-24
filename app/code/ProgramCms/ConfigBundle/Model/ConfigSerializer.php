@@ -8,9 +8,10 @@
 
 namespace ProgramCms\ConfigBundle\Model;
 
+use Exception;
+use ProgramCms\CoreBundle\Model\ObjectManager;
 use ReflectionException;
 use Symfony\Component\DependencyInjection\Container;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class ConfigSerializer
@@ -18,50 +19,72 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class ConfigSerializer
 {
-    protected TranslatorInterface $translator;
+    /**
+     * @var ObjectManager
+     */
+    protected ObjectManager $objectManager;
+    /**
+     * @var Structure\Element\FlyweightFactory
+     */
+    protected Structure\Element\FlyweightFactory $flyweightFactory;
+    /**
+     * @var ScopeDefiner
+     */
+    protected ScopeDefiner $_scopeDefiner;
     /**
      * Stores Hole Merged Configuration
      * @var array
      */
-    private array $configs;
+    private array $_data;
     /**
-     * Holds current sectionId in URL
-     * @var string
+     * List of cached elements
+     * @var array
      */
-    private string $sectionId;
+    private array $_elements;
     /**
      * @var Container
      */
     private $container;
     /**
-     * @var Config
+     * @var Structure\Element\Iterator\Tab
      */
-    private Config $config;
+    protected \ProgramCms\ConfigBundle\Model\Structure\Element\Iterator\Tab $_tabIterator;
 
     /**
      * ConfigSerializer constructor.
      * @param Container $container
-     * @param TranslatorInterface $translator
-     * @param Config $config
+     * @param Structure\Element\FlyweightFactory $flyweightFactory
+     * @param ObjectManager $objectManager
+     * @param ScopeDefiner $scopeDefiner
+     * @param Structure\Element\Iterator\Tab $_tabIterator
+     * @throws ReflectionException
      */
     public function __construct(
         Container $container,
-        TranslatorInterface $translator,
-        \ProgramCms\ConfigBundle\Model\Config $config
+        \ProgramCms\ConfigBundle\Model\Structure\Element\FlyweightFactory $flyweightFactory,
+        ObjectManager $objectManager,
+        \ProgramCms\ConfigBundle\Model\ScopeDefiner $scopeDefiner,
+        \ProgramCms\ConfigBundle\Model\Structure\Element\Iterator\Tab $_tabIterator
     )
     {
-        $this->configs = [];
+        $this->_data = [];
         $this->sectionId = "";
         $this->container = $container;
-        $this->config = $config;
-        $this->translator = $translator;
+        $this->objectManager = $objectManager;
+        $this->flyweightFactory = $flyweightFactory;
+        $this->_scopeDefiner = $scopeDefiner;
+        $this->_tabIterator = $_tabIterator;
+
+        // Parse Config
+        $this->parseConfig();
     }
 
     /**
      * Parse all Bundle's configurations
+     * TODO: cache config data $_data
      * @throws ReflectionException
      */
-    public function parseConfig()
+    private function parseConfig()
     {
         // Get all bundles
         $bundles = $this->container->getParameter('kernel.bundles');
@@ -72,7 +95,7 @@ class ConfigSerializer
             $configFilePath = $bundleDirectory . '/Resources/config/adminhtml/system.yaml';
             // Load the configuration file
             if (file_exists($configFilePath)) {
-                if(!isset(\Symfony\Component\Yaml\Yaml::parseFile($configFilePath)['system_config'])) {
+                if (!isset(\Symfony\Component\Yaml\Yaml::parseFile($configFilePath)['system_config'])) {
                     // Ignore current configuration if system_config argument not found
                     continue;
                 }
@@ -82,8 +105,10 @@ class ConfigSerializer
                 if (isset($config['tab'])) {
                     if (isset($config['tab']['id']) && isset($config['tab']['label'])) {
                         $tabId = $config['tab']['id'];
-                        $this->configs['tabs'][$tabId] = [
-                            'label' => $this->translator->trans($config['tab']['label']),
+                        $this->_data['tabs'][$tabId] = [
+                            'id' => $tabId,
+                            'label' => $config['tab']['label'],
+                            'elementType' => 'tab',
                             'sortOrder' => $config['tab']['sortOrder'] ?? 999
                         ];
                     }
@@ -91,47 +116,40 @@ class ConfigSerializer
 
                 if (isset($config['sections'])) {
                     foreach ($config['sections'] as $sectionId => $section) {
-                        // If no sectionId defined, get the first one as default
-                        // Globally used with index action, so we pick the default section
-                        if (empty($this->sectionId)) {
-                            $this->sectionId = $sectionId;
-                        }
                         if (isset($section['tab'])) {
-                            $targetTabId = $section['tab'];
-                            $this->configs['tabs'][$targetTabId]['sections'][$sectionId] = [
-                                'label' => $this->translator->trans($section['label']),
-                                'active' => $sectionId == $this->sectionId
+                            $this->_data['sections'][$sectionId] = [
+                                'id' => $sectionId,
+                                'label' => $section['label'],
+                                'elementType' => 'section',
+                                'tab' => $section['tab'] ?? '',
+                                'scope' => isset($section['scope']) ? explode('|', $section['scope']) : []
                             ];
-                            // Activate tab to show sections on view
-                            if ($sectionId == $this->sectionId) {
-                                $this->configs['tabs'][$targetTabId]['active'] = true;
-                            }
                         }
-                        // If current loop sectionId == current http section_id parameter, then merge groups & fields
-                        if ($sectionId == $this->sectionId) {
-                            //$this->sectionId = $sectionId;
-                            if(isset($section['groups'])) {
-                                foreach ($section['groups'] as $groupId => $group) {
-                                    if (isset($group['label'])) {
-                                        $this->configs['current_section']['groups'][$groupId] = [
-                                            'label' => $this->translator->trans($group['label']),
-                                            'fields' => []
+                        if (isset($section['groups'])) {
+                            foreach ($section['groups'] as $groupId => $group) {
+                                if (isset($group['label'])) {
+                                    $this->_data['sections'][$sectionId]['children'][$groupId] = [
+                                        'id' => $groupId,
+                                        'label' => $group['label'],
+                                        'elementType' => 'group',
+                                        'path' => $sectionId . '/' . $groupId,
+                                        'scope' => isset($group['scope']) ? explode('|', $group['scope']) : []
+                                    ];
+                                }
+                                if (isset($group['fields'])) {
+                                    foreach ($group['fields'] as $fieldId => $field) {
+                                        $this->_data['sections'][$sectionId]['children'][$groupId]['children'][$fieldId] = [
+                                            'id' => $fieldId,
+                                            'label' => $field['label'],
+                                            'elementType' => 'field',
+                                            'type' => $field['type'],
+                                            'helpMessage' => isset($field['helpMessage']) ? $field['helpMessage'] : '',
+                                            'scope' => isset($field['scope']) ? explode('|', $field['scope']) : [],
+                                            'path' => $sectionId . '/' . $groupId . '/' . $fieldId
                                         ];
-                                    }
-                                    if (isset($group['fields'])) {
-                                        foreach ($group['fields'] as $fieldId => $field) {
-                                            $this->configs['current_section']['groups'][$groupId]['fields'][$fieldId] = [
-                                                'label' => $this->translator->trans($field['label']),
-                                                'type' => $field['type'],
-                                                'helpMessage' => $field['helpMessage'] ?? '',
-                                                'value' => $this->config->getConfigValue(
-                                                    $this->sectionId . '/' . $groupId . '/' . $fieldId
-                                                )
-                                            ];
 
-                                            if ($field['type'] == 'select' || $field['type'] == 'multiselect') {
-                                                $this->configs['current_section']['groups'][$groupId]['fields'][$fieldId]['sourceModel'] = $field['source'];
-                                            }
+                                        if ($field['type'] == 'select' || $field['type'] == 'multiselect') {
+                                            $this->_data['sections'][$sectionId]['children'][$groupId]['children'][$fieldId]['sourceModel'] = $field['source'] ?? '';
                                         }
                                     }
                                 }
@@ -144,40 +162,105 @@ class ConfigSerializer
     }
 
     /**
-     * Set sectionId
-     * @param $sectionId
+     * @param $path
+     * @return mixed|object|null
      */
-    public function setSectionId($sectionId)
+    public function getElement($path)
     {
-        $this->sectionId = $sectionId;
+        return $this->getElementByPath(explode('/', $path));
     }
 
     /**
-     * Get sectionId
-     * @return mixed
+     * @param array $path
+     * @return mixed|object|null
      */
-    public function getSectionId()
+    public function getElementByPath(array $path)
     {
-        return $this->sectionId;
+        $pathTag = implode('_', $path);;
+        if(isset($this->_elements[$pathTag])) {
+            return $this->_elements[$pathTag];
+        }
+        $children = [];
+        if ($this->_data) {
+            $children = $this->_data['sections'];
+        }
+        $child = [];
+        foreach($path as $part) {
+            if ($children && (array_key_exists($part, $children))) {
+                $child = $children[$part];
+                $children = array_key_exists('children', $child) ? $child['children'] : [];
+            }else {
+                $child = $this->_createEmptyElement($path);
+                break;
+            }
+        }
+        $this->_elements[$pathTag] = $this->flyweightFactory->create($child['elementType']);
+        $this->_elements[$pathTag]->setData($child, $this->_scopeDefiner->getScope());
+        return $this->_elements[$pathTag];
+    }
+
+    /**
+     * @param array $path
+     * @return array
+     */
+    protected function _createEmptyElement(array $path)
+    {
+        switch (count($path)) {
+            case 1:
+                $elementType = 'section';
+                break;
+            case 2:
+                $elementType = 'group';
+                break;
+            default:
+                $elementType = 'field';
+        }
+        $elementId = array_pop($path);
+        return ['id' => $elementId, 'path' => implode('/', $path), '_elementType' => $elementType];
+    }
+
+    /**
+     * @return mixed|Structure\AbstractElement
+     * @throws Exception
+     */
+    public function getFirstSection()
+    {
+        $tabs = $this->getTabs();
+        $tabs->rewind();
+        /** @var \ProgramCms\ConfigBundle\Model\Structure\Element\Tab $tab */
+        $tab = $tabs->current();
+        $tab->getChildren()->rewind();
+        if (!$tab->getChildren()->current()->isVisible()) {
+            throw new Exception('Visible section not found.');
+        }
+
+        return $tab->getChildren()->current();
+    }
+
+    /**
+     * @return Structure\Element\Iterator\Tab
+     */
+    public function getTabs()
+    {
+        if (isset($this->_data['sections'])) {
+            foreach ($this->_data['sections'] as $sectionId => $section) {
+                if (isset($section['tab']) && $section['tab']) {
+                    $this->_data['tabs'][$section['tab']]['children'][$sectionId] = $section;
+                }
+            }
+            $this->_tabIterator->setElements($this->_data['tabs'], $this->_scopeDefiner->getScope());
+        }
+        return $this->_tabIterator;
     }
 
     /**
      * Get Configuration Navigation to render
      * @return array
      */
-    public function getConfigNavigation(): array
-    {
-        return $this->_sortArrayByKey($this->configs['tabs'], 'sortOrder', 'asc');
-    }
-
-    /**
-     * Get current section's groups tree
-     * @return mixed
-     */
-    public function getCurrenSectionGroups(): array
-    {
-        return $this->configs['current_section']['groups'] ?? [];
-    }
+//    public function getConfigNavigation(): array
+//    {
+//        return $this->_sortArrayByKey($this->_data['tabs'], 'sortOrder', 'asc');
+//    }
 
     /**
      * @param $array
@@ -185,8 +268,9 @@ class ConfigSerializer
      * @param $sortOrder
      * @return mixed
      */
-    private function _sortArrayByKey($array, $key, $sortOrder) {
-        usort($array, function($a, $b) use ($key, $sortOrder) {
+    private function _sortArrayByKey($array, $key, $sortOrder)
+    {
+        usort($array, function ($a, $b) use ($key, $sortOrder) {
             if ($a[$key] == $b[$key]) {
                 return 0;
             }

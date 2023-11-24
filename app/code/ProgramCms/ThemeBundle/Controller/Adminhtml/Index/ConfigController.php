@@ -43,7 +43,7 @@ class ConfigController extends \ProgramCms\CoreBundle\Controller\Controller
     public function execute(): ?object
     {
         return $this->redirect(
-            $this->url->getUrlByRouteName('config_systemconfig_edit', ['sectionId' => 'theme_config'])
+            $this->url->getUrlByRouteName('config_systemconfig_edit', ['section' => 'theme_config'])
         );
     }
 }

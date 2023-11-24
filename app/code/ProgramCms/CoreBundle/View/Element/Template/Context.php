@@ -48,6 +48,9 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
      * @var LocaleSwitcher
      */
     protected LocaleSwitcher $localeSwitcher;
+    /**
+     * @var Language
+     */
     protected Language $language;
 
     /**

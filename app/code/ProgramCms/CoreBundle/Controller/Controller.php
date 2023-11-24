@@ -14,6 +14,9 @@ use ProgramCms\CoreBundle\App\State;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 /**
  * Class Controller
@@ -73,7 +76,13 @@ abstract class Controller extends AbstractController
         $this->_state->setAreaCode($areaCode);
         $result = $this->execute();
         if($result instanceof \ProgramCms\CoreBundle\View\Result\Page) {
-            return $this->execute()->render();
+            try {
+                return $result->render();
+            } catch (\Exception $e) {
+                dd($e->getMessage());
+                // TODO: Log errors instead of printing
+                var_dump($e->getTraceAsString());
+            }
         }
         else if($result instanceof \Symfony\Component\HttpFoundation\RedirectResponse) {
             return $result;
@@ -83,6 +92,7 @@ abstract class Controller extends AbstractController
     }
 
     /**
+     * Helper for translate inside Controller classes
      * @param string $message
      * @return string
      */

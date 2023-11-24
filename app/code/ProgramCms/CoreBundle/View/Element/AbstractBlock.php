@@ -11,6 +11,7 @@ namespace ProgramCms\CoreBundle\View\Element;
 use Exception;
 use InvalidArgumentException;
 use ProgramCms\CoreBundle\View\Layout;
+use ProgramCms\RouterBundle\Service\Url;
 
 /**
  * Class AbstractBlock
@@ -34,6 +35,8 @@ abstract class AbstractBlock extends \ProgramCms\CoreBundle\Model\DataObject imp
      */
     protected Layout $layout;
 
+    protected Url $_url;
+
     /**
      * AbstractBlock constructor.
      * @param Template\Context $context
@@ -45,6 +48,7 @@ abstract class AbstractBlock extends \ProgramCms\CoreBundle\Model\DataObject imp
     )
     {
         $this->layout = $context->getLayout();
+        $this->_url = $context->getUrl();
         $this->_construct();
     }
 
@@ -242,5 +246,15 @@ abstract class AbstractBlock extends \ProgramCms\CoreBundle\Model\DataObject imp
         }
         $layout->unsetChild($this->getNameInLayout(), $alias);
         return $this;
+    }
+
+    /**
+     * @param $routeName
+     * @param array $params
+     * @return string
+     */
+    public function getUrl($routeName, array $params = [])
+    {
+        return $this->_url->getUrlByRouteName($routeName, $params);
     }
 }

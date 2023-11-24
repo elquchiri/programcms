@@ -8,74 +8,158 @@
 
 namespace ProgramCms\ConfigBundle\Model;
 
+
+use ProgramCms\ConfigBundle\Model\Structure\Element\Field;
+use ProgramCms\CoreBundle\Model\DataObject;
+
 /**
  * Class Config
  * @package ProgramCms\ConfigBundle\Model
  */
-class Config
+class Config extends DataObject
 {
-    const SCOPE_TYPE_DEFAULT = 'default';
-
-    private \Symfony\Component\DependencyInjection\ContainerInterface $container;
-    private \ProgramCms\ConfigBundle\Repository\CoreConfigDataRepository $coreConfigDataRepository;
+    /**
+     * @var ConfigSerializer
+     */
+    protected ConfigSerializer $configSerializer;
+    protected Loader $loader;
+    protected \ProgramCms\ConfigBundle\App\Config $config;
 
     public function __construct(
-        \ProgramCms\CoreBundle\App\Kernel $kernel,
-        \ProgramCms\ConfigBundle\Repository\CoreConfigDataRepository $coreConfigDataRepository
+        \ProgramCms\ConfigBundle\Model\ConfigSerializer $configSerializer,
+        \ProgramCms\ConfigBundle\Model\Loader $loader,
+        \ProgramCms\ConfigBundle\App\Config $config
     )
     {
-        $this->container = $kernel->getContainer();
-        $this->coreConfigDataRepository = $coreConfigDataRepository;
+        $this->configSerializer = $configSerializer;
+        $this->loader = $loader;
+        $this->config = $config;
+    }
+
+    public function save()
+    {
+        $this->initScope();
+        $groups = $this->getData('groups');
+        $sectionId = $this->getData('section');
+        $oldConfig = $this->_getConfig(true);
+
+        foreach($groups as $groupId => $groupData) {
+            $this->_processGroup($groupId, $groupData, $groups, $sectionId, $oldConfig);
+        }
     }
 
     /**
-     * @param $path
-     * @param string $scopeType
-     * @param int $scopeCode
-     * @return mixed
+     * @param $groupId
+     * @param $groupData
+     * @param $groups
+     * @param $sectionId
+     * @param $oldConfig
      */
-    public function getConfigValue($path, string $scopeType = self::SCOPE_TYPE_DEFAULT, int $scopeCode = 0): mixed
+    protected function _processGroup($groupId, $groupData, $groups, $sectionId, $oldConfig)
     {
-        // Find configuration in core_config_data
-        $result = $this->coreConfigDataRepository->findOneBy([
-            'path' => $path,
-            'scope' => $scopeType,
-            'scope_id' => $scopeCode
-        ]);
-        if($result) {
-            return $result->getValue();
+        $groupPath = $sectionId . '/' . $groupId;
+
+        if (isset($groupData['fields'])) {
+            $group = $this->configSerializer->getElement($groupPath);
+            $fieldsetData = [];
+            foreach ($groupData['fields'] as $fieldId => $fieldData) {
+                $fieldsetData[$fieldId] = $fieldData['value'] ?? null;
+            }
+
+            foreach ($groupData['fields'] as $fieldId => $fieldData) {
+                $field = $this->getField($sectionId, $groupId, $fieldId);
+
+                if (!isset($fieldData['value'])) {
+                    $fieldData['value'] = null;
+                }
+
+                if ($field->getType() == 'multiline' && is_array($fieldData['value'])) {
+                    $fieldData['value'] = trim(implode(PHP_EOL, $fieldData['value']));
+                }
+
+                $path = $this->getFieldPath($sectionId, $groupId, $fieldId);
+
+                $inherit = !empty($fieldData['inherit']);
+
+                if(!$inherit) {
+                    // Save Field Config
+                    $this->config->setConfigValue(
+                        $path,
+                        $fieldData['value'],
+                        $this->getScopeType(),
+                        $this->getScopeCode()
+                    );
+                }else{
+                    // Delete Field Config
+                    if (isset($oldConfig[$path])) {
+                        $this->config->deleteConfigValue($oldConfig[$path]['config_id']);
+                    }
+                }
+            }
         }
-        // If no configuration found on database, get configuration's defaultValues from packages
-        $pathArray = explode('/', $path);
-        return $this->container->getParameter('programcms_system_config')['sections'][$pathArray[0]]['groups'][$pathArray[1]]['fields'][$pathArray[2]]['defaultValue'] ?? '';
     }
 
     /**
-     * @param $path
-     * @param $value
-     * @param string $scopeType
-     * @param int $scopeCode
+     * @param string $sectionId
+     * @param string $groupId
+     * @param string $fieldId
+     * @return Field
      */
-    public function setConfigValue($path, $value, string $scopeType = self::SCOPE_TYPE_DEFAULT, int $scopeCode = 0)
+    private function getField(string $sectionId, string $groupId, string $fieldId): Field
     {
-        $config = $this->coreConfigDataRepository->findOneBy([
-            'path' => $path,
-            'scope' => $scopeType,
-            'scope_id' => $scopeCode
-        ]);
+        $fieldPath = $this->getFieldPath($sectionId, $groupId, $fieldId);
+        return $this->configSerializer->getElement($fieldPath);
+    }
 
-        // Check if config exists already, just set value to dispatch update
-        if($config) {
-            $config->setValue($value);
-        }else{
-            $config = new \ProgramCms\ConfigBundle\Entity\CoreConfigData();
-            $config->setPath($path)
-                ->setValue($value)
-                ->setScope($scopeType)
-                ->setScopeId($scopeCode);
+    /**
+     * @param $sectionId
+     * @param string $groupId
+     * @param string $fieldId
+     * @return string
+     */
+    private function getFieldPath($sectionId, string $groupId, string $fieldId)
+    {
+        $group = $this->configSerializer->getElement($sectionId . '/' . $groupId);
+        return $group->getPath() . '/' . $fieldId;
+    }
+
+    /**
+     * @param bool $full
+     * @return array
+     */
+    protected function _getConfig($full = true)
+    {
+        return $this->loader->getConfigByPath(
+            $this->getSection(),
+            $this->getScopeType(),
+            $this->getScopeCode(),
+            $full
+        );
+    }
+
+    private function initScope()
+    {
+        if($this->getSection() === null) {
+            $this->setSection('');
         }
 
-        // Persist & flush configuration
-        $this->coreConfigDataRepository->save($config, true);
+        $scopeType = '';
+        $scopeIdentifier = null;
+        switch (true) {
+            case $this->getWebsiteView():
+                $scopeType = \ProgramCms\WebsiteBundle\Model\ScopeInterface::SCOPE_WEBSITE_VIEW;
+                $scopeIdentifier = $this->getWebsiteView();
+                break;
+            case $this->getWebsite():
+                $scopeType = \ProgramCms\WebsiteBundle\Model\ScopeInterface::SCOPE_WEBSITE;
+                $scopeIdentifier = $this->getWebsite();
+                break;
+            default:
+                $scopeType = \ProgramCms\ConfigBundle\App\ScopeInterface::SCOPE_DEFAULT;
+                $scopeIdentifier = null;
+                break;
+        }
+        $this->setScopeType($scopeType);
+        $this->setScopeCode($scopeIdentifier ?: 0);
     }
 }

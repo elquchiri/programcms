@@ -42,6 +42,8 @@ class WebsiteSwitcher extends \ProgramCms\CoreBundle\View\Element\Template
      */
     protected WebsiteGroupRepository $websiteGroupRepository;
 
+    protected $_currentSectionId;
+
     /**
      * WebsiteSwitcher constructor.
      * @param Context $context
@@ -68,6 +70,7 @@ class WebsiteSwitcher extends \ProgramCms\CoreBundle\View\Element\Template
         $this->request = $request;
         $this->websiteViewRepository = $websiteViewRepository;
         $this->websiteGroupRepository = $websiteGroupRepository;
+        $this->_currentSectionId = $this->getRequest()->getParam('section');
     }
 
     /**
@@ -82,10 +85,37 @@ class WebsiteSwitcher extends \ProgramCms\CoreBundle\View\Element\Template
     /**
      * @return string
      */
-    public function getUrl(): string
+    public function getCurrentSwitcherUrl(): string
     {
         $currentUrl = $this->url->getCurrentUrl();
         return preg_replace('/\/(website|website_group|website_view)\/\d+$/', '', $currentUrl);
+    }
+
+    /**
+     * @param $website
+     * @return string
+     */
+    public function getWebsiteSwitcherUrl($website): string
+    {
+        return $this->getUrl('config_systemconfig_edit', ['section' => $this->_currentSectionId, 'website' => $website->getWebsiteId()]);
+    }
+
+    /**
+     * @param $group
+     * @return string
+     */
+    public function getWebsiteGroupSwitcherUrl($group): string
+    {
+        return $this->getUrl('config_systemconfig_edit', ['section' => $this->_currentSectionId, 'website_group' => $group->getWebsiteGroupId()]);
+    }
+
+    /**
+     * @param $websiteView
+     * @return string
+     */
+    public function getWebsiteViewSwitcherUrl($websiteView): string
+    {
+        return $this->getUrl('config_systemconfig_edit', ['section' => $this->_currentSectionId, 'website_view' => $websiteView->getWebsiteViewId()]);
     }
 
     /**

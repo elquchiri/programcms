@@ -7,10 +7,12 @@
  */
 #}
 <select
+    id="{{ block.getId() }}"
     name="{{ block.getName() }}"
     class="form-select {% if block.isMultiSelect() %}multiselect{% endif %}"
-    id="{{ block.getName() }}"
-    {% if block.isMultiSelect() == true %}multiple{% endif %}>
+    {% if block.isMultiSelect() == true %}multiple{% endif %}
+    {% if block.isDisabled() %}disabled="disabled" {% endif %}
+>
     {% for optionKey, option in block.getOptions() %}
         <option
             value="{{ optionKey }}"

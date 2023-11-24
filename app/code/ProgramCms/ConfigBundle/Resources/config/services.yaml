@@ -20,3 +20,6 @@ services:
   ProgramCms\ConfigBundle\Model\ConfigSerializer:
     arguments:
       $container: '@service_container'
+
+  ProgramCms\ConfigBundle\Model\Structure\AbstractElement:
+    abstract: true

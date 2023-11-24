@@ -13,4 +13,7 @@
     class="form-control"
     {% if block.hasPlaceholder() %}placeholder="{{ block.getPlaceholder() }}"{% endif %}
     {% if block.hasValue() %}value="{{ block.getValue() }}"{% endif %}
-    aria-describedby="{{ block.getName() }}"/>
+    aria-describedby="{{ block.getName() }}"
+    {% if block.isDisabled() %}disabled="disabled" {% endif %}
+
+/>

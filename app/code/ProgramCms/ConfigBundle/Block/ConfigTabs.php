@@ -8,7 +8,11 @@
 
 namespace ProgramCms\ConfigBundle\Block;
 
-use ReflectionException;
+use ProgramCms\ConfigBundle\Model\ConfigSerializer;
+use ProgramCms\ConfigBundle\Model\Structure\Element\Section;
+use ProgramCms\ConfigBundle\Model\Structure\Element\Tab;
+use ProgramCms\CoreBundle\View\Element\Template\Context;
+use ProgramCms\RouterBundle\Service\Request;
 
 /**
  * Class ConfigTabs
@@ -17,50 +21,73 @@ use ReflectionException;
 class ConfigTabs extends \ProgramCms\CoreBundle\View\Element\Template
 {
     /**
-     * @var \ProgramCms\ConfigBundle\Model\ConfigSerializer
+     * @var ConfigSerializer
      */
-    protected \ProgramCms\ConfigBundle\Model\ConfigSerializer $configSerializer;
+    protected ConfigSerializer $configSerializer;
     /**
-     * @var \ProgramCms\RouterBundle\Service\Request
+     * @var Request
      */
-    protected \ProgramCms\RouterBundle\Service\Request $request;
+    protected Request $request;
+    /**
+     * @var string|mixed
+     */
+    protected string $_currentSectionId;
 
     /**
      * ConfigTabs constructor.
-     * @param \ProgramCms\CoreBundle\View\Element\Template\Context $context
-     * @param \ProgramCms\ConfigBundle\Model\ConfigSerializer $configSerializer
+     * @param Context $context
+     * @param ConfigSerializer $configSerializer
      * @param array $data
-     * @throws ReflectionException
      */
     public function __construct(
-        \ProgramCms\CoreBundle\View\Element\Template\Context $context,
-        \ProgramCms\ConfigBundle\Model\ConfigSerializer $configSerializer,
+        Context $context,
+        ConfigSerializer $configSerializer,
         array $data = []
     )
     {
         parent::__construct($context, $data);
         $this->configSerializer = $configSerializer;
-        $this->request = $context->getRequest();
-        // Init Config Serializer
-        $this->_initConfigSerializer();
+        $this->_currentSectionId = $this->getRequest()->getParam('section', '');
     }
 
     /**
-     * @throws ReflectionException
+     * @return \ProgramCms\ConfigBundle\Model\Structure\Element\Iterator\Tab
      */
-    private function _initConfigSerializer()
+    public function getTabs(): \ProgramCms\ConfigBundle\Model\Structure\Element\Iterator\Tab
     {
-        if($this->request->getParam('sectionId')) {
-            $this->configSerializer->setSectionId($this->request->getParam('sectionId'));
+        return $this->configSerializer->getTabs();
+    }
+
+    /**
+     * @param Section $section
+     * @return string
+     */
+    public function getSectionUrl(Section $section): string
+    {
+        return $this->getUrl('config_systemconfig_edit', ['section' => $section->getId()]);
+    }
+
+    /**
+     * @param Section $section
+     * @return bool
+     */
+    public function isSectionActive(Section $section): bool
+    {
+        return $section->getId() == $this->_currentSectionId;
+    }
+
+    /**
+     * @param Tab $tab
+     * @return bool
+     */
+    public function isTabActive(Tab $tab): bool
+    {
+        $isOpen = false;
+        foreach($tab->getChildren() as $section) {
+            if($this->isSectionActive($section)) {
+                $isOpen = true;
+            }
         }
-        $this->configSerializer->parseConfig();
-    }
-
-    /**
-     * @return array
-     */
-    public function getTabs(): array
-    {
-        return $this->configSerializer->getConfigNavigation();
+        return $isOpen;
     }
 }

@@ -6,20 +6,20 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
+<span style="font-size: 13px; font-weight: bold">{{ block.trans('Scope:') }}</span>
 <ul class="navbar-nav website-switcher mb-2 mb-lg-0">
-    <span style="padding-top: 8px; font-size: 13px; font-weight: bold">{{ block.trans('Scope:') }}</span>
     <li class="nav-item dropend">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ block.getCurrentScopeLabel() }}
         </a>
         <ul class="dropdown-menu">
-            <a class="dropdown-item" href="{{ block.getUrl() }}">{{ block.getDefaultLabel() }}</a>
+            <a class="dropdown-item" href="{{ block.getCurrentSwitcherUrl() }}">{{ block.getDefaultLabel() }}</a>
             {% for website in block.getAllWebsites() %}
-                <a class="dropdown-item" href="{{ block.getUrl() }}/website/{{ website.getWebsiteId() }}">{{ website.getWebsiteName() }}</a>
+                <a class="dropdown-item" href="{{ block.getWebsiteSwitcherUrl(website) }}">{{ website.getWebsiteName() }}</a>
                 {% for websiteGroup in website.getGroups() %}
-                    <a class="dropdown-item website-switcher-group" href="{{ block.getUrl() }}/website_group/{{ websiteGroup.getWebsiteGroupId() }}">{{ websiteGroup.getWebsiteGroupName() }}</a>
+                    <a class="dropdown-item website-switcher-group disabled" href="{{ block.getWebsiteGroupSwitcherUrl(websiteGroup) }}">{{ websiteGroup.getWebsiteGroupName() }}</a>
                     {% for websiteView in websiteGroup.getWebsiteViews() %}
-                        <a class="dropdown-item website-switcher-view" href="{{ block.getUrl() }}/website_view/{{ websiteView.getWebsiteViewId() }}">{{ websiteView.getWebsiteViewName() }}</a>
+                        <a class="dropdown-item website-switcher-view" href="{{ block.getWebsiteViewSwitcherUrl(websiteView) }}">{{ websiteView.getWebsiteViewName() }}</a>
                     {% endfor %}
                 {% endfor %}
             {% endfor %}

@@ -10,15 +10,11 @@ menu:
     htmlClass: 'sidebar-marketing'
     sortOrder: 6
     groups:
-      communications:
-        label: 'Communications'
+      communication:
+        label: 'Communication'
         actions:
           emailTemplates:
             label: "Email Templates"
-            action: ''
-            sortOrder: 1
-          newsletterSubscribers:
-            label: "Newsletter Subscribers"
             action: ''
             sortOrder: 1
       seoSearch:

@@ -13,7 +13,6 @@ use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\CoreBundle\Model\Utils\BundleManager;
 use ProgramCms\CoreBundle\View\Layout\Element;
 use ProgramCms\ThemeBundle\Model\PageLayout;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class Layout

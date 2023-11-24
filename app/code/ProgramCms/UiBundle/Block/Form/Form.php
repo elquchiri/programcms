@@ -98,6 +98,7 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
             }
         }
 
+        // Toolbar's Buttons
         if($this->hasData('buttons')) {
             $toolbarActions = $layout->createBlock(
                 \ProgramCms\UiBundle\Block\Toolbar\ToolbarActions::class,
@@ -108,6 +109,7 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
             $toolbarActions->setLayout($layout);
         }
 
+        // Fieldsets
         if($this->hasData('fieldsets')) {
             $iterator = 1;
             foreach($this->getData('fieldsets') as $name => $fieldset) {
@@ -146,6 +148,7 @@ class Form extends \ProgramCms\CoreBundle\View\Element\Template
             }
         }
 
+        // Layout
         if($useLayout) {
             $layoutConfig = $this->getData('layout');
             $navContainerName = $layoutConfig['navContainerName'] ?? 'left';

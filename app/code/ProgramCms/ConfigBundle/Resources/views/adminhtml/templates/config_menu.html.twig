@@ -9,16 +9,16 @@
 <div class="config-menu" data-controller="config-menu">
     <ul>
         {% for tab in block.getTabs() %}
-            <li class="root {% if tab.active is defined %}open{% endif %}">
-                <a href="#">{{ tab.label }}</a>
+            <li class="root {% if block.isTabActive(tab) %}open{% endif %}">
+                <a href="#">{{ tab.getLabel() }}</a>
             </li>
-            {% if tab.sections is defined %}
-                <ul class="child"{% if tab.active is defined %} style="display: block"{% endif %}>
-                    {% for sectionId, section in tab.sections %}
+            {% if tab.hasChildren() %}
+                <ul class="child" {% if block.isTabActive(tab) %}style="display: block"{% endif %}>
+                    {% for section in tab.getChildren() %}
                         <li>
-                            <a class="{% if section.active %}active{% endif %}"
-                               href="{{ path('adminhtml_config_systemconfig_edit') }}/sectionId/{{ sectionId }}">
-                                {{ section.label }}
+                            <a class="{% if block.isSectionActive(section) %}active{% endif %}"
+                               href="{{ block.getSectionUrl(section) }}">
+                                {{ section.getLabel() }}
                             </a>
                         </li>
                     {% endfor %}

@@ -46,12 +46,28 @@ class Request
     }
 
     /**
+     * Get param from request query or from request data
      * @param $param
+     * @param string $defaultValue
      * @return mixed
      */
-    public function getParam($param): mixed
+    public function getParam($param, string $defaultValue = ''): mixed
     {
-        return $this->getParameters()[$param] ?? '';
+        if(isset($this->getParameters()[$param])) {
+            return $this->getParameters()[$param];
+        }else if($this->getCurrentRequest()->get($param)) {
+            return $this->getCurrentRequest()->get($param);
+        }
+        return $defaultValue;
+    }
+
+    /**
+     * @param $param
+     * @param $value
+     */
+    public function setParam($param, $value)
+    {
+        $this->getCurrentRequest()->request->set($param, $value);
     }
 
     /**

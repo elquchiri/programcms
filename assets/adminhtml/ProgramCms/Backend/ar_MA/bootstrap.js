@@ -9,6 +9,7 @@ import Tabs from './UiBundle/js/controllers/tabs_controller'
 import Toolbar from './UiBundle/js/controllers/toolbar_controller'
 import Tree from './UiBundle/js/controllers/tree_controller'
 import ConfigMenu from './ConfigBundle/js/controllers/config-menu_controller'
+import InheritCheckbox from './UiBundle/js/controllers/inherit-checkbox_controller'
 
 // Registers Stimulus controllers from controllers.json and in the controllers/ directory
 export const app = startStimulusApp(require.context(
@@ -26,3 +27,4 @@ app.register('toolbar', Toolbar);
 app.register('tree', Tree);
 app.register('config-menu', ConfigMenu);
 app.register('report', Report);
+app.register('inherit-checkbox', InheritCheckbox);

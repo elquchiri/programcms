@@ -13,54 +13,67 @@ system_config:
     general:
       label: 'General'
       tab: 'core_general'
-      scope: 'default|website|websiteView'
+      scope: 'default|website|website_view'
       groups:
         country_options:
           label: 'Country Options'
+          scope: 'default|website|website_view'
           fields:
             default_country:
               label: 'Default Country'
               type: 'select'
               source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
+              scope: 'default|website|website_view'
             allowed_countries:
               label: 'Allow Countries'
               type: 'multiselect'
               source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
+              scope: 'default|website|website_view'
         local_options:
           label: 'Locale Options'
+          scope: 'default|website|website_view'
           fields:
             timezone:
               label: 'Timezone'
               type: 'select'
               source: ProgramCms\UiBundle\Model\Provider\DataSource\TimeZoneSelector
+              scope: 'default|website|website_view'
             locale:
               label: 'Locale'
               type: 'select'
               source: ProgramCms\UiBundle\Model\Provider\DataSource\LocaleSelector
+              scope: 'default|website|website_view'
     web:
       label: 'Web'
       tab: 'core_general'
+      scope: 'default|website|website_view'
       groups:
         country_options:
           label: 'Country Options'
+          scope: 'default|website|website_view'
           fields:
             default_country:
               label: 'Default Country'
               type: 'select'
               source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
+              scope: 'default|website|website_view'
             allowed_countries:
               label: 'Allow Countries'
               type: 'multiselect'
               source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
+              scope: 'default|website|website_view'
     theme_config:
       label: 'Theme Configuration'
       tab: 'core_general'
+      scope: 'default|website|website_view'
       groups:
-        country_options:
+        theme_configuration:
           label: 'Theme Configuration'
+          scope: 'default|website|website_view'
           fields:
             applied_theme:
               label: 'Applied Theme'
               type: 'select'
               source: ProgramCms\ThemeBundle\Model\Provider\DataSource\ThemeSelector
               helpMessage: 'If no value is specified, the system default is used. The system default may be modified by third-party bundles.'
+              scope: 'default|website|website_view|can_restore'

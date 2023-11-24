@@ -14,11 +14,13 @@
     data-action="click->switcher-field#switcherClick">
     <input type="hidden" name="{{ block.getName() }}" />
     <input
+        id="{{ block.getId() }}"
         class="form-check-input checkbox-switcher"
         name="{{ block.getName() }}"
         type="checkbox"
         role="switch"
-        id="{{ block.getName() }}"
-        {% if block.isChecked() %}checked{% endif %}>
+        {% if block.isChecked() %}checked{% endif %}
+        {% if block.isDisabled() %}disabled="disabled" {% endif %}
+    >
     <label class="status" for="status"></label>
 </div>
