@@ -14,9 +14,6 @@ use ProgramCms\CoreBundle\App\State;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig\Error\LoaderError;
-use Twig\Error\RuntimeError;
-use Twig\Error\SyntaxError;
 
 /**
  * Class Controller
@@ -64,7 +61,6 @@ abstract class Controller extends AbstractController
     /**
      * Dispatch Request
      * @return mixed
-     * @throws HttpResponseException
      */
     public function dispatch(): mixed
     {

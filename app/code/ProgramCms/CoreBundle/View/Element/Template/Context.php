@@ -10,10 +10,12 @@ namespace ProgramCms\CoreBundle\View\Element\Template;
 
 use ProgramCms\CoreBundle\Helper\Language;
 use ProgramCms\CoreBundle\Model\Filesystem\DirectoryList;
+use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\CoreBundle\View\Layout;
 use ProgramCms\CoreBundle\View\Page\Config;
 use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\UiBundle\View\Element\UiComponentFactory;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
@@ -64,6 +66,7 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
      * @param TranslatorInterface $translator
      * @param LocaleSwitcher $localeSwitcher
      * @param Language $language
+     * @param ObjectManager $objectManager
      */
     public function __construct(
         DirectoryList $directoryList,

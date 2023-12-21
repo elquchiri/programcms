@@ -27,26 +27,22 @@ class EditController extends \ProgramCms\CoreBundle\Controller\Controller
      * @var WebsiteRepository
      */
     protected WebsiteRepository $websiteRepository;
-    protected TranslatorInterface $translator;
 
     /**
      * EditController constructor.
      * @param Context $context
      * @param WebsiteRepository $websiteRepository
-     * @param TranslatorInterface $translator
      * @param ObjectManager $objectManager
      */
     public function __construct(
         Context $context,
         WebsiteRepository $websiteRepository,
-        TranslatorInterface $translator,
         ObjectManager $objectManager
     )
     {
         parent::__construct($context);
         $this->objectManager = $objectManager;
         $this->websiteRepository = $websiteRepository;
-        $this->translator = $translator;
     }
 
     /**
@@ -56,9 +52,11 @@ class EditController extends \ProgramCms\CoreBundle\Controller\Controller
     {
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
         $website = $this->websiteRepository->findOneBy(['website_id' => $this->getRequest()->getParam('id')]);
-        $pageResult->getConfig()->getTitle()->set(
-            sprintf("%s: %s", $this->translator->trans('Edit Website'), $website->getWebsiteName())
-        );
+        if($website) {
+            $pageResult->getConfig()->getTitle()->set(
+                sprintf("%s: %s", $this->translator->trans('Edit Website'), $website->getWebsiteName())
+            );
+        }
         return $pageResult;
     }
 }

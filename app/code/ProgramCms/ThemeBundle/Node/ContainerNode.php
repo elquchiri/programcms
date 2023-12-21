@@ -26,7 +26,6 @@ class ContainerNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInt
         foreach($this->getNode('body') as $node) {
             switch($node) {
                 case ($node instanceof \ProgramCms\ThemeBundle\Node\BlockNode):
-                    //dd($node);
                     $blockName = $node->getAttribute('blockName');
                     $blockClass = $node->getAttribute('blockClass');
                     $blockTemplate = $node->getAttribute('blockTemplate');
@@ -35,7 +34,7 @@ class ContainerNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInt
                     $arguments = [];
                     foreach($node->getNode('body') as $argumentsNode) {
                         if($argumentsNode instanceof \ProgramCms\ThemeBundle\Node\Argument\ArgumentsNode) {
-                            $this->getArgumentAsArray($argumentsNode,$arguments);
+                            $compiler->getEnvironment()->getExtension('ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->getArgumentAsArray($argumentsNode,$arguments);
                         }
                     }
                     $arguments = count($arguments) > 0 ? json_encode($arguments) : '';
@@ -54,31 +53,5 @@ class ContainerNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInt
         }
 
         $compiler->subcompile($this->getNode('body'));
-    }
-
-    private function getArgumentAsArray($argument, &$argumentArray)
-    {
-        foreach($argument->getNode('body') as $arg) {
-            if($arg instanceof \ProgramCms\ThemeBundle\Node\Argument\ArgumentNode) {
-                $argumentName = $arg->getAttribute('argumentName');
-                $argumentType = $arg->getAttribute('argumentType');
-                if($arg->getAttribute('argumentType') == 'array') {
-                    $argumentArray[$argumentName] = [];
-                    $this->getArgumentAsArray($arg, $argumentArray[$argumentName]);
-                }else if($argumentType == 'boolean') {
-                    $argumentArray[$argumentName] = $arg->getNode('body')->getAttribute('data') == 'true';
-                }else if($argumentType == 'string') {
-                    $argumentArray[$argumentName] = addslashes($arg->getNode('body')->getAttribute('data'));
-                }else if($argumentType == 'integer') {
-                    $argumentArray[$argumentName] = is_int($arg->getNode('body')->getAttribute('data')) ? (int) $arg->getNode('body')->getAttribute('data') : 0;
-                }else if($argumentType == 'double') {
-                    $argumentArray[$argumentName] = is_double($arg->getNode('body')->getAttribute('data')) ? (double) $arg->getNode('body')->getAttribute('data') : 0.0;
-                }else{
-                    throw new Exception(
-                        sprintf("Unknown Type %s of Argument %s", $argumentType, $argumentName)
-                    );
-                }
-            }
-        }
     }
 }

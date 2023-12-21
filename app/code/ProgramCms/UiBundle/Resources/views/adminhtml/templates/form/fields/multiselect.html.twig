@@ -1,0 +1,23 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<select
+    id="{{ block.getId() }}"
+    name="{{ block.getName() }}"
+    class="form-select multiselect"
+    multiple
+    {% if block.isDisabled() %}disabled="disabled" {% endif %}
+>
+    {% for optionKey, option in block.getOptions() %}
+        <option
+            value="{{ optionKey }}"
+            {% if block.hasValue() and block.getValue() == optionKey %}selected{% endif %}>
+            {{ option }}
+        </option>
+    {% endfor %}
+</select>

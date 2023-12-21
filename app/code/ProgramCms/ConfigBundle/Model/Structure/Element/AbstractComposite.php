@@ -8,6 +8,8 @@
 
 namespace ProgramCms\ConfigBundle\Model\Structure\Element;
 
+use ProgramCms\ConfigBundle\App\Context;
+
 /**
  * Class AbstractComposite
  * @package ProgramCms\ConfigBundle\Model\Structure\Element
@@ -19,10 +21,11 @@ abstract class AbstractComposite extends \ProgramCms\ConfigBundle\Model\Structur
 
     /**
      * AbstractComposite constructor.
+     * @param Context $context
      * @param Iterator $childrenIterator
      */
     public function __construct(
-        \ProgramCms\ConfigBundle\App\Context $context,
+        Context $context,
         \ProgramCms\ConfigBundle\Model\Structure\Element\Iterator $childrenIterator
     )
     {

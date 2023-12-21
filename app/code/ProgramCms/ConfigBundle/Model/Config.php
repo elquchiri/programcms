@@ -22,9 +22,21 @@ class Config extends DataObject
      * @var ConfigSerializer
      */
     protected ConfigSerializer $configSerializer;
+    /**
+     * @var Loader
+     */
     protected Loader $loader;
+    /**
+     * @var \ProgramCms\ConfigBundle\App\Config
+     */
     protected \ProgramCms\ConfigBundle\App\Config $config;
 
+    /**
+     * Config constructor.
+     * @param ConfigSerializer $configSerializer
+     * @param Loader $loader
+     * @param \ProgramCms\ConfigBundle\App\Config $config
+     */
     public function __construct(
         \ProgramCms\ConfigBundle\Model\ConfigSerializer $configSerializer,
         \ProgramCms\ConfigBundle\Model\Loader $loader,
@@ -36,6 +48,9 @@ class Config extends DataObject
         $this->config = $config;
     }
 
+    /**
+     * Save Config
+     */
     public function save()
     {
         $this->initScope();
@@ -137,14 +152,15 @@ class Config extends DataObject
         );
     }
 
+    /**
+     * Init Scope
+     */
     private function initScope()
     {
         if($this->getSection() === null) {
             $this->setSection('');
         }
 
-        $scopeType = '';
-        $scopeIdentifier = null;
         switch (true) {
             case $this->getWebsiteView():
                 $scopeType = \ProgramCms\WebsiteBundle\Model\ScopeInterface::SCOPE_WEBSITE_VIEW;

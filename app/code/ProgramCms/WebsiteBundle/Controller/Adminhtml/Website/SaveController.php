@@ -44,6 +44,7 @@ class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
      * @param Context $context
      * @param Url $url
      * @param WebsiteRepository $websiteRepository
+     * @param WebsiteGroupRepository $websiteGroupRepository
      * @param ObjectManager $objectManager
      */
     public function __construct(
@@ -69,7 +70,7 @@ class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
         $request = $this->getRequest()->getCurrentRequest();
         if($request->getMethod() == 'POST') {
             $formData = $request->request->all();
-            $websiteId = $formData['id'] ?? "";
+            $websiteId = $formData['website_id'] ?? "";
 
             /** @var Website $website */
             $website = $this->websiteRepository->findOneBy(['website_id' => $websiteId]);

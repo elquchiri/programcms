@@ -6,6 +6,8 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<form id="{{ block.getName() }}">
-    {{ block.getChildHtml()|raw }}
+<form id="{{ block.getName() }}" action="{{ block.getAction() }}">
+    {% for element in block.getChildBlocks() %}
+        {{ element.toHtml()|raw }}
+    {% endfor %}
 </form>

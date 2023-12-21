@@ -20,6 +20,20 @@
         {% block name="config.menu.block" class="ProgramCms\\ConfigBundle\\Block\\ConfigTabs" template="@ProgramCmsConfigBundle/config_menu.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}
     {% referenceContainer name="content" %}
-        {% block name="config.block" class="ProgramCms\\ConfigBundle\\Block\\ConfigForm" template="@ProgramCmsConfigBundle/config.html.twig" %}{% endBlock %}
+        {% block name="config_form" class="ProgramCms\\ConfigBundle\\Component\\ConfigForm" %}
+            {% arguments %}
+                {% argument name="data" type="array" %}
+                    {% argument name="label" type="string" %}Configuration{% endArgument %}
+                {% endArgument %}
+                {% argument name="buttons" type="array" %}
+                    {% argument name="save" type="string" %}ProgramCms\ConfigBundle\Model\Provider\Button\SaveConfigButton{% endArgument %}
+                {% endArgument %}
+                {% argument name="dataSource" type="array" %}
+                    {% argument name="settings" type="array" %}
+                        {% argument name="submitUrl" type="string" %}config_systemconfig_save{% endArgument %}
+                    {% endArgument %}
+                {% endArgument %}
+            {% endArguments %}
+        {% endBlock %}
     {% endReferenceContainer %}
 {% endPage %}

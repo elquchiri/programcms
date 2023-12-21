@@ -8,6 +8,7 @@
 
 namespace ProgramCms\CoreBundle\View\Element;
 
+use Exception;
 use ProgramCms\CoreBundle\Model\Filesystem\DirectoryList;
 use ProgramCms\CoreBundle\View\Page\Config;
 use ProgramCms\RouterBundle\Service\Request;
@@ -105,7 +106,7 @@ class Template extends AbstractBlock
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     protected function _toHtml(): string
     {
@@ -187,7 +188,7 @@ class Template extends AbstractBlock
                 $this->assign(['block' => $this->templateContext]);
             }
             return $this->environment->render($template, $this->_viewVars);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw $e;
         }
     }

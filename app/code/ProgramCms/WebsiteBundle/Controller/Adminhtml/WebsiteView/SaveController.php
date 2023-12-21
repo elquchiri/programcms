@@ -14,7 +14,7 @@ use ProgramCms\RouterBundle\Service\Url;
 use ProgramCms\WebsiteBundle\Entity\WebsiteView;
 use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
 use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
-use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Class SaveController
@@ -63,14 +63,14 @@ class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function execute()
     {
         $request = $this->getRequest()->getCurrentRequest();
         if($request->getMethod() == 'POST') {
             $formData = $request->request->all();
-            $websiteViewId = $formData['id'] ?? "";
+            $websiteViewId = $formData['website_view_id'] ?? "";
 
             /** @var WebsiteView $websiteView */
             $websiteView = $this->websiteViewRepository->findOneBy(['website_view_id' => $websiteViewId]);

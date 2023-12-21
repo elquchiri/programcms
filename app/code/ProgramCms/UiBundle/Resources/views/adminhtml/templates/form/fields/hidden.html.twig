@@ -9,6 +9,6 @@
 <input
     type="hidden"
     name="{{ block.getName() }}"
-    id="{{ block.getName() }}"
+    id="{{ block.getId() }}"
     {% if block.hasValue() %}value="{{ block.getValue() }}"{% endif %}
     aria-describedby="{{ block.getName() }}"/>

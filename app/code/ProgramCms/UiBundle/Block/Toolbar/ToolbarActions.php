@@ -54,7 +54,6 @@ class ToolbarActions extends \ProgramCms\CoreBundle\View\Element\Template
     {
         // Transform url names to paths
         $buttons = [];
-        $button = [];
         foreach($this->getData() as $buttonData) {
             if(is_string($buttonData) && !empty($buttonData)) {
                 $dataSource = $this->objectManager->create($buttonData);
@@ -64,19 +63,19 @@ class ToolbarActions extends \ProgramCms\CoreBundle\View\Element\Template
                 $buttons[] = $button;
             }
             else if(is_array($buttonData)) {
-                $button = $buttonData;
-                // Button Action
-                if (isset($buttonData['buttonAction']) && !empty($buttonData['buttonAction'])) {
-                    if($buttonData['buttonAction'] == '#') {
-                        // Forward to the same action (url)
-                        $button['buttonAction'] = '#';
-                    }else {
-                        $button['buttonAction'] = $this->url->getUrlByRouteName($buttonData['buttonAction']);
-                    }
-                    // Button confirm modal
-                    $button['confirm'] = isset($button['confirm']) ? json_encode($button['confirm']) : '';
-                    $buttons[] = $button;
-                }
+//                $button = $buttonData;
+//                // Button Action
+//                if (isset($buttonData['buttonAction']) && !empty($buttonData['buttonAction'])) {
+//                    if($buttonData['buttonAction'] == '#') {
+//                        // Forward to the same action (url)
+//                        $button['buttonAction'] = '#';
+//                    }else {
+//                        $button['buttonAction'] = $this->url->getUrlByRouteName($buttonData['buttonAction']);
+//                    }
+//                    // Button confirm modal
+//                    $button['confirm'] = isset($button['confirm']) ? json_encode($button['confirm']) : '';
+//                }
+//                $buttons[] = $button;
             }
         }
 

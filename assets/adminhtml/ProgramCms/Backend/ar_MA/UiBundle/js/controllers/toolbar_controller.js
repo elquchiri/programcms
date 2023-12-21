@@ -16,23 +16,22 @@ export default class Toolbar extends Controller {
     buttonClick(event) {
         let button = event.currentTarget;
         let btnType = $(button).data('btn-type');
-        let action = $(button).data('btn-action');
-        let confirm = $(button).data('btn-confirm');
-
-        if(confirm !== '') {
-            new modal().open();
-            $('.confirm-modal').modal('show');
-            return;
-        }
 
         if(btnType === 'save') {
-            let btnTarget = $(button).data('btn-target');
+            let confirm = $(button).data('btn-confirm');
 
+            if(confirm !== '') {
+                new modal().open();
+                $('.confirm-modal').modal('show');
+                return;
+            }
+
+            let btnTarget = $(button).data('btn-target');
             $('form#' + btnTarget)
-                .attr('action', action)
                 .attr('method', 'POST')
                 .submit();
         }else{
+            let action = $(button).data('btn-action');
             window.location = action;
         }
     }

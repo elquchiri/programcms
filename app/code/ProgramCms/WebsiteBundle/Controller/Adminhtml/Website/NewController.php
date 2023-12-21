@@ -10,6 +10,7 @@ namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\Website;
 
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\CoreBundle\View\Result\Page;
 
 /**
  * Class NewController
@@ -41,9 +42,10 @@ class NewController extends \ProgramCms\CoreBundle\Controller\Controller
      */
     public function execute()
     {
-        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
+        /** @var Page $pageResult */
+        $pageResult = $this->objectManager->create(Page::class);
 
-        $pageResult->getConfig()->getTitle()->set("New Website");
+        $pageResult->getConfig()->getTitle()->set($this->translator->trans("New Website"));
         return $pageResult;
     }
 }

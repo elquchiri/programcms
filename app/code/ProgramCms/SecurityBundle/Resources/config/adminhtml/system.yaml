@@ -23,11 +23,6 @@ system_config:
               type: 'select'
               source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
               scope: 'default|website|website_view'
-            allowed_countries:
-              label: 'Allow Countries'
-              type: 'multiselect'
-              source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
-              scope: 'default|website|website_view'
         local_options:
           label: 'Locale Options'
           scope: 'default|website|website_view'

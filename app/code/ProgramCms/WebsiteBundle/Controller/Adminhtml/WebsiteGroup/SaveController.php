@@ -75,7 +75,7 @@ class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
         $request = $this->getRequest()->getCurrentRequest();
         if($request->getMethod() == 'POST') {
             $formData = $request->request->all();
-            $websiteGroupId = $formData['id'] ?? "";
+            $websiteGroupId = $formData['website_group_id'] ?? "";
 
             /** @var WebsiteGroup $websiteGroup */
             $websiteGroup = $this->websiteGroupRepository->findOneBy(['website_group_id' => $websiteGroupId]);

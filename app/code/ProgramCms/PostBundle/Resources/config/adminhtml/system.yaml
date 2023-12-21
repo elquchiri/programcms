@@ -23,11 +23,6 @@ system_config:
               type: 'select'
               source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
               scope: 'default|website|website_view'
-            allowed_countries:
-              label: 'Allow Countries'
-              type: 'multiselect'
-              source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
-              scope: 'default|website|website_view'
     comments:
       label: 'Comments'
       tab: 'core_post'
@@ -40,11 +35,6 @@ system_config:
             default_country:
               label: 'Default Country'
               type: 'select'
-              source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
-              scope: 'default|website|website_view'
-            allowed_countries:
-              label: 'Allow Countries'
-              type: 'multiselect'
               source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
               scope: 'default|website|website_view'
         local_options:

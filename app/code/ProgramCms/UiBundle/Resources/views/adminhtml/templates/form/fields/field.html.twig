@@ -1,0 +1,40 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+
+{% if(block.hasLabel()) %}
+    <div class="row mb-3">
+        <div class="col-3 text-end">
+            <label for="{{ block.getId() }}" class="col-form-label"
+                   style="font-size: 14px; font-weight: 600;">
+                {{ block.getLabel() }}
+                {% if block.isRequired() %}
+                    <span class="text-danger">*</span>
+                {% endif %}
+                {% if block.isInheritCheckboxRequired() %}
+                    <div class="text-muted" style="font-size: 11px; font-weight: normal;">{{ block.getScopeLabel() }}</div>
+                {% endif %}
+            </label>
+        </div>
+        <div class="col-6">
+            {{ block.getChildHtml()|raw }}
+            {% if block.isInheritCheckboxRequired() %}
+                {{ block.renderInheritCheckbox()|raw }}
+            {% endif %}
+
+            {% if block.hasHelpMessage() %}
+                <div id="{{ block.getName() }}emailHelp" class="form-text"
+                     style="font-size: 13px; margin-top: 5px;">
+                    {{ block.getHelpMessage() }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% else %}
+    {{ block.getChildHtml()|raw }}
+{% endif %}

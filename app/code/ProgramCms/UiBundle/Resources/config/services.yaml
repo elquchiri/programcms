@@ -25,10 +25,16 @@ services:
     class: ProgramCms\UiBundle\Block\Collapser\Collapser
   # alias Fieldset
   ui.block.form.fieldset:
-    class: ProgramCms\UiBundle\Block\Form\Fieldset
+    class: ProgramCms\UiBundle\Component\Form\Fieldset
+  ui.block.form.field:
+    class: ProgramCms\UiBundle\Component\Form\Field
+  ui.block.form.text:
+    class: ProgramCms\UiBundle\Component\Form\Element\Text
   # alias Form
   ui.block.form:
-    class: ProgramCms\UiBundle\Block\Form\Form
+    class: ProgramCms\UiBundle\Component\Form\Form
+  ui.block.datasource:
+    class: ProgramCms\UiBundle\Component\DataSource
   # alias Grid
   ui.block.grid:
     class: ProgramCms\UiBundle\Block\Grid\Grid

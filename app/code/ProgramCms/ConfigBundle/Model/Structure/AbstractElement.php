@@ -8,6 +8,9 @@
 
 namespace ProgramCms\ConfigBundle\Model\Structure;
 
+use ProgramCms\ConfigBundle\App\Context;
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 /**
  * Class AbstractElement
  * @package ProgramCms\ConfigBundle\Model\Structure
@@ -18,16 +21,16 @@ abstract class AbstractElement implements \ProgramCms\ConfigBundle\Model\Structu
 
     protected $_scope;
     /**
-     * @var \Symfony\Contracts\Translation\TranslatorInterface
+     * @var TranslatorInterface
      */
-    protected \Symfony\Contracts\Translation\TranslatorInterface $_translator;
+    protected TranslatorInterface $_translator;
 
     /**
      * AbstractElement constructor.
-     * @param \ProgramCms\ConfigBundle\App\Context $context
+     * @param Context $context
      */
     public function __construct(
-        \ProgramCms\ConfigBundle\App\Context $context
+        Context $context
     )
     {
         $this->_translator = $context->getTranslator();

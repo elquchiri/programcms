@@ -8,6 +8,7 @@
 
 namespace ProgramCms\ConfigBundle\Controller\Adminhtml;
 
+use HttpResponseException;
 use ProgramCms\ConfigBundle\Model\ConfigSerializer;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
@@ -28,6 +29,9 @@ abstract class AbstractConfigController extends \ProgramCms\CoreBundle\Controlle
      * @var TranslatorInterface
      */
     protected TranslatorInterface $translator;
+    /**
+     * @var ConfigSerializer
+     */
     protected ConfigSerializer $configSerializer;
 
     /**
@@ -52,6 +56,10 @@ abstract class AbstractConfigController extends \ProgramCms\CoreBundle\Controlle
         $this->configSerializer = $configSerializer;
     }
 
+    /**
+     * @return mixed
+     * @throws HttpResponseException
+     */
     public function dispatch(): mixed
     {
         if(!$this->getRequest()->getParam('section')) {

@@ -17,10 +17,10 @@ menu:
             action: ''
             sortOrder: 1
           storeBundles:
-            label: 'Browse Store Bundles »'
+            label: 'Browse Bundles in Store »'
             action: ''
             sortOrder: 2
           storeThemes:
-            label: 'Browse Store Themes »'
+            label: 'Browse Themes in Store »'
             action: ''
             sortOrder: 3

@@ -9,9 +9,9 @@
 namespace ProgramCms\CoreBundle\View\Element;
 
 use Exception;
-use InvalidArgumentException;
 use ProgramCms\CoreBundle\View\Layout;
 use ProgramCms\RouterBundle\Service\Url;
+use Twig\Environment;
 
 /**
  * Class AbstractBlock
@@ -26,15 +26,17 @@ abstract class AbstractBlock extends \ProgramCms\CoreBundle\Model\DataObject imp
     protected string $_nameInLayout;
     /**
      * Twig Environment instance
-     * @var \Twig\Environment
+     * @var Environment
      */
-    protected \Twig\Environment $environment;
+    protected Environment $environment;
     /**
      * Current Block Layout
      * @var Layout
      */
     protected Layout $layout;
-
+    /**
+     * @var Url
+     */
     protected Url $_url;
 
     /**
@@ -227,7 +229,7 @@ abstract class AbstractBlock extends \ProgramCms\CoreBundle\Model\DataObject imp
             $block = $block->getNameInLayout();
         }
 
-        $layout->setChild($thisName, $block, $alias);
+        $layout->setChild($thisName, $block);
 
         return $this;
     }

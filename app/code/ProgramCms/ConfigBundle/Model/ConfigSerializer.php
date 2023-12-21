@@ -148,7 +148,7 @@ class ConfigSerializer
                                             'path' => $sectionId . '/' . $groupId . '/' . $fieldId
                                         ];
 
-                                        if ($field['type'] == 'select' || $field['type'] == 'multiselect') {
+                                        if (in_array($field['type'], ['select', 'multiselect'])) {
                                             $this->_data['sections'][$sectionId]['children'][$groupId]['children'][$fieldId]['sourceModel'] = $field['source'] ?? '';
                                         }
                                     }
@@ -251,37 +251,5 @@ class ConfigSerializer
             $this->_tabIterator->setElements($this->_data['tabs'], $this->_scopeDefiner->getScope());
         }
         return $this->_tabIterator;
-    }
-
-    /**
-     * Get Configuration Navigation to render
-     * @return array
-     */
-//    public function getConfigNavigation(): array
-//    {
-//        return $this->_sortArrayByKey($this->_data['tabs'], 'sortOrder', 'asc');
-//    }
-
-    /**
-     * @param $array
-     * @param $key
-     * @param $sortOrder
-     * @return mixed
-     */
-    private function _sortArrayByKey($array, $key, $sortOrder)
-    {
-        usort($array, function ($a, $b) use ($key, $sortOrder) {
-            if ($a[$key] == $b[$key]) {
-                return 0;
-            }
-
-            if ($sortOrder === 'asc') {
-                return ($a[$key] < $b[$key]) ? -1 : 1;
-            } else if ($sortOrder === 'desc') {
-                return ($a[$key] > $b[$key]) ? -1 : 1;
-            }
-        });
-
-        return $array;
     }
 }
