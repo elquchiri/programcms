@@ -57,7 +57,7 @@ class ViewController extends \ProgramCms\CoreBundle\Controller\Controller
         $theme = $this->themeRepository->getById($themeId);
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
         $pageResult->getConfig()->getTitle()->set(
-            sprintf("Theme: %s", $theme->getThemeTitle())
+            sprintf($this->trans("Theme: %s"), $theme->getThemeTitle())
         );
         return $pageResult;
     }

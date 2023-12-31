@@ -86,14 +86,13 @@
 
     <form role="search">
         <div class="row">
-            <div class="col-sm-5">
+            <div class="col-md-4">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="{{ block.trans('Search by Keyword ..') }}"
                            aria-label="Recipient's username" aria-describedby="button-addon2">
                     <button class="btn" type="button" id="button-addon2"
-                            style="border: 1px solid #CCC; border-left: 0; padding-top: 0;">
-                        <img src="{{ asset('bundles/programcmsforum/images/search.png') }}"
-                             style="width: 15px; height: 15px"/>
+                            style="border: 1px solid #CCC; padding-top: 0;">
+                        <img src="{{ asset('bundles/programcmsui/images/search.png') }}" />
                     </button>
                 </div>
             </div>
@@ -115,7 +114,7 @@
 
             <div class="input-group flex-nowrap mb-3 justify-content-end ms-auto mt-2" style="width: 120px;">
                 <button class="btn pagination-left-button" type="button" id="button-addon1"></button>
-                <input type="text" class="form-control text-center" value="1">
+                <input type="text" style="width: 50px;" class="form-control text-center" value="1">
                 <button class="btn pagination-right-button" type="button" id="button-addon2"></button>
             </div>
         </div>

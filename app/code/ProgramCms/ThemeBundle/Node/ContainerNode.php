@@ -8,50 +8,44 @@
 
 namespace ProgramCms\ThemeBundle\Node;
 
+use Twig\Compiler;
+
 /**
  * Class ContainerNode
  * @package ProgramCms\ThemeBundle\Node
  */
-class ContainerNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
+class ContainerNode extends AbstractNode implements \Twig\Node\NodeCaptureInterface
 {
-    public function __construct($containerName, $containerHtmlTag, $containerHtmlClass, $containerIdClass, $before, $after, $body, $lineno, $tag = null)
-    {
-        parent::__construct(['body' => $body], ['containerName' => $containerName, 'containerHtmlTag' => $containerHtmlTag, 'containerHtmlClass' => $containerHtmlClass, 'containerIdClass' => $containerIdClass, 'before' => $before, 'after' => $after], $lineno, $tag);
-    }
 
-    public function compile(\Twig\Compiler $compiler)
+    /**
+     * @param Compiler $compiler
+     * @return void
+     */
+    protected function _compile(Compiler &$compiler)
     {
-        $containerName = $this->getAttribute('containerName');
+        $containerName = $this->getAttribute('name');
 
-        foreach($this->getNode('body') as $node) {
-            switch($node) {
-                case ($node instanceof \ProgramCms\ThemeBundle\Node\BlockNode):
-                    $blockName = $node->getAttribute('blockName');
-                    $blockClass = $node->getAttribute('blockClass');
-                    $blockTemplate = $node->getAttribute('blockTemplate');
-                    $before = $node->getAttribute('before');
-                    $after = $node->getAttribute('after');
-                    $arguments = [];
-                    foreach($node->getNode('body') as $argumentsNode) {
-                        if($argumentsNode instanceof \ProgramCms\ThemeBundle\Node\Argument\ArgumentsNode) {
-                            $compiler->getEnvironment()->getExtension('ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->getArgumentAsArray($argumentsNode,$arguments);
-                        }
-                    }
-                    $arguments = count($arguments) > 0 ? json_encode($arguments) : '';
-                    $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addBlock('$blockName', '$blockClass', '$blockTemplate', '$containerName', '$before', '$after', '$arguments');");
-                    break;
-                case ($node instanceof \ProgramCms\ThemeBundle\Node\ContainerNode):
-                    $subContainerName = $node->getAttribute('containerName');
-                    $subContainerHtmlTag = $node->getAttribute('containerHtmlTag');
-                    $subContainerHtmlClass = $node->getAttribute('containerHtmlClass');
-                    $subContainerIdClass = $node->getAttribute('containerIdClass');
-                    $before = $node->getAttribute('before');
-                    $after = $node->getAttribute('after');
-                    $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addContainer('$subContainerName', '$containerName', '$subContainerHtmlTag', '$subContainerHtmlClass', '$subContainerIdClass', '$before', '$after');");
-                    break;
+        if($this->hasAttribute('parent')) {
+            $parentNode = $this->getAttribute('parent');
+
+            if($parentNode instanceof LayoutNode) {
+                // Add root container
+                $templateName = $parentNode->getTemplateName();
+                $compiler
+                    ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addContainer('$containerName')")
+                    ->raw(";\n");
+                $compiler
+                    ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->trackElementWithFileName('$templateName', '$containerName')")
+                    ->raw(";\n");
+            }else{
+                $parentName = $parentNode->getAttribute('name');
+                $subContainerHtmlTag = $this->getAttribute('containerHtmlTag');
+                $subContainerHtmlClass = $this->getAttribute('containerHtmlClass');
+                $subContainerIdClass = $this->getAttribute('containerIdClass');
+                $before = $this->getAttribute('before');
+                $after = $this->getAttribute('after');
+                $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addContainer('$containerName', '$parentName', '$subContainerHtmlTag', '$subContainerHtmlClass', '$subContainerIdClass', '$before', '$after');");
             }
         }
-
-        $compiler->subcompile($this->getNode('body'));
     }
 }

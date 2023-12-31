@@ -8,6 +8,7 @@
 
 namespace ProgramCms\ThemeBundle\Parser;
 
+use ProgramCms\ThemeBundle\Node\UpdateNode;
 use Twig\Token;
 use Twig\Error\SyntaxError;
 
@@ -17,7 +18,11 @@ use Twig\Error\SyntaxError;
  */
 class UpdateTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
-
+    /**
+     * @param Token $token
+     * @return UpdateNode
+     * @throws SyntaxError
+     */
     public function parse(Token $token)
     {
         $lineno = $token->getLine();
@@ -31,12 +36,7 @@ class UpdateTokenParser extends \Twig\TokenParser\AbstractTokenParser
         }
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new \ProgramCms\ThemeBundle\Node\UpdateNode($handle, $lineno, $this->getTag());
-    }
-
-    public function decideUpdateEnd(\Twig\Token $token)
-    {
-        return $token->test('endUpdate');
+        return new UpdateNode('', ['handle' => $handle], $lineno, $this->getTag());
     }
 
     public function getTag()

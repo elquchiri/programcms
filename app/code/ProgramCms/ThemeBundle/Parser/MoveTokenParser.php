@@ -16,6 +16,11 @@ use Twig\Error\SyntaxError;
  */
 class MoveTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
+    /**
+     * @param \Twig\Token $token
+     * @return \ProgramCms\ThemeBundle\Node\MoveNode
+     * @throws SyntaxError
+     */
     public function parse(\Twig\Token $token)
     {
         $lineno = $token->getLine();
@@ -48,6 +53,9 @@ class MoveTokenParser extends \Twig\TokenParser\AbstractTokenParser
         return new \ProgramCms\ThemeBundle\Node\MoveNode($elementName, $destinationName, $before, $after, $lineno, $this->getTag());
     }
 
+    /**
+     * @return string
+     */
     public function getTag()
     {
         return 'move';

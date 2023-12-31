@@ -38,14 +38,21 @@ class ReferenceBlockTokenParser extends \Twig\TokenParser\AbstractTokenParser
 
         $stream->expect(\Twig\Token::BLOCK_END_TYPE);
 
-        return new \ProgramCms\ThemeBundle\Node\ReferenceBlockNode($blockName, $body, $lineno, $this->getTag());
+        return new \ProgramCms\ThemeBundle\Node\ReferenceBlockNode($body, ['name' => $blockName], $lineno, $this->getTag());
     }
 
+    /**
+     * @param \Twig\Token $token
+     * @return bool
+     */
     public function decideReferenceBlockEnd(\Twig\Token $token)
     {
         return $token->test('endReferenceBlock');
     }
 
+    /**
+     * @return string
+     */
     public function getTag()
     {
         return 'referenceBlock';

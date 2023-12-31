@@ -37,7 +37,12 @@ class ReferenceContainerTokenParser extends \Twig\TokenParser\AbstractTokenParse
 
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new \ProgramCms\ThemeBundle\Node\ReferenceContainerNode($containerName, $remove, $body, $lineno, $this->getTag());
+        return new \ProgramCms\ThemeBundle\Node\ReferenceContainerNode(
+            $body,
+            ['name' => $containerName, 'remove' => $remove],
+            $lineno,
+            $this->getTag()
+        );
     }
 
     public function decideReferenceContainerEnd(Token $token)

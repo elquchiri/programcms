@@ -26,14 +26,21 @@ class LayoutTokenParser extends \Twig\TokenParser\AbstractTokenParser
 
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new \ProgramCms\ThemeBundle\Node\LayoutNode($body, $lineno, $this->getTag());
+        return new \ProgramCms\ThemeBundle\Node\LayoutNode($body, [], $lineno, $this->getTag());
     }
 
+    /**
+     * @param Token $token
+     * @return bool
+     */
     public function decideLayoutEnd(Token $token)
     {
         return $token->test('endLayout');
     }
 
+    /**
+     * @return string
+     */
     public function getTag()
     {
         return 'layout';

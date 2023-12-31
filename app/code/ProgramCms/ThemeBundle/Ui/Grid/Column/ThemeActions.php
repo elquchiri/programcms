@@ -9,12 +9,13 @@
 namespace ProgramCms\ThemeBundle\Ui\Grid\Column;
 
 use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\UiBundle\View\Element\Context;
 
 /**
  * Class ThemeActions
  * @package ProgramCms\ThemeBundle\Ui\Grid\Column
  */
-class ThemeActions extends \ProgramCms\UiBundle\Component\Grid\Column
+class ThemeActions extends \ProgramCms\UiBundle\Component\Listing\ActionsColumn
 {
     /**
      * @var Url
@@ -23,27 +24,37 @@ class ThemeActions extends \ProgramCms\UiBundle\Component\Grid\Column
 
     /**
      * ThemeActions constructor.
-     * @param Url $url
+     * @param Context $context
+     * @param array $data
      */
     public function __construct(
-        Url $url
+        Context $context,
+        array $data = []
     )
     {
-        $this->url = $url;
+        parent::__construct($context, $data);
+        $this->url = $context->getTemplateContext()->getUrl();
     }
 
     /**
-     * @param $item
-     * @return string[][]
+     * @param array $dataSource
+     * @return array
      */
-    public function prepareData($item): array
+    public function prepareDataSource(array $dataSource)
     {
-        return [
-            [
-                'label' => 'Visualize',
-                'url' => $this->url->getUrlByRouteName('theme_index_view', ['id' => $item->getThemeId()]),
-                'type' => 'url'
-            ]
-        ];
+        foreach($dataSource as &$rowData) {
+            $actions = [
+                [
+                    'label' => 'Visualize',
+                    'url' => $this->url->getUrlByRouteName('theme_index_view', ['id' => $rowData->getThemeId()]),
+                    'type' => 'url'
+                ]
+            ];
+            $rowData->setDataUsingMethod(
+                $this->getName(),
+                $actions
+            );
+        }
+        return $dataSource;
     }
 }

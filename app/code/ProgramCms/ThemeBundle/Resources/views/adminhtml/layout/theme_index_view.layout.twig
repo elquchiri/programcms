@@ -8,46 +8,70 @@
 #}
 {% page layout="admin-2columns-left" %}
     {% referenceContainer name="content" %}
-        {% block name="form" class="ui.block.form" %}
+        {% block name="theme_form" class="ui.block.form" %}
             {% arguments %}
-                {% argument name="label" type="string" %}Theme Information{% endArgument %}
-                {% argument name="dataProvider" type="array" %}
-                    {% argument name="class" type="string" %}ProgramCms\ThemeBundle\Model\Theme\Grid\DataProvider{% endArgument %}
-                    {% argument name="primaryFieldName" type="string" %}theme_id{% endArgument %}
-                    {% argument name="requestFieldName" type="string" %}id{% endArgument %}
+                {% argument name="data" type="array" %}
+                    {% argument name="label" type="string" %}Theme Information{% endArgument %}
+                {% endArgument %}
+                {% argument name="dataSource" type="array" %}
+                    {% argument name="dataProvider" type="array" %}
+                        {% argument name="class" type="string" %}ProgramCms\ThemeBundle\Model\Theme\Grid\DataProvider{% endArgument %}
+                        {% argument name="primaryFieldName" type="string" %}theme_id{% endArgument %}
+                        {% argument name="requestFieldName" type="string" %}id{% endArgument %}
+                    {% endArgument %}
                 {% endArgument %}
                 {% argument name="buttons" type="array" %}
                     {% argument name="back" type="string" %}ProgramCms\ThemeBundle\Model\Provider\Button\BackToThemesButton{% endArgument %}
                 {% endArgument %}
-                {% argument name="layout" type="array" %}
-                    {% argument name="navContainerName" type="string" %}sidebar.main{% endArgument %}
-                    {% argument name="type" type="string" %}tabs{% endArgument %}
-                {% endArgument %}
-                {% argument name="fieldsets" type="array" %}
-                    {% argument name="fieldset" type="array" %}
-                        {% argument name="label" type="string" %}General{% endArgument %}
-                        {% argument name="fields" type="array" %}
-                            {% argument name="theme_title" type="array" %}
-                                {% argument name="type" type="string" %}plainText{% endArgument %}
-                                {% argument name="label" type="string" %}Theme Title{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="theme_path" type="array" %}
-                                {% argument name="type" type="string" %}plainText{% endArgument %}
-                                {% argument name="label" type="string" %}Theme Path{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="parent_theme_title" type="array" %}
-                                {% argument name="type" type="string" %}plainText{% endArgument %}
-                                {% argument name="label" type="string" %}Parent Theme{% endArgument %}
-                                {% argument name="helpMessage" type="string" %}Parent Theme Ensures that all core layouts and templates are being loaded.{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="preview_image" type="array" %}
-                                {% argument name="type" type="string" %}image{% endArgument %}
-                                {% argument name="label" type="string" %}Theme Preview{% endArgument %}
-                            {% endArgument %}
-                        {% endArgument %}
-                    {% endArgument %}
-                {% endArgument %}
+{#                {% argument name="layout" type="array" %}#}
+{#                    {% argument name="navContainerName" type="string" %}sidebar.main{% endArgument %}#}
+{#                    {% argument name="type" type="string" %}tabs{% endArgument %}#}
+{#                {% endArgument %}#}
             {% endArguments %}
+            {% block name="theme_fieldset" class="ui.block.form.fieldset" %}
+                {% arguments %}
+                    {% argument name="data" type="array" %}
+                        {% argument name="label" type="string" %}General{% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+                {% block name="theme_title" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}plainText{% endArgument %}
+                            {% argument name="label" type="string" %}Title{% endArgument %}
+                            {% argument name="source" type="string" %}theme_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="theme_path" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}plainText{% endArgument %}
+                            {% argument name="label" type="string" %}Path{% endArgument %}
+                            {% argument name="source" type="string" %}theme_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="parent_theme_title" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}plainText{% endArgument %}
+                            {% argument name="label" type="string" %}Parent Theme{% endArgument %}
+                            {% argument name="helpMessage" type="string" %}Parent Theme Ensures that all core layouts and templates are being loaded.{% endArgument %}
+                            {% argument name="source" type="string" %}theme_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="preview_image" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}image{% endArgument %}
+                            {% argument name="label" type="string" %}Preview{% endArgument %}
+                            {% argument name="source" type="string" %}theme_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+            {% endBlock %}
         {% endBlock %}
     {% endReferenceContainer %}
 {% endPage %}

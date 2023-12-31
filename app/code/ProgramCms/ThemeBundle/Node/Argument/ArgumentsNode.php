@@ -8,19 +8,13 @@
 
 namespace ProgramCms\ThemeBundle\Node\Argument;
 
+use ProgramCms\ThemeBundle\Node\AbstractNode;
+
 /**
  * Class ArgumentsNode
  * @package ProgramCms\ThemeBundle\Node\Argument
  */
-class ArgumentsNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
+class ArgumentsNode extends AbstractNode implements \Twig\Node\NodeCaptureInterface
 {
-    public function __construct($body, $lineno, $tag = null)
-    {
-        parent::__construct(['body' => $body], [], $lineno, $tag);
-    }
 
-    public function compile(\Twig\Compiler $compiler)
-    {
-        $compiler->subcompile($this->getNode('body'));
-    }
 }

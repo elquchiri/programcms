@@ -1,1 +1,8 @@
 "Themes": "الثيمات"
+"Title": "الاسم"
+"Path": "المسار"
+"Parent Theme": "الثيم المرجعي"
+"Preview": "معاينة"
+"Parent Theme Ensures that all core layouts and templates are being loaded.": "لسمة الرئيسية تضمن تحميل جميع التخطيطات والقوالب الأساسية."
+"Theme: %s": "الثيم: %s"
+"Visualize": "معاينة"

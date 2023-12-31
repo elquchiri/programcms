@@ -8,7 +8,9 @@
 
 namespace ProgramCms\ThemeBundle\Parser\Argument;
 
+use ProgramCms\ThemeBundle\Node\Argument\ArgumentNode;
 use Twig\Error\SyntaxError;
+use Twig\Token;
 
 /**
  * Class ArgumentTokenParser
@@ -16,34 +18,50 @@ use Twig\Error\SyntaxError;
  */
 class ArgumentTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
-
-    public function parse(\Twig\Token $token)
+    /**
+     * @param Token $token
+     * @return ArgumentNode
+     * @throws SyntaxError
+     */
+    public function parse(Token $token)
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
 
-        $stream->expect(\Twig\Token::NAME_TYPE, 'name');
-        $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
-        $argumentName = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+        $stream->expect(Token::NAME_TYPE, 'name');
+        $stream->expect(Token::OPERATOR_TYPE, '=');
+        $argumentName = $stream->expect(Token::STRING_TYPE)->getValue();
 
-        $stream->expect(\Twig\Token::NAME_TYPE, 'type');
-        $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
-        $argumentType = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+        $stream->expect(Token::NAME_TYPE, 'type');
+        $stream->expect(Token::OPERATOR_TYPE, '=');
+        $argumentType = $stream->expect(Token::STRING_TYPE)->getValue();
 
-        $stream->expect(\Twig\Token::BLOCK_END_TYPE);
+        $stream->expect(Token::BLOCK_END_TYPE);
 
         $body = $this->parser->subparse([$this, 'decideArgumentEnd'], true);
 
-        $stream->expect(\Twig\Token::BLOCK_END_TYPE);
+        $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new \ProgramCms\ThemeBundle\Node\Argument\ArgumentNode($argumentName, $argumentType, $body, $lineno, $this->getTag());
+        return new ArgumentNode(
+            $body,
+            ['argumentName' => $argumentName, 'argumentType' => $argumentType],
+            $lineno,
+            $this->getTag()
+        );
     }
 
-    public function decideArgumentEnd(\Twig\Token $token)
+    /**
+     * @param Token $token
+     * @return bool
+     */
+    public function decideArgumentEnd(Token $token)
     {
         return $token->test('endArgument');
     }
 
+    /**
+     * @return string
+     */
     public function getTag()
     {
         return 'argument';

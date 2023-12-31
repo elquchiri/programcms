@@ -74,4 +74,29 @@ class PageLayout
 
         return $layoutPageContents;
     }
+
+    /**
+     * @param $name
+     * @return string
+     * @throws ReflectionException
+     */
+    public function getUiComponentContents($name): string
+    {
+        $areaCode = $this->request->getCurrentAreaCode();
+        $layoutPageContents = '';
+        // Get all bundles
+        $bundles = $this->bundleManager->getAllBundles();
+        foreach ($bundles as $bundle) {
+            $pageLayoutPath = $bundle['path'] . '/Resources/views/'. $areaCode .'/ui_component/' . $name . '.component.twig';
+            $themeLayoutPath = $this->directoryList->getRoot() . '/themes/'. $areaCode . '/blank/' . $bundle['name'] . '/ui_component/' . $name . '.component.twig';
+
+            if(file_exists($themeLayoutPath)) {
+                $layoutPageContents .= file_get_contents($themeLayoutPath);
+            } elseif (file_exists($pageLayoutPath)) {
+                $layoutPageContents .= file_get_contents($pageLayoutPath);
+            }
+        }
+
+        return $layoutPageContents;
+    }
 }

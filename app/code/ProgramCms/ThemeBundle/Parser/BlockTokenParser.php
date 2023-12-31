@@ -9,6 +9,7 @@
 namespace ProgramCms\ThemeBundle\Parser;
 
 use Twig\Error\SyntaxError;
+use Twig\Token;
 
 /**
  * Class BlockTokenParser
@@ -16,53 +17,57 @@ use Twig\Error\SyntaxError;
  */
 class BlockTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
-    public function parse(\Twig\Token $token)
+    public function parse(Token $token)
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
 
-        $stream->expect(\Twig\Token::NAME_TYPE, 'name');
-        $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
-        $blockName = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+        $stream->expect(Token::NAME_TYPE, 'name');
+        $stream->expect(Token::OPERATOR_TYPE, '=');
+        $blockName = $stream->expect(Token::STRING_TYPE)->getValue();
 
-        $stream->expect(\Twig\Token::NAME_TYPE, 'class');
-        $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
-        $blockClass = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+        $stream->expect(Token::NAME_TYPE, 'class');
+        $stream->expect(Token::OPERATOR_TYPE, '=');
+        $blockClass = $stream->expect(Token::STRING_TYPE)->getValue();
 
         try {
-            $stream->expect(\Twig\Token::NAME_TYPE, 'template');
-            $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
-            $blockTemplate = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+            $stream->expect(Token::NAME_TYPE, 'template');
+            $stream->expect(Token::OPERATOR_TYPE, '=');
+            $blockTemplate = $stream->expect(Token::STRING_TYPE)->getValue();
         }catch(SyntaxError $e) {
             $blockTemplate = '';
         }
 
         try {
-            $stream->expect(\Twig\Token::NAME_TYPE, 'before');
-            $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
-            $before = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+            $stream->expect(Token::NAME_TYPE, 'before');
+            $stream->expect(Token::OPERATOR_TYPE, '=');
+            $before = $stream->expect(Token::STRING_TYPE)->getValue();
         }catch(SyntaxError $e) {
             $before = '';
         }
 
         try {
-            $stream->expect(\Twig\Token::NAME_TYPE, 'after');
-            $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
-            $after = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+            $stream->expect(Token::NAME_TYPE, 'after');
+            $stream->expect(Token::OPERATOR_TYPE, '=');
+            $after = $stream->expect(Token::STRING_TYPE)->getValue();
         }catch(SyntaxError $e) {
             $after = '';
         }
 
-        $stream->expect(\Twig\Token::BLOCK_END_TYPE);
+        $stream->expect(Token::BLOCK_END_TYPE);
 
         $body = $this->parser->subparse([$this, 'decideBlockEnd'], true);
 
-        $stream->expect(\Twig\Token::BLOCK_END_TYPE);
+        $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new \ProgramCms\ThemeBundle\Node\BlockNode($blockName, $blockClass, $blockTemplate, $before, $after, $body, $lineno, $this->getTag());
+        return new \ProgramCms\ThemeBundle\Node\BlockNode($body, ['name' => $blockName, 'blockClass' => $blockClass, 'blockTemplate' => $blockTemplate, 'before' => $before, 'after' => $after], $lineno, $this->getTag());
     }
 
-    public function decideBlockEnd(\Twig\Token $token)
+    /**
+     * @param Token $token
+     * @return bool
+     */
+    public function decideBlockEnd(Token $token)
     {
         return $token->test('endBlock');
     }

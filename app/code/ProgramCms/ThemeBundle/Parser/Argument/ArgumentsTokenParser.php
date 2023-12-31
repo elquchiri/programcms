@@ -8,32 +8,47 @@
 
 namespace ProgramCms\ThemeBundle\Parser\Argument;
 
+use ProgramCms\ThemeBundle\Node\Argument\ArgumentsNode;
+use Twig\Error\SyntaxError;
+use Twig\Token;
+
 /**
  * Class ArgumentsTokenParser
  * @package ProgramCms\ThemeBundle\Parser\Argument
  */
 class ArgumentsTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
-
-    public function parse(\Twig\Token $token)
+    /**
+     * @param Token $token
+     * @return ArgumentsNode
+     * @throws SyntaxError
+     */
+    public function parse(Token $token)
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
 
-        $stream->expect(\Twig\Token::BLOCK_END_TYPE);
+        $stream->expect(Token::BLOCK_END_TYPE);
 
         $body = $this->parser->subparse([$this, 'decideArgumentsEnd'], true);
 
-        $stream->expect(\Twig\Token::BLOCK_END_TYPE);
+        $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new \ProgramCms\ThemeBundle\Node\Argument\ArgumentsNode($body, $lineno, $this->getTag());
+        return new ArgumentsNode($body, [], $lineno, $this->getTag());
     }
 
-    public function decideArgumentsEnd(\Twig\Token $token)
+    /**
+     * @param Token $token
+     * @return bool
+     */
+    public function decideArgumentsEnd(Token $token)
     {
         return $token->test('endArguments');
     }
 
+    /**
+     * @return string
+     */
     public function getTag()
     {
         return 'arguments';

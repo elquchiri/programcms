@@ -8,31 +8,23 @@
 
 namespace ProgramCms\ThemeBundle\Node;
 
+use Twig\Compiler;
+use Twig\Error\SyntaxError;
 use Twig\Source;
 
 /**
- * Class EFPageNode
+ * Class PageNode
  * @package ProgramCms\ThemeBundle\Node
  */
-class PageNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
+class PageNode extends AbstractNode implements \Twig\Node\NodeCaptureInterface
 {
-    /**
-     * EFPageNode constructor.
-     * @param $pageLayoutName
-     * @param $body
-     * @param $lineno
-     * @param null $tag
-     */
-    public function __construct($pageLayoutName, $body, $lineno, $tag = null)
-    {
-        parent::__construct(['body' => $body], ['pageLayoutName' => $pageLayoutName], $lineno, $tag);
-    }
 
     /**
-     * @throws \Twig\Error\SyntaxError
-     * @throws \Exception
+     * @param Compiler $compiler
+     * @return void
+     * @throws SyntaxError
      */
-    public function compile(\Twig\Compiler $compiler)
+    protected function _compile(Compiler &$compiler)
     {
         $efExtension = $compiler->getEnvironment()->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout();
         $pageLayoutName = $this->getAttribute('pageLayoutName');
@@ -46,33 +38,10 @@ class PageNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterfac
             $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addPageLayout('$pageLayoutName');");
 
             $pageLayoutContents = $efExtension->getPageLayout()->getPageLayoutContents($pageLayoutName);
-            // We use the layout file name to use it later in the EFLayoutNode class
+            // We use the layout file name to use it later in the LayoutNode class
             $source = new Source($pageLayoutContents, $pageLayoutName);
             $nodes = $compiler->getEnvironment()->parse($compiler->getEnvironment()->tokenize($source));
             $compiler->subcompile($nodes->getNode('body'));
         }
-
-        // Checks for Authorized EFPage children, throws an Exception if anything else found.
-        foreach($this->getNode('body') as $node) {
-            switch($node) {
-                case ($node instanceof \ProgramCms\ThemeBundle\Node\ReferenceContainerNode):
-                case ($node instanceof \ProgramCms\ThemeBundle\Node\ReferenceBlockNode):
-                case ($node instanceof \ProgramCms\ThemeBundle\Node\CssNode):
-                case ($node instanceof \ProgramCms\ThemeBundle\Node\JsNode):
-                case ($node instanceof \ProgramCms\ThemeBundle\Node\TitleNode):
-                case ($node instanceof \ProgramCms\ThemeBundle\Node\UpdateNode):
-                case ($node instanceof \ProgramCms\ThemeBundle\Node\MoveNode):
-                case ($node instanceof \ProgramCms\ThemeBundle\Node\ContainerNode):
-                    break;
-                case ($node instanceof \Twig\Node\TextNode):
-                    if(empty(trim($node->getAttribute('data')))) {
-                        break;
-                    }
-                default:
-                    throw new \Exception(sprintf("%s is not a supported Tag inside EFPage Layouts.", $node->getNodeTag()));
-            }
-        }
-
-        $compiler->subcompile($this->getNode('body'));
     }
 }

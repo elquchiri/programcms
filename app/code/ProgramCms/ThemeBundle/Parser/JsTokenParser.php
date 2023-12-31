@@ -16,6 +16,11 @@ use Twig\Token;
  */
 class JsTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
+    /**
+     * @param Token $token
+     * @return \ProgramCms\ThemeBundle\Node\JsNode
+     * @throws \Twig\Error\SyntaxError
+     */
     public function parse(\Twig\Token $token)
     {
         $lineno = $token->getLine();
@@ -24,7 +29,7 @@ class JsTokenParser extends \Twig\TokenParser\AbstractTokenParser
 
         // parse the array of css files
         if ($stream->test(Token::PUNCTUATION_TYPE, '[')) {
-            $jsFiles = $this->parseCssFiles();
+            $jsFiles = $this->parseJsFiles();
         }
 
         $stream->expect(Token::BLOCK_END_TYPE);
@@ -32,7 +37,11 @@ class JsTokenParser extends \Twig\TokenParser\AbstractTokenParser
         return new \ProgramCms\ThemeBundle\Node\JsNode($jsFiles, $lineno, $this->getTag());
     }
 
-    protected function parseCssFiles()
+    /**
+     * @return array
+     * @throws \Twig\Error\SyntaxError
+     */
+    protected function parseJsFiles()
     {
         $stream = $this->parser->getStream();
         $cssFiles = [];
@@ -56,6 +65,9 @@ class JsTokenParser extends \Twig\TokenParser\AbstractTokenParser
         return $cssFiles;
     }
 
+    /**
+     * @return string
+     */
     public function getTag()
     {
         return 'js';

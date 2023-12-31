@@ -60,7 +60,8 @@ class ThemeExtension extends \Twig\Extension\AbstractExtension
             new \ProgramCms\ThemeBundle\Parser\CssTokenParser(),
             new \ProgramCms\ThemeBundle\Parser\JsTokenParser(),
             new \ProgramCms\ThemeBundle\Parser\MoveTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\ReferenceContainerTokenParser()
+            new \ProgramCms\ThemeBundle\Parser\ReferenceContainerTokenParser(),
+            new \ProgramCms\UiBundle\App\Parser\UiComponentTokenParser()
         ];
     }
 }

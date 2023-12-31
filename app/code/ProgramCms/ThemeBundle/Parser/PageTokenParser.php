@@ -35,14 +35,21 @@ class PageTokenParser extends \Twig\TokenParser\AbstractTokenParser
 
         $stream->expect(\Twig\Token::BLOCK_END_TYPE);
 
-        return new \ProgramCms\ThemeBundle\Node\PageNode($pageLayoutName, $body, $lineno, $this->getTag());
+        return new \ProgramCms\ThemeBundle\Node\PageNode($body, ['pageLayoutName' => $pageLayoutName], $lineno, $this->getTag());
     }
 
+    /**
+     * @param Token $token
+     * @return bool
+     */
     public function decidePageEnd(\Twig\Token $token)
     {
         return $token->test('endPage');
     }
 
+    /**
+     * @return string
+     */
     public function getTag()
     {
         return 'page';

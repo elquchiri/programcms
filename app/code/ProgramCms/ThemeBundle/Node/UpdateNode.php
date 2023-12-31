@@ -8,27 +8,35 @@
 
 namespace ProgramCms\ThemeBundle\Node;
 
+use ReflectionException;
+use Twig\Error\SyntaxError;
 use Twig\Source;
+use Twig\Compiler;
 
 /**
- * Class EFUpdateNode
+ * Class UpdateNode
  * @package ProgramCms\ThemeBundle\Node
  */
-class UpdateNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
+class UpdateNode extends AbstractNode implements \Twig\Node\NodeCaptureInterface
 {
 
-    public function __construct($handle, $lineno, $tag = null)
-    {
-        parent::__construct([], ['handle' => $handle], $lineno, $tag);
-    }
-
     /**
-     * @throws \Twig\Error\SyntaxError
+     * @throws SyntaxError|ReflectionException
      */
-    public function compile(\Twig\Compiler $compiler)
+    protected function _compile(Compiler &$compiler)
     {
         $efExtension = $compiler->getEnvironment()->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout();
         $handle = $this->getAttribute('handle');
+
+        if($this->hasAttribute('parent')) {
+            $parentNode = $this->getAttribute('parent');
+            $templateName = $parentNode->getTemplateName();
+        }else{
+            $templateName = '';
+        }
+        $compiler
+            ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->trackHandlerWithFileName('$templateName', '$handle');");
+
 
         if($efExtension->canAddPageLayout($handle)) {
             $efExtension->addPageLayout($handle);
@@ -39,7 +47,7 @@ class UpdateNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterf
             $pageLayout = $efExtension->getPageLayout();
             $pageLayoutContents = $pageLayout->getPageLayoutContents($handle);
 
-            // Prepare layout file to be parsed as by the LayoutNode
+            // Prepare layout file to be parsed by the LayoutNode
             $source = new Source($pageLayoutContents, $handle);
 
             $nodes = $compiler->getEnvironment()->parse($compiler->getEnvironment()->tokenize($source));

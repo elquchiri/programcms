@@ -16,6 +16,11 @@ use Twig\Token;
  */
 class CssTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
+    /**
+     * @param Token $token
+     * @return \ProgramCms\ThemeBundle\Node\CssNode
+     * @throws \Twig\Error\SyntaxError
+     */
     public function parse(\Twig\Token $token)
     {
         $lineno = $token->getLine();
@@ -32,6 +37,10 @@ class CssTokenParser extends \Twig\TokenParser\AbstractTokenParser
         return new \ProgramCms\ThemeBundle\Node\CssNode($cssFiles, $lineno, $this->getTag());
     }
 
+    /**
+     * @return array
+     * @throws \Twig\Error\SyntaxError
+     */
     protected function parseCssFiles()
     {
         $stream = $this->parser->getStream();
@@ -56,6 +65,9 @@ class CssTokenParser extends \Twig\TokenParser\AbstractTokenParser
         return $cssFiles;
     }
 
+    /**
+     * @return string
+     */
     public function getTag()
     {
         return 'css';

@@ -74,7 +74,19 @@ class ContainerTokenParser extends \Twig\TokenParser\AbstractTokenParser
 
         $stream->expect(\Twig\Token::BLOCK_END_TYPE);
 
-        return new \ProgramCms\ThemeBundle\Node\ContainerNode($containerName, $containerHtmlTag, $containerHtmlClass, $containerIdClass, $before, $after, $body, $lineno, $this->getTag());
+        return new \ProgramCms\ThemeBundle\Node\ContainerNode(
+            $body,
+            [
+                'name' => $containerName,
+                'containerHtmlTag' => $containerHtmlTag,
+                'containerHtmlClass' => $containerHtmlClass,
+                'containerIdClass' => $containerIdClass,
+                'before' => $before,
+                'after' => $after
+            ],
+            $lineno,
+            $this->getTag()
+        );
     }
 
     /**
