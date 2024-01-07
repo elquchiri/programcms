@@ -9,11 +9,13 @@
 namespace ProgramCms\UiBundle\Component\Form\Element;
 
 /**
- * Class Text
- * @package ProgramCms\UiBundle\Block\Form\Fields
+ * Class Password
+ * @package ProgramCms\UiBundle\Component\Form\Element
  */
 class Password extends AbstractElement
 {
+    const NAME = 'password';
+
     /**
      * @var string
      */
@@ -21,6 +23,6 @@ class Password extends AbstractElement
 
     public function getComponentName()
     {
-        // TODO: Implement getComponentName() method.
+        return self::NAME;
     }
 }

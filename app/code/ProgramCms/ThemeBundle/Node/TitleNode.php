@@ -8,25 +8,33 @@
 
 namespace ProgramCms\ThemeBundle\Node;
 
+use Exception;
+
 /**
- * Class EFTitleNode
+ * Class TitleNode
  * @package ProgramCms\ThemeBundle\Node
  */
 class TitleNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
 {
-
+    /**
+     * TitleNode constructor.
+     * @param $body
+     * @param $lineno
+     * @param null $tag
+     */
     public function __construct($body, $lineno, $tag = null)
     {
         parent::__construct(['body' => $body], [], $lineno, $tag);
     }
 
     /**
-     * @throws \Twig\Error\SyntaxError
-     * @throws \Exception
+     * @throws Exception
      */
-    public function compile(\Twig\Compiler $compiler)
+    public function compile(\Twig\Compiler $compiler): void
     {
         $title = $this->getNode('body')->getAttribute('data');
-        $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->setTitle('$title');");
+        $compiler
+            ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->setTitle('$title')")
+            ->raw(";\n");
     }
 }

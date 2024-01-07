@@ -35,6 +35,19 @@ interface UiComponentInterface extends BlockInterface
     public function getConfiguration();
 
     /**
+     * @param $name
+     * @param UiComponentInterface $component
+     * @return mixed
+     */
+    public function addComponent($name, UiComponentInterface $component);
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function getComponent($name);
+
+    /**
      * Get template
      * @return string
      */
@@ -45,22 +58,6 @@ interface UiComponentInterface extends BlockInterface
      * @return ContextInterface
      */
     public function getContext();
-
-    /**
-     * Component data setter
-     * @param string|array $key
-     * @param mixed $value
-     * @return void
-     */
-    public function setData($argument, mixed $value = null): static;
-
-    /**
-     * Component data getter
-     * @param string $key
-     * @param string|int $index
-     * @return mixed
-     */
-    public function getData($argument = null): mixed;
 
     /**
      * Prepare component configuration
@@ -77,7 +74,7 @@ interface UiComponentInterface extends BlockInterface
 
     /**
      * Get Data Source data
-     * @return array
+     * @return mixed
      */
     public function getDataSourceData();
 }

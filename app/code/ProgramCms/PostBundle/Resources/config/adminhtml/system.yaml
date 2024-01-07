@@ -14,11 +14,11 @@ system_config:
       tab: 'core_post'
       scope: 'default|website|website_view'
       groups:
-        country_options:
+        country_optionsc:
           label: 'Country Options'
           scope: 'default|website|website_view'
           fields:
-            default_country:
+            default_countryc:
               label: 'Default Country'
               type: 'select'
               source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
@@ -28,11 +28,11 @@ system_config:
       tab: 'core_post'
       scope: 'default|website|website_view'
       groups:
-        country_options:
+        country_optionsd:
           label: 'Country Options'
           scope: 'default|website|website_view'
           fields:
-            default_country:
+            default_countryd:
               label: 'Default Country'
               type: 'select'
               source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector

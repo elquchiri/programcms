@@ -50,25 +50,26 @@ class Form extends \ProgramCms\UiBundle\Component\AbstractComponent
     public function getDataSourceData()
     {
         $data = [];
-        if($this->hasData('dataSource')) {
-            $dataSource = $this->getData('dataSource');
-            if(isset($dataSource['dataProvider'])) {
-                $config = $dataSource['dataProvider'];
-                /** @var AbstractDataProvider $dataProvider */
-                $dataProvider = $this->getContext()->getObjectManager()->create($config['class']);
-                $data = $dataProvider->getData();
-                if (isset($config['primaryFieldName']) && isset($config['requestFieldName'])) {
-                    $entityId = (int)$this->request->getParam($config['requestFieldName']);
-                    if (!empty($entityId)) {
-                        $data = $dataProvider
-                            ->getCollection()
-                            ->filter(function ($entity) use ($entityId, $config) {
-                                return $entity->getDataUsingMethod($config['primaryFieldName']) === $entityId;
-                            })
-                            ->current();
-                    }
+        if ($this->hasData('dataSource')) {
+            /** @var AbstractDataProvider $dataProvider */
+            $dataProvider = $this->getContext()->getDataProvider();
+            $data = $dataProvider->getData();
+
+            // Filter Provided Data by primaryFieldName
+            $primaryFieldName = $dataProvider->getPrimaryFieldName();
+            $requestFieldName = $dataProvider->getRequestFieldName();
+            if (!empty($requestFieldName)) {
+                $entityId = (int)$this->request->getParam($requestFieldName);
+                if (!empty($entityId)) {
+                    $data = $dataProvider
+                        ->getCollection()
+                        ->filter(function ($entity) use ($entityId, $primaryFieldName) {
+                            return $entity->getDataUsingMethod($primaryFieldName) === $entityId;
+                        })
+                        ->toArray();
                 }
             }
+
         }
         return $data;
     }
@@ -80,6 +81,6 @@ class Form extends \ProgramCms\UiBundle\Component\AbstractComponent
     {
         $dataSource = $this->getData('dataSource');
         return isset($dataSource['settings']['submitUrl']) ?
-            $this->getUrl($dataSource['settings']['submitUrl']): '';
+            $this->getUrl($dataSource['settings']['submitUrl']) : '';
     }
 }

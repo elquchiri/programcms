@@ -8,9 +8,6 @@
 
 namespace ProgramCms\UiBundle\Component\Form\Element;
 
-use ProgramCms\CoreBundle\View\Element\Template\Context;
-use ProgramCms\RouterBundle\Service\Url;
-
 /**
  * Class Image
  * @package ProgramCms\UiBundle\Block\Form\Fields
@@ -29,7 +26,7 @@ class Image extends AbstractElement
      */
     public function getSrc(): string
     {
-        return $this->getValue() ?? '';
+        return $this->hasValue() ? $this->getValue() : '';
     }
 
     public function getComponentName()

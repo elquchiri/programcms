@@ -19,7 +19,7 @@ class BlockNode extends AbstractNode implements \Twig\Node\NodeCaptureInterface
 
     /**
      * @param Compiler $compiler
-     * @return mixed|void
+     * @return void
      */
     protected function _compile(Compiler &$compiler)
     {
@@ -41,6 +41,6 @@ class BlockNode extends AbstractNode implements \Twig\Node\NodeCaptureInterface
             }
         }
         $arguments = count($arguments) > 0 ? json_encode($arguments) : '';
-        $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addBlock('$blockName', '$blockClass', '$blockTemplate', '$parentName', '$before', '$after', '$arguments');");
+        $compiler->write("\$this->env->getExtension('ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addBlock('$blockName', '$blockClass', '$blockTemplate', '$parentName', '$before', '$after', '$arguments');");
     }
 }

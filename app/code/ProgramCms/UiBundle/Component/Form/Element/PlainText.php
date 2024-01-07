@@ -14,6 +14,7 @@ namespace ProgramCms\UiBundle\Component\Form\Element;
  */
 class PlainText extends AbstractElement
 {
+    const NAME = 'plainText';
     /**
      * @var string
      */
@@ -21,6 +22,6 @@ class PlainText extends AbstractElement
 
     public function getComponentName()
     {
-        // TODO: Implement getComponentName() method.
+        return self::NAME;
     }
 }

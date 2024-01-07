@@ -162,8 +162,8 @@ class Layout implements LayoutInterface
             $this->structure->setAsChild($name, $parent);
         }
         $block->setNameInLayout($name);
-        $block->setLayout($this);
         $block->setTemplateContext($block);
+        $block->setLayout($this);
 
         if(!empty($before)) {
             $this->addElementToMove($name, $parent, $before, '');
@@ -394,14 +394,23 @@ class Layout implements LayoutInterface
 
     /**
      * Render Block element
-     * @param $block
+     * @param $name
      * @return string
-     * @throws \ReflectionException
      */
     protected function _renderBlock($name): string
     {
         $block = $this->getBlock($name);
         return $block ? $block->toHtml() : '';
+    }
+
+    /**
+     * @param $name
+     * @return string
+     */
+    protected function _renderUiComponent($name): string
+    {
+        $uiComponent = $this->getUiComponent($name);
+        return $uiComponent ? $uiComponent->toHtml() : '';
     }
 
     /**
@@ -526,7 +535,7 @@ class Layout implements LayoutInterface
      * @param array $arguments
      * @return object|null
      */
-    public function _createBlock($blockClass, string $name, array $arguments = []): ?object
+    protected function _createBlock($blockClass, string $name, array $arguments = []): ?object
     {
         // Get Block instance from Container class
         $blockClassInstance = $this->objectManager->create($blockClass);
@@ -545,11 +554,20 @@ class Layout implements LayoutInterface
     /**
      * Get Block instance by name
      * @param string $name
-     * @return false|mixed
+     * @return Element\AbstractBlock
      */
     public function getBlock(string $name): \ProgramCms\CoreBundle\View\Element\AbstractBlock
     {
         return $this->blocks[$name] ?? false;
+    }
+
+    /**
+     * @param $name
+     * @return Element\AbstractBlock
+     */
+    public function getUiComponent($name)
+    {
+        return $this->getBlock($name);
     }
 
     /**
@@ -586,6 +604,7 @@ class Layout implements LayoutInterface
      * @param string|int|null $offsetOrSibling
      * @param bool $after
      * @return void
+     * @throws Exception
      */
     public function reorderChild(string $parentName, string $childName, $offsetOrSibling, bool $after = true)
     {
@@ -683,6 +702,7 @@ class Layout implements LayoutInterface
         $block = $this->_createBlock($type, $name, $arguments);
         $block->setTemplateContext($block);
         $block->setNameInLayout($name);
+        $block->setLayout($this);
         return $block;
     }
 
@@ -700,6 +720,19 @@ class Layout implements LayoutInterface
     }
 
     /**
+     * @param $name
+     * @return bool
+     * @throws Exception
+     */
+    public function isUiComponent($name): bool
+    {
+        if ($this->structure->hasElement($name)) {
+            return Element::TYPE_BLOCK === $this->structure->getAttribute($name, 'type');
+        }
+        return false;
+    }
+
+    /**
      * Render an Element
      * @param $name
      * @return string
@@ -708,7 +741,9 @@ class Layout implements LayoutInterface
     public function renderElement($name): string
     {
         try {
-            if ($this->isBlock($name)) {
+            if ($this->isUiComponent($name)) {
+                $result = $this->_renderUiComponent($name);
+            }elseif ($this->isBlock($name)) {
                 $result = $this->_renderBlock($name);
             } else {
                 $result = $this->_renderContainer($name);
@@ -769,5 +804,14 @@ class Layout implements LayoutInterface
                 }
             }
         }
+    }
+
+    /**
+     * Used internally to debug page elements
+     * @return Layout\Data\Structure
+     */
+    public function getStructure()
+    {
+        return $this->structure;
     }
 }

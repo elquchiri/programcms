@@ -1,0 +1,15 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<thead class="table-dark">
+    <tr>
+        {% for column in block.getChildBlocks() %}
+            <th>{{ column.getLabel()|raw }}</th>
+        {% endfor %}
+    </tr>
+</thead>

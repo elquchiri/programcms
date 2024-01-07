@@ -140,7 +140,7 @@ class MenuConfigSerializer
      * @param $action
      * @return string
      */
-    private function _getUrl($action): string
+    public function _getUrl($action): string
     {
         // Redirect to current url if action is defined but empty
         if(empty($action) || $action === '/') {

@@ -17,6 +17,7 @@ use Twig\Node\Node;
  */
 abstract class AbstractNode extends Node
 {
+
     /**
      * AbstractNode constructor.
      * @param string $body
@@ -42,8 +43,9 @@ abstract class AbstractNode extends Node
     /**
      * @param Compiler $compiler
      */
-    public function compile(Compiler $compiler)
+    public function compile(Compiler $compiler): void
     {
+        // Call Overridden _compile method
         $this->_compile($compiler);
 
         if($this->hasNode('body')) {
@@ -56,6 +58,7 @@ abstract class AbstractNode extends Node
                 }
             }
 
+            // Compile child nodes
             $compiler->subcompile($childNodes);
         }
     }
@@ -63,9 +66,23 @@ abstract class AbstractNode extends Node
     /**
      * Override this method to compile node
      * @param Compiler $compiler
-     * @return mixed
+     * @return Compiler|void
      */
     protected function _compile(Compiler &$compiler) {
         return $compiler;
+    }
+
+    /**
+     * Remove Comments, new lines and whitespaces
+     * @param string $source
+     * @return array|string|string[]|null
+     */
+    protected function _minifySource(string $source)
+    {
+        return preg_replace(
+            ['/{#(.*)#}/Uis', '/[[:blank:]]+/', '/%}[[:blank:]]*{%/Uis'],
+            ['', ' ', '%} {%'],
+            str_replace(["\n","\r","\t"], '', $source)
+        );
     }
 }

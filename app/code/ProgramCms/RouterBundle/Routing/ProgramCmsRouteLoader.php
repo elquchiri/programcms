@@ -8,6 +8,8 @@
 
 namespace ProgramCms\RouterBundle\Routing;
 
+use ProgramCms\CoreBundle\Data\Process\Find;
+use ReflectionException;
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Route;
@@ -20,9 +22,9 @@ use Symfony\Component\Routing\RouteCollection;
 class ProgramCmsRouteLoader extends Loader
 {
     /**
-     * @var \ProgramCms\CoreBundle\Data\Process\Find
+     * @var Find
      */
-    protected \ProgramCms\CoreBundle\Data\Process\Find $find;
+    protected Find $find;
     /**
      * @var RouteCollection
      */
@@ -44,9 +46,15 @@ class ProgramCmsRouteLoader extends Loader
      */
     private bool $isLoaded;
 
+    /**
+     * ProgramCmsRouteLoader constructor.
+     * @param ContainerInterface $container
+     * @param Find $find
+     * @param string|null $env
+     */
     public function __construct(
         ContainerInterface $container,
-        \ProgramCms\CoreBundle\Data\Process\Find $find,
+        Find $find,
         string $env = null
     )
     {
@@ -73,7 +81,7 @@ class ProgramCmsRouteLoader extends Loader
      * @param mixed $resource
      * @param string|null $type
      * @return RouteCollection
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function load(mixed $resource, string $type = null): RouteCollection
     {

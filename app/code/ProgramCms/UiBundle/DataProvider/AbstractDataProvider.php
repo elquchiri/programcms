@@ -8,7 +8,6 @@
 
 namespace ProgramCms\UiBundle\DataProvider;
 
-use Doctrine\Common\Collections\AbstractLazyCollection;
 use ProgramCms\CoreBundle\Model\Db\Collection\AbstractCollection;
 
 /**
@@ -21,13 +20,13 @@ abstract class AbstractDataProvider implements DataProviderInterface
      * Data Provider Primary Identifier name
      * @var string
      */
-    protected string $primaryFieldName;
+    protected string $primaryFieldName = '';
 
     /**
      * Data Provider Request Parameter Identifier name
      * @var string
      */
-    protected string $requestFieldName;
+    protected string $requestFieldName = '';
 
     /**
      * Provider configuration data
@@ -72,5 +71,25 @@ abstract class AbstractDataProvider implements DataProviderInterface
     public function getData(): mixed
     {
         return $this->getCollection()->toArray();
+    }
+
+    /**
+     * @param string $primaryFieldName
+     * @return $this
+     */
+    public function setPrimaryFieldName(string $primaryFieldName)
+    {
+        $this->primaryFieldName = $primaryFieldName;
+        return $this;
+    }
+
+    /**
+     * @param string $requestFieldName
+     * @return $this
+     */
+    public function setRequestFieldName(string $requestFieldName)
+    {
+        $this->requestFieldName = $requestFieldName;
+        return $this;
     }
 }

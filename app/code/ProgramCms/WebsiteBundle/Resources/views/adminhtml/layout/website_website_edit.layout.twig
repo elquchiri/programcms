@@ -6,10 +6,7 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-{% page layout="admin-2columns-left" %}
-    {% title %}All Websites{% endTitle %}
-
-    {% referenceContainer name="sidebar.main" %}
+{% page layout="admin-2columns-left" %}{% title %}All Websites{% endTitle %}{% referenceContainer name="sidebar.main" %}
         {% block name="category.tree.block" class="ProgramCms\\CatalogBundle\\Block\\CategoryTreeButtons" template="@ProgramCmsWebsiteBundle/new_root_website.html.twig" %}{% endBlock %}
         {% block name="category.tree" class="ProgramCms\\UiBundle\\Component\\Tree\\Tree" %}
             {% arguments %}
@@ -25,89 +22,6 @@
         {% endBlock %}
     {% endReferenceContainer %}
     {% referenceContainer name="content" %}
-        {% block name="website_form" class="ui.block.form" %}
-            {% arguments %}
-                {% argument name="data" type="array" %}
-                    {% argument name="label" type="string" %}Website Information{% endArgument %}
-                {% endArgument %}
-                {% argument name="buttons" type="array" %}
-                    {% argument name="add" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\Button\AddGroupButton{% endArgument %}
-                    {% argument name="remove" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\Button\RemoveWebsiteButton{% endArgument %}
-                    {% argument name="save" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\Button\SaveWebsiteButton{% endArgument %}
-                {% endArgument %}
-                {% argument name="dataSource" type="array" %}
-                    {% argument name="dataProvider" type="array" %}
-                        {% argument name="class" type="string" %}ProgramCms\WebsiteBundle\Model\Website\Form\DataProvider{% endArgument %}
-                        {% argument name="primaryFieldName" type="string" %}website_id{% endArgument %}
-                        {% argument name="requestFieldName" type="string" %}id{% endArgument %}
-                    {% endArgument %}
-                    {% argument name="settings" type="array" %}
-                        {% argument name="submitUrl" type="string" %}website_website_save{% endArgument %}
-                    {% endArgument %}
-                {% endArgument %}
-            {% endArguments %}
-            {% block name="website_fieldset" class="ui.block.form.fieldset" %}
-                {% block name="website_id" class="ui.block.form.field" %}
-                    {% arguments %}
-                        {% argument name="data" type="array" %}
-                            {% argument name="type" type="string" %}hidden{% endArgument %}
-                            {% argument name="source" type="string" %}website_form{% endArgument %}
-                        {% endArgument %}
-                    {% endArguments %}
-                {% endBlock %}
-                {% block name="is_active" class="ui.block.form.field" %}
-                    {% arguments %}
-                        {% argument name="data" type="array" %}
-                            {% argument name="label" type="string" %}Enable Website{% endArgument %}
-                            {% argument name="type" type="string" %}switcher{% endArgument %}
-                            {% argument name="source" type="string" %}website_form{% endArgument %}
-                        {% endArgument %}
-                    {% endArguments %}
-                {% endBlock %}
-                {% block name="website_name" class="ui.block.form.field" %}
-                    {% arguments %}
-                        {% argument name="data" type="array" %}
-                            {% argument name="type" type="string" %}text{% endArgument %}
-                            {% argument name="label" type="string" %}Name{% endArgument %}
-                            {% argument name="placeholder" type="string" %}Website Name{% endArgument %}
-                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
-                            {% argument name="source" type="string" %}website_form{% endArgument %}
-                        {% endArgument %}
-                    {% endArguments %}
-                {% endBlock %}
-                {% block name="website_code" class="ui.block.form.field" %}
-                    {% arguments %}
-                        {% argument name="data" type="array" %}
-                            {% argument name="type" type="string" %}text{% endArgument %}
-                            {% argument name="label" type="string" %}Code{% endArgument %}
-                            {% argument name="placeholder" type="string" %}Code{% endArgument %}
-                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
-                            {% argument name="source" type="string" %}website_form{% endArgument %}
-                        {% endArgument %}
-                    {% endArguments %}
-                {% endBlock %}
-                {% block name="sort_order" class="ui.block.form.field" %}
-                    {% arguments %}
-                        {% argument name="data" type="array" %}
-                            {% argument name="type" type="string" %}text{% endArgument %}
-                            {% argument name="label" type="string" %}Sort Order{% endArgument %}
-                            {% argument name="placeholder" type="string" %}0{% endArgument %}
-                            {% argument name="source" type="string" %}website_form{% endArgument %}
-                        {% endArgument %}
-                    {% endArguments %}
-                {% endBlock %}
-                {% block name="default_website_group_id" class="ui.block.form.field" %}
-                    {% arguments %}
-                        {% argument name="data" type="array" %}
-                            {% argument name="type" type="string" %}select{% endArgument %}
-                            {% argument name="label" type="string" %}Default Group{% endArgument %}
-                            {% argument name="sourceModel" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\DataSource\Groups{% endArgument %}
-                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
-                            {% argument name="source" type="string" %}website_form{% endArgument %}
-                        {% endArgument %}
-                    {% endArguments %}
-                {% endBlock %}
-            {% endBlock %}
-        {% endBlock %}
+        {% uiComponent name="website_form" %}
     {% endReferenceContainer %}
 {% endPage %}

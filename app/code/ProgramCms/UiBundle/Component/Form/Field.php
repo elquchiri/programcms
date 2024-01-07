@@ -12,14 +12,19 @@ use Exception;
 
 /**
  * Class Field
- * @package ProgramCms\UiBundle\Component\Form\Element
+ * @package ProgramCms\UiBundle\Component\Form
  */
 class Field extends \ProgramCms\UiBundle\Component\Form\Element\AbstractElement
 {
     const NAME = 'field';
-
+    /**
+     * @var string
+     */
     protected string $_template = "@ProgramCmsUiBundle/form/fields/field.html.twig";
 
+    /**
+     * @return string
+     */
     public function getComponentName()
     {
         return self::NAME;
@@ -45,12 +50,13 @@ class Field extends \ProgramCms\UiBundle\Component\Form\Element\AbstractElement
                     $layout
                 );
             $element->setName($this->getNameInLayout());
-
             if($this->hasData('source')) {
                 $dataSourceName = $this->getData('source');
-                $dataSourceData = $this->getContext()->getDataSource($dataSourceName);
-                if (!empty($dataSourceData->hasDataUsingMethod($fieldName))) {
-                    $element->setValue($dataSourceData->getDataUsingMethod($fieldName));
+                $dataSourceBlock = $this->getLayout()->getBlock($dataSourceName);
+                $dataSourceData = $this->getContext()->getDataSourceData($dataSourceBlock);
+                $item = current($dataSourceData);
+                if ($item && $item->hasDataUsingMethod($fieldName)) {
+                    $element->setValue($item->getDataUsingMethod($fieldName));
                 }
             }
             $this->setChild($this->getName(), $element->getNameInLayout());

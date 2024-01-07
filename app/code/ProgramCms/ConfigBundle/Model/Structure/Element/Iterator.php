@@ -8,6 +8,8 @@
 
 namespace ProgramCms\ConfigBundle\Model\Structure\Element;
 
+use ProgramCms\ConfigBundle\Model\Structure\AbstractElement;
+
 /**
  * Class Iterator
  * @package ProgramCms\ConfigBundle\Model\Structure\Element
@@ -19,7 +21,7 @@ abstract class Iterator implements \Iterator
      */
     protected array $_elements;
     /**
-     * @var \ProgramCms\ConfigBundle\Model\Structure\AbstractElement
+     * @var AbstractElement
      */
     protected $_flyweight;
     /**
@@ -31,9 +33,9 @@ abstract class Iterator implements \Iterator
 
     /**
      * Iterator constructor.
-     * @param \ProgramCms\ConfigBundle\Model\Structure\AbstractElement $element
+     * @param AbstractElement $element
      */
-    public function __construct(\ProgramCms\ConfigBundle\Model\Structure\AbstractElement $element)
+    public function __construct(AbstractElement $element)
     {
         $this->_flyweight = $element;
     }
@@ -52,14 +54,14 @@ abstract class Iterator implements \Iterator
     }
 
     /**
-     * @return mixed|\ProgramCms\ConfigBundle\Model\Structure\AbstractElement
+     * @return AbstractElement
      */
-    public function current()
+    public function current(): AbstractElement
     {
         return $this->_flyweight;
     }
 
-    public function next()
+    public function next(): void
     {
         next($this->_elements);
         if (current($this->_elements)) {
@@ -78,6 +80,9 @@ abstract class Iterator implements \Iterator
         $this->_flyweight->setData($element, $this->_scope);
     }
 
+    /**
+     * @return void
+     */
     public function key()
     {
         key($this->_elements);
@@ -86,12 +91,12 @@ abstract class Iterator implements \Iterator
     /**
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         return (bool)current($this->_elements);
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         reset($this->_elements);
         if (current($this->_elements)) {
@@ -103,10 +108,10 @@ abstract class Iterator implements \Iterator
     }
 
     /**
-     * @param \ProgramCms\ConfigBundle\Model\Structure\AbstractElement $element
+     * @param AbstractElement $element
      * @return bool
      */
-    public function isLast(\ProgramCms\ConfigBundle\Model\Structure\AbstractElement $element)
+    public function isLast(AbstractElement $element)
     {
         return $element->getId() == $this->_lastId;
     }

@@ -8,6 +8,7 @@
 
 namespace ProgramCms\ThemeBundle\Node;
 
+use ProgramCms\ThemeBundle\Model\PageLayout;
 use ReflectionException;
 use Twig\Error\SyntaxError;
 use Twig\Source;
@@ -21,7 +22,10 @@ class UpdateNode extends AbstractNode implements \Twig\Node\NodeCaptureInterface
 {
 
     /**
-     * @throws SyntaxError|ReflectionException
+     * @param Compiler $compiler
+     * @return void
+     * @throws ReflectionException
+     * @throws SyntaxError
      */
     protected function _compile(Compiler &$compiler)
     {
@@ -30,22 +34,23 @@ class UpdateNode extends AbstractNode implements \Twig\Node\NodeCaptureInterface
 
         if($this->hasAttribute('parent')) {
             $parentNode = $this->getAttribute('parent');
-            $templateName = $parentNode->getTemplateName();
-        }else{
-            $templateName = '';
+            if ($parentNode instanceof LayoutNode) {
+                $templateName = $parentNode->getTemplateName();
+                $compiler
+                    ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->trackHandlerWithFileName('$templateName', '$handle')")
+                    ->raw(";\n");
+            }
         }
-        $compiler
-            ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->trackHandlerWithFileName('$templateName', '$handle');");
-
 
         if($efExtension->canAddPageLayout($handle)) {
             $efExtension->addPageLayout($handle);
-            $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addPageLayout('$handle');");
+            $compiler
+                ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addPageLayout('$handle')")
+                ->raw(";\n");
 
-
-            /** @var \ProgramCms\ThemeBundle\Model\PageLayout $pageLayout */
+            /** @var PageLayout $pageLayout */
             $pageLayout = $efExtension->getPageLayout();
-            $pageLayoutContents = $pageLayout->getPageLayoutContents($handle);
+            $pageLayoutContents = $this->_minifySource($pageLayout->getPageLayoutContents($handle));
 
             // Prepare layout file to be parsed by the LayoutNode
             $source = new Source($pageLayoutContents, $handle);

@@ -9,6 +9,8 @@
 namespace ProgramCms\UiBundle\View\Element;
 
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\UiBundle\Component\AbstractComponent;
+use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;
 
 /**
  * Class Context
@@ -21,9 +23,9 @@ class Context implements ContextInterface
      */
     protected \ProgramCms\CoreBundle\View\Element\Template\Context $templateContext;
     /**
-     * @var array
+     * @var AbstractDataProvider
      */
-    protected array $dataSources = [];
+    protected AbstractDataProvider $dataProvider;
 
     /**
      * @var ObjectManager
@@ -63,18 +65,28 @@ class Context implements ContextInterface
      * @param $name
      * @param $source
      */
-    public function addDataSource($name, $source)
+    public function setDataProvider(AbstractDataProvider $dataProvider)
     {
-        $this->dataSources[$name] = $source;
+        $this->dataProvider = $dataProvider;
     }
 
     /**
-     * @param string $name
-     * @return mixed|null
+     * @param AbstractComponent $component
+     * @return array
      */
-    public function getDataSource(string $name)
+    public function getDataSourceData(AbstractComponent $component)
     {
-        return $this->dataSources[$name] ?? null;
+        $dataSourceData = $component->getDataSourceData();
+        $this->prepareDataSource($dataSourceData, $component);
+        return $dataSourceData;
+    }
+
+    /**
+     * @return AbstractDataProvider
+     */
+    public function getDataProvider(): AbstractDataProvider
+    {
+        return $this->dataProvider;
     }
 
     /**
@@ -91,5 +103,20 @@ class Context implements ContextInterface
     public function getUiComponentFactory(): UiComponentFactory
     {
         return $this->uiComponentFactory;
+    }
+
+    /**
+     * @param array $data
+     * @param AbstractComponent $component
+     */
+    protected function prepareDataSource(array &$data, AbstractComponent $component)
+    {
+        $childComponents = $component->getChildBlocks();
+        if (!empty($childComponents)) {
+            foreach ($childComponents as $child) {
+                $this->prepareDataSource($data, $child);
+            }
+        }
+        $data = $component->prepareDataSource($data);
     }
 }

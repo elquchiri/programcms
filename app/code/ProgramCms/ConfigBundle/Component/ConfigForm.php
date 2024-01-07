@@ -105,7 +105,6 @@ class ConfigForm extends \ProgramCms\UiBundle\Component\Form\Form
                             $childElement,
                             $layout
                         );
-                    $fieldComponent->setLayout($layout);
                     $fieldsetComponent->setChild($childElementName, $fieldComponent);
                 }
             }

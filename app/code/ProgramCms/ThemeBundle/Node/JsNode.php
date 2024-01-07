@@ -8,20 +8,33 @@
 
 namespace ProgramCms\ThemeBundle\Node;
 
+use Twig\Compiler;
+
 /**
- * Class EFJsNode
+ * Class JsNode
  * @package ProgramCms\ThemeBundle\Node
  */
 class JsNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
 {
+    /**
+     * JsNode constructor.
+     * @param $jsFiles
+     * @param $lineno
+     * @param null $tag
+     */
     public function __construct($jsFiles, $lineno, $tag = null)
     {
         parent::__construct([], ['js_files' => $jsFiles], $lineno, $tag);
     }
 
-    public function compile(\Twig\Compiler $compiler)
+    /**
+     * @param Compiler $compiler
+     */
+    public function compile(Compiler $compiler)
     {
         $jsFiles = implode(',', $this->getAttribute('js_files'));
-        $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addJs('$jsFiles');");
+        $compiler
+            ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addJs('$jsFiles')")
+            ->raw(";\n");
     }
 }

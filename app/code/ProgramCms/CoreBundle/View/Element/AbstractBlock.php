@@ -76,7 +76,10 @@ abstract class AbstractBlock extends \ProgramCms\CoreBundle\Model\DataObject imp
 
     /**
      * Preparing global layout
-     * You can redefine this method in child classes for changing layout
+     * You can redefine this method in "child classes" for changing layout
+     * or accessing parent blocks
+     * Cannot access child blocks from this method
+     * @see _toHtml
      * @return $this
      */
     protected function _prepareLayout()

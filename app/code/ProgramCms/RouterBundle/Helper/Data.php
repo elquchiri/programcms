@@ -8,7 +8,10 @@
 
 namespace ProgramCms\RouterBundle\Helper;
 
-
+/**
+ * Class Data
+ * @package ProgramCms\RouterBundle\Helper
+ */
 class Data
 {
     const PROGRAMCMS_ROUTING_LOADER = 'programcms';

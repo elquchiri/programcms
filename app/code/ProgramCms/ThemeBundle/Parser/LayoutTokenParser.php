@@ -8,6 +8,7 @@
 
 namespace ProgramCms\ThemeBundle\Parser;
 
+use Twig\Error\SyntaxError;
 use Twig\Token;
 
 /**
@@ -16,6 +17,11 @@ use Twig\Token;
  */
 class LayoutTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
+    /**
+     * @param Token $token
+     * @return \ProgramCms\ThemeBundle\Node\LayoutNode
+     * @throws SyntaxError
+     */
     public function parse(Token $token)
     {
         $lineno = $token->getLine();

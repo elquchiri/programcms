@@ -30,7 +30,6 @@ interface LayoutInterface
     /**
      * @param string $parentName
      * @param string $elementName
-     * @param string $alias
      * @return mixed
      */
     public function setChild(string $parentName, string $elementName);

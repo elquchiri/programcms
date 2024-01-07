@@ -8,7 +8,6 @@
 
 namespace ProgramCms\UiBundle\Component\Form\Element;
 
-
 use ProgramCms\UiBundle\Block\Form\Fields\Field;
 use ProgramCms\UiBundle\Component\AbstractComponent;
 

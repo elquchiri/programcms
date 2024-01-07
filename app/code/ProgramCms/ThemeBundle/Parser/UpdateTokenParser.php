@@ -39,6 +39,9 @@ class UpdateTokenParser extends \Twig\TokenParser\AbstractTokenParser
         return new UpdateNode('', ['handle' => $handle], $lineno, $this->getTag());
     }
 
+    /**
+     * @return string
+     */
     public function getTag()
     {
         return 'update';

@@ -41,7 +41,8 @@ class AreaList
             }
         }
         // TODO: Define a default area later if necessary
-        return "default";
+        // return 'default';
+        return 'frontend';
     }
 
     /**

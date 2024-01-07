@@ -1,0 +1,12 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<select style="width: 250px;" class="me-3 form-select" id="floatingSelect">
+    <option selected>{{ block.trans('Select an Action') }}</option>
+    {{ block.prepareActions()|raw }}
+</select>

@@ -23,6 +23,9 @@ class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvide
      * @var AdminUserRepository
      */
     protected AdminUserRepository $adminUserRepository;
+    /**
+     * @var Security
+     */
     protected Security $security;
 
     /**
@@ -45,9 +48,9 @@ class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvide
     /**
      * @return AdminUser
      */
-    public function getData(): AdminUser
+    public function getData(): mixed
     {
-        $id = $this->security->getUser()->getUserIdentifier();
-        return $this->adminUserRepository->getByEmail($id);
+        $email = $this->security->getUser()->getUserIdentifier();
+        return $this->adminUserRepository->getByEmail($email);
     }
 }

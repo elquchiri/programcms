@@ -58,4 +58,9 @@ class Fieldset extends \ProgramCms\UiBundle\Component\AbstractComponent
     {
         return self::NAME;
     }
+
+    public function getLabel()
+    {
+        return $this->trans($this->getData('label'));
+    }
 }

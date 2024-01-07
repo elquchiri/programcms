@@ -44,7 +44,9 @@ class ContainerNode extends AbstractNode implements \Twig\Node\NodeCaptureInterf
                 $subContainerIdClass = $this->getAttribute('containerIdClass');
                 $before = $this->getAttribute('before');
                 $after = $this->getAttribute('after');
-                $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addContainer('$containerName', '$parentName', '$subContainerHtmlTag', '$subContainerHtmlClass', '$subContainerIdClass', '$before', '$after');");
+                $compiler
+                    ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addContainer('$containerName', '$parentName', '$subContainerHtmlTag', '$subContainerHtmlClass', '$subContainerIdClass', '$before', '$after')")
+                    ->raw(";\n");
             }
         }
     }

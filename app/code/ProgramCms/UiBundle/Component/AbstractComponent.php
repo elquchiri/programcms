@@ -82,7 +82,24 @@ abstract class AbstractComponent extends Template implements UiComponentInterfac
                         $toolbarActions->setLayout($layout);
                 }
                 else if ($elementName == 'dataSource') {
-                    $this->getContext()->addDataSource($this->getName(), $this->getDataSourceData());
+                    if(isset($elementConfig['dataProvider'])) {
+                        $dataProvider = $elementConfig['dataProvider'];
+                        if(isset($dataProvider['class'])) {
+                            /** @var AbstractDataProvider $dataProviderObject */
+                            $dataProviderObject = $this->getContext()->getObjectManager()->create($dataProvider['class']);
+                            if(isset($dataProvider['primaryFieldName'])) {
+                                $dataProviderObject->setPrimaryFieldName($dataProvider['primaryFieldName']);
+                            }
+                            if(isset($dataProvider['requestFieldName'])) {
+                                $dataProviderObject->setRequestFieldName($dataProvider['requestFieldName']);
+                            }
+                            // Add Data Provider to Context
+                            /** @var Context $newContext */
+                            $newContext = $this->getContext()->getObjectManager()->create(Context::class);
+                            $this->context = $newContext;
+                            $this->getContext()->setDataProvider($dataProviderObject);
+                        }
+                    }
                 }
                 // Layout
 //                else if ($elementConfig['name'] == 'layout') {
@@ -117,6 +134,27 @@ abstract class AbstractComponent extends Template implements UiComponentInterfac
     }
 
     /**
+     * @param $name
+     * @param UiComponentInterface $component
+     * @return mixed|void
+     */
+    public function addComponent($name, UiComponentInterface $component)
+    {
+        $this->components[$name] = $component;
+    }
+
+    /**
+     * @param $name
+     * @return mixed|null
+     */
+    public function getComponent($name)
+    {
+        return $this->components[$name] ?? null;
+    }
+
+    /**
+     * Prepare Data Source
+     * Add or Remove Data
      * @param array $dataSource
      * @return array
      */
@@ -139,5 +177,6 @@ abstract class AbstractComponent extends Template implements UiComponentInterfac
     protected function _prepareLayout()
     {
         $this->prepare();
+        parent::_prepareLayout();
     }
 }

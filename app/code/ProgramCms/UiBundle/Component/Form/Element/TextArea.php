@@ -14,6 +14,8 @@ namespace ProgramCms\UiBundle\Component\Form\Element;
  */
 class TextArea extends AbstractElement
 {
+    const NAME = 'text';
+
     /**
      * @var string
      */
@@ -21,6 +23,6 @@ class TextArea extends AbstractElement
 
     public function getComponentName()
     {
-        // TODO: Implement getComponentName() method.
+        return self::NAME;
     }
 }

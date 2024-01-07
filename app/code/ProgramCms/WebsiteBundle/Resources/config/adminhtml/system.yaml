@@ -48,11 +48,11 @@ system_config:
       tab: 'core_general'
       scope: 'default|website|website_view'
       groups:
-        country_options:
+        country_optionsg:
           label: 'Country Options'
           scope: 'default|website|website_view'
           fields:
-            default_country:
+            default_countryg:
               label: 'Default Country'
               type: 'select'
               source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector

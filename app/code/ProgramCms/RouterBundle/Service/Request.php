@@ -137,7 +137,7 @@ class Request
     {
         try {
             $currentRequest = $this->requestStack->getCurrentRequest();
-            return $this->router->match($currentRequest->getPathInfo())['_route'];
+            return $currentRequest ? $this->router->match($currentRequest->getPathInfo())['_route'] : "";
         }catch(\Exception $ex) {
             return "";
         }

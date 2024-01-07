@@ -45,11 +45,18 @@ class ReferenceContainerTokenParser extends \Twig\TokenParser\AbstractTokenParse
         );
     }
 
+    /**
+     * @param Token $token
+     * @return bool
+     */
     public function decideReferenceContainerEnd(Token $token)
     {
         return $token->test('endReferenceContainer');
     }
 
+    /**
+     * @return string
+     */
     public function getTag()
     {
         return 'referenceContainer';

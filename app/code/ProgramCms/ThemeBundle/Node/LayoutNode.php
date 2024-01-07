@@ -10,7 +10,7 @@ namespace ProgramCms\ThemeBundle\Node;
 
 /**
  * Class LayoutNode
- * Layouts contains only Containers and ReferenceContainers
+ * Layouts contains only root Containers and ReferenceContainers
  * @package ProgramCms\ThemeBundle\Node
  */
 class LayoutNode extends AbstractNode implements \Twig\Node\NodeCaptureInterface

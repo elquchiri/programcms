@@ -8,8 +8,11 @@
 
 namespace ProgramCms\UiBundle\Command;
 
+use ReflectionException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class GenerateStaticsCommand
@@ -39,7 +42,13 @@ class GenerateStaticsCommand extends Command
             ->setHelp('This command compiles and merges bundle SCSS and JS files into the app');
     }
 
-    protected function execute(\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output)
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int
+     * @throws ReflectionException
+     */
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         // Create Website Views structure folders
 

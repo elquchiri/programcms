@@ -6,4 +6,8 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<p class="mt-2">{{ block.getValue() }}</p>
+<p class="mt-2">
+    {% if block.hasValue() %}
+        {{ block.getValue() }}
+    {% endif %}
+</p>

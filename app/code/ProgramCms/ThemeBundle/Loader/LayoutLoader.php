@@ -115,7 +115,25 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
             }
         }
 
-        return new Source($source, $name, $path = '');
+        return new Source(
+            $this->minifySource($source),
+            $name,
+            $path = ''
+        );
+    }
+
+    /**
+     * Remove Comments, new lines and whitespaces
+     * @param string $source
+     * @return array|string|string[]|null
+     */
+    private function minifySource(string $source)
+    {
+        return preg_replace(
+            ['/{#(.*)#}/Uis', '/[[:blank:]]+/', '/%}[[:blank:]]*{%/Uis'],
+            ['', ' ', '%} {%'],
+            str_replace(["\n","\r","\t"], '', $source)
+        );
     }
 
     /**

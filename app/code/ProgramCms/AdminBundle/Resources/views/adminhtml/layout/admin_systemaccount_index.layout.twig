@@ -8,76 +8,116 @@
 #}
 {% page %}
     {% referenceContainer name="content" %}
-        {% block name="form" class="ui.block.form" %}
+        {% block name="system_account_form" class="ui.block.form" %}
             {% arguments %}
-                {% argument name="label" type="string" %}Account Information{% endArgument %}
-                {% argument name="dataProvider" type="array" %}
-                    {% argument name="class" type="string" %}ProgramCms\AdminBundle\Model\Account\DataProvider{% endArgument %}
-                    {% argument name="primaryFieldName" type="string" %}entity_id{% endArgument %}
-                    {% argument name="requestFieldName" type="string" %}id{% endArgument %}
+                {% argument name="data" type="array" %}
+                    {% argument name="label" type="string" %}Account Information{% endArgument %}
+                {% endArgument %}
+                {% argument name="dataSource" type="array" %}
+                    {% argument name="dataProvider" type="array" %}
+                        {% argument name="class" type="string" %}ProgramCms\AdminBundle\Model\Account\DataProvider{% endArgument %}
+                    {% endArgument %}
+                    {% argument name="settings" type="array" %}
+                        {% argument name="submitUrl" type="string" %}admin_systemaccount_save{% endArgument %}
+                    {% endArgument %}
                 {% endArgument %}
                 {% argument name="buttons" type="array" %}
-                    {% argument name="reset" type="array" %}
-                        {% argument name="buttonType" type="string" %}secondary{% endArgument %}
-                        {% argument name="buttonTarget" type="string" %}form{% endArgument %}
-                        {% argument name="buttonAction" type="string" %}catalog_category_save{% endArgument %}
-                        {% argument name="label" type="string" %}Reset{% endArgument %}
-                    {% endArgument %}
-                    {% argument name="save" type="array" %}
-                        {% argument name="buttonType" type="string" %}save{% endArgument %}
-                        {% argument name="buttonTarget" type="string" %}form{% endArgument %}
-                        {% argument name="buttonAction" type="string" %}admin_systemaccount_save{% endArgument %}
-                        {% argument name="label" type="string" %}Save Account{% endArgument %}
-                    {% endArgument %}
-                {% endArgument %}
-                {% argument name="fieldsets" type="array" %}
-                    {% argument name="fieldset" type="array" %}
-                        {% argument name="label" type="string" %}Account Information{% endArgument %}
-                        {% argument name="open" type="boolean" %}true{% endArgument %}
-                        {% argument name="fields" type="array" %}
-                            {% argument name="first_name" type="array" %}
-                                {% argument name="type" type="string" %}text{% endArgument %}
-                                {% argument name="label" type="string" %}First Name{% endArgument %}
-                                {% argument name="isRequired" type="boolean" %}true{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="last_name" type="array" %}
-                                {% argument name="type" type="string" %}text{% endArgument %}
-                                {% argument name="label" type="string" %}Last Name{% endArgument %}
-                                {% argument name="isRequired" type="boolean" %}true{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="email" type="array" %}
-                                {% argument name="type" type="string" %}text{% endArgument %}
-                                {% argument name="label" type="string" %}Email{% endArgument %}
-                                {% argument name="isRequired" type="boolean" %}true{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="new_password" type="array" %}
-                                {% argument name="type" type="string" %}password{% endArgument %}
-                                {% argument name="label" type="string" %}New Password{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="password_confirmation" type="array" %}
-                                {% argument name="type" type="string" %}password{% endArgument %}
-                                {% argument name="label" type="string" %}Password Confirmation{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="interface_locale" type="array" %}
-                                {% argument name="type" type="string" %}select{% endArgument %}
-                                {% argument name="label" type="string" %}Interface Locale{% endArgument %}
-                                {% argument name="sourceModel" type="string" %}ProgramCms\UiBundle\Model\Provider\DataSource\Locales{% endArgument %}
-                            {% endArgument %}
-                        {% endArgument %}
-                    {% endArgument %}
-                    {% argument name="fieldset3" type="array" %}
-                        {% argument name="label" type="string" %}User Identity Verification{% endArgument %}
-                        {% argument name="open" type="boolean" %}true{% endArgument %}
-                        {% argument name="fields" type="array" %}
-                            {% argument name="password" type="array" %}
-                                {% argument name="type" type="string" %}password{% endArgument %}
-                                {% argument name="label" type="string" %}Your Password{% endArgument %}
-                                {% argument name="isRequired" type="boolean" %}true{% endArgument %}
-                            {% endArgument %}
-                        {% endArgument %}
-                    {% endArgument %}
+                    {% argument name="save" type="string" %}ProgramCms\AdminBundle\Model\Provider\Button\SaveAccountButton{% endArgument %}
                 {% endArgument %}
             {% endArguments %}
+            {% block name="fieldset" class="ui.block.form.fieldset" %}
+                {% arguments %}
+                    {% argument name="data" type="array" %}
+                        {% argument name="label" type="string" %}Account Information{% endArgument %}
+                        {% argument name="open" type="boolean" %}true{% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+                {% block name="user_id" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}hidden{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                            {% argument name="source" type="string" %}system_account_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="first_name" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}text{% endArgument %}
+                            {% argument name="label" type="string" %}First Name{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                            {% argument name="source" type="string" %}system_account_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="last_name" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}text{% endArgument %}
+                            {% argument name="label" type="string" %}Last Name{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                            {% argument name="source" type="string" %}system_account_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="email" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}text{% endArgument %}
+                            {% argument name="label" type="string" %}Email{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                            {% argument name="source" type="string" %}system_account_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="new_password" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}password{% endArgument %}
+                            {% argument name="label" type="string" %}New Password{% endArgument %}
+                            {% argument name="source" type="string" %}system_account_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="password_confirmation" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}password{% endArgument %}
+                            {% argument name="label" type="string" %}Password Confirmation{% endArgument %}
+                            {% argument name="source" type="string" %}system_account_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="interface_locale" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}select{% endArgument %}
+                            {% argument name="label" type="string" %}Interface Locale{% endArgument %}
+                                {% argument name="sourceModel" type="string" %}ProgramCms\UiBundle\Model\Provider\DataSource\Locales{% endArgument %}
+                            {% argument name="source" type="string" %}system_account_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+            {% endBlock %}
+            {% block name="fieldset3" class="ui.block.form.fieldset" %}
+                {% arguments %}
+                    {% argument name="data" type="array" %}
+                        {% argument name="label" type="string" %}User Identity Verification{% endArgument %}
+                        {% argument name="open" type="boolean" %}true{% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+                {% block name="password" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}password{% endArgument %}
+                            {% argument name="label" type="string" %}Your Password{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                            {% argument name="source" type="string" %}system_account_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+            {% endBlock %}
         {% endBlock %}
     {% endReferenceContainer %}
 {% endPage %}

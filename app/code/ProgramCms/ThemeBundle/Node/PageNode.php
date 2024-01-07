@@ -30,14 +30,18 @@ class PageNode extends AbstractNode implements \Twig\Node\NodeCaptureInterface
         $pageLayoutName = $this->getAttribute('pageLayoutName');
         // Overrides page layout, used when rendering final page
         if(!empty($pageLayoutName)) {
-            $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->setCurrentPageLayout('$pageLayoutName');");
+            $compiler
+                ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->setCurrentPageLayout('$pageLayoutName')")
+                ->raw(";\n");
         }
 
         if($efExtension->canAddPageLayout($pageLayoutName)) {
             $efExtension->addPageLayout($pageLayoutName);
-            $compiler->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addPageLayout('$pageLayoutName');");
+            $compiler
+                ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addPageLayout('$pageLayoutName')")
+                ->raw(";\n");
 
-            $pageLayoutContents = $efExtension->getPageLayout()->getPageLayoutContents($pageLayoutName);
+            $pageLayoutContents = $this->_minifySource($efExtension->getPageLayout()->getPageLayoutContents($pageLayoutName));
             // We use the layout file name to use it later in the LayoutNode class
             $source = new Source($pageLayoutContents, $pageLayoutName);
             $nodes = $compiler->getEnvironment()->parse($compiler->getEnvironment()->tokenize($source));
