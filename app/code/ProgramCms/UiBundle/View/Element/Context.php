@@ -8,6 +8,7 @@
 
 namespace ProgramCms\UiBundle\View\Element;
 
+use Exception;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\UiBundle\Component\AbstractComponent;
 use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;
@@ -23,9 +24,9 @@ class Context implements ContextInterface
      */
     protected \ProgramCms\CoreBundle\View\Element\Template\Context $templateContext;
     /**
-     * @var AbstractDataProvider
+     * @var array
      */
-    protected AbstractDataProvider $dataProvider;
+    protected array $dataProviders = [];
 
     /**
      * @var ObjectManager
@@ -65,16 +66,16 @@ class Context implements ContextInterface
      * @param $name
      * @param $source
      */
-    public function setDataProvider(AbstractDataProvider $dataProvider)
+    public function setDataProvider(string $name, AbstractDataProvider $dataProvider)
     {
-        $this->dataProvider = $dataProvider;
+        $this->dataProviders[$name] = $dataProvider;
     }
 
     /**
      * @param AbstractComponent $component
      * @return array
      */
-    public function getDataSourceData(AbstractComponent $component)
+    public function getDataSourceData(AbstractComponent $component): array
     {
         $dataSourceData = $component->getDataSourceData();
         $this->prepareDataSource($dataSourceData, $component);
@@ -82,11 +83,24 @@ class Context implements ContextInterface
     }
 
     /**
+     * @param string $name
      * @return AbstractDataProvider
+     * @throws Exception
      */
-    public function getDataProvider(): AbstractDataProvider
+    public function getDataProvider(string $name): AbstractDataProvider
     {
-        return $this->dataProvider;
+        if(!isset($this->dataProviders[$name])) {
+            throw new Exception(sprintf("No DataProvider found for name %s", $name));
+        }
+        return $this->dataProviders[$name];
+    }
+
+    /**
+     * @return array
+     */
+    public function getDataProviders(): array
+    {
+        return $this->dataProviders;
     }
 
     /**

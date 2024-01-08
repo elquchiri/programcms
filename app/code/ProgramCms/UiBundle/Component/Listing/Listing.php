@@ -8,9 +8,7 @@
 
 namespace ProgramCms\UiBundle\Component\Listing;
 
-use ProgramCms\CoreBundle\Model\ObjectManager;
-use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;
-use ProgramCms\UiBundle\View\Element\Context;
+use Exception;
 
 /**
  * Class Listing
@@ -23,36 +21,18 @@ class Listing extends \ProgramCms\UiBundle\Component\AbstractComponent
      * @var string
      */
     protected string $_template = "@ProgramCmsUiBundle/listing/listing.html.twig";
-    /**
-     * @var ObjectManager
-     */
-    protected ObjectManager $objectManager;
-
-    /**
-     * Listing constructor.
-     * @param Context $context
-     * @param ObjectManager $objectManager
-     * @param array $data
-     */
-    public function __construct(
-        Context $context,
-        ObjectManager $objectManager,
-        array $data = []
-    )
-    {
-        parent::__construct($context, $data);
-        $this->objectManager = $objectManager;
-    }
 
     /**
      * @return array|mixed
+     * @throws Exception
      */
     public function getDataSourceData()
     {
         $data = [];
+        $listingName = $this->getName();
+
         if ($this->hasData('dataSource')) {
-            /** @var AbstractDataProvider $dataProvider */
-            $dataProvider = $this->getContext()->getDataProvider();
+            $dataProvider = $this->getContext()->getDataProvider($listingName);
             $data = $dataProvider->getData();
 
             // Filter Provided Data by primaryFieldName
@@ -69,6 +49,7 @@ class Listing extends \ProgramCms\UiBundle\Component\AbstractComponent
                 }
             }
         }
+
         return $data;
     }
 

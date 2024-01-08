@@ -8,6 +8,7 @@
 
 namespace ProgramCms\UiBundle\Component\Form;
 
+use Exception;
 use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;
 use ProgramCms\UiBundle\View\Element\Context;
 
@@ -46,13 +47,15 @@ class Form extends \ProgramCms\UiBundle\Component\AbstractComponent
 
     /**
      * @return array
+     * @throws Exception
      */
     public function getDataSourceData()
     {
         $data = [];
+        $formName = $this->getNameInLayout();
+
         if ($this->hasData('dataSource')) {
-            /** @var AbstractDataProvider $dataProvider */
-            $dataProvider = $this->getContext()->getDataProvider();
+            $dataProvider = $this->getContext()->getDataProvider($formName);
             $data = $dataProvider->getData();
 
             // Filter Provided Data by primaryFieldName

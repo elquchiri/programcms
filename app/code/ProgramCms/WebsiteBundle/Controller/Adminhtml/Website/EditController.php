@@ -54,9 +54,10 @@ class EditController extends \ProgramCms\CoreBundle\Controller\Controller
         $website = $this->websiteRepository->findOneBy(['website_id' => $this->getRequest()->getParam('id')]);
         if($website) {
             $pageResult->getConfig()->getTitle()->set(
-                sprintf("%s: %s", $this->translator->trans('Edit Website'), $website->getWebsiteName())
+                sprintf("%s : %s", $this->translator->trans('Edit Website'), $website->getWebsiteName())
             );
         }
+
         return $pageResult;
     }
 }

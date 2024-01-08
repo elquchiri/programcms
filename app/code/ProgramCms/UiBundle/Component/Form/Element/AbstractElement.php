@@ -161,7 +161,7 @@ abstract class AbstractElement extends AbstractComponent
 
     /**
      * @param bool $isVisible
-     * @return $this|Field
+     * @return AbstractElement
      */
     public function setIsVisible(bool $isVisible): static
     {
@@ -226,7 +226,11 @@ abstract class AbstractElement extends AbstractComponent
         return $this->trans($checkboxLabel);
     }
 
-    public function setScopeLabel(string $label)
+    /**
+     * @param string $label
+     * @return $this
+     */
+    public function setScopeLabel(string $label): static
     {
         $this->setData('scopeLabel', $label);
         return $this;

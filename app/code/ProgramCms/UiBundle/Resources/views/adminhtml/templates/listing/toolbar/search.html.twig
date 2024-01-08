@@ -6,16 +6,15 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<form method="get">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="input-group">
-                <input name="search" type="text" class="form-control" placeholder="{{ block.trans('Search by Keyword ..') }}">
-                <button class="btn" type="submit" id="button-search"
-                        style="border: 1px solid #CCC; padding-top: 0;">
-                    <img src="{{ asset('bundles/programcmsui/images/search.png') }}" />
-                </button>
-            </div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="input-group">
+            <input name="search" type="text" class="form-control"
+                   placeholder="{{ block.trans('Search by Keyword ..') }}"/>
+            <button class="btn" id="button-search"
+                    style="border: 1px solid #CCC; padding-top: 0;">
+                <img src="{{ asset('bundles/programcmsui/images/search.png') }}"/>
+            </button>
         </div>
     </div>
-</form>
+</div>

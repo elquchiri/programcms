@@ -37,24 +37,28 @@ class ThemeActions extends \ProgramCms\UiBundle\Component\Listing\ActionsColumn
     }
 
     /**
-     * @param array $dataSource
-     * @return array
+     * @return void
      */
-    public function prepareDataSource(array $dataSource)
+    public function prepare()
     {
-        foreach($dataSource as &$rowData) {
-            $actions = [
-                [
-                    'label' => 'Visualize',
-                    'url' => $this->url->getUrlByRouteName('theme_index_view', ['id' => $rowData->getThemeId()]),
-                    'type' => 'url'
-                ]
-            ];
-            $rowData->setDataUsingMethod(
-                $this->getName(),
-                $actions
-            );
+        parent::prepare();
+        if($this->hasData('source')) {
+            $dataSourceName = $this->getData('source');
+            $dataSourceBlock = $this->getLayout()->getBlock($dataSourceName);
+            $dataSourceData = $this->getContext()->getDataSourceData($dataSourceBlock);
+            foreach($dataSourceData as $rowData) {
+                $actions = [
+                    [
+                        'label' => 'Visualize',
+                        'url' => $this->url->getUrlByRouteName('theme_index_view', ['id' => $rowData->getThemeId()]),
+                        'type' => 'url'
+                    ]
+                ];
+                $rowData->setDataUsingMethod(
+                    $this->getName(),
+                    $actions
+                );
+            }
         }
-        return $dataSource;
     }
 }

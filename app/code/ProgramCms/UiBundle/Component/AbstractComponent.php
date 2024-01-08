@@ -65,6 +65,8 @@ abstract class AbstractComponent extends Template implements UiComponentInterfac
     public function prepare()
     {
         $layout = $this->getLayout();
+        $componentName = $this->getNameInLayout();
+
         foreach($this->getData() as $elementName => $elementConfig) {
             if(is_array($elementConfig)) {
                 if ($elementName == 'data') {
@@ -93,11 +95,9 @@ abstract class AbstractComponent extends Template implements UiComponentInterfac
                             if(isset($dataProvider['requestFieldName'])) {
                                 $dataProviderObject->setRequestFieldName($dataProvider['requestFieldName']);
                             }
+
                             // Add Data Provider to Context
-                            /** @var Context $newContext */
-                            $newContext = $this->getContext()->getObjectManager()->create(Context::class);
-                            $this->context = $newContext;
-                            $this->getContext()->setDataProvider($dataProviderObject);
+                            $this->getContext()->setDataProvider($componentName, $dataProviderObject);
                         }
                     }
                 }
@@ -177,6 +177,5 @@ abstract class AbstractComponent extends Template implements UiComponentInterfac
     protected function _prepareLayout()
     {
         $this->prepare();
-        parent::_prepareLayout();
     }
 }

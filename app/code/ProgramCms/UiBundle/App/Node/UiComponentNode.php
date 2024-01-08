@@ -44,7 +44,7 @@ class UiComponentNode extends AbstractNode implements \Twig\Node\NodeCaptureInte
         $nodes = $compiler->getEnvironment()->parse($compiler->getEnvironment()->tokenize($source));
 
         $bodyNode = $nodes->getNode('body');
-        foreach($bodyNode as $childNode) {
+        foreach($bodyNode as &$childNode) {
             if(!($childNode instanceof BlockNode)) {
                 continue;
             }

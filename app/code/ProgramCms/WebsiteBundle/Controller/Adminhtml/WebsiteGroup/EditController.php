@@ -22,11 +22,15 @@ class EditController extends \ProgramCms\CoreBundle\Controller\Controller
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+    /**
+     * @var WebsiteGroupRepository
+     */
     protected WebsiteGroupRepository $websiteGroupRepository;
 
     /**
-     * NewController constructor.
+     * EditController constructor.
      * @param Context $context
+     * @param WebsiteGroupRepository $websiteGroupRepository
      * @param ObjectManager $objectManager
      */
     public function __construct(
@@ -48,8 +52,9 @@ class EditController extends \ProgramCms\CoreBundle\Controller\Controller
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
         $websiteGroup = $this->websiteGroupRepository->findOneBy(['website_group_id' => $this->getRequest()->getParam('id')]);
         $pageResult->getConfig()->getTitle()->set(
-            sprintf("%s: %s", $this->trans('Edit Group'), $websiteGroup->getWebsiteGroupName())
+            sprintf("%s : %s", $this->trans('Edit Group'), $websiteGroup->getWebsiteGroupName())
         );
+
         return $pageResult;
     }
 }

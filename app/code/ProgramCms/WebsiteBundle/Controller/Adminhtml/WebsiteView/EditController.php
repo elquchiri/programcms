@@ -22,11 +22,15 @@ class EditController extends \ProgramCms\CoreBundle\Controller\Controller
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+    /**
+     * @var WebsiteViewRepository
+     */
     protected WebsiteViewRepository $websiteViewRepository;
 
     /**
-     * NewController constructor.
+     * EditController constructor.
      * @param Context $context
+     * @param WebsiteViewRepository $websiteViewRepository
      * @param ObjectManager $objectManager
      */
     public function __construct(
@@ -48,8 +52,9 @@ class EditController extends \ProgramCms\CoreBundle\Controller\Controller
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
         $websiteView = $this->websiteViewRepository->findOneBy(['website_view_id' => $this->getRequest()->getParam('id')]);
         $pageResult->getConfig()->getTitle()->set(
-            sprintf("%s: %s", $this->trans('Edit Website View'), $websiteView->getWebsiteViewName())
+            sprintf("%s : %s", $this->trans('Edit Website View'), $websiteView->getWebsiteViewName())
         );
+
         return $pageResult;
     }
 }

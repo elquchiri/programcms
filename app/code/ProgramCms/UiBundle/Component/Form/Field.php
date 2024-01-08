@@ -50,6 +50,7 @@ class Field extends \ProgramCms\UiBundle\Component\Form\Element\AbstractElement
                     $layout
                 );
             $element->setName($this->getNameInLayout());
+
             if($this->hasData('source')) {
                 $dataSourceName = $this->getData('source');
                 $dataSourceBlock = $this->getLayout()->getBlock($dataSourceName);
@@ -59,6 +60,7 @@ class Field extends \ProgramCms\UiBundle\Component\Form\Element\AbstractElement
                     $element->setValue($item->getDataUsingMethod($fieldName));
                 }
             }
+
             $this->setChild($this->getName(), $element->getNameInLayout());
         }
     }

@@ -46,11 +46,11 @@ class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvide
     }
 
     /**
-     * @return AdminUser
+     * @return array
      */
-    public function getData(): mixed
+    public function getData(): array
     {
         $email = $this->security->getUser()->getUserIdentifier();
-        return $this->adminUserRepository->getByEmail($email);
+        return [$this->adminUserRepository->getByEmail($email)];
     }
 }

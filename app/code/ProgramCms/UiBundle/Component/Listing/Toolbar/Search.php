@@ -28,14 +28,4 @@ class Search extends \ProgramCms\UiBundle\Component\AbstractComponent
     {
         return self::NAME;
     }
-
-    public function prepareDataSource(array $dataSource)
-    {
-        // Search
-        $search = $this->getRequest()->getParam('search');
-        if(!empty($search)) {
-
-        }
-        return parent::prepareDataSource($dataSource);
-    }
 }

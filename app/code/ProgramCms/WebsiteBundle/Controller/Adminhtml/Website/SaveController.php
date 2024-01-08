@@ -101,7 +101,7 @@ class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
             return $this->redirect($this->url->getUrlByRouteName('website_website_edit', ['id' => $website->getWebsiteId()]));
         }
         // Flash error message
-        $this->addFlash('danger', 'Error Saving Website Data, please try again.');
+        $this->addFlash('danger', $this->trans('Error Saving Website Data, please try again.'));
         return $this->redirectToRoute('adminhtml_website_website_index');
     }
 }

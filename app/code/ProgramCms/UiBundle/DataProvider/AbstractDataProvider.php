@@ -66,7 +66,7 @@ abstract class AbstractDataProvider implements DataProviderInterface
 
     /**
      * Get Data
-     * @return array
+     * @return mixed
      */
     public function getData(): mixed
     {
