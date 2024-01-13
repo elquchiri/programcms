@@ -10,7 +10,7 @@ ProgramCMS provides you with a complete, trustworthy CMS & easy to use PHP Frame
 
 Written in PHP, on top of Symfony, it makes it very easy to reuse, install or create new bundles to Improve your Application.
 
-The Manager Bundle deliver & Maintain ProgramCms Bundles, so you can choose any kind of features and modules wich fit the best with your application's requirements to add to your Website with ease.
+The Manager Bundle deliver & Maintain ProgramCMS Bundles, so you can add to your Website, with ease, any kind of features and modules which fit the best with your application's needs.
 
 ## Deployment
 ![](https://img.shields.io/github/last-commit/elquchiri/programcms?label=In%20Active%20Development)
@@ -65,7 +65,7 @@ To install ProgramCMS project run :
 
 ## Demo
 
-####Backend Demo
+Backend Demo :
 
 - Admin Panel
 
@@ -82,7 +82,7 @@ To install ProgramCMS project run :
 
 ![image](public/images/backend-config-demo.png)
 
-####Frontend Home Page
+Frontend Home Page :
 
 ![image](public/images/frontend-demo.png)
 
