@@ -8,6 +8,8 @@
 
 namespace ProgramCms\ConfigBundle\App;
 
+use ProgramCms\ConfigBundle\Repository\CoreConfigDataRepository;
+
 /**
  * Class Config
  * @package ProgramCms\ConfigBundle\App
@@ -15,12 +17,16 @@ namespace ProgramCms\ConfigBundle\App;
 class Config implements ScopeConfigInterface
 {
     /**
-     * @var \ProgramCms\ConfigBundle\Repository\CoreConfigDataRepository
+     * @var CoreConfigDataRepository
      */
-    private \ProgramCms\ConfigBundle\Repository\CoreConfigDataRepository $coreConfigDataRepository;
+    private CoreConfigDataRepository $coreConfigDataRepository;
 
+    /**
+     * Config constructor.
+     * @param CoreConfigDataRepository $coreConfigDataRepository
+     */
     public function __construct(
-        \ProgramCms\ConfigBundle\Repository\CoreConfigDataRepository $coreConfigDataRepository
+        CoreConfigDataRepository $coreConfigDataRepository
     )
     {
         $this->coreConfigDataRepository = $coreConfigDataRepository;
@@ -44,7 +50,7 @@ class Config implements ScopeConfigInterface
             return $result->getValue();
         }
         return '';
-        // If no configuration found on database, get configuration's defaultValues from packages
+        // TODO: If no configuration found on database, get configuration's defaultValues from packages
 //        $pathArray = explode('/', $path);
 //        return $this->container->getParameter('programcms_system_config')['sections'][$pathArray[0]]['groups'][$pathArray[1]]['fields'][$pathArray[2]]['defaultValue'] ?? '';
     }
@@ -53,7 +59,7 @@ class Config implements ScopeConfigInterface
      * @param $path
      * @param $value
      * @param string $scopeType
-     * @param int $scopeCode
+     * @param string $scopeCode
      */
     public function setConfigValue($path, $value, string $scopeType = self::SCOPE_TYPE_DEFAULT, string $scopeCode = '')
     {

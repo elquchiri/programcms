@@ -35,6 +35,9 @@ class Sort
                 } else if ($sortOrder === 'desc') {
                     return ($a[$key] > $b[$key]) ? -1 : 1;
                 }
+
+                // By default, return ASC
+                return ($a[$key] < $b[$key]) ? -1 : 1;
             });
         }
 

@@ -12,15 +12,15 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 
 /**
- * Class CacheEnableCommand
+ * Class CacheCommand
  * @package ProgramCms\CoreBundle\Command
  */
 #[AsCommand(
-    name: 'cache:enable',
+    name: 'cache',
     aliases: ['c:e'],
     hidden: false
 )]
-class CacheEnableCommand extends Command
+class CacheCommand extends Command
 {
 
 }

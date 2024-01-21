@@ -10,6 +10,7 @@ namespace ProgramCms\DataPatchBundle\Command;
 
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\DataPatchBundle\Repository\DataPatchRepository;
+use ReflectionException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -39,6 +40,7 @@ class ExecuteDataPatches extends Command
 
     /**
      * ExecuteDataPatches constructor.
+     * @param \ProgramCms\CoreBundle\Data\Process\Find $find
      * @param DataPatchRepository $dataPatchRepository
      * @param ObjectManager $objectManager
      * @param string|null $name
@@ -67,7 +69,7 @@ class ExecuteDataPatches extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {

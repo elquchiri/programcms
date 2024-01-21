@@ -20,3 +20,9 @@ services:
   ProgramCms\CoreBundle\Model\Utils\BundleManager:
     arguments:
       $container: '@service_container'
+
+  # Auto Instantiate Doctrine Entities Data Object
+  doctrine.entity.data_object_listener:
+    class: ProgramCms\CoreBundle\EventListener\EntityDataObjectListener
+    tags:
+      - { name: doctrine.event_listener, event: postLoad, priority: 99999 }

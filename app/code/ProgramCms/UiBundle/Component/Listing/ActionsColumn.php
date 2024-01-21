@@ -9,7 +9,7 @@
 namespace ProgramCms\UiBundle\Component\Listing;
 
 /**
- * Class Column
+ * Class ActionsColumn
  * @package ProgramCms\UiBundle\Component\Listing
  */
 class ActionsColumn extends Column
@@ -31,9 +31,14 @@ class ActionsColumn extends Column
     {
         $html = "";
         $value = $this->getValue();
+        $iterator = 1;
         if(is_array($value)) {
             foreach($value as $action) {
                 $html .= sprintf("<a href=\"%s\">%s</a>", $action['url'], $this->trans($action['label']));
+                if($iterator < count($value)) {
+                    $html .= " &middot; ";
+                }
+                $iterator++;
             }
         }
         return $html;

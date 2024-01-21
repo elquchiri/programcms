@@ -102,20 +102,19 @@ abstract class AbstractComponent extends Template implements UiComponentInterfac
                     }
                 }
                 // Layout
-//                else if ($elementConfig['name'] == 'layout') {
-//                    $layoutConfig = $elementConfig['children']['layout'];
-//                    $navContainerName = $layoutConfig['navContainerName'] ?? 'left';
-//                    $layoutType = $layoutConfig['type'];
-//                    // Clean navContainer by removing current elements, keeping only tabs
-//                    $layout->cleanElementChildren($navContainerName);
-//                    $tabsBlock = $layout->createBlock(
-//                        \ProgramCms\UiBundle\Block\Tabs\Tabs::class,
-//                        'tabs',
-//                        ['label' => $this->hasLabel() ? $this->getLabel() : '', 'sections' => []]
-//                    );
-//                    $layout->setChild($navContainerName, 'tabs');
-//                    $tabsBlock->setLayout($layout);
-//                }
+                else if ($elementName == 'layout') {
+                    $navContainerName = $elementConfig['navContainerName'] ?? 'left';
+                    $layoutType = $elementConfig['type'];
+                    // Clean navContainer by removing current elements, keeping only tabs
+                    $layout->cleanElementChildren($navContainerName);
+                    $tabsBlock = $layout->createBlock(
+                        \ProgramCms\UiBundle\Block\Tabs\Tabs::class,
+                        'tabs',
+                        ['label' => $this->hasLabel() ? $this->getLabel() : '', 'sections' => []]
+                    );
+                    $layout->setChild($navContainerName, 'tabs');
+                    $tabsBlock->setLayout($layout);
+                }
             }
         }
         return $this;

@@ -32,7 +32,8 @@
             {{ block.trans('Export') }}
         </a>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">PDF</a></li>
+            <li><a class="dropdown-item" href="#">CSV</a></li>
         </ul>
     </li>
 </ul>
@@ -62,9 +63,9 @@
                         <label for="exampleInputEmail1" class="form-label">Website View</label>
                         <select class="form-select" aria-label="Default select example">
                             <option value="1">All Website Views</option>
-                            <optgroup label="Main Root Website"></optgroup>
-                            <optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;Main Website"></optgroup>
-                            <option value="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Main Website View</option>
+                            <optgroup label="Main Website"></optgroup>
+                            <optgroup class="ps-2" label="Main Group"></optgroup>
+                            <option class="ps-3" value="1">Main Website View</option>
                         </select>
                     </div>
                 </div>

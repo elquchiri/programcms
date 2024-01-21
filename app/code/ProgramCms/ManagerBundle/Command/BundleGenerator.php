@@ -24,7 +24,10 @@ use Symfony\Component\Console\Attribute\AsCommand;
 )]
 class BundleGenerator extends Command
 {
-
+    /**
+     * BundleGenerator constructor.
+     * @param string|null $name
+     */
     public function __construct(string $name = null)
     {
         // Init class attributes before parent construct te be available
@@ -34,14 +37,17 @@ class BundleGenerator extends Command
     protected function configure(): void
     {
         $this
-            // the command help shown when running the command with the "--help" option
             ->setHelp('This command allows you to create new ProgramCMS bundle.')
         ;
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        // outputs multiple lines to the console (adding "\n" at the end of each line)
         $output->writeln([
             'Bundle Generation ..',
             '============',

@@ -53,7 +53,7 @@ To install ProgramCMS project run :
 - Modular / Extensible System
 - Centralized Configuration System
 - Multi Website / Language System
-- ProgramCms Manager for Extensions
+- ProgramCMS Manager for Extensions
 - Advanced Reporting System
 - Strong Administration Dashboard
 - Automatic Routing System based on Controller Path

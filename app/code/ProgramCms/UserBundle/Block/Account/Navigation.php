@@ -8,7 +8,10 @@
 
 namespace ProgramCms\UserBundle\Block\Account;
 
-
+/**
+ * Class Navigation
+ * @package ProgramCms\UserBundle\Block\Account
+ */
 class Navigation extends \ProgramCms\CoreBundle\View\Element\Template
 {
 

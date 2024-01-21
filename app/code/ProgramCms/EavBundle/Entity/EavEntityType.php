@@ -10,6 +10,7 @@ namespace ProgramCms\EavBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
 use ProgramCms\EavBundle\Repository\EavEntityTypeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -18,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package ProgramCms\EavBundle\Entity
  */
 #[ORM\Entity(repositoryClass: EavEntityTypeRepository::class)]
-class EavEntityType
+class EavEntityType extends AbstractEntity
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -27,6 +28,15 @@ class EavEntityType
 
     #[ORM\Column(length: 255)]
     private ?string $entity_type_code = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $attribute_model = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $additional_attribute_table = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $entity_attribute_collection = null;
 
     #[ORM\OneToMany(mappedBy: "entityType", targetEntity: EavAttributeSet::class)]
     private Collection $attributeSets;
@@ -77,6 +87,64 @@ class EavEntityType
     {
         $this->entity_type_code = $entity_type_code;
         return $this;
+    }
+
+    /**
+     * @param string $attribute_model
+     * @return $this
+     */
+    public function setAttributeModel(string $attribute_model): static
+    {
+        $this->attribute_model = $attribute_model;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAttributeModel(): ?string
+    {
+        if(empty($this->attribute_model)) {
+            return \ProgramCms\EavBundle\Entity\Entity::DEFAULT_ATTRIBUTE_MODEL;
+        }
+
+        return $this->attribute_model;
+    }
+
+    /**
+     * @param string $additional_attribute_table
+     * @return $this
+     */
+    public function setAdditionalAttributeTable(string $additional_attribute_table): static
+    {
+        $this->additional_attribute_table = $additional_attribute_table;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAdditionalAttributeTable(): ?string
+    {
+        return $this->additional_attribute_table;
+    }
+
+    /**
+     * @param string $entity_attribute_collection
+     * @return $this
+     */
+    public function setEntityAttributeCollection(string $entity_attribute_collection): static
+    {
+        $this->entity_attribute_collection = $entity_attribute_collection;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getEntityAttributeCollection(): ?string
+    {
+        return $this->entity_attribute_collection;
     }
 
     /**

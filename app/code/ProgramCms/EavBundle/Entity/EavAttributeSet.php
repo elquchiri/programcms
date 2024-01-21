@@ -10,6 +10,7 @@ namespace ProgramCms\EavBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
 use ProgramCms\EavBundle\Repository\EavAttributeSetRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -18,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package ProgramCms\EavBundle\Entity
  */
 #[ORM\Entity(repositoryClass: EavAttributeSetRepository::class)]
-class EavAttributeSet
+class EavAttributeSet extends AbstractEntity
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -40,7 +41,7 @@ class EavAttributeSet
      */
     public function __construct()
     {
-        $this->groups = new ArrayCollection();
+        $this->attributeSetGroups = new ArrayCollection();
     }
 
     /**
@@ -52,7 +53,7 @@ class EavAttributeSet
     }
 
     /**
-     * @param int $attribute_set_id
+     * @param int $attributeSetId
      * @return $this
      */
     public function setAttributeSetId(int $attributeSetId): self
@@ -102,7 +103,7 @@ class EavAttributeSet
      */
     public function getgroups(): ArrayCollection|Collection
     {
-        return $this->groups;
+        return $this->attributeSetGroups;
     }
 
     /**
@@ -111,8 +112,8 @@ class EavAttributeSet
      */
     public function addAttributeSetGroup(EavAttributeGroup $attributeGroup): self
     {
-        if(!$this->groups->contains($attributeGroup)) {
-            $this->groups[] = $attributeGroup;
+        if(!$this->attributeSetGroups->contains($attributeGroup)) {
+            $this->attributeSetGroups[] = $attributeGroup;
             $attributeGroup->setAttributeSet($this);
         }
 
@@ -125,7 +126,7 @@ class EavAttributeSet
      */
     public function removeAttributeSetGroup(EavAttributeGroup $attributeGroup): self
     {
-        if($this->groups->removeElement($attributeGroup)) {
+        if($this->attributeSetGroups->removeElement($attributeGroup)) {
             if($attributeGroup->getAttributeSet() === $this) {
                 $attributeGroup->setAttributeSet(null);
             }

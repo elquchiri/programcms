@@ -11,7 +11,6 @@ namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\Website;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class EditController
@@ -54,7 +53,7 @@ class EditController extends \ProgramCms\CoreBundle\Controller\Controller
         $website = $this->websiteRepository->findOneBy(['website_id' => $this->getRequest()->getParam('id')]);
         if($website) {
             $pageResult->getConfig()->getTitle()->set(
-                sprintf("%s : %s", $this->translator->trans('Edit Website'), $website->getWebsiteName())
+                sprintf("%s : %s", $this->trans('Edit Website'), $website->getWebsiteName())
             );
         }
 

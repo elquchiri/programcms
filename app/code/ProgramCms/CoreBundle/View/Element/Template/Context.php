@@ -15,7 +15,6 @@ use ProgramCms\CoreBundle\View\Layout;
 use ProgramCms\CoreBundle\View\Page\Config;
 use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\RouterBundle\Service\Url;
-use ProgramCms\UiBundle\View\Element\UiComponentFactory;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;

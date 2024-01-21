@@ -33,6 +33,7 @@ abstract class AbstractDataProvider implements DataProviderInterface
      * @var array
      */
     protected array $data = [];
+
     /**
      * @var AbstractCollection
      */
@@ -70,7 +71,7 @@ abstract class AbstractDataProvider implements DataProviderInterface
      */
     public function getData(): mixed
     {
-        return $this->getCollection()->toArray();
+        return $this->getCollection()->getData();
     }
 
     /**

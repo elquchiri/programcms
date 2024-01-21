@@ -8,6 +8,10 @@
 
 namespace ProgramCms\UserBundle\Block\Account;
 
+/**
+ * Class Register
+ * @package ProgramCms\UserBundle\Block\Account
+ */
 class Register extends \ProgramCms\CoreBundle\View\Element\Template
 {
 

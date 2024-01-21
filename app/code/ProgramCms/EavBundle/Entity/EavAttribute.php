@@ -10,6 +10,7 @@ namespace ProgramCms\EavBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
 use ProgramCms\EavBundle\Repository\EavAttributeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -18,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package ProgramCms\EavBundle\Entity
  */
 #[ORM\Entity(repositoryClass: EavAttributeRepository::class)]
-class EavAttribute
+class EavAttribute extends AbstractEntity
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -31,10 +32,12 @@ class EavAttribute
 
     #[ORM\Column(length: 255)]
     private ?string $attribute_code = null;
-
+    /**
+     * Determines which table should save attribute value
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     private ?string $backend_type = null;
-
     /**
      * Frontend field type (text, date, ...)
      * @var string|null
@@ -74,7 +77,7 @@ class EavAttribute
      */
     public function __construct()
     {
-        $this->attributeLabels = new ArrayCollection();
+        $this->groups = new ArrayCollection();
     }
 
     /**
@@ -182,6 +185,24 @@ class EavAttribute
     public function setFrontendLabel(string $frontend_label): self
     {
         $this->frontend_label = $frontend_label;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFrontendModel(): ?string
+    {
+        return $this->frontend_model;
+    }
+
+    /**
+     * @param string $frontendModel
+     * @return $this
+     */
+    public function setFrontendModel(string $frontendModel): static
+    {
+        $this->frontend_model = $frontendModel;
         return $this;
     }
 

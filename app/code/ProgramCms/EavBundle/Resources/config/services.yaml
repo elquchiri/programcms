@@ -16,3 +16,8 @@ services:
       - '../../DependencyInjection/'
       - '../../Resources/'
       - '../../Tests/'
+
+  doctrine.eav_entity.listener:
+    class: ProgramCms\EavBundle\EventListener\EavEntityListener
+    tags:
+      - { name: doctrine.event_listener, event: postLoad, priority: 1 }

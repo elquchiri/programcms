@@ -8,14 +8,14 @@
 
 namespace ProgramCms\CoreBundle\Model\Db\Collection;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * Class AbstractCollection
  * @package ProgramCms\CoreBundle\Model\Db\Collection
  */
-abstract class AbstractCollection extends \Doctrine\Common\Collections\AbstractLazyCollection
+abstract class AbstractCollection implements CollectionInterface
 {
     /**
      * @var string
@@ -25,13 +25,26 @@ abstract class AbstractCollection extends \Doctrine\Common\Collections\AbstractL
      * @var EntityManagerInterface
      */
     protected EntityManagerInterface $entityManager;
+    /**
+     * @var QueryBuilder
+     */
+    protected QueryBuilder $_queryBuilder;
 
+    /**
+     * AbstractCollection constructor.
+     * @param EntityManagerInterface $entityManager
+     */
     public function __construct(
         EntityManagerInterface $entityManager
     )
     {
         $this->entityManager = $entityManager;
+        $this->_queryBuilder = $this->entityManager->createQueryBuilder();
+
+        // Initialize collection
         $this->_construct();
+        // Initialize select operation with full data
+        $this->_initSelect();
     }
 
     protected function _construct()
@@ -48,19 +61,91 @@ abstract class AbstractCollection extends \Doctrine\Common\Collections\AbstractL
     }
 
     /**
-     * Used internally to populate collection
-     * @return void
+     * Init SQL Select Operation
+     * @return $this
      */
-    protected function doInitialize()
+    protected function _initSelect()
     {
-        $query = $this->entityManager->createQuery(
-            "SELECT mainEntity FROM {$this->entity} mainEntity"
-        );
+        $this->getQueryBuilder()->select('main_table')->from($this->entity, 'main_table');
+        return $this;
+    }
 
-        /**
-         * Init Data Collection
-         * Can be processed by end users to sort, add, delete or get items
-         */
-        $this->collection = new ArrayCollection($query->getResult());
+    /**
+     * Run then Get Final Query Result
+     * @return array
+     */
+    public function getData(): array
+    {
+        return $this->getQueryBuilder()->getQuery()->getResult();
+    }
+
+    /**
+     * Get data as array, skip relations (ORM) and return them statically
+     * @return array
+     */
+    public function getDataAsArray(): array
+    {
+        return $this->getQueryBuilder()->getQuery()->getArrayResult();
+    }
+
+    /**
+     * Alternative method to getData
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return $this->getData();
+    }
+
+    /**
+     * Get Query Builder
+     * @return QueryBuilder
+     */
+    public function getQueryBuilder(): QueryBuilder
+    {
+        return $this->_queryBuilder;
+    }
+
+    /**
+     * @param string $field
+     * @return $this
+     */
+    public function addFieldToSelect(string $field): static
+    {
+        $field = explode('.', $field);
+        $entityAlias = $field[0];
+        $field = $field[1];
+
+        // Get metadata for the entity
+        $metadata = $this->entityManager->getClassMetadata($this->entity);
+
+        if($field === '*') {
+            // Get all mapped fields
+            $mappedFields = $metadata->getFieldNames();
+            foreach($mappedFields as $mappedField) {
+                $this->getQueryBuilder()
+                    ->addSelect($entityAlias . '.' . $mappedField);
+            }
+        }else {
+            $this->getQueryBuilder()->addSelect($entityAlias . '.' . $field);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param string $field
+     * @param $value
+     * @return AbstractCollection
+     */
+    public function addFieldToFilter(string $field, $value): static
+    {
+        $this->getQueryBuilder()->where(
+            $this->getQueryBuilder()->expr()->andX(
+                $this->getQueryBuilder()->expr()->eq('main_table.' . $field, '?1'),
+            )
+        )->setParameter(1, $value);
+
+        return $this;
     }
 }

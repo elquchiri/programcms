@@ -8,12 +8,14 @@
 
 namespace ProgramCms\CoreBundle\Model\Db\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use ProgramCms\CoreBundle\Model\DataObject;
 
 /**
  * Class AbstractEntity
  * @package ProgramCms\CoreBundle\Entity
  */
+#[ORM\MappedSuperclass]
 abstract class AbstractEntity extends DataObject implements EntityInterface
 {
 

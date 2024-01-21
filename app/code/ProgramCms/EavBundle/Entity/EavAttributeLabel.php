@@ -8,6 +8,7 @@
 
 namespace ProgramCms\EavBundle\Entity;
 
+use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
 use ProgramCms\EavBundle\Repository\EavAttributeLabelRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -16,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package ProgramCms\EavBundle\Entity
  */
 #[ORM\Entity(repositoryClass: EavAttributeLabelRepository::class)]
-class EavAttributeLabel
+class EavAttributeLabel extends AbstractEntity
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

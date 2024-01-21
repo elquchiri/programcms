@@ -8,7 +8,6 @@
 
 namespace ProgramCms\AdminBundle\Model\Account;
 
-use ProgramCms\AdminBundle\Entity\AdminUser;
 use ProgramCms\AdminBundle\Model\Collection\Account\Collection;
 use ProgramCms\AdminBundle\Repository\AdminUserRepository;
 use Symfony\Bundle\SecurityBundle\Security;

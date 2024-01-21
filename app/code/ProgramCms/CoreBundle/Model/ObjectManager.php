@@ -8,17 +8,25 @@
 
 namespace ProgramCms\CoreBundle\Model;
 
+use ProgramCms\CoreBundle\Model\Utils\BundleManager;
+
 /**
  * Class ObjectManager
  * @package ProgramCms\CoreBundle\Model
  */
 class ObjectManager implements ObjectManagerInterface
 {
-
+    /**
+     * @var Utils\BundleManager
+     */
     protected Utils\BundleManager $bundleManager;
 
+    /**
+     * ObjectManager constructor.
+     * @param Utils\BundleManager $bundleManager
+     */
     public function __construct(
-        \ProgramCms\CoreBundle\Model\Utils\BundleManager $bundleManager
+        BundleManager $bundleManager
     )
     {
         $this->bundleManager = $bundleManager;

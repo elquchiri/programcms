@@ -45,6 +45,9 @@ class LogoutController extends \ProgramCms\CoreBundle\Controller\Controller
         $this->urlGenerator = $urlGenerator;
     }
 
+    /**
+     * @return RedirectResponse
+     */
     public function execute()
     {
         // logout the admin user in on the current firewall

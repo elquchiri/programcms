@@ -10,6 +10,7 @@ namespace ProgramCms\EavBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
 use ProgramCms\EavBundle\Repository\EavAttributeGroupRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -18,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package ProgramCms\EavBundle\Entity
  */
 #[ORM\Entity(repositoryClass: EavAttributeGroupRepository::class)]
-class EavAttributeGroup
+class EavAttributeGroup extends AbstractEntity
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
