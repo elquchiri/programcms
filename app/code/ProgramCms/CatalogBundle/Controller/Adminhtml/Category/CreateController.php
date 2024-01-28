@@ -9,10 +9,11 @@
 namespace ProgramCms\CatalogBundle\Controller\Adminhtml\Category;
 
 use ProgramCms\CatalogBundle\Repository\CategoryRepository;
+use ProgramCms\CoreBundle\Controller\Context;
 
 /**
  * Class CreateController
- * @package ProgramCms\CatalogBundle\Controller\Adminhtml\Index
+ * @package ProgramCms\CatalogBundle\Controller\Adminhtml\Category
  */
 class CreateController extends \ProgramCms\CoreBundle\Controller\Controller
 {
@@ -21,8 +22,13 @@ class CreateController extends \ProgramCms\CoreBundle\Controller\Controller
      */
     private CategoryRepository $categoryRepository;
 
+    /**
+     * CreateController constructor.
+     * @param Context $context
+     * @param CategoryRepository $categoryRepository
+     */
     public function __construct(
-        \ProgramCms\CoreBundle\Controller\Context $context,
+        Context $context,
         CategoryRepository $categoryRepository
     )
     {
@@ -31,7 +37,7 @@ class CreateController extends \ProgramCms\CoreBundle\Controller\Controller
     }
 
     /**
-     * @return mixed|void
+     * @return void
      */
     public function execute()
     {

@@ -9,8 +9,7 @@
 namespace ProgramCms\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
-use ProgramCms\EavBundle\Entity\EavAttribute;
+use ProgramCms\EavBundle\Model\Entity\Attribute\AdditionalEavAttribute;
 use ProgramCms\UserBundle\Repository\UserEavAttributeRepository;
 
 /**
@@ -18,36 +17,19 @@ use ProgramCms\UserBundle\Repository\UserEavAttributeRepository;
  * @package ProgramCms\UserBundle\Entity
  */
 #[ORM\Entity(repositoryClass: UserEavAttributeRepository::class)]
-class UserEavAttribute extends AbstractEntity
+class UserEavAttribute extends AdditionalEavAttribute
 {
-    #[ORM\Id]
-    #[ORM\OneToOne(targetEntity: EavAttribute::class)]
-    #[ORM\JoinColumn(name: "attribute_id", referencedColumnName: "attribute_id")]
-    private ?EavAttribute $attribute_id = null;
-
+    /**
+     * @var int|null
+     */
     #[ORM\Column]
     private ?int $is_visible = null;
 
+    /**
+     * @var int|null
+     */
     #[ORM\Column]
     private ?int $sort_order = null;
-
-    /**
-     * @param EavAttribute $attribute_id
-     * @return $this
-     */
-    public function setAttributeId(EavAttribute $attribute_id): static
-    {
-        $this->attribute_id = $attribute_id;
-        return $this;
-    }
-
-    /**
-     * @return EavAttribute|null
-     */
-    public function getAttributeId(): ?EavAttribute
-    {
-        return $this->attribute_id;
-    }
 
     /**
      * @param int $is_visible
@@ -84,5 +66,4 @@ class UserEavAttribute extends AbstractEntity
     {
         return $this->sort_order;
     }
-
 }

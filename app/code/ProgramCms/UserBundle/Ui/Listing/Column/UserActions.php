@@ -50,12 +50,12 @@ class UserActions extends \ProgramCms\UiBundle\Component\Listing\ActionsColumn
                 $actions = [
                     [
                         'label' => 'Edit',
-                        'url' => $this->url->getUrlByRouteName('user_index_edit', ['id' => $rowData->getId()]),
+                        'url' => $this->url->getUrlByRouteName('user_index_edit', ['id' => $rowData->getEntityId()]),
                         'type' => 'url'
                     ],
                     [
                         'label' => 'Lock Account',
-                        'url' => $this->url->getUrlByRouteName('user_index_edit', ['id' => $rowData->getId()]),
+                        'url' => $this->url->getUrlByRouteName('user_index_edit', ['id' => $rowData->getEntityId()]),
                         'type' => 'url'
                     ]
                 ];

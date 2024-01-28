@@ -8,7 +8,7 @@
 
 namespace ProgramCms\UserBundle\Form;
 
-use ProgramCms\UserBundle\Entity\User;
+use ProgramCms\UserBundle\Entity\UserType as User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

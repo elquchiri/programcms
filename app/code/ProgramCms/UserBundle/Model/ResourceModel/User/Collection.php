@@ -19,6 +19,6 @@ class Collection extends \ProgramCms\CoreBundle\Model\Db\Collection\AbstractColl
      */
     protected function _construct()
     {
-        $this->_initEntity(\ProgramCms\UserBundle\Entity\User::class);
+        $this->_initEntity(\ProgramCms\UserBundle\Entity\UserEntity::class);
     }
 }

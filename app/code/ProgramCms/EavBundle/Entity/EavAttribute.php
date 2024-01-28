@@ -11,7 +11,9 @@ namespace ProgramCms\EavBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
+use ProgramCms\EavBundle\Model\Entity\Attribute\AdditionalEavAttribute;
 use ProgramCms\EavBundle\Repository\EavAttributeRepository;
+use ProgramCms\EavBundle\Model\Entity\Attribute\AttributeValueInterface as AttributeValue;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,24 +34,28 @@ class EavAttribute extends AbstractEntity
 
     #[ORM\Column(length: 255)]
     private ?string $attribute_code = null;
+
     /**
      * Determines which table should save attribute value
      * @var string|null
      */
     #[ORM\Column(length: 255)]
     private ?string $backend_type = null;
+
     /**
      * Frontend field type (text, date, ...)
      * @var string|null
      */
     #[ORM\Column(length: 255)]
     private ?string $frontend_input = null;
+
     /**
      * Field Label
      * @var string|null
      */
     #[ORM\Column(length: 255)]
     private ?string $frontend_label = null;
+
     /**
      * format field frontend data before getting value
      * @var string|null
@@ -57,20 +63,46 @@ class EavAttribute extends AbstractEntity
     #[ORM\Column(length: 255)]
     private ?string $frontend_model = null;
 
+    /**
+     * @var int|null
+     */
     #[ORM\Column(length: 255)]
     private ?int $is_required = null;
 
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     private ?string $default_value = null;
 
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     private ?string $note = null;
 
+    /**
+     * @var Collection|ArrayCollection
+     */
     #[ORM\OneToMany(mappedBy: 'attribute', targetEntity: EavAttributeLabel::class)]
     private Collection $labels;
 
+    /**
+     * @var ArrayCollection|Collection
+     */
     #[ORM\ManyToMany(targetEntity: EavAttributeGroup::class, mappedBy: 'attributes')]
-    private Collection $groups;
+    private Collection|ArrayCollection $groups;
+
+    /**
+     * @var AttributeValue|null
+     */
+    private ?AttributeValue $value = null;
+
+    /**
+     * @var AdditionalEavAttribute|null
+     */
+    #[ORM\JoinColumn(name: "attribute_id", referencedColumnName: "attribute_id")]
+    private ?AdditionalEavAttribute $additionalAttribute = null;
 
     /**
      * EavAttribute constructor.
@@ -78,6 +110,7 @@ class EavAttribute extends AbstractEntity
     public function __construct()
     {
         $this->groups = new ArrayCollection();
+        $this->labels = new ArrayCollection();
     }
 
     /**
@@ -325,5 +358,41 @@ class EavAttribute extends AbstractEntity
     {
         $this->labels->removeElement($label);
         return $this;
+    }
+
+    /**
+     * @param AttributeValue $value
+     * @return $this
+     */
+    public function setValue(AttributeValue $value): static
+    {
+        $this->value = $value;
+        return $this;
+    }
+
+    /**
+     * @return AttributeValue|null
+     */
+    public function getValue(): ?AttributeValue
+    {
+        return $this->value;
+    }
+
+    /**
+     * @param $additionAttribute
+     * @return $this
+     */
+    public function setAdditionalAttribute($additionAttribute): static
+    {
+        $this->additionalAttribute = $additionAttribute;
+        return $this;
+    }
+
+    /**
+     * @return AdditionalEavAttribute|null
+     */
+    public function getAdditionalAttribute(): ?AdditionalEavAttribute
+    {
+        return $this->additionalAttribute;
     }
 }

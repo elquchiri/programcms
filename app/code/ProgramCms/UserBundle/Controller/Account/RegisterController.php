@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\RouterBundle\Service\Request;
-use ProgramCms\UserBundle\Entity\User;
+use ProgramCms\UserBundle\Entity\UserEntity as User;
 use ProgramCms\UserBundle\Form\UserRegistrationType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;

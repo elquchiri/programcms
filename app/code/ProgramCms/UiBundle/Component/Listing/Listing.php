@@ -43,9 +43,8 @@ class Listing extends \ProgramCms\UiBundle\Component\AbstractComponent
                 if (!empty($entityId)) {
                     $data = $dataProvider
                         ->getCollection()
-                        ->filter(function ($entity) use ($entityId, $primaryFieldName) {
-                            return $entity->getDataUsingMethod($primaryFieldName) === $entityId;
-                        })->toArray();
+                        ->addFieldToFilter($primaryFieldName, $entityId)
+                        ->getData();
                 }
             }
         }

@@ -78,7 +78,7 @@ class GenerateStaticsCommand extends Command
         // Destination file path
         $appScssPaths = [
             'frontend' => 'assets/frontend/ProgramCms/Blank/en_US/app.scss',
-            'adminhtml' => 'assets/adminhtml/ProgramCms/Backend/fr_FR/app.scss'
+            'adminhtml' => 'assets/adminhtml/ProgramCms/Backend/ar_MA/app.scss'
         ];
         foreach($appScssPaths as $area => $appScssPath) {
             // Clear existing contents of app.scss

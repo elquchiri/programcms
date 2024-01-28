@@ -1,0 +1,4 @@
+doctrine:
+  orm:
+    resolve_target_entities:
+      App\Model\InvoiceSubjectInterface: App\Entity\Customer

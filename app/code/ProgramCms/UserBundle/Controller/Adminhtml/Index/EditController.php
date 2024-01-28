@@ -10,7 +10,7 @@ namespace ProgramCms\UserBundle\Controller\Adminhtml\Index;
 
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
-use ProgramCms\UserBundle\Repository\UserRepository;
+use ProgramCms\UserBundle\Repository\UserEntityRepository;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -23,29 +23,26 @@ class EditController extends \ProgramCms\CoreBundle\Controller\Controller
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+
     /**
-     * @var TranslatorInterface
+     * @var UserEntityRepository
      */
-    protected TranslatorInterface $translator;
-    protected UserRepository $userRepository;
+    protected UserEntityRepository $userRepository;
 
     /**
      * IndexController constructor.
      * @param Context $context
      * @param ObjectManager $objectManager
-     * @param UserRepository $userRepository
-     * @param TranslatorInterface $translator
+     * @param UserEntityRepository $userRepository
      */
     public function __construct(
         Context $context,
         ObjectManager $objectManager,
-        UserRepository $userRepository,
-        TranslatorInterface $translator
+        UserEntityRepository $userRepository,
     )
     {
         parent::__construct($context);
         $this->objectManager = $objectManager;
-        $this->translator = $translator;
         $this->userRepository = $userRepository;
     }
 
@@ -55,11 +52,9 @@ class EditController extends \ProgramCms\CoreBundle\Controller\Controller
     public function execute()
     {
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
-        $user = $this->userRepository->findOneBy(['id' => $this->getRequest()->getParam('id')]);
+        $user = $this->userRepository->findOneBy(['entity_id' => $this->getRequest()->getParam('id')]);
         if($user) {
-            $pageResult->getConfig()->getTitle()->set(
-                $this->translator->trans($user->getFullName())
-            );
+            $pageResult->getConfig()->getTitle()->set($user->getFullName());
         }
         return $pageResult;
     }

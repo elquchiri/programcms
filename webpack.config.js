@@ -27,25 +27,25 @@ Encore
     .autoProvidejQuery()
 ;
 
-const conf1 = Encore.getWebpackConfig();
-conf1.name = 'conf1';
-
-Encore.reset();
-
-Encore
-    .setOutputPath('public/build/adminhtml/programcms/backend/fr_FR')
-    // public path used by the web server to access the output path
-    .setPublicPath('/build/adminhtml/programcms/backend/fr_FR')
-    .addEntry('app', './assets/adminhtml/ProgramCms/Backend/fr_FR/app.js')
-    .splitEntryChunks()
-    .enableStimulusBridge('./assets/adminhtml/ProgramCms/Backend/fr_FR/controllers.json')
-    .enableSingleRuntimeChunk()
-    .cleanupOutputBeforeBuild()
-    .enableSourceMaps(!Encore.isProduction())
-    .enableVersioning(Encore.isProduction())
-    .enableSassLoader()
-    .autoProvidejQuery()
-;
+// const conf1 = Encore.getWebpackConfig();
+// conf1.name = 'conf1';
+//
+// Encore.reset();
+//
+// Encore
+//     .setOutputPath('public/build/adminhtml/programcms/backend/fr_FR')
+//     // public path used by the web server to access the output path
+//     .setPublicPath('/build/adminhtml/programcms/backend/fr_FR')
+//     .addEntry('app', './assets/adminhtml/ProgramCms/Backend/fr_FR/app.js')
+//     .splitEntryChunks()
+//     .enableStimulusBridge('./assets/adminhtml/ProgramCms/Backend/fr_FR/controllers.json')
+//     .enableSingleRuntimeChunk()
+//     .cleanupOutputBeforeBuild()
+//     .enableSourceMaps(!Encore.isProduction())
+//     .enableVersioning(Encore.isProduction())
+//     .enableSassLoader()
+//     .autoProvidejQuery()
+// ;
 
 const conf2 = Encore.getWebpackConfig();
 conf2.name = 'const2';
@@ -96,4 +96,4 @@ const conf3 = Encore.getWebpackConfig();
 conf3.name = 'const3';
 
 
-module.exports = [conf1, conf2, conf3];
+module.exports = [conf2, conf3];

@@ -11,7 +11,7 @@
         {% argument name="dataSource" type="array" %}
             {% argument name="dataProvider" type="array" %}
                 {% argument name="class" type="string" %}ProgramCms\UserBundle\Model\Provider\Listing\DataProvider{% endArgument %}
-                {% argument name="primaryFieldName" type="string" %}id{% endArgument %}
+                {% argument name="primaryFieldName" type="string" %}entity_id{% endArgument %}
                 {% argument name="requestFieldName" type="string" %}id{% endArgument %}
             {% endArgument %}
         {% endArgument %}
@@ -44,7 +44,7 @@
             {% endArguments %}
         {% endBlock %}
 
-        {% block name="id" class="ui.block.column" %}
+        {% block name="entity_id" class="ui.block.column" %}
             {% arguments %}
                 {% argument name="data" type="array" %}
                     {% argument name="label" type="string" %}#{% endArgument %}

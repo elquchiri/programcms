@@ -11,7 +11,8 @@ namespace ProgramCms\EavBundle\Model;
 use Exception;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\EavBundle\Entity\EavAttribute;
-use ProgramCms\EavBundle\Entity\Entity;
+use ProgramCms\EavBundle\Model\Entity\Entity;
+use ProgramCms\EavBundle\Model\EntityManager\Entity\Type\Collection as EntityTypeCollection;
 
 /**
  * Class Config
@@ -19,34 +20,37 @@ use ProgramCms\EavBundle\Entity\Entity;
  */
 class Config
 {
-    /**
-     * @var array
-     */
-    protected array $_objects;
+
     /**
      * @var array
      */
     protected array $attributes;
+
     /**
      * @var array
      */
     protected array $attributeCache;
+
     /**
      * @var array
      */
     protected array $_references;
+
     /**
      * @var array
      */
     protected array $_entityTypeData;
+
     /**
      * @var array
      */
     protected array $_attributeData;
+
     /**
-     * @var ResourceModel\Entity\Type\Collection
+     * @var EntityManager\Entity\Type\Collection
      */
-    protected ResourceModel\Entity\Type\Collection $entityTypeCollection;
+    protected EntityManager\Entity\Type\Collection $entityTypeCollection;
+
     /**
      * @var ObjectManager
      */
@@ -55,27 +59,17 @@ class Config
     /**
      * Config constructor.
      * @param ObjectManager $objectManager
-     * @param ResourceModel\Entity\Type\Collection $entityTypeCollection
+     * @param EntityManager\Entity\Type\Collection $entityTypeCollection
      */
     public function __construct(
         ObjectManager $objectManager,
-        \ProgramCms\EavBundle\Model\ResourceModel\Entity\Type\Collection $entityTypeCollection,
+        EntityTypeCollection $entityTypeCollection,
     )
     {
         $this->_attributeData = [];
         $this->attributeCache = [];
         $this->entityTypeCollection = $entityTypeCollection;
         $this->objectManager = $objectManager;
-    }
-
-    /**
-     * Get object by identifier
-     * @param   mixed $id
-     * @return  mixed
-     */
-    protected function _load($id): mixed
-    {
-        return $this->_objects[$id] ?? null;
     }
 
     /**
@@ -86,15 +80,6 @@ class Config
     private function loadAttributes($entityTypeCode)
     {
         return $this->attributes[$entityTypeCode] ?? [];
-    }
-
-    /**
-     * @param $obj
-     * @param $id
-     */
-    protected function _save($obj, $id)
-    {
-        $this->_objects[$id] = $obj;
     }
 
     /**
@@ -120,15 +105,6 @@ class Config
 
     /**
      * @param $id
-     * @return mixed|null
-     */
-    protected function _getEntityTypeReference($id)
-    {
-        return $this->_references['entity'][$id] ?? null;
-    }
-
-    /**
-     * @param $id
      * @param $code
      * @param $entityTypeCode
      * @return $this
@@ -137,28 +113,6 @@ class Config
     {
         $this->_references['attribute'][$entityTypeCode][$id] = $code;
         return $this;
-    }
-
-    /**
-     * @param $id
-     * @param $entityTypeCode
-     * @return mixed|null
-     */
-    protected function _getAttributeReference($id, $entityTypeCode)
-    {
-        if (isset($this->_references['attribute'][$entityTypeCode][$id])) {
-            return $this->_references['attribute'][$entityTypeCode][$id];
-        }
-        return null;
-    }
-
-    /**
-     * @param $code
-     * @return string
-     */
-    protected function _getEntityKey($code)
-    {
-        return 'ENTITY/' . $code;
     }
 
     /**
@@ -204,8 +158,7 @@ class Config
         }
 
         $attributes = $this->objectManager->create($entityType->getEntityAttributeCollection());
-
-        $attributes = $attributes->setEntityTypeFilter($entityType)->getDataAsArray();
+        $attributes = $attributes->setEntityTypeFilter($entityType)->getData();
 
         foreach ($attributes as $attribute) {
             // If no attribute_model defined inside attribute, get the entity type one
@@ -278,7 +231,10 @@ class Config
     {
         $attributes = [];
         $this->_initAttributes($entityType);
-        //$attributesData = $this->_attributeData[$entityType->getEntityTypeCode()];
+        $attributesData = $this->_attributeData[$entityType];
+        foreach ($attributesData as $attributeData) {
+            $attributes[$attributeData['attribute_code']] = $this->_createAttribute($entityType, $attributeData);
+        }
 
         return $attributes;
     }

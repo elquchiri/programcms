@@ -12,12 +12,12 @@ namespace ProgramCms\UserBundle\Model\ResourceModel\Attribute;
  * Class Collection
  * @package ProgramCms\UserBundle\Model\ResourceModel\Attribute
  */
-class Collection extends \ProgramCms\EavBundle\Model\ResourceModel\Attribute\Collection
+class Collection extends \ProgramCms\EavBundle\Model\EntityManager\Attribute\Collection
 {
     /**
      * @var string
      */
-    protected string $_entityTypeCode = 'user';
+    protected string $_entityTypeCode = 'user_entity';
 
     /**
      * @return string

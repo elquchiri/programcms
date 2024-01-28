@@ -110,7 +110,7 @@ abstract class AbstractComponent extends Template implements UiComponentInterfac
                     $tabsBlock = $layout->createBlock(
                         \ProgramCms\UiBundle\Block\Tabs\Tabs::class,
                         'tabs',
-                        ['label' => $this->hasLabel() ? $this->getLabel() : '', 'sections' => []]
+                        ['label' => $this->hasLabel() ? $this->getLabel() : '', 'component' => $this]
                     );
                     $layout->setChild($navContainerName, 'tabs');
                     $tabsBlock->setLayout($layout);

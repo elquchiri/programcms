@@ -11,6 +11,7 @@ namespace ProgramCms\UiBundle\App\Node;
 use ProgramCms\ThemeBundle\Model\PageLayout;
 use ProgramCms\ThemeBundle\Node\AbstractNode;
 use ProgramCms\ThemeBundle\Node\BlockNode;
+use ProgramCms\ThemeBundle\Node\ReferenceBlockNode;
 use ReflectionException;
 use Twig\Compiler;
 use Twig\Error\SyntaxError;
@@ -44,15 +45,17 @@ class UiComponentNode extends AbstractNode implements \Twig\Node\NodeCaptureInte
         $nodes = $compiler->getEnvironment()->parse($compiler->getEnvironment()->tokenize($source));
 
         $bodyNode = $nodes->getNode('body');
-        foreach($bodyNode as &$childNode) {
-            if(!($childNode instanceof BlockNode)) {
-                continue;
-            }
+        foreach($bodyNode as &$childNodes) {
+            foreach($childNodes as $childNode) {
+                if (!($childNode instanceof BlockNode || $childNode instanceof ReferenceBlockNode)) {
+                    continue;
+                }
 
-            if($childNode->hasAttribute('name') && $childNode->getAttribute('name') == $componentName) {
-                if($this->hasAttribute('parent')) {
-                    $parentNode = $this->getAttribute('parent');
-                    $childNode->setAttribute('parent', $parentNode);
+                if ($childNode->hasAttribute('name') && $childNode->getAttribute('name') == $componentName) {
+                    if ($this->hasAttribute('parent')) {
+                        $parentNode = $this->getAttribute('parent');
+                        $childNode->setAttribute('parent', $parentNode);
+                    }
                 }
             }
         }

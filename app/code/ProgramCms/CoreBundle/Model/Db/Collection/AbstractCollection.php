@@ -89,15 +89,6 @@ abstract class AbstractCollection implements CollectionInterface
     }
 
     /**
-     * Alternative method to getData
-     * @return array
-     */
-    public function toArray(): array
-    {
-        return $this->getData();
-    }
-
-    /**
      * Get Query Builder
      * @return QueryBuilder
      */

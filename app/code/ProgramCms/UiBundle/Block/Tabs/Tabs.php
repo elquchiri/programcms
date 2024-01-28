@@ -8,6 +8,9 @@
 
 namespace ProgramCms\UiBundle\Block\Tabs;
 
+use ProgramCms\UiBundle\Component\Form\Fieldset;
+use ProgramCms\UiBundle\Component\Form\Form;
+
 /**
  * Class Tabs
  * @package ProgramCms\UiBundle\Block\Tabs
@@ -20,10 +23,35 @@ class Tabs extends \ProgramCms\CoreBundle\View\Element\Template
     protected string $_template = "@ProgramCmsUi/tabs/tabs.html.twig";
 
     /**
+     * @return string
+     */
+    public function getTabLabel(): string
+    {
+        return $this->trans($this->getLabel());
+    }
+
+    /**
+     * Prepare and provide tabs
      * @return array
      */
     public function getTabs(): array
     {
-        return $this->getData();
+        $tabs = [];
+        $component = $this->getComponent();
+        if($component instanceof Form) {
+            $fieldsets = $component->getChildBlocks();
+            $first = reset($fieldsets);
+            foreach($fieldsets as $fieldset) {
+                if($fieldset instanceof Fieldset) {
+                    $label = $fieldset->hasLabel() ? $fieldset->getLabel() : "";
+                    $tabs[$fieldset->getNameInLayout()] = [
+                        'active' => $fieldset->getNameInLayout() == $first->getNameInLayout(),
+                        'label' => $label
+                    ];
+                }
+            }
+        }
+
+        return $tabs;
     }
 }

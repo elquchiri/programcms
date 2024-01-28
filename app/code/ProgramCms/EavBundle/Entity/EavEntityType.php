@@ -30,13 +30,7 @@ class EavEntityType extends AbstractEntity
     private ?string $entity_type_code = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $attribute_model = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $additional_attribute_table = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $entity_attribute_collection = null;
 
     #[ORM\OneToMany(mappedBy: "entityType", targetEntity: EavAttributeSet::class)]
     private Collection $attributeSets;
@@ -90,28 +84,6 @@ class EavEntityType extends AbstractEntity
     }
 
     /**
-     * @param string $attribute_model
-     * @return $this
-     */
-    public function setAttributeModel(string $attribute_model): static
-    {
-        $this->attribute_model = $attribute_model;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getAttributeModel(): ?string
-    {
-        if(empty($this->attribute_model)) {
-            return \ProgramCms\EavBundle\Entity\Entity::DEFAULT_ATTRIBUTE_MODEL;
-        }
-
-        return $this->attribute_model;
-    }
-
-    /**
      * @param string $additional_attribute_table
      * @return $this
      */
@@ -127,24 +99,6 @@ class EavEntityType extends AbstractEntity
     public function getAdditionalAttributeTable(): ?string
     {
         return $this->additional_attribute_table;
-    }
-
-    /**
-     * @param string $entity_attribute_collection
-     * @return $this
-     */
-    public function setEntityAttributeCollection(string $entity_attribute_collection): static
-    {
-        $this->entity_attribute_collection = $entity_attribute_collection;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getEntityAttributeCollection(): ?string
-    {
-        return $this->entity_attribute_collection;
     }
 
     /**

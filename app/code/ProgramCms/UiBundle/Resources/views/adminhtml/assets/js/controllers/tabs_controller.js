@@ -9,7 +9,10 @@ import {Controller} from "@hotwired/stimulus";
 
 export default class extends Controller {
 
-    connect() {}
+    connect() {
+        $('.collapser').hide();
+        $('.collapser').first().show();
+    }
 
     tabClick(event) {
         event.preventDefault();

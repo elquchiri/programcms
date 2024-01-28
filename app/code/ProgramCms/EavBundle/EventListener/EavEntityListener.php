@@ -11,10 +11,8 @@ namespace ProgramCms\EavBundle\EventListener;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\PostLoadEventArgs;
 use Exception;
-use ProgramCms\EavBundle\Entity\Entity;
-use ProgramCms\EavBundle\Model\Config;
-
-use function get_class;
+use ProgramCms\EavBundle\Entity\EavEntityType;
+use ProgramCms\EavBundle\Model\Entity\Entity;
 
 /**
  * Class EavEntityListener
@@ -22,26 +20,20 @@ use function get_class;
  */
 class EavEntityListener
 {
-    /**
-     * @var Config
-     */
-    protected Config $config;
+
     /**
      * @var EntityManagerInterface
      */
     protected EntityManagerInterface $entityManager;
 
     /**
-     * EntityListener constructor.
+     * EavEntityListener constructor.
      * @param EntityManagerInterface $entityManager
-     * @param Config $config
      */
     public function __construct(
-        EntityManagerInterface $entityManager,
-        Config $config
+        EntityManagerInterface $entityManager
     )
     {
-        $this->config = $config;
         $this->entityManager = $entityManager;
     }
 
@@ -53,19 +45,14 @@ class EavEntityListener
     {
         $entity = $args->getObject();
         if($entity instanceof Entity) {
-            $entityAttributes = $this->getEntityAttributes($entity);
-        }
-    }
+            /** @var EavEntityType $eavEntityType */
+            $eavEntityType = $this->entityManager
+                ->getRepository(EavEntityType::class)
+                ->findOneBy(['entity_type_code' => get_class($entity)]);
 
-    /**
-     * @param Entity $entity
-     * @return array
-     * @throws Exception
-     */
-    private function getEntityAttributes(Entity $entity): array
-    {
-        $metadata = $this->entityManager->getClassMetadata(get_class($entity));
-        $eavEntityType = $metadata->getTableName();
-        return $eavEntityType === null  ? [] : $this->config->getEntityAttributes($eavEntityType, $entity);
+            if ($eavEntityType) {
+                $entity->setEntityType($eavEntityType);
+            }
+        }
     }
 }

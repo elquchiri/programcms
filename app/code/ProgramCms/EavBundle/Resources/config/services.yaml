@@ -21,3 +21,8 @@ services:
     class: ProgramCms\EavBundle\EventListener\EavEntityListener
     tags:
       - { name: doctrine.event_listener, event: postLoad, priority: 1 }
+
+  doctrine.eav_attribute.listener:
+    class: ProgramCms\EavBundle\EventListener\EavAttributeListener
+    tags:
+      - { name: doctrine.event_listener, event: postLoad, priority: 1 }

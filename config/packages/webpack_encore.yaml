@@ -2,5 +2,4 @@ webpack_encore:
     output_path: false
     builds:
         app_frontend: '%kernel.project_dir%/public/build/frontend/programcms/blank/en_us'
-        app_backend_fr_FR: '%kernel.project_dir%/public/build/adminhtml/programcms/backend/fr_FR'
         app_backend_ar_MA: '%kernel.project_dir%/public/build/adminhtml/programcms/backend/ar_MA'

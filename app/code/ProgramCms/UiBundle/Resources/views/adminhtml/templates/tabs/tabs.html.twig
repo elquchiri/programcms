@@ -8,21 +8,18 @@
 #}
 <div class="tabs-menu" data-controller="tabs">
     <ul>
-        {% set tab = block.getTabs() %}
-        {% if tab.label and tab.label is not empty %}
-            <li class="root open">
-                <a>{{ tab.label }}</a>
-            </li>
-        {% endif %}
-        {% if tab.sections is defined %}
-            <ul class="child"{% if tab.active is defined %} style="display: block"{% endif %}>
-                {% for sectionId, section in tab.sections %}
+        <li class="root open">
+            <a>{{ block.getTabLabel() }}</a>
+        </li>
+        {% if block.getTabs is defined %}
+            <ul class="child" style="display: block">
+                {% for tabId, tab in block.getTabs %}
                     <li>
-                        <a class="{% if section.active %}active{% endif %}"
+                        <a class="{% if tab.active %}active{% endif %}"
                            href="#"
-                           id="{{ sectionId }}"
+                           id="{{ tabId }}"
                            data-action="tabs#tabClick">
-                            {{ section.label }}
+                            {{ tab.label }}
                         </a>
                     </li>
                 {% endfor %}
