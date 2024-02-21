@@ -14,5 +14,8 @@ namespace ProgramCms\DataPatchBundle\Model;
  */
 interface DataPatchInterface
 {
+    /**
+     * Execute method, run patch instructions
+     */
     public function execute(): void;
 }

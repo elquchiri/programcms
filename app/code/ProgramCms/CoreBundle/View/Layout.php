@@ -175,6 +175,18 @@ class Layout implements LayoutInterface
     }
 
     /**
+     * @param string $name
+     * @param string $class
+     * @param string $parent
+     * @return object|null
+     * @throws Exception
+     */
+    public function addUiComponent(string $name, string $class, string $parent = ''): ?object
+    {
+        return $this->addBlock($name, $class, '', $parent);
+    }
+
+    /**
      * Add Container to structure
      * @return $this
      * @throws Exception

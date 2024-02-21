@@ -7,7 +7,7 @@
 
 import {Controller} from "@hotwired/stimulus";
 
-export default class extends Controller {
+application.register('toolbar', class extends Controller {
 
     connect() {}
 
@@ -33,4 +33,4 @@ export default class extends Controller {
             window.location = action;
         }
     }
-}
+});

@@ -8,7 +8,9 @@
 
 namespace ProgramCms\DataPatchBundle\Command;
 
+use ProgramCms\CoreBundle\Data\Process\Find;
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\DataPatchBundle\Model\DataPatchInterface;
 use ProgramCms\DataPatchBundle\Repository\DataPatchRepository;
 use ReflectionException;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -32,21 +34,26 @@ class ExecuteDataPatches extends Command
      * @var DataPatchRepository
      */
     protected DataPatchRepository $dataPatchRepository;
+
     /**
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
-    protected \ProgramCms\CoreBundle\Data\Process\Find $find;
+
+    /**
+     * @var Find
+     */
+    protected Find $find;
 
     /**
      * ExecuteDataPatches constructor.
-     * @param \ProgramCms\CoreBundle\Data\Process\Find $find
+     * @param Find $find
      * @param DataPatchRepository $dataPatchRepository
      * @param ObjectManager $objectManager
      * @param string|null $name
      */
     public function __construct(
-        \ProgramCms\CoreBundle\Data\Process\Find $find,
+        Find $find,
         DataPatchRepository $dataPatchRepository,
         ObjectManager $objectManager,
         string $name = null
@@ -58,6 +65,9 @@ class ExecuteDataPatches extends Command
         $this->find = $find;
     }
 
+    /**
+     * Configure Data Patch
+     */
     protected function configure(): void
     {
         $this
@@ -136,6 +146,7 @@ class ExecuteDataPatches extends Command
     protected function _runDataPatch($dataPatchClass)
     {
         try {
+            /** @var DataPatchInterface $dataPatchService */
             $dataPatchService = $this->objectManager->create($dataPatchClass);
             $dataPatchService->execute();
         }catch(\Exception $e) {

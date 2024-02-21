@@ -11,7 +11,7 @@ import { Controller } from '@hotwired/stimulus';
  * Sidebar Controller
  * Manage Backoffice entries and pages
  */
-export default class Sidebar extends Controller {
+application.register('sidebar', class extends Controller {
     static targets = ['menuItem', 'menuItemLink', 'closeSign'];
     static sideBarWidth = $('.menu-items').css('width');
     static leftPixels = $('.sidebar').css('width');
@@ -121,4 +121,4 @@ export default class Sidebar extends Controller {
             callback
         );
     }
-}
+});

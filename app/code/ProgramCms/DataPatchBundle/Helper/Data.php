@@ -15,6 +15,8 @@ namespace ProgramCms\DataPatchBundle\Helper;
 class Data
 {
     const MIGRATION_DIR = 'Migrations';
+
     const MIGRATION_EXTENSION = 'php';
+
     const MIGRATION_PATCH_NAME_COLUMN = 'patch_name';
 }

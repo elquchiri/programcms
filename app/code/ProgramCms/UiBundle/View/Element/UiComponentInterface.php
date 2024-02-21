@@ -77,4 +77,9 @@ interface UiComponentInterface extends BlockInterface
      * @return mixed
      */
     public function getDataSourceData();
+
+    /**
+     * @return mixed
+     */
+    public function render();
 }

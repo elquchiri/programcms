@@ -7,7 +7,7 @@
 
 import { Controller } from '@hotwired/stimulus';
 
-export default class extends Controller {
+application.register('config-menu', class extends Controller {
 
     connect() {
         $(function() {
@@ -24,4 +24,4 @@ export default class extends Controller {
             });
         });
     }
-}
+});

@@ -10,7 +10,7 @@ import {Controller} from "@hotwired/stimulus";
 /**
  * Collapser Ui Controller
  */
-export default class extends Controller {
+application.register('inherit-checkbox', class extends Controller {
 
     connect() {}
 
@@ -26,4 +26,4 @@ export default class extends Controller {
             $('#' + fieldId).attr('disabled', false);
         }
     }
-}
+});

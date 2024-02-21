@@ -61,7 +61,10 @@ class ThemeExtension extends \Twig\Extension\AbstractExtension
             new \ProgramCms\ThemeBundle\Parser\JsTokenParser(),
             new \ProgramCms\ThemeBundle\Parser\MoveTokenParser(),
             new \ProgramCms\ThemeBundle\Parser\ReferenceContainerTokenParser(),
-            new \ProgramCms\UiBundle\App\Parser\UiComponentTokenParser()
+            new \ProgramCms\UiBundle\Twig\Parser\UiComponentTokenParser(),
+            new \ProgramCms\UiBundle\Twig\Parser\FormTokenParser(),
+            new \ProgramCms\UiBundle\Twig\Parser\FieldsetTokenParser(),
+            new \ProgramCms\UiBundle\Twig\Parser\FieldTokenParser()
         ];
     }
 }

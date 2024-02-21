@@ -1,36 +1,39 @@
 {
+    "name": "programcms-programcms1ce",
+    "description": "ProgramCMS 1 (Community Edition, Open Source)",
+    "author": "Mohamed EL QUCHIRI",
     "devDependencies": {
         "@babel/core": "^7.17.0",
         "@babel/preset-env": "^7.16.0",
         "@hotwired/stimulus": "^3.0.0",
         "@popperjs/core": "^2.11.8",
-        "@symfony/stimulus-bridge": "^3.2.0",
         "@symfony/webpack-encore": "^4.0.0",
         "bootstrap": "^5.3.0",
         "bs-custom-file-input": "^1.3.4",
         "core-js": "^3.23.0",
+        "mini-css-extract-plugin": "^2.8.0",
         "postcss": "^8.4.28",
-        "postcss-loader": "^7.0.0",
+        "postcss-loader": "^7.3.4",
         "postcss-preset-env": "^9.1.1",
         "regenerator-runtime": "^0.13.9",
-        "rtlcss": "^4.1.0",
+        "rtlcss": "^4.1.1",
         "rtlcss-loader": "^1.0.3",
-        "sass-loader": "^13.3.2",
+        "sass-loader": "^13.3.3",
         "webpack": "^5.74.0",
         "webpack-cli": "^4.10.0",
         "webpack-notifier": "^1.15.0"
     },
-    "license": "UNLICENSED",
+    "license": "MIT",
     "private": true,
-    "scripts": {
-        "dev-server": "encore dev-server",
-        "dev": "encore dev",
-        "watch": "encore dev --watch",
-        "build": "encore production --progress"
-    },
+    "scripts": {},
     "dependencies": {
+        "autoprefixer": "^10.4.17",
         "chart.js": "^4.3.3",
-        "jquery": "^3.7.0",
-        "node-sass": "^9.0.0"
+        "install": "^0.13.0",
+        "jquery": "^3.7.1",
+        "node-sass": "^9.0.0",
+        "npm": "^10.4.0",
+        "rtlcss-plugin": "^1.0.0",
+        "stimulus": "^3.2.2"
     }
 }

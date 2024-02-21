@@ -8,7 +8,10 @@
 
 namespace ProgramCms\ConfigBundle\App;
 
-
+/**
+ * Interface ScopeInterface
+ * @package ProgramCms\ConfigBundle\App
+ */
 interface ScopeInterface
 {
     /**

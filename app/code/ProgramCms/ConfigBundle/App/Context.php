@@ -10,15 +10,21 @@ namespace ProgramCms\ConfigBundle\App;
 
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-
 /**
  * Class Context
  * @package ProgramCms\ConfigBundle\App
  */
 class Context
 {
+    /**
+     * @var TranslatorInterface
+     */
     protected TranslatorInterface $translator;
 
+    /**
+     * Context constructor.
+     * @param TranslatorInterface $translator
+     */
     public function __construct(
         TranslatorInterface $translator
     )
@@ -26,7 +32,10 @@ class Context
         $this->translator = $translator;
     }
 
-    public function getTranslator()
+    /**
+     * @return TranslatorInterface
+     */
+    public function getTranslator(): TranslatorInterface
     {
         return $this->translator;
     }

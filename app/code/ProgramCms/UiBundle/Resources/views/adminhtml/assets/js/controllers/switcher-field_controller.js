@@ -7,7 +7,7 @@
 
 import {Controller} from "@hotwired/stimulus";
 
-export default class extends Controller {
+application.register('switcher-field', class extends Controller {
     /**
      * @type {{no: {default: string, type: StringConstructor}, yes: {default: string, type: StringConstructor}}}
      */
@@ -41,4 +41,4 @@ export default class extends Controller {
             statusLabel.removeClass('status-yes').addClass('status-no').html(this.noValue);
         }
     }
-}
+});

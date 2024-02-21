@@ -1,12 +1,12 @@
 .pagination-left-button {
     width: 45px;
     border: 1px solid #dedede;
-    background: url('../../../../../../public/images/left-arrow.png') no-repeat center center;
+    background: url('../../../../../public/images/left-arrow.png') no-repeat center center;
 }
 .pagination-right-button {
     width: 45px;
     border: 1px solid #dedede;
-    background: url('../../../../../../public/images/right-arrow.png') no-repeat center center;
+    background: url('../../../../../public/images/right-arrow.png') no-repeat center center;
 }
 
 .admin-table {
@@ -52,7 +52,7 @@
 }
 
 #filters-tab {
-    background-image: url("../../../../../../public/images/filters.png");
+    background-image: url("../../../../../public/images/filters.png");
     background-repeat: no-repeat;
     background-position: 9px 9px;
     padding-left: 35px;

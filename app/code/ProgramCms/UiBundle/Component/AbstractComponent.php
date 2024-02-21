@@ -8,6 +8,7 @@
 
 namespace ProgramCms\UiBundle\Component;
 
+use ProgramCms\CoreBundle\Model\DataObject;
 use ProgramCms\CoreBundle\View\Element\Template;
 use ProgramCms\UiBundle\View\Element\Context;
 use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;
@@ -17,10 +18,10 @@ use ProgramCms\UiBundle\View\Element\UiComponentInterface;
  * Class AbstractComponent
  * @package ProgramCms\UiBundle\Component
  */
-abstract class AbstractComponent extends Template implements UiComponentInterface
+abstract class AbstractComponent extends DataObject implements UiComponentInterface
 {
     /**
-     * @var array
+     * @var UiComponentInterface[]
      */
     protected array $components;
     /**
@@ -31,16 +32,18 @@ abstract class AbstractComponent extends Template implements UiComponentInterfac
     /**
      * AbstractComponent constructor.
      * @param Context $context
+     * @param array $components
      * @param array $data
      */
     public function __construct(
         Context $context,
+        array $components = [],
         array $data = [],
     )
     {
-        parent::__construct($context->getTemplateContext(), $data);
-        $this->data = array_replace_recursive($this->data, $data);
         $this->context = $context;
+        $this->components = $components;
+        $this->data = array_replace_recursive($this->data, $data);
     }
 
     /**
@@ -170,11 +173,19 @@ abstract class AbstractComponent extends Template implements UiComponentInterfac
         return [];
     }
 
-    /**
-     * @return void
-     */
-    protected function _prepareLayout()
+    public function getTemplate()
     {
-        $this->prepare();
+        // TODO: Implement getTemplate() method.
+    }
+
+
+    public function render()
+    {
+
+    }
+
+    public function toHtml()
+    {
+        // TODO: Implement toHtml() method.
     }
 }

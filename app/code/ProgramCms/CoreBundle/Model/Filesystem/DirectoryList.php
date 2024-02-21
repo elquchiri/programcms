@@ -8,21 +8,33 @@
 
 namespace ProgramCms\CoreBundle\Model\Filesystem;
 
+use ProgramCms\CoreBundle\App\Kernel;
+
 /**
  * Class DirectoryList
  * @package ProgramCms\CoreBundle\Model\Filesystem
  */
 class DirectoryList
 {
-    protected \ProgramCms\CoreBundle\App\Kernel $kernel;
+    /**
+     * @var Kernel
+     */
+    protected Kernel $kernel;
 
+    /**
+     * DirectoryList constructor.
+     * @param Kernel $kernel
+     */
     public function __construct(
-        \ProgramCms\CoreBundle\App\Kernel $kernel
+        Kernel $kernel
     )
     {
         $this->kernel = $kernel;
     }
 
+    /**
+     * @return string
+     */
     public function getRoot(): string
     {
         return $this->kernel->getProjectDir();

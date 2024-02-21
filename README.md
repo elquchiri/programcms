@@ -60,6 +60,7 @@ To install ProgramCMS project run :
 - Themes System
 - Full RTL Support (Thanks to Mohammad Younes for <a href="https://rtlcss.com/index.html">RTLCSS</a>)
 - Layouts, Containers, Blocks and Templates Engine
+- Full UI Components System
 - Aspect-Oriented Programming Style
 - Data Based AI to process, generate and translate content
 
@@ -81,6 +82,10 @@ Backend Demo :
 - Centralized Configuration
 
 ![image](public/images/backend-config-demo.png)
+
+- i18n Dashboard AR:
+
+![image](public/images/dashboard-ar.png)
 
 Frontend Home Page :
 

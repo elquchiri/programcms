@@ -22,10 +22,12 @@ class Config extends DataObject
      * @var ConfigSerializer
      */
     protected ConfigSerializer $configSerializer;
+
     /**
      * @var Loader
      */
     protected Loader $loader;
+
     /**
      * @var \ProgramCms\ConfigBundle\App\Config
      */

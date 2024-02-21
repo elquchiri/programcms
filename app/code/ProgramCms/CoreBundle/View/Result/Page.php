@@ -88,16 +88,14 @@ class Page extends Layout
         $locale = $this->localeSwitcher->getLocale();
         $dir = $this->language->getDir($locale);
 
-        $theme = sprintf('app_backend_%s', $locale);
-        $theme = 'app_backend_ar_MA';
-
         $content = $this->env->render('@ProgramCmsTheme/base.html.twig', [
             'dir' => $dir,
             'lang' => $locale,
-            'theme' => $theme,
             'css' => $css,
             'js' => $js,
             'title' => $title,
+            'app-css' => '',
+            'app-js' => '',
             'html' => $html
         ]);
 

@@ -7,7 +7,7 @@
 
 import {Controller} from '@hotwired/stimulus';
 
-export default class extends Controller {
+application.register('tree', class extends Controller {
     /**
      * Controller Values
      * @type {{open: {default: boolean, type: BooleanConstructor}}}
@@ -59,4 +59,4 @@ export default class extends Controller {
             }
         });
     }
-}
+});

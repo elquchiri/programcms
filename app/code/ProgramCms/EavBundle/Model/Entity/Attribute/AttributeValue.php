@@ -104,5 +104,4 @@ abstract class AttributeValue extends \ProgramCms\CoreBundle\Model\Db\Entity\Abs
      * @return mixed
      */
     abstract public function getValue(): mixed;
-
 }

@@ -10,13 +10,13 @@ namespace ProgramCms\CoreBundle\View\Element\Template;
 
 use ProgramCms\CoreBundle\Helper\Language;
 use ProgramCms\CoreBundle\Model\Filesystem\DirectoryList;
-use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\CoreBundle\View\Layout;
 use ProgramCms\CoreBundle\View\Page\Config;
 use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\RouterBundle\Service\Url;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use ProgramCms\CoreBundle\Webpack\Output as WebpackOutput;
 use Twig\Environment;
 
 /**
@@ -53,6 +53,7 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
      * @var Language
      */
     protected Language $language;
+    protected WebpackOutput $webpackOutput;
 
     /**
      * Context constructor.
@@ -65,7 +66,7 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
      * @param TranslatorInterface $translator
      * @param LocaleSwitcher $localeSwitcher
      * @param Language $language
-     * @param ObjectManager $objectManager
+     * @param WebpackOutput $webpackOutput
      */
     public function __construct(
         DirectoryList $directoryList,
@@ -76,7 +77,8 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
         Layout $layout,
         TranslatorInterface $translator,
         LocaleSwitcher $localeSwitcher,
-        Language $language
+        Language $language,
+        WebpackOutput $webpackOutput
     )
     {
         parent::__construct($directoryList, $request);
@@ -87,6 +89,7 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
         $this->translator = $translator;
         $this->localeSwitcher = $localeSwitcher;
         $this->language = $language;
+        $this->webpackOutput = $webpackOutput;
     }
 
     /**
@@ -144,5 +147,13 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
     public function getLanguageHelper(): Language
     {
         return $this->language;
+    }
+
+    /**
+     * @return WebpackOutput
+     */
+    public function getWebpackOutput(): WebpackOutput
+    {
+        return $this->webpackOutput;
     }
 }

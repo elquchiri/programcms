@@ -12,7 +12,7 @@ import Chart from 'chart.js/auto';
  * Sidebar Controller
  * Manage Backoffice entries and pages
  */
-export default class extends Controller {
+application.register('report', class extends Controller {
 
     connect() {
         $(function() {
@@ -54,4 +54,4 @@ export default class extends Controller {
             });
         });
     }
-}
+});

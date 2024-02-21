@@ -10,7 +10,7 @@ import {Controller} from "@hotwired/stimulus";
 /**
  * Collapser Ui Controller
  */
-export default class extends Controller {
+application.register('collapser', class extends Controller {
 
     connect() {}
 
@@ -24,4 +24,4 @@ export default class extends Controller {
             $(collapserLink).removeClass('open');
         }
     }
-}
+});

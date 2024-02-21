@@ -22,10 +22,10 @@
         {#
         /*
          * Load Global app css file
-         * Merge All static Css files
+         * Merge All static css files
          */
         #}
-        {{ encore_entry_link_tags('app', null, theme) }}
+        <link rel="stylesheet" type="text/css" href="/build/adminhtml/programcms/backend/ar_MA/app.css">
         {% for cssFile in css %}
             <link rel="stylesheet" type="text/css" href="{{ asset(cssFile) }}" />
         {% endfor %}
@@ -44,6 +44,6 @@
         {% for jsFile in js %}
             <script type="text/javascript" src="{{ asset(jsFile) }}"></script>
         {% endfor %}
-        {{ encore_entry_script_tags('app', null, theme) }}
+        <script type="text/javascript" src="/build/adminhtml/programcms/backend/ar_MA/app.js"></script>
     </body>
 </html>
