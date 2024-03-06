@@ -17,7 +17,7 @@ use ProgramCms\ThemeBundle\Repository\ThemeRepository;
  * Class ViewController
  * @package ProgramCms\ThemeBundle\Controller\Adminhtml\Index
  */
-class ViewController extends \ProgramCms\CoreBundle\Controller\Controller
+class ViewController extends \ProgramCms\CoreBundle\Controller\AdminController
 {
     /**
      * @var ObjectManager

@@ -1,0 +1,7 @@
+RewriteEngine on
+
+SetEnvIf Host .*programcms.* PROGRAMCMS_RUN_CODE=en
+SetEnvIf Host .*programcms.* PROGRAMCMS_RUN_TYPE=website_view
+
+SetEnvIf Host ar\.programcms.* PROGRAMCMS_RUN_CODE=kooora_forums_ar
+SetEnvIf Host ar\.programcms.* PROGRAMCMS_RUN_TYPE=website_view

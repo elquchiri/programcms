@@ -18,6 +18,7 @@ use Exception;
 class Structure
 {
     const CHILDREN = 'children';
+
     const PARENT = 'parent';
 
     /**

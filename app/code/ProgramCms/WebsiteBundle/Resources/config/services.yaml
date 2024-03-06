@@ -17,6 +17,10 @@ services:
       - '../../Resources/'
       - '../../Tests/'
 
-#  ProgramCms\CoreBundle\App\AreaList:
-#    arguments:
-#        - { frontend: {frontName: 'frontend', router: 'frontend'} }
+  ProgramCms\CoreBundle\App\ScopeResolverPool:
+    arguments:
+      $scopeResolvers:
+        default: '@ProgramCms\CoreBundle\App\ScopeResolver'
+        website: '@ProgramCms\WebsiteBundle\Model\Resolver\Website'
+        website_group: '@ProgramCms\WebsiteBundle\Model\Resolver\WebsiteGroup'
+        website_view: '@ProgramCms\WebsiteBundle\Model\Resolver\WebsiteView'

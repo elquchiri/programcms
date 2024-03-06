@@ -8,11 +8,13 @@
 
 namespace ProgramCms\WebsiteBundle\Entity;
 
+use ProgramCms\WebsiteBundle\Model\ScopeInterface;
 use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
+use ProgramCms\CoreBundle\App\ScopeInterface as AppScopeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: WebsiteViewRepository::class)]
-class WebsiteView extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
+class WebsiteView extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity implements AppScopeInterface
 {
     /**
      * @var int|null
@@ -162,5 +164,45 @@ class WebsiteView extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
     {
         $this->sort_order = (int) $sort_order;
         return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCode()
+    {
+        return $this->getWebsiteViewCode();
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getId()
+    {
+        return $this->getWebsiteViewId();
+    }
+
+    /**
+     * @return string
+     */
+    public function getScopeType()
+    {
+        return ScopeInterface::SCOPE_WEBSITE_VIEW;
+    }
+
+    /**
+     * @return string
+     */
+    public function getScopeTypeName()
+    {
+        return 'Website View';
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getName()
+    {
+        return $this->getWebsiteViewName();
     }
 }

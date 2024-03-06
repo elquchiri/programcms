@@ -16,7 +16,7 @@ use ProgramCms\CoreBundle\View\Result\Page;
  * Class NewController
  * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\Website
  */
-class NewController extends \ProgramCms\CoreBundle\Controller\Controller
+class NewController extends \ProgramCms\CoreBundle\Controller\AdminController
 {
     /**
      * @var ObjectManager

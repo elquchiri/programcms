@@ -11,12 +11,13 @@ namespace ProgramCms\WebsiteBundle\Entity;
 use Doctrine\Common\Collections\Collection;
 use JetBrains\PhpStorm\Pure;
 use ProgramCms\CatalogBundle\Entity\Category;
-use ProgramCms\WebsiteBundle\Model\Provider\DataSource\WebsiteViews;
+use ProgramCms\CoreBundle\App\ScopeInterface as AppScopeInterface;
+use ProgramCms\WebsiteBundle\Model\ScopeInterface;
 use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: WebsiteGroupRepository::class)]
-class WebsiteGroup extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
+class WebsiteGroup extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity implements AppScopeInterface
 {
     /**
      * @var int|null
@@ -262,5 +263,45 @@ class WebsiteGroup extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
         }
 
         return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCode()
+    {
+        return $this->getWebsiteGroupCode();
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getId()
+    {
+        return $this->getWebsiteGroupId();
+    }
+
+    /**
+     * @return string
+     */
+    public function getScopeType()
+    {
+        return ScopeInterface::SCOPE_GROUP;
+    }
+
+    /**
+     * @return string
+     */
+    public function getScopeTypeName()
+    {
+        return 'Website Group';
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getName()
+    {
+        return $this->getWebsiteGroupName();
     }
 }

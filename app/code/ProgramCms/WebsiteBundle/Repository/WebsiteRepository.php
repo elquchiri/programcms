@@ -41,6 +41,15 @@ class WebsiteRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param string $code
+     * @return Website|null
+     */
+    public function getByCode(string $code): ?Website
+    {
+        return $this->findOneBy(['website_code' => $code]);
+    }
+
+    /**
      * @param Website $entity
      * @param bool $flush
      */
@@ -64,5 +73,13 @@ class WebsiteRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @return Website|null
+     */
+    public function getDefaultWebsite(): ?Website
+    {
+        return $this->findOneBy(['is_default' => 1]);
     }
 }

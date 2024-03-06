@@ -19,12 +19,22 @@ class DataObject
      * @var array
      */
     protected array $data = [];
+
     /**
-     * Setter/Getter underscore transformation cache
-     *
      * @var array
      */
     protected static array $_underscoreCache = [];
+
+    /**
+     * DataObject constructor.
+     * @param array $data
+     */
+    public function __construct(
+        array $data = []
+    )
+    {
+        $this->data = $data;
+    }
 
     /**
      * Add Data to the object and keeps previous data
@@ -58,17 +68,82 @@ class DataObject
         }
         return $this;
     }
+
     /**
-     * @param null $argument
+     * @param string $key
+     * @param null $index
      * @return array|mixed
      */
-    public function getData($argument = null): mixed
+    public function getData(string $key = '', $index = null)
     {
-        if($argument) {
-            return $this->data[$argument];
+        if ('' === $key) {
+            return $this->data;
         }
-        return $this->data;
+
+        /* process a/b/c key as ['a']['b']['c'] */
+        if (str_contains($key, '/')) {
+            $data = $this->getDataByPath($key);
+        } else {
+            $data = $this->_getData($key);
+        }
+
+        if ($index !== null) {
+            if ($data === (array)$data) {
+                $data = $data[$index] ?? null;
+            } elseif (is_string($data)) {
+                $data = explode(PHP_EOL, $data);
+                $data = $data[$index] ?? null;
+            } elseif ($data instanceof self) {
+                $data = $data->getData($index);
+            } else {
+                $data = null;
+            }
+        }
+        return $data;
     }
+
+    /**
+     * @param $path
+     * @return mixed|null
+     */
+    public function getDataByPath($path)
+    {
+        $keys = explode('/', $path);
+
+        $data = $this->data;
+        foreach ($keys as $key) {
+            if ((array)$data === $data && isset($data[$key])) {
+                $data = $data[$key];
+            } elseif ($data instanceof self) {
+                $data = $data->getDataByKey($key);
+            } else {
+                return null;
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * @param $key
+     * @return mixed|null
+     */
+    public function getDataByKey($key)
+    {
+        return $this->_getData($key);
+    }
+
+    /**
+     * @param $key
+     * @return mixed|null
+     */
+    protected function _getData($key)
+    {
+        if (isset($this->data[$key])) {
+            return $this->data[$key];
+        }
+        return null;
+    }
+
     /**
      * @param $argument
      * @return bool

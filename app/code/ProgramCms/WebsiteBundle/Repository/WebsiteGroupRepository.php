@@ -41,6 +41,15 @@ class WebsiteGroupRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param string $code
+     * @return WebsiteGroup|null
+     */
+    public function getByCode(string $code): ?WebsiteGroup
+    {
+        return $this->findOneBy(['website_group_code' => $code]);
+    }
+
+    /**
      * @param WebsiteGroup $entity
      * @param bool $flush
      */

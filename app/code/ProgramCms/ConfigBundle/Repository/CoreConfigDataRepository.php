@@ -8,6 +8,7 @@
 
 namespace ProgramCms\ConfigBundle\Repository;
 
+use ProgramCms\ConfigBundle\App\ScopeConfigInterface;
 use ProgramCms\ConfigBundle\Entity\CoreConfigData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -55,5 +56,20 @@ class CoreConfigDataRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @param $path
+     * @param string $scope
+     * @param string $scopeId
+     * @return CoreConfigData|null
+     */
+    public function getByPath($path, string $scope = ScopeConfigInterface::SCOPE_TYPE_DEFAULT, string $scopeId = ''): ?CoreConfigData
+    {
+        return $this->findOneBy([
+            'path' => $path,
+            'scope' => $scope,
+            'scope_id' => $scopeId
+        ]);
     }
 }

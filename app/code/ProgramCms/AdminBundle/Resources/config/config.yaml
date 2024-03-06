@@ -1,0 +1,20 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+config:
+  default:
+    system:
+      backend_theme:
+        applied_theme: 1
+  website:
+    admin:
+      web:
+        default:
+          no_route: 'admin/noroute/index'
+  website_view:
+    admin:
+      design:
+        theme: 'programcms/backend'

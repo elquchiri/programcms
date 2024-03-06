@@ -34,29 +34,6 @@ class Config implements ScopeConfigInterface
 
     /**
      * @param $path
-     * @param string $scopeType
-     * @param string $scopeCode
-     * @return mixed
-     */
-    public function getConfigValue($path, string $scopeType = self::SCOPE_TYPE_DEFAULT, string $scopeCode = ''): mixed
-    {
-        // Find configuration in core_config_data
-        $result = $this->coreConfigDataRepository->findOneBy([
-            'path' => $path,
-            'scope' => $scopeType,
-            'scope_id' => empty($scopeCode) ? 0 : $scopeCode
-        ]);
-        if($result) {
-            return $result->getValue();
-        }
-        return '';
-        // TODO: If no configuration found on database, get configuration's defaultValues from packages
-//        $pathArray = explode('/', $path);
-//        return $this->container->getParameter('programcms_system_config')['sections'][$pathArray[0]]['groups'][$pathArray[1]]['fields'][$pathArray[2]]['defaultValue'] ?? '';
-    }
-
-    /**
-     * @param $path
      * @param $value
      * @param string $scopeType
      * @param string $scopeCode

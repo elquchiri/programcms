@@ -1,7 +1,11 @@
 {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
     <div class="user">
-        <a href="{{ path('frontend_user_account_register') }}">Create an Account</a>
-        or
-        <a href="{{ path('frontend_user_account_authentication') }}">Login</a>
+        <a href="{{ path('frontend_user_account_register') }}">
+            {{ block.trans('Create an Account') }}
+        </a>
+        {{ block.trans('or') }}
+        <a href="{{ path('frontend_user_account_authentication') }}">
+            {{ block.trans('Login') }}
+        </a>
     </div>
 {% endif %}

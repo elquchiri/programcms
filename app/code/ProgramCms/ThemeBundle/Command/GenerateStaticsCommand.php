@@ -8,10 +8,18 @@
 
 namespace ProgramCms\ThemeBundle\Command;
 
-use ProgramCms\ConfigBundle\App\Config;
+use ProgramCms\CoreBundle\App\Config;
+use ProgramCms\CoreBundle\Helper\Language;
 use ProgramCms\CoreBundle\Model\Filesystem\DirectoryList;
 use ProgramCms\CoreBundle\Model\Utils\BundleManager;
 use ProgramCms\ThemeBundle\Repository\ThemeRepository;
+use ProgramCms\ThemeBundle\Webpack\Generator\Entry;
+use ProgramCms\ThemeBundle\Webpack\Generator\Module;
+use ProgramCms\ThemeBundle\Webpack\Generator\Output;
+use ProgramCms\ThemeBundle\Webpack\Generator\Performance;
+use ProgramCms\ThemeBundle\Webpack\Generator\Plugins;
+use ProgramCms\ThemeBundle\Webpack\Generator\WebpackConfig;
+use ProgramCms\WebsiteBundle\Entity\WebsiteView;
 use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -33,6 +41,9 @@ use Symfony\Component\Filesystem\Filesystem;
 )]
 class GenerateStaticsCommand extends Command
 {
+
+    const LOCALE_CONFIG = 'general/local_options/locale';
+
     /**
      * @var array
      */
@@ -80,6 +91,11 @@ class GenerateStaticsCommand extends Command
     protected BundleManager $bundleManager;
 
     /**
+     * @var Language
+     */
+    protected Language $language;
+
+    /**
      * GenerateStaticsCommand constructor.
      * @param ThemeRepository $themeRepository
      * @param WebsiteViewRepository $websiteViewRepository
@@ -87,6 +103,7 @@ class GenerateStaticsCommand extends Command
      * @param Filesystem $filesystem
      * @param DirectoryList $directoryList
      * @param BundleManager $bundleManager
+     * @param Language $language
      * @param string|null $name
      */
     public function __construct(
@@ -96,6 +113,7 @@ class GenerateStaticsCommand extends Command
         Filesystem $filesystem,
         DirectoryList $directoryList,
         BundleManager $bundleManager,
+        Language $language,
         string $name = null
     )
     {
@@ -106,6 +124,7 @@ class GenerateStaticsCommand extends Command
         $this->filesystem = $filesystem;
         $this->directoryList = $directoryList;
         $this->bundleManager = $bundleManager;
+        $this->language = $language;
     }
 
     protected function configure()
@@ -253,7 +272,7 @@ class GenerateStaticsCommand extends Command
                 $configArray[] = $this->prepareWebpackConfig(
                     $theme->getArea(),
                     $theme->getThemePath(),
-                    $websiteView->getWebsiteViewCode()
+                    $websiteView
                 );
             }
         }
@@ -272,61 +291,78 @@ class GenerateStaticsCommand extends Command
      * @param $websiteView
      * @return string
      */
-    private function prepareWebpackConfig($area, $themePath, $websiteView): string
+    private function prepareWebpackConfig($area, $themePath, WebsiteView $websiteView): string
     {
+        $isRtl = $this->language->isRtl(
+            $this->getLocaleByWebsiteView($websiteView->getWebsiteViewId())
+        );
         $extendsFiles = $this->extendsScssFiles[$area] ?? [];
         $bundleScssFiles = $this->bundleScssFiles[$area] ?? [];
         $jsFiles = $this->jsFiles[$area] ?? [];
-        $entryFiles = implode(',', array_merge(
+        $entryFiles = array_merge(
             $extendsFiles,
             ["'./app/code/ProgramCms/ThemeBundle/Resources/views/adminhtml/assets/js/app.js'"],
             $bundleScssFiles,
             $jsFiles
-        ));
-        $webpackConfig = <<<JS
-            {
-                entry: {
-                    app: [
-                        {$entryFiles}
-                    ]
-                },
-                output: {
-                    path: path.resolve(__dirname, 'public/build/{$area}/{$themePath}/{$websiteView}'),
-                    filename: '[name].js',
-                    publicPath: '/build/{$area}/{$themePath}/{$websiteView}/',
-                },
-                module: {
-                    rules: [
-                        {
-                            test: /\.scss$/,
-                            use: [
-                                miniCssExtractPlugin.loader,
-                                'css-loader',
-                                'sass-loader',
-                                'postcss-loader'
-                            ],
-                        },
-                    ],
-                },
-                plugins: [
-                    new webpack.ProvidePlugin({
-                        $: 'jquery',
-                        jQuery: 'jquery',
-                    }),
-                    new miniCssExtractPlugin({
-                        filename: '[name].css'
-                    }),
-                    new RtlCssPlugin({
-                        filename: 'app.css'
-                    })
-                ],
-                performance: {
-                  hints: false,
-                  maxEntrypointSize: 512000,
-                  maxAssetSize: 512000
-                },
-            }
-JS;
-        return $webpackConfig;
+        );
+
+        $plugins = new Plugins([
+            new Plugins\Plugin('webpack.ProvidePlugin', [
+                '$' => 'jquery',
+                'jquery' => 'jquery'
+            ]),
+            new Plugins\Plugin('miniCssExtractPlugin', [
+                'filename' => '[name].css'
+            ])
+        ]);
+
+        if($isRtl) {
+            $plugins->addPlugin(
+                new Plugins\Plugin('RtlCssPlugin', [
+                    'filename' => 'app.css'
+                ])
+            );
+        }
+
+        $webpackConfig = new WebpackConfig([
+            new Entry([
+                'app' => $entryFiles
+            ]),
+            new Output(
+                "public/build/{$area}/{$themePath}/{$websiteView->getWebsiteViewCode()}",
+                '[name].js',
+                "/build/{$area}/{$themePath}/{$websiteView->getWebsiteViewCode()}/"
+            ),
+            new Module([
+                new Module\Rules([
+                    new Module\Rule(
+                        '/\.scss$/',
+                        [
+                            ['loader' => 'miniCssExtractPlugin.loader', 'mode' => Module\Rule::JS_MODE],
+                            ['loader' => 'css-loader', 'mode' => Module\Rule::STRING_MODE],
+                            ['loader' => 'sass-loader', 'mode' => Module\Rule::STRING_MODE],
+                            ['loader' => 'postcss-loader', 'mode' => Module\Rule::STRING_MODE],
+                        ]
+                    )
+                ])
+            ]),
+            $plugins,
+            new Performance(false, 512000, 512000)
+        ]);
+
+        return $webpackConfig->output();
+    }
+
+    /**
+     * @param int $websiteViewId
+     * @return string
+     */
+    public function getLocaleByWebsiteView(int $websiteViewId): string
+    {
+        return $this->config->getValue(
+            self::LOCALE_CONFIG,
+            'website_view',
+            $websiteViewId
+        );
     }
 }

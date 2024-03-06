@@ -12,7 +12,7 @@ namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteGroup;
  * Class NewController
  * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteGroup
  */
-class NewController extends \ProgramCms\CoreBundle\Controller\Controller
+class NewController extends \ProgramCms\CoreBundle\Controller\AdminController
 {
     /**
      * @var \ProgramCms\CoreBundle\Model\ObjectManager

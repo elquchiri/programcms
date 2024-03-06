@@ -9,18 +9,20 @@
 namespace ProgramCms\ConfigBundle\Component;
 
 use Exception;
-use ProgramCms\ConfigBundle\App\Config;
+use ProgramCms\ConfigBundle\Repository\CoreConfigDataRepository;
+use ProgramCms\CoreBundle\App\Config;
 use ProgramCms\ConfigBundle\Model\ConfigSerializer;
 use ProgramCms\ConfigBundle\Model\Structure\Element\Field;
 use ProgramCms\ConfigBundle\Model\Structure\Element\Group;
 use ProgramCms\ConfigBundle\Model\Structure\Element\Section;
+use ProgramCms\UiBundle\Component\Form\Form;
 use ProgramCms\UiBundle\View\Element\Context;
 
 /**
  * Class Configuration
  * @package ProgramCms\ConfigBundle\Block
  */
-class ConfigForm extends \ProgramCms\UiBundle\Component\Form\Form
+class ConfigForm extends Form
 {
     const SCOPE_DEFAULT = 'default';
 
@@ -32,30 +34,40 @@ class ConfigForm extends \ProgramCms\UiBundle\Component\Form\Form
      * @var ConfigSerializer
      */
     protected ConfigSerializer $configSerializer;
+
     /**
      * @var array
      */
     protected array $_fieldSets = [];
+
     /**
      * @var Config
      */
     protected Config $config;
+
     /**
      * @var array
      */
     protected array $_scopeLabels;
 
     /**
+     * @var CoreConfigDataRepository
+     */
+    protected CoreConfigDataRepository $configDataRepository;
+
+    /**
      * Configuration Form Component constructor.
      * @param Context $context
      * @param ConfigSerializer $configSerializer
      * @param Config $config
+     * @param CoreConfigDataRepository $configDataRepository
      * @param array $data
      */
     public function __construct(
         Context $context,
         ConfigSerializer $configSerializer,
-        \ProgramCms\ConfigBundle\App\Config $config,
+        Config $config,
+        CoreConfigDataRepository $configDataRepository,
         array $data = []
     )
     {
@@ -68,6 +80,7 @@ class ConfigForm extends \ProgramCms\UiBundle\Component\Form\Form
             self::SCOPE_WEBSITE => $this->trans('[WEBSITE]'),
             self::SCOPE_WEBSITE_VIEW => $this->trans('[WEBSITE VIEW]'),
         ];
+        $this->configDataRepository = $configDataRepository;
     }
 
     /**
@@ -189,12 +202,20 @@ class ConfigForm extends \ProgramCms\UiBundle\Component\Form\Form
         $fieldId = $this->_generateElementId($field);
         $isReadOnly = $this->isReadOnly($field);
 
-        $value = $this->config->getConfigValue(
+        // Get config value from fallback mechanism
+        $value = $this->config->getValue(
             $field->getPath(),
             $this->getScope(),
             $this->getScopeCode());
 
-        $inherit = !(isset($value) && !empty($value));
+        // Get dynamic config value to check inherit
+        $realValue = $this->configDataRepository->getByPath(
+            $field->getPath(),
+            $this->getScope(),
+            $this->getScopeCode()
+        );
+
+        $inherit = !(isset($realValue) && !empty($realValue));
 
         $fieldSet['fields'][$group->getId() . '/' . $field->getId()] = [
             'name' => $fieldName,

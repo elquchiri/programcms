@@ -24,6 +24,7 @@ class ProgramCmsPostBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
         return [
             \ProgramCms\CoreBundle\ProgramCmsCoreBundle::class,
             \ProgramCms\ThemeBundle\ProgramCmsThemeBundle::class,
+            \ProgramCms\CatalogBundle\ProgramCmsCatalogBundle::class,
         ];
     }
 }

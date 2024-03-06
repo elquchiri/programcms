@@ -19,7 +19,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * Class AbstractConfigController
  * @package ProgramCms\ConfigBundle\Controller\Adminhtml
  */
-abstract class AbstractConfigController extends \ProgramCms\CoreBundle\Controller\Controller
+abstract class AbstractConfigController extends \ProgramCms\CoreBundle\Controller\AdminController
 {
     /**
      * @var ObjectManager

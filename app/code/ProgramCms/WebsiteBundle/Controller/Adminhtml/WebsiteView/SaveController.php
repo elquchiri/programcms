@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  * Class SaveController
  * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteView
  */
-class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
+class SaveController extends \ProgramCms\CoreBundle\Controller\AdminController
 {
     /**
      * @var Url

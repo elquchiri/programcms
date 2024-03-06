@@ -15,7 +15,7 @@ use ProgramCms\CoreBundle\Model\ObjectManager;
  * Class EditController
  * @package ProgramCms\CatalogBundle\Controller\Adminhtml\Index
  */
-class EditController extends \ProgramCms\CoreBundle\Controller\Controller
+class EditController extends \ProgramCms\CoreBundle\Controller\AdminController
 {
     /**
      * @var ObjectManager

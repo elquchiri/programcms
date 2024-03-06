@@ -13,7 +13,7 @@ use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
+class IndexController extends \ProgramCms\CoreBundle\Controller\AdminController
 {
     /**
      * @var ObjectManager

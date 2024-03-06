@@ -16,6 +16,7 @@ class Language
 {
     /**
      * RTL Language codes
+     *
      * Arabic: ar
      * Hebrew: he (also iw in some contexts)
      * Persian (Farsi): fa
@@ -34,8 +35,24 @@ class Language
      */
     public function getDir(string $locale): string
     {
-        $languageCode = preg_match('/^([a-z]{2})(?:_[A-Za-z]+)?$/', $locale, $matches) ? $matches[1] : 'en';
+        return in_array($this->getLanguageCode($locale), self::RTL_LOCALES) ? 'rtl' : 'ltr';
+    }
 
-        return in_array($languageCode, self::RTL_LOCALES) ? 'rtl' : 'ltr';
+    /**
+     * @param string $locale
+     * @return bool
+     */
+    public function isRtl(string $locale): bool
+    {
+        return in_array($this->getLanguageCode($locale), self::RTL_LOCALES);
+    }
+
+    /**
+     * @param string $locale
+     * @return mixed|string
+     */
+    public function getLanguageCode(string $locale)
+    {
+        return preg_match('/^([a-z]{2})(?:_[A-Za-z]+)?$/', $locale, $matches) ? $matches[1] : 'en';
     }
 }

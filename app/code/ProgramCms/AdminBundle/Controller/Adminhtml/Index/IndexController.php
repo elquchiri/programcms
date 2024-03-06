@@ -17,7 +17,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
  * Class IndexController
  * @package ProgramCms\AdminBundle\Controller\Adminhtml\Index
  */
-class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
+class IndexController extends \ProgramCms\CoreBundle\Controller\AdminController
 {
     /**
      * @var ObjectManager

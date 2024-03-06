@@ -8,6 +8,7 @@
 
 namespace ProgramCms\CoreBundle\Model\Utils;
 
+use ReflectionException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use ProgramCms\CoreBundle\Helper\BundleManager as BundleManagerHelper;
 
@@ -17,8 +18,15 @@ use ProgramCms\CoreBundle\Helper\BundleManager as BundleManagerHelper;
  */
 class BundleManager
 {
+    /**
+     * @var ContainerInterface
+     */
     protected ContainerInterface $container;
 
+    /**
+     * BundleManager constructor.
+     * @param ContainerInterface $container
+     */
     public function __construct(
         ContainerInterface $container
     )
@@ -48,7 +56,7 @@ class BundleManager
     /**
      * Get All registered ProgramCMS bundles
      * @return array
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function getAllBundles(): array
     {
@@ -74,10 +82,20 @@ class BundleManager
     public function getBundleByName($bundleName)
     {
         $bundles = $this->getAllBundles();
+
         if(isset($bundles[$bundleName])) {
             return $bundles[$bundleName];
         }
+
         throw new \Exception(sprintf("Invalid Bundle %s", $bundleName));
     }
 
+    /**
+     * @return array
+     * @throws ReflectionException
+     */
+    public function getNames(): array
+    {
+        return array_keys($this->getAllBundles());
+    }
 }

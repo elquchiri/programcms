@@ -17,7 +17,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * Class EditController
  * @package ProgramCms\UserBundle\Controller\Adminhtml\Index
  */
-class EditController extends \ProgramCms\CoreBundle\Controller\Controller
+class EditController extends \ProgramCms\CoreBundle\Controller\AdminController
 {
     /**
      * @var ObjectManager

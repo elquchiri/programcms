@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  * Class IndexController
  * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\Website
  */
-class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
+class IndexController extends \ProgramCms\CoreBundle\Controller\AdminController
 {
     /**
      * @var Url

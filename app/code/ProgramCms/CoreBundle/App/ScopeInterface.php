@@ -6,11 +6,11 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\ConfigBundle\App;
+namespace ProgramCms\CoreBundle\App;
 
 /**
  * Interface ScopeInterface
- * @package ProgramCms\ConfigBundle\App
+ * @package ProgramCms\CoreBundle\App
  */
 interface ScopeInterface
 {

@@ -67,11 +67,20 @@ class ThemeRepository extends ServiceEntityRepository
     }
 
     /**
-     * Find All Frontend Themes
+     * Get All Frontend Themes
      * @return Theme[]
      */
     public function getAllFrontendThemes(): array
     {
         return $this->findBy(['area' => 'frontend']);
+    }
+
+    /**
+     * Get All Backend Themes
+     * @return Theme[]
+     */
+    public function getAllBackendThemes(): array
+    {
+        return $this->findBy(['area' => 'adminhtml']);
     }
 }

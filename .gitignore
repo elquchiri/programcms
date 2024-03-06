@@ -7,19 +7,11 @@
 /vendor/
 /.idea/
 
-###> symfony/webpack-encore-bundle ###
 /node_modules/
 /public/build/
 npm-debug.log
 yarn-error.log
-###< symfony/webpack-encore-bundle ###
 
-###> symfony/phpunit-bridge ###
-.phpunit.result.cache
 /phpunit.xml
-###< symfony/phpunit-bridge ###
-
-###> phpunit/phpunit ###
 /phpunit.xml
 .phpunit.result.cache
-###< phpunit/phpunit ###

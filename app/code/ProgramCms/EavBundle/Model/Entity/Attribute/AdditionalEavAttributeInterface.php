@@ -8,11 +8,22 @@
 
 namespace ProgramCms\EavBundle\Model\Entity\Attribute;
 
+use ProgramCms\EavBundle\Entity\EavAttribute;
+
 /**
  * Interface AdditionalEavAttributeInterface
  * @package ProgramCms\EavBundle\Model\Entity\Attribute
  */
 interface AdditionalEavAttributeInterface
 {
+    /**
+     * @param EavAttribute $attribute_id
+     * @return $this
+     */
+    public function setAttributeId(EavAttribute $attribute_id): static;
 
+    /**
+     * @return EavAttribute|null
+     */
+    public function getAttributeId(): ?EavAttribute;
 }

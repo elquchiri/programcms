@@ -164,4 +164,15 @@ class Request
     {
         $this->request->setLocale($local);
     }
+
+    /**
+     * Get Env variables
+     * @param string $key
+     * @param mixed $default
+     * @return mixed
+     */
+    public function getEnv(string $key, mixed $default = null): mixed
+    {
+        return $this->request->server->get($key, $default);
+    }
 }

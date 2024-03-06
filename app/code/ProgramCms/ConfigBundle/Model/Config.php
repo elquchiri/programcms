@@ -8,8 +8,8 @@
 
 namespace ProgramCms\ConfigBundle\Model;
 
-
 use ProgramCms\ConfigBundle\Model\Structure\Element\Field;
+use ProgramCms\CoreBundle\App\ScopeInterface;
 use ProgramCms\CoreBundle\Model\DataObject;
 
 /**
@@ -38,13 +38,16 @@ class Config extends DataObject
      * @param ConfigSerializer $configSerializer
      * @param Loader $loader
      * @param \ProgramCms\ConfigBundle\App\Config $config
+     * @param array $data
      */
     public function __construct(
-        \ProgramCms\ConfigBundle\Model\ConfigSerializer $configSerializer,
-        \ProgramCms\ConfigBundle\Model\Loader $loader,
-        \ProgramCms\ConfigBundle\App\Config $config
+        ConfigSerializer $configSerializer,
+        Loader $loader,
+        \ProgramCms\ConfigBundle\App\Config $config,
+        array $data = []
     )
     {
+        parent::__construct($data);
         $this->configSerializer = $configSerializer;
         $this->loader = $loader;
         $this->config = $config;
@@ -144,7 +147,7 @@ class Config extends DataObject
      * @param bool $full
      * @return array
      */
-    protected function _getConfig($full = true)
+    protected function _getConfig(bool $full = true): array
     {
         return $this->loader->getConfigByPath(
             $this->getSection(),
@@ -173,7 +176,7 @@ class Config extends DataObject
                 $scopeIdentifier = $this->getWebsite();
                 break;
             default:
-                $scopeType = \ProgramCms\ConfigBundle\App\ScopeInterface::SCOPE_DEFAULT;
+                $scopeType = ScopeInterface::SCOPE_DEFAULT;
                 $scopeIdentifier = null;
                 break;
         }

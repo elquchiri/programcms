@@ -8,6 +8,7 @@
 
 namespace ProgramCms\CoreBundle\View\Element\Template;
 
+use ProgramCms\CoreBundle\App\State;
 use ProgramCms\CoreBundle\Helper\Language;
 use ProgramCms\CoreBundle\Model\Filesystem\DirectoryList;
 use ProgramCms\CoreBundle\View\Layout;
@@ -16,7 +17,7 @@ use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\RouterBundle\Service\Url;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use ProgramCms\CoreBundle\Webpack\Output as WebpackOutput;
+use ProgramCms\ThemeBundle\Webpack\Output as WebpackOutput;
 use Twig\Environment;
 
 /**
@@ -29,31 +30,46 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
      * @var Environment
      */
     protected Environment $environment;
+
     /**
      * @var Url
      */
     protected Url $url;
+
     /**
      * @var Config
      */
     protected Config $pageConfig;
+
     /**
      * @var Layout
      */
     protected Layout $layout;
+
     /**
      * @var TranslatorInterface
      */
     protected TranslatorInterface $translator;
+
     /**
      * @var LocaleSwitcher
      */
     protected LocaleSwitcher $localeSwitcher;
+
     /**
      * @var Language
      */
     protected Language $language;
+
+    /**
+     * @var WebpackOutput
+     */
     protected WebpackOutput $webpackOutput;
+
+    /**
+     * @var State
+     */
+    protected State $state;
 
     /**
      * Context constructor.
@@ -67,6 +83,7 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
      * @param LocaleSwitcher $localeSwitcher
      * @param Language $language
      * @param WebpackOutput $webpackOutput
+     * @param State $state
      */
     public function __construct(
         DirectoryList $directoryList,
@@ -78,7 +95,8 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
         TranslatorInterface $translator,
         LocaleSwitcher $localeSwitcher,
         Language $language,
-        WebpackOutput $webpackOutput
+        WebpackOutput $webpackOutput,
+        State $state
     )
     {
         parent::__construct($directoryList, $request);
@@ -90,6 +108,7 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
         $this->localeSwitcher = $localeSwitcher;
         $this->language = $language;
         $this->webpackOutput = $webpackOutput;
+        $this->state = $state;
     }
 
     /**
@@ -155,5 +174,13 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
     public function getWebpackOutput(): WebpackOutput
     {
         return $this->webpackOutput;
+    }
+
+    /**
+     * @return State
+     */
+    public function getState(): State
+    {
+        return $this->state;
     }
 }

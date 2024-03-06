@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  * Class LogoutController
  * @package ProgramCms\AdminBundle\Controller\Adminhtml\SystemAccount
  */
-class LogoutController extends \ProgramCms\CoreBundle\Controller\Controller
+class LogoutController extends \ProgramCms\CoreBundle\Controller\AdminController
 {
     /**
      * @var Security

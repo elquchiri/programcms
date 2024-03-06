@@ -17,7 +17,7 @@ use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
  * Class RemoveController
  * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteView
  */
-class RemoveController extends \ProgramCms\CoreBundle\Controller\Controller
+class RemoveController extends \ProgramCms\CoreBundle\Controller\AdminController
 {
     /**
      * @var ObjectManager

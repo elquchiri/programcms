@@ -25,22 +25,27 @@ class ProgramCmsRouteLoader extends Loader
      * @var Find
      */
     protected Find $find;
+
     /**
      * @var RouteCollection
      */
     private $routes;
+
     /**
      * @var ContainerInterface
      */
     private ContainerInterface $container;
+
     /**
      * @var string
      */
     private string $frontName;
+
     /**
      * @var string
      */
     private string $frontAdminName;
+
     /**
      * @var bool
      */

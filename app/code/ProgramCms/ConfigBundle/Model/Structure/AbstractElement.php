@@ -17,9 +17,16 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 abstract class AbstractElement implements \ProgramCms\ConfigBundle\Model\StructureElementInterface
 {
+    /**
+     * @var array
+     */
     protected array $_data = [];
 
+    /**
+     * @var mixed
+     */
     protected $_scope;
+
     /**
      * @var TranslatorInterface
      */

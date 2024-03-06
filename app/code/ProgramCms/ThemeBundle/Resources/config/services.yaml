@@ -19,6 +19,7 @@ services:
       - '../../Parser/'
       - '../../Resources/'
       - '../../Tests/'
+      - '../../Webpack/Generator'
 
   ProgramCms\ThemeBundle\Loader\LayoutLoader:
     tags:

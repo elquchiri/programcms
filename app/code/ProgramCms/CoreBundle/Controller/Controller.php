@@ -9,8 +9,12 @@
 namespace ProgramCms\CoreBundle\Controller;
 
 use HttpResponseException;
+use ProgramCms\ConfigBundle\App\Config;
 use ProgramCms\CoreBundle\App\AreaList;
 use ProgramCms\CoreBundle\App\State;
+use ProgramCms\WebsiteBundle\Entity\WebsiteView;
+use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
+use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -25,22 +29,31 @@ abstract class Controller extends AbstractController
      * @var State
      */
     protected State $_state;
+
     /**
      * @var AreaList
      */
     protected AreaList $_areaList;
+
     /**
      * @var LocaleSwitcher
      */
     protected LocaleSwitcher $localeSwitcher;
+
     /**
      * @var Security
      */
     protected Security $security;
+
     /**
      * @var TranslatorInterface
      */
     protected TranslatorInterface $translator;
+
+    /**
+     * @var Config
+     */
+    protected Config $config;
 
     /**
      * Controller constructor.
@@ -56,18 +69,19 @@ abstract class Controller extends AbstractController
         $this->localeSwitcher = $context->getLocaleSwitcher();
         $this->security = $context->getSecurity();
         $this->translator = $context->getTranslator();
+        $this->config = $context->getConfig();
     }
 
     /**
      * Dispatch Request
      * @return mixed
+     * @throws HttpResponseException
      */
     public function dispatch(): mixed
     {
-        $user = $this->security->getUser();
-        if($user) {
-            $this->localeSwitcher->setLocale($user->getInterfaceLocale());
-        }
+        // Set website view locale
+        $this->localeSwitcher->setLocale($this->_state->getLocale());
+
         $areaCode = $this->_areaList->getCodeByFrontName($this->getRequest()->getFrontName());
         $this->_state->setAreaCode($areaCode);
         $result = $this->execute();

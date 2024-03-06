@@ -6,13 +6,15 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\CoreBundle\Webpack;
+namespace ProgramCms\CoreBundle\Exception;
+
+use Exception;
 
 /**
- * Class Output
- * @package ProgramCms\CoreBundle\Webpack
+ * Class FileSystemException
+ * @package ProgramCms\CoreBundle\Exception
  */
-class Output
+class FileSystemException extends Exception
 {
 
 }

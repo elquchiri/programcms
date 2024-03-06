@@ -14,7 +14,7 @@ use ProgramCms\CoreBundle\Model\ObjectManager;
  * Class IndexController
  * @package ProgramCms\CatalogBundle\Controller\Adminhtml\Index
  */
-class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
+class IndexController extends \ProgramCms\CoreBundle\Controller\AdminController
 {
     /**
      * @var ObjectManager

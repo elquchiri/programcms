@@ -8,6 +8,8 @@
 
 namespace ProgramCms\ConfigBundle\Model\Collection;
 
+use ProgramCms\ConfigBundle\Entity\CoreConfigData;
+
 /**
  * Class Collection
  * @package ProgramCms\ConfigBundle\Model\Collection
@@ -19,6 +21,6 @@ class Collection extends \ProgramCms\CoreBundle\Model\Db\Collection\AbstractColl
      */
     protected function _construct()
     {
-        $this->_initEntity(\ProgramCms\ConfigBundle\Entity\CoreConfigData::class);
+        $this->_initEntity(CoreConfigData::class);
     }
 }

@@ -15,7 +15,7 @@ use ProgramCms\CoreBundle\Controller\Context;
  * Class CreateController
  * @package ProgramCms\CatalogBundle\Controller\Adminhtml\Category
  */
-class CreateController extends \ProgramCms\CoreBundle\Controller\Controller
+class CreateController extends \ProgramCms\CoreBundle\Controller\AdminController
 {
     /**
      * @var CategoryRepository

@@ -21,10 +21,12 @@ abstract class AbstractCollection implements CollectionInterface
      * @var string
      */
     protected string $entity;
+
     /**
      * @var EntityManagerInterface
      */
     protected EntityManagerInterface $entityManager;
+
     /**
      * @var QueryBuilder
      */

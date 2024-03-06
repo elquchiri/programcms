@@ -18,18 +18,16 @@ interface ScopeConfigInterface
 
     /**
      * @param $path
-     * @param string $scopeType
-     * @param int $scopeCode
-     * @return mixed
-     */
-    public function getConfigValue($path, string $scopeType = self::SCOPE_TYPE_DEFAULT, string $scopeCode = '');
-
-    /**
-     * @param $path
      * @param $value
      * @param string $scopeType
-     * @param int $scopeCode
+     * @param string $scopeCode
      * @return mixed
      */
     public function setConfigValue($path, $value, string $scopeType = self::SCOPE_TYPE_DEFAULT, string $scopeCode = '');
+
+    /**
+     * @param $configId
+     * @return mixed
+     */
+    public function deleteConfigValue($configId);
 }

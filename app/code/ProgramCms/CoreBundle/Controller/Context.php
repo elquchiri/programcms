@@ -8,6 +8,7 @@
 
 namespace ProgramCms\CoreBundle\Controller;
 
+use ProgramCms\ConfigBundle\App\Config;
 use ProgramCms\CoreBundle\App\AreaList;
 use ProgramCms\CoreBundle\App\State;
 use ProgramCms\RouterBundle\Service\Request;
@@ -26,30 +27,41 @@ class Context implements ContextInterface
      * @var Request
      */
     protected Request $request;
+
     /**
      * @var Response
      */
     protected Response $response;
+
     /**
      * @var AreaList
      */
     protected AreaList $areaList;
+
     /**
      * @var State
      */
     protected State $state;
+
     /**
      * @var LocaleSwitcher
      */
     protected LocaleSwitcher $localeSwitcher;
+
     /**
      * @var Security
      */
     protected Security $security;
+
     /**
      * @var TranslatorInterface
      */
     protected TranslatorInterface $translator;
+
+    /**
+     * @var Config
+     */
+    protected Config $config;
 
     /**
      * Context constructor.
@@ -60,6 +72,7 @@ class Context implements ContextInterface
      * @param LocaleSwitcher $localeSwitcher
      * @param Security $security
      * @param TranslatorInterface $translator
+     * @param Config $config
      */
     public function __construct(
         Request $request,
@@ -68,7 +81,8 @@ class Context implements ContextInterface
         State $state,
         LocaleSwitcher $localeSwitcher,
         Security $security,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        Config $config
     )
     {
         $this->request = $request;
@@ -78,6 +92,7 @@ class Context implements ContextInterface
         $this->localeSwitcher = $localeSwitcher;
         $this->security = $security;
         $this->translator = $translator;
+        $this->config = $config;
     }
 
     /**
@@ -134,5 +149,13 @@ class Context implements ContextInterface
     public function getTranslator(): TranslatorInterface
     {
         return $this->translator;
+    }
+
+    /**
+     * @return Config
+     */
+    public function getConfig(): Config
+    {
+        return $this->config;
     }
 }

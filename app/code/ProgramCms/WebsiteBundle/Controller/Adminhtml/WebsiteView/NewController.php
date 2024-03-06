@@ -15,7 +15,7 @@ use ProgramCms\CoreBundle\Model\ObjectManager;
  * Class NewController
  * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteView
  */
-class NewController extends \ProgramCms\CoreBundle\Controller\Controller
+class NewController extends \ProgramCms\CoreBundle\Controller\AdminController
 {
     /**
      * @var ObjectManager

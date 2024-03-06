@@ -14,5 +14,8 @@ namespace ProgramCms\UiBundle\Model\Provider\DataSource;
  */
 abstract class Options implements \ProgramCms\UiBundle\Model\Provider\DataSource\OptionsInterface
 {
+    /**
+     * @return array
+     */
     abstract public function getOptionsArray(): array;
 }

@@ -15,6 +15,7 @@ use ProgramCms\CoreBundle\View\Page\Config;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Translation\LocaleSwitcher;
+use ProgramCms\ThemeBundle\Webpack\Output as WebpackOutput;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -30,18 +31,26 @@ class Page extends Layout
      * @var Config
      */
     protected Config $pageConfig;
+
     /**
      * @var Environment
      */
     protected Environment $env;
+
     /**
      * @var LocaleSwitcher
      */
     protected LocaleSwitcher $localeSwitcher;
+
     /**
      * @var Language
      */
     protected Language $language;
+
+    /**
+     * @var WebpackOutput
+     */
+    protected WebpackOutput $webpackOutput;
 
     /**
      * Page constructor.
@@ -59,6 +68,7 @@ class Page extends Layout
         $this->env = $context->getEnvironment();
         $this->localeSwitcher = $context->getLocaleSwitcher();
         $this->language = $context->getLanguageHelper();
+        $this->webpackOutput = $context->getWebpackOutput();
     }
 
     /**
@@ -94,8 +104,8 @@ class Page extends Layout
             'css' => $css,
             'js' => $js,
             'title' => $title,
-            'app-css' => '',
-            'app-js' => '',
+            'appCss' => $this->webpackOutput->getCss(),
+            'appJs' => $this->webpackOutput->getJs(),
             'html' => $html
         ]);
 

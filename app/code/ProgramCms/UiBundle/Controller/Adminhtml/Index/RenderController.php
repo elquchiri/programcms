@@ -8,13 +8,13 @@
 
 namespace ProgramCms\UiBundle\Controller\Adminhtml\Index;
 
-use ProgramCms\CoreBundle\Controller\Controller;
+use ProgramCms\CoreBundle\Controller\AdminController;
 
 /**
  * Class RenderController
  * @package ProgramCms\UiBundle\Controller\Adminhtml\Index
  */
-class RenderController extends Controller
+class RenderController extends AdminController
 {
     /**
      * Render Component

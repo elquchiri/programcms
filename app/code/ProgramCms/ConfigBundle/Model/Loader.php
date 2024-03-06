@@ -9,6 +9,7 @@
 namespace ProgramCms\ConfigBundle\Model;
 
 use Doctrine\Common\Collections\Criteria;
+use ProgramCms\ConfigBundle\Repository\CoreConfigDataRepository;
 
 /**
  * Class Loader
@@ -17,16 +18,16 @@ use Doctrine\Common\Collections\Criteria;
 class Loader
 {
     /**
-     * @var \ProgramCms\ConfigBundle\Repository\CoreConfigDataRepository
+     * @var CoreConfigDataRepository
      */
-    protected \ProgramCms\ConfigBundle\Repository\CoreConfigDataRepository $configDataRepository;
+    protected CoreConfigDataRepository $configDataRepository;
 
     /**
      * Loader constructor.
-     * @param \ProgramCms\ConfigBundle\Repository\CoreConfigDataRepository $configDataRepository
+     * @param CoreConfigDataRepository $configDataRepository
      */
     public function __construct(
-        \ProgramCms\ConfigBundle\Repository\CoreConfigDataRepository $configDataRepository
+        CoreConfigDataRepository $configDataRepository
     )
     {
         $this->configDataRepository = $configDataRepository;
@@ -37,6 +38,7 @@ class Loader
      * @param $scope
      * @param $scopeId
      * @param bool $full
+     * @return array
      */
     public function getConfigByPath($path, $scope, $scopeId, $full = true)
     {

@@ -23,20 +23,6 @@ system_config:
               type: 'select'
               source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
               scope: 'default|website|website_view'
-        local_options:
-          label: 'Locale Options'
-          scope: 'default|website|website_view'
-          fields:
-            timezone:
-              label: 'Timezone'
-              type: 'select'
-              source: ProgramCms\UiBundle\Model\Provider\DataSource\TimeZoneSelector
-              scope: 'default|website|website_view'
-            locale:
-              label: 'Locale'
-              type: 'select'
-              source: ProgramCms\UiBundle\Model\Provider\DataSource\TimeZoneSelector
-              scope: 'default|website|website_view'
     google_recaptcha:
       label: 'Google reCAPTCHA'
       tab: 'core_security'

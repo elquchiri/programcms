@@ -41,6 +41,15 @@ class WebsiteViewRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param string $code
+     * @return WebsiteView|null
+     */
+    public function getByCode(string $code): ?WebsiteView
+    {
+        return $this->findOneBy(['website_view_code' => $code]);
+    }
+
+    /**
      * @param WebsiteView $entity
      * @param bool $flush
      */

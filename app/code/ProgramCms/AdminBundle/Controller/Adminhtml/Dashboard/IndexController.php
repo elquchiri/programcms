@@ -16,7 +16,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * Class IndexController
  * @package ProgramCms\AdminBundle\Controller\Adminhtml\Dashboard
  */
-class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
+class IndexController extends \ProgramCms\CoreBundle\Controller\AdminController
 {
     /**
      * @var ObjectManager

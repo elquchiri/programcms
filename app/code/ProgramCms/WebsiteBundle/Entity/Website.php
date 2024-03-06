@@ -9,11 +9,13 @@
 namespace ProgramCms\WebsiteBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
+use ProgramCms\WebsiteBundle\Model\ScopeInterface;
 use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
+use ProgramCms\CoreBundle\App\ScopeInterface as AppScopeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: WebsiteRepository::class)]
-class Website extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
+class Website extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity implements AppScopeInterface
 {
     /**
      * @var int|null
@@ -229,5 +231,45 @@ class Website extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity
         }
 
         return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCode()
+    {
+        return $this->getWebsiteCode();
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getId()
+    {
+        return $this->getWebsiteId();
+    }
+
+    /**
+     * @return string
+     */
+    public function getScopeType()
+    {
+        return ScopeInterface::SCOPE_WEBSITE;
+    }
+
+    /**
+     * @return string
+     */
+    public function getScopeTypeName()
+    {
+        return 'Website';
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getName()
+    {
+        return $this->getWebsiteName();
     }
 }

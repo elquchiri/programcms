@@ -61,6 +61,7 @@ To install ProgramCMS project run :
 - Full RTL Support (Thanks to Mohammad Younes for <a href="https://rtlcss.com/index.html">RTLCSS</a>)
 - Layouts, Containers, Blocks and Templates Engine
 - Full UI Components System
+- Strong & Full Customizable EAV System
 - Aspect-Oriented Programming Style
 - Data Based AI to process, generate and translate content
 

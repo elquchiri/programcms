@@ -15,7 +15,7 @@ use ProgramCms\RouterBundle\Service\Url;
  * Class IndexController
  * @package ProgramCms\ThemeBundle\Controller\Adminhtml\Index
  */
-class ConfigController extends \ProgramCms\CoreBundle\Controller\Controller
+class ConfigController extends \ProgramCms\CoreBundle\Controller\AdminController
 {
     /**
      * @var Url

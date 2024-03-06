@@ -12,7 +12,7 @@ namespace ProgramCms\CatalogBundle\Controller\Adminhtml\Category;
  * Class SaveController
  * @package ProgramCms\CatalogBundle\Controller\Adminhtml\Index
  */
-class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
+class SaveController extends \ProgramCms\CoreBundle\Controller\AdminController
 {
     /**
      * @return mixed|void

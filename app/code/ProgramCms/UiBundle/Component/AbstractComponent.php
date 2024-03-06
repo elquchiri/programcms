@@ -8,7 +8,6 @@
 
 namespace ProgramCms\UiBundle\Component;
 
-use ProgramCms\CoreBundle\Model\DataObject;
 use ProgramCms\CoreBundle\View\Element\Template;
 use ProgramCms\UiBundle\View\Element\Context;
 use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;
@@ -18,10 +17,10 @@ use ProgramCms\UiBundle\View\Element\UiComponentInterface;
  * Class AbstractComponent
  * @package ProgramCms\UiBundle\Component
  */
-abstract class AbstractComponent extends DataObject implements UiComponentInterface
+abstract class AbstractComponent extends Template implements UiComponentInterface
 {
     /**
-     * @var UiComponentInterface[]
+     * @var array
      */
     protected array $components;
     /**
@@ -32,18 +31,16 @@ abstract class AbstractComponent extends DataObject implements UiComponentInterf
     /**
      * AbstractComponent constructor.
      * @param Context $context
-     * @param array $components
      * @param array $data
      */
     public function __construct(
         Context $context,
-        array $components = [],
         array $data = [],
     )
     {
-        $this->context = $context;
-        $this->components = $components;
+        parent::__construct($context->getTemplateContext(), $data);
         $this->data = array_replace_recursive($this->data, $data);
+        $this->context = $context;
     }
 
     /**
@@ -78,13 +75,13 @@ abstract class AbstractComponent extends DataObject implements UiComponentInterf
                 }
                 else if ($elementName == 'buttons') {
                     // Toolbar's Buttons
-                        $toolbarActions = $layout->createBlock(
-                            \ProgramCms\UiBundle\Block\Toolbar\ToolbarActions::class,
-                            'toolbar.actions',
-                            $elementConfig
-                        );
-                        $layout->setChild('buttons.bar', $toolbarActions->getNameInLayout());
-                        $toolbarActions->setLayout($layout);
+                    $toolbarActions = $layout->createBlock(
+                        \ProgramCms\UiBundle\Block\Toolbar\ToolbarActions::class,
+                        'toolbar.actions',
+                        $elementConfig
+                    );
+                    $layout->setChild('buttons.bar', $toolbarActions->getNameInLayout());
+                    $toolbarActions->setLayout($layout);
                 }
                 else if ($elementName == 'dataSource') {
                     if(isset($elementConfig['dataProvider'])) {
@@ -173,19 +170,16 @@ abstract class AbstractComponent extends DataObject implements UiComponentInterf
         return [];
     }
 
-    public function getTemplate()
+    /**
+     * @return void
+     */
+    protected function _prepareLayout()
     {
-        // TODO: Implement getTemplate() method.
+        $this->prepare();
     }
-
 
     public function render()
     {
-
-    }
-
-    public function toHtml()
-    {
-        // TODO: Implement toHtml() method.
+        // TODO: Implement render() method.
     }
 }

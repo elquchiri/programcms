@@ -19,7 +19,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * Class SaveController
  * @package ProgramCms\AdminBundle\Controller\Adminhtml\SystemAccount
  */
-class SaveController extends \ProgramCms\CoreBundle\Controller\Controller
+class SaveController extends \ProgramCms\CoreBundle\Controller\AdminController
 {
     /**
      * @var TranslatorInterface

@@ -13,6 +13,29 @@ system_config:
     system:
       label: 'System'
       tab: 'core_advanced'
+      scope: 'default'
+      groups:
+        backend_theme:
+          label: 'Backend Theme'
+          scope: 'default'
+          fields:
+            applied_theme:
+              label: 'Applied Theme'
+              type: 'select'
+              source: ProgramCms\AdminBundle\Model\Provider\DataSource\ThemeSelector
+              helpMessage: 'If no value is specified, the system default is used. The system default may be modified by third-party bundles.'
+              scope: 'default'
     developer:
       label: 'Developer'
       tab: 'core_advanced'
+      scope: 'default'
+      groups:
+        developer:
+          label: 'Developer Mode'
+          scope: 'default'
+          fields:
+            activate:
+              type: 'switcher'
+              label: 'Activate Developer Mode'
+              defaultValue: 1
+              scope: 'default'

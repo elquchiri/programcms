@@ -16,7 +16,7 @@ use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
  * Class EditController
  * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteView
  */
-class EditController extends \ProgramCms\CoreBundle\Controller\Controller
+class EditController extends \ProgramCms\CoreBundle\Controller\AdminController
 {
     /**
      * @var ObjectManager

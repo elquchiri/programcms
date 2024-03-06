@@ -26,3 +26,6 @@ services:
     class: ProgramCms\CoreBundle\EventListener\EntityDataObjectListener
     tags:
       - { name: doctrine.event_listener, event: postLoad, priority: 99999 }
+
+  ProgramCms\CoreBundle\Config\FileResolverInterface:
+    class: ProgramCms\CoreBundle\App\Config\FileResolver

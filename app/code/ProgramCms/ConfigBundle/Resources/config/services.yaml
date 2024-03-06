@@ -23,3 +23,34 @@ services:
 
   ProgramCms\ConfigBundle\Model\Structure\AbstractElement:
     abstract: true
+
+  ProgramCms\CoreBundle\App\Config:
+    arguments:
+      $types:
+        system: '@ProgramCms\ConfigBundle\App\Config\Type\System'
+
+  ProgramCms\ConfigBundle\App\Config\Type\System\Reader:
+    arguments:
+      $source: '@systemConfigSourceAggregated'
+
+  # sortOrder helps managing config fallback
+  # initial overrides dynamic which overrides bundled config data
+  systemConfigSourceAggregated:
+    class: ProgramCms\CoreBundle\App\Config\ConfigSourceAggregated
+    arguments:
+      $sources:
+        bundled:
+          source: '@ProgramCms\ConfigBundle\App\Config\Source\BundledConfigSource'
+          sortOrder: 10
+        dynamic:
+          source: '@ProgramCms\ConfigBundle\App\Config\Source\RuntimeConfigSource'
+          sortOrder: 100
+        initial:
+          source: '@systemConfigInitialDataProvider'
+          sortOrder: 1000
+
+  systemConfigInitialDataProvider:
+    class: ProgramCms\CoreBundle\App\Config\InitialConfigSource
+    arguments:
+      $reader: '@ProgramCms\CoreBundle\App\DeploymentConfig\Reader'
+      $configType: !php/const ProgramCms\ConfigBundle\App\Config\Type\System::CONFIG_TYPE
