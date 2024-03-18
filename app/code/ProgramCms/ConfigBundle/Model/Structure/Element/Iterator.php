@@ -20,10 +20,12 @@ abstract class Iterator implements \Iterator
      * @var array
      */
     protected array $_elements;
+
     /**
      * @var AbstractElement
      */
-    protected $_flyweight;
+    protected AbstractElement $_flyweight;
+
     /**
      * @var string
      */
@@ -42,6 +44,7 @@ abstract class Iterator implements \Iterator
 
     /**
      * @param array $elements
+     * @param $scope
      */
     public function setElements(array $elements, $scope)
     {
@@ -61,6 +64,9 @@ abstract class Iterator implements \Iterator
         return $this->_flyweight;
     }
 
+    /**
+     * @return void
+     */
     public function next(): void
     {
         next($this->_elements);
@@ -96,6 +102,9 @@ abstract class Iterator implements \Iterator
         return (bool)current($this->_elements);
     }
 
+    /**
+     * @return void
+     */
     public function rewind(): void
     {
         reset($this->_elements);
@@ -111,7 +120,7 @@ abstract class Iterator implements \Iterator
      * @param AbstractElement $element
      * @return bool
      */
-    public function isLast(AbstractElement $element)
+    public function isLast(AbstractElement $element): bool
     {
         return $element->getId() == $this->_lastId;
     }

@@ -11,8 +11,10 @@ namespace ProgramCms\CoreBundle\View;
 use Exception;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\CoreBundle\Model\Utils\BundleManager;
+use ProgramCms\CoreBundle\View\Layout\Data\Structure;
 use ProgramCms\CoreBundle\View\Layout\Element;
 use ProgramCms\ThemeBundle\Model\PageLayout;
+use ReflectionException;
 
 /**
  * Class Layout
@@ -24,64 +26,74 @@ class Layout implements LayoutInterface
      * @var BundleManager
      */
     protected BundleManager $bundleManager;
+
     /**
      * @var Page\Config
      */
     protected Page\Config $config;
-    /**
-     * @var ObjectManager
-     */
+
     /**
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+
     /**
-     * @var \ProgramCms\CoreBundle\View\Layout\Data\Structure
+     * @var Structure
      */
-    protected \ProgramCms\CoreBundle\View\Layout\Data\Structure $structure;
+    protected Structure $structure;
+
     /**
      * PageLayout Model, used to get page layout content
      * @var PageLayout
      */
     protected PageLayout $pageLayout;
+
     /**
      * Saves Page Layouts
      * @var array
      */
     protected array $pageLayouts = [];
+
     /**
      * Stores the last page layout, current page
      * @var string
      */
     protected string $currentPageLayout;
+
     /**
      * Holds blocks objects
      * @var array
      */
     protected array $blocks;
+
     /**
      * Cache of elements to output during rendering
      * @var array
      */
     protected array $_output = [];
+
     /**
      * @var array
      */
     protected array $_elementsToRemove = [];
+
     /**
      * @var array
      */
     protected array $_elementsToMove = [];
+
     /**
      * Holds All Css files
      * @var array
      */
     protected array $css = [];
+
     /**
      * Holds All Js files
      * @var array
      */
     protected array $js = [];
+
     /**
      * Used to remove unused containers by keeping only those of the last layout
      * @var array
@@ -97,7 +109,7 @@ class Layout implements LayoutInterface
      * @param ObjectManager $objectManager
      */
     public function __construct(
-        \ProgramCms\CoreBundle\View\Layout\Data\Structure $structure,
+        Structure $structure,
         PageLayout $pageLayout,
         BundleManager $bundleManager,
         \ProgramCms\CoreBundle\View\Page\Config $config,
@@ -546,6 +558,7 @@ class Layout implements LayoutInterface
      * @param string $name
      * @param array $arguments
      * @return object|null
+     * @throws ReflectionException
      */
     protected function _createBlock($blockClass, string $name, array $arguments = []): ?object
     {

@@ -1,0 +1,23 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="me-4 dropdown website-switcher float-start">
+    <a class="dropdown-toggle switcher-dropdown" type="button" id="dropdownMenuButton"
+       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <img class="me-2" src="{{ asset(block.getCurrentLocale().flag) }}" style="margin-bottom: 3px;" width="25" height="15" />
+        {{ block.getCurrentLocale().name }}
+    </a>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        {% for locale in block.getLocales() %}
+            <a class="dropdown-item" href="{{ locale.url }}">
+                <img class="me-2" src="{{ asset(locale.flag) }}" style="margin-bottom: 3px;" width="25" height="15" />
+                {{ locale.name }}
+            </a>
+        {% endfor %}
+    </div>
+</div>

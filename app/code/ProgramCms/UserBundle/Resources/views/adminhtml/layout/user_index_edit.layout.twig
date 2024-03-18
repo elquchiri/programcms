@@ -8,6 +8,90 @@
 #}
 {% page layout="admin-2columns-left" %}
     {% referenceContainer name="content" %}
-        {% uiComponent name="test" %}
+        {% block name="user_form" class="ui.block.form" %}
+            {% arguments %}
+                {% argument name="data" type="array" %}
+                    {% argument name="label" type="string" %}User Information{% endArgument %}
+                {% endArgument %}
+                {% argument name="dataSource" type="array" %}
+                    {% argument name="dataProvider" type="array" %}
+                        {% argument name="class" type="string" %}ProgramCms\UserBundle\Model\Provider\Listing\DataProvider{% endArgument %}
+                        {% argument name="primaryFieldName" type="string" %}entity_id{% endArgument %}
+                        {% argument name="requestFieldName" type="string" %}id{% endArgument %}
+                    {% endArgument %}
+                {% endArgument %}
+                {% argument name="buttons" type="array" %}
+                    {% argument name="back" type="string" %}ProgramCms\UserBundle\Model\Provider\Button\BackToUsersButton{% endArgument %}
+                    {% argument name="force_login" type="string" %}ProgramCms\UserBundle\Model\Provider\Button\ForceSignInButton{% endArgument %}
+                    {% argument name="password_reset" type="string" %}ProgramCms\UserBundle\Model\Provider\Button\ResetPasswordButton{% endArgument %}
+                    {% argument name="delete" type="string" %}ProgramCms\UserBundle\Model\Provider\Button\DeleteUserButton{% endArgument %}
+                    {% argument name="save" type="string" %}ProgramCms\UserBundle\Model\Provider\Button\SaveUserButton{% endArgument %}
+                {% endArgument %}
+                {% argument name="layout" type="array" %}
+                    {% argument name="navContainerName" type="string" %}sidebar.main{% endArgument %}
+                    {% argument name="type" type="string" %}tabs{% endArgument %}
+                {% endArgument %}
+            {% endArguments %}
+            {% block name="user_view" class="ui.block.form.fieldset" %}
+                {% arguments %}
+                    {% argument name="data" type="array" %}
+                        {% argument name="label" type="string" %}Account View{% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+                {% block name="user_view_block" class="ProgramCms\\UserBundle\\Block\\Adminhtml\\AccountView" %}{% endBlock %}
+            {% endBlock %}
+            {% block name="user_fieldset" class="ui.block.form.fieldset" %}
+                {% arguments %}
+                    {% argument name="data" type="array" %}
+                        {% argument name="label" type="string" %}Account Information{% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+                {% block name="id" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}hidden{% endArgument %}
+                            {% argument name="source" type="string" %}user_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="user_firstname" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}text{% endArgument %}
+                            {% argument name="label" type="string" %}First Name{% endArgument %}
+                            {% argument name="source" type="string" %}user_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="user_lastname" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}text{% endArgument %}
+                            {% argument name="label" type="string" %}Last Name{% endArgument %}
+                            {% argument name="placeholder" type="string" %}Last Name{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                            {% argument name="source" type="string" %}user_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="email" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}text{% endArgument %}
+                            {% argument name="label" type="string" %}Email{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                            {% argument name="source" type="string" %}user_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+            {% endBlock %}
+            {% block name="user_addresses" class="ui.block.form.fieldset" %}
+                {% arguments %}
+                    {% argument name="data" type="array" %}
+                        {% argument name="label" type="string" %}Addresses{% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+            {% endBlock %}
+        {% endBlock %}
     {% endReferenceContainer %}
 {% endPage %}

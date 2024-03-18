@@ -11,9 +11,9 @@ namespace ProgramCms\ThemeBundle\Webpack;
 use Exception;
 use ProgramCms\CoreBundle\App\Config;
 use ProgramCms\CoreBundle\App\State;
-use ProgramCms\WebsiteBundle\Model\State as WebsiteState;
 use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\ThemeBundle\Repository\ThemeRepository;
+use ProgramCms\WebsiteBundle\Model\WebsiteManager;
 use Symfony\Bundle\SecurityBundle\Security;
 
 /**
@@ -30,6 +30,8 @@ class Output
     const APPLIED_THEME_CONFIG = 'theme_config/theme_configuration/applied_theme';
 
     const APPLIED_BACKEND_THEME_CONFIG = 'system/backend_theme/applied_theme';
+
+    const LOCALE_CONFIG = 'general/locale_options/locale';
 
     /**
      * @var State
@@ -57,34 +59,34 @@ class Output
     protected Config $config;
 
     /**
-     * @var WebsiteState
+     * @var WebsiteManager
      */
-    private WebsiteState $websiteState;
+    protected WebsiteManager $websiteManager;
 
     /**
      * Output constructor.
      * @param State $state
-     * @param WebsiteState $websiteState
      * @param Request $request
      * @param ThemeRepository $themeRepository
      * @param Security $security
      * @param Config $config
+     * @param WebsiteManager $websiteManager
      */
     public function __construct(
         State $state,
-        WebsiteState $websiteState,
         Request $request,
         ThemeRepository $themeRepository,
         Security $security,
-        Config $config
+        Config $config,
+        WebsiteManager $websiteManager
     )
     {
         $this->state = $state;
-        $this->websiteState = $websiteState;
         $this->request = $request;
         $this->security = $security;
         $this->themeRepository = $themeRepository;
         $this->config = $config;
+        $this->websiteManager = $websiteManager;
     }
 
     /**
@@ -118,29 +120,26 @@ class Output
      */
     public function getCurrentTheme()
     {
-        $runType = $this->state->getCurrentRunType();
-        $runCode = $this->state->getCurrentRunCode();
-        $currentWebsiteView = $this->websiteState->getCurrentWebsiteView($runType, $runCode);
-        $websiteViewCode = $currentWebsiteView->getWebsiteViewCode();
-
+        $currentWebsiteView = $this->websiteManager->getWebsiteView();
+        $locale = $this->config->getValue(
+            self::LOCALE_CONFIG,
+            'website_view',
+            $currentWebsiteView->getWebsiteViewId()
+        );
         $themeId = $this->config->getValue(
             self::APPLIED_THEME_CONFIG,
             'website_view',
             $currentWebsiteView->getWebsiteViewId()
         );
-
         if($this->getAreaCode() === 'adminhtml') {
-            $user = $this->security->getUser();
-            if($user) {
-                $websiteViewCode = $user->getInterfaceLocale();
+            if($user = $this->security->getUser()) {
+                $locale = $user->getInterfaceLocale();
             }
             $themeId = $this->config->getValue(
                 self::APPLIED_BACKEND_THEME_CONFIG,
             );
         }
-
         $theme = $this->themeRepository->getById($themeId);
-
-        return $theme->getThemePath() . '/' . $websiteViewCode;
+        return $theme->getThemePath() . '/' . $locale;
     }
 }

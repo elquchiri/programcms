@@ -8,6 +8,10 @@
 
 namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteGroup;
 
+use ProgramCms\CoreBundle\Controller\Context;
+use ProgramCms\CoreBundle\Model\ObjectManager;
+use ReflectionException;
+
 /**
  * Class NewController
  * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteGroup
@@ -15,18 +19,18 @@ namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteGroup;
 class NewController extends \ProgramCms\CoreBundle\Controller\AdminController
 {
     /**
-     * @var \ProgramCms\CoreBundle\Model\ObjectManager
+     * @var ObjectManager
      */
-    protected \ProgramCms\CoreBundle\Model\ObjectManager $objectManager;
+    protected ObjectManager $objectManager;
 
     /**
      * NewController constructor.
-     * @param \ProgramCms\CoreBundle\Controller\Context $context
-     * @param \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
+     * @param Context $context
+     * @param ObjectManager $objectManager
      */
     public function __construct(
-        \ProgramCms\CoreBundle\Controller\Context $context,
-        \ProgramCms\CoreBundle\Model\ObjectManager $objectManager
+        Context $context,
+        ObjectManager $objectManager
     )
     {
         parent::__construct($context);
@@ -35,12 +39,14 @@ class NewController extends \ProgramCms\CoreBundle\Controller\AdminController
 
     /**
      * @return object|null
+     * @throws ReflectionException
      */
     public function execute()
     {
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
-
-        $pageResult->getConfig()->getTitle()->set("New Website Group");
+        $pageResult->getConfig()->getTitle()->set(
+            $this->trans("New Website Group")
+        );
         return $pageResult;
     }
 }

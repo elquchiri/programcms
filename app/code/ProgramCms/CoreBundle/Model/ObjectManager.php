@@ -8,7 +8,11 @@
 
 namespace ProgramCms\CoreBundle\Model;
 
+use ProgramCms\CoreBundle\App\AreaInterface;
 use ProgramCms\CoreBundle\Model\Utils\BundleManager;
+use ReflectionClass;
+use ReflectionException;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class ObjectManager
@@ -22,6 +26,11 @@ class ObjectManager implements ObjectManagerInterface
     protected Utils\BundleManager $bundleManager;
 
     /**
+     * @var ContainerInterface
+     */
+    protected ContainerInterface $container;
+
+    /**
      * ObjectManager constructor.
      * @param Utils\BundleManager $bundleManager
      */
@@ -30,15 +39,48 @@ class ObjectManager implements ObjectManagerInterface
     )
     {
         $this->bundleManager = $bundleManager;
+        $this->container = $this->bundleManager->getContainer();
     }
 
     /**
-     * Clones a service and returns a new instance of the object
+     * Clones / Create a service and returns a new instance of the object
      * @param string $serviceId
+     * @param array $arguments
      * @return object|null
+     * @throws ReflectionException
      */
-    public function create(string $serviceId): ?object
+    public function create(string $serviceId, array $arguments = []): ?object
     {
-        return clone $this->bundleManager->getContainer()->get($serviceId);
+        if($this->container->has($serviceId) && empty($arguments)) {
+            return clone $this->container->get($serviceId);
+        }
+        // Create a new object if arguments are required
+        $reflection = new ReflectionClass($serviceId);
+
+        if(!$reflection->isInstantiable()) {
+            $reflection = new \ReflectionObject(
+                $this->container->get($serviceId)
+            );
+        }
+
+        $parameters = $reflection->getConstructor()->getParameters();
+        $args = [];
+        foreach($parameters as $parameter) {
+            // If argument exists in $arguments, initialize it, even if it is optional
+            if(in_array($parameter->getName(), array_keys($arguments))) {
+                $args[] = $arguments[$parameter->getName()];
+                continue;
+            }
+            // Skip if argument optional
+            if($parameter->isOptional()) {
+                break;
+            }
+            // If argument is an object, use container to get it.
+            if($parameter->hasType() && !$parameter->getType()->isBuiltin()) {
+                $args[] = $this->container->get($parameter->getType());
+            }
+        }
+
+        return $reflection->newInstanceArgs($args);
     }
 }

@@ -23,7 +23,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class AdminUserRepository extends ServiceEntityRepository
 {
     /**
-     * WebsiteRepository constructor.
+     * AdminUserRepository constructor.
      * @param ManagerRegistry $registry
      */
     public function __construct(ManagerRegistry $registry)
@@ -53,7 +53,7 @@ class AdminUserRepository extends ServiceEntityRepository
      * @param AdminUser $entity
      * @param bool $flush
      */
-    public function save(AdminUser $entity, bool $flush = false): void
+    public function save(AdminUser $entity, bool $flush = true): void
     {
         $this->getEntityManager()->persist($entity);
 

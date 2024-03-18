@@ -1,0 +1,18 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+config:
+  default:
+    general:
+      country_options:
+        default_country: 'MA'
+        allowed_countries: 'MA,US,FR'
+      locale_options:
+        timezone: 'Africa/Casablanca'
+        locale: 'ar_MA'
+    web:
+      urls:
+        base_url: '/'

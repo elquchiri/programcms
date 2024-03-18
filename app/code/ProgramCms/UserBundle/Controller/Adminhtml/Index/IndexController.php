@@ -22,26 +22,19 @@ class IndexController extends \ProgramCms\CoreBundle\Controller\AdminController
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
-    /**
-     * @var TranslatorInterface
-     */
-    protected TranslatorInterface $translator;
 
     /**
      * IndexController constructor.
      * @param Context $context
      * @param ObjectManager $objectManager
-     * @param TranslatorInterface $translator
      */
     public function __construct(
         Context $context,
-        ObjectManager $objectManager,
-        TranslatorInterface $translator
+        ObjectManager $objectManager
     )
     {
         parent::__construct($context);
         $this->objectManager = $objectManager;
-        $this->translator = $translator;
     }
 
     /**
@@ -51,7 +44,7 @@ class IndexController extends \ProgramCms\CoreBundle\Controller\AdminController
     {
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
         $pageResult->getConfig()->getTitle()->set(
-            $this->translator->trans("All Users")
+            $this->trans("All Users")
         );
         return $pageResult;
     }

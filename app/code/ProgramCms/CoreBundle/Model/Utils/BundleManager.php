@@ -8,6 +8,7 @@
 
 namespace ProgramCms\CoreBundle\Model\Utils;
 
+use Exception;
 use ReflectionException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use ProgramCms\CoreBundle\Helper\BundleManager as BundleManagerHelper;
@@ -18,6 +19,10 @@ use ProgramCms\CoreBundle\Helper\BundleManager as BundleManagerHelper;
  */
 class BundleManager
 {
+    const BUNDLE = 'bundle';
+
+    const THEME = 'theme';
+
     /**
      * @var ContainerInterface
      */
@@ -77,7 +82,7 @@ class BundleManager
 
     /**
      * Get bundle by name
-     * @throws \Exception
+     * @throws Exception
      */
     public function getBundleByName($bundleName)
     {
@@ -87,7 +92,7 @@ class BundleManager
             return $bundles[$bundleName];
         }
 
-        throw new \Exception(sprintf("Invalid Bundle %s", $bundleName));
+        throw new Exception(sprintf("Invalid Bundle %s", $bundleName));
     }
 
     /**
@@ -97,5 +102,56 @@ class BundleManager
     public function getNames(): array
     {
         return array_keys($this->getAllBundles());
+    }
+
+    /**
+     * @return array
+     * @throws ReflectionException
+     */
+    public function getAllThemes(): array
+    {
+        $bundles = [];
+        foreach ($this->getContainerParameter('kernel.themes') as $themeName => $themeClass) {
+            $reflectedTheme = new \ReflectionClass($themeClass);
+            if ($reflectedTheme) {
+                $bundleDirectory = dirname($reflectedTheme->getFileName());
+                $bundles[$themeName] = [
+                    'name' => $reflectedTheme->getShortName(),
+                    'path' => $bundleDirectory
+                ];
+            }
+        }
+
+        return $bundles;
+    }
+
+    /**
+     * @param $themeName
+     * @return mixed
+     * @throws ReflectionException
+     * @throws Exception
+     */
+    public function getThemeByName($themeName)
+    {
+        $themes = $this->getAllThemes();
+
+        if(isset($themes[$themeName])) {
+            return $themes[$themeName];
+        }
+
+        throw new Exception(sprintf("Invalid Theme %s", $themeName));
+    }
+
+    /**
+     * @param string $bundleType
+     * @param string $bundleName
+     * @return string|null
+     */
+    public function getPath(string $bundleType, string $bundleName): ?string
+    {
+        return match ($bundleType) {
+            self::BUNDLE => $this->getContainerParameter('kernel.bundles_metadata')[$bundleName]['path'] ?? null,
+            self::THEME => $this->getContainerParameter('kernel.themes_metadata')[$bundleName]['path'] ?? null
+        };
     }
 }

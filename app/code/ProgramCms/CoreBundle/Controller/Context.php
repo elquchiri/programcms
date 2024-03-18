@@ -8,7 +8,7 @@
 
 namespace ProgramCms\CoreBundle\Controller;
 
-use ProgramCms\ConfigBundle\App\Config;
+use ProgramCms\CoreBundle\App\Config;
 use ProgramCms\CoreBundle\App\AreaList;
 use ProgramCms\CoreBundle\App\State;
 use ProgramCms\RouterBundle\Service\Request;
@@ -16,6 +16,7 @@ use ProgramCms\RouterBundle\Service\Response;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use ProgramCms\CoreBundle\View\DesignLoader;
 
 /**
  * Class Context
@@ -64,6 +65,11 @@ class Context implements ContextInterface
     protected Config $config;
 
     /**
+     * @var DesignLoader
+     */
+    protected DesignLoader $designLoader;
+
+    /**
      * Context constructor.
      * @param Request $request
      * @param Response $response
@@ -73,6 +79,7 @@ class Context implements ContextInterface
      * @param Security $security
      * @param TranslatorInterface $translator
      * @param Config $config
+     * @param DesignLoader $designLoader
      */
     public function __construct(
         Request $request,
@@ -82,7 +89,8 @@ class Context implements ContextInterface
         LocaleSwitcher $localeSwitcher,
         Security $security,
         TranslatorInterface $translator,
-        Config $config
+        Config $config,
+        DesignLoader $designLoader
     )
     {
         $this->request = $request;
@@ -93,6 +101,7 @@ class Context implements ContextInterface
         $this->security = $security;
         $this->translator = $translator;
         $this->config = $config;
+        $this->designLoader = $designLoader;
     }
 
     /**
@@ -157,5 +166,13 @@ class Context implements ContextInterface
     public function getConfig(): Config
     {
         return $this->config;
+    }
+
+    /**
+     * @return DesignLoader
+     */
+    public function getDesignLoader(): DesignLoader
+    {
+        return $this->designLoader;
     }
 }

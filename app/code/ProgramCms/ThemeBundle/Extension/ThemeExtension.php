@@ -9,6 +9,23 @@
 namespace ProgramCms\ThemeBundle\Extension;
 
 use ProgramCms\CoreBundle\View\Layout;
+use ProgramCms\ThemeBundle\Parser\Argument\ArgumentsTokenParser;
+use ProgramCms\ThemeBundle\Parser\Argument\ArgumentTokenParser;
+use ProgramCms\ThemeBundle\Parser\BlockTokenParser;
+use ProgramCms\ThemeBundle\Parser\ContainerTokenParser;
+use ProgramCms\ThemeBundle\Parser\CssTokenParser;
+use ProgramCms\ThemeBundle\Parser\JsTokenParser;
+use ProgramCms\ThemeBundle\Parser\LayoutTokenParser;
+use ProgramCms\ThemeBundle\Parser\MoveTokenParser;
+use ProgramCms\ThemeBundle\Parser\PageTokenParser;
+use ProgramCms\ThemeBundle\Parser\ReferenceBlockTokenParser;
+use ProgramCms\ThemeBundle\Parser\ReferenceContainerTokenParser;
+use ProgramCms\ThemeBundle\Parser\TitleTokenParser;
+use ProgramCms\ThemeBundle\Parser\UpdateTokenParser;
+use ProgramCms\UiBundle\Twig\Parser\FieldsetTokenParser;
+use ProgramCms\UiBundle\Twig\Parser\FieldTokenParser;
+use ProgramCms\UiBundle\Twig\Parser\FormTokenParser;
+use ProgramCms\UiBundle\Twig\Parser\UiComponentTokenParser;
 
 /**
  * Class ThemeExtension
@@ -47,24 +64,25 @@ class ThemeExtension extends \Twig\Extension\AbstractExtension
      */
     public function getTokenParsers()
     {
+        // TODO: Re-Design this part to be modular
         return [
-            new \ProgramCms\ThemeBundle\Parser\PageTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\UpdateTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\LayoutTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\TitleTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\ContainerTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\BlockTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\Argument\ArgumentsTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\Argument\ArgumentTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\ReferenceBlockTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\CssTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\JsTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\MoveTokenParser(),
-            new \ProgramCms\ThemeBundle\Parser\ReferenceContainerTokenParser(),
-            new \ProgramCms\UiBundle\Twig\Parser\UiComponentTokenParser(),
-            new \ProgramCms\UiBundle\Twig\Parser\FormTokenParser(),
-            new \ProgramCms\UiBundle\Twig\Parser\FieldsetTokenParser(),
-            new \ProgramCms\UiBundle\Twig\Parser\FieldTokenParser()
+            new PageTokenParser(),
+            new UpdateTokenParser(),
+            new LayoutTokenParser(),
+            new TitleTokenParser(),
+            new ContainerTokenParser(),
+            new BlockTokenParser(),
+            new ArgumentsTokenParser(),
+            new ArgumentTokenParser(),
+            new ReferenceBlockTokenParser(),
+            new CssTokenParser(),
+            new JsTokenParser(),
+            new MoveTokenParser(),
+            new ReferenceContainerTokenParser(),
+            new UiComponentTokenParser(),
+            new FormTokenParser(),
+            new FieldsetTokenParser(),
+            new FieldTokenParser()
         ];
     }
 }

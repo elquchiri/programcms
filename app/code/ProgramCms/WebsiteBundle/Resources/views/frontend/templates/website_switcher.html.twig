@@ -9,12 +9,11 @@
 <div class="dropdown website-switcher">
     <a href="#" class="dropdown-toggle switcher-dropdown" type="button" id="dropdownMenuButton"
        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Main Website
+        {{ block.getCurrentWebsiteName() }}
     </a>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="">English (USA)</a>
-        <a class="dropdown-item" href="#">العربية</a>
-        <a class="dropdown-item" href="#">Francais</a>
-        <a class="dropdown-item" href="#">Española</a>
+        {% for website in block.getWebsites() %}
+            <a class="dropdown-item" href="{{ website.url }}">{{ website.name }}</a>
+        {% endfor %}
     </div>
 </div>

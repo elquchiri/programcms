@@ -1,0 +1,1 @@
+The GDPR bundle contains common infrastructure that provides GDPR in ProgramCMS application.

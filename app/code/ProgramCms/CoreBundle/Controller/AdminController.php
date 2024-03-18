@@ -8,11 +8,14 @@
 
 namespace ProgramCms\CoreBundle\Controller;
 
+use HttpResponseException;
 use ProgramCms\CoreBundle\App\AreaList;
 use ProgramCms\CoreBundle\App\State;
+use ReflectionException;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use ProgramCms\CoreBundle\View\DesignLoader;
 
 /**
  * Class AdminController
@@ -23,12 +26,12 @@ abstract class AdminController extends AbstractController
     /**
      * @var State
      */
-    protected State $_state;
+    protected State $state;
 
     /**
      * @var AreaList
      */
-    protected AreaList $_areaList;
+    protected AreaList $areaList;
 
     /**
      * @var LocaleSwitcher
@@ -46,6 +49,11 @@ abstract class AdminController extends AbstractController
     protected TranslatorInterface $translator;
 
     /**
+     * @var DesignLoader
+     */
+    protected DesignLoader $designLoader;
+
+    /**
      * Controller constructor.
      * @param Context $context
      */
@@ -54,32 +62,38 @@ abstract class AdminController extends AbstractController
     )
     {
         parent::__construct($context);
-        $this->_areaList = $context->getAreaList();
-        $this->_state = $context->getState();
+        $this->areaList = $context->getAreaList();
+        $this->state = $context->getState();
         $this->localeSwitcher = $context->getLocaleSwitcher();
         $this->security = $context->getSecurity();
         $this->translator = $context->getTranslator();
+        $this->designLoader = $context->getDesignLoader();
     }
 
     /**
      * Dispatch Request
      * @return mixed
      * @throws HttpResponseException
+     * @throws ReflectionException
      */
     public function dispatch(): mixed
     {
-        $user = $this->security->getUser();
-        $locale = $this->localeSwitcher->getLocale();
+        // Set Current AreaCode
+        $areaCode = $this->areaList->getCodeByFrontName($this->getRequest()->getFrontName());
+        $this->state->setAreaCode($areaCode);
 
-        if($user) {
+        // Load Design Part
+        $this->designLoader->load();
+
+        $locale = $this->localeSwitcher->getLocale();
+        if($user = $this->security->getUser()) {
             $locale = $user->getInterfaceLocale();
         }
 
         // Set defined user locale
         $this->localeSwitcher->setLocale($locale);
 
-        $areaCode = $this->_areaList->getCodeByFrontName($this->getRequest()->getFrontName());
-        $this->_state->setAreaCode($areaCode);
+        // Run Controller's Action
         $result = $this->execute();
         if($result instanceof \ProgramCms\CoreBundle\View\Result\Page) {
             try {

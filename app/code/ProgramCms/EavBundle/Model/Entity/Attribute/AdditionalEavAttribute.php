@@ -19,7 +19,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[MappedSuperclass]
 abstract class AdditionalEavAttribute extends \ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity implements AdditionalEavAttributeInterface
 {
-
     #[ORM\Id]
     #[ORM\OneToOne(targetEntity: EavAttribute::class)]
     #[ORM\JoinColumn(name: "attribute_id", referencedColumnName: "attribute_id")]

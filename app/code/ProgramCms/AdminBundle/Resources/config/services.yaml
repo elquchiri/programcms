@@ -19,4 +19,5 @@ services:
 
   ProgramCms\CoreBundle\App\AreaList:
     arguments:
-      - { adminhtml: { frontName: 'adminhtml', router: 'adminhtml' } }
+      $areas:
+        adminhtml: { frontName: 'adminhtml', router: 'adminhtml' }

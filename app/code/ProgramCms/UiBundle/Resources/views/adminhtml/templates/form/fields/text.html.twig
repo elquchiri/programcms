@@ -7,9 +7,9 @@
  */
 #}
 <input
+    id="{{ block.getId() }}"
     type="text"
     name="{{ block.getName() }}"
-    id="{{ block.getName() }}"
     class="form-control"
     {% if block.hasPlaceholder() %}placeholder="{{ block.getPlaceholder() }}"{% endif %}
     {% if block.hasValue() %}value="{{ block.getValue() }}"{% endif %}

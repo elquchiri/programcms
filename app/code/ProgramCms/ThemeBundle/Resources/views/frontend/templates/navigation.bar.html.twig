@@ -4,17 +4,17 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="">
-                        Home
+                        {{ block.trans('Home') }}
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="">
-                        #Trending
+                        {{ block.trans('#Trending') }}
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="">
-                        Community
+                        {{ block.trans('Community') }}
                     </a>
                 </li>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
@@ -36,7 +36,7 @@
                 {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="">
-                        Assistance
+                        {{ block.trans('Assistance') }}
                     </a>
                 </li>
             </ul>

@@ -1,0 +1,24 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% page %}
+    {% referenceBlock name="footer.links" %}
+        {% block name="privacy-policy-link" class="ProgramCms\\ThemeBundle\\Block\\Page\\Current" %}
+            {% arguments %}
+                {% argument name="label" type="string" %}Privacy and Cookie Policy{% endArgument %}
+                {% argument name="path" type="string" %}privacy-cookie-policy{% endArgument %}
+            {% endArguments %}
+        {% endBlock %}
+        {% block name="about-us-link" class="ProgramCms\\ThemeBundle\\Block\\Page\\Current" %}
+            {% arguments %}
+                {% argument name="label" type="string" %}About Us{% endArgument %}
+                {% argument name="path" type="string" %}about-us{% endArgument %}
+            {% endArguments %}
+        {% endBlock %}
+    {% endReferenceBlock %}
+{% endPage %}

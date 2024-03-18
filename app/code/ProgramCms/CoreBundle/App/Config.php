@@ -48,8 +48,8 @@ class Config implements ScopeConfigInterface
      * @return mixed
      */
     public function getValue(
-        $path = null,
-        $scopeType = ScopeConfigInterface::SCOPE_TYPE_DEFAULT,
+        $path,
+        string $scopeType = ScopeConfigInterface::SCOPE_TYPE_DEFAULT,
         $scopeCode = null
     )
     {
@@ -77,8 +77,19 @@ class Config implements ScopeConfigInterface
      * @param null $default
      * @return mixed
      */
-    public function get($configType, $path = '', $default = null)
+    public function get($configType, string $path = '', $default = null)
     {
         return $this->types[$configType]->get($path);
+    }
+
+    /**
+     * @param $path
+     * @param string $scopeType
+     * @param null $scopeCode
+     * @return bool
+     */
+    public function isTrue($path, string $scopeType = ScopeConfigInterface::SCOPE_TYPE_DEFAULT, $scopeCode = null): bool
+    {
+        return !!$this->getValue($path, $scopeType, $scopeCode);
     }
 }

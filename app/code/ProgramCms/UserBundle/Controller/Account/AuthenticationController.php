@@ -54,7 +54,9 @@ class AuthenticationController extends \ProgramCms\CoreBundle\Controller\Control
         $lastEmail = $this->authenticationUtils->getLastUsername();
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
 
-        $pageResult->getConfig()->getTitle()->set("Authentication");
+        $pageResult->getConfig()->getTitle()->set(
+            $this->trans("Authentication")
+        );
         return $pageResult;
     }
 }

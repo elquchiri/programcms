@@ -8,9 +8,11 @@
 #}
 <div class="login-container">
     <a href="{{ block.getAdminLoginUrl() }}">
-        <img style="width: 100%;" src="{{ asset('bundles/programcmstheme/images/programcms-logo-presentation.png') }}"/>
+        <img style="width: 100%;" src="{{ asset('bundles/programcmstheme/images/programcms-logo-presentation.png') }}" alt="{{ block.trans('Logo') }}"/>
     </a>
-    <h4 class="mt-3 mb-4 welcome-message" style="color: #379DFF">Welcome, please sign in</h4>
+    <h4 class="mt-3 mb-4 welcome-message" style="color: #379DFF">
+        {{ block.trans('Welcome, please sign in') }}
+    </h4>
 
     {% if block.getError() is not empty %}
         <div class="alert flash-message alert-danger flash-message-danger">{{ block.getError() }}</div>
@@ -18,24 +20,32 @@
 
     <form method="POST" action="{{ block.getSubmitUrl() }}" id="user_authentication_register">
         <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
+            <label for="email" class="form-label">
+                {{ block.trans('Email') }}
+            </label>
             <span class="text-danger">*</span>
             <input type="email" class="form-control" id="email" name="email" value="{{ block.getLastEmail() }}" autofocus/>
         </div>
         <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
+            <label for="password" class="form-label">
+                {{ block.trans('Password') }}
+            </label>
             <span class="text-danger">*</span>
             <div class="input-group">
                 <input type="password" class="form-control" id="password" name="password"/>
-                <span class="input-group-text" id="basic-addon1"><img src="{{ asset('bundles/programcmsadmin/images/see.png') }}" /></span>
+                <span class="input-group-text" id="basic-addon1">
+                    <img src="{{ asset('bundles/programcmsadmin/images/see.png') }}"  alt="{{ block.trans('Show Password') }}"/>
+                </span>
             </div>
             <div class="mt-2">
-                <a href="#">Forgot your password?</a>
+                <a href="#">{{ block.trans('Forgot your password?') }}</a>
             </div>
         </div>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         <div class="mt-4">
-            <button type="submit" class="btn btn-primary">Sign In</button>
+            <button type="submit" class="btn btn-primary">
+                {{ block.trans('Sign In') }}
+            </button>
         </div>
     </form>
 </div>

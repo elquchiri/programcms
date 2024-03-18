@@ -9,6 +9,10 @@ config:
     system:
       backend_theme:
         applied_theme: 1
+    developer:
+      template_settings:
+        minify_twig: 'on'
+
   website:
     admin:
       web:

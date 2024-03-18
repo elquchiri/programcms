@@ -1,0 +1,18 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% page %}
+    {% referenceBlock name="footer.links" %}
+        {% block name="contact-us-link" class="ProgramCms\\ThemeBundle\\Block\\Page\\Current" %}
+            {% arguments %}
+                {% argument name="label" type="string" %}Contact Us{% endArgument %}
+                {% argument name="path" type="string" %}contact-us{% endArgument %}
+            {% endArguments %}
+        {% endBlock %}
+    {% endReferenceBlock %}
+{% endPage %}

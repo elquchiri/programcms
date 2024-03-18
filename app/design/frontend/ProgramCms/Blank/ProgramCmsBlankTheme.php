@@ -8,19 +8,18 @@
 
 namespace ProgramCms\Blank;
 
+use ProgramCms\CoreBundle\Theme\Theme;
+
 /**
  * Class ProgramCmsBlankTheme
  * @package ProgramCms\Blank
  */
-class ProgramCmsBlankTheme extends \ProgramCms\ThemeBundle\Framework\Theme
+class ProgramCmsBlankTheme extends Theme
 {
     /**
-     * @return string
+     * @var string
      */
-    public function getName(): string
-    {
-        return 'ProgramCMS Blank Theme';
-    }
+    protected string $name = 'ProgramCMS Blank Theme';
 
     /**
      * @return string

@@ -262,4 +262,26 @@ abstract class AbstractBlock extends \ProgramCms\CoreBundle\Model\DataObject imp
     {
         return $this->_url->getUrlByRouteName($routeName, $params);
     }
+
+    /**
+     * @return mixed|null
+     */
+    public function getBundleName($template)
+    {
+        if (!$this->_getData('bundle_name')) {
+            $this->setData('bundle_name', self::extractBundleName($template));
+        }
+        return $this->_getData('bundle_name');
+    }
+
+    /**
+     * @param string $template
+     * @return string
+     */
+    public static function extractBundleName(string $template): string
+    {
+        $templateParts = explode('/', $template);
+        $bundle = explode('@', $templateParts[0]);
+        return $bundle[1];
+    }
 }

@@ -23,40 +23,47 @@ class AdminUser extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity implements
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $user_id = null;
+
     /**
      * @var int|null
      */
     #[ORM\Column(nullable: true)]
     private ?int $is_active = null;
+
     /**
      * @var string|null
      */
     #[ORM\Column(length: 255)]
     private ?string $email = null;
+
     /**
      * @var array
      */
     #[ORM\Column(type: 'json')]
     private array $roles = [];
+
     /**
      * @var string|null
      */
     #[ORM\Column(length: 255)]
     private ?string $password = null;
+
     /**
      * @var string|null
      */
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?string $first_name = null;
+
     /**
      * @var string|null
      */
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?string $last_name = null;
+
     /**
      * @var string|null
      */
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?string $interface_locale = null;
 
     /**

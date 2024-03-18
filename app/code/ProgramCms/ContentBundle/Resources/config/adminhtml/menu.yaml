@@ -22,15 +22,3 @@ menu:
             label: 'Blocks'
             action: ''
             sortOrder: 2
-      design:
-        label: 'Design'
-        sortOrder: 8
-        actions:
-          config:
-            label: 'Configuration'
-            action: 'theme_index_config'
-            sortOrder: 2
-          themes:
-            label: 'Themes'
-            action: 'theme_index_index'
-            sortOrder: 1

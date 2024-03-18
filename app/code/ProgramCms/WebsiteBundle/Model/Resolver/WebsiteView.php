@@ -11,7 +11,7 @@ namespace ProgramCms\WebsiteBundle\Model\Resolver;
 use Exception;
 use ProgramCms\CoreBundle\App\ScopeInterface;
 use ProgramCms\CoreBundle\App\ScopeResolverInterface;
-use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
+use ProgramCms\WebsiteBundle\Model\WebsiteManager;
 
 /**
  * Class WebsiteView
@@ -20,19 +20,19 @@ use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
 class WebsiteView implements ScopeResolverInterface
 {
     /**
-     * @var WebsiteViewRepository
+     * @var WebsiteManager
      */
-    protected WebsiteViewRepository $websiteViewRepository;
+    protected WebsiteManager $websiteManager;
 
     /**
      * WebsiteView constructor.
-     * @param WebsiteViewRepository $websiteViewRepository
+     * @param WebsiteManager $websiteManager
      */
     public function __construct(
-        WebsiteViewRepository $websiteViewRepository
+        WebsiteManager $websiteManager
     )
     {
-        $this->websiteViewRepository = $websiteViewRepository;
+        $this->websiteManager = $websiteManager;
     }
 
     /**
@@ -42,7 +42,7 @@ class WebsiteView implements ScopeResolverInterface
      */
     public function getScope($scopeId = null)
     {
-        $scope = $this->websiteViewRepository->getById($scopeId);
+        $scope = $this->websiteManager->getWebsiteView($scopeId);
         if(!$scope instanceof ScopeInterface) {
             throw new Exception('The scope object is invalid.');
         }
@@ -55,6 +55,6 @@ class WebsiteView implements ScopeResolverInterface
      */
     public function getScopes()
     {
-        return $this->websiteViewRepository->findAll();
+        return $this->websiteManager->getWebsiteViews();
     }
 }

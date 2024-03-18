@@ -25,5 +25,13 @@ interface ScopeConfigInterface
      * @param null $scopeCode
      * @return mixed
      */
-    public function getValue($path, $scopeType = ScopeConfigInterface::SCOPE_TYPE_DEFAULT, $scopeCode = null);
+    public function getValue($path, string $scopeType = ScopeConfigInterface::SCOPE_TYPE_DEFAULT, $scopeCode = null);
+
+    /**
+     * @param $path
+     * @param string $scopeType
+     * @param null $scopeCode
+     * @return bool
+     */
+    public function isTrue($path, string $scopeType = ScopeConfigInterface::SCOPE_TYPE_DEFAULT, $scopeCode = null): bool;
 }

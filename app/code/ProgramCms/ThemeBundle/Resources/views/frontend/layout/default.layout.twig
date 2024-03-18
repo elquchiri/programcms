@@ -36,12 +36,23 @@
     {# Main Container #}
     {% referenceContainer name="main" %}
         {# Main Page Content Container #}
-        {% container name="content" %}{% endContainer %}
+        {% container name="content" htmlTag="div" htmlClass="container" %}{% endContainer %}
     {% endReferenceContainer %}
     {#  Footer Container#}
     {% referenceContainer name="footer.container" %}
-        {% container name="footer" htmlTag="div" htmlClass="footer content" %}
-            {% block name="footer.content" class="ProgramCms\\WebsiteBundle\\Block\\WebsiteSwitcher" template="@ProgramCmsThemeBundle/footer.html.twig" %}{% endBlock %}
+        {% container name="footer" htmlTag="div" htmlClass="footer-content" %}
+            {% container name="footer.columns.container" htmlTag="div" htmlClass="container" %}
+                {% container name="footer.columns" htmlTag="div" htmlClass="row" %}
+                    {% block name="footer.links" class="ProgramCms\\ThemeBundle\\Block\\Page\\Links" %}
+                        {% arguments %}
+                            {% argument name="css_class" type="string" %}col-md-4{% endArgument %}
+                        {% endArguments %}
+                    {% endBlock %}
+                {% endContainer %}
+            {% endContainer %}
+        {% endContainer %}
+        {% container name="footer.legal.copyright" htmlTag="div" htmlClass="footer-copyright" %}
+            {% block name="copyright" class="ProgramCms\\ThemeBundle\\Block\\Page\\Copyright" %}{% endBlock %}
         {% endContainer %}
     {% endReferenceContainer %}
 {% endPage %}

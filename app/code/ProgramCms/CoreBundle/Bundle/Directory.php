@@ -47,11 +47,10 @@ class Directory
 
     /**
      * @param $bundleName
-     * @param string $type
      * @return mixed
      * @throws Exception
      */
-    public function getDirectory($bundleName, $type = '')
+    public function getDirectory($bundleName)
     {
         return $this->bundleManager->getBundleByName($bundleName);
     }

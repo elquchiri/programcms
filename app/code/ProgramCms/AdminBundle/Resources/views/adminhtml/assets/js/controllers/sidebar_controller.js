@@ -54,14 +54,14 @@ application.register('sidebar', class extends Controller {
      * @param event
      */
     menuItemClick(event) {
+        event.preventDefault();
+
         const menuItem = event.currentTarget;
         if(menuItem.hasAttribute('href') && menuItem.getAttribute('href') !== '#') {
             return;
         }
 
         const menuItemId = menuItem.getAttribute('id');
-
-        event.preventDefault();
         if (this.activeMenuItem !== null) {
             if (menuItemId === this.activeMenuItem.getAttribute('id')) {
                 this.hideCurrentMenuItemTarget();

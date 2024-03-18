@@ -8,19 +8,18 @@
 
 namespace ProgramCms\Backend;
 
+use ProgramCms\CoreBundle\Theme\BackendTheme;
+
 /**
  * Class ProgramCmsBackendTheme
  * @package ProgramCms\Backend
  */
-class ProgramCmsBackendTheme extends \ProgramCms\ThemeBundle\Framework\BackendTheme
+class ProgramCmsBackendTheme extends BackendTheme
 {
     /**
-     * @return string
+     * @var string
      */
-    public function getName(): string
-    {
-        return 'ProgramCMS Backend Theme';
-    }
+    protected string $name = 'ProgramCMS Backend Theme';
 
     /**
      * @return string

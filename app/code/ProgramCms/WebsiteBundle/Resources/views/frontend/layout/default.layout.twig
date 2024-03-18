@@ -10,5 +10,7 @@
     {% referenceContainer name="header.panel" %}
         {# Website switcher dropdown #}
         {% block name="website.switcher" class="ProgramCms\\WebsiteBundle\\Block\\WebsiteSwitcher" template="@ProgramCmsWebsiteBundle/website_switcher.html.twig" before="-" %}{% endBlock %}
+        {# Locale switcher dropdown #}
+        {% block name="locale.switcher" class="ProgramCms\\WebsiteBundle\\Block\\LocaleSwitcher" template="@ProgramCmsWebsiteBundle/locale_switcher.html.twig" before="-" %}{% endBlock %}
     {% endReferenceContainer %}
 {% endPage %}

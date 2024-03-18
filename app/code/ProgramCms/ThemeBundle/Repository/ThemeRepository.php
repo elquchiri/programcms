@@ -41,6 +41,15 @@ class ThemeRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param string $themePath
+     * @return Theme|null
+     */
+    public function getByThemePath(string $themePath): ?Theme
+    {
+        return $this->findOneBy(['theme_path' => $themePath]);
+    }
+
+    /**
      * @param Theme $entity
      * @param bool $flush
      */

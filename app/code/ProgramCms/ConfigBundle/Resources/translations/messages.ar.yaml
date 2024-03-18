@@ -13,3 +13,5 @@
 "[WEBSITE VIEW]": "[واجهة الموقع]"
 "[WEBSITE]": "[الموقع]"
 "[GLOBAL]": "[عامة]"
+"Error Saving Configuration Data, please try again.": "حدث خطأ أثناء حفظ بيانات التكوين، يرجى المحاولة مرة أخرى."
+"If no value is specified, the system default is used. The system default may be modified by third-party bundles.": "إذا لم يتم تحديد أي قيمة، فسيتم استخدام القيمة الافتراضية للنظام. قد يتم تعديل الإعداد الافتراضي للنظام بواسطة حزم الطرف الثالث."

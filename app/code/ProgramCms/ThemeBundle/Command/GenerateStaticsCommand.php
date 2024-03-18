@@ -41,8 +41,9 @@ use Symfony\Component\Filesystem\Filesystem;
 )]
 class GenerateStaticsCommand extends Command
 {
+    const LOCALE_CONFIG = 'general/locale_options/locale';
 
-    const LOCALE_CONFIG = 'general/local_options/locale';
+    const WEBPACK_CONFIG_FILE = 'webpack.config.js';
 
     /**
      * @var array
@@ -251,8 +252,7 @@ class GenerateStaticsCommand extends Command
      */
     private function generateWebpackConfig()
     {
-        $webpackFile = $this->directoryList->getRoot() . DIRECTORY_SEPARATOR . 'webpack.config.js';
-
+        $webpackFile = $this->getWebpackConfigFile();
         $webpackConfig = <<<JS
             const path = require('path');
             const webpack = require('webpack');
@@ -286,16 +286,23 @@ class GenerateStaticsCommand extends Command
     }
 
     /**
+     * @return string
+     */
+    private function getWebpackConfigFile(): string
+    {
+        return $this->directoryList->getRoot() . DIRECTORY_SEPARATOR . self::WEBPACK_CONFIG_FILE;
+    }
+
+    /**
      * @param $area
      * @param $themePath
-     * @param $websiteView
+     * @param WebsiteView $websiteView
      * @return string
      */
     private function prepareWebpackConfig($area, $themePath, WebsiteView $websiteView): string
     {
-        $isRtl = $this->language->isRtl(
-            $this->getLocaleByWebsiteView($websiteView->getWebsiteViewId())
-        );
+        $locale = $this->getLocaleByWebsiteView($websiteView->getWebsiteViewId());
+        $isRtl = $this->language->isRtl($locale);
         $extendsFiles = $this->extendsScssFiles[$area] ?? [];
         $bundleScssFiles = $this->bundleScssFiles[$area] ?? [];
         $jsFiles = $this->jsFiles[$area] ?? [];
@@ -329,9 +336,9 @@ class GenerateStaticsCommand extends Command
                 'app' => $entryFiles
             ]),
             new Output(
-                "public/build/{$area}/{$themePath}/{$websiteView->getWebsiteViewCode()}",
+                "public/build/{$area}/{$themePath}/{$locale}",
                 '[name].js',
-                "/build/{$area}/{$themePath}/{$websiteView->getWebsiteViewCode()}/"
+                "/build/{$area}/{$themePath}/{$locale}/"
             ),
             new Module([
                 new Module\Rules([

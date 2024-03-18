@@ -30,7 +30,7 @@ system_config:
       tab: 'core_advanced'
       scope: 'default'
       groups:
-        developer:
+        developer_mode:
           label: 'Developer Mode'
           scope: 'default'
           fields:
@@ -39,3 +39,11 @@ system_config:
               label: 'Activate Developer Mode'
               defaultValue: 1
               scope: 'default'
+        template_settings:
+          label: 'Template Settings'
+          scope: 'default'
+          fields:
+            minify_twig:
+              type: 'switcher'
+              label: 'Minify Twig'
+              scope: 'default|can_restore'

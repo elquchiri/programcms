@@ -8,7 +8,9 @@
 
 namespace ProgramCms\CoreBundle\View\Result;
 
+use ProgramCms\CoreBundle\View\Element\Template\Context;
 use ProgramCms\RouterBundle\Service\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -21,14 +23,17 @@ use Twig\Error\SyntaxError;
 class Layout extends AbstractResult
 {
     const LAYOUT_EXTENSION = 'layout.twig';
+
     /**
      * @var \ProgramCms\CoreBundle\View\Layout
      */
     protected \ProgramCms\CoreBundle\View\Layout $layout;
+
     /**
      * @var Request
      */
     protected Request $request;
+
     /**
      * @var Environment
      */
@@ -40,7 +45,7 @@ class Layout extends AbstractResult
      * @throws LoaderError
      */
     public function __construct(
-        \ProgramCms\CoreBundle\View\Element\Template\Context $context,
+        Context $context,
     )
     {
         $this->request = $context->getRequest();
@@ -74,9 +79,9 @@ class Layout extends AbstractResult
     /**
      * Created for override
      * @param array $parameters
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function render(array $parameters = []): \Symfony\Component\HttpFoundation\Response{
-        // To override
+    public function render(array $parameters = []): Response{
+        // Please override this methode
     }
 }

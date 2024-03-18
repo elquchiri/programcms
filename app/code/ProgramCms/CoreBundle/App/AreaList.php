@@ -8,6 +8,9 @@
 
 namespace ProgramCms\CoreBundle\App;
 
+use ProgramCms\CoreBundle\Model\ObjectManager;
+use ReflectionException;
+
 /**
  * Class AreaList
  * @package ProgramCms\CoreBundle\App
@@ -17,15 +20,30 @@ class AreaList
     /**
      * @var array
      */
-    protected array $_areas = [];
+    protected array $areas = [];
+
+    /**
+     * @var array
+     */
+    protected array $areaInstances = [];
+
+    /**
+     * @var ObjectManager
+     */
+    protected ObjectManager $objectManager;
 
     /**
      * AreaList constructor.
+     * @param ObjectManager $objectManager
      * @param array $areas
      */
-    public function __construct(array $areas = [])
+    public function __construct(
+        ObjectManager $objectManager,
+        array $areas = []
+    )
     {
-        $this->_areas = array_merge($this->_areas, $areas);
+        $this->areas = array_merge($this->areas, $areas);
+        $this->objectManager = $objectManager;
     }
 
     /**
@@ -35,11 +53,12 @@ class AreaList
      */
     public function getCodeByFrontName($name): string
     {
-        foreach($this->_areas as $areaCode => $area) {
+        foreach($this->areas as $areaCode => $area) {
             if (isset($area['frontName']) && $area['frontName'] === $name) {
                 return $areaCode;
             }
         }
+
         // TODO: Define a default area later if necessary
         // return 'default';
         return 'frontend';
@@ -52,7 +71,23 @@ class AreaList
      */
     public function getCodes(): array
     {
-        return array_keys($this->_areas);
+        return array_keys($this->areas);
+    }
+
+    /**
+     * @param string $code
+     * @return AreaInterface
+     * @throws ReflectionException
+     */
+    public function getArea(string $code): AreaInterface
+    {
+        if (!isset($this->areaInstances[$code])) {
+            $this->areaInstances[$code] = $this->objectManager->create(
+                AreaInterface::class,
+                ['areaCode' => $code]
+            );
+        }
+        return $this->areaInstances[$code];
     }
 
     /**
@@ -60,6 +95,6 @@ class AreaList
      */
     public function getAreas(): array
     {
-        return $this->_areas;
+        return $this->areas;
     }
 }

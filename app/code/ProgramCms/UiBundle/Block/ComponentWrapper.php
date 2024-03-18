@@ -19,7 +19,7 @@ class ComponentWrapper extends Template
     /**
      * @var string
      */
-    protected string $_template = "@ProgramCmsUi/component_wrapper.html.twig";
+    protected string $_template = "@ProgramCmsUiBundle/component_wrapper.html.twig";
 
     /**
      * @return string

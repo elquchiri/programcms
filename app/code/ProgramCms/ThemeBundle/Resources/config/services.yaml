@@ -28,3 +28,15 @@ services:
   ProgramCms\ThemeBundle\Extension\ThemeExtension:
     tags:
       - { name: 'twig.extension' }
+
+  ProgramCms\CoreBundle\View\DesignInterface:
+    class: ProgramCms\ThemeBundle\Model\View\Design
+
+  ProgramCms\CoreBundle\View\Design\Theme\ThemeProviderInterface:
+    class: ProgramCms\ThemeBundle\Model\Provider\ThemeProvider
+
+  ProgramCms\ThemeBundle\Model\View\Design:
+    arguments:
+      $themes:
+        frontend: 'ProgramCms/Blank'
+        backend: 'Programcms/Backend'

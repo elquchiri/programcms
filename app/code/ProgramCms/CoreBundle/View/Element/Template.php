@@ -9,11 +9,15 @@
 namespace ProgramCms\CoreBundle\View\Element;
 
 use Exception;
+use ProgramCms\CoreBundle\App\State;
 use ProgramCms\CoreBundle\Model\Filesystem\DirectoryList;
 use ProgramCms\CoreBundle\View\Page\Config;
 use ProgramCms\RouterBundle\Service\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\SyntaxError;
+use Twig\Loader\FilesystemLoader;
 
 /**
  * Class Template
@@ -23,40 +27,55 @@ class Template extends AbstractBlock
 {
     /**
      * Path to template file.
-     *
      * @var string
      */
     protected string $_template;
+
     /**
      * @var BlockInterface
      */
-    protected \ProgramCms\CoreBundle\View\Element\BlockInterface $templateContext;
+    protected BlockInterface $templateContext;
+
     /**
      * Assigned variables for view
-     *
      * @var array
      */
     protected array $_viewVars = [];
+
     /**
      * @var DirectoryList
      */
     protected DirectoryList $directoryList;
+
     /**
      * @var Request
      */
     protected Request $request;
+
     /**
      * @var Environment
      */
     protected Environment $environment;
+
     /**
      * @var Config
      */
     protected Config $pageConfig;
+
     /**
      * @var TranslatorInterface
      */
     protected TranslatorInterface $translator;
+
+    /**
+     * @var Template\File\Resolver
+     */
+    protected Template\File\Resolver $resolver;
+
+    /**
+     * @var State
+     */
+    protected State $state;
 
     /**
      * Template constructor.
@@ -73,6 +92,8 @@ class Template extends AbstractBlock
         $this->environment = $context->getEnvironment();
         $this->pageConfig = $context->getPageConfig();
         $this->translator = $context->getTranslator();
+        $this->resolver = $context->getResolver();
+        $this->state = $context->getState();
         $this->templateContext = $this;
         parent::__construct($context, $data);
     }
@@ -130,27 +151,45 @@ class Template extends AbstractBlock
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getTemplate(): string
     {
         return $this->_template;
     }
 
     /**
-     * Get absolute path to template
-     *
-     * @return string|bool
+     * @return bool
      */
-    public function getTemplateFile(): string
+    public function hasTemplate(): bool
     {
-        $areaCode = $this->request->getCurrentAreaCode();
-        $templateParts = explode('/', $this->getTemplate());
-        $bundleName = explode('@', $templateParts[0])[1];
-        unset($templateParts[0]);
-        $requestedTemplatePath = implode('/', $templateParts);
-        $templatePath = '@' . str_replace('Bundle', '', $bundleName) . '/' . $areaCode . '/templates/' . $requestedTemplatePath;
-        $themeTemplatePath = $this->directoryList->getRoot() . '/app/design/' . $areaCode . '/ProgramCms/blank/' . $bundleName . '/templates/' . $requestedTemplatePath;
+        return isset($this->_template);
+    }
 
-        return is_file($themeTemplatePath) ? '@Themes/' . $areaCode . '/ProgramCms/blank/' . $bundleName . '/templates/' .$requestedTemplatePath : $templatePath;
+    /**
+     * @return mixed|string|null
+     */
+    public function getArea()
+    {
+        return $this->_getData('area') ? $this->_getData('area') : $this->state->getAreaCode();
+    }
+
+    /**
+     * Get absolute path to template
+     * @param null $template
+     * @return string
+     * @throws Exception
+     */
+    public function getTemplateFile($template = null): string
+    {
+        $template = $template ?: $this->getTemplate();
+        $params = ['bundle' => $this->getBundleName($template)];
+        $area = $this->getArea();
+        if ($area) {
+            $params['area'] = $area;
+        }
+        return $this->resolver->getTemplateFileName($template, $params);
     }
 
     /**
@@ -176,9 +215,8 @@ class Template extends AbstractBlock
      * Render block view from file (template)
      * @param $template
      * @return string
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws LoaderError
+     * @throws SyntaxError
      */
     public function fetchView($template): string
     {
@@ -187,7 +225,13 @@ class Template extends AbstractBlock
             if(empty($this->_viewVars)) {
                 $this->assign(['block' => $this->templateContext]);
             }
-            return $this->environment->render($template, $this->_viewVars);
+
+            return $this->environment
+                ->createTemplate(
+                    file_get_contents($template),
+                    $template
+                )
+                ->render($this->_viewVars);
         } catch (Exception $e) {
             throw $e;
         }

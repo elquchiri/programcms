@@ -6,8 +6,8 @@
 ##
 services:
   _defaults:
-    autowire: true      # Automatically injects dependencies in your services.
-    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    autowire: true
+    autoconfigure: true
     public: true
 
   ProgramCms\CoreBundle\:
@@ -16,10 +16,15 @@ services:
       - '../../DependencyInjection/'
       - '../../Resources/'
       - '../../Tests/'
+      - '../../View/Design/Fallback/Rule/'
+      - '../../Theme/'
 
   ProgramCms\CoreBundle\Model\Utils\BundleManager:
     arguments:
       $container: '@service_container'
+
+  ProgramCms\CoreBundle\Model\ObjectManagerInterface:
+    class: ProgramCms\CoreBundle\Model\ObjectManager
 
   # Auto Instantiate Doctrine Entities Data Object
   doctrine.entity.data_object_listener:
@@ -29,3 +34,15 @@ services:
 
   ProgramCms\CoreBundle\Config\FileResolverInterface:
     class: ProgramCms\CoreBundle\App\Config\FileResolver
+
+  ProgramCms\CoreBundle\View\Design\FileResolution\Fallback\ResolverInterface:
+    class: ProgramCms\CoreBundle\View\Design\FileResolution\Fallback\Resolver\Simple
+
+  ProgramCms\CoreBundle\View\Template\MinifierInterface:
+    class: ProgramCms\CoreBundle\View\Template\Twig\Minifier
+
+  ProgramCms\CoreBundle\App\RequestInterface:
+    class: ProgramCms\CoreBundle\App\Request\Request
+
+  ProgramCms\CoreBundle\App\AreaInterface:
+    class: ProgramCms\CoreBundle\App\Area

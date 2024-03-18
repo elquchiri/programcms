@@ -28,6 +28,7 @@ class Copyright extends \ProgramCms\AdminBundle\Block\Page\Copyright
      * @var \ProgramCms\AdminBundle\Block\Page\Copyright
      */
     protected \ProgramCms\AdminBundle\Block\Page\Copyright $subject;
+
     /**
      * ProgramCMS's Year of Creation
      */
@@ -58,14 +59,14 @@ class Copyright extends \ProgramCms\AdminBundle\Block\Page\Copyright
      */
     public function toHtml(): string
     {
-        $copyRightHtmlOutput = $this->_toHtml();
+        $copyRightHtmlOutput = $this->subject->toHtml();
         if(($yearsOfExistence = $this->subject->getCopyrightYear() - self::PROGRAMCMS_BIRTHDAY) >= 1) {
             $copyRightHtmlOutput .= sprintf(
                 "<p class=\"mt-1\" style=\"font-size: 11px; font-weight: bold;\">".
                 $this->trans("%s Year Of Existence").
                 $this->trans(", by").
                 "<a href=\"mailto: elquchiri@gmail.com\"> ".
-                $this->trans("Med ELQ").
+                $this->trans("Mohamed EL QUCHIRI").
                 "</a></p>", $yearsOfExistence);
         }
 

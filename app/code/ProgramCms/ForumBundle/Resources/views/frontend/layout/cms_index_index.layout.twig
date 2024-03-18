@@ -1,0 +1,13 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% page %}
+    {% referenceContainer name="content" %}
+        {% block name="home.forums" class="ProgramCms\\ForumBundle\\Block\\Cms\\Categories" template="@ProgramCmsForumBundle/cms/forums.html.twig" %}{% endBlock %}
+    {% endReferenceContainer %}
+{% endPage %}

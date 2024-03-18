@@ -13,7 +13,7 @@ use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\UserBundle\Entity\UserEntity as User;
-use ProgramCms\UserBundle\Form\UserRegistrationType;
+use ReflectionException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -27,14 +27,17 @@ class RegisterController extends \ProgramCms\CoreBundle\Controller\Controller
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+
     /**
      * @var UserPasswordHasherInterface
      */
     protected UserPasswordHasherInterface $userPasswordHasher;
+
     /**
      * @var EntityManagerInterface
      */
     protected EntityManagerInterface $entityManager;
+
     /**
      * @var Request
      */
@@ -63,32 +66,35 @@ class RegisterController extends \ProgramCms\CoreBundle\Controller\Controller
 
     /**
      * @return object|RedirectResponse|null
+     * @throws ReflectionException
      */
     public function execute()
     {
         $user = new User();
-        $form = $this->createForm(UserRegistrationType::class, $user);
-        $form->handleRequest($this->request->getCurrentRequest());
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $user->setPassword(
-                $this->userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('password')->getData()
-                )
-            );
-            // Set Account Role as 'USER'
-            $user->setRoles(['USER']);
-
-            $this->entityManager->persist($user);
-            $this->entityManager->flush();
-
-            return $this->redirectToRoute('frontend_home');
-        }
+//        $form = $this->createForm(UserRegistrationType::class, $user);
+//        $form->handleRequest($this->request->getCurrentRequest());
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            // encode the plain password
+//            $user->setPassword(
+//                $this->userPasswordHasher->hashPassword(
+//                    $user,
+//                    $form->get('password')->getData()
+//                )
+//            );
+//            // Set Account Role as 'USER'
+//            $user->setRoles(['USER']);
+//
+//            $this->entityManager->persist($user);
+//            $this->entityManager->flush();
+//
+//            return $this->redirectToRoute('frontend_home');
+//        }
 
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
-        $pageResult->getConfig()->getTitle()->set("Create Account");
+        $pageResult->getConfig()->getTitle()->set(
+            $this->trans("Create an Account")
+        );
         return $pageResult;
     }
 }

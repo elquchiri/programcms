@@ -10,4 +10,18 @@
     {% referenceContainer name="navbar.collapse" %}
         {% block name="form.search.mini" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsSearchBundle/form_search_mini.html.twig" before="-" %}{% endBlock %}
     {% endReferenceContainer %}
+    {% referenceBlock name="footer.links" %}
+        {% block name="search-terms-link" class="ProgramCms\\ThemeBundle\\Block\\Page\\Current" %}
+            {% arguments %}
+                {% argument name="label" type="string" %}Search Terms{% endArgument %}
+                {% argument name="path" type="string" %}search-terms{% endArgument %}
+            {% endArguments %}
+        {% endBlock %}
+        {% block name="advanced-search-link" class="ProgramCms\\ThemeBundle\\Block\\Page\\Current" %}
+            {% arguments %}
+                {% argument name="label" type="string" %}Advanced Search{% endArgument %}
+                {% argument name="path" type="string" %}advanced-search{% endArgument %}
+            {% endArguments %}
+        {% endBlock %}
+    {% endReferenceBlock %}
 {% endPage %}

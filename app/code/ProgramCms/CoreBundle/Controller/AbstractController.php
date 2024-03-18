@@ -10,17 +10,20 @@ namespace ProgramCms\CoreBundle\Controller;
 
 use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\RouterBundle\Service\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as AbstractSymfonyController;
 
 /**
  * Class AbstractController
  * @package ProgramCms\CoreBundle\Controller
  */
-abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController implements ControllerInterface
+abstract class AbstractController extends AbstractSymfonyController
+    implements ControllerInterface
 {
     /**
      * @var Request
      */
     protected Request $request;
+
     /**
      * @var Response
      */
@@ -31,7 +34,7 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
      * @param Context $context
      */
     public function __construct(
-        \ProgramCms\CoreBundle\Controller\Context $context
+        Context $context
     )
     {
         $this->request = $context->getRequest();

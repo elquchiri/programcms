@@ -9,6 +9,7 @@
 namespace ProgramCms\ConfigBundle\Model;
 
 use Exception;
+use ProgramCms\ConfigBundle\Model\Structure\Element\Tab;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ReflectionException;
 use Symfony\Component\DependencyInjection\Container;
@@ -159,6 +160,10 @@ class ConfigSerializer
                 }
             }
         }
+
+        uasort($this->_data['tabs'], function ($firstItem, $secondItem) {
+            return $firstItem['sortOrder'] <=> $secondItem['sortOrder'];
+        });
     }
 
     /**
@@ -205,29 +210,24 @@ class ConfigSerializer
      */
     protected function _createEmptyElement(array $path)
     {
-        switch (count($path)) {
-            case 1:
-                $elementType = 'section';
-                break;
-            case 2:
-                $elementType = 'group';
-                break;
-            default:
-                $elementType = 'field';
-        }
+        $elementType = match (count($path)) {
+            1 => 'section',
+            2 => 'group',
+            default => 'field',
+        };
         $elementId = array_pop($path);
         return ['id' => $elementId, 'path' => implode('/', $path), '_elementType' => $elementType];
     }
 
     /**
-     * @return mixed|Structure\AbstractElement
+     * @return Structure\AbstractElement
      * @throws Exception
      */
     public function getFirstSection()
     {
         $tabs = $this->getTabs();
         $tabs->rewind();
-        /** @var \ProgramCms\ConfigBundle\Model\Structure\Element\Tab $tab */
+        /** @var Tab $tab */
         $tab = $tabs->current();
         $tab->getChildren()->rewind();
         if (!$tab->getChildren()->current()->isVisible()) {
@@ -240,7 +240,7 @@ class ConfigSerializer
     /**
      * @return Structure\Element\Iterator\Tab
      */
-    public function getTabs()
+    public function getTabs(): Structure\Element\Iterator\Tab
     {
         if (isset($this->_data['sections'])) {
             foreach ($this->_data['sections'] as $sectionId => $section) {

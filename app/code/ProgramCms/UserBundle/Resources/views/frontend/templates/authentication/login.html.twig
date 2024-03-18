@@ -1,32 +1,44 @@
-<section class="h-100">
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<section class="h-100 mb-5">
     <header class="container h-100">
         <div class="d-flex align-items-center justify-content-center h-100">
             <div class="d-flex flex-column">
                 <div class="card" style="border: none">
                     <div class="card-body" style="width: 29rem;">
-                        <h2>Log In</h2>
-                        <p>Join our Community and grant access.</p>
+                        <div class="mb-5">
+                            <h2>{{ block.trans('Log In') }}</h2>
+                            <p style="color: #888888">{{ block.trans('Join our Community.') }}</p>
+                        </div>
                         <form method="POST" action="{{ path('frontend_user_account_authentication') }}">
                             <div class="mb-3">
-                                <label for="username" class="form-label">Email or Nickname</label>
-                                <input type="email" class="form-control" id="username" name="email" value=""
-                                       placeholder="@email or Login" aria-describedby="emailHelp">
+                                <label for="username" class="form-label fw-bold">{{ block.trans('Email or User Name') }}</label>
+                                <input type="email" class="form-control" id="username" name="email" value="">
                             </div>
                             <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
+                                <label for="password" class="form-label fw-bold">{{ block.trans('Password') }}</label>
                                 <input type="password" class="form-control" id="password" name="password"
                                        placeholder="*********">
-                                <div id="emailHelp" class="form-text">
-                                    <a href="#">Forgotten Password ?</a>
+                                <div id="emailHelp" class="form-text mt-3">
+                                    <a href="#">{{ block.trans('Forgotten Password ?') }}</a>
                                 </div>
                             </div>
                             <div class="mb-3 form-check">
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">Remember connexion</label>
+                                <label class="form-check-label" for="exampleCheck1">
+                                    {{ block.trans('Remember connexion') }}
+                                </label>
                             </div>
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                            <div style="text-align: right">
-                                <button type="submit" class="btn btn-primary btn-block" style="width: 100%;">Login Now
+                            <div class="mt-5">
+                                <button type="submit" class="btn btn-primary btn-block" style="width: 100%;">
+                                    {{ block.trans('Login Now') }}
                                 </button>
                             </div>
                         </form>

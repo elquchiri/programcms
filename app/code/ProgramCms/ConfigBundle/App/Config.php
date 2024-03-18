@@ -8,6 +8,7 @@
 
 namespace ProgramCms\ConfigBundle\App;
 
+use ProgramCms\ConfigBundle\Entity\CoreConfigData;
 use ProgramCms\ConfigBundle\Repository\CoreConfigDataRepository;
 
 /**
@@ -51,7 +52,7 @@ class Config implements ScopeConfigInterface
         if($config) {
             $config->setValue($value);
         }else{
-            $config = new \ProgramCms\ConfigBundle\Entity\CoreConfigData();
+            $config = new CoreConfigData();
             $config->setPath($path)
                 ->setValue($value)
                 ->setScope($scopeType)

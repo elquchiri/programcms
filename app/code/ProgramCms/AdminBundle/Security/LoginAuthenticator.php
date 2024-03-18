@@ -30,6 +30,7 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
     use TargetPathTrait;
 
     public const LOGIN_ROUTE = 'adminhtml_admin_index_index';
+
     /**
      * @var UrlGeneratorInterface
      */

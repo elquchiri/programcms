@@ -14,7 +14,6 @@ namespace ProgramCms\WebsiteBundle\Model;
  */
 class ScopeInterface
 {
-
     const SCOPE_WEBSITE_VIEW = 'website_view';
 
     const SCOPE_WEBSITE = 'website';

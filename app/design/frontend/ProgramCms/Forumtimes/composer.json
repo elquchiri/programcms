@@ -1,0 +1,30 @@
+{
+    "name": "programcms/forum-times-theme",
+    "description": "Represents Frontend Forumtimes Theme in ProgramCMS application",
+    "license": "MIT",
+    "type": "programcms-theme",
+    "keywords": [
+        "ProgramCms",
+        "Frontend",
+        "Blank",
+        "Theme",
+        "Bundle",
+        "CMS",
+        "Forum"
+    ],
+    "authors": [
+        {
+            "name": "Mohamed EL QUCHIRI",
+            "email": "elquchiri@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "ProgramCms\\Forumtimes\\": ""
+        }
+    }
+}

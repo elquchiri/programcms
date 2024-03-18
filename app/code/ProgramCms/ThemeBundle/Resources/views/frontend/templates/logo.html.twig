@@ -7,6 +7,10 @@
  */
 #}
 <a class="navbar-brand" href="{{ path('frontend_cms_index_index') }}">
-    <img src="{{ asset('bundles/programcmstheme/images/logo.png') }}" />
-    <span style="color: #379DFF; font-weight: bold">rogramCMS</span>
+    <img
+        src="{{ asset('bundles/programcmstheme/images/logo.png') }}"
+        alt="{{ block.trans('Logo') }}"
+        title="{{ block.trans('Logo') }}"
+    />
+    <span style="color: #379DFF; font-weight: bold">{{ block.trans('rogramCMS') }}</span>
 </a>

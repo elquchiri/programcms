@@ -8,16 +8,15 @@
 
 namespace ProgramCms\CoreBundle\Controller;
 
-use HttpResponseException;
-use ProgramCms\ConfigBundle\App\Config;
+use ProgramCms\CoreBundle\App\Config;
 use ProgramCms\CoreBundle\App\AreaList;
 use ProgramCms\CoreBundle\App\State;
-use ProgramCms\WebsiteBundle\Entity\WebsiteView;
-use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
-use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
+use ProgramCms\CoreBundle\View\DesignLoader;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use HttpResponseException;
+use ReflectionException;
 
 /**
  * Class Controller
@@ -56,6 +55,11 @@ abstract class Controller extends AbstractController
     protected Config $config;
 
     /**
+     * @var DesignLoader
+     */
+    protected DesignLoader $designLoader;
+
+    /**
      * Controller constructor.
      * @param Context $context
      */
@@ -70,20 +74,26 @@ abstract class Controller extends AbstractController
         $this->security = $context->getSecurity();
         $this->translator = $context->getTranslator();
         $this->config = $context->getConfig();
+        $this->designLoader = $context->getDesignLoader();
     }
 
     /**
      * Dispatch Request
      * @return mixed
-     * @throws HttpResponseException
+     * @throws HttpResponseException|ReflectionException
      */
     public function dispatch(): mixed
     {
-        // Set website view locale
-        $this->localeSwitcher->setLocale($this->_state->getLocale());
-
         $areaCode = $this->_areaList->getCodeByFrontName($this->getRequest()->getFrontName());
         $this->_state->setAreaCode($areaCode);
+
+        // Load Design Part
+        $this->designLoader->load();
+
+        // Set website view locale
+        $locale = $this->config->getValue('general/locale_options/locale', 'website_view');
+        $this->localeSwitcher->setLocale($locale);
+
         $result = $this->execute();
         if($result instanceof \ProgramCms\CoreBundle\View\Result\Page) {
             try {

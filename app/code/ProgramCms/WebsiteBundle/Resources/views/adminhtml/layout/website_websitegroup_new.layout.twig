@@ -8,12 +8,15 @@
 #}
 {% page layout="admin-2columns-left" %}
     {% referenceContainer name="sidebar.main" %}
-        {% block name="category.tree.block" class="ProgramCms\\CatalogBundle\\Block\\CategoryTreeButtons" template="@ProgramCmsWebsiteBundle/new_root_website.html.twig" %}{% endBlock %}
-        {% block name="category.tree" class="ProgramCms\\UiBundle\\Block\\Tree\\Tree" %}
+        {% block name="category.tree" class="ProgramCms\\UiBundle\\Component\\Tree\\Tree" %}
             {% arguments %}
-                {% argument name="isOpen" type="boolean" %}true{% endArgument %}
-                {% argument name="dataProvider" type="array" %}
-                    {% argument name="class" type="string" %}ProgramCms\WebsiteBundle\Model\Website\DataProvider{% endArgument %}
+                {% argument name="data" type="array" %}
+                    {% argument name="isOpen" type="boolean" %}true{% endArgument %}
+                {% endArgument %}
+                {% argument name="dataSource" type="array" %}
+                    {% argument name="dataProvider" type="array" %}
+                        {% argument name="class" type="string" %}ProgramCms\WebsiteBundle\Model\Website\DataProvider{% endArgument %}
+                    {% endArgument %}
                 {% endArgument %}
             {% endArguments %}
         {% endBlock %}

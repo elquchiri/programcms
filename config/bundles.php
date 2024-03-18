@@ -31,6 +31,8 @@ return [
     ProgramCms\ImportBundle\ProgramCmsImportBundle::class => ['all' => true],
     ProgramCms\MarketingBundle\ProgramCmsMarketingBundle::class => ['all' => true],
     ProgramCms\DataPatchBundle\ProgramCmsDataPatchBundle::class => ['all' => true],
+    ProgramCms\AssistanceBundle\ProgramCmsAssistanceBundle::class => ['all' => true],
+    ProgramCms\GdprBundle\ProgramCmsGdprBundle::class => ['all' => true],
     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
     Symfony\Bundle\TwigBundle\TwigBundle::class => ['all' => true],
     Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true],

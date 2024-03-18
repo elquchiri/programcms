@@ -9,7 +9,9 @@
 namespace ProgramCms\UiBundle\Block\Toolbar;
 
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\CoreBundle\View\Element\Template\Context;
 use ProgramCms\RouterBundle\Service\Url;
+use ReflectionException;
 
 /**
  * Class ToolbarActions
@@ -21,10 +23,12 @@ class ToolbarActions extends \ProgramCms\CoreBundle\View\Element\Template
      * @var string
      */
     protected string $_template = "@ProgramCmsUiBundle/toolbar/toolbar_buttons.html.twig";
+
     /**
      * @var Url
      */
     protected Url $url;
+
     /**
      * @var ObjectManager
      */
@@ -32,11 +36,12 @@ class ToolbarActions extends \ProgramCms\CoreBundle\View\Element\Template
 
     /**
      * ToolbarActions constructor.
-     * @param \ProgramCms\CoreBundle\View\Element\Template\Context $context
+     * @param Context $context
+     * @param ObjectManager $objectManager
      * @param array $data
      */
     public function __construct(
-        \ProgramCms\CoreBundle\View\Element\Template\Context $context,
+        Context $context,
         ObjectManager $objectManager,
         array $data = []
     )
@@ -49,12 +54,17 @@ class ToolbarActions extends \ProgramCms\CoreBundle\View\Element\Template
     /**
      * Process buttons
      * @return array
+     * @throws ReflectionException
      */
     public function getButtons(): array
     {
         // Transform url names to paths
         $buttons = [];
-        foreach($this->getData() as $buttonData) {
+        foreach($this->getData() as $buttonKey => $buttonData) {
+            if($buttonKey === 'bundle_name') {
+                continue;
+            }
+
             if(is_string($buttonData) && !empty($buttonData)) {
                 $dataSource = $this->objectManager->create($buttonData);
                 $button = $dataSource->getData();
@@ -78,7 +88,6 @@ class ToolbarActions extends \ProgramCms\CoreBundle\View\Element\Template
 //                $buttons[] = $button;
             }
         }
-
         return $buttons;
     }
 }

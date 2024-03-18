@@ -8,6 +8,8 @@
 
 namespace ProgramCms\CoreBundle\View\Result;
 
+use Symfony\Component\HttpFoundation\Response;
+
 /**
  * Class AbstractResult
  * @package ProgramCms\CoreBundle\View\Result
@@ -18,5 +20,5 @@ abstract class AbstractResult implements ResultInterface
     /**
      * @return mixed
      */
-    abstract public function render(array $parameters = []): \Symfony\Component\HttpFoundation\Response;
+    abstract public function render(array $parameters = []): Response;
 }

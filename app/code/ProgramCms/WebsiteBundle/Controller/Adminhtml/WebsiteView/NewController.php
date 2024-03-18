@@ -10,6 +10,7 @@ namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteView;
 
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ReflectionException;
 
 /**
  * Class NewController
@@ -38,12 +39,14 @@ class NewController extends \ProgramCms\CoreBundle\Controller\AdminController
 
     /**
      * @return object|null
+     * @throws ReflectionException
      */
     public function execute()
     {
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
-
-        $pageResult->getConfig()->getTitle()->set("New Website View");
+        $pageResult->getConfig()->getTitle()->set(
+            $this->trans("New Website View")
+        );
         return $pageResult;
     }
 }

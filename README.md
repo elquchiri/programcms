@@ -22,25 +22,35 @@ Please note that ProgramCMS Project is under development
 - Apache 2 or Nginx
 - PHP 8.1
 - MySQL 8
-- Node
+- Node 20.11
 - Redis
 - Composer 2
-- Git
+
 ## Installation
 
-To install ProgramCMS project run :
+First, Make sure to have all requirements installed on your OS.
+
+Next somewhere in your hard drive, create your root project folder.
+
+Then inside your folder, run :
 
 ```bash
   git clone git@github.com:elquchiri/programcms.git
   composer install
-  
-  Edit .env file to match your database
+```
+
+Edit .env file to match your database :
+```bash
   DATABASE_URL="mysql://root:@127.0.0.1:3306/programcms?serverVersion=8&charset=utf8mb4"
-  
+```
+
+Finally, run :
+```bash
   php bin/pcms make:migration
   php bin/pcms doctrine:migrations:migrate
   php bin/pcms setup:data-patch
   php bin/pcms assets:compile
+  php bin/pcms admin:create admin@email.com admin123
 ```
 
 
@@ -62,7 +72,7 @@ To install ProgramCMS project run :
 - Layouts, Containers, Blocks and Templates Engine
 - Full UI Components System
 - Strong & Full Customizable EAV System
-- Aspect-Oriented Programming Style
+- Dependency Injection & Aspect-Oriented Programming Support
 - Data Based AI to process, generate and translate content
 
 ## Demo

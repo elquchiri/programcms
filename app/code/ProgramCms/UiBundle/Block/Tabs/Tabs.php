@@ -20,7 +20,7 @@ class Tabs extends \ProgramCms\CoreBundle\View\Element\Template
     /**
      * @var string
      */
-    protected string $_template = "@ProgramCmsUi/tabs/tabs.html.twig";
+    protected string $_template = "@ProgramCmsUiBundle/tabs/tabs.html.twig";
 
     /**
      * @return string

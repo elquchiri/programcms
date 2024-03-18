@@ -10,7 +10,6 @@ namespace ProgramCms\CoreBundle\App;
 
 use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\CoreBundle\Helper\State as AppState;
-use ProgramCms\WebsiteBundle\Model\State as WebsiteState;
 
 /**
  * Class State
@@ -18,6 +17,10 @@ use ProgramCms\WebsiteBundle\Model\State as WebsiteState;
  */
 class State
 {
+    const MODE_PRODUCTION = 'prod';
+
+    const MODE_DEVELOPER = 'dev';
+
     /**
      * @var string|mixed
      */
@@ -41,24 +44,16 @@ class State
     protected Request $request;
 
     /**
-     * @var WebsiteState
-     */
-    protected WebsiteState $state;
-
-    /**
      * State constructor.
      * @param Request $request
-     * @param WebsiteState $state
      */
     public function __construct(
         Request $request,
-        WebsiteState $state
     )
     {
         $this->request = $request;
         $this->runType = $this->request->getEnv(AppState::ENV_RUN_TYPE, AppState::DEFAULT_RUN_TYPE);
         $this->runCode = $this->request->getEnv(AppState::ENV_RUN_CODE, AppState::DEFAULT_RUN_CODE);
-        $this->state = $state;
     }
 
     /**
@@ -100,8 +95,8 @@ class State
     /**
      * @return mixed
      */
-    public function getLocale()
+    public function getMode()
     {
-        return $this->state->getLocale($this->runType, $this->runCode);
+        return $this->request->getEnv('APP_ENV');
     }
 }

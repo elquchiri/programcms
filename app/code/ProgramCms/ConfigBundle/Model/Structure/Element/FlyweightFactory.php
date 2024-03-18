@@ -10,6 +10,10 @@ namespace ProgramCms\ConfigBundle\Model\Structure\Element;
 
 use ProgramCms\CoreBundle\Model\ObjectManager;
 
+/**
+ * Class FlyweightFactory
+ * @package ProgramCms\ConfigBundle\Model\Structure\Element
+ */
 class FlyweightFactory
 {
     /**

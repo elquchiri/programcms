@@ -15,4 +15,12 @@ namespace ProgramCms\UserBundle\Block\Account;
 class Register extends \ProgramCms\CoreBundle\View\Element\Template
 {
 
+    public function getRulesAndPolicy()
+    {
+        return sprintf(
+            $this->trans('I accept %s and %s'),
+            '<a href="#">' . $this->trans('The conditions') . '</a>',
+            '<a href="#">' . $this->trans('Confidential policy') . '</a>'
+        );
+    }
 }

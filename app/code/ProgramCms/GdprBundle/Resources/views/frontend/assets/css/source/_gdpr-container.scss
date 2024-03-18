@@ -1,0 +1,24 @@
+/*!
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+
+.gdpr-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 27px;
+  background-color: rgba(222, 222, 222, 0.9);
+  z-index: 1000;
+  display: none;
+  box-shadow: 3px 3px 3px 3px #CCCCCC;
+
+  .content {
+    font-size: 14px;
+    margin: 0;
+  }
+}

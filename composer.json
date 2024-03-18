@@ -29,7 +29,8 @@
         "symfony/twig-bundle": "^6.2",
         "symfony/validator": "^6.2",
         "symfony/yaml": "6.2.*",
-        "symfonycasts/verify-email-bundle": "^1.12"
+        "symfonycasts/verify-email-bundle": "^1.12",
+        "ext-http": "*"
     },
     "config": {
         "allow-plugins": {
@@ -69,8 +70,11 @@
             "ProgramCms\\ImportBundle\\": "app/code/ProgramCms/ImportBundle",
             "ProgramCms\\MarketingBundle\\": "app/code/ProgramCms/MarketingBundle",
             "ProgramCms\\DataPatchBundle\\": "app/code/ProgramCms/DataPatchBundle",
+            "ProgramCms\\AssistanceBundle\\": "app/code/ProgramCms/AssistanceBundle",
+            "ProgramCms\\GdprBundle\\": "app/code/ProgramCms/GdprBundle",
             "ProgramCms\\Backend\\": "app/design/adminhtml/ProgramCms/Backend",
-            "ProgramCms\\Blank\\": "app/design/frontend/ProgramCms/Blank"
+            "ProgramCms\\Blank\\": "app/design/frontend/ProgramCms/Blank",
+            "ProgramCms\\Forumtimes\\": "app/design/frontend/ProgramCms/Forumtimes"
         }
     },
     "autoload-dev": {

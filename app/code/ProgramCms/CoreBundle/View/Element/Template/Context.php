@@ -11,6 +11,7 @@ namespace ProgramCms\CoreBundle\View\Element\Template;
 use ProgramCms\CoreBundle\App\State;
 use ProgramCms\CoreBundle\Helper\Language;
 use ProgramCms\CoreBundle\Model\Filesystem\DirectoryList;
+use ProgramCms\CoreBundle\View\Element\Template\File\Resolver;
 use ProgramCms\CoreBundle\View\Layout;
 use ProgramCms\CoreBundle\View\Page\Config;
 use ProgramCms\RouterBundle\Service\Request;
@@ -72,6 +73,11 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
     protected State $state;
 
     /**
+     * @var Resolver
+     */
+    protected Resolver $resolver;
+
+    /**
      * Context constructor.
      * @param DirectoryList $directoryList
      * @param Request $request
@@ -84,6 +90,7 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
      * @param Language $language
      * @param WebpackOutput $webpackOutput
      * @param State $state
+     * @param Resolver $resolver
      */
     public function __construct(
         DirectoryList $directoryList,
@@ -96,7 +103,8 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
         LocaleSwitcher $localeSwitcher,
         Language $language,
         WebpackOutput $webpackOutput,
-        State $state
+        State $state,
+        Resolver $resolver
     )
     {
         parent::__construct($directoryList, $request);
@@ -109,6 +117,7 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
         $this->language = $language;
         $this->webpackOutput = $webpackOutput;
         $this->state = $state;
+        $this->resolver = $resolver;
     }
 
     /**
@@ -182,5 +191,13 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
     public function getState(): State
     {
         return $this->state;
+    }
+
+    /**
+     * @return Resolver
+     */
+    public function getResolver(): Resolver
+    {
+        return $this->resolver;
     }
 }

@@ -23,13 +23,13 @@ system_config:
               label: 'Default Country'
               type: 'select'
               source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
-              scope: 'default|website|website_view'
+              scope: 'default|website|website_view|can_restore'
             allowed_countries:
               label: 'Allow Countries'
               type: 'multiselect'
               source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
-              scope: 'default|website|website_view'
-        local_options:
+              scope: 'default|website|website_view|can_restore'
+        locale_options:
           label: 'Locale Options'
           scope: 'default|website|website_view'
           fields:
@@ -37,26 +37,71 @@ system_config:
               label: 'Timezone'
               type: 'select'
               source: ProgramCms\UiBundle\Model\Provider\DataSource\TimeZoneSelector
-              scope: 'default|website|website_view'
+              scope: 'default|website|website_view|can_restore'
             locale:
               label: 'Locale'
               type: 'select'
               source: ProgramCms\UiBundle\Model\Provider\DataSource\LocaleSelector
+              scope: 'default|website|website_view|can_restore'
+        website_information:
+          label: 'Website Information'
+          scope: 'default|website|website_view'
+          fields:
+            website_name:
+              label: 'Website Name'
+              type: 'text'
+              scope: 'default|website|website_view'
+            website_phone:
+              label: 'Website Phone Number'
+              type: 'text'
+              scope: 'default|website|website_view'
+            region:
+              label: 'Region/State'
+              type: 'text'
+              scope: 'default|website|website_view'
+            zip_code:
+              label: 'ZIP/Postal Code'
+              type: 'text'
+              scope: 'default|website|website_view'
+            city:
+              label: 'City'
+              type: 'text'
+              scope: 'default|website|website_view'
+            address:
+              label: 'Street Address'
+              type: 'text'
+              scope: 'default|website|website_view'
+            address_line2:
+              label: 'Street Address Line 2'
+              type: 'text'
+              scope: 'default|website|website_view'
+            country:
+              label: 'Country'
+              type: 'select'
+              source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
               scope: 'default|website|website_view'
     web:
       label: 'Web'
       tab: 'core_general'
       scope: 'default|website|website_view'
       groups:
-        country_optionsg:
-          label: 'Country Options'
+        urls:
+          label: 'Base URLs'
           scope: 'default|website|website_view'
           fields:
-            default_countryg:
-              label: 'Default Country'
+            base_url:
+              label: 'Base URL'
+              type: 'text'
+              scope: 'default|website|website_view|can_restore'
+        default_pages:
+          label: 'Default Pages'
+          scope: 'default|website|website_view'
+          fields:
+            cms:
+              label: 'CMS Home Page'
               type: 'select'
-              source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
-              scope: 'default|website|website_view'
+              source: ProgramCms\UiBundle\Model\Provider\DataSource\LocaleSelector
+              scope: 'default|website|website_view|can_restore'
     theme_config:
       label: 'Theme Configuration'
       tab: 'core_general'

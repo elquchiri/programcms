@@ -8,10 +8,12 @@
 
 namespace ProgramCms\DependencyBundle;
 
+use ProgramCms\CoreBundle\App\Kernel;
 use ReflectionClass;
 use ReflectionException;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use ProgramCms\DependencyBundle\Exception\BundleDependencyException;
+use ProgramCms\DependencyBundle\Exception\BundleStackNotCacheableException;
 
 /**
  * Trait BundleDependenciesResolver
@@ -20,11 +22,12 @@ use ProgramCms\DependencyBundle\Exception\BundleDependencyException;
 trait BundleDependenciesResolver
 {
     /**
+     * @param Kernel $kernel
      * @param array $bundles
      * @return array
      * @throws ReflectionException
      */
-    protected function _getBundleInstances(\ProgramCms\CoreBundle\App\Kernel $kernel, array $bundles): array
+    protected function _getBundleInstances(Kernel $kernel, array $bundles): array
     {
         $builtBundles = [];
         $cacheFile = $kernel->getCacheDir() . '/kernelDependenciesStack.php';

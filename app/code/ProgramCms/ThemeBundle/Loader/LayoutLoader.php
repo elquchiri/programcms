@@ -13,27 +13,32 @@ use ProgramCms\CoreBundle\Model\Utils\BundleManager;
 use ProgramCms\RouterBundle\Service\Request;
 use ReflectionException;
 use Twig\Error\LoaderError;
+use Twig\Loader\LoaderInterface;
 use Twig\Source;
 
 /**
  * Class LayoutLoader
  * @package ProgramCms\ThemeBundle\Loader
  */
-class LayoutLoader implements \Twig\Loader\LoaderInterface
+class LayoutLoader implements LoaderInterface
 {
     const DEFAULT_LAYOUT_FILE = 'default.layout.twig';
+
     /**
      * @var Request
      */
     private Request $request;
+
     /**
      * @var BundleManager
      */
     private BundleManager $bundleManager;
+
     /**
      * @var DirectoryList
      */
     private DirectoryList $directoryList;
+
     /**
      * @var array
      */
@@ -142,7 +147,7 @@ class LayoutLoader implements \Twig\Loader\LoaderInterface
      */
     private function _validateLayout(string $name): void
     {
-        if (false !== strpos($name, "\0")) {
+        if (str_contains($name, "\0")) {
             throw new LoaderError('A layout name cannot contain NUL bytes.');
         }
     }

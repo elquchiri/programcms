@@ -16,7 +16,8 @@ interface ObjectManagerInterface
 {
     /**
      * @param string $serviceId
+     * @param array $arguments
      * @return object|null
      */
-    public function create(string $serviceId): ?object;
+    public function create(string $serviceId, array $arguments = []): ?object;
 }

@@ -1,0 +1,1 @@
+The Assistance bundle contains common infrastructure that provides assistance in ProgramCMS application.

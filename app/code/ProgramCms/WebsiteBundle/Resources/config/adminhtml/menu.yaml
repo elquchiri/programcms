@@ -12,6 +12,7 @@ menu:
     groups:
       settings:
         label: 'Settings'
+        sortOrder: 1
         actions:
           websites:
             label: 'All Web Sites'

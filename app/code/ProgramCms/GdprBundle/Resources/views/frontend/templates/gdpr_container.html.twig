@@ -1,0 +1,24 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="gdpr-container" data-controller="gdpr-container">
+    <div class="container" style="padding-left: 10%; padding-right: 10%">
+        <div class="row">
+            <div class="col-9">
+                <p class="content">
+                    {{ block.getGdprContent()|raw }}
+                </p>
+            </div>
+            <div class="col text-center">
+                <button class="btn btn-primary ps-5 pe-5 pt-2 pb-2" data-action="gdpr-container#gdprApproveClick">
+                    {{ block.trans('OK') }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
