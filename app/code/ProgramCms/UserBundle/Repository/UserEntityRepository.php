@@ -8,19 +8,15 @@
 
 namespace ProgramCms\UserBundle\Repository;
 
+use ProgramCms\CoreBundle\Repository\AbstractRepository;
 use ProgramCms\UserBundle\Entity\UserEntity;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<UserEntity>
- *
- * @method UserEntity|null find($id, $lockMode = null, $lockVersion = null)
- * @method UserEntity|null findOneBy(array $criteria, array $orderBy = null)
- * @method UserEntity[]    findAll()
- * @method UserEntity[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class UserEntityRepository
+ * @package ProgramCms\UserBundle\Repository
  */
-class UserEntityRepository extends ServiceEntityRepository
+class UserEntityRepository extends AbstractRepository
 {
     /**
      * UserRepository constructor.
@@ -32,28 +28,31 @@ class UserEntityRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param UserEntity $entity
-     * @param bool $flush
+     * @param int $id
+     * @return object|null
      */
-    public function save(UserEntity $entity, bool $flush = false): void
+    public function getById(int $id): ?object
     {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        return $this->findOneBy(['entity_id' => $id]);
     }
 
     /**
-     * @param UserEntity $entity
-     * @param bool $flush
+     * Get User by email
+     * @param string $email
+     * @return UserEntity|null
      */
-    public function remove(UserEntity $entity, bool $flush = false): void
+    public function getByEmail(string $email): ?object
     {
-        $this->getEntityManager()->remove($entity);
+        return $this->findOneBy(['email' => $email]);
+    }
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+    /**
+     * Get User by reset token
+     * @param string $token
+     * @return object|null
+     */
+    public function getByResetToken(string $token): ?object
+    {
+        return $this->findOneBy(['reset_token' => $token]);
     }
 }

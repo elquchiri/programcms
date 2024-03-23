@@ -9,6 +9,7 @@
 namespace ProgramCms\CoreBundle\App;
 
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ReflectionException;
 
 /**
  * Class ScopeResolver
@@ -37,6 +38,7 @@ class ScopeResolver implements ScopeResolverInterface
 
     /**
      * @return object|ScopeInterface|null
+     * @throws ReflectionException
      */
     public function getScope($scopeId = null)
     {

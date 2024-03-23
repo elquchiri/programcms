@@ -8,19 +8,19 @@
 
 namespace ProgramCms\ThemeBundle\Parser;
 
-use ProgramCms\ThemeBundle\Node\UpdateNode;
+use ProgramCms\ThemeBundle\Node\RequireNode;
 use Twig\Token;
 use Twig\Error\SyntaxError;
 
 /**
- * Class UpdateTokenParser
+ * Class RequireTokenParser
  * @package ProgramCms\ThemeBundle\Parser
  */
-class UpdateTokenParser extends \Twig\TokenParser\AbstractTokenParser
+class RequireTokenParser extends \Twig\TokenParser\AbstractTokenParser
 {
     /**
      * @param Token $token
-     * @return UpdateNode
+     * @return RequireNode
      * @throws SyntaxError
      */
     public function parse(Token $token)
@@ -36,7 +36,7 @@ class UpdateTokenParser extends \Twig\TokenParser\AbstractTokenParser
         }
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new UpdateNode('', ['handle' => $handle], $lineno, $this->getTag());
+        return new RequireNode('', ['handle' => $handle], $lineno, $this->getTag());
     }
 
     /**
@@ -44,6 +44,6 @@ class UpdateTokenParser extends \Twig\TokenParser\AbstractTokenParser
      */
     public function getTag()
     {
-        return 'update';
+        return 'require';
     }
 }

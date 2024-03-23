@@ -24,7 +24,7 @@
         {% container name="buttons.bar" htmlTag="div" htmlClass="container-fluid ef-buttons-bar" %}{% endContainer %}
     {% endReferenceContainer %}
     {% referenceContainer name="page.messages" %}
-        {% block name="page.alerts.block" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsAdminBundle/flashes.html.twig" %}{% endBlock %}
+        {% block name="page.alerts.block" class="ProgramCms\\CoreBundle\\View\\Element\\Template" template="@ProgramCmsAdminBundle/flashes.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}
     {% referenceContainer name="footer.container" %}
         {% container name="footer.content" htmlTag="div" htmlClass="footer-content row" %}

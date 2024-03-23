@@ -1,0 +1,22 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+system_config:
+  sections:
+    gdpr:
+      label: 'GDPR'
+      tab: 'user'
+      sortOrder: 50
+      scope: 'default|website|website_view'
+      groups:
+        general:
+          label: 'GDPR'
+          scope: 'default|website|website_view'
+          fields:
+            active:
+              type: 'switcher'
+              label: 'Activate GDPR'
+              scope: 'default|website|website_view'

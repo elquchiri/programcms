@@ -21,7 +21,7 @@ use ProgramCms\ThemeBundle\Parser\PageTokenParser;
 use ProgramCms\ThemeBundle\Parser\ReferenceBlockTokenParser;
 use ProgramCms\ThemeBundle\Parser\ReferenceContainerTokenParser;
 use ProgramCms\ThemeBundle\Parser\TitleTokenParser;
-use ProgramCms\ThemeBundle\Parser\UpdateTokenParser;
+use ProgramCms\ThemeBundle\Parser\RequireTokenParser;
 use ProgramCms\UiBundle\Twig\Parser\FieldsetTokenParser;
 use ProgramCms\UiBundle\Twig\Parser\FieldTokenParser;
 use ProgramCms\UiBundle\Twig\Parser\FormTokenParser;
@@ -67,7 +67,7 @@ class ThemeExtension extends \Twig\Extension\AbstractExtension
         // TODO: Re-Design this part to be modular
         return [
             new PageTokenParser(),
-            new UpdateTokenParser(),
+            new RequireTokenParser(),
             new LayoutTokenParser(),
             new TitleTokenParser(),
             new ContainerTokenParser(),

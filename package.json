@@ -34,6 +34,8 @@
         "node-sass": "^9.0.0",
         "npm": "^10.4.0",
         "rtlcss-plugin": "^1.0.0",
-        "stimulus": "^3.2.2"
+        "stimulus": "^3.2.2",
+        "@programcms/loader": "./ts_modules/@programcms/loader",
+        "@programcms/user": "./ts_modules/@programcms/user"
     }
 }

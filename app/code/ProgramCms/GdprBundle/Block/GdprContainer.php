@@ -9,6 +9,7 @@
 namespace ProgramCms\GdprBundle\Block;
 
 use ProgramCms\CoreBundle\View\Element\Template;
+use ProgramCms\GdprBundle\Helper\Config;
 
 /**
  * Class GdprContainer
@@ -16,6 +17,27 @@ use ProgramCms\CoreBundle\View\Element\Template;
  */
 class GdprContainer extends Template
 {
+    /**
+     * @var Config
+     */
+    protected Config $configHelper;
+
+    /**
+     * GdprContainer constructor.
+     * @param Template\Context $context
+     * @param Config $configHelper
+     * @param array $data
+     */
+    public function __construct(
+        Template\Context $context,
+        Config $configHelper,
+        array $data = []
+    )
+    {
+        parent::__construct($context, $data);
+        $this->configHelper = $configHelper;
+    }
+
     /**
      * Get GDPR Text
      * @return string
@@ -28,5 +50,13 @@ class GdprContainer extends Template
                 "<a href=\"\">{$this->trans('privacy and cookie policy')}</a>"
             )
         );
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->configHelper->isActive();
     }
 }

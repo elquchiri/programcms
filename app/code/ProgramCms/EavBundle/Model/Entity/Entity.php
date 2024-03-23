@@ -86,12 +86,12 @@ abstract class Entity extends \ProgramCms\CoreBundle\Model\Db\Entity\AbstractEnt
     }
 
     /**
-     * @param DateTime $createdAt
+     * @param DateTime|null $createdAt
      * @return $this
      */
-    public function setCreatedAt(DateTime $createdAt): self
+    public function setCreatedAt(DateTime $createdAt = null): self
     {
-        $this->created_at = $createdAt;
+        $this->created_at = $createdAt ?? new DateTime();
         return $this;
     }
 
@@ -104,12 +104,12 @@ abstract class Entity extends \ProgramCms\CoreBundle\Model\Db\Entity\AbstractEnt
     }
 
     /**
-     * @param DateTime $updatedAt
+     * @param DateTime|null $updatedAt
      * @return $this
      */
-    public function setUpdatedAt(DateTime $updatedAt): self
+    public function setUpdatedAt(DateTime $updatedAt = null): self
     {
-        $this->updated_at = $updatedAt;
+        $this->updated_at = $updatedAt ?? new DateTime();
         return $this;
     }
 

@@ -15,10 +15,10 @@ use Twig\Source;
 use Twig\Compiler;
 
 /**
- * Class UpdateNode
+ * Class RequireNode
  * @package ProgramCms\ThemeBundle\Node
  */
-class UpdateNode extends AbstractNode implements \Twig\Node\NodeCaptureInterface
+class RequireNode extends AbstractNode implements \Twig\Node\NodeCaptureInterface
 {
 
     /**

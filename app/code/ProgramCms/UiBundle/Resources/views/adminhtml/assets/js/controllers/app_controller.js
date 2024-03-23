@@ -27,7 +27,6 @@ application.register('app', class extends Controller {
      */
     render() {
         const base_url = window.location.origin;
-
         $.ajax({
             url: base_url + 'ui/index/render',
             type: 'get',

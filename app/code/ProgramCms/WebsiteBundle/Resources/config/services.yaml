@@ -24,3 +24,6 @@ services:
         website: '@ProgramCms\WebsiteBundle\Model\Resolver\Website'
         website_group: '@ProgramCms\WebsiteBundle\Model\Resolver\WebsiteGroup'
         website_view: '@ProgramCms\WebsiteBundle\Model\Resolver\WebsiteView'
+
+  ProgramCms\WebsiteBundle\Model\WebsiteManagerInterface:
+    class: ProgramCms\WebsiteBundle\Model\WebsiteManager

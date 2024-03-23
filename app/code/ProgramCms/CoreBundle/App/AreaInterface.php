@@ -14,6 +14,10 @@ namespace ProgramCms\CoreBundle\App;
  */
 interface AreaInterface
 {
+    const AREA_FRONTEND = 'frontend';
+
+    const AREA_ADMINHTML = 'adminhtml';
+
     const PART_DESIGN = 'design';
 
     /**

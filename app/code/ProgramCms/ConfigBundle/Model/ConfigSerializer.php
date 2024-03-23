@@ -24,28 +24,34 @@ class ConfigSerializer
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+
     /**
      * @var Structure\Element\FlyweightFactory
      */
     protected Structure\Element\FlyweightFactory $flyweightFactory;
+
     /**
      * @var ScopeDefiner
      */
     protected ScopeDefiner $_scopeDefiner;
+
     /**
      * Stores Hole Merged Configuration
      * @var array
      */
     private array $_data;
+
     /**
      * List of cached elements
      * @var array
      */
     private array $_elements;
+
     /**
      * @var Container
      */
     private $container;
+
     /**
      * @var Structure\Element\Iterator\Tab
      */

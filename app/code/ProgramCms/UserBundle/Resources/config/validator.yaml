@@ -1,0 +1,32 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+ProgramCms\UserBundle\Entity\UserEntity:
+  constraints:
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+        fields: [email]
+        message: "The email you provided is already in use."
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+        fields: [username]
+        message: "The username you provided is already in use."
+  properties:
+    email:
+      - NotBlank:
+          message: The email should not a be empty.
+      - Email:
+          message: The email {{ value }} is not a valid email.
+    password:
+      - NotBlank:
+          message: The password should not a be empty.
+    username:
+      - NotBlank:
+          message: The username should not a be empty.
+    user_firstname:
+      - NotBlank:
+          message: The firstname should not a be empty.
+    user_lastname:
+      - NotBlank:
+          message: The lastname should not a be empty.

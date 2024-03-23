@@ -41,8 +41,9 @@ class EavEntityType extends AbstractEntity
     /**
      * EavEntityType constructor.
      */
-    public function __construct()
+    public function __construct(array $data = [])
     {
+        parent::__construct($data);
         $this->attributeSets = new ArrayCollection();
         $this->attributes = new ArrayCollection();
     }
@@ -119,7 +120,6 @@ class EavEntityType extends AbstractEntity
             $this->attributeSets[] = $attributeSet;
             $attributeSet->setEntityType($this);
         }
-
         return $this;
     }
 
@@ -135,7 +135,6 @@ class EavEntityType extends AbstractEntity
                 $attributeSet->setEntityType(null);
             }
         }
-
         return $this;
     }
 
@@ -157,7 +156,6 @@ class EavEntityType extends AbstractEntity
             $this->attributes[] = $attribute;
             $attribute->setEntityType($this);
         }
-
         return $this;
     }
 
@@ -173,7 +171,6 @@ class EavEntityType extends AbstractEntity
                 $attribute->setEntityType(null);
             }
         }
-
         return $this;
     }
 }

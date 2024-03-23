@@ -19,6 +19,7 @@
         "symfony/flex": "^2",
         "symfony/form": "^6.2",
         "symfony/framework-bundle": "6.2.*",
+        "symfony/google-mailer": "^6.4",
         "symfony/intl": "^6.4",
         "symfony/mailer": "^6.2",
         "symfony/monolog-bundle": "^3.8",
@@ -27,10 +28,9 @@
         "symfony/security-bundle": "^6.2",
         "symfony/translation": "^6.2",
         "symfony/twig-bundle": "^6.2",
-        "symfony/validator": "^6.2",
+        "symfony/validator": "^6.4",
         "symfony/yaml": "6.2.*",
-        "symfonycasts/verify-email-bundle": "^1.12",
-        "ext-http": "*"
+        "symfonycasts/verify-email-bundle": "^1.12"
     },
     "config": {
         "allow-plugins": {
@@ -71,6 +71,7 @@
             "ProgramCms\\MarketingBundle\\": "app/code/ProgramCms/MarketingBundle",
             "ProgramCms\\DataPatchBundle\\": "app/code/ProgramCms/DataPatchBundle",
             "ProgramCms\\AssistanceBundle\\": "app/code/ProgramCms/AssistanceBundle",
+            "ProgramCms\\FavoriteBundle\\": "app/code/ProgramCms/FavoriteBundle",
             "ProgramCms\\GdprBundle\\": "app/code/ProgramCms/GdprBundle",
             "ProgramCms\\Backend\\": "app/design/adminhtml/ProgramCms/Backend",
             "ProgramCms\\Blank\\": "app/design/frontend/ProgramCms/Blank",

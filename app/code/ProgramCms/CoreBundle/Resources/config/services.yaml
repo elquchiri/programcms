@@ -46,3 +46,6 @@ services:
 
   ProgramCms\CoreBundle\App\AreaInterface:
     class: ProgramCms\CoreBundle\App\Area
+
+  ProgramCms\CoreBundle\Model\Db\Entity\EntityInterface:
+    class: ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity

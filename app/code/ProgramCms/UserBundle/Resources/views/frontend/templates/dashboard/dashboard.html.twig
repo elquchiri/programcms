@@ -1,34 +1,57 @@
-<div class="row">
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Profile</h5>
-                <p class="card-text">Your Profile is Completed in 24%</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
-        </div>
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="row mb-5">
+    <div class="col-md-3">
+        <nav class="nav flex-column">
+            <a class="nav-link active" href="">{{ block.trans('Dashboard') }}</a>
+            <a class="nav-link" href="">{{ block.trans('Edit Informations') }}</a>
+            <a class="nav-link" href="">{{ block.trans('Update Password') }}</a>
+            <a class="nav-link" href="#">{{ block.trans('Favorite') }}</a>
+            <a class="nav-link" href="#">{{ block.trans('Newsletter') }}</a>
+            <a class="nav-link" href="#">{{ block.trans('Report') }}</a>
+            <a class="nav-link" style="color: #888;" href="#">{{ block.trans('Delete my account') }}</a>
+        </nav>
     </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Favorites</h5>
-                <p class="card-text">You have <b>23</b> subjects in your list.</p>
+    <div class="col">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ block.trans('Profile') }}</h5>
+                        <p class="card-text">Your Profile is Completed in 24%</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                </div>
             </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ block.trans('Favorite') }}</h5>
+                        <p class="card-text">You have <b>23</b> subjects in your list.</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Newsletter</h5>
-                <p class="card-text">You're subscribing to <b>General</b> Newsletter</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ block.trans('Newsletter') }}</h5>
+                        <p class="card-text">You're subscribing to <b>General</b> Newsletter</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

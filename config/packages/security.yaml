@@ -33,13 +33,13 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-#            form_login:
-#                login_path: frontend_home
-#                check_path: electro_forums_user_authentication
-#                enable_csrf: true
             custom_authenticator: ProgramCms\UserBundle\Security\LoginAuthenticator
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                signature_properties: ['password', 'updated_at']
             logout:
-                path: electro_forums_user_logout
+                path: frontend_user_account_logout
 
     access_control:
         - { path: '^/admin/admin/index/index', roles: PUBLIC_ACCESS }

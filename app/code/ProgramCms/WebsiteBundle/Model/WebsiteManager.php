@@ -85,9 +85,10 @@ class WebsiteManager implements WebsiteManagerInterface
     }
 
     /**
+     * @param null $websiteId
      * @return Website|null
      */
-    public function getWebsite($websiteId = null)
+    public function getWebsite($websiteId = null): ?Website
     {
         if(isset($websiteId) && !empty($websiteId)) {
             return $this->websiteRepository->getById($websiteId);
@@ -100,7 +101,7 @@ class WebsiteManager implements WebsiteManagerInterface
      * @param null $groupId
      * @return WebsiteGroup|null
      */
-    public function getGroup($groupId = null)
+    public function getGroup($groupId = null): ?WebsiteGroup
     {
         if(isset($groupId) && !empty($groupId)) {
             return $this->websiteGroupRepository->getById($groupId);

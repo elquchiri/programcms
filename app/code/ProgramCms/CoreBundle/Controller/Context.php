@@ -13,6 +13,7 @@ use ProgramCms\CoreBundle\App\AreaList;
 use ProgramCms\CoreBundle\App\State;
 use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\RouterBundle\Service\Response;
+use ProgramCms\RouterBundle\Service\Url;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -70,6 +71,11 @@ class Context implements ContextInterface
     protected DesignLoader $designLoader;
 
     /**
+     * @var Url
+     */
+    protected Url $url;
+
+    /**
      * Context constructor.
      * @param Request $request
      * @param Response $response
@@ -80,6 +86,7 @@ class Context implements ContextInterface
      * @param TranslatorInterface $translator
      * @param Config $config
      * @param DesignLoader $designLoader
+     * @param Url $url
      */
     public function __construct(
         Request $request,
@@ -90,7 +97,8 @@ class Context implements ContextInterface
         Security $security,
         TranslatorInterface $translator,
         Config $config,
-        DesignLoader $designLoader
+        DesignLoader $designLoader,
+        Url $url
     )
     {
         $this->request = $request;
@@ -102,6 +110,7 @@ class Context implements ContextInterface
         $this->translator = $translator;
         $this->config = $config;
         $this->designLoader = $designLoader;
+        $this->url = $url;
     }
 
     /**
@@ -174,5 +183,13 @@ class Context implements ContextInterface
     public function getDesignLoader(): DesignLoader
     {
         return $this->designLoader;
+    }
+
+    /**
+     * @return Url
+     */
+    public function getUrl(): Url
+    {
+        return $this->url;
     }
 }

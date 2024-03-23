@@ -9,7 +9,7 @@
 namespace ProgramCms\UserBundle\Controller\Account;
 
 use ProgramCms\CoreBundle\Controller\Context;
-use Symfony\Bundle\SecurityBundle\Security;
+use ProgramCms\CoreBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -17,12 +17,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  * Class LogoutController
  * @package ProgramCms\UserBundle\Controller\Account
  */
-class LogoutController extends \ProgramCms\CoreBundle\Controller\Controller
+class LogoutController extends Controller
 {
-    /**
-     * @var Security
-     */
-    protected Security $security;
     /**
      * @var UrlGeneratorInterface
      */
@@ -31,17 +27,14 @@ class LogoutController extends \ProgramCms\CoreBundle\Controller\Controller
     /**
      * LogoutController constructor.
      * @param Context $context
-     * @param Security $security
      * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(
         Context $context,
-        Security $security,
         UrlGeneratorInterface $urlGenerator
     )
     {
         parent::__construct($context);
-        $this->security = $security;
         $this->urlGenerator = $urlGenerator;
     }
 
@@ -51,9 +44,9 @@ class LogoutController extends \ProgramCms\CoreBundle\Controller\Controller
     public function execute()
     {
         // logout the user in on the current firewall
-        $response = $this->security->logout();
+        $response = $this->getSecurity()->logout();
 
         // controller can be blank: it will never be called!
-        return new RedirectResponse($this->urlGenerator->generate('frontend_home'));
+        return new RedirectResponse($this->urlGenerator->generate('frontend_cms_index_index'));
     }
 }

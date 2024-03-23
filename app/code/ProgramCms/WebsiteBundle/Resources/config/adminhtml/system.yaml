@@ -117,3 +117,32 @@ system_config:
               source: ProgramCms\ThemeBundle\Model\Provider\DataSource\ThemeSelector
               helpMessage: 'If no value is specified, the system default is used. The system default may be modified by third-party bundles.'
               scope: 'default|website|website_view|can_restore'
+    email_addresses:
+      label: 'Website Email Addresses'
+      tab: 'core_general'
+      scope: 'default|website|website_view'
+      groups:
+        general_contact:
+          label: 'General Contact'
+          scope: 'default|website|website_view'
+          fields:
+            sender_name:
+              label: 'Sender Name'
+              type: 'text'
+              scope: 'default|website|website_view'
+            sender_email:
+              label: 'Sender Email'
+              type: 'text'
+              scope: 'default|website|website_view'
+        user_support:
+          label: 'User Support'
+          scope: 'default|website|website_view'
+          fields:
+            sender_name:
+              label: 'Sender Name'
+              type: 'text'
+              scope: 'default|website|website_view'
+            sender_email:
+              label: 'Sender Email'
+              type: 'text'
+              scope: 'default|website|website_view'

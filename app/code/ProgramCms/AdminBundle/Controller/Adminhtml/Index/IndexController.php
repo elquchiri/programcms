@@ -55,7 +55,9 @@ class IndexController extends \ProgramCms\CoreBundle\Controller\AdminController
 
         /** @var Page $pageResult */
         $pageResult = $this->objectManager->create(Page::class);
-        $pageResult->getConfig()->getTitle()->set("ProgramCMS Admin Panel");
+        $pageResult->getConfig()->getTitle()->set(
+            $this->trans("ProgramCMS Admin Panel")
+        );
 
         if($error) {
             $lastEmail = $this->authenticationUtils->getLastUsername();

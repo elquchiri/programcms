@@ -14,38 +14,40 @@
                     <div class="card-body" style="width: 29rem;">
                         <h2>{{ block.trans('Create an Account') }}</h2>
                         <p class="mb-5" style="color: #888888">{{ block.trans('Join our Community.') }}</p>
-                        <form method="POST" id="user_authentication_register">
+                        <form method="POST" action="{{ block.getSubmitUrl() }}" id="user_authentication_register">
                             <div class="mb-3">
-                                <label for="username" class="form-label fw-bold">
+                                <label for="email" class="form-label fw-bold">
                                     {{ block.trans('Email') }}
                                     <span class="text-danger">*</span>
                                 </label>
-                                <input type="email" class="form-control" name="email" />
+                                <input type="email" id="email" name="email" class="form-control" value="{{ block.getUser().getEmail() }}" />
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label fw-bold">
                                     {{ block.trans('Password') }}
                                     <span class="text-danger">*</span>
                                 </label>
-                                <input type="password" class="form-control" name="password" />
+                                <input type="password" id="password" name="password" class="form-control" />
                             </div>
                             <div class="mb-3">
                                 <label for="username" class="form-label fw-bold">
                                     {{ block.trans('User Name') }}
                                     <span class="text-danger">*</span>
                                 </label>
-                                <input type="text" class="form-control" name="user_nickname" />
+                                <input type="text" id="username" name="username" class="form-control" value="{{ block.getUser().getUsername() }}" />
                                 <div id="emailHelp" class="form-text">
                                     {{ block.trans('This will be your identifier in the website.') }}
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="username" class="form-label fw-bold">{{ block.trans('First Name') }}</label>
-                                <input type="text" class="form-control" name="user_firstname" />
+                                <label for="user_firstname" class="form-label fw-bold">{{ block.trans('First Name') }}</label>
+                                <span class="text-danger">*</span>
+                                <input type="text" id="user_firstname" name="user_firstname" class="form-control" value="{{ block.getUser().getUserFirstName() }}" />
                             </div>
                             <div class="mb-3">
-                                <label for="username" class="form-label fw-bold">{{ block.trans('Last Name') }}</label>
-                                <input type="text" class="form-control" name="user_lastname" />
+                                <label for="user_lastname" class="form-label fw-bold">{{ block.trans('Last Name') }}</label>
+                                <span class="text-danger">*</span>
+                                <input type="text" id="user_lastname" name="user_lastname" class="form-control" value="{{ block.getUser().getUserLastName() }}" />
                             </div>
 
                             {{ block.getChildHtml()|raw }}

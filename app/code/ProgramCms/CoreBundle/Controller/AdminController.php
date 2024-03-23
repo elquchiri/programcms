@@ -13,6 +13,7 @@ use ProgramCms\CoreBundle\App\AreaList;
 use ProgramCms\CoreBundle\App\State;
 use ReflectionException;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use ProgramCms\CoreBundle\View\DesignLoader;
@@ -104,7 +105,7 @@ abstract class AdminController extends AbstractController
                 var_dump($e->getTraceAsString());
             }
         }
-        else if($result instanceof \Symfony\Component\HttpFoundation\RedirectResponse) {
+        else if($result instanceof Response) {
             return $result;
         }
 

@@ -1,0 +1,14 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<b>{{ block.trans("Hello %s %s", user.getUserFirstname(), user.getUserLastname()) }}</b>
+<p>{{ block.trans("It seems like you forgot your password for the account %s", user.getEmail()) }}</p>
+<p>{{ block.trans("If you did not make this request then please ignore this email.") }}</p>
+<p>{{ block.trans("Otherwise, please copy and use this secret token to change your password :") }}</p>
+<h3>{{ user.getResetToken() }}</h3>
+<p>{{ block.trans("If you did not forget your password, please disregard this email.") }}</p>

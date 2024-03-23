@@ -8,6 +8,8 @@
 
 namespace ProgramCms\WebsiteBundle\Model;
 
+use ProgramCms\WebsiteBundle\Entity\Website;
+use ProgramCms\WebsiteBundle\Entity\WebsiteGroup;
 use ProgramCms\WebsiteBundle\Entity\WebsiteView;
 
 /**
@@ -21,4 +23,21 @@ interface WebsiteManagerInterface
      * @return WebsiteView
      */
     public function getWebsiteView($websiteViewId = null): WebsiteView;
+
+    /**
+     * @param null $websiteId
+     * @return Website|null
+     */
+    public function getWebsite($websiteId = null): ?Website;
+
+    /**
+     * @param null $groupId
+     * @return WebsiteGroup|null
+     */
+    public function getGroup($groupId = null): ?WebsiteGroup;
+
+    /**
+     * @return array
+     */
+    public function getWebsiteViews(): array;
 }

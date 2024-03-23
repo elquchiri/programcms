@@ -7,7 +7,7 @@
  */
 #}
 {% layout %}
-    {% update handle="admin-1column" %}
+    {% require handle="admin-1column" %}
     {% referenceContainer name="page.main.container" %}
         {# Used when the page needs 2 containers, one in the left and the main one inside the page.main.container. #}
         {% container name="side.col" htmlTag="div" htmlClass="col-md-3 side-col" before="-" %}

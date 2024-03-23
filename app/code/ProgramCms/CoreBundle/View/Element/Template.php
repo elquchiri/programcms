@@ -40,7 +40,7 @@ class Template extends AbstractBlock
      * Assigned variables for view
      * @var array
      */
-    protected array $_viewVars = [];
+    protected array $viewVars = [];
 
     /**
      * @var DirectoryList
@@ -176,6 +176,16 @@ class Template extends AbstractBlock
     }
 
     /**
+     * @param string $area
+     * @return $this
+     */
+    public function setArea(string $area): static
+    {
+        $this->setData('area', $area);
+        return $this;
+    }
+
+    /**
      * Get absolute path to template
      * @param null $template
      * @return string
@@ -206,7 +216,7 @@ class Template extends AbstractBlock
                 $this->assign($subKey, $subValue);
             }
         } else {
-            $this->_viewVars[$key] = $value;
+            $this->viewVars[$key] = $value;
         }
         return $this;
     }
@@ -222,7 +232,7 @@ class Template extends AbstractBlock
     {
         try {
             // Assign block variable helping accessing block object from template.
-            if(empty($this->_viewVars)) {
+            if(empty($this->viewVars)) {
                 $this->assign(['block' => $this->templateContext]);
             }
 
@@ -231,7 +241,7 @@ class Template extends AbstractBlock
                     file_get_contents($template),
                     $template
                 )
-                ->render($this->_viewVars);
+                ->render($this->viewVars);
         } catch (Exception $e) {
             throw $e;
         }
@@ -246,12 +256,14 @@ class Template extends AbstractBlock
     }
 
     /**
-     * Translation Helper method
      * @param string $message
+     * @param mixed ...$params
      * @return string
      */
-    public function trans(string $message): string
+    public function trans(string $message, ...$params): string
     {
-        return $this->translator->trans($message);
+        return isset($params) && !empty($params)
+                ? sprintf($this->translator->trans($message), ...$params)
+                : $this->translator->trans($message);
     }
 }

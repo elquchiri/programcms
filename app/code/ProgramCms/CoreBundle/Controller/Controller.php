@@ -12,7 +12,9 @@ use ProgramCms\CoreBundle\App\Config;
 use ProgramCms\CoreBundle\App\AreaList;
 use ProgramCms\CoreBundle\App\State;
 use ProgramCms\CoreBundle\View\DesignLoader;
+use ProgramCms\RouterBundle\Service\Url;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use HttpResponseException;
@@ -60,6 +62,11 @@ abstract class Controller extends AbstractController
     protected DesignLoader $designLoader;
 
     /**
+     * @var Url
+     */
+    protected Url $url;
+
+    /**
      * Controller constructor.
      * @param Context $context
      */
@@ -75,6 +82,7 @@ abstract class Controller extends AbstractController
         $this->translator = $context->getTranslator();
         $this->config = $context->getConfig();
         $this->designLoader = $context->getDesignLoader();
+        $this->url = $context->getUrl();
     }
 
     /**
@@ -104,7 +112,7 @@ abstract class Controller extends AbstractController
                 var_dump($e->getTraceAsString());
             }
         }
-        else if($result instanceof \Symfony\Component\HttpFoundation\RedirectResponse) {
+        else if($result instanceof Response) {
             return $result;
         }
 
@@ -114,10 +122,30 @@ abstract class Controller extends AbstractController
     /**
      * Helper for translate inside Controller classes
      * @param string $message
+     * @param mixed ...$params
      * @return string
      */
-    public function trans(string $message): string
+    public function trans(string $message, ...$params): string
     {
-        return $this->translator->trans($message);
+        return isset($params) && !empty($params)
+            ? sprintf($this->translator->trans($message), ...$params)
+            : $this->translator->trans($message);
+    }
+
+    /**
+     * Helper for Current User
+     * @return Security
+     */
+    public function getSecurity(): Security
+    {
+        return $this->security;
+    }
+
+    /**
+     * @return Url
+     */
+    public function getUrl(): Url
+    {
+        return $this->url;
     }
 }

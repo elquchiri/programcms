@@ -1,0 +1,27 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="flashes-wrapper container">
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        {% if label == 'success' %}
+            <div class="alert flash-message alert-success flash-message-success" role="alert">
+                {{ message|raw }}
+            </div>
+        {% elseif label == 'danger' %}
+            <div class="alert flash-message alert-danger flash-message-danger" role="alert">
+                {{ message|raw }}
+            </div>
+        {% else %}
+            <div class="alert flash-message alert-secondary" role="alert">
+                {{ message|raw }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+</div>

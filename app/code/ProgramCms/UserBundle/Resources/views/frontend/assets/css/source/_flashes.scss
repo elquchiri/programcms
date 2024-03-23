@@ -1,0 +1,27 @@
+/*!
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+
+.messages-wrapper {
+  padding: 11px 21px 0 31px;
+  font-size: 14px;
+}
+.flash-message {
+  border-radius: 3px;
+  padding-left: 49px;
+  font-weight: bold;
+  font-size: 13px;
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-position-x: 15px #{"/*rtl:99%*/"};
+  background-position-y: center;
+}
+.flash-message-success {
+  background-image: url("../../../../../public/images/flashes/success.png");
+}
+.flash-message-danger {
+  background-image: url("../../../../../public/images/flashes/danger.png");
+}

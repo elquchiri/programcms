@@ -12,7 +12,6 @@ config:
     developer:
       template_settings:
         minify_twig: 'on'
-
   website:
     admin:
       web:

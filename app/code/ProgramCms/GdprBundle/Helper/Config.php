@@ -9,6 +9,7 @@
 namespace ProgramCms\GdprBundle\Helper;
 
 use ProgramCms\CoreBundle\Helper\AbstractHelper;
+use ProgramCms\WebsiteBundle\Model\ScopeInterface;
 
 /**
  * Class Config
@@ -16,5 +17,16 @@ use ProgramCms\CoreBundle\Helper\AbstractHelper;
  */
 class Config extends AbstractHelper
 {
+    /**
+     * GDPR active path
+     */
+    const GDPR_ACTIVE_CONFIG = 'gdpr/general/active';
 
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return (bool) $this->getConfig(self::GDPR_ACTIVE_CONFIG, ScopeInterface::SCOPE_WEBSITE_VIEW);
+    }
 }

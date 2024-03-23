@@ -8,17 +8,46 @@
 
 namespace ProgramCms\UserBundle\Controller\Edit;
 
+use ProgramCms\CoreBundle\Controller\Context;
+use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\CoreBundle\View\Result\Page;
+use ReflectionException;
+
 /**
  * Class IndexController
  * @package ProgramCms\UserBundle\Controller\Edit
  */
 class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
 {
+    /**
+     * @var ObjectManager
+     */
+    protected ObjectManager $objectManager;
 
+    /**
+     * IndexController constructor.
+     * @param Context $context
+     * @param ObjectManager $objectManager
+     */
+    public function __construct(
+        Context $context,
+        ObjectManager $objectManager
+    )
+    {
+        parent::__construct($context);
+        $this->objectManager = $objectManager;
+    }
+
+    /**
+     * @return object|null
+     * @throws ReflectionException
+     */
     public function execute()
     {
-        return $this->render('@ProgramCmsUser/frontend/dashboard/dashboard.html.twig', [
-
-        ]);
+        $pageResult = $this->objectManager->create(Page::class);
+        $pageResult->getConfig()->getTitle()->set(
+            $this->trans("Edit Account")
+        );
+        return $pageResult;
     }
 }

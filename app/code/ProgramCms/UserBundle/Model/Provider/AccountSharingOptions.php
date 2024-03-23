@@ -15,6 +15,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * @package ProgramCms\UserBundle\Model\Provider
  */
 class AccountSharingOptions extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
+    implements AccountSharingOptionsInterface
 {
     /**
      * @var TranslatorInterface
@@ -38,8 +39,9 @@ class AccountSharingOptions extends \ProgramCms\UiBundle\Model\Provider\DataSour
     public function getOptionsArray(): array
     {
         return [
-            $this->translator->trans('Global'),
-            $this->translator->trans('Per Website')
+            AccountSharingOptionsInterface::GLOBAL => $this->translator->trans('Global'),
+            AccountSharingOptionsInterface::PER_WEBSITE => $this->translator->trans('Per Website'),
+            AccountSharingOptionsInterface::PER_WEBSITE_VIEW => $this->translator->trans('Per Website View')
         ];
     }
 }

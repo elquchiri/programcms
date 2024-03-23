@@ -8,11 +8,17 @@
 
 namespace ProgramCms\CoreBundle\View\Result;
 
+use Symfony\Component\HttpFoundation\Response;
+
 /**
  * Interface ResultInterface
  * @package ProgramCms\CoreBundle\View\Result
  */
 interface ResultInterface
 {
-
+    /**
+     * @param array $parameters
+     * @return Response
+     */
+    public function render(array $parameters = []): Response;
 }

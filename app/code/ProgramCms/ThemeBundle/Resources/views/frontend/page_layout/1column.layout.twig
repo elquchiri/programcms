@@ -7,10 +7,13 @@
  */
 #}
 {% layout %}
-    {% update handle="empty" %}
+    {% require handle="empty" %}
     {% referenceContainer name="page.wrapper" %}
         {% container name="header.container" htmlTag="header" htmlClass="page-header" before="main.content" %}{% endContainer %}
         {% container name="page.top" before="main.content" %}{% endContainer %}
+        {% container name="messages.wrapper" htmlTag="div" htmlClass="messages-wrapper" before="main.content" %}
+            {% container name="page.messages" %}{% endContainer %}
+        {% endContainer %}
         {% container name="footer.container" htmlTag="footer" htmlClass="footer" %}{% endContainer %}
     {% endReferenceContainer %}
 {% endLayout %}

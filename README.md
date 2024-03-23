@@ -68,7 +68,7 @@ Finally, run :
 - Strong Administration Dashboard
 - Automatic Routing System based on Controller Path
 - Themes System
-- Full RTL Support (Thanks to Mohammad Younes for <a href="https://rtlcss.com/index.html">RTLCSS</a>)
+- Native RTL Support (Thanks to Mohammad Younes for <a href="https://rtlcss.com/index.html">RTLCSS</a>)
 - Layouts, Containers, Blocks and Templates Engine
 - Full UI Components System
 - Strong & Full Customizable EAV System
