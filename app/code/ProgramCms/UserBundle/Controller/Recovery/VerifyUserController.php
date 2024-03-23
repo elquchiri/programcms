@@ -14,6 +14,7 @@ use ProgramCms\CoreBundle\Controller\Controller;
 use ProgramCms\CoreBundle\Mailer\Template\TransportBuilder;
 use ProgramCms\UserBundle\Repository\UserEntityRepository;
 use ProgramCms\WebsiteBundle\Model\WebsiteManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -76,6 +77,9 @@ class VerifyUserController extends Controller
         $this->websiteManager = $websiteManager;
     }
 
+    /**
+     * @return JsonResponse
+     */
     public function execute()
     {
         if($this->getRequest()->getCurrentRequest()->isMethod('POST')) {

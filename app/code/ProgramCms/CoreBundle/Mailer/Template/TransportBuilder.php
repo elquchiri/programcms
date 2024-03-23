@@ -73,7 +73,7 @@ class TransportBuilder implements TransportBuilderInterface
     /**
      * @var string
      */
-    protected string $text;
+    protected string $text = '';
 
     /**
      * @var TemplateConfigBuilder
@@ -206,13 +206,14 @@ class TransportBuilder implements TransportBuilderInterface
     public function sendMessage()
     {
         try {
+            $emailTemplate = $this->runTemplate();
             $emailObject = (new Email())
                 ->from($this->from)
                 ->to(implode(',', $this->to))
                 ->priority($this->priority)
                 ->subject($this->subject)
-                //->text($this->text)
-                ->html($this->runTemplate());
+                ->text(empty($this->text) ? $emailTemplate : $this->text)
+                ->html($emailTemplate);
             // Send Recovery Token Email
             $this->mailer->send($emailObject);
         } catch (ReflectionException | SyntaxError | LoaderError $e) {

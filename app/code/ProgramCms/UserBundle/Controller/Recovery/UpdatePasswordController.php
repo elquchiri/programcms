@@ -12,6 +12,7 @@ use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Controller\Controller;
 use ProgramCms\UserBundle\Entity\UserEntity;
 use ProgramCms\UserBundle\Repository\UserEntityRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
@@ -47,6 +48,9 @@ class UpdatePasswordController extends Controller
         $this->userPasswordHasher = $userPasswordHasher;
     }
 
+    /**
+     * @return JsonResponse
+     */
     public function execute()
     {
         if($this->getRequest()->getCurrentRequest()->isMethod('POST')) {

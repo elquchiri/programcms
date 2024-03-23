@@ -11,6 +11,7 @@ namespace ProgramCms\UserBundle\Controller\Recovery;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Controller\Controller;
 use ProgramCms\UserBundle\Repository\UserEntityRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class VerifyTokenController
@@ -37,6 +38,9 @@ class VerifyTokenController extends Controller
         $this->userEntityRepository = $userEntityRepository;
     }
 
+    /**
+     * @return JsonResponse
+     */
     public function execute()
     {
         if($this->getRequest()->getCurrentRequest()->isMethod('POST')) {
