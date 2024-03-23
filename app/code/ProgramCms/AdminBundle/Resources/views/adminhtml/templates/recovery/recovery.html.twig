@@ -18,7 +18,7 @@
         <div class="alert flash-message alert-danger flash-message-danger">{{ block.getError() }}</div>
     {% endif %}
 
-    <form method="POST" action="{{ block.getSubmitUrl() }}" id="user_authentication_register">
+    <form method="POST" action="" id="user_authentication_register">
         <div class="mb-3">
             <label for="email" class="form-label">
                 {{ block.trans('Email') }}
@@ -26,25 +26,10 @@
             <span class="text-danger">*</span>
             <input type="email" class="form-control" id="email" name="email" value="{{ block.getLastEmail() }}" autofocus/>
         </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">
-                {{ block.trans('Password') }}
-            </label>
-            <span class="text-danger">*</span>
-            <div class="input-group">
-                <input type="password" class="form-control" id="password" name="password"/>
-                <span class="input-group-text" id="basic-addon1">
-                    <img src="{{ asset('bundles/programcmsadmin/images/see.png') }}"  alt="{{ block.trans('Show Password') }}"/>
-                </span>
-            </div>
-            <div class="mt-2">
-                <a href="{{ block.getForgottenPasswordUrl() }}">{{ block.trans('Forgot your password?') }}</a>
-            </div>
-        </div>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         <div class="mt-4">
             <button type="submit" class="btn btn-primary">
-                {{ block.trans('Sign In') }}
+                {{ block.trans('Continue') }}
             </button>
         </div>
     </form>

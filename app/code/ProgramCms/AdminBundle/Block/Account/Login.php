@@ -23,7 +23,7 @@ class Login extends \ProgramCms\CoreBundle\View\Element\Template
     protected Url $url;
 
     /**
-     * Navigation constructor.
+     * Login constructor.
      * @param Context $context
      * @param Url $url
      * @param array $data
@@ -68,5 +68,13 @@ class Login extends \ProgramCms\CoreBundle\View\Element\Template
     public function getLastEmail(): string
     {
         return $this->hasData('lastEmail') ? $this->getData('lastEmail') : '';
+    }
+
+    /**
+     * @return string
+     */
+    public function getForgottenPasswordUrl(): string
+    {
+        return $this->url->getUrlByRouteName('admin_recovery_index');
     }
 }

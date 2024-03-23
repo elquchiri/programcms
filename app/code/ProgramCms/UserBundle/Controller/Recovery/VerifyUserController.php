@@ -13,6 +13,7 @@ use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Controller\Controller;
 use ProgramCms\CoreBundle\Mailer\Template\TransportBuilder;
 use ProgramCms\UserBundle\Repository\UserEntityRepository;
+use ProgramCms\WebsiteBundle\Helper\Contact;
 use ProgramCms\WebsiteBundle\Model\WebsiteManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -52,6 +53,11 @@ class VerifyUserController extends Controller
     protected TransportBuilder $transportBuilder;
 
     /**
+     * @var Contact
+     */
+    protected Contact $contactHelper;
+
+    /**
      * RecoveryController constructor.
      * @param Context $context
      * @param ValidatorInterface $validator
@@ -59,6 +65,7 @@ class VerifyUserController extends Controller
      * @param TokenGeneratorInterface $tokenGenerator
      * @param TransportBuilder $transportBuilder
      * @param WebsiteManagerInterface $websiteManager
+     * @param Contact $contactHelper
      */
     public function __construct(
         Context $context,
@@ -67,6 +74,7 @@ class VerifyUserController extends Controller
         TokenGeneratorInterface $tokenGenerator,
         TransportBuilder $transportBuilder,
         WebsiteManagerInterface $websiteManager,
+        Contact $contactHelper
     )
     {
         parent::__construct($context);
@@ -75,6 +83,7 @@ class VerifyUserController extends Controller
         $this->tokenGenerator = $tokenGenerator;
         $this->transportBuilder = $transportBuilder;
         $this->websiteManager = $websiteManager;
+        $this->contactHelper = $contactHelper;
     }
 
     /**
@@ -105,9 +114,9 @@ class VerifyUserController extends Controller
                         'website_view' => $this->websiteManager->getWebsiteView()
                     ])
                     ->setTemplateVars(['user' => $user])
-                    ->setFrom('contact@programcms.com')
+                    ->setFrom($this->contactHelper->getSenderEmail('general_contact'))
                     ->setTo([$email])
-                    ->setSubject('ProgramCMS: Recovery Email')
+                    ->setSubject($this->trans('ProgramCMS: Recovery Email'))
                     ->sendMessage();
             }catch(TransportExceptionInterface $exception) {
                 return $this->json([

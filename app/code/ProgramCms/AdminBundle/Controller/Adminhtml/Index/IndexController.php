@@ -11,6 +11,7 @@ namespace ProgramCms\AdminBundle\Controller\Adminhtml\Index;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\CoreBundle\View\Result\Page;
+use ReflectionException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
@@ -23,6 +24,7 @@ class IndexController extends \ProgramCms\CoreBundle\Controller\AdminController
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+
     /**
      * @var AuthenticationUtils
      */
@@ -47,6 +49,7 @@ class IndexController extends \ProgramCms\CoreBundle\Controller\AdminController
 
     /**
      * @return object|null
+     * @throws ReflectionException
      */
     public function execute()
     {

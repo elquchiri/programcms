@@ -64,9 +64,9 @@ application.register('recovery', class extends Controller {
                         break;
                     case true:
                         $this.constructor.step = 1;
-                        $('.recovery_email').addClass('opacity-25');
+                        $('.recovery_email').addClass('d-none');
                         $('#email').attr('disabled', true);
-                        $('.user_token').removeClass('opacity-25');
+                        $('.user_token').removeClass('d-none');
                         $('#user_token').attr('disabled', false);
                         User.addFlash('success', response.message).scrollTop();
                         break;
@@ -99,9 +99,9 @@ application.register('recovery', class extends Controller {
                         break;
                     case true:
                         $this.constructor.step = 2;
-                        $('.user_token').addClass('opacity-25');
+                        $('.user_token').addClass('d-none');
                         $('#user_token').attr('disabled', true);
-                        $('.password_container').removeClass('opacity-25');
+                        $('.password_container').removeClass('d-none');
                         $('#password').attr('disabled', false);
                         $('#check_password').attr('disabled', false);
                         User.addFlash('success', response.message).scrollTop();
