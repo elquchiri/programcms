@@ -49,3 +49,6 @@ services:
 
   ProgramCms\CoreBundle\Model\Db\Entity\EntityInterface:
     class: ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity
+
+  ProgramCms\CoreBundle\DateTime\TransformerInterface:
+    class: ProgramCms\CoreBundle\DateTime\Transformer

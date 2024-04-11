@@ -12,12 +12,13 @@ use Doctrine\Common\Collections\Collection;
 use JetBrains\PhpStorm\Pure;
 use ProgramCms\CatalogBundle\Entity\Category;
 use ProgramCms\CoreBundle\App\ScopeInterface as AppScopeInterface;
+use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
 use ProgramCms\WebsiteBundle\Model\ScopeInterface;
 use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: WebsiteGroupRepository::class)]
-class WebsiteGroup extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity implements AppScopeInterface
+class WebsiteGroup extends AbstractEntity implements AppScopeInterface
 {
     /**
      * @var int|null

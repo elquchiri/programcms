@@ -10,6 +10,7 @@ namespace ProgramCms\ThemeBundle\Loader;
 
 use ProgramCms\CoreBundle\Model\Filesystem\DirectoryList;
 use ProgramCms\CoreBundle\Model\Utils\BundleManager;
+use ProgramCms\CoreBundle\View\FileSystem;
 use ProgramCms\RouterBundle\Service\Request;
 use ReflectionException;
 use Twig\Error\LoaderError;
@@ -23,6 +24,11 @@ use Twig\Source;
 class LayoutLoader implements LoaderInterface
 {
     const DEFAULT_LAYOUT_FILE = 'default.layout.twig';
+
+    /**
+     * @var FileSystem
+     */
+    protected FileSystem $fileSystem;
 
     /**
      * @var Request
@@ -49,16 +55,19 @@ class LayoutLoader implements LoaderInterface
      * @param BundleManager $bundleManager
      * @param DirectoryList $directoryList
      * @param Request $request
+     * @param FileSystem $fileSystem
      */
     public function __construct(
         BundleManager $bundleManager,
         DirectoryList $directoryList,
-        Request $request
+        Request $request,
+        FileSystem $fileSystem
     )
     {
         $this->bundleManager = $bundleManager;
         $this->request = $request;
         $this->directoryList = $directoryList;
+        $this->fileSystem = $fileSystem;
     }
 
     /**
@@ -72,20 +81,21 @@ class LayoutLoader implements LoaderInterface
         // Get all bundles
         $bundles = $this->bundleManager->getAllBundles();
         foreach ($bundles as $bundle) {
-            $layoutPath = $bundle['path'] . '/Resources/views/'. $areaCode .'/layout/';
-            $themeLayoutPath = $this->directoryList->getRoot() . '/themes/'. $areaCode . '/ProgramCms/backend/' . $bundle['name'] . '/layout/';
-
-            // Get all default files
-            if(is_file($themeLayoutPath . self::DEFAULT_LAYOUT_FILE)) {
-                $this->paths['default'][] = $themeLayoutPath . self::DEFAULT_LAYOUT_FILE;
-            }else if(is_file($layoutPath . self::DEFAULT_LAYOUT_FILE)) {
-                $this->paths['default'][] = $layoutPath . self::DEFAULT_LAYOUT_FILE;
+            $params = ['bundle' => $bundle['name']];
+            if ($areaCode) {
+                $params['area'] = $areaCode;
             }
-            // Get all page layout files
-            if(is_file($themeLayoutPath . $layoutName)) {
-                $this->paths['layout'][] = $themeLayoutPath . $layoutName;
-            } elseif (is_file($layoutPath . $layoutName)) {
-                $this->paths['layout'][] = $layoutPath . $layoutName;
+            $defaults = $this->fileSystem->getLayoutFileName(self::DEFAULT_LAYOUT_FILE, $params);
+            $layouts = $this->fileSystem->getLayoutFileName($layoutName, $params);
+            if(!empty($defaults)) {
+                foreach($defaults as $default) {
+                    $this->paths['default'][] = $default;
+                }
+            }
+            if(!empty($layouts)) {
+                foreach($layouts as $layout) {
+                    $this->paths['layout'][] = $layout;
+                }
             }
         }
     }
@@ -158,7 +168,7 @@ class LayoutLoader implements LoaderInterface
      */
     public function getCacheKey(string $name): string
     {
-        return $name;
+        return md5($this->request->getCurrentRequest()->getHost() . $name);
     }
 
     /**

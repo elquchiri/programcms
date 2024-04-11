@@ -80,6 +80,11 @@ system_config:
               type: 'select'
               source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
               scope: 'default|website|website_view'
+            logo:
+              label: 'Logo'
+              type: 'imageUploader'
+              scope: 'default|website|website_view'
+              helpMessage: 'In general, website logos can be any size, however the recommended logo dimensions for a web page are 250 x 150 px. Maximum file size: 4 MB. Allowed file types: JPG, GIF, PNG.'
     web:
       label: 'Web'
       tab: 'core_general'

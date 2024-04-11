@@ -61,7 +61,7 @@ class Config extends DataObject
         $this->initScope();
         $groups = $this->getData('groups');
         $sectionId = $this->getData('section');
-        $oldConfig = $this->_getConfig(true);
+        $oldConfig = $this->_getConfig();
 
         foreach($groups as $groupId => $groupData) {
             $this->_processGroup($groupId, $groupData, $groups, $sectionId, $oldConfig);

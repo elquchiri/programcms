@@ -12,11 +12,5 @@
     class="form-select"
     {% if block.isDisabled() %}disabled="disabled" {% endif %}
 >
-    {% for optionKey, option in block.getOptions() %}
-        <option
-            value="{{ optionKey }}"
-            {% if block.hasValue() and block.getValue() == optionKey %}selected{% endif %}>
-            {{ option }}
-        </option>
-    {% endfor %}
+    {{ block.getOptions()|raw }}
 </select>

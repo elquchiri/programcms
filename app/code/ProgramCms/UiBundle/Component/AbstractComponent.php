@@ -23,6 +23,7 @@ abstract class AbstractComponent extends Template implements UiComponentInterfac
      * @var array
      */
     protected array $components;
+
     /**
      * @var Context
      */

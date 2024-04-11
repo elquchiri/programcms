@@ -12,6 +12,7 @@
         "doctrine/doctrine-bundle": "^2.7",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.13",
+        "gedmo/doctrine-extensions": "^3.15",
         "symfony/asset": "^6.2",
         "symfony/console": "6.2.*",
         "symfony/dotenv": "6.2.*",
@@ -44,6 +45,7 @@
 			"ProgramCms\\DependencyBundle\\": "app/code/ProgramCms/DependencyBundle",
 			"ProgramCms\\CoreBundle\\": "app/code/ProgramCms/CoreBundle",
 			"ProgramCms\\UserBundle\\": "app/code/ProgramCms/UserBundle",
+			"ProgramCms\\LoginAsUserBundle\\": "app/code/ProgramCms/LoginAsUserBundle",
             "ProgramCms\\ThemeBundle\\": "app/code/ProgramCms/ThemeBundle",
             "ProgramCms\\RouterBundle\\": "app/code/ProgramCms/RouterBundle",
             "ProgramCms\\AdminBundle\\": "app/code/ProgramCms/AdminBundle",
@@ -56,6 +58,7 @@
             "ProgramCms\\EavBundle\\": "app/code/ProgramCms/EavBundle",
             "ProgramCms\\UiBundle\\": "app/code/ProgramCms/UiBundle",
             "ProgramCms\\ConfigBundle\\": "app/code/ProgramCms/ConfigBundle",
+            "ProgramCms\\MailBundle\\": "app/code/ProgramCms/MailBundle",
             "ProgramCms\\ContactBundle\\": "app/code/ProgramCms/ContactBundle",
             "ProgramCms\\NewsletterBundle\\": "app/code/ProgramCms/NewsletterBundle",
             "ProgramCms\\CommentBundle\\": "app/code/ProgramCms/CommentBundle",
@@ -75,7 +78,8 @@
             "ProgramCms\\GdprBundle\\": "app/code/ProgramCms/GdprBundle",
             "ProgramCms\\Backend\\": "app/design/adminhtml/ProgramCms/Backend",
             "ProgramCms\\Blank\\": "app/design/frontend/ProgramCms/Blank",
-            "ProgramCms\\Forumtimes\\": "app/design/frontend/ProgramCms/Forumtimes"
+            "ProgramCms\\Forumtimes\\": "app/design/frontend/ProgramCms/Forumtimes",
+            "ProgramCms\\Sport\\": "app/design/frontend/ProgramCms/Sport"
         }
     },
     "autoload-dev": {

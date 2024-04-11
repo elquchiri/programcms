@@ -12,7 +12,7 @@
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ block.getCurrentScopeLabel() }}
         </a>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu scope-dropdown">
             <a class="dropdown-item" href="{{ block.getCurrentSwitcherUrl() }}">{{ block.getDefaultLabel() }}</a>
             {% for website in block.getAllWebsites() %}
                 <a class="dropdown-item" href="{{ block.getWebsiteSwitcherUrl(website) }}">{{ website.getWebsiteName() }}</a>

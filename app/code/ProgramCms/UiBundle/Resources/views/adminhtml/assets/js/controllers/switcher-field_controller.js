@@ -8,6 +8,7 @@
 import {Controller} from "@hotwired/stimulus";
 
 application.register('switcher-field', class extends Controller {
+
     /**
      * @type {{no: {default: string, type: StringConstructor}, yes: {default: string, type: StringConstructor}}}
      */

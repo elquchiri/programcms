@@ -9,66 +9,27 @@
 <form>
     <div class="row mb-4">
         <div class="col">
-            <label class="form-label" for="inputPassword6">First Name</label>
+            <label class="form-label" for="inputPassword6">{{ block.trans('First Name') }}</label>
             <input type="text" id="inputPassword6" class="form-control" value="{{ app.user.getUserFirstname() }}">
-            <small id="passwordHelpInline" class="text-muted">
-                Must be 8-20 characters long.
-            </small>
         </div>
         <div class="col">
-            <label class="form-label" for="inputPassword6">Last Name</label>
+            <label class="form-label" for="inputPassword6">{{ block.trans('Last Name') }}</label>
             <input type="text" id="inputPassword6" class="form-control" value="{{ app.user.getUserLastname() }}">
-            <small id="passwordHelpInline" class="text-muted">
-                Must be 8-20 characters long.
-            </small>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <label class="form-label" for="inputPassword6">Email</label>
+            <label class="form-label" for="inputPassword6">{{ block.trans('Email') }}</label>
             <input type="text" id="inputPassword6" class="form-control" value="{{ app.user.email }}">
-            <small id="passwordHelpInline" class="text-muted">
-                Must be 8-20 characters long.
-            </small>
         </div>
         <div class="col">
-            <label class="form-label" for="inputPassword6">Nick Name</label>
-            <input type="text" id="inputPassword6" class="form-control" value="{{ app.user.getUserNickname() }}">
-            <small id="passwordHelpInline" class="text-muted">
-                Must be 8-20 characters long.
-            </small>
-        </div>
-    </div>
-    <div class="row mt-4">
-        <div class="form-group">
-            <label for="inputAddress">Address</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-        </div>
-        <div class="form-group mt-4">
-            <label for="inputAddress2">Address 2</label>
-            <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-        </div>
-        <div class="row mt-4">
-            <div class="form-group col-md-6">
-                <label for="inputCity">City</label>
-                <input type="text" class="form-control" id="inputCity">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="inputState">State</label>
-                <select id="inputState" class="form-control">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                </select>
-            </div>
-            <div class="form-group col-md-2">
-                <label for="inputZip">Zip</label>
-                <input type="text" class="form-control" id="inputZip">
-            </div>
+            <label class="form-label" for="inputPassword6">{{ block.trans('User Name') }}</label>
+            <input type="text" id="inputPassword6" class="form-control" value="{{ app.user.getUsername() }}">
         </div>
     </div>
     <div class="row mt-5">
         <div class="col-12">
-            <input type="submit" class="btn btn-primary" value="Save">
+            <input type="submit" class="btn btn-primary" value="{{ block.trans('Save') }}">
         </div>
     </div>
 </form>

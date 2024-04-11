@@ -8,15 +8,17 @@
 
 namespace ProgramCms\UserBundle\Controller\Adminhtml\Index;
 
+use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use ProgramCms\CoreBundle\View\Result\Page;
+use ReflectionException;
 
 /**
  * Class IndexController
  * @package ProgramCms\UserBundle\Controller\Adminhtml\Index
  */
-class IndexController extends \ProgramCms\CoreBundle\Controller\AdminController
+class IndexController extends AdminController
 {
     /**
      * @var ObjectManager
@@ -39,10 +41,11 @@ class IndexController extends \ProgramCms\CoreBundle\Controller\AdminController
 
     /**
      * @return object|null
+     * @throws ReflectionException
      */
     public function execute()
     {
-        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
+        $pageResult = $this->objectManager->create(Page::class);
         $pageResult->getConfig()->getTitle()->set(
             $this->trans("All Users")
         );

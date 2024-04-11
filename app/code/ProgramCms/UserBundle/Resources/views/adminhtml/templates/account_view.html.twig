@@ -11,29 +11,29 @@
         <div class="col-md-7">
             <table class="table table-striped">
                 <tr>
-                    <td class="text-muted">Last Logged In:</td>
-                    <td>Never (Offline)</td>
+                    <td class="text-muted">{{ block.trans('Last Logged In') }} :</td>
+                    <td>{{ block.getLastLog() }}</td>
                 </tr>
                 <tr>
-                    <td class="text-muted">Account Lock:</td>
-                    <td>Unlocked</td>
+                    <td class="text-muted">{{ block.trans('Account Lock') }} :</td>
+                    <td>{{ block.getLockLabel() }}</td>
                 </tr>
                 <tr>
-                    <td class="text-muted">Confirmed email:</td>
-                    <td>Confirmation Not Required</td>
+                    <td class="text-muted">{{ block.trans('Confirmed email') }} :</td>
+                    <td>{{ block.getEmailConfirmation() }}</td>
                 </tr>
                 <tr>
-                    <td class="text-muted">Account Created:</td>
-                    <td>Jan 14, 2019, 9:40:25 AM</td>
+                    <td class="text-muted">{{ block.trans('Account Created') }} :</td>
+                    <td>{{ block.getAccountCreationDate() }}</td>
                 </tr>
                 <tr>
-                    <td class="text-muted">Account Created in:</td>
-                    <td>Default Website View</td>
+                    <td class="text-muted">{{ block.trans('Account Created in') }} :</td>
+                    <td>{{ block.getAccountWebsiteView()|raw }}</td>
                 </tr>
             </table>
         </div>
         <div class="col-md-5">
-            <div class="mb-2" style="font-weight: bold">العنوان الافتراضي</div>
+            <div class="mb-2" style="font-weight: bold">{{ block.trans('Default Address') }}</div>
             <p>
                 Veronica Costello<br>
                 6146 Honey Bluff Parkway<br>

@@ -115,10 +115,13 @@ abstract class AdminController extends AbstractController
     /**
      * Helper for translate inside Controller classes
      * @param string $message
+     * @param mixed ...$params
      * @return string
      */
-    public function trans(string $message): string
+    public function trans(string $message, ...$params): string
     {
-        return $this->translator->trans($message);
+        return isset($params) && !empty($params)
+            ? sprintf($this->translator->trans($message), ...$params)
+            : $this->translator->trans($message);
     }
 }

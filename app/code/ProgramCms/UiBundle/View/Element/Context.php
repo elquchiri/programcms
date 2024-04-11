@@ -23,6 +23,7 @@ class Context implements ContextInterface
      * @var \ProgramCms\CoreBundle\View\Element\Template\Context
      */
     protected \ProgramCms\CoreBundle\View\Element\Template\Context $templateContext;
+
     /**
      * @var array
      */
@@ -32,6 +33,7 @@ class Context implements ContextInterface
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+
     /**
      * @var UiComponentFactory
      */

@@ -8,11 +8,15 @@
 
 namespace ProgramCms\FavoriteBundle;
 
+use ProgramCms\CoreBundle\ProgramCmsCoreBundle;
+use ProgramCms\ThemeBundle\ProgramCmsThemeBundle;
+use ProgramCms\UserBundle\ProgramCmsUserBundle;
+
 /**
  * Class ProgramCmsFavoriteBundle
  * @package ProgramCms\FavoriteBundle
  */
-class ProgramCmsFavoriteBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
+class ProgramCmsFavoriteBundle extends ProgramCmsCoreBundle
 {
     public const VERSION = '1.0.0';
 
@@ -22,8 +26,9 @@ class ProgramCmsFavoriteBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBund
     public static function getDependencies(): array
     {
         return [
-            \ProgramCms\CoreBundle\ProgramCmsCoreBundle::class,
-            \ProgramCms\ThemeBundle\ProgramCmsThemeBundle::class,
+            ProgramCmsCoreBundle::class,
+            ProgramCmsThemeBundle::class,
+            ProgramCmsUserBundle::class,
         ];
     }
 }

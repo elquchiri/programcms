@@ -8,6 +8,8 @@
 
 namespace ProgramCms\UiBundle\Component\Form\Element;
 
+use ReflectionException;
+
 /**
  * Class Text
  * @package ProgramCms\UiBundle\Component\Form\Element
@@ -30,12 +32,35 @@ class Select extends AbstractElement
     }
 
     /**
-     * @return array
+     * @return string
+     * @throws ReflectionException
      */
-    public function getOptions(): array
+    public function getOptions(): string
     {
-        return $this->getContext()
+        $options = $this->getContext()
             ->getObjectManager()->create($this->getData('sourceModel'))
             ->getOptionsArray();
+
+        return $this->processOptionGroup($options);
+    }
+
+    /**
+     * @param array $group
+     * @return string
+     */
+    private function processOptionGroup(array $group): string
+    {
+        $html = "";
+        foreach($group as $key => $item) {
+            if(is_array($item)) {
+                $html .= "<optgroup label='". $key ."'>";
+                $html .= $this->processOptionGroup($item);
+                $html .= "</optgroup>";
+            }else{
+                $isSelected = $this->hasValue() && $this->getValue() == $key ? 'selected' : '';
+                $html .= "<option value='". $key ."' ". $isSelected .">". $item . "</option>";
+            }
+        }
+        return $html;
     }
 }

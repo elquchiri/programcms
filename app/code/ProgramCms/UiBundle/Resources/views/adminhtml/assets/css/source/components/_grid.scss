@@ -1,7 +1,15 @@
+/*!
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
 .pagination-left-button {
     width: 45px;
     border: 1px solid #dedede;
-    background: url('../../../../../public/images/left-arrow.png') no-repeat center center;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url('../../../../../public/images/left-arrow.png');
 }
 .pagination-right-button {
     width: 45px;
@@ -12,16 +20,17 @@
 .admin-table {
     font-size: 14px;
 }
-.admin-table .table-dark {
+.admin-table .table-columns {
     font-size: 13px;
-    background-color: #1a1d20;
+
 }
 .admin-table tr th {
     padding: 11px 15px;
     cursor: pointer;
-
+    background-color: #363839;
+    border-color: #3e3e3e;
     &:hover {
-        background-color: #1a1d20;
+        background-color: #2a2e32;
     }
 }
 .admin-table tr td {

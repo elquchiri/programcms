@@ -8,11 +8,15 @@
 
 namespace ProgramCms\NewsletterBundle;
 
+use ProgramCms\CoreBundle\ProgramCmsCoreBundle;
+use ProgramCms\ThemeBundle\ProgramCmsThemeBundle;
+use ProgramCms\UserBundle\ProgramCmsUserBundle;
+
 /**
  * Class ProgramCmsNewsletterBundle
  * @package ProgramCms\NewsletterBundle
  */
-class ProgramCmsNewsletterBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
+class ProgramCmsNewsletterBundle extends ProgramCmsCoreBundle
 {
     public const VERSION = '1.0.0';
 
@@ -22,8 +26,9 @@ class ProgramCmsNewsletterBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBu
     public static function getDependencies(): array
     {
         return [
-            \ProgramCms\CoreBundle\ProgramCmsCoreBundle::class,
-            \ProgramCms\ThemeBundle\ProgramCmsThemeBundle::class,
+            ProgramCmsCoreBundle::class,
+            ProgramCmsThemeBundle::class,
+            ProgramCmsUserBundle::class
         ];
     }
 }

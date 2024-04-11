@@ -14,10 +14,12 @@
   background-repeat: no-repeat;
   background-position-x: 15px #{"/*rtl:99%*/"};
   background-position-y: center;
-}
-.flash-message-success {
-  background-image: url("../../../../../public/images/flashes/success.png");
-}
-.flash-message-danger {
-  background-image: url("../../../../../public/images/flashes/danger.png");
+
+  &.flash-message-success {
+    background-color: #f0fff8;
+    background-image: url("../../../../../public/images/flashes/success.png");
+  }
+  &.flash-message-danger {
+    background-image: url("../../../../../public/images/flashes/danger.png");
+  }
 }

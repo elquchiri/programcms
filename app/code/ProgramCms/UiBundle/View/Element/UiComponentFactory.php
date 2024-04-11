@@ -66,6 +66,6 @@ class UiComponentFactory extends DataObject
             throw new Exception(sprintf('Unable to create UIComponent, "%s" Not Found.', $identifier));
         }
 
-        return $layout->createBlock($this->_instances[$identifier], $name . '_' . $identifier, $arguments);
+        return $layout->createBlock($this->_instances[$identifier], $name, $arguments);
     }
 }

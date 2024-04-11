@@ -8,11 +8,15 @@
 
 namespace ProgramCms\CommentBundle;
 
+use ProgramCms\CoreBundle\ProgramCmsCoreBundle;
+use ProgramCms\ThemeBundle\ProgramCmsThemeBundle;
+use ProgramCms\UserBundle\ProgramCmsUserBundle;
+
 /**
  * Class ProgramCmsCommentBundle
  * @package ProgramCms\CommentBundle
  */
-class ProgramCmsCommentBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
+class ProgramCmsCommentBundle extends ProgramCmsCoreBundle
 {
     public const VERSION = '1.0.0';
 
@@ -22,8 +26,9 @@ class ProgramCmsCommentBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundl
     public static function getDependencies(): array
     {
         return [
-            \ProgramCms\CoreBundle\ProgramCmsCoreBundle::class,
-            \ProgramCms\ThemeBundle\ProgramCmsThemeBundle::class,
+            ProgramCmsCoreBundle::class,
+            ProgramCmsThemeBundle::class,
+            ProgramCmsUserBundle::class
         ];
     }
 }

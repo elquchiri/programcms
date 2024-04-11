@@ -44,9 +44,7 @@ class Layout extends AbstractResult
      * @throws RuntimeError
      * @throws LoaderError
      */
-    public function __construct(
-        Context $context,
-    )
+    public function __construct(Context $context)
     {
         $this->request = $context->getRequest();
         $this->env = $context->getEnvironment();
@@ -81,7 +79,8 @@ class Layout extends AbstractResult
      * @param array $parameters
      * @return Response
      */
-    public function render(array $parameters = []): Response{
+    public function render(array $parameters = []): Response
+    {
         // Please override this methode
     }
 }

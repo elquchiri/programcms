@@ -1,0 +1,1 @@
+The LoginAsUser bundle contains common infrastructure that provides an ability to Login as User in ProgramCMS application.

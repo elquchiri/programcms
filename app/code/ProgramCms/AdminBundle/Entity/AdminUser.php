@@ -10,11 +10,12 @@ namespace ProgramCms\AdminBundle\Entity;
 
 use ProgramCms\AdminBundle\Repository\AdminUserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: AdminUserRepository::class)]
-class AdminUser extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity implements UserInterface, PasswordAuthenticatedUserInterface
+class AdminUser extends AbstractEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @var int|null

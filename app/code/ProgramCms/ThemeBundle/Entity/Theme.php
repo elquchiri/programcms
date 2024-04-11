@@ -11,13 +11,14 @@ namespace ProgramCms\ThemeBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use JetBrains\PhpStorm\Pure;
-use ProgramCms\CoreBundle\Model\Db\Entity\Entity;
+use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
 use ProgramCms\CoreBundle\View\Design\ThemeInterface;
 use ProgramCms\ThemeBundle\Repository\ThemeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Unique;
 
 #[ORM\Entity(repositoryClass: ThemeRepository::class)]
-class Theme extends Entity implements ThemeInterface
+class Theme extends AbstractEntity implements ThemeInterface
 {
     /**
      * @var int|null
@@ -37,6 +38,7 @@ class Theme extends Entity implements ThemeInterface
      * @var string|null
      */
     #[ORM\Column(length: 255)]
+    #[Unique]
     private ?string $code = null;
 
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: Theme::class)]
@@ -59,6 +61,7 @@ class Theme extends Entity implements ThemeInterface
      * @var string|null
      */
     #[ORM\Column]
+    #[Unique]
     private ?string $theme_path = null;
 
     /**

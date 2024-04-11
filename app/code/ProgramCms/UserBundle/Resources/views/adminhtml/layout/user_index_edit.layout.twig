@@ -13,19 +13,22 @@
                 {% argument name="data" type="array" %}
                     {% argument name="label" type="string" %}User Information{% endArgument %}
                 {% endArgument %}
-                {% argument name="dataSource" type="array" %}
-                    {% argument name="dataProvider" type="array" %}
-                        {% argument name="class" type="string" %}ProgramCms\UserBundle\Model\Provider\Listing\DataProvider{% endArgument %}
-                        {% argument name="primaryFieldName" type="string" %}entity_id{% endArgument %}
-                        {% argument name="requestFieldName" type="string" %}id{% endArgument %}
-                    {% endArgument %}
-                {% endArgument %}
                 {% argument name="buttons" type="array" %}
                     {% argument name="back" type="string" %}ProgramCms\UserBundle\Model\Provider\Button\BackToUsersButton{% endArgument %}
                     {% argument name="force_login" type="string" %}ProgramCms\UserBundle\Model\Provider\Button\ForceSignInButton{% endArgument %}
                     {% argument name="password_reset" type="string" %}ProgramCms\UserBundle\Model\Provider\Button\ResetPasswordButton{% endArgument %}
                     {% argument name="delete" type="string" %}ProgramCms\UserBundle\Model\Provider\Button\DeleteUserButton{% endArgument %}
                     {% argument name="save" type="string" %}ProgramCms\UserBundle\Model\Provider\Button\SaveUserButton{% endArgument %}
+                {% endArgument %}
+                {% argument name="dataSource" type="array" %}
+                    {% argument name="dataProvider" type="array" %}
+                        {% argument name="class" type="string" %}ProgramCms\UserBundle\Model\Provider\Listing\DataProvider{% endArgument %}
+                        {% argument name="primaryFieldName" type="string" %}entity_id{% endArgument %}
+                        {% argument name="requestFieldName" type="string" %}id{% endArgument %}
+                    {% endArgument %}
+                    {% argument name="settings" type="array" %}
+                        {% argument name="submitUrl" type="string" %}user_index_save{% endArgument %}
+                    {% endArgument %}
                 {% endArgument %}
                 {% argument name="layout" type="array" %}
                     {% argument name="navContainerName" type="string" %}sidebar.main{% endArgument %}
@@ -46,7 +49,7 @@
                         {% argument name="label" type="string" %}Account Information{% endArgument %}
                     {% endArgument %}
                 {% endArguments %}
-                {% block name="id" class="ui.block.form.field" %}
+                {% block name="entity_id" class="ui.block.form.field" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
                             {% argument name="type" type="string" %}hidden{% endArgument %}
@@ -84,11 +87,129 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
+                {% block name="lock" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}switcher{% endArgument %}
+                            {% argument name="label" type="string" %}Lock{% endArgument %}
+                            {% argument name="source" type="string" %}user_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="website_view_id" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}select{% endArgument %}
+                            {% argument name="label" type="string" %}Account Created in{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                            {% argument name="sourceModel" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\DataSource\WebsiteTree{% endArgument %}
+                            {% argument name="source" type="string" %}user_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
             {% endBlock %}
             {% block name="user_addresses" class="ui.block.form.fieldset" %}
                 {% arguments %}
                     {% argument name="data" type="array" %}
                         {% argument name="label" type="string" %}Addresses{% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+            {% endBlock %}
+            {% block name="user_log" class="ui.block.form.fieldset" %}
+                {% arguments %}
+                    {% argument name="data" type="array" %}
+                        {% argument name="label" type="string" %}User Log{% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+                {% block name="themes_listing" class="ui.block.listing" %}
+                    {% arguments %}
+                        {% argument name="dataSource" type="array" %}
+                            {% argument name="dataProvider" type="array" %}
+                                {% argument name="class" type="string" %}ProgramCms\ThemeBundle\Model\Theme\Grid\DataProvider{% endArgument %}
+                                {% argument name="primaryFieldName" type="string" %}theme_id{% endArgument %}
+                                {% argument name="requestFieldName" type="string" %}id{% endArgument %}
+                            {% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+
+                    {% block name="toolbar" class="ui.block.listing.toolbar" %}
+                        {% block name="filters" class="ui.block.listing.filters" %}{% endBlock %}
+                        {% block name="search" class="ui.block.listing.search" %}{% endBlock %}
+
+                        {% block name="massActions" class="ui.block.listing.massActions" %}
+                            {% arguments %}
+                                {% argument name="settings" type="array" %}
+                                    {% argument name="delete" type="array" %}
+                                        {% argument name="url" type="string" %}delete{% endArgument %}
+                                        {% argument name="label" type="string" %}Delete All{% endArgument %}
+                                    {% endArgument %}
+                                {% endArgument %}
+                            {% endArguments %}
+                        {% endBlock %}
+
+                        {% block name="pagination" class="ui.block.listing.pagination" %}{% endBlock %}
+                    {% endBlock %}
+
+                    {% block name="columns" class="ui.block.columns" %}
+                        {% block name="selectionsColumn" class="ui.block.selectionsColumn" %}
+                            {% arguments %}
+                                {% argument name="data" type="array" %}
+                                    {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                                {% endArgument %}
+                            {% endArguments %}
+                        {% endBlock %}
+
+                        {% block name="theme_id" class="ui.block.column" %}
+                            {% arguments %}
+                                {% argument name="data" type="array" %}
+                                    {% argument name="label" type="string" %}#{% endArgument %}
+                                    {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                                {% endArgument %}
+                            {% endArguments %}
+                        {% endBlock %}
+
+                        {% block name="theme_title" class="ui.block.column" %}
+                            {% arguments %}
+                                {% argument name="data" type="array" %}
+                                    {% argument name="label" type="string" %}Title{% endArgument %}
+                                    {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                                {% endArgument %}
+                            {% endArguments %}
+                        {% endBlock %}
+
+                        {% block name="parent_theme_title" class="ui.block.column" %}
+                            {% arguments %}
+                                {% argument name="data" type="array" %}
+                                    {% argument name="label" type="string" %}Parent Theme{% endArgument %}
+                                    {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                                {% endArgument %}
+                            {% endArguments %}
+                        {% endBlock %}
+
+                        {% block name="theme_path" class="ui.block.column" %}
+                            {% arguments %}
+                                {% argument name="data" type="array" %}
+                                    {% argument name="label" type="string" %}Path{% endArgument %}
+                                    {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                                {% endArgument %}
+                            {% endArguments %}
+                        {% endBlock %}
+
+                        {% block name="actionsColumn" class="ProgramCms\\ThemeBundle\\Ui\\Grid\\Column\\ThemeActions" %}
+                            {% arguments %}
+                                {% argument name="data" type="array" %}
+                                    {% argument name="label" type="string" %}Actions{% endArgument %}
+                                    {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                                {% endArgument %}
+                            {% endArguments %}
+                        {% endBlock %}
+                    {% endBlock %}
+                {% endBlock %}
+            {% endBlock %}
+            {% block name="user_acl" class="ui.block.form.fieldset" %}
+                {% arguments %}
+                    {% argument name="data" type="array" %}
+                        {% argument name="label" type="string" %}Access Control List{% endArgument %}
                     {% endArgument %}
                 {% endArguments %}
             {% endBlock %}

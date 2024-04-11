@@ -6,57 +6,26 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<div class="navbar-collapse justify-content-end" data-controller="toolbar">
+<div class="navbar-collapse justify-content-end navbar-actions" data-controller="toolbar">
     <ul class="navbar-nav">
         {% for button in block.getButtons() %}
             <li class="nav-item">
-                {% if button.buttonType == 'save' %}
-                    <button data-action="toolbar#buttonClick" class="btn btn-primary ef-toolbar-btn" data-btn-type="{{ button.buttonType }}"
-                            data-btn-target="{{ button.buttonTarget }}"
-                            data-btn-confirm="{{ button.confirm }}"
-                            type="button">
-                        {{ button.label|trans }}
-                    </button>
-                {% elseif button.buttonType == 'primary' %}
-                    <button
-                            data-action="toolbar#buttonClick"
-                            class="btn btn-primary"
-                            data-btn-action="{{ button.buttonAction }}"
-                            data-btn-type="{{ button.buttonType }}"
-                            data-btn-confirm="{{ button.confirm }}"
-                            type="button">
-                        {{ button.label|trans }}
-                    </button>
-                {% elseif button.buttonType == 'secondary' %}
-                    <button
-                            data-action="toolbar#buttonClick"
-                            class="btn btn"
-                            data-btn-action="{{ button.buttonAction }}"
-                            data-btn-type="{{ button.buttonType }}"
-                            data-btn-confirm="{{ button.confirm }}"
-                            type="button">
-                        {{ button.label|trans }}
-                    </button>
-                {% elseif button.buttonType == 'back' %}
-                    <button data-action="toolbar#buttonClick"
-                            class="btn btn"
-                            data-btn-type="{{ button.buttonType }}"
-                            data-btn-action="{{ button.buttonAction }}"
-                            data-btn-confirm="{{ button.confirm }}"
-                            type="button">
-                        <img style="margin-bottom: 2px; margin-right: 3px;" src="{{ asset('bundles/programcmsadmin/images/back.png') }}" />
-                        {{ button.label|trans }}
-                    </button>
-                {% else %}
-                    <button data-action="toolbar#buttonClick"
-                            class="btn btn-{{ button.buttonType }} ef-toolbar-btn"
-                            data-btn-type="{{ button.buttonType }}" type="button"
-                            data-btn-confirm="{{ button.confirm }}"
-                            data-btn-action="{{ button.buttonAction }}">
-                        {{ button.label|trans }}
-                    </button>
-                {% endif %}
+                <button
+                    type="button"
+                    class="btn {{ button.class }}"
+                    data-btn-type="{{ button.buttonType }}"
+                    data-action="toolbar#buttonClick"
+                    {% if button.buttonType == 'save' %}
+                    data-btn-target="{{ button.buttonTarget }}"
+                    {% else %}
+                    data-btn-action="{{ button.buttonAction }}"
+                    {% endif %}
+                    {% if button.confirm %}
+                    data-btn-confirm="{{ button.confirm }}"
+                    {% endif %}
+                >{{ button.label|trans }}</button>
             </li>
         {% endfor %}
     </ul>
 </div>
+{#<img style="margin-bottom: 2px; margin-right: 3px;" src="{{ asset('bundles/programcmsadmin/images/back.png') }}" />#}

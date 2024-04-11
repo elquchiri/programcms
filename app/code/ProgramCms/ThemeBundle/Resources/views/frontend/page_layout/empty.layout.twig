@@ -10,9 +10,9 @@
     {% container name="root" %}
         {% container name="page.wrapper" htmlTag="div" htmlClass="page-wrapper" %}
             {% container name="global.notices" before="-" %}{% endContainer %}
-            {% container name="main.content" htmlTag="main" htmlClass="page-main" %}
-                {% container name="columns" htmlTag="div" htmlClass="columns" %}
-                    {% container name="main" htmlTag="div" htmlClass="column main" %}{% endContainer %}
+            {% container name="main.content" htmlTag="main" htmlClass="page-main container" %}
+                {% container name="columns" htmlTag="div" htmlClass="row me-0 columns" %}
+                    {% container name="main" htmlTag="div" htmlClass="col main-col" %}{% endContainer %}
                 {% endContainer %}
             {% endContainer %}
         {% endContainer %}

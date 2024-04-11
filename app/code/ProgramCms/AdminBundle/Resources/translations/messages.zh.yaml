@@ -11,5 +11,3 @@
 "Save Account": "保存帐户"
 "Reset": "重置"
 "The provided password is not valid, please try again.": "提供的密码无效，请重试。"
-"Cache Management": "缓存管理"
-"One or more of the Cache Types are invalidated: Page Cache. Please go to %s and refresh cache types.": "一种或多种缓存类型无效：页面缓存。 请转至 %s 并刷新缓存类型"

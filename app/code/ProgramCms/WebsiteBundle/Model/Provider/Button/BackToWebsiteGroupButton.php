@@ -10,29 +10,32 @@ namespace ProgramCms\WebsiteBundle\Model\Provider\Button;
 
 use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\UiBundle\DataProvider\ButtonProviderInterface;
 use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
 
 /**
- * Class AddGroupButton
+ * Class BackToWebsiteGroupButton
  * @package ProgramCms\WebsiteBundle\Model\Provider\Button
  */
-class BackToWebsiteGroupButton implements \ProgramCms\UiBundle\DataProvider\ButtonProviderInterface
+class BackToWebsiteGroupButton implements ButtonProviderInterface
 {
     /**
      * @var Url
      */
     protected Url $url;
+
     /**
      * @var Request
      */
     protected Request $request;
+
     /**
      * @var WebsiteViewRepository
      */
     protected WebsiteViewRepository $websiteViewRepository;
 
     /**
-     * BackToWebsiteButton constructor.
+     * BackToWebsiteGroupButton constructor.
      * @param Url $url
      * @param Request $request
      * @param WebsiteViewRepository $websiteViewRepository
@@ -61,6 +64,7 @@ class BackToWebsiteGroupButton implements \ProgramCms\UiBundle\DataProvider\Butt
 
         return [
             'buttonType' => 'back',
+            'class' => 'back',
             'buttonAction' => $this->url->getUrlByRouteName('website_websitegroup_edit', ['id' => $id]),
             'label' => 'back'
         ];

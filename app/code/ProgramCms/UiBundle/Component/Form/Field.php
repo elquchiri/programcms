@@ -9,6 +9,7 @@
 namespace ProgramCms\UiBundle\Component\Form;
 
 use Exception;
+use ProgramCms\UiBundle\Component\AbstractComponent;
 
 /**
  * Class Field
@@ -17,6 +18,7 @@ use Exception;
 class Field extends \ProgramCms\UiBundle\Component\Form\Element\AbstractElement
 {
     const NAME = 'field';
+
     /**
      * @var string
      */
@@ -45,23 +47,24 @@ class Field extends \ProgramCms\UiBundle\Component\Form\Element\AbstractElement
                 ->getUiComponentFactory()
                 ->create(
                     $type,
-                    $fieldName,
+                    $this->getId() . '_field',
                     array_merge_recursive($this->getData(), ['name' => $this->getName()]),
                     $layout
                 );
-            $element->setName($this->getNameInLayout());
+            $element->setName($fieldName);
 
             if($this->hasData('source')) {
                 $dataSourceName = $this->getData('source');
+                /** @var AbstractComponent $dataSourceBlock */
                 $dataSourceBlock = $this->getLayout()->getBlock($dataSourceName);
                 $dataSourceData = $this->getContext()->getDataSourceData($dataSourceBlock);
                 $item = current($dataSourceData);
-                if ($item && $item->hasDataUsingMethod($fieldName)) {
-                    $element->setValue($item->getDataUsingMethod($fieldName));
+                if ($item && $item->hasData($fieldName)) {
+                    $element->setValue($item->getData($fieldName));
                 }
             }
 
-            $this->setChild($this->getName(), $element->getNameInLayout());
+            $this->setChild($element->getName(), $element);
         }
     }
 }

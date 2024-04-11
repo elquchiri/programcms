@@ -22,72 +22,98 @@
         {% endBlock %}
     {% endReferenceContainer %}
     {% referenceContainer name="content" %}
-        {% block name="form" class="ui.block.form" %}
+        {% block name="website_group_form" class="ui.block.form" %}
             {% arguments %}
-                {% argument name="label" type="string" %}Website Group Information{% endArgument %}
-                {% argument name="dataProvider" type="array" %}
-                    {% argument name="class" type="string" %}ProgramCms\WebsiteBundle\Model\WebsiteGroup\Form\DataProvider{% endArgument %}
-                    {% argument name="primaryFieldName" type="string" %}website_group_id{% endArgument %}
-                    {% argument name="requestFieldName" type="string" %}id{% endArgument %}
+                {% argument name="data" type="array" %}
+                    {% argument name="label" type="string" %}Website Group Information{% endArgument %}
                 {% endArgument %}
                 {% argument name="buttons" type="array" %}
                     {% argument name="back" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\Button\BackToWebsiteButton{% endArgument %}
-                    {% argument name="remove" type="array" %}
-                        {% argument name="buttonType" type="string" %}secondary{% endArgument %}
-                        {% argument name="buttonAction" type="string" %}website_website_new{% endArgument %}
-                        {% argument name="label" type="string" %}Remove{% endArgument %}
-                    {% endArgument %}
-                    {% argument name="saveButton" type="array" %}
-                        {% argument name="buttonType" type="string" %}save{% endArgument %}
-                        {% argument name="buttonTarget" type="string" %}form{% endArgument %}
-                        {% argument name="buttonAction" type="string" %}website_websitegroup_save{% endArgument %}
-                        {% argument name="label" type="string" %}Save Group{% endArgument %}
-                    {% endArgument %}
+                    {% argument name="save" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\Button\SaveWebsiteGroupButton{% endArgument %}
                 {% endArgument %}
-                {% argument name="fieldsets" type="array" %}
-                    {% argument name="fieldset" type="array" %}
-                        {% argument name="fields" type="array" %}
-                            {% argument name="is_active" type="array" %}
-                                {% argument name="type" type="string" %}switcher{% endArgument %}
-                                {% argument name="label" type="string" %}Enable Group{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="website_group_name" type="array" %}
-                                {% argument name="type" type="string" %}text{% endArgument %}
-                                {% argument name="label" type="string" %}Name{% endArgument %}
-                                {% argument name="placeholder" type="string" %}Group Name{% endArgument %}
-                                {% argument name="isRequired" type="boolean" %}true{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="website_group_code" type="array" %}
-                                {% argument name="type" type="string" %}text{% endArgument %}
-                                {% argument name="label" type="string" %}Code{% endArgument %}
-                                {% argument name="placeholder" type="string" %}Code{% endArgument %}
-                                {% argument name="isRequired" type="boolean" %}true{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="sort_order" type="array" %}
-                                {% argument name="type" type="string" %}text{% endArgument %}
-                                {% argument name="label" type="string" %}Sort Order{% endArgument %}
-                                {% argument name="placeholder" type="string" %}0{% endArgument %}
-                                {% argument name="value" type="string" %}0{% endArgument %}
-                            {% endArgument %}
-{#                            {% argument name="root_category" type="array" %}#}
-{#                                {% argument name="type" type="string" %}select{% endArgument %}#}
-{#                                {% argument name="label" type="string" %}Root Category{% endArgument %}#}
-{#                                {% argument name="sourceModel" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\DataSource\Groups{% endArgument %}#}
-{#                                {% argument name="isRequired" type="boolean" %}true{% endArgument %}#}
-{#                            {% endArgument %}#}
-                            {% argument name="default_website_view_id" type="array" %}
-                                {% argument name="type" type="string" %}select{% endArgument %}
-                                {% argument name="label" type="string" %}Default View{% endArgument %}
-                                {% argument name="sourceModel" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\DataSource\WebsiteViews{% endArgument %}
-                                {% argument name="isRequired" type="boolean" %}true{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="website_id" type="array" %}
-                                {% argument name="type" type="string" %}hidden{% endArgument %}
-                            {% endArgument %}
-                        {% endArgument %}
+                {% argument name="dataSource" type="array" %}
+                    {% argument name="settings" type="array" %}
+                        {% argument name="submitUrl" type="string" %}website_websitegroup_save{% endArgument %}
                     {% endArgument %}
                 {% endArgument %}
             {% endArguments %}
+            {% block name="website_group_fieldset" class="ui.block.form.fieldset" %}
+                {% block name="website_group_id" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}hidden{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="is_active" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}switcher{% endArgument %}
+                            {% argument name="label" type="string" %}Enable Group{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="website_group_name" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}text{% endArgument %}
+                            {% argument name="label" type="string" %}Name{% endArgument %}
+                            {% argument name="placeholder" type="string" %}Group Name{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="website_group_code" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}text{% endArgument %}
+                            {% argument name="label" type="string" %}Code{% endArgument %}
+                            {% argument name="placeholder" type="string" %}Code{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="sort_order" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}text{% endArgument %}
+                            {% argument name="label" type="string" %}Sort Order{% endArgument %}
+                            {% argument name="placeholder" type="string" %}0{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="root_category_id" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}select{% endArgument %}
+                            {% argument name="label" type="string" %}Root Category{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                            {% argument name="sourceModel" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\DataSource\Groups{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="default_website_view_id" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}select{% endArgument %}
+                            {% argument name="label" type="string" %}Default View{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                            {% argument name="sourceModel" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\DataSource\WebsiteViews{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="website_id" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}select{% endArgument %}
+                            {% argument name="label" type="string" %}Website{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                            {% argument name="sourceModel" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\DataSource\Websites{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+            {% endBlock %}
         {% endBlock %}
     {% endReferenceContainer %}
 {% endPage %}

@@ -1,0 +1,14 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% page %}
+    {% require handle="user_account" %}
+    {% referenceContainer name="content" %}
+        {% block name="user.edit.addresses" class="ProgramCms\\UserBundle\\Block\\Account\\Edit\\Dashboard" template="@ProgramCmsUserBundle/address/addresses.html.twig" %}{% endBlock %}
+    {% endReferenceContainer %}
+{% endPage %}

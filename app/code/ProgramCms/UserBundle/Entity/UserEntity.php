@@ -8,13 +8,16 @@
 
 namespace ProgramCms\UserBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use ProgramCms\EavBundle\Model\Entity\Entity;
+use ProgramCms\UserBundle\Entity\Address\UserAddressEntity;
 use ProgramCms\UserBundle\Repository\UserEntityRepository;
 use ProgramCms\WebsiteBundle\Entity\WebsiteView;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints\Unique;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Class User
@@ -73,6 +76,43 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
      */
     #[ORM\Column(type: 'string', length: 100)]
     private ?string $reset_token;
+
+    /**
+     * @var bool|null
+     */
+    #[ORM\Column(options: ['default' => 0])]
+    private ?bool $lock;
+
+    /**
+     * @var bool|null
+     */
+    #[ORM\Column(options: ['default' => 0])]
+    private ?bool $confirmed_email;
+
+    /**
+     * @var Collection
+     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserLog::class)]
+    private Collection $logs;
+
+    /**
+     * @var Collection
+     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserAddressEntity::class)]
+    private Collection $addresses;
+
+    /**
+     * UserEntity constructor.
+     * @param array $data
+     */
+    public function __construct(
+        array $data = []
+    )
+    {
+        parent::__construct($data);
+        $this->logs = new ArrayCollection();
+        $this->addresses = new ArrayCollection();
+    }
 
     /**
      * @param WebsiteView $websiteView
@@ -212,6 +252,9 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
         return $this;
     }
 
+    /**
+     * Removes sensitive data from the user.
+     */
     public function eraseCredentials() {}
 
     /**
@@ -237,6 +280,127 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
     public function setResetToken(?string $resetToken): static
     {
         $this->reset_token = $resetToken;
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getLock(): ?bool
+    {
+        return $this->lock;
+    }
+
+    /**
+     * @param bool $lock
+     * @return $this
+     */
+    public function setLock(bool $lock): static
+    {
+        $this->lock = $lock;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLocked(): bool
+    {
+        return $this->lock ?: false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUnlocked(): bool
+    {
+        return !($this->lock ?: false);
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getConfirmedEmail(): ?bool
+    {
+        return $this->confirmed_email;
+    }
+
+    /**
+     * @param bool $confirmedEmail
+     * @return $this
+     */
+    public function setConfirmedEmail(bool $confirmedEmail): static
+    {
+        $this->confirmed_email = $confirmedEmail;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEmailConfirmed(): bool
+    {
+        return $this->confirmed_email ?: false;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getLogs(): Collection
+    {
+        return $this->logs;
+    }
+
+    /**
+     * @param UserLog $log
+     * @return $this
+     */
+    public function addLog(UserLog $log): static
+    {
+        if(!$this->logs->contains($log)) {
+            $this->logs[] = $log;
+        }
+        return $this;
+    }
+
+    /**
+     * Clear all user logs
+     * More attention calling this method.
+     * @return $this
+     */
+    public function clearLogs(): static
+    {
+        $this->logs->clear();
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAddresses(): Collection
+    {
+        return $this->addresses;
+    }
+
+    /**
+     * @param UserAddressEntity $userAddressEntity
+     * @return $this
+     */
+    public function addAddress(UserAddressEntity $userAddressEntity): static
+    {
+        if(!$this->addresses->contains($userAddressEntity)) {
+            $this->addresses[] = $userAddressEntity;
+        }
+        return $this;
+    }
+
+    /**
+     * @param UserAddressEntity $userAddressEntity
+     * @return $this
+     */
+    public function removeAddress(UserAddressEntity $userAddressEntity): static
+    {
+        $this->addresses->removeElement($userAddressEntity);
         return $this;
     }
 }

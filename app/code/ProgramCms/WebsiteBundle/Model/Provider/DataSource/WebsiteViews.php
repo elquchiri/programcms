@@ -22,17 +22,19 @@ class WebsiteViews extends \ProgramCms\UiBundle\Model\Provider\DataSource\Option
      * @var Request
      */
     protected Request $request;
+
     /**
      * @var WebsiteViewRepository
      */
     protected WebsiteViewRepository $websiteViewRepository;
+
     /**
      * @var WebsiteGroupRepository
      */
     protected WebsiteGroupRepository $websiteGroupRepository;
 
     /**
-     * Websites constructor.
+     * WebsiteViews constructor.
      * @param Request $request
      * @param WebsiteViewRepository $websiteViewRepository
      * @param WebsiteGroupRepository $websiteGroupRepository

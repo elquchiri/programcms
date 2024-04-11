@@ -26,12 +26,13 @@ use ProgramCms\UiBundle\Twig\Parser\FieldsetTokenParser;
 use ProgramCms\UiBundle\Twig\Parser\FieldTokenParser;
 use ProgramCms\UiBundle\Twig\Parser\FormTokenParser;
 use ProgramCms\UiBundle\Twig\Parser\UiComponentTokenParser;
+use Twig\Extension\AbstractExtension;
 
 /**
  * Class ThemeExtension
  * @package ProgramCms\ThemeBundle\Extension
  */
-class ThemeExtension extends \Twig\Extension\AbstractExtension
+class ThemeExtension extends AbstractExtension
 {
     /**
      * @var Layout
@@ -64,7 +65,6 @@ class ThemeExtension extends \Twig\Extension\AbstractExtension
      */
     public function getTokenParsers()
     {
-        // TODO: Re-Design this part to be modular
         return [
             new PageTokenParser(),
             new RequireTokenParser(),

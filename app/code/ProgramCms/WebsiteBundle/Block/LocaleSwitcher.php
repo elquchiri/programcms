@@ -55,8 +55,8 @@ class LocaleSwitcher extends Template
     public function getLocales(): array
     {
         $locales = [];
-        $currentGroup = $this->websiteManager->getGroup();
         $currentWebsiteView = $this->websiteManager->getWebsiteView();
+        $currentGroup = $currentWebsiteView->getWebsiteGroup();
         $baseUrl = $this->configHelper->getBaseUrl();
         foreach($currentGroup->getWebsiteViews() as $websiteView) {
             if($currentWebsiteView === $websiteView) {

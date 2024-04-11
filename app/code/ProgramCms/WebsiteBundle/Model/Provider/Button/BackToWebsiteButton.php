@@ -61,6 +61,7 @@ class BackToWebsiteButton implements \ProgramCms\UiBundle\DataProvider\ButtonPro
 
         return [
             'buttonType' => 'back',
+            'class' => 'back',
             'buttonAction' => $this->url->getUrlByRouteName('website_website_edit', ['id' => $id]),
             'label' => 'back'
         ];

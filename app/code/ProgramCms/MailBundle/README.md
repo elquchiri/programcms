@@ -1,0 +1,1 @@
+The Mail bundle contains common infrastructure that provides Mail in ProgramCMS application.

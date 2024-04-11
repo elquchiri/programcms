@@ -12,15 +12,15 @@ menu:
     groups:
       default:
         actions:
-          help:
+          all:
             label: "All Users"
             action: 'user_index_index'
             sortOrder: 1
-          about:
+          online:
             label: 'Now Online'
-            action: ''
+            action: 'user_index_connected'
             sortOrder: 2
-          gettingstarted:
+          groups:
             label: 'User Groups'
-            action: ''
+            action: 'user_group_index'
             sortOrder: 3

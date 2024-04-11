@@ -13,139 +13,249 @@
     {% referenceContainer name="sidebar.main" %}
         {% container name="tree.container" htmlTag="div" htmlClass="sticky-md-top" %}
             {% block name="category.tree.block" class="ProgramCms\\CatalogBundle\\Block\\CategoryTreeButtons" template="@ProgramCmsCatalogBundle/tree_buttons.html.twig" %}{% endBlock %}
-            {% block name="category.tree" class="ProgramCms\\UiBundle\\Block\\Tree\\Tree" %}{% endBlock %}
+            {% block name="category.tree" class="ProgramCms\\UiBundle\\Component\\Tree\\Tree" %}
+                {% arguments %}
+                    {% argument name="data" type="array" %}
+                        {% argument name="isOpen" type="boolean" %}true{% endArgument %}
+                    {% endArgument %}
+                    {% argument name="dataSource" type="array" %}
+                        {% argument name="dataProvider" type="array" %}
+                            {% argument name="class" type="string" %}ProgramCms\WebsiteBundle\Model\Website\DataProvider{% endArgument %}
+                        {% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+            {% endBlock %}
         {% endContainer %}
     {% endReferenceContainer %}
     {% referenceContainer name="content" %}
-        {% block name="form" class="ui.block.form" %}
+        {% block name="category_form" class="ui.block.form" %}
             {% arguments %}
-                {% argument name="label" type="string" %}Category Information{% endArgument %}
-                {% argument name="dataProvider" type="array" %}
-                    {% argument name="class" type="string" %}ProgramCms\CatalogBundle\Model\Category\DataProvider{% endArgument %}
-                    {% argument name="primaryFieldName" type="string" %}entity_id{% endArgument %}
-                    {% argument name="requestFieldName" type="string" %}id{% endArgument %}
+                {% argument name="data" type="array" %}
+                    {% argument name="label" type="string" %}Category Information{% endArgument %}
                 {% endArgument %}
                 {% argument name="buttons" type="array" %}
-                    {% argument name="saveButton" type="array" %}
-                        {# Todo: Auto Add buttonType and buttonTarget in Form Block #}
-                        {% argument name="buttonType" type="string" %}save{% endArgument %}
-                        {% argument name="buttonTarget" type="string" %}form{% endArgument %}
-                        {% argument name="buttonAction" type="string" %}catalog_category_save{% endArgument %}
-                        {% argument name="label" type="string" %}Save Category{% endArgument %}
-                    {% endArgument %}
+                    {% argument name="back" type="string" %}ProgramCms\UserBundle\Model\Provider\Button\BackToUsersButton{% endArgument %}
+                    {% argument name="delete" type="string" %}ProgramCms\UserBundle\Model\Provider\Button\DeleteUserButton{% endArgument %}
+                    {% argument name="save" type="string" %}ProgramCms\UserBundle\Model\Provider\Button\SaveUserButton{% endArgument %}
                 {% endArgument %}
-{#                {% argument name="layout" type="array" %}#}
-{#                    {% argument name="navContainerName" type="string" %}sidebar.main{% endArgument %}#}
-{#                    {% argument name="type" type="string" %}tabs{% endArgument %}#}
-{#                {% endArgument %}#}
-                {% argument name="fieldsets" type="array" %}
-                    {% argument name="fieldset" type="array" %}
-                        {% argument name="fields" type="array" %}
-                            {% argument name="enable" type="array" %}
-                                {% argument name="type" type="string" %}switcher{% endArgument %}
-                                {% argument name="label" type="string" %}Enable Category{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="includeInMenu" type="array" %}
-                                {% argument name="type" type="string" %}switcher{% endArgument %}
-                                {% argument name="label" type="string" %}Include in Menu{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="name" type="array" %}
-                                {% argument name="type" type="string" %}text{% endArgument %}
-                                {% argument name="label" type="string" %}Name{% endArgument %}
-                                {% argument name="placeholder" type="string" %}Category Name{% endArgument %}
-                                {% argument name="isRequired" type="boolean" %}true{% endArgument %}
-                            {% endArgument %}
-                        {% endArgument %}
+                {% argument name="dataSource" type="array" %}
+                    {% argument name="dataProvider" type="array" %}
+                        {% argument name="class" type="string" %}ProgramCms\CatalogBundle\Model\Category\DataProvider{% endArgument %}
+                        {% argument name="primaryFieldName" type="string" %}entity_id{% endArgument %}
+                        {% argument name="requestFieldName" type="string" %}id{% endArgument %}
                     {% endArgument %}
-                    {% argument name="fieldset2" type="array" %}
-                        {% argument name="label" type="string" %}Content{% endArgument %}
-                        {% argument name="open" type="boolean" %}true{% endArgument %}
-                        {% argument name="fields" type="array" %}
-                            {% argument name="categoryImage" type="array" %}
-                                {% argument name="type" type="string" %}imageUploader{% endArgument %}
-                                {% argument name="label" type="string" %}Category Image{% endArgument %}
-                                {% argument name="helpMessage" type="string" %}Maximum file size: 4 MB. Allowed file types: JPG, GIF, PNG.{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="description" type="array" %}
-                                {% argument name="type" type="string" %}textArea{% endArgument %}
-                                {% argument name="label" type="string" %}Description{% endArgument %}
-                                {% argument name="placeholder" type="string" %}Description{% endArgument %}
-                            {% endArgument %}
-                        {% endArgument %}
-                    {% endArgument %}
-                    {% argument name="fieldset3" type="array" %}
-                        {% argument name="label" type="string" %}Display Settings{% endArgument %}
-                        {% argument name="fields" type="array" %}
-                            {% argument name="displayMode" type="array" %}
-                                {% argument name="type" type="string" %}select{% endArgument %}
-                                {% argument name="label" type="string" %}Display Mode{% endArgument %}
-                                {% argument name="sourceModel" type="string" %}ProgramCms\CatalogBundle\Model\Provider\DataSource\DisplayMode{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="sortOrder" type="array" %}
-                                {% argument name="type" type="string" %}text{% endArgument %}
-                                {% argument name="label" type="string" %}Sort Order{% endArgument %}
-                                {% argument name="placeholder" type="string" %}Sort Order{% endArgument %}
-                            {% endArgument %}
-                        {% endArgument %}
-                    {% endArgument %}
-                    {% argument name="fieldset4" type="array" %}
-                        {% argument name="label" type="string" %}Search Engine Optimization{% endArgument %}
-                        {% argument name="fields" type="array" %}
-                            {% argument name="urlKey" type="array" %}
-                                {% argument name="type" type="string" %}text{% endArgument %}
-                                {% argument name="label" type="string" %}URL Key{% endArgument %}
-                                {% argument name="placeholder" type="string" %}URL Key{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="metaTitle" type="array" %}
-                                {% argument name="type" type="string" %}text{% endArgument %}
-                                {% argument name="label" type="string" %}Meta Title{% endArgument %}
-                                {% argument name="placeholder" type="string" %}Meta Title{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="metaKeywords" type="array" %}
-                                {% argument name="type" type="string" %}textArea{% endArgument %}
-                                {% argument name="label" type="string" %}Meta Keywords{% endArgument %}
-                                {% argument name="placeholder" type="string" %}Meta Keywords{% endArgument %}
-                            {% endArgument %}
-                            {% argument name="metaDescription" type="array" %}
-                                {% argument name="type" type="string" %}textArea{% endArgument %}
-                                {% argument name="label" type="string" %}Meta Description{% endArgument %}
-                                {% argument name="placeholder" type="string" %}Meta Description{% endArgument %}
-                            {% endArgument %}
-                        {% endArgument %}
-                    {% endArgument %}
-                    {% argument name="fieldset5" type="array" %}
-                        {% argument name="label" type="string" %}Posts{% endArgument %}
-                        {% argument name="grid" type="array" %}
-                            {% argument name="columns" type="array" %}
-                                {% argument name="id" type="array" %}
-                                    {% argument name="label" type="string" %}#{% endArgument %}
-                                    {% argument name="dataScope" type="string" %}entity_id{% endArgument %}
-                                {% endArgument %}
-                                {% argument name="title" type="array" %}
-                                    {% argument name="label" type="string" %}Title{% endArgument %}
-                                    {% argument name="dataScope" type="string" %}title{% endArgument %}
-                                {% endArgument %}
-                                {% argument name="websiteView" type="array" %}
-                                    {% argument name="label" type="string" %}Website View{% endArgument %}
-                                    {% argument name="dataScope" type="string" %}entity_id{% endArgument %}
-                                {% endArgument %}
-                                {% argument name="user" type="array" %}
-                                    {% argument name="label" type="string" %}User{% endArgument %}
-                                    {% argument name="dataScope" type="string" %}account_id{% endArgument %}
-                                {% endArgument %}
-                                {% argument name="status" type="array" %}
-                                    {% argument name="label" type="string" %}Status{% endArgument %}
-                                    {% argument name="dataScope" type="string" %}status{% endArgument %}
-                                {% endArgument %}
-                                {% argument name="actionsColumn" type="array" %}
-                                    {% argument name="label" type="string" %}Actions{% endArgument %}
-                                    {% argument name="class" type="string" %}ProgramCms\\PostBundle\\Ui\\Component\\Listing\\Column\\CategoryListingActions{% endArgument %}
-                                {% endArgument %}
-                            {% endArgument %}
-                        {% endArgument %}
+                    {% argument name="settings" type="array" %}
+                        {% argument name="submitUrl" type="string" %}user_index_save{% endArgument %}
                     {% endArgument %}
                 {% endArgument %}
             {% endArguments %}
+            {% block name="general" class="ui.block.form.fieldset" %}
+                {% block name="enable" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}switcher{% endArgument %}
+                                {% argument name="label" type="string" %}Enable Category{% endArgument %}
+                            {% argument name="source" type="string" %}category_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="includeInMenu" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}switcher{% endArgument %}
+                            {% argument name="label" type="string" %}Include in Menu{% endArgument %}
+                            {% argument name="source" type="string" %}category_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="name" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}text{% endArgument %}
+                            {% argument name="label" type="string" %}Name{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                            {% argument name="source" type="string" %}category_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+            {% endBlock %}
+            {% block name="category_content" class="ui.block.form.fieldset" %}
+                {% arguments %}
+                    {% argument name="data" type="array" %}
+                        {% argument name="label" type="string" %}Content{% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+                {% block name="categoryImage" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}imageUploader{% endArgument %}
+                            {% argument name="label" type="string" %}Category Image{% endArgument %}
+                            {% argument name="source" type="string" %}category_form{% endArgument %}
+                            {% argument name="helpMessage" type="string" %}Maximum file size: 4 MB. Allowed file types: JPG, GIF, PNG.{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="description" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}textarea{% endArgument %}
+                            {% argument name="label" type="string" %}Description{% endArgument %}
+                            {% argument name="source" type="string" %}category_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+            {% endBlock %}
+            {% block name="display_settings" class="ui.block.form.fieldset" %}
+                {% arguments %}
+                    {% argument name="data" type="array" %}
+                        {% argument name="label" type="string" %}Display Settings{% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+                {% block name="displayMode" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}select{% endArgument %}
+                            {% argument name="label" type="string" %}Display Mode{% endArgument %}
+                            {% argument name="source" type="string" %}category_form{% endArgument %}
+                            {% argument name="sourceModel" type="string" %}ProgramCms\CatalogBundle\Model\Provider\DataSource\DisplayMode{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="sortOrder" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}text{% endArgument %}
+                            {% argument name="label" type="string" %}Sort Order{% endArgument %}
+                            {% argument name="source" type="string" %}category_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+            {% endBlock %}
+            {% block name="search_engine" class="ui.block.form.fieldset" %}
+                {% arguments %}
+                    {% argument name="data" type="array" %}
+                        {% argument name="label" type="string" %}Search Engine Optimization{% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+                {% block name="urlKey" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}text{% endArgument %}
+                            {% argument name="label" type="string" %}URL Key{% endArgument %}
+                            {% argument name="source" type="string" %}category_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="metaTitle" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}text{% endArgument %}
+                            {% argument name="label" type="string" %}Meta Title{% endArgument %}
+                            {% argument name="source" type="string" %}category_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="metaKeywords" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}textarea{% endArgument %}
+                            {% argument name="label" type="string" %}Meta Keywords{% endArgument %}
+                            {% argument name="source" type="string" %}category_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="metaDescription" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}textarea{% endArgument %}
+                            {% argument name="label" type="string" %}Meta Description{% endArgument %}
+                            {% argument name="source" type="string" %}category_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+            {% endBlock %}
+            {% block name="posts" class="ui.block.form.fieldset" %}
+                {% arguments %}
+                    {% argument name="data" type="array" %}
+                        {% argument name="label" type="string" %}Posts{% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+                {% block name="themes_listing" class="ui.block.listing" %}
+                    {% arguments %}
+                        {% argument name="dataSource" type="array" %}
+                            {% argument name="dataProvider" type="array" %}
+                                {% argument name="class" type="string" %}ProgramCms\ThemeBundle\Model\Theme\Grid\DataProvider{% endArgument %}
+                                {% argument name="primaryFieldName" type="string" %}theme_id{% endArgument %}
+                                {% argument name="requestFieldName" type="string" %}id{% endArgument %}
+                            {% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                    {% block name="toolbar" class="ui.block.listing.toolbar" %}
+                        {% block name="filters" class="ui.block.listing.filters" %}{% endBlock %}
+                        {% block name="search" class="ui.block.listing.search" %}{% endBlock %}
+                        {% block name="massActions" class="ui.block.listing.massActions" %}
+                            {% arguments %}
+                                {% argument name="settings" type="array" %}
+                                    {% argument name="delete" type="array" %}
+                                        {% argument name="url" type="string" %}delete{% endArgument %}
+                                        {% argument name="label" type="string" %}Delete All{% endArgument %}
+                                    {% endArgument %}
+                                {% endArgument %}
+                            {% endArguments %}
+                        {% endBlock %}
+                        {% block name="pagination" class="ui.block.listing.pagination" %}{% endBlock %}
+                    {% endBlock %}
+                    {% block name="columns" class="ui.block.columns" %}
+                        {% block name="selectionsColumn" class="ui.block.selectionsColumn" %}
+                            {% arguments %}
+                                {% argument name="data" type="array" %}
+                                    {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                                {% endArgument %}
+                            {% endArguments %}
+                        {% endBlock %}
+                        {% block name="theme_id" class="ui.block.column" %}
+                            {% arguments %}
+                                {% argument name="data" type="array" %}
+                                    {% argument name="label" type="string" %}#{% endArgument %}
+                                    {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                                {% endArgument %}
+                            {% endArguments %}
+                        {% endBlock %}
+                        {% block name="theme_title" class="ui.block.column" %}
+                            {% arguments %}
+                                {% argument name="data" type="array" %}
+                                    {% argument name="label" type="string" %}Title{% endArgument %}
+                                    {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                                {% endArgument %}
+                            {% endArguments %}
+                        {% endBlock %}
+                        {% block name="parent_theme_title" class="ui.block.column" %}
+                            {% arguments %}
+                                {% argument name="data" type="array" %}
+                                    {% argument name="label" type="string" %}Parent Theme{% endArgument %}
+                                    {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                                {% endArgument %}
+                            {% endArguments %}
+                        {% endBlock %}
+                        {% block name="theme_path" class="ui.block.column" %}
+                            {% arguments %}
+                                {% argument name="data" type="array" %}
+                                    {% argument name="label" type="string" %}Path{% endArgument %}
+                                    {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                                {% endArgument %}
+                            {% endArguments %}
+                        {% endBlock %}
+                        {% block name="actionsColumn" class="ProgramCms\\ThemeBundle\\Ui\\Grid\\Column\\ThemeActions" %}
+                            {% arguments %}
+                                {% argument name="data" type="array" %}
+                                    {% argument name="label" type="string" %}Actions{% endArgument %}
+                                    {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                                {% endArgument %}
+                            {% endArguments %}
+                        {% endBlock %}
+                    {% endBlock %}
+                {% endBlock %}
+            {% endBlock %}
         {% endBlock %}
     {% endReferenceContainer %}
 {% endPage %}

@@ -8,6 +8,7 @@
 
 namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteGroup;
 
+use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\RouterBundle\Service\Url;
@@ -15,22 +16,27 @@ use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
 
 /**
  * Class RemoveController
- * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteView
+ * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteGroup
  */
-class RemoveController extends \ProgramCms\CoreBundle\Controller\AdminController
+class RemoveController extends AdminController
 {
     /**
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+
     /**
      * @var WebsiteGroupRepository
      */
     protected WebsiteGroupRepository $websiteGroupRepository;
+
+    /**
+     * @var Url
+     */
     protected Url $url;
 
     /**
-     * NewController constructor.
+     * RemoveController constructor.
      * @param Context $context
      * @param WebsiteGroupRepository $websiteGroupRepository
      * @param ObjectManager $objectManager

@@ -1,0 +1,21 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+system_config:
+  sections:
+    newsletter:
+      label: 'Newsletter'
+      tab: 'user'
+      scope: 'default|website|website_view'
+      groups:
+        group1:
+          label: 'My Group'
+          scope: 'default|website|website_view'
+          fields:
+            field1:
+              type: 'text'
+              label: 'Enable module'
+              scope: 'default|website|website_view'

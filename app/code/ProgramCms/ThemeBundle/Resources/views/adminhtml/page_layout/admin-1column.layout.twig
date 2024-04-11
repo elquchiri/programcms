@@ -8,20 +8,16 @@
 #}
 {% layout %}
     {% require handle="admin-empty" %}
-
     {% referenceContainer name="page.wrapper" %}
         {% container name="page.menu" %}{% endContainer %}
     {% endReferenceContainer %}
-
     {% referenceContainer name="page.content" %}
         {% container name="main.wrapper" htmlTag="div" htmlClass="main-wrapper" %}
             {% container name="notices.wrapper" before="-" %}
                 {% container name="notifications" htmlTag="div" htmlClass="notices-notifications" %}{% endContainer %}
                 {% container name="notification.window" before="-" %}{% endContainer %}
             {% endContainer %}
-
             {% container name="header.container" htmlTag="header" htmlClass="page-header" before="main.content" %}{% endContainer %}
-
             {% container name="main.top" %}{% endContainer %}
             {% container name="page.main.actions" htmlTag="nav" htmlClass="navbar navbar-expand-lg page-main-actions" %}{% endContainer %}
             {% container name="messages.wrapper" htmlTag="div" htmlClass="messages-wrapper" %}

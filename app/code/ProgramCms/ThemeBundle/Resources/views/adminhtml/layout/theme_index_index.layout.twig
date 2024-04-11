@@ -18,11 +18,9 @@
                     {% endArgument %}
                 {% endArgument %}
             {% endArguments %}
-
             {% block name="toolbar" class="ui.block.listing.toolbar" %}
                 {% block name="filters" class="ui.block.listing.filters" %}{% endBlock %}
                 {% block name="search" class="ui.block.listing.search" %}{% endBlock %}
-
                 {% block name="massActions" class="ui.block.listing.massActions" %}
                     {% arguments %}
                         {% argument name="settings" type="array" %}
@@ -33,10 +31,8 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
-
                 {% block name="pagination" class="ui.block.listing.pagination" %}{% endBlock %}
             {% endBlock %}
-
             {% block name="columns" class="ui.block.columns" %}
                 {% block name="selectionsColumn" class="ui.block.selectionsColumn" %}
                     {% arguments %}
@@ -45,7 +41,6 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
-
                 {% block name="theme_id" class="ui.block.column" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
@@ -54,7 +49,6 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
-
                 {% block name="theme_title" class="ui.block.column" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
@@ -63,7 +57,6 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
-
                 {% block name="parent_theme_title" class="ui.block.column" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
@@ -72,7 +65,6 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
-
                 {% block name="theme_path" class="ui.block.column" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
@@ -81,12 +73,10 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
-
                 {% block name="actionsColumn" class="ProgramCms\\ThemeBundle\\Ui\\Grid\\Column\\ThemeActions" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
                             {% argument name="label" type="string" %}Actions{% endArgument %}
-                            {% argument name="class" type="string" %}ProgramCms\ThemeBundle\Ui\Grid\Column\ThemeActions{% endArgument %}
                             {% argument name="source" type="string" %}themes_listing{% endArgument %}
                         {% endArgument %}
                     {% endArguments %}

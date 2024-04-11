@@ -8,11 +8,13 @@
 
 namespace ProgramCms\ConfigBundle\Model\Structure\Element;
 
+use ProgramCms\ConfigBundle\Model\Structure\AbstractElement;
+
 /**
  * Class Field
  * @package ProgramCms\ConfigBundle\Model\Structure\Element
  */
-class Field extends \ProgramCms\ConfigBundle\Model\Structure\AbstractElement
+class Field extends AbstractElement
 {
     /**
      * @return mixed|string

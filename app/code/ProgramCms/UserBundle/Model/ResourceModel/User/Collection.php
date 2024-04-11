@@ -8,17 +8,20 @@
 
 namespace ProgramCms\UserBundle\Model\ResourceModel\User;
 
+use ProgramCms\CoreBundle\Model\Db\Collection\AbstractCollection;
+use ProgramCms\UserBundle\Entity\UserEntity;
+
 /**
  * Class Collection
  * @package ProgramCms\UserBundle\Model\ResourceModel\User
  */
-class Collection extends \ProgramCms\CoreBundle\Model\Db\Collection\AbstractCollection
+class Collection extends AbstractCollection
 {
     /**
      * Initialize Collection
      */
     protected function _construct()
     {
-        $this->_initEntity(\ProgramCms\UserBundle\Entity\UserEntity::class);
+        $this->_initEntity(UserEntity::class);
     }
 }

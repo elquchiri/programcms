@@ -26,14 +26,17 @@ class SaveController extends \ProgramCms\CoreBundle\Controller\AdminController
      * @var Url
      */
     protected Url $url;
+
     /**
      * @var WebsiteViewRepository
      */
     protected WebsiteViewRepository $websiteViewRepository;
+
     /**
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+
     /**
      * @var WebsiteGroupRepository
      */
@@ -79,6 +82,9 @@ class SaveController extends \ProgramCms\CoreBundle\Controller\AdminController
             }
             // Populate WebsiteView Entity
             foreach($formData as $name => $value) {
+                if($name === 'website_view_id' && empty($websiteViewId)) {
+                    continue;
+                }
                 if($name == 'website_group_id') {
                     $websiteGroup = $this->websiteGroupRepository->findOneBy(['website_group_id' => $value]);
                     if($websiteGroup) {

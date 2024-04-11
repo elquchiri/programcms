@@ -1,0 +1,19 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% page %}
+    {% referenceBlock name="user_form" %}
+        {% block name="user_posts" class="ui.block.form.fieldset" after="-" %}
+            {% arguments %}
+                {% argument name="data" type="array" %}
+                    {% argument name="label" type="string" %}Posts{% endArgument %}
+                {% endArgument %}
+            {% endArguments %}
+        {% endBlock %}
+    {% endReferenceBlock %}
+{% endPage %}

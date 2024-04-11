@@ -1,0 +1,29 @@
+{
+    "name": "programcms/login-as-user-bundle",
+    "description": "Represents User Login entities and interfaces in ProgramCMS application",
+    "license": "MIT",
+    "type": "programcms-bundle",
+    "keywords": [
+        "ProgramCms",
+        "Admin",
+        "Login As User",
+        "Connect",
+        "Bundle",
+        "CMS"
+    ],
+    "authors": [
+        {
+            "name": "Mohamed EL QUCHIRI",
+            "email": "elquchiri@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "ProgramCms\\AdminNotificationBundle\\": ""
+        }
+    }
+}

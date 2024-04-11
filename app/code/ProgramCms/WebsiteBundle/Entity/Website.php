@@ -9,13 +9,14 @@
 namespace ProgramCms\WebsiteBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
+use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
 use ProgramCms\WebsiteBundle\Model\ScopeInterface;
 use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
 use ProgramCms\CoreBundle\App\ScopeInterface as AppScopeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: WebsiteRepository::class)]
-class Website extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity implements AppScopeInterface
+class Website extends AbstractEntity implements AppScopeInterface
 {
     /**
      * @var int|null
@@ -24,37 +25,44 @@ class Website extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity implements A
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $website_id = null;
+
     /**
      * @var int|null
      */
     #[ORM\Column(nullable: true)]
     private ?int $is_active = null;
+
     /**
      * @var string|null
      */
     #[ORM\Column(length: 255)]
     private ?string $website_name = null;
+
     /**
      * @var string|null
      */
     #[ORM\Column(length: 255)]
     private ?string $website_code = null;
+
     /**
      * @var int|null
      */
     #[ORM\Column(nullable: true)]
     private ?int $sort_order = null;
+
     /**
      * @var WebsiteGroup|null
      */
     #[ORM\ManyToOne(targetEntity: WebsiteGroup::class)]
     #[ORM\JoinColumn(name: 'default_website_group_id', referencedColumnName: 'website_group_id')]
     private ?WebsiteGroup $defaultGroup;
+
     /**
      * @var int|null
      */
     #[ORM\Column(nullable: true)]
     private ?int $is_default = null;
+
     /**
      * @var Collection|null
      */

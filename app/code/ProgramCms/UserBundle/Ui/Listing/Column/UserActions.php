@@ -9,13 +9,14 @@
 namespace ProgramCms\UserBundle\Ui\Listing\Column;
 
 use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\UiBundle\Component\Listing\ActionsColumn;
 use ProgramCms\UiBundle\View\Element\Context;
 
 /**
  * Class UserActions
  * @package ProgramCms\UserBundle\Ui\Listing\Column
  */
-class UserActions extends \ProgramCms\UiBundle\Component\Listing\ActionsColumn
+class UserActions extends ActionsColumn
 {
     /**
      * @var Url
@@ -50,11 +51,6 @@ class UserActions extends \ProgramCms\UiBundle\Component\Listing\ActionsColumn
                 $actions = [
                     [
                         'label' => 'Edit',
-                        'url' => $this->url->getUrlByRouteName('user_index_edit', ['id' => $rowData->getEntityId()]),
-                        'type' => 'url'
-                    ],
-                    [
-                        'label' => 'Lock Account',
                         'url' => $this->url->getUrlByRouteName('user_index_edit', ['id' => $rowData->getEntityId()]),
                         'type' => 'url'
                     ]

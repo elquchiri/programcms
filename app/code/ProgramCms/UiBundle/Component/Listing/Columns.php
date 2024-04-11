@@ -48,7 +48,7 @@ class Columns extends \ProgramCms\UiBundle\Component\AbstractComponent
                 if($childBlock->hasData('source')) {
                     $childName = $childBlock->getName();
                     if ($rowData->hasDataUsingMethod($childName)) {
-                        $childBlock->setValue($rowData->getDataUsingMethod($childName));
+                        $childBlock->setValue($rowData->getData($childName));
                     }
                     if($childBlock instanceof \ProgramCms\UiBundle\Component\Listing\ActionsColumn) {
                         $childBlock->setValue($rowData->getDataUsingMethod($childName));

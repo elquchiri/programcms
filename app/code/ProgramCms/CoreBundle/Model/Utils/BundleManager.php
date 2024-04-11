@@ -87,11 +87,9 @@ class BundleManager
     public function getBundleByName($bundleName)
     {
         $bundles = $this->getAllBundles();
-
         if(isset($bundles[$bundleName])) {
             return $bundles[$bundleName];
         }
-
         throw new Exception(sprintf("Invalid Bundle %s", $bundleName));
     }
 
@@ -134,11 +132,9 @@ class BundleManager
     public function getThemeByName($themeName)
     {
         $themes = $this->getAllThemes();
-
         if(isset($themes[$themeName])) {
             return $themes[$themeName];
         }
-
         throw new Exception(sprintf("Invalid Theme %s", $themeName));
     }
 

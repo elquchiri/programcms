@@ -8,49 +8,52 @@
 
 namespace ProgramCms\ThemeBundle\Parser;
 
+use ProgramCms\ThemeBundle\Node\MoveNode;
 use Twig\Error\SyntaxError;
+use Twig\Token;
+use Twig\TokenParser\AbstractTokenParser;
 
 /**
  * Class MoveTokenParser
  * @package ProgramCms\ThemeBundle\Parser
  */
-class MoveTokenParser extends \Twig\TokenParser\AbstractTokenParser
+class MoveTokenParser extends AbstractTokenParser
 {
     /**
-     * @param \Twig\Token $token
-     * @return \ProgramCms\ThemeBundle\Node\MoveNode
+     * @param Token $token
+     * @return MoveNode
      * @throws SyntaxError
      */
-    public function parse(\Twig\Token $token)
+    public function parse(Token $token)
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
-        $stream->expect(\Twig\Token::NAME_TYPE, 'element');
-        $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
-        $elementName = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+        $stream->expect(Token::NAME_TYPE, 'name');
+        $stream->expect(Token::OPERATOR_TYPE, '=');
+        $elementName = $stream->expect(Token::STRING_TYPE)->getValue();
 
-        $stream->expect(\Twig\Token::NAME_TYPE, 'destination');
-        $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
-        $destinationName = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+        $stream->expect(Token::NAME_TYPE, 'destination');
+        $stream->expect(Token::OPERATOR_TYPE, '=');
+        $destinationName = $stream->expect(Token::STRING_TYPE)->getValue();
 
         try {
-            $stream->expect(\Twig\Token::NAME_TYPE, 'before');
-            $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
-            $before = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+            $stream->expect(Token::NAME_TYPE, 'before');
+            $stream->expect(Token::OPERATOR_TYPE, '=');
+            $before = $stream->expect(Token::STRING_TYPE)->getValue();
         }catch(SyntaxError $e) {
             $before = '';
         }
 
         try {
-            $stream->expect(\Twig\Token::NAME_TYPE, 'after');
-            $stream->expect(\Twig\Token::OPERATOR_TYPE, '=');
-            $after = $stream->expect(\Twig\Token::STRING_TYPE)->getValue();
+            $stream->expect(Token::NAME_TYPE, 'after');
+            $stream->expect(Token::OPERATOR_TYPE, '=');
+            $after = $stream->expect(Token::STRING_TYPE)->getValue();
         }catch(SyntaxError $e) {
             $after = '';
         }
-        $stream->expect(\Twig\Token::BLOCK_END_TYPE);
+        $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new \ProgramCms\ThemeBundle\Node\MoveNode($elementName, $destinationName, $before, $after, $lineno, $this->getTag());
+        return new MoveNode($elementName, $destinationName, $before, $after, $lineno, $this->getTag());
     }
 
     /**

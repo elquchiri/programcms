@@ -21,25 +21,41 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: EavEntityTypeRepository::class)]
 class EavEntityType extends AbstractEntity
 {
+    /**
+     * @var int|null
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $entity_type_id = null;
 
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     private ?string $entity_type_code = null;
 
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     private ?string $additional_attribute_table = null;
 
+    /**
+     * @var Collection
+     */
     #[ORM\OneToMany(mappedBy: "entityType", targetEntity: EavAttributeSet::class)]
     private Collection $attributeSets;
 
+    /**
+     * @var Collection
+     */
     #[ORM\OneToMany(mappedBy: 'entityType', targetEntity: EavAttribute::class)]
     private Collection $attributes;
 
     /**
      * EavEntityType constructor.
+     * @param array $data
      */
     public function __construct(array $data = [])
     {

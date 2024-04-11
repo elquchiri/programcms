@@ -12,6 +12,7 @@ use ProgramCms\CoreBundle\App\AreaInterface;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Controller\Controller;
 use ProgramCms\CoreBundle\Mailer\Template\TransportBuilder;
+use ProgramCms\UserBundle\Entity\UserEntity;
 use ProgramCms\UserBundle\Repository\UserEntityRepository;
 use ProgramCms\WebsiteBundle\Helper\Contact;
 use ProgramCms\WebsiteBundle\Model\WebsiteManagerInterface;
@@ -89,10 +90,17 @@ class VerifyUserController extends Controller
     /**
      * @return JsonResponse
      */
-    public function execute()
+    public function execute(): JsonResponse
     {
         if($this->getRequest()->getCurrentRequest()->isMethod('POST')) {
             $email = $this->getRequest()->getParam('email');
+            if(empty($email)) {
+                // Provided Email is not registered
+                return $this->json([
+                    'success' => false,
+                    'message' => $this->trans('Provided Email is not registered with us.')
+                ]);
+            }
             $user = $this->userEntityRepository->getByEmail($email);
             if(!$user) {
                 // Provided Email is not registered
@@ -101,38 +109,45 @@ class VerifyUserController extends Controller
                     'message' => $this->trans('Provided Email is not registered with us.')
                 ]);
             }
-
             try {
                 // Generate & Save Recovery Token
                 $user->setResetToken($this->tokenGenerator->generateToken());
                 $this->userEntityRepository->save($user);
                 // Send Recovery Email
-                $this->transportBuilder
-                    ->setTemplateId('recovery_email')
-                    ->setTemplateOptions([
-                        'area' => AreaInterface::AREA_FRONTEND,
-                        'website_view' => $this->websiteManager->getWebsiteView()
-                    ])
-                    ->setTemplateVars(['user' => $user])
-                    ->setFrom($this->contactHelper->getSenderEmail('general_contact'))
-                    ->setTo([$email])
-                    ->setSubject($this->trans('ProgramCMS: Recovery Email'))
-                    ->sendMessage();
+                $this->sendRecoveryEmail($user);
             }catch(TransportExceptionInterface $exception) {
                 return $this->json([
                     'success' => false,
                     'message' => $this->trans("We're unable to send you the recovery token.")
                 ]);
             }
-
             return $this->json([
                 'success' => true,
                 'message' => $this->trans('A secret number has been sent to your email. Please copy this number and then use it to complete the account recovery process.')
             ]);
         }
-
         return $this->json([
             'success' => false
         ]);
+    }
+
+    /**
+     * Send Recovery Email to User
+     * @param UserEntity $user
+     * @throws TransportExceptionInterface
+     */
+    private function sendRecoveryEmail(UserEntity $user)
+    {
+        $this->transportBuilder
+            ->setTemplateId('recovery_email')
+            ->setTemplateOptions([
+                'area' => AreaInterface::AREA_FRONTEND,
+                'website_view' => $this->websiteManager->getWebsiteView()
+            ])
+            ->setTemplateVars(['user' => $user])
+            ->setFrom($this->contactHelper->getSenderEmail('general_contact'))
+            ->setTo([$user->getEmail()])
+            ->setSubject($this->trans('ProgramCMS: Recovery Email'))
+            ->sendMessage();
     }
 }

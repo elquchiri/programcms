@@ -15,13 +15,25 @@ namespace ProgramCms\UiBundle\Component\Form\Element;
 class ImageUploader extends AbstractElement
 {
     const NAME = 'image_uploader';
+
     /**
      * @var string
      */
     protected string $_template = "@ProgramCmsUiBundle/form/fields/image_uploader.html.twig";
 
+    /**
+     * @return string
+     */
     public function getComponentName()
     {
         return self::NAME;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPreviewId(): string
+    {
+        return 'img-' . $this->getId();
     }
 }

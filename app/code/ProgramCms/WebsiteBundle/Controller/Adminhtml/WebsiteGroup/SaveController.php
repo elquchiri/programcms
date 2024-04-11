@@ -85,6 +85,9 @@ class SaveController extends \ProgramCms\CoreBundle\Controller\AdminController
 
             // Populate WebsiteRoot Entity
             foreach($formData as $name => $value) {
+                if($name === 'website_group_id' && empty($websiteGroupId)) {
+                    continue;
+                }
                 // Group's WebsiteId
                 if($name === 'website_id') {
                     $website = $this->websiteRepository->findOneBy(['website_id' => $value]);

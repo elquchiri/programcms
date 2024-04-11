@@ -114,7 +114,7 @@ class ConfigForm extends Form
                         ->getUiComponentFactory()
                         ->create(
                             'field',
-                            $childElement['name'],
+                            $childElement['id'],
                             $childElement,
                             $layout
                         );

@@ -27,6 +27,9 @@
     "private": true,
     "scripts": {},
     "dependencies": {
+        "@programcms/loader": "./ts_modules/@programcms/loader",
+        "@programcms/modal": "./ts_modules/@programcms/modal",
+        "@programcms/user": "./ts_modules/@programcms/user",
         "autoprefixer": "^10.4.17",
         "chart.js": "^4.3.3",
         "install": "^0.13.0",
@@ -34,8 +37,6 @@
         "node-sass": "^9.0.0",
         "npm": "^10.4.0",
         "rtlcss-plugin": "^1.0.0",
-        "stimulus": "^3.2.2",
-        "@programcms/loader": "./ts_modules/@programcms/loader",
-        "@programcms/user": "./ts_modules/@programcms/user"
+        "stimulus": "^3.2.2"
     }
 }

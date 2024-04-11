@@ -8,6 +8,7 @@
 
 namespace ProgramCms\CoreBundle\View\Design\FileResolution\Fallback;
 
+use ProgramCms\CoreBundle\View\Design\Fallback\RulePool;
 use ProgramCms\CoreBundle\View\Design\ThemeInterface;
 
 /**
@@ -56,6 +57,6 @@ class File
      */
     protected function getFallbackType(): string
     {
-        return \ProgramCms\CoreBundle\View\Design\Fallback\RulePool::TYPE_FILE;
+        return RulePool::TYPE_FILE;
     }
 }

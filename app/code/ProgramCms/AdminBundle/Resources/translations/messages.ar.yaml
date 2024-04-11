@@ -15,8 +15,6 @@
 "Reset": "إعادة الضبط"
 "Copyright &copy; %s ProgramCMS Community Edition. All rights reserved.": "حقوق الملكية والنشر ©  ProgramCMS %s الإصدار المجتمعي. كل الحقوق محفوظة."
 "System": "النظام"
-"Cache Management": "إدارة ذاكرة التخزين المؤقت"
-"One or more of the Cache Types are invalidated: Page Cache. Please go to %s and refresh cache types.": "تم إبطال واحد أو أكثر من أنواع ذاكرة التخزين المؤقت: ذاكرة التخزين المؤقت للصفحة. الرجاء الانتقال إلى %s ثم تحديثها."
 "Account Setting": "إعدادات الحساب"
 "User View": "واجهة المستخدم"
 "Logout": "خروج"

@@ -23,7 +23,7 @@ class ForceSignInButton implements \ProgramCms\UiBundle\DataProvider\ButtonProvi
         return [
             'buttonType' => 'secondary',
             'buttonAction' => '',
-            'label' => 'Force Sign-In'
+            'label' => 'Login as User'
         ];
     }
 }

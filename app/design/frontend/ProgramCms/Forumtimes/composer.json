@@ -19,7 +19,9 @@
         }
     ],
     "require": {
-        "php": ">=8.1"
+        "php": ">=8.1",
+        "programcms/theme-bundle": "*",
+        "programcms/user-bundle": "*"
     },
     "minimum-stability": "dev",
     "autoload": {

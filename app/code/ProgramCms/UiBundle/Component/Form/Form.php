@@ -18,6 +18,7 @@ use ProgramCms\UiBundle\View\Element\Context;
 class Form extends \ProgramCms\UiBundle\Component\AbstractComponent
 {
     const NAME = 'form';
+
     /**
      * @var string
      */

@@ -28,14 +28,4 @@ class MultiSelect extends Select
     {
         return self::NAME;
     }
-
-    /**
-     * @return array
-     */
-    public function getOptions(): array
-    {
-        return $this->getContext()
-            ->getObjectManager()->create($this->getData('sourceModel'))
-            ->getOptionsArray();
-    }
 }

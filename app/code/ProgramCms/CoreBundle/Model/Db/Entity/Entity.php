@@ -9,15 +9,100 @@
 namespace ProgramCms\CoreBundle\Model\Db\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use ProgramCms\CoreBundle\Model\DataObject;
 use ProgramCms\EavBundle\EventListener\EntityListener;
+use DateTime;
 
 /**
  * Class Entity
  * @package ProgramCms\CoreBundle\Entity
  */
 #[ORM\EntityListeners([EntityListener::class])]
-class Entity extends DataObject implements EntityInterface
+class Entity extends AbstractEntity
 {
+    /**
+     * @var int|null
+     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    protected ?int $entity_id = null;
 
+    /**
+     * @var DateTime|null
+     */
+    #[ORM\Column(type: 'datetime')]
+    protected ?DateTime $created_at = null;
+
+    /**
+     * @var DateTime|null
+     */
+    #[ORM\Column(type: 'datetime')]
+    protected ?DateTime $updated_at = null;
+
+    /**
+     * @return int|null
+     */
+    public function getEntityId(): ?int
+    {
+        return $this->entity_id;
+    }
+
+    /**
+     * @param int $entity_id
+     * @return $this
+     */
+    public function setEntityId(int $entity_id): self
+    {
+        $this->entity_id = $entity_id;
+        return $this;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getCreatedAt(): ?DateTime
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @param DateTime|null $createdAt
+     * @return $this
+     */
+    public function setCreatedAt(DateTime $createdAt = null): self
+    {
+        $this->created_at = $createdAt ?? new DateTime();
+        return $this;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getUpdatedAt(): ?DateTime
+    {
+        return $this->updated_at;
+    }
+
+    /**
+     * @param DateTime|null $updatedAt
+     * @return $this
+     */
+    public function setUpdatedAt(DateTime $updatedAt = null): self
+    {
+        $this->updated_at = $updatedAt ?? new DateTime();
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updateTimestamps(): void
+    {
+        $now = new DateTime();
+        $this->setUpdatedAt($now);
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt($now);
+        }
+    }
 }

@@ -6,7 +6,8 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-{% page layout="admin-2columns-left" %}{% title %}All Websites{% endTitle %}{% referenceContainer name="sidebar.main" %}
+{% page layout="admin-2columns-left" %}{% title %}All Websites{% endTitle %}
+    {% referenceContainer name="sidebar.main" %}
         {% block name="category.tree.block" class="ProgramCms\\CatalogBundle\\Block\\CategoryTreeButtons" template="@ProgramCmsWebsiteBundle/new_root_website.html.twig" %}{% endBlock %}
         {% block name="category.tree" class="ProgramCms\\UiBundle\\Component\\Tree\\Tree" %}
             {% arguments %}

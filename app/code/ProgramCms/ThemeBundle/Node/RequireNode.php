@@ -20,7 +20,6 @@ use Twig\Compiler;
  */
 class RequireNode extends AbstractNode implements \Twig\Node\NodeCaptureInterface
 {
-
     /**
      * @param Compiler $compiler
      * @return void
@@ -31,6 +30,9 @@ class RequireNode extends AbstractNode implements \Twig\Node\NodeCaptureInterfac
     {
         $efExtension = $compiler->getEnvironment()->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout();
         $handle = $this->getAttribute('handle');
+        /** @var PageLayout $pageLayout */
+        $pageLayout = $efExtension->getPageLayout();
+        $pageLayoutContents = '';
 
         if($this->hasAttribute('parent')) {
             $parentNode = $this->getAttribute('parent');
@@ -39,24 +41,22 @@ class RequireNode extends AbstractNode implements \Twig\Node\NodeCaptureInterfac
                 $compiler
                     ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->trackHandlerWithFileName('$templateName', '$handle')")
                     ->raw(";\n");
+                if($efExtension->canAddPageLayout($handle)) {
+                    $efExtension->addPageLayout($handle);
+                    $compiler
+                        ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addPageLayout('$handle')")
+                        ->raw(";\n");
+                    $pageLayoutContents = $this->_minifySource($pageLayout->getPageLayoutContents($handle));
+                }
+            }elseif($parentNode instanceof PageNode) {
+                $pageLayoutContents = $this->_minifySource($pageLayout->getLayoutContents($handle));
             }
         }
 
-        if($efExtension->canAddPageLayout($handle)) {
-            $efExtension->addPageLayout($handle);
-            $compiler
-                ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addPageLayout('$handle')")
-                ->raw(";\n");
-
-            /** @var PageLayout $pageLayout */
-            $pageLayout = $efExtension->getPageLayout();
-            $pageLayoutContents = $this->_minifySource($pageLayout->getPageLayoutContents($handle));
-
-            // Prepare layout file to be parsed by the LayoutNode
+        // Prepare layout file to be parsed by the LayoutNode
+        if(!empty($pageLayoutContents)) {
             $source = new Source($pageLayoutContents, $handle);
-
             $nodes = $compiler->getEnvironment()->parse($compiler->getEnvironment()->tokenize($source));
-
             $compiler->subcompile($nodes->getNode('body'));
         }
     }

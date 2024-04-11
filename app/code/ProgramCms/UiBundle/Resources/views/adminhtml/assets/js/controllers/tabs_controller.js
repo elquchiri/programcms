@@ -10,8 +10,7 @@ import {Controller} from "@hotwired/stimulus";
 application.register('tabs', class extends Controller {
 
     connect() {
-        // $('.collapser').hide();
-        // $('.collapser').first().show();
+        $('.collapser').hide().first().show();
     }
 
     tabClick(event) {

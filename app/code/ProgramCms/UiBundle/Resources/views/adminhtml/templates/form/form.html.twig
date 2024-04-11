@@ -6,7 +6,7 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<form id="{{ block.getName() }}" action="{{ block.getAction() }}">
+<form id="{{ block.getName() }}" action="{{ block.getAction() }}" method="POST" enctype="multipart/form-data">
     {% for element in block.getChildBlocks() %}
         {{ element.toHtml()|raw }}
     {% endfor %}

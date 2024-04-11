@@ -8,13 +8,14 @@
 
 namespace ProgramCms\UserBundle\Model\Provider\Button;
 
+use ProgramCms\UiBundle\DataProvider\ButtonProviderInterface;
+
 /**
  * Class SaveUserButton
  * @package ProgramCms\UserBundle\Model\Provider\Button
  */
-class SaveUserButton implements \ProgramCms\UiBundle\DataProvider\ButtonProviderInterface
+class SaveUserButton implements ButtonProviderInterface
 {
-
     /**
      * @return string[]
      */

@@ -6,6 +6,7 @@
  */
 
 import {Controller} from "@hotwired/stimulus";
+import Modal from '@programcms/modal';
 
 application.register('toolbar', class extends Controller {
 
@@ -17,18 +18,31 @@ application.register('toolbar', class extends Controller {
         let action = $(button).data('btn-action');
         let confirm = $(button).data('btn-confirm');
 
-        if(confirm !== '') {
-            $('.confirm-modal').modal('show');
+        if(confirm) {
+            const modalOptions = {
+                content: confirm.text === '' ? 'Do you really want to confirm this action ?' : confirm.text,
+                buttons: [
+                    {
+                        text: 'Yes',
+                        class: 'btn-primary',
+                        click: function() {
+                            window.location.href = action;
+                        }
+                    },
+                    {
+                        text: 'No',
+                        class: 'btn-light',
+                        dismiss: true
+                    }
+                ]
+            }
+            Modal.open('confirm', modalOptions);
             return;
         }
 
         if(btnType === 'save') {
             let btnTarget = $(button).data('btn-target');
-
-            $('form#' + btnTarget)
-                .attr('action', action)
-                .attr('method', 'POST')
-                .submit();
+            $('form#' + btnTarget).trigger('submit');
         }else{
             window.location = action;
         }

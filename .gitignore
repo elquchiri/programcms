@@ -15,3 +15,5 @@ yarn-error.log
 /phpunit.xml
 /phpunit.xml
 .phpunit.result.cache
+
+/public/media/

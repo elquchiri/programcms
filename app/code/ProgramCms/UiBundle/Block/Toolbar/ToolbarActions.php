@@ -9,6 +9,7 @@
 namespace ProgramCms\UiBundle\Block\Toolbar;
 
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\CoreBundle\View\Element\Template;
 use ProgramCms\CoreBundle\View\Element\Template\Context;
 use ProgramCms\RouterBundle\Service\Url;
 use ReflectionException;
@@ -17,7 +18,7 @@ use ReflectionException;
  * Class ToolbarActions
  * @package ProgramCms\UiBundle\Block\Toolbar
  */
-class ToolbarActions extends \ProgramCms\CoreBundle\View\Element\Template
+class ToolbarActions extends Template
 {
     /**
      * @var string
@@ -68,24 +69,8 @@ class ToolbarActions extends \ProgramCms\CoreBundle\View\Element\Template
             if(is_string($buttonData) && !empty($buttonData)) {
                 $dataSource = $this->objectManager->create($buttonData);
                 $button = $dataSource->getData();
-                // Button confirm modal
-                $button['confirm'] = isset($button['confirm']) ? json_encode($button['confirm']) : '';
-                $buttons[] = $button;
-            }
-            else if(is_array($buttonData)) {
-//                $button = $buttonData;
-//                // Button Action
-//                if (isset($buttonData['buttonAction']) && !empty($buttonData['buttonAction'])) {
-//                    if($buttonData['buttonAction'] == '#') {
-//                        // Forward to the same action (url)
-//                        $button['buttonAction'] = '#';
-//                    }else {
-//                        $button['buttonAction'] = $this->url->getUrlByRouteName($buttonData['buttonAction']);
-//                    }
-//                    // Button confirm modal
-//                    $button['confirm'] = isset($button['confirm']) ? json_encode($button['confirm']) : '';
-//                }
-//                $buttons[] = $button;
+                $button['class'] = $button['class'] ?? ($button['buttonType'] == 'save' ? 'btn-primary' : 'btn-light');
+                $button['confirm'] = isset($button['confirm']) ? json_encode($button['confirm']) : false;               $buttons[] = $button;
             }
         }
         return $buttons;

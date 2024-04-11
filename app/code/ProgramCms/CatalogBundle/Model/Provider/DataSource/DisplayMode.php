@@ -8,6 +8,8 @@
 
 namespace ProgramCms\CatalogBundle\Model\Provider\DataSource;
 
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 /**
  * Class EnableDisable
  * @package ProgramCms\CatalogBundle\Model\Provider\DataSource
@@ -15,13 +17,27 @@ namespace ProgramCms\CatalogBundle\Model\Provider\DataSource;
 class DisplayMode extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
 {
     /**
+     * @var TranslatorInterface
+     */
+    protected TranslatorInterface $translator;
+
+    /**
+     * DisplayMode constructor.
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
+    /**
      * @return string[]
      */
     public function getOptionsArray(): array
     {
         return [
-            "1" => "Only Categories",
-            "2" => "Categories and Posts"
+            "1" => $this->translator->trans("Only Categories"),
+            "2" => $this->translator->trans("Categories and Posts")
         ];
     }
 }

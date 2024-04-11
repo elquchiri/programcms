@@ -36,18 +36,14 @@ system_config:
               label: 'Share User Accounts'
               source: ProgramCms\UserBundle\Model\Provider\AccountSharingOptions
               scope: 'default|website|website_view'
-    newsletter:
-      label: 'Newsletter'
-      tab: 'user'
-      scope: 'default|website|website_view'
-      groups:
-        group1:
-          label: 'My Group'
+        account_create:
+          label: 'Account Creation Options'
           scope: 'default|website|website_view'
           fields:
-            field1:
-              type: 'text'
-              label: 'Enable module'
+            email_confirmation:
+              type: 'select'
+              label: 'Require Email Confirmation'
+              source: ProgramCms\UiBundle\Model\Provider\DataSource\YesNo
               scope: 'default|website|website_view'
     login_as_user:
       label: 'Login as User'

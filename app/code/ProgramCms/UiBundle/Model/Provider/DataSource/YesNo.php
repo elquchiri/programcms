@@ -8,6 +8,8 @@
 
 namespace ProgramCms\UiBundle\Model\Provider\DataSource;
 
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 /**
  * Class YesNo
  * @package ProgramCms\UiBundle\Model\Provider\DataSource
@@ -15,13 +17,29 @@ namespace ProgramCms\UiBundle\Model\Provider\DataSource;
 class YesNo extends Options
 {
     /**
+     * @var TranslatorInterface
+     */
+    protected TranslatorInterface $translator;
+
+    /**
+     * YesNo constructor.
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(
+        TranslatorInterface $translator
+    )
+    {
+        $this->translator = $translator;
+    }
+
+    /**
      * @return string[]
      */
     public function getOptionsArray(): array
     {
         return [
-            "0" => "No",
-            "1" => "Yes"
+            "0" => $this->translator->trans("No"),
+            "1" => $this->translator->trans("Yes")
         ];
     }
 }

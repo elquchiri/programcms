@@ -19,8 +19,8 @@
         {% endContainer %}
     {% endReferenceContainer %}
 
-    {% move element="copyright" destination="login.footer" before="-" %}
-    {% move element="page.alerts.block" destination="login.content" before="-" %}
+    {% move name="copyright" destination="login.footer" before="-" %}
+    {% move name="page.alerts.block" destination="login.content" before="-" %}
 
     {% referenceContainer name="page.menu" remove="true" %}{% endReferenceContainer %}
     {% referenceContainer name="main.top" remove="true" %}{% endReferenceContainer %}

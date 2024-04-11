@@ -1,0 +1,18 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <div class="card text-center" style="font-size: 11px; border-radius: 3px; font-weight: bold; padding-bottom: 1px; background-color:#d1e7dd; margin-top: 3px;">
+        <p style="margin: 0;">
+            {{ app.user.getUsername() }}
+        </p>
+        <p style="margin: 0;">
+            {{ block.trans('My Replies') }}: 300
+        </p>
+    </div>
+{% endif %}

@@ -8,6 +8,7 @@
 
 namespace ProgramCms\AdminNotificationBundle\Block;
 
+use ProgramCms\CoreBundle\View\Element\Template;
 use ProgramCms\CoreBundle\View\Element\Template\Context;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -15,7 +16,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * Class Notification
  * @package ProgramCms\AdminNotificationBundle\Block
  */
-class Notification extends \ProgramCms\CoreBundle\View\Element\Template
+class Notification extends Template
 {
     /**
      * @var TranslatorInterface

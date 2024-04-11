@@ -8,16 +8,17 @@
 
 namespace ProgramCms\UserBundle\Controller\Adminhtml\Index;
 
+use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\CoreBundle\View\Result\Page;
 use ProgramCms\UserBundle\Repository\UserEntityRepository;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class EditController
  * @package ProgramCms\UserBundle\Controller\Adminhtml\Index
  */
-class EditController extends \ProgramCms\CoreBundle\Controller\AdminController
+class EditController extends AdminController
 {
     /**
      * @var ObjectManager
@@ -51,7 +52,7 @@ class EditController extends \ProgramCms\CoreBundle\Controller\AdminController
      */
     public function execute()
     {
-        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
+        $pageResult = $this->objectManager->create(Page::class);
         $user = $this->userRepository->findOneBy(['entity_id' => $this->getRequest()->getParam('id')]);
         if($user) {
             $pageResult->getConfig()->getTitle()->set($user->getFullName());

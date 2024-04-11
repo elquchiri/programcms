@@ -9,6 +9,7 @@
 namespace ProgramCms\WebsiteBundle\Model\Provider\DataSource;
 
 use ProgramCms\RouterBundle\Service\Request;
+use ProgramCms\UiBundle\Model\Provider\DataSource\Options;
 use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
 use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
 
@@ -16,7 +17,7 @@ use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
  * Class Websites
  * @package ProgramCms\WebsiteBundle\Model\Provider\DataSource
  */
-class Groups extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
+class Groups extends Options
 {
     /**
      * @var Request

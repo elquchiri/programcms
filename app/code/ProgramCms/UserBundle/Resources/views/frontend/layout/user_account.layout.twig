@@ -7,7 +7,7 @@
  */
 #}
 {% page %}
-    {% referenceContainer name="content" %}
-        {% block name="user.edit.index2" class="ProgramCms\\UserBundle\\Block\\Account\\Edit\\Dashboard" template="@ProgramCmsUserBundle/dashboard/dashboard.html.twig" %}{% endBlock %}
+    {% referenceContainer name="sidebar.main" %}
+        {% block name="user.account.navigation" class="ProgramCms\\UserBundle\\Block\\Account\\Edit\\Dashboard" template="@ProgramCmsUserBundle/dashboard/navigation.bar.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}
 {% endPage %}

@@ -7,5 +7,5 @@
  */
 #}
 {% if block.hasValue() %}
-    {{ block.getValue() }}
+    {{ block.getValue()|raw }}
 {% endif %}

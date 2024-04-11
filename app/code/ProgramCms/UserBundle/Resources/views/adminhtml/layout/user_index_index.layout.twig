@@ -10,6 +10,9 @@
     {% referenceContainer name="content" %}
         {% block name="users_listing" class="ui.block.listing" %}
             {% arguments %}
+                {% argument name="buttons" type="array" %}
+                    {% argument name="new" type="string" %}ProgramCms\UserBundle\Model\Provider\Button\NewUserButton{% endArgument %}
+                {% endArgument %}
                 {% argument name="dataSource" type="array" %}
                     {% argument name="dataProvider" type="array" %}
                         {% argument name="class" type="string" %}ProgramCms\UserBundle\Model\Provider\Listing\DataProvider{% endArgument %}
@@ -18,7 +21,6 @@
                     {% endArgument %}
                 {% endArgument %}
             {% endArguments %}
-
             {% block name="toolbar" class="ui.block.listing.toolbar" %}
                 {% block name="filters" class="ui.block.listing.filters" %}{% endBlock %}
                 {% block name="search" class="ui.block.listing.search" %}{% endBlock %}
@@ -36,7 +38,6 @@
 
                 {% block name="pagination" class="ui.block.listing.pagination" %}{% endBlock %}
             {% endBlock %}
-
             {% block name="columns" class="ui.block.columns" %}
                 {% block name="selectionsColumn" class="ui.block.selectionsColumn" %}
                     {% arguments %}
@@ -45,7 +46,6 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
-
                 {% block name="entity_id" class="ui.block.column" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
@@ -54,7 +54,6 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
-
                 {% block name="user_firstname" class="ui.block.column" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
@@ -63,7 +62,6 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
-
                 {% block name="user_lastname" class="ui.block.column" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
@@ -72,7 +70,6 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
-
                 {% block name="email" class="ui.block.column" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
@@ -81,12 +78,26 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
-
+                {% block name="website_view" class="ui.block.column" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="label" type="string" %}Account Created in{% endArgument %}
+                            {% argument name="source" type="string" %}users_listing{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="confirmed_email" class="ui.block.column" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="label" type="string" %}Confirmed email{% endArgument %}
+                            {% argument name="source" type="string" %}users_listing{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
                 {% block name="actionsColumn" class="ProgramCms\\UserBundle\\Ui\\Listing\\Column\\UserActions" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
                             {% argument name="label" type="string" %}Actions{% endArgument %}
-                            {% argument name="class" type="string" %}ProgramCms\ThemeBundle\Ui\Grid\Column\ThemeActions{% endArgument %}
                             {% argument name="source" type="string" %}users_listing{% endArgument %}
                         {% endArgument %}
                     {% endArguments %}

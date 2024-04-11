@@ -1,0 +1,18 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% page %}
+    {% referenceBlock name="user.account.navigation" %}
+        {% block name="user.account.newsletter" class="ProgramCms\\CoreBundle\\View\\Element\\Html\\Link\\Item" %}
+            {% arguments %}
+                {% argument name="label" type="string" %}Newsletter{% endArgument %}
+                {% argument name="path" type="string" %}cms_index_index{% endArgument %}
+            {% endArguments %}
+        {% endBlock %}
+    {% endReferenceBlock %}
+{% endPage %}

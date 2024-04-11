@@ -13,6 +13,7 @@ use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\CoreBundle\Model\Utils\BundleManager;
 use ProgramCms\CoreBundle\View\Layout\Data\Structure;
 use ProgramCms\CoreBundle\View\Layout\Element;
+use ProgramCms\CoreBundle\View\Page\Config;
 use ProgramCms\ThemeBundle\Model\PageLayout;
 use ReflectionException;
 
@@ -112,7 +113,7 @@ class Layout implements LayoutInterface
         Structure $structure,
         PageLayout $pageLayout,
         BundleManager $bundleManager,
-        \ProgramCms\CoreBundle\View\Page\Config $config,
+        Config $config,
         ObjectManager $objectManager
     )
     {

@@ -6,10 +6,34 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<div class="btn-group mt-1" role="group" aria-label="Basic outlined example">
-    <button type="button" class="btn btn-outline-secondary btn-sm">{{ block.trans('Upload') }}</button>
-    <button type="button" class="btn btn-outline-secondary btn-sm">{{ block.trans('Select from Gallery') }}</button>
-</div>
-<div class="image-uploader">
-    <p>{{ block.trans('Browse to Find or drag Image here') }}</p>
+<div
+    class="image-uploader"
+    data-controller="image-uploader"
+    data-image-uploader-preview-value="{{ block.getPreviewId() }}"
+    data-image-uploader-browse-value="#label-browse"
+>
+    <div class="btn-group mt-1" role="group" aria-label="{{ block.getId() }}">
+        <a
+            data-action="image-uploader#triggerBrowse"
+            class="btn btn-outline-secondary btn-sm">
+            {{ block.trans('Upload') }}
+        </a>
+        <a class="btn btn-outline-secondary btn-sm" data-action="image-uploader#openMediaBrowser">{{ block.trans('Select from Gallery') }}</a>
+    </div>
+
+    <div class="image-uploader__browser mt-3">
+        {% if block.hasValue() %}
+            <img id="{{ block.getPreviewId() }}" class="image-uploader__browser--thumbnail" src="{{ asset('media/core_config/') }}{{ block.getValue() }}" alt=""/>
+        {% endif %}
+        <label for="{{ block.getId() }}" id="label-browse" class="image-uploader__browser--placeholder">
+            <span>{{ block.trans('Browse to Find or drag Image here') }}</span>
+        </label>
+    </div>
+    <input
+        id="{{ block.getId() }}"
+        type="file"
+        name="{{ block.getName() }}"
+        class="d-none"
+        accept="image/*"
+        data-action="change->image-uploader#showPreview">
 </div>

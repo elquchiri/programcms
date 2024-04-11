@@ -44,8 +44,8 @@ class Copyright extends Template
      */
     protected function _toHtml(): string
     {
-        return $this->translator->trans(
+        return "<div class=\"footer-copyright\">" . $this->translator->trans(
             "Copyright &copy; 2022-present ProgramCMS Community Edition"
-        );
+        ) . "</div>";
     }
 }

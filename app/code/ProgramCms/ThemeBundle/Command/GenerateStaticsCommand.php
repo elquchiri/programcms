@@ -8,6 +8,7 @@
 
 namespace ProgramCms\ThemeBundle\Command;
 
+use Exception;
 use ProgramCms\CoreBundle\App\Config;
 use ProgramCms\CoreBundle\Helper\Language;
 use ProgramCms\CoreBundle\Model\Filesystem\DirectoryList;
@@ -29,6 +30,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use ProgramCms\CoreBundle\View\FileSystem as ViewFileSystem;
 
 /**
  * Class GenerateStaticsCommand
@@ -97,6 +99,11 @@ class GenerateStaticsCommand extends Command
     protected Language $language;
 
     /**
+     * @var ViewFileSystem
+     */
+    protected ViewFileSystem $viewFileSystem;
+
+    /**
      * GenerateStaticsCommand constructor.
      * @param ThemeRepository $themeRepository
      * @param WebsiteViewRepository $websiteViewRepository
@@ -105,6 +112,7 @@ class GenerateStaticsCommand extends Command
      * @param DirectoryList $directoryList
      * @param BundleManager $bundleManager
      * @param Language $language
+     * @param ViewFileSystem $viewFileSystem
      * @param string|null $name
      */
     public function __construct(
@@ -115,6 +123,7 @@ class GenerateStaticsCommand extends Command
         DirectoryList $directoryList,
         BundleManager $bundleManager,
         Language $language,
+        ViewFileSystem $viewFileSystem,
         string $name = null
     )
     {
@@ -126,6 +135,7 @@ class GenerateStaticsCommand extends Command
         $this->directoryList = $directoryList;
         $this->bundleManager = $bundleManager;
         $this->language = $language;
+        $this->viewFileSystem = $viewFileSystem;
     }
 
     protected function configure()
@@ -145,18 +155,20 @@ class GenerateStaticsCommand extends Command
         // Get all bundles
         $bundles = $this->bundleManager->getAllBundles();
 
-        // Loop through bundles
-        foreach ($bundles as $bundle) {
-            $bundlePath = $bundle['path'];
+        foreach ($this->themeRepository->findAll() as $theme) {
+            // Loop through bundles
+            foreach ($bundles as $bundle) {
+                $bundleName = $bundle['name'];
 
-            // Locate _bundle.scss entry files
-            // Merge entry points into main app
-            $this->_populateBundleScssFiles($bundlePath);
-            $this->_populateExtendsScssFiles($bundlePath);
+                // Locate _bundle.scss entry files
+                // Merge entry points into main app
+                $this->_populateBundleScssFiles($bundleName, $theme->getThemeId());
+                $this->_populateExtendsScssFiles($bundleName, $theme->getThemeId());
 
-            // Get all JavaScript files in the source directory
-            // Copy the content of each JavaScript file to the destination directory
-            $this->_populateJsFiles($bundlePath);
+                // Get all JavaScript files in the source directory
+                // Copy the content of each JavaScript file to the destination directory
+                $this->_populateJsFiles($bundleName, $theme->getThemeId());
+            }
         }
 
         // Generate Webpack JS
@@ -175,35 +187,59 @@ class GenerateStaticsCommand extends Command
     }
 
     /**
-     * @param string $bundlePath
+     * @param string $bundleName
+     * @param $theme
+     * @throws Exception
      */
-    protected function _populateBundleScssFiles(string $bundlePath): void
+    protected function _populateBundleScssFiles(string $bundleName, $theme): void
     {
         foreach (self::AREAS as $area) {
-            $assetsFolder = $bundlePath . "/Resources/views/{$area}/assets/css/source/";
-            // Find _bundle.scss files
-            $bundleScssFiles = glob($assetsFolder . '_bundle.scss');
-            if (!empty($bundleScssFiles)) {
-                $relativePath = $this->_getRelativePath($bundlePath);
-                $importStatement = sprintf("'./%s%s'", $relativePath, "/Resources/views/{$area}/assets/css/source/_bundle.scss");
-                $this->bundleScssFiles[$area][] = $importStatement;
+            $params = ['bundle' => $bundleName];
+            if ($area) {
+                $params['area'] = $area;
+            }
+            if($theme) {
+                $params['theme'] = $theme;
+            }
+            $assets = $this->viewFileSystem->getScssAssetFileName('_bundle.scss', $params);
+            if(!empty($assets)) {
+                foreach($assets as $asset) {
+                    $scssFile = glob($asset);
+                    if (!empty($scssFile)) {
+                        $relativePath = $this->_getRelativePath($scssFile[0]);
+                        $importStatement = sprintf("'./%s'", $relativePath);
+                        $this->bundleScssFiles[$area][md5($relativePath)] = $importStatement;
+                    }
+                }
             }
         }
     }
 
     /**
-     * @param string $bundlePath
+     * @param string $bundleName
+     * @param $theme
+     * @throws Exception
      */
-    protected function _populateExtendsScssFiles(string $bundlePath): void
+    protected function _populateExtendsScssFiles(string $bundleName, $theme): void
     {
         foreach (self::AREAS as $area) {
-            $assetsFolder = $bundlePath . "/Resources/views/{$area}/assets/css/source/";
-            // Find _extends.scss files
-            $bundleScssFiles = glob($assetsFolder . '_extends.scss');
-            if (!empty($bundleScssFiles)) {
-                $relativePath = $this->_getRelativePath($bundlePath);
-                $importStatement = sprintf("'./%s%s'", $relativePath, "/Resources/views/{$area}/assets/css/source/_extends.scss");
-                $this->extendsScssFiles[$area][] = $importStatement;
+            $params = ['bundle' => $bundleName];
+            if ($area) {
+                $params['area'] = $area;
+            }
+            if($theme) {
+                $params['theme'] = $theme;
+            }
+            $assets = $this->viewFileSystem->getAssetFileName('css/source/_extends.scss', $params);
+            if(!empty($assets)) {
+                foreach($assets as $asset) {
+                    $scssFile = glob($asset);
+                    if (!empty($scssFile)) {
+                        $relativePath = $this->_getRelativePath($scssFile[0]);
+                        $importStatement = sprintf("'./%s'", $relativePath);
+                        $this->extendsScssFiles[$area][md5($relativePath)] = $importStatement;
+                    }
+                }
             }
         }
     }
@@ -222,25 +258,37 @@ class GenerateStaticsCommand extends Command
     }
 
     /**
-     * @param string $bundlePath
+     * @param string $bundleName
+     * @param $theme
+     * @throws Exception
      */
-    protected function _populateJsFiles(string $bundlePath): void
+    protected function _populateJsFiles(string $bundleName, $theme): void
     {
-        $relativePath = $this->_getRelativePath($bundlePath);
-
         foreach (self::AREAS as $area) {
-            $jsAssetsFolder = $relativePath . "/Resources/views/{$area}/assets/js/controllers/";
-            if ($this->filesystem->exists($jsAssetsFolder)) {
-                $iterator = new RecursiveIteratorIterator(
-                    new RecursiveDirectoryIterator($jsAssetsFolder)
-                );
+            $params = ['bundle' => $bundleName];
+            if ($area) {
+                $params['area'] = $area;
+            }
+            if($theme) {
+                $params['theme'] = $theme;
+            }
+            $assets = $this->viewFileSystem->getAssetFileName('js/controllers/', $params);
+            if(!empty($assets)) {
+                foreach($assets as $asset) {
+                    if ($this->filesystem->exists($asset)) {
+                        $iterator = new RecursiveIteratorIterator(
+                            new RecursiveDirectoryIterator($asset)
+                        );
 
-                // Iterate through each file found by the iterator
-                foreach ($iterator as $file) {
-                    // Check if the file is a JavaScript file
-                    if ($file->isFile() && $file->getExtension() === 'js') {
-                        // Get the relative path of the file inside the assets folder
-                        $this->jsFiles[$area][] = sprintf("'./%s%s'", $jsAssetsFolder, $file->getFilename());
+                        // Iterate through each file found by the iterator
+                        foreach ($iterator as $file) {
+                            // Check if the file is a JavaScript file
+                            if ($file->isFile() && $file->getExtension() === 'js') {
+                                $relativePath = $this->_getRelativePath($asset) . $file->getFilename();
+                                // Get the relative path of the file inside the assets folder
+                                $this->jsFiles[$area][md5($relativePath)] = sprintf("'./%s'", $relativePath);
+                            }
+                        }
                     }
                 }
             }

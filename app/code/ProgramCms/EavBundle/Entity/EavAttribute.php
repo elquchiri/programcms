@@ -115,9 +115,13 @@ class EavAttribute extends AbstractEntity
 
     /**
      * EavAttribute constructor.
+     * @param array $data
      */
-    public function __construct()
+    public function __construct(
+        array $data = []
+    )
     {
+        parent::__construct($data);
         $this->groups = new ArrayCollection();
         $this->labels = new ArrayCollection();
     }
@@ -355,7 +359,6 @@ class EavAttribute extends AbstractEntity
         if(!$this->labels->contains($label)) {
             $this->labels[] = $label;
         }
-
         return $this;
     }
 

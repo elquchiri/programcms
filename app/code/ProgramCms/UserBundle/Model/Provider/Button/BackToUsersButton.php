@@ -8,13 +8,29 @@
 
 namespace ProgramCms\UserBundle\Model\Provider\Button;
 
+use ProgramCms\RouterBundle\Service\Url;
+
 /**
  * Class BackToUsersButton
  * @package ProgramCms\UserBundle\Model\Provider\Button
  */
 class BackToUsersButton implements \ProgramCms\UiBundle\DataProvider\ButtonProviderInterface
 {
+    /**
+     * @var Url
+     */
+    protected Url $url;
 
+    /**
+     * BackToUsersButton constructor.
+     * @param Url $url
+     */
+    public function __construct(
+        Url $url
+    )
+    {
+        $this->url = $url;
+    }
     /**
      * @return string[]
      */
@@ -22,7 +38,7 @@ class BackToUsersButton implements \ProgramCms\UiBundle\DataProvider\ButtonProvi
     {
         return [
             'buttonType' => 'back',
-            'buttonAction' => '',
+            'buttonAction' => $this->url->getUrlByRouteName('user_index_index'),
             'label' => 'back'
         ];
     }

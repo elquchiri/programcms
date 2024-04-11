@@ -16,8 +16,10 @@
         {% endContainer %}
         {% container name="header.wrapper" htmlTag="div" htmlClass="panel content" %}
             {% container name="navbar" htmlTag="nav" htmlClass="navbar navbar-expand-lg container" %}
-                {# Website LOGO Block #}
-                {% block name="logo" class="ProgramCms\\ThemeBundle\\Block\\Html\\Header\\Logo" template="@ProgramCmsThemeBundle/logo.html.twig" %}{% endBlock %}
+                {% container name="logo.container" htmlTag="div" %}
+                    {# Website LOGO Block #}
+                    {% block name="logo" class="ProgramCms\\ThemeBundle\\Block\\Html\\Header\\Logo" template="@ProgramCmsThemeBundle/logo.html.twig" %}{% endBlock %}
+                {% endContainer %}
                 {# Website Navbar Toggler Block #}
                 {% block name="navbar.togller" class="ProgramCms\\CoreBundle\\View\\Element\\Template" template="@ProgramCmsThemeBundle/navbar_toggler.html.twig" %}{% endBlock %}
                 {# Website Navbar Fast Access Container #}
@@ -28,7 +30,7 @@
     {# Page Top Container #}
     {% referenceContainer name="page.top" %}
         {# Navigation Section Block #}
-        {% block name="navigation.bar" class="ProgramCms\\CoreBundle\\View\\Element\\Template" template="@ProgramCmsThemeBundle/navigation.bar.html.twig" %}{% endBlock %}
+        {% block name="navigation.bar" class="ProgramCms\\ThemeBundle\\Block\\Html\\TopMenu" template="@ProgramCmsThemeBundle/navigation_bar.html.twig" %}{% endBlock %}
         {% container name="top.container" htmlTag="div" htmlClass="top-container" %}{% endContainer %}
         {# Breadcrump Block #}
         {% block name="breadcrumb" class="ProgramCms\\CoreBundle\\View\\Element\\Template" template="@ProgramCmsThemeBundle/breadcrumb.html.twig" %}{% endBlock %}
@@ -40,7 +42,7 @@
     {# Main Container #}
     {% referenceContainer name="main" %}
         {# Main Page Content Container #}
-        {% container name="content" htmlTag="div" htmlClass="container" %}{% endContainer %}
+        {% container name="content" %}{% endContainer %}
     {% endReferenceContainer %}
     {#  Footer Container#}
     {% referenceContainer name="footer.container" %}
@@ -55,7 +57,7 @@
                 {% endContainer %}
             {% endContainer %}
         {% endContainer %}
-        {% container name="footer.legal.copyright" htmlTag="div" htmlClass="footer-copyright" %}
+        {% container name="footer.legal.copyright" %}
             {% block name="copyright" class="ProgramCms\\ThemeBundle\\Block\\Page\\Copyright" %}{% endBlock %}
         {% endContainer %}
     {% endReferenceContainer %}

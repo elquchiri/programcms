@@ -8,6 +8,7 @@
 
 namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\Website;
 
+use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\RouterBundle\Service\Url;
@@ -20,7 +21,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  * Class SaveController
  * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\Website
  */
-class SaveController extends \ProgramCms\CoreBundle\Controller\AdminController
+class SaveController extends AdminController
 {
     /**
      * @var Url

@@ -8,11 +8,16 @@
 
 namespace ProgramCms\PostBundle;
 
+use ProgramCms\CatalogBundle\ProgramCmsCatalogBundle;
+use ProgramCms\CoreBundle\ProgramCmsCoreBundle;
+use ProgramCms\ThemeBundle\ProgramCmsThemeBundle;
+use ProgramCms\UserBundle\ProgramCmsUserBundle;
+
 /**
  * Class ProgramCmsPostBundle
  * @package ProgramCms\PostBundle
  */
-class ProgramCmsPostBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
+class ProgramCmsPostBundle extends ProgramCmsCoreBundle
 {
     public const VERSION = '1.0.0';
 
@@ -22,9 +27,10 @@ class ProgramCmsPostBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
     public static function getDependencies(): array
     {
         return [
-            \ProgramCms\CoreBundle\ProgramCmsCoreBundle::class,
-            \ProgramCms\ThemeBundle\ProgramCmsThemeBundle::class,
-            \ProgramCms\CatalogBundle\ProgramCmsCatalogBundle::class,
+            ProgramCmsCoreBundle::class,
+            ProgramCmsThemeBundle::class,
+            ProgramCmsCatalogBundle::class,
+            ProgramCmsUserBundle::class
         ];
     }
 }

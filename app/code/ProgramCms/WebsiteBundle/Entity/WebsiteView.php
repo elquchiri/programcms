@@ -8,13 +8,14 @@
 
 namespace ProgramCms\WebsiteBundle\Entity;
 
+use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
 use ProgramCms\WebsiteBundle\Model\ScopeInterface;
 use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
 use ProgramCms\CoreBundle\App\ScopeInterface as AppScopeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: WebsiteViewRepository::class)]
-class WebsiteView extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity implements AppScopeInterface
+class WebsiteView extends AbstractEntity implements AppScopeInterface
 {
     /**
      * @var int|null
@@ -113,6 +114,14 @@ class WebsiteView extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity implemen
     }
 
     /**
+     * @return string|null
+     */
+    public function getWebsiteGroupName(): ?string
+    {
+        return $this->getWebsiteGroup()->getWebsiteGroupName();
+    }
+
+    /**
      * @param WebsiteGroup $websiteGroup
      * @return $this
      */
@@ -204,5 +213,21 @@ class WebsiteView extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity implemen
     public function getName()
     {
         return $this->getWebsiteViewName();
+    }
+
+    /**
+     * @return Website|null
+     */
+    public function getWebsite(): ?Website
+    {
+        return $this->getWebsiteGroup()->getWebsite();
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getWebsiteName(): ?string
+    {
+        return $this->getWebsite()->getName();
     }
 }

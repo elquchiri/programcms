@@ -1,0 +1,17 @@
+{
+    "name": "@programcms/modal",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "dependencies": {
+    
+    },
+    "scripts": {
+    
+    },
+    "keywords": [
+    
+    ],
+    "author": "Mohamed EL QUCHIRI",
+    "license": "MIT"
+}

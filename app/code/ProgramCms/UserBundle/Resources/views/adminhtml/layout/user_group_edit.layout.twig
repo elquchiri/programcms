@@ -1,0 +1,83 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% page layout="admin-2columns-left" %}
+    {% referenceContainer name="content" %}
+        {% block name="user_group_form" class="ui.block.form" %}
+            {% arguments %}
+                {% argument name="data" type="array" %}
+                    {% argument name="label" type="string" %}User Group{% endArgument %}
+                {% endArgument %}
+                {% argument name="dataSource" type="array" %}
+                    {% argument name="dataProvider" type="array" %}
+                        {% argument name="class" type="string" %}ProgramCms\UserBundle\Model\Provider\Listing\Groups\DataProvider{% endArgument %}
+                        {% argument name="primaryFieldName" type="string" %}entity_id{% endArgument %}
+                        {% argument name="requestFieldName" type="string" %}id{% endArgument %}
+                    {% endArgument %}
+                {% endArgument %}
+                {% argument name="buttons" type="array" %}
+                    {% argument name="back" type="string" %}ProgramCms\UserBundle\Model\Provider\Button\BackToUserGroupsButton{% endArgument %}
+                    {% argument name="save" type="string" %}ProgramCms\UserBundle\Model\Provider\Button\SaveUserGroupButton{% endArgument %}
+                {% endArgument %}
+            {% endArguments %}
+            {% block name="general_fieldset" class="ui.block.form.fieldset" %}
+                {% arguments %}
+                    {% argument name="data" type="array" %}
+                        {% argument name="label" type="string" %}General{% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+                {% block name="entity_id" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}hidden{% endArgument %}
+                            {% argument name="source" type="string" %}user_group_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="code" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}text{% endArgument %}
+                            {% argument name="label" type="string" %}Code{% endArgument %}
+                            {% argument name="source" type="string" %}user_group_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="label" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}text{% endArgument %}
+                            {% argument name="label" type="string" %}Group Label{% endArgument %}
+                            {% argument name="helpMessage" type="string" %}The group label can appear to users.{% endArgument %}
+                            {% argument name="source" type="string" %}user_group_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+            {% endBlock %}
+            {% block name="acl_fieldset" class="ui.block.form.fieldset" %}
+                {% arguments %}
+                    {% argument name="data" type="array" %}
+                        {% argument name="label" type="string" %}Access Control List{% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+                {% block name="category.tree" class="ProgramCms\\UiBundle\\Component\\Tree\\Tree" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="isOpen" type="boolean" %}true{% endArgument %}
+                        {% endArgument %}
+                        {% argument name="dataSource" type="array" %}
+                            {% argument name="dataProvider" type="array" %}
+                                {% argument name="class" type="string" %}ProgramCms\WebsiteBundle\Model\Website\DataProvider{% endArgument %}
+                            {% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+            {% endBlock %}
+        {% endBlock %}
+    {% endReferenceContainer %}
+{% endPage %}

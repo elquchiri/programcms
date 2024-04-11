@@ -11,7 +11,9 @@ namespace ProgramCms\CoreBundle\View\Element\Template;
 use ProgramCms\CoreBundle\App\State;
 use ProgramCms\CoreBundle\Helper\Language;
 use ProgramCms\CoreBundle\Model\Filesystem\DirectoryList;
+use ProgramCms\CoreBundle\Model\Utils\BundleManager;
 use ProgramCms\CoreBundle\View\Element\Template\File\Resolver;
+use ProgramCms\CoreBundle\View\FileSystem;
 use ProgramCms\CoreBundle\View\Layout;
 use ProgramCms\CoreBundle\View\Page\Config;
 use ProgramCms\RouterBundle\Service\Request;
@@ -19,6 +21,7 @@ use ProgramCms\RouterBundle\Service\Url;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use ProgramCms\ThemeBundle\Webpack\Output as WebpackOutput;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Twig\Environment;
 
 /**
@@ -78,7 +81,23 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
     protected Resolver $resolver;
 
     /**
+     * @var BundleManager
+     */
+    protected BundleManager $bundleManager;
+
+    /**
+     * @var FileSystem
+     */
+    protected FileSystem $fileSystem;
+
+    /**
+     * @var FilesystemAdapter
+     */
+    protected FilesystemAdapter $filesystemAdapter;
+
+    /**
      * Context constructor.
+     * @param BundleManager $bundleManager
      * @param DirectoryList $directoryList
      * @param Request $request
      * @param Environment $environment
@@ -91,8 +110,11 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
      * @param WebpackOutput $webpackOutput
      * @param State $state
      * @param Resolver $resolver
+     * @param FileSystem $fileSystem
+     * @param FilesystemAdapter $filesystemAdapter
      */
     public function __construct(
+        BundleManager $bundleManager,
         DirectoryList $directoryList,
         Request $request,
         Environment $environment,
@@ -104,7 +126,8 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
         Language $language,
         WebpackOutput $webpackOutput,
         State $state,
-        Resolver $resolver
+        Resolver $resolver,
+        FileSystem $fileSystem,
     )
     {
         parent::__construct($directoryList, $request);
@@ -118,6 +141,9 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
         $this->webpackOutput = $webpackOutput;
         $this->state = $state;
         $this->resolver = $resolver;
+        $this->bundleManager = $bundleManager;
+        $this->fileSystem = $fileSystem;
+        $this->filesystemAdapter = new FilesystemAdapter();
     }
 
     /**
@@ -199,5 +225,29 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
     public function getResolver(): Resolver
     {
         return $this->resolver;
+    }
+
+    /**
+     * @return BundleManager
+     */
+    public function getBundleManager(): BundleManager
+    {
+        return $this->bundleManager;
+    }
+
+    /**
+     * @return FileSystem
+     */
+    public function getFileSystem(): FileSystem
+    {
+        return $this->fileSystem;
+    }
+
+    /**
+     * @return FilesystemAdapter
+     */
+    public function getFileSystemAdapter(): FilesystemAdapter
+    {
+        return $this->filesystemAdapter;
     }
 }

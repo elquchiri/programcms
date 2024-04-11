@@ -8,11 +8,13 @@
 
 namespace ProgramCms\ConfigBundle\Controller\Adminhtml\SystemConfig;
 
+use Gedmo\Sluggable\Util\Urlizer;
 use \ProgramCms\ConfigBundle\Model\ConfigSerializer;
 use ProgramCms\ConfigBundle\Model\Config as ConfigModel;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\RouterBundle\Service\Url;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -22,19 +24,31 @@ class SaveController extends \ProgramCms\ConfigBundle\Controller\Adminhtml\Abstr
      * @var ConfigSerializer
      */
     protected ConfigSerializer $config;
+
     /**
      * @var Url
      */
     protected Url $url;
+
     /**
      * @var TranslatorInterface
      */
     protected TranslatorInterface $translator;
+
     /**
      * @var ConfigModel
      */
     protected ConfigModel $configModel;
 
+    /**
+     * SaveController constructor.
+     * @param Context $context
+     * @param ObjectManager $objectManager
+     * @param ConfigSerializer $configSerializer
+     * @param Url $url
+     * @param TranslatorInterface $translator
+     * @param ConfigModel $configModel
+     */
     public function __construct(
         Context $context,
         ObjectManager $objectManager,
@@ -55,7 +69,70 @@ class SaveController extends \ProgramCms\ConfigBundle\Controller\Adminhtml\Abstr
      */
     protected function _getGroupsForSave()
     {
-        return $this->getRequest()->getCurrentRequest()->get('groups');
+        $groups = $this->getRequest()->getCurrentRequest()->get('groups');
+        $files = $this->getRequest()->getCurrentRequest()->files->get('groups');
+        if ($files && is_array($files)) {
+            // Merge $_FILES and $_POST data
+            foreach ($files as $groupName => $group) {
+                $data = $this->processNestedGroups($group);
+
+                if (!empty($data)) {
+                    // Upload files & provide media path
+                    $this->uploadConfigFiles($data);
+
+                    if (!empty($groups[$groupName])) {
+                        $groups[$groupName] = array_merge_recursive((array)$groups[$groupName], $data);
+                    } else {
+                        $groups[$groupName] = $data;
+                    }
+                }
+            }
+        }
+        return $groups;
+    }
+
+    /**
+     * @param $data
+     */
+    protected function uploadConfigFiles(&$data)
+    {
+        foreach($data['fields'] as &$file) {
+            /** @var UploadedFile $uploadedFile */
+            $uploadedFile = $file['value'];
+            if($uploadedFile->isValid()) {
+                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = Urlizer::urlize($originalFilename) . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+                $destination = $this->getParameter('kernel.project_dir') . '/public/media/core_config';
+                $uploadedFile->move($destination, $newFilename);
+                // Replace config field value
+                $file['value'] = $newFilename;
+            }
+        }
+    }
+
+    /**
+     * @param array $group
+     * @return array
+     */
+    protected function processNestedGroups(array $group)
+    {
+        $data = [];
+        if (isset($group['fields']) && is_array($group['fields'])) {
+            foreach ($group['fields'] as $fieldName => $field) {
+                if (!empty($field['value'])) {
+                    $data['fields'][$fieldName] = ['value' => $field['value']];
+                }
+            }
+        }
+        if (isset($group['groups']) && is_array($group['groups'])) {
+            foreach ($group['groups'] as $groupName => $groupData) {
+                $nestedGroup = $this->processNestedGroups($groupData);
+                if (!empty($nestedGroup)) {
+                    $data['groups'][$groupName] = $nestedGroup;
+                }
+            }
+        }
+        return $data;
     }
 
     /**
