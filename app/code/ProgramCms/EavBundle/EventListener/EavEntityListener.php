@@ -11,7 +11,11 @@ namespace ProgramCms\EavBundle\EventListener;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\PostLoadEventArgs;
 use Exception;
+use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\EavBundle\Entity\EavAttribute;
 use ProgramCms\EavBundle\Entity\EavEntityType;
+use ProgramCms\EavBundle\Model\Entity\Attribute\AttributeValue;
+use ProgramCms\EavBundle\Model\Entity\Attribute\Frontend\AbstractFrontend;
 use ProgramCms\EavBundle\Model\Entity\Entity;
 
 /**
@@ -20,21 +24,28 @@ use ProgramCms\EavBundle\Model\Entity\Entity;
  */
 class EavEntityListener
 {
-
     /**
      * @var EntityManagerInterface
      */
     protected EntityManagerInterface $entityManager;
 
     /**
+     * @var ObjectManager
+     */
+    protected ObjectManager $objectManager;
+
+    /**
      * EavEntityListener constructor.
      * @param EntityManagerInterface $entityManager
+     * @param ObjectManager $objectManager
      */
     public function __construct(
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        ObjectManager $objectManager
     )
     {
         $this->entityManager = $entityManager;
+        $this->objectManager = $objectManager;
     }
 
     /**
@@ -51,7 +62,26 @@ class EavEntityListener
                 ->findOneBy(['entity_type_code' => get_class($entity)]);
 
             if ($eavEntityType) {
-                $entity->setEntityType($eavEntityType);
+                $entityType = $entity->setEntityType($eavEntityType);
+                $entityType->getEntityType()->setEntity($entity);
+                /** @var EavAttribute $attribute */
+                foreach($entityType->getEntityType()->getAttributes() as $attribute) {
+                    $backendType = $attribute->getBackendType();
+                    $respository = $args->getObjectManager()->getRepository($backendType);
+                    /** @var AttributeValue $value */
+                    $value = $respository->findOneBy([
+                        'entity_id' => $entity->getEntityId(),
+                        'attribute_id' => $attribute->getAttributeId()
+                    ]);
+                    $attributeValue = $value ? $value->getValue() : '';
+                    $entity->setData($attribute->getAttributeCode(), $attributeValue);
+                    if($attribute->getFrontendModel()) {
+                        /** @var AbstractFrontend $frontendModel */
+                        $frontendModel = $this->objectManager->create($attribute->getFrontendModel());
+                        $attributeValue = $frontendModel->getValue($attribute->getAttributeCode(), $entity);
+                    }
+                    $entity->setData($attribute->getAttributeCode(), $attributeValue);
+                }
             }
         }
     }

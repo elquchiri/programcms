@@ -19,6 +19,6 @@ menu:
             action: ''
             sortOrder: 1
           about:
-            label: 'Blocks'
+            label: 'Piece of Content'
             action: ''
             sortOrder: 2

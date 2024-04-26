@@ -8,6 +8,7 @@
 
 namespace ProgramCms\UserBundle\Entity;
 
+use ProgramCms\EavBundle\Model\Entity\Attribute\AttributeValue;
 use ProgramCms\UserBundle\Repository\UserEntityDatetimeRepository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package ProgramCms\UserBundle\Entity
  */
 #[ORM\Entity(repositoryClass: UserEntityDatetimeRepository::class)]
-class UserEntityDatetime extends \ProgramCms\EavBundle\Model\Entity\Attribute\AttributeValue
+class UserEntityDatetime extends AttributeValue
 {
     /**
      * @var DateTime|null

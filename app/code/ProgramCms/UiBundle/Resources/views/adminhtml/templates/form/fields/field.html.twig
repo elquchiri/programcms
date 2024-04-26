@@ -8,8 +8,8 @@
 #}
 
 {% if(block.hasLabel()) %}
-    <div class="row mb-3">
-        <div class="col-3 text-end">
+    <div class="row mb-4">
+        <div class="col-md-3 text-end">
             <label for="{{ block.getId() }}" class="col-form-label"
                    style="font-size: 14px; font-weight: 600;">
                 {{ block.getLabel() }}
@@ -21,7 +21,7 @@
                 {% endif %}
             </label>
         </div>
-        <div class="col-6">
+        <div class="{{ block.getSize() }}">
             {{ block.getChildHtml()|raw }}
             {% if block.isInheritCheckboxRequired() %}
                 {{ block.renderInheritCheckbox()|raw }}

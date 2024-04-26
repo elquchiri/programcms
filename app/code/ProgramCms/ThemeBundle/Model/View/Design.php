@@ -13,6 +13,7 @@ use ProgramCms\CoreBundle\App\State;
 use ProgramCms\CoreBundle\View\Design\Theme\ThemeFactory;
 use ProgramCms\CoreBundle\View\Design\ThemeInterface;
 use ProgramCms\CoreBundle\View\DesignInterface;
+use ProgramCms\ThemeBundle\Helper\Data;
 use ProgramCms\WebsiteBundle\Model\ScopeInterface;
 
 /**
@@ -47,16 +48,23 @@ class Design implements DesignInterface
     protected ThemeFactory $themeFactory;
 
     /**
+     * @var Data
+     */
+    protected Data $themeHelper;
+
+    /**
      * Design constructor.
      * @param State $state
      * @param Config $config
      * @param ThemeFactory $themeFactory
+     * @param Data $themeHelper
      * @param array $themes
      */
     public function __construct(
         State $state,
         Config $config,
         ThemeFactory $themeFactory,
+        Data $themeHelper,
         array $themes = []
     )
     {
@@ -64,6 +72,7 @@ class Design implements DesignInterface
         $this->themes = $themes;
         $this->config = $config;
         $this->themeFactory = $themeFactory;
+        $this->themeHelper = $themeHelper;
     }
 
     /**
@@ -105,16 +114,11 @@ class Design implements DesignInterface
         $websiteView = $params['website_view'] ?? null;
 
         if($this->isFrontendTheme($area)) {
-            $theme = $this->config->getValue(
-                self::FRONTEND_THEME_PATH_CONFIG,
-                ScopeInterface::SCOPE_WEBSITE_VIEW,
-                $websiteView
-            );
+            $theme = $this->themeHelper->getAppliedTheme($websiteView)->getThemeId();
         }
         elseif($area === self::BACKEND_AREA) {
-            $theme = $this->config->getValue(
-                self::BACKEND_THEME_PATH_CONFIG
-            );
+            $theme = $this->themeHelper->getAppliedBackendTheme()->getThemeId();
+
         }
 
         // TODO: define themes in services.yaml

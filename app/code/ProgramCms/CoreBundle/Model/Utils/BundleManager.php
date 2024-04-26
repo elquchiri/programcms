@@ -108,19 +108,20 @@ class BundleManager
      */
     public function getAllThemes(): array
     {
-        $bundles = [];
+        $themes = [];
         foreach ($this->getContainerParameter('kernel.themes') as $themeName => $themeClass) {
             $reflectedTheme = new \ReflectionClass($themeClass);
             if ($reflectedTheme) {
-                $bundleDirectory = dirname($reflectedTheme->getFileName());
-                $bundles[$themeName] = [
+                $themeDirectory = dirname($reflectedTheme->getFileName());
+                $themes[$themeName] = [
                     'name' => $reflectedTheme->getShortName(),
-                    'path' => $bundleDirectory
+                    'class' => $themeClass,
+                    'path' => $themeDirectory
                 ];
             }
         }
 
-        return $bundles;
+        return $themes;
     }
 
     /**

@@ -10,23 +10,20 @@ namespace ProgramCms\EavBundle\Model\Entity;
 
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Doctrine\ORM\Mapping\MappedSuperclass;
-use ProgramCms\EavBundle\Entity\EavAttribute;
 use Doctrine\ORM\Mapping\UnderscoreNamingStrategy;
 use ProgramCms\EavBundle\Entity\EavEntityType;
 
+/**
+ * Class Entity
+ * @package ProgramCms\EavBundle\Model\Entity
+ */
 #[MappedSuperclass, HasLifecycleCallbacks]
-abstract class Entity extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity implements EntityInterface
+class Entity extends \ProgramCms\CoreBundle\Model\Db\Entity\Entity implements EntityInterface
 {
     /**
      * @var EavEntityType|null
      */
     protected ?EavEntityType $entityType = null;
-
-    /**
-     * This is the default attribute model if none was specified
-     * in eav_attribute or eav_attribute_type tables
-     */
-    const DEFAULT_ATTRIBUTE_MODEL = EavAttribute::class;
 
     /**
      * @param EavEntityType $entityType

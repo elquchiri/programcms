@@ -10,28 +10,39 @@ namespace ProgramCms\CatalogBundle\Entity;
 
 use ProgramCms\CatalogBundle\Repository\CategoryEntityDecimalRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ProgramCms\CatalogBundle\App\ScopedAttributeValue;
 
 /**
  * Class CategoryEntityDecimal
  * @package ProgramCms\CatalogBundle\Entity
  */
 #[ORM\Entity(repositoryClass: CategoryEntityDecimalRepository::class)]
-class CategoryEntityDecimal
+class CategoryEntityDecimal extends ScopedAttributeValue
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $value_id = null;
-
-    #[ORM\Column]
-    private ?int $attribute_id = null;
-
-    #[ORM\Column]
-    private ?int $website_view_id = null;
-
-    #[ORM\Column]
-    private ?int $entity_id = null;
-
+    /**
+     * @var float|null
+     */
     #[ORM\Column(length: 255)]
-    private ?string $value = null;
+    private ?float $value = null;
+
+    /**
+     * @param float $value
+     * @return $this
+     */
+    public function setValue(mixed $value): static
+    {
+        if(is_float($value) && !empty($value)) {
+            $this->value = $value;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getValue(): ?float
+    {
+        return $this->value;
+    }
 }

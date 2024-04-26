@@ -47,4 +47,12 @@ abstract class BackendTheme extends AbstractTheme
     {
         return parent::getParent() ?? self::DEFAULT_THEME;
     }
+
+    /**
+     * @return string
+     */
+    public function getArea(): string
+    {
+        return 'adminhtml';
+    }
 }

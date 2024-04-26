@@ -18,4 +18,9 @@ interface DataPatchInterface
      * Execute method, run patch instructions
      */
     public function execute(): void;
+
+    /**
+     * @return array
+     */
+    public static function getDependencies(): array;
 }

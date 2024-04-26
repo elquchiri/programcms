@@ -14,5 +14,8 @@ namespace ProgramCms\CoreBundle\Model\Db\Entity;
  */
 interface EntityInterface
 {
-
+    /**
+     * @return int|null
+     */
+    public function getEntityId(): ?int;
 }

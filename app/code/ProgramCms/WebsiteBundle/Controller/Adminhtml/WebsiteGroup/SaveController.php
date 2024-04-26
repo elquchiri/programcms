@@ -8,63 +8,61 @@
 
 namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteGroup;
 
+use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\CoreBundle\Serialize\Serializer\ObjectSerializer;
 use ProgramCms\RouterBundle\Service\Url;
 use ProgramCms\WebsiteBundle\Entity\WebsiteGroup;
 use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
-use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
-use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
 
 /**
  * Class SaveController
  * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteGroup
  */
-class SaveController extends \ProgramCms\CoreBundle\Controller\AdminController
+class SaveController extends AdminController
 {
     /**
      * @var Url
      */
     protected Url $url;
-    /**
-     * @var WebsiteViewRepository
-     */
-    protected WebsiteViewRepository $websiteViewRepository;
+
     /**
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+
     /**
      * @var WebsiteGroupRepository
      */
     protected WebsiteGroupRepository $websiteGroupRepository;
+
     /**
-     * @var WebsiteRepository
+     * @var ObjectSerializer
      */
-    protected WebsiteRepository $websiteRepository;
+    protected ObjectSerializer $objectSerializer;
 
     /**
      * SaveController constructor.
      * @param Context $context
      * @param Url $url
-     * @param WebsiteViewRepository $websiteViewRepository
+     * @param WebsiteGroupRepository $websiteGroupRepository
      * @param ObjectManager $objectManager
+     * @param ObjectSerializer $objectSerializer
      */
     public function __construct(
         Context $context,
         Url $url,
-        WebsiteViewRepository $websiteViewRepository,
         WebsiteGroupRepository $websiteGroupRepository,
-        WebsiteRepository $websiteRepository,
-        ObjectManager $objectManager
+        ObjectManager $objectManager,
+        ObjectSerializer $objectSerializer
     )
     {
         parent::__construct($context);
         $this->url = $url;
-        $this->websiteViewRepository = $websiteViewRepository;
         $this->objectManager = $objectManager;
         $this->websiteGroupRepository = $websiteGroupRepository;
-        $this->websiteRepository = $websiteRepository;
+        $this->objectSerializer = $objectSerializer;
     }
 
     /**
@@ -83,31 +81,7 @@ class SaveController extends \ProgramCms\CoreBundle\Controller\AdminController
                 $websiteGroup = $this->objectManager->create(WebsiteGroup::class);
             }
 
-            // Populate WebsiteRoot Entity
-            foreach($formData as $name => $value) {
-                if($name === 'website_group_id' && empty($websiteGroupId)) {
-                    continue;
-                }
-                // Group's WebsiteId
-                if($name === 'website_id') {
-                    $website = $this->websiteRepository->findOneBy(['website_id' => $value]);
-                    if($website) {
-                        $websiteGroup->setWebsite($website);
-                    }
-                    continue;
-                }
-                // Default WebsiteView
-                if($name === 'default_website_view_id') {
-                    $websiteView = $this->websiteViewRepository->findOneBy(['website_view_id' => $value]);
-                    if($websiteView) {
-                        $websiteGroup->setDefaultWebsiteView($websiteView);
-                    }
-                    continue;
-                }
-                if($websiteGroup->hasDataUsingMethod($name)) {
-                    $websiteGroup->setDataUsingMethod($name, $value);
-                }
-            }
+            $this->objectSerializer->arrayToObject($websiteGroup, $formData);
 
             // Save WebsiteRoot
             $this->websiteGroupRepository->save($websiteGroup, true);

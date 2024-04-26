@@ -1,0 +1,20 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="circle">
+    <input data-controller="color"
+           id="{{ block.getId() }}"
+           type="text"
+           name="{{ block.getName() }}"
+           class="form-control"
+           {% if block.hasPlaceholder() %}placeholder="{{ block.getPlaceholder() }}"{% endif %}
+            {% if block.hasValue() %}value="{{ block.getValue() }}"{% endif %}
+           aria-describedby="{{ block.getId() }}"
+            {% if block.isDisabled() %}disabled="disabled"{% endif %}
+    />
+</div>

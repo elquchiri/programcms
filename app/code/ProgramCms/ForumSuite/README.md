@@ -1,0 +1,1 @@
+The Forum Suite package contains common infrastructure that provides an ability to apply Forum Model features in ProgramCMS application.

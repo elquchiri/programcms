@@ -38,13 +38,6 @@
                 {% endArgument %}
             {% endArguments %}
             {% block name="website_group_fieldset" class="ui.block.form.fieldset" %}
-                {% block name="website_group_id" class="ui.block.form.field" %}
-                    {% arguments %}
-                        {% argument name="data" type="array" %}
-                            {% argument name="type" type="string" %}hidden{% endArgument %}
-                        {% endArgument %}
-                    {% endArguments %}
-                {% endBlock %}
                 {% block name="is_active" class="ui.block.form.field" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
@@ -83,7 +76,7 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
-                {% block name="root_category_id" class="ui.block.form.field" %}
+                {% block name="category" class="ui.block.form.field" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
                             {% argument name="type" type="string" %}select{% endArgument %}
@@ -93,7 +86,7 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
-                {% block name="default_website_view_id" class="ui.block.form.field" %}
+                {% block name="defaultWebsiteView" class="ui.block.form.field" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
                             {% argument name="type" type="string" %}select{% endArgument %}
@@ -103,7 +96,7 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
-                {% block name="website_id" class="ui.block.form.field" %}
+                {% block name="website" class="ui.block.form.field" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
                             {% argument name="type" type="string" %}select{% endArgument %}

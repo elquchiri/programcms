@@ -69,6 +69,14 @@ class EavAttributeGroup extends AbstractEntity
     }
 
     /**
+     * @return int|null
+     */
+    public function getEntityId(): ?int
+    {
+        return $this->attribute_group_id;
+    }
+
+    /**
      * @return EavAttributeSet
      */
     public function getAttributeSet(): EavAttributeSet

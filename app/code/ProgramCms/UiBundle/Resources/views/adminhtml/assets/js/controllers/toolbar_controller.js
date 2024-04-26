@@ -20,17 +20,18 @@ application.register('toolbar', class extends Controller {
 
         if(confirm) {
             const modalOptions = {
+                title: confirm.title ?? 'Confirmation',
                 content: confirm.text === '' ? 'Do you really want to confirm this action ?' : confirm.text,
                 buttons: [
                     {
-                        text: 'Yes',
+                        text: confirm.yes ?? 'Yes',
                         class: 'btn-primary',
                         click: function() {
                             window.location.href = action;
                         }
                     },
                     {
-                        text: 'No',
+                        text: confirm.no ?? 'No',
                         class: 'btn-light',
                         dismiss: true
                     }

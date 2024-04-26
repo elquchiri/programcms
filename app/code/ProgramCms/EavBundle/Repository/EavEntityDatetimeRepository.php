@@ -8,21 +8,16 @@
 
 namespace ProgramCms\EavBundle\Repository;
 
+use ProgramCms\CoreBundle\Repository\AbstractRepository;
 use ProgramCms\EavBundle\Entity\EavEntityDatetime;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<EavEntityDatetime>
- *
- * @method EavEntityDatetime|null find($id, $lockMode = null, $lockVersion = null)
- * @method EavEntityDatetime|null findOneBy(array $criteria, array $orderBy = null)
- * @method EavEntityDatetime[]    findAll()
- * @method EavEntityDatetime[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class EavEntityDatetimeRepository
+ * @package ProgramCms\EavBundle\Repository
  */
-class EavEntityDatetimeRepository extends ServiceEntityRepository
+class EavEntityDatetimeRepository extends AbstractRepository
 {
-
     /**
      * EavEntityDatetimeRepository constructor.
      * @param ManagerRegistry $registry
@@ -30,31 +25,5 @@ class EavEntityDatetimeRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, EavEntityDatetime::class);
-    }
-
-    /**
-     * @param EavEntityDatetime $entity
-     * @param bool $flush
-     */
-    public function save(EavEntityDatetime $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    /**
-     * @param EavEntityDatetime $entity
-     * @param bool $flush
-     */
-    public function remove(EavEntityDatetime $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
     }
 }

@@ -69,7 +69,7 @@ class ToolbarActions extends Template
             if(is_string($buttonData) && !empty($buttonData)) {
                 $dataSource = $this->objectManager->create($buttonData);
                 $button = $dataSource->getData();
-                $button['class'] = $button['class'] ?? ($button['buttonType'] == 'save' ? 'btn-primary' : 'btn-light');
+                $button['class'] = $button['class'] ?? ($button['buttonType'] == 'save' ? 'btn-primary' : '');
                 $button['confirm'] = isset($button['confirm']) ? json_encode($button['confirm']) : false;               $buttons[] = $button;
             }
         }

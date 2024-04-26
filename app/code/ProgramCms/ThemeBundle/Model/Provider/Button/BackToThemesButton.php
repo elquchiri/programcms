@@ -39,6 +39,7 @@ class BackToThemesButton implements \ProgramCms\UiBundle\DataProvider\ButtonProv
     {
         return [
             'buttonType' => 'back',
+            'class' => 'back',
             'buttonAction' => $this->url->getUrlByRouteName('theme_index_index'),
             'label' => 'back'
         ];

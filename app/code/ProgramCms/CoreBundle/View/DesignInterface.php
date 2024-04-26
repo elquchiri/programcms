@@ -20,10 +20,6 @@ interface DesignInterface
 
     const BACKEND_AREA = 'adminhtml';
 
-    const FRONTEND_THEME_PATH_CONFIG = 'theme_config/theme_configuration/applied_theme';
-
-    const BACKEND_THEME_PATH_CONFIG = 'system/backend_theme/applied_theme';
-
     /**
      * @return mixed
      */

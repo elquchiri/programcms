@@ -9,40 +9,21 @@
 namespace ProgramCms\CatalogBundle\Repository;
 
 use ProgramCms\CatalogBundle\Entity\CategoryEntityInt;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use ProgramCms\CoreBundle\Repository\AbstractRepository;
 
 /**
- * @extends ServiceEntityRepository<CategoryEntityInt>
- *
- * @method CategoryEntityInt|null find($id, $lockMode = null, $lockVersion = null)
- * @method CategoryEntityInt|null findOneBy(array $criteria, array $orderBy = null)
- * @method CategoryEntityInt[]    findAll()
- * @method CategoryEntityInt[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class CategoryEntityIntRepository
+ * @package ProgramCms\CatalogBundle\Repository
  */
-class CategoryEntityIntRepository extends ServiceEntityRepository
+class CategoryEntityIntRepository extends AbstractRepository
 {
-
+    /**
+     * CategoryEntityIntRepository constructor.
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, CategoryEntityInt::class);
-    }
-
-    public function save(CategoryEntityInt $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function remove(CategoryEntityInt $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
     }
 }

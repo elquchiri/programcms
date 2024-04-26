@@ -8,11 +8,16 @@
 
 namespace ProgramCms\CatalogBundle;
 
+use ProgramCms\CoreBundle\ProgramCmsCoreBundle;
+use ProgramCms\EavBundle\ProgramCmsEavBundle;
+use ProgramCms\ThemeBundle\ProgramCmsThemeBundle;
+use ProgramCms\WebsiteBundle\ProgramCmsWebsiteBundle;
+
 /**
  * Class ProgramCmsCatalogBundle
  * @package ProgramCms\CatalogBundle
  */
-class ProgramCmsCatalogBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
+class ProgramCmsCatalogBundle extends ProgramCmsCoreBundle
 {
     public const VERSION = '1.0.0';
 
@@ -22,8 +27,10 @@ class ProgramCmsCatalogBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundl
     public static function getDependencies(): array
     {
         return [
-            \ProgramCms\CoreBundle\ProgramCmsCoreBundle::class,
-            \ProgramCms\ThemeBundle\ProgramCmsThemeBundle::class,
+            ProgramCmsCoreBundle::class,
+            ProgramCmsThemeBundle::class,
+            ProgramCmsEavBundle::class,
+            ProgramCmsWebsiteBundle::class
         ];
     }
 }

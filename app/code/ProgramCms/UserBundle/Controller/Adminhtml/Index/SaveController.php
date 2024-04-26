@@ -8,9 +8,15 @@
 
 namespace ProgramCms\UserBundle\Controller\Adminhtml\Index;
 
+use Doctrine\ORM\EntityManagerInterface;
 use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
+use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
+use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\CoreBundle\Serialize\Serializer\ObjectSerializer;
 use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\UserBundle\Entity\UserEntity;
+use ProgramCms\UserBundle\Repository\UserEntityRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
@@ -25,17 +31,33 @@ class SaveController extends AdminController
     protected Url $url;
 
     /**
+     * @var UserEntityRepository
+     */
+    protected UserEntityRepository $userEntityRepository;
+
+    /**
+     * @var ObjectSerializer
+     */
+    protected ObjectSerializer $objectSerializer;
+
+    /**
      * SaveController constructor.
      * @param Context $context
+     * @param UserEntityRepository $userEntityRepository
      * @param Url $url
+     * @param ObjectSerializer $objectSerializer
      */
     public function __construct(
         Context $context,
-        Url $url
+        UserEntityRepository $userEntityRepository,
+        Url $url,
+        ObjectSerializer $objectSerializer
     )
     {
         parent::__construct($context);
         $this->url = $url;
+        $this->userEntityRepository = $userEntityRepository;
+        $this->objectSerializer = $objectSerializer;
     }
 
     /**
@@ -43,12 +65,32 @@ class SaveController extends AdminController
      */
     public function execute()
     {
-        if($this->getRequest()->getCurrentRequest()->isMethod('POST')) {
-            $userId = (bool) $this->getRequest()->getParam('entity_id');
-            if($userId) {
-                $this->addFlash('success', $this->trans('User Successfully Saved.'));
-                return $this->redirect($this->url->getUrlByRouteName('user_index_edit', ['id' => $userId]));
+        $request = $this->getRequest()->getCurrentRequest();
+        if ($request->isMethod('POST')) {
+            $userId = (bool)$this->getRequest()->getParam('entity_id');
+            /** @var UserEntity $user */
+            $user = $this->userEntityRepository->getById($userId) ?? new UserEntity();
+            // Populate User Entity
+            $postData = $request->request->all();
+            $files = $request->files->all();
+            $formData = array_merge($postData, $files);
+            unset($postData);
+            unset($files);
+            // Transform form data to user object
+            $this->objectSerializer->arrayToObject($user, $formData);
+
+            if (!$user) {
+                $user->setCreatedAt();
             }
+            $user->setUpdatedAt();
+
+            // Add data for eav processing
+            $user->addData($formData);
+
+            // Save User
+            $this->userEntityRepository->save($user);
+            $this->addFlash('success', $this->trans('User successfully saved.'));
+            return $this->redirect($this->url->getUrlByRouteName('user_index_edit', ['id' => $userId]));
         }
         return $this->redirect($this->url->getUrlByRouteName('user_index_index'));
     }

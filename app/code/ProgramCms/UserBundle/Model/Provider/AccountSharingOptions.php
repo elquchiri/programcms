@@ -8,14 +8,14 @@
 
 namespace ProgramCms\UserBundle\Model\Provider;
 
+use ProgramCms\UiBundle\Model\Provider\DataSource\Options;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class AccountSharingOptions
  * @package ProgramCms\UserBundle\Model\Provider
  */
-class AccountSharingOptions extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
-    implements AccountSharingOptionsInterface
+class AccountSharingOptions extends Options implements AccountSharingOptionsInterface
 {
     /**
      * @var TranslatorInterface

@@ -11,6 +11,7 @@ namespace ProgramCms\EavBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
+use ProgramCms\EavBundle\Model\Entity\Entity;
 use ProgramCms\EavBundle\Repository\EavEntityTypeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -80,6 +81,14 @@ class EavEntityType extends AbstractEntity
     {
         $this->entity_type_id = $entity_type_id;
         return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getEntityId(): ?int
+    {
+        return $this->entity_type_id;
     }
 
     /**

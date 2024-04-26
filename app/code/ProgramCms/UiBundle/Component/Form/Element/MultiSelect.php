@@ -9,7 +9,7 @@
 namespace ProgramCms\UiBundle\Component\Form\Element;
 
 /**
- * Class Text
+ * Class MultiSelect
  * @package ProgramCms\UiBundle\Component\Form\Element
  */
 class MultiSelect extends Select
@@ -19,7 +19,7 @@ class MultiSelect extends Select
     /**
      * @var string
      */
-    protected string $_template = "@ProgramCmsUiBundle/form/fields/multiselect.html.twig";
+    protected string $_template = "@ProgramCmsUiBundle/form/fields/select.html.twig";
 
     /**
      * @return string
@@ -27,5 +27,13 @@ class MultiSelect extends Select
     public function getComponentName()
     {
         return self::NAME;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMultiple()
+    {
+        return true;
     }
 }

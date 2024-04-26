@@ -74,19 +74,19 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
     /**
      * @var string|null
      */
-    #[ORM\Column(type: 'string', length: 100)]
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private ?string $reset_token;
 
     /**
      * @var bool|null
      */
-    #[ORM\Column(options: ['default' => 0])]
-    private ?bool $lock;
+    #[ORM\Column(nullable: true, options: ['default' => 0])]
+    private ?bool $account_lock;
 
     /**
      * @var bool|null
      */
-    #[ORM\Column(options: ['default' => 0])]
+    #[ORM\Column(nullable: true, options: ['default' => 0])]
     private ?bool $confirmed_email;
 
     /**
@@ -191,6 +191,24 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
     }
 
     /**
+     * @return string
+     */
+    public function getGroups(): string
+    {
+        return implode(',', $this->getRoles());
+    }
+
+    /**
+     * @param string $groups
+     * @return $this
+     */
+    public function setGroups(string $groups): static
+    {
+        $this->roles = explode(',', $groups);
+        return $this;
+    }
+
+    /**
      * @return string|null
      */
     public function getUserFirstname(): ?string
@@ -286,18 +304,18 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
     /**
      * @return bool|null
      */
-    public function getLock(): ?bool
+    public function getAccountLock(): ?bool
     {
-        return $this->lock;
+        return $this->account_lock;
     }
 
     /**
-     * @param bool $lock
+     * @param mixed $accountLock
      * @return $this
      */
-    public function setLock(bool $lock): static
+    public function setAccountLock(mixed $accountLock): static
     {
-        $this->lock = $lock;
+        $this->account_lock = (bool)$accountLock;
         return $this;
     }
 
@@ -306,7 +324,7 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
      */
     public function isLocked(): bool
     {
-        return $this->lock ?: false;
+        return $this->account_lock ?: false;
     }
 
     /**
@@ -314,7 +332,7 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
      */
     public function isUnlocked(): bool
     {
-        return !($this->lock ?: false);
+        return !($this->account_lock ?: false);
     }
 
     /**

@@ -59,8 +59,7 @@ class ReadHandler implements AttributeInterface
         $selects = [];
 
         foreach ($this->getEntityAttributes($entity) as $attribute) {
-            $valueTableName = sprintf('%s_%s', $entity->getTableName(), $attribute->getData('backend_type'));
-            $attributeTables[$valueTableName][] = $attribute->getData('attribute_id');
+            $attributeTables[$attribute->getBackendType()][] = $attribute->getData('attribute_id');
             $attributesMap[$attribute->getData('attribute_id')] = $attribute->getData('attribute_code');
         }
 

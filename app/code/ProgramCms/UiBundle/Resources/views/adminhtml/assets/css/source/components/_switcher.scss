@@ -7,9 +7,15 @@
 
 .switcher-field {
   .checkbox-switcher {
-    height: 17px;
+    height: 19px;
     margin-top: 9px;
     cursor: pointer;
+    outline: none;
+    box-shadow: none;
+    &:checked {
+      background-color: #3b7200;
+      border-color: #214e00;
+    }
   }
 
   label {

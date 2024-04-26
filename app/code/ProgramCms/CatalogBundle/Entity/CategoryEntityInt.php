@@ -8,30 +8,41 @@
 
 namespace ProgramCms\CatalogBundle\Entity;
 
-use ProgramCms\CatalogBundle\Repository\CategoryEntityIntRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ProgramCms\CatalogBundle\Repository\CategoryEntityIntRepository;
+use ProgramCms\CatalogBundle\App\ScopedAttributeValue;
 
 /**
  * Class CategoryEntityInt
  * @package ProgramCms\CatalogBundle\Entity
  */
 #[ORM\Entity(repositoryClass: CategoryEntityIntRepository::class)]
-class CategoryEntityInt
+class CategoryEntityInt extends ScopedAttributeValue
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $value_id = null;
-
-    #[ORM\Column]
-    private ?int $attribute_id = null;
-
-    #[ORM\Column]
-    private ?int $website_view_id = null;
-
-    #[ORM\Column]
-    private ?int $entity_id = null;
-
+    /**
+     * @var int|null
+     */
     #[ORM\Column]
     private ?int $value = null;
+
+    /**
+     * @param int $value
+     * @return $this
+     */
+    public function setValue(mixed $value): static
+    {
+        if(is_int($value)) {
+            $this->value = $value;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getValue(): ?int
+    {
+        return $this->value;
+    }
 }

@@ -12,15 +12,14 @@
     height: 125px;
     padding: 0;
     background-color: #F7F7F7;
-    border: 1px solid #CCC;
-    border-radius: 3px;
+    background-size: 100% 100%;
+    background-position: left top;
+    border: 3px solid #CCC;
+    border-radius: 5px;
     cursor: pointer;
 
-    &--thumbnail {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
+    &:hover {
+      border: 3px solid #959494;
     }
 
     &--placeholder {

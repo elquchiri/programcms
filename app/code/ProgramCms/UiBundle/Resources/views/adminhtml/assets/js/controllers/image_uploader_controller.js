@@ -26,9 +26,8 @@ application.register('image-uploader', class extends Controller {
     showPreview(event) {
         if (event.target.files.length > 0) {
             const src = URL.createObjectURL(event.target.files[0]);
-            let preview = document.getElementById(this.previewValue);
-            preview.src = src;
-            preview.style.display = "block";
+            let preview = $('#' + this.previewValue);
+            preview.css({'background-image': 'url(' + src + ')'});
         }
     }
 

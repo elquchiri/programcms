@@ -11,7 +11,7 @@ namespace ProgramCms\UiBundle\Component\Form\Element;
 use ReflectionException;
 
 /**
- * Class Text
+ * Class Select
  * @package ProgramCms\UiBundle\Component\Form\Element
  */
 class Select extends AbstractElement
@@ -32,14 +32,23 @@ class Select extends AbstractElement
     }
 
     /**
+     * @return mixed
+     * @throws ReflectionException
+     */
+    protected function getOptionsData()
+    {
+        return $this->getContext()
+            ->getObjectManager()->create($this->getData('sourceModel'))
+            ->getOptionsArray();
+    }
+
+    /**
      * @return string
      * @throws ReflectionException
      */
     public function getOptions(): string
     {
-        $options = $this->getContext()
-            ->getObjectManager()->create($this->getData('sourceModel'))
-            ->getOptionsArray();
+        $options = $this->getOptionsData();
 
         return $this->processOptionGroup($options);
     }
@@ -57,10 +66,35 @@ class Select extends AbstractElement
                 $html .= $this->processOptionGroup($item);
                 $html .= "</optgroup>";
             }else{
-                $isSelected = $this->hasValue() && $this->getValue() == $key ? 'selected' : '';
+                $isSelected = $this->hasValue() && in_array($key, explode(',', $this->getValue())) ? 'selected' : '';
                 $html .= "<option value='". $key ."' ". $isSelected .">". $item . "</option>";
             }
         }
         return $html;
+    }
+
+    /**
+     * @return string
+     * @throws ReflectionException
+     */
+    public function getPlaceholder(): string
+    {
+        $data = $this->getOptionsData();
+        if(count($data)) {
+            $firstOption = reset($data);
+            if(is_array($firstOption)) {
+                return $this->trans('Select one or multiple options');
+            }
+            return $firstOption;
+        }
+        return $this->trans('Select one or multiple options');
+    }
+
+    /**
+     * @return false
+     */
+    public function isMultiple()
+    {
+        return false;
     }
 }

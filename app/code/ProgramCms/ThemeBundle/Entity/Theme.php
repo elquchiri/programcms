@@ -101,6 +101,14 @@ class Theme extends AbstractEntity implements ThemeInterface
     }
 
     /**
+     * @return int|null
+     */
+    public function getEntityId(): ?int
+    {
+        return $this->theme_id;
+    }
+
+    /**
      * @return string|null
      */
     public function getArea(): ?string

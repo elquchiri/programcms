@@ -10,6 +10,7 @@ namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\Website;
 
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\CoreBundle\Serialize\Serializer\ObjectSerializer;
 use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
 
 /**
@@ -22,10 +23,12 @@ class EditController extends \ProgramCms\CoreBundle\Controller\AdminController
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+
     /**
      * @var WebsiteRepository
      */
     protected WebsiteRepository $websiteRepository;
+    protected ObjectSerializer $objectSerializer;
 
     /**
      * EditController constructor.
@@ -36,12 +39,14 @@ class EditController extends \ProgramCms\CoreBundle\Controller\AdminController
     public function __construct(
         Context $context,
         WebsiteRepository $websiteRepository,
-        ObjectManager $objectManager
+        ObjectManager $objectManager,
+        ObjectSerializer $objectSerializer
     )
     {
         parent::__construct($context);
         $this->objectManager = $objectManager;
         $this->websiteRepository = $websiteRepository;
+        $this->objectSerializer = $objectSerializer;
     }
 
     /**
@@ -52,6 +57,7 @@ class EditController extends \ProgramCms\CoreBundle\Controller\AdminController
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
         $website = $this->websiteRepository->findOneBy(['website_id' => $this->getRequest()->getParam('id')]);
         if($website) {
+            //dd($website);
             $pageResult->getConfig()->getTitle()->set(
                 sprintf("%s : %s", $this->trans('Edit Website'), $website->getWebsiteName())
             );

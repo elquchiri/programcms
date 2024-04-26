@@ -8,6 +8,7 @@
 
 namespace ProgramCms\UiBundle\Component;
 
+use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\CoreBundle\View\Element\Template;
 use ProgramCms\UiBundle\View\Element\Context;
 use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;
@@ -95,6 +96,9 @@ abstract class AbstractComponent extends Template implements UiComponentInterfac
                             }
                             if(isset($dataProvider['requestFieldName'])) {
                                 $dataProviderObject->setRequestFieldName($dataProvider['requestFieldName']);
+                            }
+                            if(isset($dataProvider['foreignFieldName'])) {
+                                $dataProviderObject->setForeignFieldName($dataProvider['foreignFieldName']);
                             }
 
                             // Add Data Provider to Context

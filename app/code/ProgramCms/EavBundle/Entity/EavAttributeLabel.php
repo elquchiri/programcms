@@ -54,6 +54,14 @@ class EavAttributeLabel extends AbstractEntity
     }
 
     /**
+     * @return int|null
+     */
+    public function getEntityId(): ?int
+    {
+        return $this->attribute_label_id;
+    }
+
+    /**
      * @return EavAttribute
      */
     public function getAttribute(): EavAttribute

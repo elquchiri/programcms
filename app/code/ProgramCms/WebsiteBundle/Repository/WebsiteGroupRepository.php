@@ -8,19 +8,15 @@
 
 namespace ProgramCms\WebsiteBundle\Repository;
 
+use ProgramCms\CoreBundle\Repository\AbstractRepository;
 use ProgramCms\WebsiteBundle\Entity\WebsiteGroup;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<WebsiteGroup>
- *
- * @method WebsiteGroup|null find($id, $lockMode = null, $lockVersion = null)
- * @method WebsiteGroup|null findOneBy(array $criteria, array $orderBy = null)
- * @method WebsiteGroup[]    findAll()
- * @method WebsiteGroup[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class WebsiteGroupRepository
+ * @package ProgramCms\WebsiteBundle\Repository
  */
-class WebsiteGroupRepository extends ServiceEntityRepository
+class WebsiteGroupRepository extends AbstractRepository
 {
     /**
      * WebsiteRootRepository constructor.
@@ -32,46 +28,20 @@ class WebsiteGroupRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param int $websiteGroupId
-     * @return WebsiteGroup|null
+     * @param int $id
+     * @return object|null
      */
-    public function getById(int $websiteGroupId): ?WebsiteGroup
+    public function getById(int $id): ?object
     {
-        return $this->findOneBy(['website_group_id' => $websiteGroupId]);
+        return $this->findOneBy(['website_group_id' => $id]);
     }
 
     /**
      * @param string $code
-     * @return WebsiteGroup|null
+     * @return object|null
      */
-    public function getByCode(string $code): ?WebsiteGroup
+    public function getByCode(string $code): ?object
     {
         return $this->findOneBy(['website_group_code' => $code]);
-    }
-
-    /**
-     * @param WebsiteGroup $entity
-     * @param bool $flush
-     */
-    public function save(WebsiteGroup $entity, bool $flush = true): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    /**
-     * @param WebsiteGroup $entity
-     * @param bool $flush
-     */
-    public function remove(WebsiteGroup $entity, bool $flush = true): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
     }
 }

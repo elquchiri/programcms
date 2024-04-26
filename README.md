@@ -48,6 +48,7 @@ Finally, run :
 ```bash
   php bin/pcms make:migration
   php bin/pcms doctrine:migrations:migrate
+  php bin/pcms theme:upgrade
   php bin/pcms setup:data-patch
   php bin/pcms assets:compile
   php bin/pcms admin:create admin@email.com admin123

@@ -19,7 +19,10 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: UserEntityTextRepository::class)]
 class UserEntityText extends AttributeValue
 {
-    #[ORM\Column(length: 255)]
+    /**
+     * @var string|null
+     */
+    #[ORM\Column(type: 'text')]
     private ?string $value = null;
 
     /**
@@ -28,7 +31,7 @@ class UserEntityText extends AttributeValue
      */
     public function setValue(mixed $value): static
     {
-        if(is_string($value) && !empty($value)) {
+        if(is_string($value)) {
             $this->value = $value;
         }
 

@@ -8,14 +8,16 @@
 
 namespace ProgramCms\CatalogBundle\Controller\Adminhtml\Category;
 
+use ProgramCms\CoreBundle\Controller\AdminController;
+
 /**
  * Class SaveController
- * @package ProgramCms\CatalogBundle\Controller\Adminhtml\Index
+ * @package ProgramCms\CatalogBundle\Controller\Adminhtml\Category
  */
-class SaveController extends \ProgramCms\CoreBundle\Controller\AdminController
+class SaveController extends AdminController
 {
     /**
-     * @return mixed|void
+     * @return void
      */
     public function execute()
     {

@@ -10,12 +10,14 @@ namespace ProgramCms\EavBundle\Helper;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\Mapping\ClassMetadata;
+use ProgramCms\CoreBundle\Helper\AbstractHelper;
+use ProgramCms\CoreBundle\Helper\Context;
 
 /**
  * Class Entity
  * @package ProgramCms\EavBundle\Helper
  */
-class Entity extends \ProgramCms\CoreBundle\Helper\AbstractHelper
+class Entity extends AbstractHelper
 {
     /**
      * @var EntityManagerInterface
@@ -24,12 +26,15 @@ class Entity extends \ProgramCms\CoreBundle\Helper\AbstractHelper
 
     /**
      * Entity constructor.
+     * @param Context $context
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(
+        Context $context,
         EntityManagerInterface $entityManager
     )
     {
+        parent::__construct($context);
         $this->entityManager = $entityManager;
     }
 

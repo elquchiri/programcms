@@ -63,7 +63,6 @@ trait BundleDependenciesResolver
         $bundleStack = [];
         $visitedBundles = [];
         $this->_resolveBundleDependencies($bundleStack, $visitedBundles, $bundles);
-
         return $bundleStack;
     }
 

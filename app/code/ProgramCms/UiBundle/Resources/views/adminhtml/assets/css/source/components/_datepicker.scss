@@ -1,0 +1,19 @@
+/*!
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+
+@import 'node_modules/vanillajs-datepicker/dist/css/datepicker';
+
+.datepicker-group-input {
+  .input-datepicker {
+    border-right: 0;
+  }
+  .input-group-datepicker {
+    width: 41px;
+    background: #FFFFFF url('../../../../../public/images/calendar.png') no-repeat center center;
+    cursor: pointer;
+  }
+}

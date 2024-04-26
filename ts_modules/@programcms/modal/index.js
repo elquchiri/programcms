@@ -79,7 +79,6 @@ class Modal {
      * @param modal
      */
     static confirm(modal) {
-        modal.find('.modal-title').html('Confirmation');
         modal.find('.modal-dialog').addClass('modal-dialog-centered');
     }
 

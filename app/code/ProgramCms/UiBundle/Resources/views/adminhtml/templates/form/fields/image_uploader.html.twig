@@ -15,16 +15,13 @@
     <div class="btn-group mt-1" role="group" aria-label="{{ block.getId() }}">
         <a
             data-action="image-uploader#triggerBrowse"
-            class="btn btn-outline-secondary btn-sm">
+            class="btn btn-outline-secondary btn-sm border-end-0">
             {{ block.trans('Upload') }}
         </a>
         <a class="btn btn-outline-secondary btn-sm" data-action="image-uploader#openMediaBrowser">{{ block.trans('Select from Gallery') }}</a>
     </div>
 
-    <div class="image-uploader__browser mt-3">
-        {% if block.hasValue() %}
-            <img id="{{ block.getPreviewId() }}" class="image-uploader__browser--thumbnail" src="{{ asset('media/core_config/') }}{{ block.getValue() }}" alt=""/>
-        {% endif %}
+    <div class="image-uploader__browser mt-3" id="{{ block.getPreviewId() }}" {% if block.hasValue() %}style="background-image: url({{ block.getValue() }})"{% endif %}>
         <label for="{{ block.getId() }}" id="label-browse" class="image-uploader__browser--placeholder">
             <span>{{ block.trans('Browse to Find or drag Image here') }}</span>
         </label>

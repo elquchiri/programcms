@@ -8,19 +8,15 @@
 
 namespace ProgramCms\EavBundle\Repository;
 
+use ProgramCms\CoreBundle\Repository\AbstractRepository;
 use ProgramCms\EavBundle\Entity\EavEntityType;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<EavEntityType>
- *
- * @method EavEntityType|null find($id, $lockMode = null, $lockVersion = null)
- * @method EavEntityType|null findOneBy(array $criteria, array $orderBy = null)
- * @method EavEntityType[]    findAll()
- * @method EavEntityType[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class EavEntityTypeRepository
+ * @package ProgramCms\EavBundle\Repository
  */
-class EavEntityTypeRepository extends ServiceEntityRepository
+class EavEntityTypeRepository extends AbstractRepository
 {
     /**
      * EavEntityTypeRepository constructor.
@@ -32,28 +28,11 @@ class EavEntityTypeRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param EavEntityType $entity
-     * @param bool $flush
+     * @param string $typeCode
+     * @return object|null
      */
-    public function save(EavEntityType $entity, bool $flush = false): void
+    public function getByTypeCode(string $typeCode): ?object
     {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    /**
-     * @param EavEntityType $entity
-     * @param bool $flush
-     */
-    public function remove(EavEntityType $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        return $this->findOneBy(['entity_type_code' => $typeCode]);
     }
 }

@@ -39,6 +39,7 @@ class BackToUserGroupsButton implements ButtonProviderInterface
     {
         return [
             'buttonType' => 'back',
+            'class' => 'back',
             'buttonAction' => $this->url->getUrlByRouteName('user_group_index'),
             'label' => 'back'
         ];

@@ -6,11 +6,19 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<select
-    id="{{ block.getId() }}"
-    name="{{ block.getName() }}"
-    class="form-select"
-    {% if block.isDisabled() %}disabled="disabled" {% endif %}
->
-    {{ block.getOptions()|raw }}
-</select>
+<div data-controller="select">
+    <select
+            id="{{ block.getId() }}"
+            {% if not block.isMultiple() %}name="{{ block.getName() }}"{% endif %}
+            class="form-select"
+            {% if block.isDisabled() %}disabled="disabled" {% endif %}
+            data-placeholder="{{ block.getPlaceholder() }}"
+            data-select-target="select2"
+            {% if block.isMultiple() %}multiple{% endif %}
+    >
+        {{ block.getOptions()|raw }}
+    </select>
+    {% if block.isMultiple() %}
+        <input type="hidden" name="{{ block.getName() }}" value="{{ block.getValue() }}" data-select-target="selectValue" />
+    {% endif %}
+</div>

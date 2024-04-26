@@ -8,6 +8,7 @@
 
 namespace ProgramCms\DataPatchBundle\Entity;
 
+use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
 use ProgramCms\DataPatchBundle\Repository\DataPatchRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -16,16 +17,25 @@ use Doctrine\ORM\Mapping as ORM;
  * @package ProgramCms\DataPatchBundle\Entity
  */
 #[ORM\Entity(repositoryClass: DataPatchRepository::class)]
-class DataPatch
+class DataPatch extends AbstractEntity
 {
+    /**
+     * @var int|null
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $entity_id = null;
 
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     private ?string $patch_name = null;
 
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     private ?string $created_at = null;
 

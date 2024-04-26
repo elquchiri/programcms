@@ -8,21 +8,29 @@
 
 namespace ProgramCms\CatalogBundle\Controller\Adminhtml\Category;
 
+use ProgramCms\CoreBundle\Controller\AdminController;
+use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\CoreBundle\View\Result\Page;
 
 /**
  * Class IndexController
- * @package ProgramCms\CatalogBundle\Controller\Adminhtml\Index
+ * @package ProgramCms\CatalogBundle\Controller\Adminhtml\Category
  */
-class IndexController extends \ProgramCms\CoreBundle\Controller\AdminController
+class IndexController extends AdminController
 {
     /**
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
 
+    /**
+     * IndexController constructor.
+     * @param Context $context
+     * @param ObjectManager $objectManager
+     */
     public function __construct(
-        \ProgramCms\CoreBundle\Controller\Context $context,
+        Context $context,
         ObjectManager $objectManager
     )
     {
@@ -35,7 +43,7 @@ class IndexController extends \ProgramCms\CoreBundle\Controller\AdminController
      */
     public function execute()
     {
-        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
+        $pageResult = $this->objectManager->create(Page::class);
         $pageResult->getConfig()->getTitle()->set("Default Category");
         return $pageResult;
     }

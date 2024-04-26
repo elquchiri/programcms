@@ -19,6 +19,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: UserEntityIntRepository::class)]
 class UserEntityInt extends AttributeValue
 {
+    /**
+     * @var int|null
+     */
     #[ORM\Column]
     private ?int $value = null;
 

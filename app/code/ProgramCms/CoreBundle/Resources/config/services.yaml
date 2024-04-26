@@ -26,12 +26,6 @@ services:
   ProgramCms\CoreBundle\Model\ObjectManagerInterface:
     class: ProgramCms\CoreBundle\Model\ObjectManager
 
-  # Auto Instantiate Doctrine Entities Data Object
-  doctrine.entity.data_object_listener:
-    class: ProgramCms\CoreBundle\EventListener\EntityDataObjectListener
-    tags:
-      - { name: doctrine.event_listener, event: postLoad, priority: 99999 }
-
   ProgramCms\CoreBundle\Config\FileResolverInterface:
     class: ProgramCms\CoreBundle\App\Config\FileResolver
 

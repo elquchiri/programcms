@@ -11,9 +11,9 @@ namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\Website;
 use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\CoreBundle\Serialize\Serializer\ObjectSerializer;
 use ProgramCms\RouterBundle\Service\Url;
 use ProgramCms\WebsiteBundle\Entity\Website;
-use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
 use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -27,44 +27,47 @@ class SaveController extends AdminController
      * @var Url
      */
     protected Url $url;
+
     /**
      * @var WebsiteRepository
      */
     protected WebsiteRepository $websiteRepository;
+
     /**
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+
     /**
-     * @var WebsiteGroupRepository
+     * @var ObjectSerializer
      */
-    protected WebsiteGroupRepository $websiteGroupRepository;
+    protected ObjectSerializer $objectSerializer;
 
     /**
      * SaveController constructor.
      * @param Context $context
      * @param Url $url
      * @param WebsiteRepository $websiteRepository
-     * @param WebsiteGroupRepository $websiteGroupRepository
      * @param ObjectManager $objectManager
      */
     public function __construct(
         Context $context,
         Url $url,
         WebsiteRepository $websiteRepository,
-        WebsiteGroupRepository $websiteGroupRepository,
-        ObjectManager $objectManager
+        ObjectManager $objectManager,
+        ObjectSerializer $objectSerializer
     )
     {
         parent::__construct($context);
         $this->url = $url;
         $this->websiteRepository = $websiteRepository;
         $this->objectManager = $objectManager;
-        $this->websiteGroupRepository = $websiteGroupRepository;
+        $this->objectSerializer = $objectSerializer;
     }
 
     /**
      * @return RedirectResponse
+     * @throws \ReflectionException
      */
     public function execute()
     {
@@ -79,23 +82,10 @@ class SaveController extends AdminController
                 $website = $this->objectManager->create(Website::class);
             }
 
-            // Populate Website Entity
-            foreach($formData as $name => $value) {
-                // Default Website
-                if($name === 'default_website_group_id') {
-                    $websiteGroup = $this->websiteGroupRepository->findOneBy(['website_group_id' => $value]);
-                    $website->setDefaultGroup($websiteGroup);
-                    continue;
-                }
-                if($name != 'id') {
-                    if($website->hasDataUsingMethod($name)) {
-                        $website->setDataUsingMethod($name, $value);
-                    }
-                }
-            }
+            $this->objectSerializer->arrayToObject($website, $formData);
 
             // Save WebsiteRoot
-            $this->websiteRepository->save($website, true);
+            $this->websiteRepository->save($website);
             // Flash success message
             $this->addFlash('success', $this->trans('Website Successfully Saved.'));
 

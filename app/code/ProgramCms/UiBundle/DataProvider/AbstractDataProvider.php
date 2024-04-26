@@ -23,6 +23,11 @@ abstract class AbstractDataProvider implements DataProviderInterface
     protected string $primaryFieldName = '';
 
     /**
+     * @var string
+     */
+    protected string $foreignFieldName = '';
+
+    /**
      * Data Provider Request Parameter Identifier name
      * @var string
      */
@@ -81,6 +86,24 @@ abstract class AbstractDataProvider implements DataProviderInterface
     public function setPrimaryFieldName(string $primaryFieldName)
     {
         $this->primaryFieldName = $primaryFieldName;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getForeignFieldName(): string
+    {
+        return $this->foreignFieldName;
+    }
+
+    /**
+     * @param string $foreignFieldName
+     * @return $this
+     */
+    public function setForeignFieldName(string $foreignFieldName): static
+    {
+        $this->primaryFieldName = $foreignFieldName;
         return $this;
     }
 

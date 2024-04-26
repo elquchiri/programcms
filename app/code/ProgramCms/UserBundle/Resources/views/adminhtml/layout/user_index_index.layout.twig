@@ -54,6 +54,14 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
+                {% block name="username" class="ui.block.column" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="label" type="string" %}Username{% endArgument %}
+                            {% argument name="source" type="string" %}users_listing{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
                 {% block name="user_firstname" class="ui.block.column" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}

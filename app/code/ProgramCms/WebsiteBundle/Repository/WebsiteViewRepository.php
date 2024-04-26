@@ -8,19 +8,15 @@
 
 namespace ProgramCms\WebsiteBundle\Repository;
 
+use ProgramCms\CoreBundle\Repository\AbstractRepository;
 use ProgramCms\WebsiteBundle\Entity\WebsiteView;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<WebsiteView>
- *
- * @method WebsiteView|null find($id, $lockMode = null, $lockVersion = null)
- * @method WebsiteView|null findOneBy(array $criteria, array $orderBy = null)
- * @method WebsiteView[]    findAll()
- * @method WebsiteView[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class WebsiteViewRepository
+ * @package ProgramCms\WebsiteBundle\Repository
  */
-class WebsiteViewRepository extends ServiceEntityRepository
+class WebsiteViewRepository extends AbstractRepository
 {
     /**
      * WebsiteViewRepository constructor.
@@ -32,46 +28,20 @@ class WebsiteViewRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param int $websiteViewId
+     * @param int $id
      * @return WebsiteView|null
      */
-    public function getById(int $websiteViewId): ?WebsiteView
+    public function getById(int $id): ?object
     {
-        return $this->findOneBy(['website_view_id' => $websiteViewId]);
+        return $this->findOneBy(['website_view_id' => $id]);
     }
 
     /**
      * @param string $code
-     * @return WebsiteView|null
+     * @return object|null
      */
-    public function getByCode(string $code): ?WebsiteView
+    public function getByCode(string $code): ?object
     {
         return $this->findOneBy(['website_view_code' => $code]);
-    }
-
-    /**
-     * @param WebsiteView $entity
-     * @param bool $flush
-     */
-    public function save(WebsiteView $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    /**
-     * @param WebsiteView $entity
-     * @param bool $flush
-     */
-    public function remove(WebsiteView $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
     }
 }

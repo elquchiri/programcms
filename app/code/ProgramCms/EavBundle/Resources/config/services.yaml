@@ -22,7 +22,7 @@ services:
     tags:
       - { name: doctrine.event_listener, event: postLoad, priority: 1 }
 
-  doctrine.eav_attribute.listener:
-    class: ProgramCms\EavBundle\EventListener\EavAttributeListener
+  doctrine.eav_entity_persist.listener:
+    class: ProgramCms\EavBundle\EventListener\EavEntityPersistSubscriber
     tags:
-      - { name: doctrine.event_listener, event: postLoad, priority: 1 }
+      - { name: doctrine.event_subscriber }

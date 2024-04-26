@@ -87,6 +87,14 @@ abstract class AbstractTheme implements ThemeInterface
     /**
      * @return string
      */
+    public function getArea(): string
+    {
+        return self::DEFAULT_AREA;
+    }
+
+    /**
+     * @return string
+     */
     public function getShortPath(): string
     {
         return strtolower(str_replace('\\', '/', $this->getNamespace()));

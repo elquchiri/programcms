@@ -8,16 +8,4 @@ config:
   default:
     system:
       backend_theme:
-        applied_theme: 1
-    developer:
-      template_settings:
-        minify_twig: 'on'
-  website:
-    admin:
-      web:
-        default:
-          no_route: 'admin/noroute/index'
-  website_view:
-    admin:
-      design:
-        theme: 'programcms/backend'
+        applied_theme: 'programcms/backend'

@@ -8,22 +8,19 @@
 
 namespace ProgramCms\ThemeBundle\Repository;
 
+use ProgramCms\CoreBundle\Repository\AbstractRepository;
 use ProgramCms\ThemeBundle\Entity\Theme;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Theme>
- *
- * @method Theme|null find($id, $lockMode = null, $lockVersion = null)
- * @method Theme|null findOneBy(array $criteria, array $orderBy = null)
- * @method Theme[]    findAll()
- * @method Theme[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class ThemeRepository
+ * @package ProgramCms\ThemeBundle\Repository
  */
-class ThemeRepository extends ServiceEntityRepository
+class ThemeRepository extends AbstractRepository
 {
     /**
-     * WebsiteRepository constructor.
+     * ThemeRepository constructor.
      * @param ManagerRegistry $registry
      */
     public function __construct(ManagerRegistry $registry)
@@ -32,47 +29,21 @@ class ThemeRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param int $themeId
-     * @return Theme|null
+     * @param int $id
+     * @return object|null
      */
-    public function getById(int $themeId): ?Theme
+    public function getById(int $id): ?object
     {
-        return $this->findOneBy(['theme_id' => $themeId]);
+        return $this->findOneBy(['theme_id' => $id]);
     }
 
     /**
      * @param string $themePath
-     * @return Theme|null
+     * @return object|null
      */
-    public function getByThemePath(string $themePath): ?Theme
+    public function getByThemePath(string $themePath): ?object
     {
         return $this->findOneBy(['theme_path' => $themePath]);
-    }
-
-    /**
-     * @param Theme $entity
-     * @param bool $flush
-     */
-    public function save(Theme $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    /**
-     * @param Theme $entity
-     * @param bool $flush
-     */
-    public function remove(Theme $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
     }
 
     /**

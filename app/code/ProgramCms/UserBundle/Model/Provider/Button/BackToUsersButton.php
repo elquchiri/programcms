@@ -38,6 +38,7 @@ class BackToUsersButton implements \ProgramCms\UiBundle\DataProvider\ButtonProvi
     {
         return [
             'buttonType' => 'back',
+            'class' => 'back',
             'buttonAction' => $this->url->getUrlByRouteName('user_index_index'),
             'label' => 'back'
         ];

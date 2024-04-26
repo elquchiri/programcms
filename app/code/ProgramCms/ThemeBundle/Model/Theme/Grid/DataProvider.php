@@ -9,19 +9,20 @@
 namespace ProgramCms\ThemeBundle\Model\Theme\Grid;
 
 use ProgramCms\ThemeBundle\Model\Collection\Theme\Collection;
+use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;
 
 /**
  * Class DataProvider
  * @package ProgramCms\ThemeBundle\Model\Theme\Grid
  */
-class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvider
+class DataProvider extends AbstractDataProvider
 {
     /**
      * DataProvider constructor.
      * @param Collection $collection
      */
     public function __construct(
-        \ProgramCms\ThemeBundle\Model\Collection\Theme\Collection $collection
+        Collection $collection
     )
     {
         $this->collection = $collection;

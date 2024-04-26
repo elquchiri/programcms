@@ -8,13 +8,16 @@
 
 namespace ProgramCms\UiBundle\Component\Listing\Toolbar;
 
+use ProgramCms\UiBundle\Component\AbstractComponent;
+
 /**
  * Class Filters
  * @package ProgramCms\UiBundle\Component\Listing\Toolbar
  */
-class Filters extends \ProgramCms\UiBundle\Component\AbstractComponent
+class Filters extends AbstractComponent
 {
     const NAME = 'filters';
+
     /**
      * @var string
      */

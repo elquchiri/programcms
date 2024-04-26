@@ -84,6 +84,8 @@ system_config:
               label: 'Logo'
               type: 'imageUploader'
               scope: 'default|website|website_view'
+              frontend_model: 'ProgramCms\ConfigBundle\Model\Attribute\Frontend\Image'
+              backend_model: 'ProgramCms\ConfigBundle\Model\Attribute\Backend\Image'
               helpMessage: 'In general, website logos can be any size, however the recommended logo dimensions for a web page are 250 x 150 px. Maximum file size: 4 MB. Allowed file types: JPG, GIF, PNG.'
     web:
       label: 'Web'
@@ -123,7 +125,7 @@ system_config:
               helpMessage: 'If no value is specified, the system default is used. The system default may be modified by third-party bundles.'
               scope: 'default|website|website_view|can_restore'
     email_addresses:
-      label: 'Website Email Addresses'
+      label: 'Email Addresses'
       tab: 'core_general'
       scope: 'default|website|website_view'
       groups:

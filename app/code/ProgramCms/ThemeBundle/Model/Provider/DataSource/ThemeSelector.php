@@ -9,12 +9,13 @@
 namespace ProgramCms\ThemeBundle\Model\Provider\DataSource;
 
 use ProgramCms\ThemeBundle\Repository\ThemeRepository;
+use ProgramCms\UiBundle\Model\Provider\DataSource\Options;
 
 /**
  * Class ThemeSelector
- * @package ProgramCms\ThemeBundle\Model\DataProvider
+ * @package ProgramCms\ThemeBundle\Model\Provider\DataSource
  */
-class ThemeSelector extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
+class ThemeSelector extends Options
 {
     /**
      * @var ThemeRepository
@@ -39,7 +40,7 @@ class ThemeSelector extends \ProgramCms\UiBundle\Model\Provider\DataSource\Optio
         $options = [];
         $themes = $this->themeRepository->getAllFrontendThemes();
         foreach($themes as $theme) {
-            $options[$theme->getThemeId()] = $theme->getThemeTitle();
+            $options[$theme->getThemePath()] = $theme->getThemeTitle();
         }
 
         return $options;

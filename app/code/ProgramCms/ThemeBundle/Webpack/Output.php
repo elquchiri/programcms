@@ -15,6 +15,7 @@ use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\ThemeBundle\Repository\ThemeRepository;
 use ProgramCms\WebsiteBundle\Model\WebsiteManager;
 use Symfony\Bundle\SecurityBundle\Security;
+use ProgramCms\ThemeBundle\Helper\Data as ThemeDataHelper;
 
 /**
  * Class Output
@@ -26,10 +27,6 @@ class Output
      * Path where assets are bundled
      */
     const BUILD_PATH = '/build/';
-
-    const APPLIED_THEME_CONFIG = 'theme_config/theme_configuration/applied_theme';
-
-    const APPLIED_BACKEND_THEME_CONFIG = 'system/backend_theme/applied_theme';
 
     const LOCALE_CONFIG = 'general/locale_options/locale';
 
@@ -64,6 +61,11 @@ class Output
     protected WebsiteManager $websiteManager;
 
     /**
+     * @var ThemeDataHelper
+     */
+    protected ThemeDataHelper $themeDataHelper;
+
+    /**
      * Output constructor.
      * @param State $state
      * @param Request $request
@@ -71,6 +73,7 @@ class Output
      * @param Security $security
      * @param Config $config
      * @param WebsiteManager $websiteManager
+     * @param ThemeDataHelper $themeDataHelper
      */
     public function __construct(
         State $state,
@@ -78,7 +81,8 @@ class Output
         ThemeRepository $themeRepository,
         Security $security,
         Config $config,
-        WebsiteManager $websiteManager
+        WebsiteManager $websiteManager,
+        ThemeDataHelper $themeDataHelper
     )
     {
         $this->state = $state;
@@ -87,6 +91,7 @@ class Output
         $this->themeRepository = $themeRepository;
         $this->config = $config;
         $this->websiteManager = $websiteManager;
+        $this->themeDataHelper = $themeDataHelper;
     }
 
     /**
@@ -126,20 +131,13 @@ class Output
             'website_view',
             $currentWebsiteView->getWebsiteViewId()
         );
-        $themeId = $this->config->getValue(
-            self::APPLIED_THEME_CONFIG,
-            'website_view',
-            $currentWebsiteView->getWebsiteViewId()
-        );
+        $theme = $this->themeDataHelper->getAppliedTheme();
         if($this->getAreaCode() === 'adminhtml') {
             if($user = $this->security->getUser()) {
                 $locale = $user->getInterfaceLocale();
             }
-            $themeId = $this->config->getValue(
-                self::APPLIED_BACKEND_THEME_CONFIG,
-            );
+            $theme = $this->themeDataHelper->getAppliedBackendTheme();
         }
-        $theme = $this->themeRepository->getById($themeId);
         return $theme->getThemePath() . '/' . $locale;
     }
 }

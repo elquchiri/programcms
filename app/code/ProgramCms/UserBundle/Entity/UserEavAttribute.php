@@ -22,13 +22,13 @@ class UserEavAttribute extends AdditionalEavAttribute
     /**
      * @var int|null
      */
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $is_visible = null;
 
     /**
      * @var int|null
      */
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $sort_order = null;
 
     /**

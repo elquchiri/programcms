@@ -8,41 +8,22 @@
 
 namespace ProgramCms\EavBundle\Repository;
 
+use ProgramCms\CoreBundle\Repository\AbstractRepository;
 use ProgramCms\EavBundle\Entity\EavAttributeGroup;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<EavAttributeGroup>
- *
- * @method EavAttributeGroup|null find($id, $lockMode = null, $lockVersion = null)
- * @method EavAttributeGroup|null findOneBy(array $criteria, array $orderBy = null)
- * @method EavAttributeGroup[]    findAll()
- * @method EavAttributeGroup[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class EavAttributeGroupRepository
+ * @package ProgramCms\EavBundle\Repository
  */
-class EavAttributeGroupRepository extends ServiceEntityRepository
+class EavAttributeGroupRepository extends AbstractRepository
 {
-
+    /**
+     * EavAttributeGroupRepository constructor.
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, EavAttributeGroup::class);
-    }
-
-    public function save(EavAttributeGroup $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function remove(EavAttributeGroup $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
     }
 }

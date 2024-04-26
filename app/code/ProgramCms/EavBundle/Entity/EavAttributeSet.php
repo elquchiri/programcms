@@ -21,26 +21,42 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: EavAttributeSetRepository::class)]
 class EavAttributeSet extends AbstractEntity
 {
+    /**
+     * @var int|null
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $attribute_set_id = null;
 
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     private ?string $attribute_set_name = null;
 
+    /**
+     * @var EavEntityType|null
+     */
     #[ORM\ManyToOne(targetEntity: EavEntityType::class, inversedBy: 'attributeSets')]
     #[ORM\JoinColumn(name: 'entity_type_id', referencedColumnName: 'entity_type_id')]
     private ?EavEntityType $entityType = null;
 
+    /**
+     * @var Collection
+     */
     #[ORM\OneToMany(mappedBy: 'attributeSet', targetEntity: EavAttributeGroup::class)]
     private Collection $attributeSetGroups;
 
     /**
      * EavAttributeSet constructor.
+     * @param array $data
      */
-    public function __construct()
+    public function __construct(
+        array $data = []
+    )
     {
+        parent::__construct($data);
         $this->attributeSetGroups = new ArrayCollection();
     }
 
@@ -63,9 +79,17 @@ class EavAttributeSet extends AbstractEntity
     }
 
     /**
-     * @return EavEntityType
+     * @return int|null
      */
-    public function getEntityType(): EavEntityType
+    public function getEntityId(): ?int
+    {
+        return $this->attribute_set_id;
+    }
+
+    /**
+     * @return EavEntityType|null
+     */
+    public function getEntityType(): ?EavEntityType
     {
         return $this->entityType;
     }
@@ -101,7 +125,7 @@ class EavAttributeSet extends AbstractEntity
     /**
      * @return ArrayCollection|Collection
      */
-    public function getgroups(): ArrayCollection|Collection
+    public function getGroups(): ArrayCollection|Collection
     {
         return $this->attributeSetGroups;
     }
@@ -116,7 +140,6 @@ class EavAttributeSet extends AbstractEntity
             $this->attributeSetGroups[] = $attributeGroup;
             $attributeGroup->setAttributeSet($this);
         }
-
         return $this;
     }
 
@@ -131,7 +154,6 @@ class EavAttributeSet extends AbstractEntity
                 $attributeGroup->setAttributeSet(null);
             }
         }
-
         return $this;
     }
 }

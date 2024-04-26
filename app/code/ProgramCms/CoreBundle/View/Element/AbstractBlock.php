@@ -9,6 +9,7 @@
 namespace ProgramCms\CoreBundle\View\Element;
 
 use Exception;
+use ProgramCms\CoreBundle\Model\DataObject;
 use ProgramCms\CoreBundle\View\Layout;
 use ProgramCms\RouterBundle\Service\Url;
 use Twig\Environment;
@@ -17,7 +18,7 @@ use Twig\Environment;
  * Class AbstractBlock
  * @package ProgramCms\CoreBundle\View\Element
  */
-abstract class AbstractBlock extends \ProgramCms\CoreBundle\Model\DataObject implements BlockInterface
+abstract class AbstractBlock extends DataObject implements BlockInterface
 {
     /**
      * Block name in layout

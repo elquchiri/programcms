@@ -23,7 +23,12 @@ class ResetPasswordButton implements \ProgramCms\UiBundle\DataProvider\ButtonPro
         return [
             'buttonType' => 'secondary',
             'buttonAction' => '',
-            'label' => 'Reset Password'
+            'label' => 'Reset Password',
+            'confirm' => [
+                'title' => 'Account Recovery',
+                'text' => 'You are about to send user and account recovery email',
+                'yes' => 'Send Recovery Email'
+            ]
         ];
     }
 }

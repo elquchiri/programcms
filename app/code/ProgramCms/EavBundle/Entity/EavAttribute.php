@@ -13,7 +13,6 @@ use Doctrine\Common\Collections\Collection;
 use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
 use ProgramCms\EavBundle\Model\Entity\Attribute\AdditionalEavAttribute;
 use ProgramCms\EavBundle\Repository\EavAttributeRepository;
-use ProgramCms\EavBundle\Model\Entity\Attribute\AttributeValueInterface as AttributeValue;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,11 +31,11 @@ class EavAttribute extends AbstractEntity
     private ?int $attribute_id = null;
 
     /**
-     * @var EavEntityType|null
+     * @var EavEntityType
      */
     #[ORM\ManyToOne(targetEntity: EavEntityType::class, inversedBy: 'attributes')]
     #[ORM\JoinColumn(name: 'entity_type_id', referencedColumnName: 'entity_type_id')]
-    private ?EavEntityType $entityType = null;
+    private EavEntityType $entityType;
 
     /**
      * @var string|null
@@ -50,6 +49,13 @@ class EavAttribute extends AbstractEntity
      */
     #[ORM\Column(length: 255)]
     private ?string $backend_type = null;
+
+    /**
+     * validate and add additional processing
+     * @var string|null
+     */
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $backend_model = null;
 
     /**
      * Frontend field type (text, date, ...)
@@ -69,29 +75,29 @@ class EavAttribute extends AbstractEntity
      * format field frontend data before getting value
      * @var string|null
      */
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(nullable: true)]
     private ?string $frontend_model = null;
 
     /**
      * @var int|null
      */
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?int $is_required = null;
 
     /**
      * @var string|null
      */
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $default_value = null;
 
     /**
      * @var string|null
      */
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $note = null;
 
     /**
-     * @var Collection|ArrayCollection
+     * @var Collection
      */
     #[ORM\OneToMany(mappedBy: 'attribute', targetEntity: EavAttributeLabel::class)]
     private Collection $labels;
@@ -101,11 +107,6 @@ class EavAttribute extends AbstractEntity
      */
     #[ORM\ManyToMany(targetEntity: EavAttributeGroup::class, mappedBy: 'attributes')]
     private Collection|ArrayCollection $groups;
-
-    /**
-     * @var AttributeValue|null
-     */
-    private ?AttributeValue $value = null;
 
     /**
      * @var AdditionalEavAttribute|null
@@ -142,6 +143,14 @@ class EavAttribute extends AbstractEntity
     {
         $this->attribute_id = $attribute_id;
         return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getEntityId(): ?int
+    {
+        return $this->attribute_id;
     }
 
     /**
@@ -195,6 +204,24 @@ class EavAttribute extends AbstractEntity
     public function setBackendType(string $backendType): self
     {
         $this->backend_type = $backendType;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getBackendModel(): ?string
+    {
+        return $this->backend_model;
+    }
+
+    /**
+     * @param string $backendModel
+     * @return $this
+     */
+    public function setBackendModel(string $backendModel): static
+    {
+        $this->backend_model = $backendModel;
         return $this;
     }
 
@@ -370,24 +397,6 @@ class EavAttribute extends AbstractEntity
     {
         $this->labels->removeElement($label);
         return $this;
-    }
-
-    /**
-     * @param AttributeValue $value
-     * @return $this
-     */
-    public function setValue(AttributeValue $value): static
-    {
-        $this->value = $value;
-        return $this;
-    }
-
-    /**
-     * @return AttributeValue|null
-     */
-    public function getValue(): ?AttributeValue
-    {
-        return $this->value;
     }
 
     /**

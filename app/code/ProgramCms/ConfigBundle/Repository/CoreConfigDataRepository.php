@@ -10,18 +10,14 @@ namespace ProgramCms\ConfigBundle\Repository;
 
 use ProgramCms\ConfigBundle\App\ScopeConfigInterface;
 use ProgramCms\ConfigBundle\Entity\CoreConfigData;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use ProgramCms\CoreBundle\Repository\AbstractRepository;
 
 /**
- * @extends ServiceEntityRepository<CoreConfigData>
- *
- * @method CoreConfigData|null find($id, $lockMode = null, $lockVersion = null)
- * @method CoreConfigData|null findOneBy(array $criteria, array $orderBy = null)
- * @method CoreConfigData[]    findAll()
- * @method CoreConfigData[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class CoreConfigDataRepository
+ * @package ProgramCms\ConfigBundle\Repository
  */
-class CoreConfigDataRepository extends ServiceEntityRepository
+class CoreConfigDataRepository extends AbstractRepository
 {
     /**
      * CoreConfigDataRepository constructor.
@@ -33,38 +29,12 @@ class CoreConfigDataRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param CoreConfigData $entity
-     * @param bool $flush
-     */
-    public function save(CoreConfigData $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    /**
-     * @param CoreConfigData $entity
-     * @param bool $flush
-     */
-    public function remove(CoreConfigData $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    /**
      * @param $path
      * @param string $scope
      * @param string $scopeId
      * @return CoreConfigData|null
      */
-    public function getByPath($path, string $scope = ScopeConfigInterface::SCOPE_TYPE_DEFAULT, string $scopeId = ''): ?CoreConfigData
+    public function getByPath($path, string $scope = ScopeConfigInterface::SCOPE_TYPE_DEFAULT, string $scopeId = ''): ?object
     {
         return $this->findOneBy([
             'path' => $path,

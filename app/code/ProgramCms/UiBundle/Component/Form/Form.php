@@ -9,13 +9,14 @@
 namespace ProgramCms\UiBundle\Component\Form;
 
 use Exception;
+use ProgramCms\UiBundle\Component\AbstractComponent;
 use ProgramCms\UiBundle\View\Element\Context;
 
 /**
  * Class Form
- * @package ProgramCms\UiBundle\Block\Form
+ * @package ProgramCms\UiBundle\Component\Form
  */
-class Form extends \ProgramCms\UiBundle\Component\AbstractComponent
+class Form extends AbstractComponent
 {
     const NAME = 'form';
 
@@ -53,24 +54,30 @@ class Form extends \ProgramCms\UiBundle\Component\AbstractComponent
     {
         $data = [];
         $formName = $this->getNameInLayout();
-
         if ($this->hasData('dataSource')) {
             $dataProvider = $this->getContext()->getDataProvider($formName);
             $data = $dataProvider->getData();
 
             // Filter Provided Data by primaryFieldName
             $primaryFieldName = $dataProvider->getPrimaryFieldName();
+            $foreignFieldName = $dataProvider->getForeignFieldName();
             $requestFieldName = $dataProvider->getRequestFieldName();
             if (!empty($requestFieldName)) {
                 $entityId = (int)$this->request->getParam($requestFieldName);
                 if (!empty($entityId)) {
-                    $data = $dataProvider
-                        ->getCollection()
-                        ->addFieldToFilter($primaryFieldName, $entityId)
-                        ->getData();
+                    if($primaryFieldName) {
+                        $data = $dataProvider
+                            ->getCollection()
+                            ->addFieldToFilter($primaryFieldName, $entityId)
+                            ->getData();
+                    }else if($foreignFieldName) {
+                        $data = $dataProvider
+                            ->getCollection()
+                            ->addFieldToFilter($foreignFieldName, $entityId)
+                            ->getData();
+                    }
                 }
             }
-
         }
         return $data;
     }

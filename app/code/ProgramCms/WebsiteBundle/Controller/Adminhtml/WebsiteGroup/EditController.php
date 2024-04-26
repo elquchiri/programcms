@@ -8,6 +8,7 @@
 
 namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteGroup;
 
+use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
@@ -16,12 +17,13 @@ use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
  * Class EditController
  * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteGroup
  */
-class EditController extends \ProgramCms\CoreBundle\Controller\AdminController
+class EditController extends AdminController
 {
     /**
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+
     /**
      * @var WebsiteGroupRepository
      */

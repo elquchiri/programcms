@@ -12,8 +12,10 @@ use HttpResponseException;
 use ProgramCms\ConfigBundle\Model\ConfigSerializer;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\CoreBundle\View\Result\Page;
 use ProgramCms\RouterBundle\Service\Url;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use ReflectionException;
 
 /**
  * Class AbstractConfigController
@@ -25,10 +27,12 @@ abstract class AbstractConfigController extends \ProgramCms\CoreBundle\Controlle
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+
     /**
      * @var TranslatorInterface
      */
     protected TranslatorInterface $translator;
+
     /**
      * @var ConfigSerializer
      */
@@ -58,7 +62,7 @@ abstract class AbstractConfigController extends \ProgramCms\CoreBundle\Controlle
 
     /**
      * @return mixed
-     * @throws HttpResponseException
+     * @throws HttpResponseException|ReflectionException
      */
     public function dispatch(): mixed
     {
@@ -70,13 +74,22 @@ abstract class AbstractConfigController extends \ProgramCms\CoreBundle\Controlle
 
     /**
      * @return object|null
+     * @throws ReflectionException
      */
     protected function loadConfigurations()
     {
-        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
+        $pageResult = $this->objectManager->create(Page::class);
         $pageResult->getConfig()->getTitle()->set(
             $this->translator->trans("Configuration")
         );
         return $pageResult;
+    }
+
+    /**
+     * @return ConfigSerializer
+     */
+    public function getConfigSerializer(): ConfigSerializer
+    {
+        return $this->configSerializer;
     }
 }

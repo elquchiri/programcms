@@ -8,17 +8,20 @@
 
 namespace ProgramCms\ConfigBundle\Controller\Adminhtml\SystemConfig;
 
-use Gedmo\Sluggable\Util\Urlizer;
+use ProgramCms\ConfigBundle\Controller\Adminhtml\AbstractConfigController;
 use \ProgramCms\ConfigBundle\Model\ConfigSerializer;
 use ProgramCms\ConfigBundle\Model\Config as ConfigModel;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\RouterBundle\Service\Url;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class SaveController extends \ProgramCms\ConfigBundle\Controller\Adminhtml\AbstractConfigController
+/**
+ * Class SaveController
+ * @package ProgramCms\ConfigBundle\Controller\Adminhtml\SystemConfig
+ */
+class SaveController extends AbstractConfigController
 {
     /**
      * @var ConfigSerializer
@@ -75,11 +78,7 @@ class SaveController extends \ProgramCms\ConfigBundle\Controller\Adminhtml\Abstr
             // Merge $_FILES and $_POST data
             foreach ($files as $groupName => $group) {
                 $data = $this->processNestedGroups($group);
-
                 if (!empty($data)) {
-                    // Upload files & provide media path
-                    $this->uploadConfigFiles($data);
-
                     if (!empty($groups[$groupName])) {
                         $groups[$groupName] = array_merge_recursive((array)$groups[$groupName], $data);
                     } else {
@@ -89,25 +88,6 @@ class SaveController extends \ProgramCms\ConfigBundle\Controller\Adminhtml\Abstr
             }
         }
         return $groups;
-    }
-
-    /**
-     * @param $data
-     */
-    protected function uploadConfigFiles(&$data)
-    {
-        foreach($data['fields'] as &$file) {
-            /** @var UploadedFile $uploadedFile */
-            $uploadedFile = $file['value'];
-            if($uploadedFile->isValid()) {
-                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $newFilename = Urlizer::urlize($originalFilename) . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-                $destination = $this->getParameter('kernel.project_dir') . '/public/media/core_config';
-                $uploadedFile->move($destination, $newFilename);
-                // Replace config field value
-                $file['value'] = $newFilename;
-            }
-        }
     }
 
     /**
@@ -158,7 +138,7 @@ class SaveController extends \ProgramCms\ConfigBundle\Controller\Adminhtml\Abstr
 
             // Flash success message
             $this->addFlash('success',
-                $this->translator->trans('Configuration Successfully Saved.')
+                $this->translator->trans('Configuration successfully saved.')
             );
 
             return $this->redirect($this->url->getUrlByRouteName('config_systemconfig_edit', $this->redirectParams($request, $sectionId)));

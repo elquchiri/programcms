@@ -86,6 +86,14 @@ class AdminUser extends AbstractEntity implements UserInterface, PasswordAuthent
     }
 
     /**
+     * @return int|null
+     */
+    public function getEntityId(): ?int
+    {
+        return $this->user_id;
+    }
+
+    /**
      * @param int $is_active
      * @return $this
      */

@@ -9,7 +9,6 @@
 namespace ProgramCms\UserBundle\Model\Provider\Listing\Groups;
 
 use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;
-use ProgramCms\UserBundle\Entity\UserEntity;
 use ProgramCms\UserBundle\Model\ResourceModel\Group\Collection;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

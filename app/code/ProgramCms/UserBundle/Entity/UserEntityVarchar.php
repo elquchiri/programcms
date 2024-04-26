@@ -19,7 +19,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: UserEntityVarcharRepository::class)]
 class UserEntityVarchar extends AttributeValue
 {
-
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     private ?string $value = null;
 

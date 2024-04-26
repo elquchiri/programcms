@@ -9,8 +9,8 @@
 namespace ProgramCms\UiBundle\Component\Form\Element;
 
 /**
- * Class Text
- * @package ProgramCms\UiBundle\Block\Form\Fields
+ * Class TextArea
+ * @package ProgramCms\UiBundle\Component\Form\Element
  */
 class TextArea extends AbstractElement
 {

@@ -8,11 +8,13 @@
 
 namespace ProgramCms\UiBundle\Component\Listing;
 
+use ProgramCms\UiBundle\Component\AbstractComponent;
+
 /**
  * Class Column
  * @package ProgramCms\UiBundle\Component\Listing
  */
-class Column extends \ProgramCms\UiBundle\Component\AbstractComponent
+class Column extends AbstractComponent
 {
     const NAME = 'column';
     /**

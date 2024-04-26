@@ -111,7 +111,7 @@ class CreateAdmin extends Command
         }
 
         if(!isset($locale) || empty($locale)) {
-            $locale = 'ar_MA';
+            $locale = 'en_US';
         }
 
         $adminUser = new AdminUser();
@@ -120,7 +120,7 @@ class CreateAdmin extends Command
             ->setFirstName($firstname ?? '')
             ->setLastName($lastname ?? '')
             ->setRoles(['ROLE_ADMIN'])
-            ->setIsActive($isActive)
+            ->setIsActive($isActive ?? 1)
             ->setInterfaceLocale($locale)
             ->setPassword(
                 $this->userPasswordHasher->hashPassword(

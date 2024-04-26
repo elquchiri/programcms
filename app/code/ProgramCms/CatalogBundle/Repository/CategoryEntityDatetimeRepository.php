@@ -9,40 +9,21 @@
 namespace ProgramCms\CatalogBundle\Repository;
 
 use ProgramCms\CatalogBundle\Entity\CategoryEntityDatetime;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use ProgramCms\CoreBundle\Repository\AbstractRepository;
 
 /**
- * @extends ServiceEntityRepository<CategoryEntityDatetime>
- *
- * @method CategoryEntityDatetime|null find($id, $lockMode = null, $lockVersion = null)
- * @method CategoryEntityDatetime|null findOneBy(array $criteria, array $orderBy = null)
- * @method CategoryEntityDatetime[]    findAll()
- * @method CategoryEntityDatetime[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class CategoryEntityDatetimeRepository
+ * @package ProgramCms\CatalogBundle\Repository
  */
-class CategoryEntityDatetimeRepository extends ServiceEntityRepository
+class CategoryEntityDatetimeRepository extends AbstractRepository
 {
-
+    /**
+     * CategoryEntityDatetimeRepository constructor.
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, CategoryEntityDatetime::class);
-    }
-
-    public function save(CategoryEntityDatetime $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function remove(CategoryEntityDatetime $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
     }
 }

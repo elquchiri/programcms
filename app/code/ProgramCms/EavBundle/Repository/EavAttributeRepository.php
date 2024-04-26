@@ -8,19 +8,15 @@
 
 namespace ProgramCms\EavBundle\Repository;
 
+use ProgramCms\CoreBundle\Repository\AbstractRepository;
 use ProgramCms\EavBundle\Entity\EavAttribute;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<EavAttribute>
- *
- * @method EavAttribute|null find($id, $lockMode = null, $lockVersion = null)
- * @method EavAttribute|null findOneBy(array $criteria, array $orderBy = null)
- * @method EavAttribute[]    findAll()
- * @method EavAttribute[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class EavAttributeRepository
+ * @package ProgramCms\EavBundle\Repository
  */
-class EavAttributeRepository extends ServiceEntityRepository
+class EavAttributeRepository extends AbstractRepository
 {
     /**
      * EavAttributeRepository constructor.
@@ -29,31 +25,5 @@ class EavAttributeRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, EavAttribute::class);
-    }
-
-    /**
-     * @param EavAttribute $entity
-     * @param bool $flush
-     */
-    public function save(EavAttribute $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    /**
-     * @param EavAttribute $entity
-     * @param bool $flush
-     */
-    public function remove(EavAttribute $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
     }
 }

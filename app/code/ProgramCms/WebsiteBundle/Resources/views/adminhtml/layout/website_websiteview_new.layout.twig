@@ -38,13 +38,6 @@
                 {% endArgument %}
             {% endArguments %}
             {% block name="website_view_fieldset" class="ui.block.form.fieldset" %}
-                {% block name="website_view_id" class="ui.block.form.field" %}
-                    {% arguments %}
-                        {% argument name="data" type="array" %}
-                            {% argument name="type" type="string" %}hidden{% endArgument %}
-                        {% endArgument %}
-                    {% endArguments %}
-                {% endBlock %}
                 {% block name="is_active" class="ui.block.form.field" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
@@ -82,7 +75,7 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
-                {% block name="website_group_id" class="ui.block.form.field" %}
+                {% block name="websiteGroup" class="ui.block.form.field" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
                             {% argument name="type" type="string" %}select{% endArgument %}

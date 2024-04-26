@@ -8,13 +8,14 @@
 
 namespace ProgramCms\UserBundle\Model\Provider\Button;
 
+use ProgramCms\UiBundle\DataProvider\ButtonProviderInterface;
+
 /**
  * Class ForceSignInButton
  * @package ProgramCms\UserBundle\Model\Provider\Button
  */
-class ForceSignInButton implements \ProgramCms\UiBundle\DataProvider\ButtonProviderInterface
+class ForceSignInButton implements ButtonProviderInterface
 {
-
     /**
      * @return string[]
      */
@@ -23,7 +24,13 @@ class ForceSignInButton implements \ProgramCms\UiBundle\DataProvider\ButtonProvi
         return [
             'buttonType' => 'secondary',
             'buttonAction' => '',
-            'label' => 'Login as User'
+            'label' => 'Force Sign In',
+            'confirm' => [
+                'title' => 'You are about to Login as User',
+                'text' => 'Actions taken while in "Login as User" will affect actual user data.',
+                'yes' => 'Login as User',
+                'no' => 'Cancel'
+            ]
         ];
     }
 }

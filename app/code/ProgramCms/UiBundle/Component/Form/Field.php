@@ -9,7 +9,10 @@
 namespace ProgramCms\UiBundle\Component\Form;
 
 use Exception;
+use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
+use ProgramCms\CoreBundle\Serialize\Serializer\ObjectSerializer;
 use ProgramCms\UiBundle\Component\AbstractComponent;
+use ProgramCms\UiBundle\View\Element\Context;
 
 /**
  * Class Field
@@ -18,6 +21,27 @@ use ProgramCms\UiBundle\Component\AbstractComponent;
 class Field extends \ProgramCms\UiBundle\Component\Form\Element\AbstractElement
 {
     const NAME = 'field';
+
+    /**
+     * @var ObjectSerializer
+     */
+    protected ObjectSerializer $objectSerializer;
+
+    /**
+     * Field constructor.
+     * @param Context $context
+     * @param ObjectSerializer $objectSerializer
+     * @param array $data
+     */
+    public function __construct(
+        Context $context,
+        ObjectSerializer $objectSerializer,
+        array $data = []
+    )
+    {
+        parent::__construct($context, $data);
+        $this->objectSerializer = $objectSerializer;
+    }
 
     /**
      * @var string
@@ -42,6 +66,9 @@ class Field extends \ProgramCms\UiBundle\Component\Form\Element\AbstractElement
         $layout = $this->getLayout();
         if($this->hasType()) {
             $fieldName = $this->getName();
+            if($this->hasData('dataScope')) {
+                $fieldName = $this->getDataScope();
+            }
             $type = $this->getType();
             $element = $this->getContext()
                 ->getUiComponentFactory()
@@ -59,8 +86,13 @@ class Field extends \ProgramCms\UiBundle\Component\Form\Element\AbstractElement
                 $dataSourceBlock = $this->getLayout()->getBlock($dataSourceName);
                 $dataSourceData = $this->getContext()->getDataSourceData($dataSourceBlock);
                 $item = current($dataSourceData);
-                if ($item && $item->hasData($fieldName)) {
-                    $element->setValue($item->getData($fieldName));
+                if ($item) {
+                    $data = $item->getDataUsingMethod($fieldName);
+                    if($data instanceof AbstractEntity) {
+                        $element->setValue($item->getDataUsingMethod($fieldName)->getDataUsingMethod('entity_id'));
+                    } else {
+                        $element->setValue($item->getDataUsingMethod($fieldName));
+                    }
                 }
             }
 

@@ -14,9 +14,9 @@ use ProgramCms\UiBundle\Component\AbstractComponent;
 use ProgramCms\UiBundle\View\Element\Context;
 use ProgramCms\UserBundle\Entity\UserEntity;
 use ProgramCms\UserBundle\Repository\UserEntityRepository;
-use Exception;
 use ProgramCms\UserBundle\Repository\UserLogRepository;
 use ProgramCms\WebsiteBundle\Model\ScopeInterface;
+use Exception;
 
 /**
  * Class AccountView
@@ -27,11 +27,6 @@ class AccountView extends AbstractComponent
     const NAME = 'account_view';
 
     const EMAIL_CONFIRMATION_CONFIG = 'user_configuration/account_create/email_confirmation';
-
-    /**
-     * @var UserEntity
-     */
-    protected UserEntity $user;
 
     /**
      * @var UserEntityRepository
@@ -72,12 +67,11 @@ class AccountView extends AbstractComponent
         array $data = []
     )
     {
-        parent::__construct($context, $data);
         $this->userEntityRepository = $userEntityRepository;
-        $this->user = $this->getUser();
         $this->transformer = $transformer;
         $this->config = $config;
         $this->userLogRepository = $userLogRepository;
+        parent::__construct($context, $data);
     }
 
     /**
@@ -114,31 +108,41 @@ class AccountView extends AbstractComponent
      */
     public function getLockLabel(): string
     {
-        return $this->user->isLocked() ? $this->trans("Locked") : $this->trans('Unlocked');
+        $user = $this->getUser();
+        return $user->isLocked() ? $this->trans("Locked") : $this->trans('Unlocked');
     }
 
     /**
      * @return string
+     * @throws Exception
      */
     public function getAccountCreationDate(): string
     {
-        return $this->trans($this->transformer->transform($this->user->getCreatedAt()));
+        $user = $this->getUser();
+        if($user) {
+            return $this->trans($this->transformer->transform($user->getCreatedAt()));
+        }
+        return '';
     }
 
     /**
      * @return string|null
+     * @throws Exception
      */
     public function getAccountWebsiteView(): ?string
     {
-        return $this->user->getWebsiteView()->getWebsiteName() . ' &middot; ' . $this->user->getWebsiteView()->getName();
+        $user = $this->getUser();
+        return $user->getWebsiteView()->getWebsiteName() . ' &middot; ' . $user->getWebsiteView()->getName();
     }
 
     /**
      * @return string
+     * @throws Exception
      */
     public function getEmailConfirmation(): string
     {
-        $userWebsiteView = $this->user->getWebsiteView();
+        $user = $this->getUser();
+        $userWebsiteView = $user->getWebsiteView();
         $shouldConfirm = (bool) $this->config->getValue(
             self::EMAIL_CONFIRMATION_CONFIG,
             ScopeInterface::SCOPE_WEBSITE_VIEW,
@@ -147,20 +151,22 @@ class AccountView extends AbstractComponent
         if(!$shouldConfirm) {
             return $this->trans('Confirmation Not Required');
         }
-        return $this->user->isEmailConfirmed()
+        return $user->isEmailConfirmed()
             ? $this->trans('Email Confirmed')
             : $this->trans('Email Not Confirmed');
     }
 
     /**
      * @return string
+     * @throws Exception
      */
     public function getLastLog(): string
     {
+        $user = $this->getUser();
         $status = $this->trans('(Offline)');
-        $lastLog = $this->userLogRepository->getLastLog($this->user);
+        $lastLog = $this->userLogRepository->getLastLog($user);
         if($lastLog) {
-            return $this->transformer->transform($lastLog->getUpdatedAt()) . ' ' . $status;
+            return $this->transformer->transform($lastLog->getCreatedAt()) . ' ' . $status;
         }
         return $this->trans('Never') . ' ' . $status;
     }

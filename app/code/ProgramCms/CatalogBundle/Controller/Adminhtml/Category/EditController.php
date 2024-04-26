@@ -9,25 +9,35 @@
 namespace ProgramCms\CatalogBundle\Controller\Adminhtml\Category;
 
 use ProgramCms\CatalogBundle\Repository\CategoryRepository;
+use ProgramCms\CoreBundle\Controller\AdminController;
+use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\CoreBundle\View\Result\Page;
 
 /**
  * Class EditController
- * @package ProgramCms\CatalogBundle\Controller\Adminhtml\Index
+ * @package ProgramCms\CatalogBundle\Controller\Adminhtml\Category
  */
-class EditController extends \ProgramCms\CoreBundle\Controller\AdminController
+class EditController extends AdminController
 {
     /**
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+
     /**
      * @var CategoryRepository
      */
     private CategoryRepository $categoryRepository;
 
+    /**
+     * EditController constructor.
+     * @param Context $context
+     * @param CategoryRepository $categoryRepository
+     * @param ObjectManager $objectManager
+     */
     public function __construct(
-        \ProgramCms\CoreBundle\Controller\Context $context,
+        Context $context,
         CategoryRepository $categoryRepository,
         ObjectManager $objectManager
     )
@@ -38,11 +48,12 @@ class EditController extends \ProgramCms\CoreBundle\Controller\AdminController
     }
 
     /**
-     * @return mixed|object|null
+     * @return object|null
+     * @throws \ReflectionException
      */
     public function execute()
     {
-        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
+        $pageResult = $this->objectManager->create(Page::class);
         $pageResult->getConfig()->getTitle()->set("Edit Category");
         return $pageResult;
     }

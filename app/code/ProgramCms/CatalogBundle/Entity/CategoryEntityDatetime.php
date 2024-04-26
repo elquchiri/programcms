@@ -8,30 +8,42 @@
 
 namespace ProgramCms\CatalogBundle\Entity;
 
+use DateTime;
+use ProgramCms\CatalogBundle\App\ScopedAttributeValue;
 use ProgramCms\CatalogBundle\Repository\CategoryEntityDatetimeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class CatalogEntityDatetime
+ * Class CategoryEntityDatetime
  * @package ProgramCms\CatalogBundle\Entity
  */
 #[ORM\Entity(repositoryClass: CategoryEntityDatetimeRepository::class)]
-class CategoryEntityDatetime
+class CategoryEntityDatetime extends ScopedAttributeValue
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $value_id = null;
+    /**
+     * @var DateTime|null
+     */
+    #[ORM\Column(type: 'datetime')]
+    private ?DateTime $value = null;
 
-    #[ORM\Column]
-    private ?int $attribute_id = null;
+    /**
+     * @param mixed $value
+     * @return $this
+     */
+    public function setValue(mixed $value): static
+    {
+        if($value instanceof DateTime) {
+            $this->value = $value;
+        }
 
-    #[ORM\Column]
-    private ?int $website_view_id = null;
+        return $this;
+    }
 
-    #[ORM\Column]
-    private ?int $entity_id = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $value = null;
+    /**
+     * @return DateTime|null
+     */
+    public function getValue(): ?DateTime
+    {
+        return $this->value;
+    }
 }

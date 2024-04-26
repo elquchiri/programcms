@@ -1,0 +1,93 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% page layout="admin-2columns-left" %}
+    {% referenceContainer name="content" %}
+        {% block name="user_form" class="ui.block.form" %}
+            {% arguments %}
+                {% argument name="data" type="array" %}
+                    {% argument name="label" type="string" %}User Information{% endArgument %}
+                {% endArgument %}
+                {% argument name="buttons" type="array" %}
+                    {% argument name="back" type="string" %}ProgramCms\UserBundle\Model\Provider\Button\BackToUsersButton{% endArgument %}
+                    {% argument name="save" type="string" %}ProgramCms\UserBundle\Model\Provider\Button\SaveUserButton{% endArgument %}
+                {% endArgument %}
+                {% argument name="dataSource" type="array" %}
+                    {% argument name="settings" type="array" %}
+                        {% argument name="submitUrl" type="string" %}user_index_save{% endArgument %}
+                    {% endArgument %}
+                {% endArgument %}
+                {% argument name="layout" type="array" %}
+                    {% argument name="navContainerName" type="string" %}sidebar.main{% endArgument %}
+                    {% argument name="type" type="string" %}tabs{% endArgument %}
+                {% endArgument %}
+            {% endArguments %}
+            {% block name="user_fieldset" class="ui.block.form.fieldset" %}
+                {% arguments %}
+                    {% argument name="data" type="array" %}
+                        {% argument name="label" type="string" %}Account Information{% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+                {% block name="user_firstname" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}text{% endArgument %}
+                            {% argument name="label" type="string" %}First Name{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="user_lastname" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}text{% endArgument %}
+                            {% argument name="label" type="string" %}Last Name{% endArgument %}
+                            {% argument name="placeholder" type="string" %}Last Name{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="email" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}text{% endArgument %}
+                            {% argument name="label" type="string" %}Email{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="username" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}text{% endArgument %}
+                            {% argument name="label" type="string" %}Username{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="account_lock" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}switcher{% endArgument %}
+                            {% argument name="label" type="string" %}Lock{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="websiteView" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}select{% endArgument %}
+                            {% argument name="label" type="string" %}Account Created in{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                            {% argument name="sourceModel" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\DataSource\WebsiteTree{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+            {% endBlock %}
+        {% endBlock %}
+    {% endReferenceContainer %}
+{% endPage %}

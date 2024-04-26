@@ -80,6 +80,7 @@
                             {% argument name="placeholder" type="string" %}Code{% endArgument %}
                             {% argument name="isRequired" type="boolean" %}true{% endArgument %}
                             {% argument name="source" type="string" %}website_view_form{% endArgument %}
+                            {% argument name="helpMessage" type="string" %}This is the website view identifier, please be more careful when modifying this value.{% endArgument %}
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
@@ -93,7 +94,7 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
-                {% block name="website_group_id" class="ui.block.form.field" %}
+                {% block name="websiteGroup" class="ui.block.form.field" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
                             {% argument name="type" type="string" %}select{% endArgument %}

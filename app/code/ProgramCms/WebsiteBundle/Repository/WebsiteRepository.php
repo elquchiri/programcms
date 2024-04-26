@@ -8,19 +8,15 @@
 
 namespace ProgramCms\WebsiteBundle\Repository;
 
+use ProgramCms\CoreBundle\Repository\AbstractRepository;
 use ProgramCms\WebsiteBundle\Entity\Website;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Website>
- *
- * @method Website|null find($id, $lockMode = null, $lockVersion = null)
- * @method Website|null findOneBy(array $criteria, array $orderBy = null)
- * @method Website[]    findAll()
- * @method Website[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class WebsiteRepository
+ * @package ProgramCms\WebsiteBundle\Repository
  */
-class WebsiteRepository extends ServiceEntityRepository
+class WebsiteRepository extends AbstractRepository
 {
     /**
      * WebsiteRepository constructor.
@@ -32,53 +28,27 @@ class WebsiteRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param int $websiteId
+     * @param int $id
      * @return Website|null
      */
-    public function getById(int $websiteId): ?Website
+    public function getById(int $id): ?object
     {
-        return $this->findOneBy(['website_id' => $websiteId]);
+        return $this->findOneBy(['website_id' => $id]);
     }
 
     /**
      * @param string $code
-     * @return Website|null
+     * @return object|null
      */
-    public function getByCode(string $code): ?Website
+    public function getByCode(string $code): ?object
     {
         return $this->findOneBy(['website_code' => $code]);
     }
 
     /**
-     * @param Website $entity
-     * @param bool $flush
+     * @return object
      */
-    public function save(Website $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    /**
-     * @param Website $entity
-     * @param bool $flush
-     */
-    public function remove(Website $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    /**
-     * @return Website|null
-     */
-    public function getDefaultWebsite(): ?Website
+    public function getDefaultWebsite(): object
     {
         return $this->findOneBy(['is_default' => 1]);
     }

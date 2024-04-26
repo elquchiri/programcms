@@ -17,6 +17,10 @@ use ProgramCms\WebsiteBundle\Model\ScopeInterface;
 use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Class WebsiteGroup
+ * @package ProgramCms\WebsiteBundle\Entity
+ */
 #[ORM\Entity(repositoryClass: WebsiteGroupRepository::class)]
 class WebsiteGroup extends AbstractEntity implements AppScopeInterface
 {
@@ -27,38 +31,45 @@ class WebsiteGroup extends AbstractEntity implements AppScopeInterface
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $website_group_id = null;
+
     /**
      * @var Website|null
      */
     #[ORM\ManyToOne(targetEntity: Website::class, inversedBy: 'groups')]
     #[ORM\JoinColumn(name: 'website_id', referencedColumnName: 'website_id')]
     private ?Website $website = null;
+
     /**
      * @var int|null
      */
     #[ORM\Column(nullable: true)]
     private ?int $is_active = null;
+
     /**
      * @var string|null
      */
     #[ORM\Column(length: 255)]
     private ?string $website_group_code = null;
+
     /**
      * @var string|null
      */
     #[ORM\Column(length: 255)]
     private ?string $website_group_name = null;
+
     /**
      * @var int|null
      */
     #[ORM\Column(nullable: true)]
     private ?int $sort_order = null;
+
     /**
      * @var WebsiteView|null
      */
     #[ORM\ManyToOne(targetEntity: WebsiteView::class)]
     #[ORM\JoinColumn(name: 'default_website_view_id', referencedColumnName: 'website_view_id')]
     private ?WebsiteView $defaultWebsiteView;
+
     /**
      * @var Category|null
      */
@@ -66,6 +77,9 @@ class WebsiteGroup extends AbstractEntity implements AppScopeInterface
     #[ORM\JoinColumn(name: 'root_category_id', referencedColumnName: 'entity_id')]
     private ?Category $category = null;
 
+    /**
+     * @var ?Collection
+     */
     #[ORM\OneToMany(mappedBy: 'websiteGroup', targetEntity: WebsiteView::class)]
     private ?Collection $websiteViews = null;
 
@@ -85,6 +99,14 @@ class WebsiteGroup extends AbstractEntity implements AppScopeInterface
     {
         $this->website_group_id = $website_group_id;
         return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getEntityId(): ?int
+    {
+        return $this->website_group_id;
     }
 
     /**
@@ -108,7 +130,7 @@ class WebsiteGroup extends AbstractEntity implements AppScopeInterface
     /**
      * @return int
      */
-    #[Pure] public function getWebsiteId(): int
+    public function getWebsiteId(): int
     {
         return $this->website->getWebsiteId();
     }

@@ -12,7 +12,9 @@ use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\CoreBundle\View\Result\Page;
+use ProgramCms\UserBundle\Entity\UserEntity;
 use ProgramCms\UserBundle\Repository\UserEntityRepository;
+use ReflectionException;
 
 /**
  * Class EditController
@@ -31,7 +33,7 @@ class EditController extends AdminController
     protected UserEntityRepository $userRepository;
 
     /**
-     * IndexController constructor.
+     * EditController constructor.
      * @param Context $context
      * @param ObjectManager $objectManager
      * @param UserEntityRepository $userRepository
@@ -49,10 +51,12 @@ class EditController extends AdminController
 
     /**
      * @return object|null
+     * @throws ReflectionException
      */
     public function execute()
     {
         $pageResult = $this->objectManager->create(Page::class);
+        /** @var UserEntity $user */
         $user = $this->userRepository->findOneBy(['entity_id' => $this->getRequest()->getParam('id')]);
         if($user) {
             $pageResult->getConfig()->getTitle()->set($user->getFullName());

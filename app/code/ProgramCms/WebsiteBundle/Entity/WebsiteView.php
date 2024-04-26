@@ -14,6 +14,10 @@ use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
 use ProgramCms\CoreBundle\App\ScopeInterface as AppScopeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Class WebsiteView
+ * @package ProgramCms\WebsiteBundle\Entity
+ */
 #[ORM\Entity(repositoryClass: WebsiteViewRepository::class)]
 class WebsiteView extends AbstractEntity implements AppScopeInterface
 {
@@ -24,27 +28,32 @@ class WebsiteView extends AbstractEntity implements AppScopeInterface
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $website_view_id = null;
+
     /**
      * @var string|null
      */
     #[ORM\Column(length: 255)]
     private ?string $website_view_code = null;
+
     /**
      * @var string|null
      */
     #[ORM\Column(length: 255)]
     private ?string $website_view_name = null;
+
     /**
      * @var WebsiteGroup|null
      */
     #[ORM\ManyToOne(targetEntity: WebsiteGroup::class, inversedBy: 'websiteViews')]
     #[ORM\JoinColumn(name: 'website_group_id', referencedColumnName: 'website_group_id')]
     private ?WebsiteGroup $websiteGroup = null;
+
     /**
      * @var int|null
      */
     #[ORM\Column]
     private ?int $is_active = null;
+
     /**
      * @var int|null
      */
@@ -67,6 +76,14 @@ class WebsiteView extends AbstractEntity implements AppScopeInterface
     {
         $this->website_view_id = $website_view_id;
         return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getEntityId(): ?int
+    {
+        return $this->website_view_id;
     }
 
     /**
@@ -229,5 +246,12 @@ class WebsiteView extends AbstractEntity implements AppScopeInterface
     public function getWebsiteName(): ?string
     {
         return $this->getWebsite()->getName();
+    }
+
+    /**
+     * @return string|null
+     */
+    public function __toString() {
+        return $this->website_view_name;
     }
 }

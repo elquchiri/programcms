@@ -8,7 +8,6 @@
 
 namespace ProgramCms\CoreBundle\Model;
 
-use ProgramCms\CoreBundle\App\AreaInterface;
 use ProgramCms\CoreBundle\Model\Utils\BundleManager;
 use ReflectionClass;
 use ReflectionException;
@@ -66,6 +65,7 @@ class ObjectManager implements ObjectManagerInterface
         $parameters = $reflection->getConstructor()->getParameters();
         $args = [];
         foreach($parameters as $parameter) {
+            $parameterType = $parameter->getType();
             // If argument exists in $arguments, initialize it, even if it is optional
             if(in_array($parameter->getName(), array_keys($arguments))) {
                 $args[] = $arguments[$parameter->getName()];
@@ -76,7 +76,7 @@ class ObjectManager implements ObjectManagerInterface
                 break;
             }
             // If argument is an object, use container to get it.
-            if($parameter->hasType() && !$parameter->getType()->isBuiltin()) {
+            if($parameter->hasType() && ($parameterType instanceof \ReflectionNamedType) && !$parameterType->isBuiltin()) {
                 $args[] = $this->container->get($parameter->getType());
             }
         }

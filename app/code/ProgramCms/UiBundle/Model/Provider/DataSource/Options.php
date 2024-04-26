@@ -12,7 +12,7 @@ namespace ProgramCms\UiBundle\Model\Provider\DataSource;
  * Class Options
  * @package ProgramCms\UiBundle\Model\Provider\DataSource
  */
-abstract class Options implements \ProgramCms\UiBundle\Model\Provider\DataSource\OptionsInterface
+abstract class Options implements OptionsInterface
 {
     /**
      * @return array

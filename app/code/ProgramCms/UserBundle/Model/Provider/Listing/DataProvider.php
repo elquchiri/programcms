@@ -63,7 +63,6 @@ class DataProvider extends AbstractDataProvider
                     'website_view',
                     $item->getWebsiteView()->getWebsiteName() . ' &middot; ' . $item->getWebsiteView()->getName()
                 )
-                ->setData('website_view_id', $item->getWebsiteView()->getWebsiteViewId())
                 ->setData('confirmed_email', $this->getEmailConfirmation($item));
         }
         return $data;

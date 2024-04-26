@@ -10,8 +10,16 @@ import { Application } from 'stimulus';
 // Initialize the Stimulus application
 window.application = Application.start();
 
-import './app.scss';
 import $ from 'jquery';
 import 'bootstrap';
+import {Tooltip} from 'bootstrap';
 
 window.$ = window.jQuery = $;
+
+// Activate Tooltips
+$(function() {
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new Tooltip(tooltipTriggerEl)
+    });
+});

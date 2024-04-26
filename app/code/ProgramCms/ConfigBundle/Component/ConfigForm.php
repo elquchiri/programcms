@@ -15,6 +15,8 @@ use ProgramCms\ConfigBundle\Model\ConfigSerializer;
 use ProgramCms\ConfigBundle\Model\Structure\Element\Field;
 use ProgramCms\ConfigBundle\Model\Structure\Element\Group;
 use ProgramCms\ConfigBundle\Model\Structure\Element\Section;
+use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\ConfigBundle\Model\Attribute\Frontend\AbstractFrontend;
 use ProgramCms\UiBundle\Component\Form\Form;
 use ProgramCms\UiBundle\View\Element\Context;
 
@@ -56,6 +58,11 @@ class ConfigForm extends Form
     protected CoreConfigDataRepository $configDataRepository;
 
     /**
+     * @var ObjectManager
+     */
+    protected ObjectManager $objectManager;
+
+    /**
      * Configuration Form Component constructor.
      * @param Context $context
      * @param ConfigSerializer $configSerializer
@@ -74,13 +81,13 @@ class ConfigForm extends Form
         parent::__construct($context, $data);
         $this->configSerializer = $configSerializer;
         $this->config = $config;
-
+        $this->objectManager = $context->getObjectManager();
+        $this->configDataRepository = $configDataRepository;
         $this->_scopeLabels = [
             self::SCOPE_DEFAULT => $this->trans('[GLOBAL]'),
             self::SCOPE_WEBSITE => $this->trans('[WEBSITE]'),
             self::SCOPE_WEBSITE_VIEW => $this->trans('[WEBSITE VIEW]'),
         ];
-        $this->configDataRepository = $configDataRepository;
     }
 
     /**
@@ -207,6 +214,13 @@ class ConfigForm extends Form
             $field->getPath(),
             $this->getScope(),
             $this->getScopeCode());
+
+        if($field->hasFrontendModel()) {
+            $frontModelClass = $field->getFrontendModel();
+            /** @var AbstractFrontend $frontendModel */
+            $frontendModel = $this->objectManager->create($frontModelClass);
+            $value = $frontendModel->getValue($field, $value);
+        }
 
         // Get dynamic config value to check inherit
         $realValue = $this->configDataRepository->getByPath(

@@ -8,6 +8,7 @@
 
 namespace ProgramCms\UserBundle\Entity;
 
+use ProgramCms\EavBundle\Model\Entity\Attribute\AttributeValue;
 use ProgramCms\UserBundle\Repository\UserEntityDecimalRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -16,8 +17,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @package ProgramCms\UserBundle\Entity
  */
 #[ORM\Entity(repositoryClass: UserEntityDecimalRepository::class)]
-class UserEntityDecimal extends \ProgramCms\EavBundle\Model\Entity\Attribute\AttributeValue
+class UserEntityDecimal extends AttributeValue
 {
+    /**
+     * @var float|null
+     */
     #[ORM\Column]
     private ?float $value = null;
 

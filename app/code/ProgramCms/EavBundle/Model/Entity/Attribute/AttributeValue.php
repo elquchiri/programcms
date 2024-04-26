@@ -8,6 +8,7 @@
 
 namespace ProgramCms\EavBundle\Model\Entity\Attribute;
 
+use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
 use ProgramCms\EavBundle\Entity\EavAttribute;
 use Doctrine\ORM\Mapping\MappedSuperclass;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package ProgramCms\EavBundle\Model\Entity\Attribute
  */
 #[MappedSuperclass]
-abstract class AttributeValue extends \ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity implements AttributeValueInterface
+abstract class AttributeValue extends AbstractEntity implements AttributeValueInterface
 {
     /**
      * @var int|null

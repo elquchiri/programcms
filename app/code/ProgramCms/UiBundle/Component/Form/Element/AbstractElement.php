@@ -86,6 +86,24 @@ abstract class AbstractElement extends AbstractComponent
     }
 
     /**
+     * @param string $size
+     * @return $this
+     */
+    public function setSize(string $size)
+    {
+        $this->setData('size', $size);
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSize(): string
+    {
+        return $this->hasData('size') ? $this->getData('size') : 'col-md-6';
+    }
+
+    /**
      * @return bool
      */
     public function hasHelpMessage(): bool
@@ -182,7 +200,7 @@ abstract class AbstractElement extends AbstractComponent
      * @param string $scope
      * @return $this
      */
-    public function setScope(string $scope): static
+    public function setDataScope(string $scope): static
     {
         $this->setData('scope', $scope);
         return $this;
@@ -191,9 +209,9 @@ abstract class AbstractElement extends AbstractComponent
     /**
      * @return string
      */
-    public function getScope(): string
+    public function getDataScope(): string
     {
-        return $this->hasData('scope') ? $this->getData('scope') : '';
+        return $this->hasData('dataScope') ? $this->getData('dataScope') : '';
     }
 
     /**

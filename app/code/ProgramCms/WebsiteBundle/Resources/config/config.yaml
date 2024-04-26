@@ -12,7 +12,10 @@ config:
         allowed_countries: 'MA,US,FR'
       locale_options:
         timezone: 'Africa/Casablanca'
-        locale: 'ar_MA'
+        locale: 'en_US'
     web:
       urls:
         base_url: '/'
+    theme_config:
+      theme_configuration:
+        applied_theme: 'programcms/blank'

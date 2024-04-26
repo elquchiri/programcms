@@ -25,6 +25,38 @@ class Field extends AbstractElement
     }
 
     /**
+     * @return bool
+     */
+    public function hasFrontendModel(): bool
+    {
+        return isset($this->_data['frontend_model']) && !empty($this->_data['frontend_model']);
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getFrontendModel()
+    {
+        return $this->_data['frontend_model'] ?? '';
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasBackendModel(): bool
+    {
+        return isset($this->_data['backend_model']) && !empty($this->_data['backend_model']);
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getBackendModel()
+    {
+        return $this->_data['backend_model'] ?? '';
+    }
+
+    /**
      * @return array|mixed
      */
     public function getScopes()

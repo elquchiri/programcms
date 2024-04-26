@@ -9,12 +9,13 @@
 namespace ProgramCms\UiBundle\Component\Listing;
 
 use Exception;
+use ProgramCms\UiBundle\Component\AbstractComponent;
 
 /**
  * Class Listing
  * @package ProgramCms\UiBundle\Component\Listing
  */
-class Listing extends \ProgramCms\UiBundle\Component\AbstractComponent
+class Listing extends AbstractComponent
 {
     const NAME = 'listing';
     /**

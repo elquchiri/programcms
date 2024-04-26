@@ -23,6 +23,7 @@ class UiComponentFactory extends DataObject
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+
     /**
      * @var array|string[]
      */
@@ -31,14 +32,18 @@ class UiComponentFactory extends DataObject
         'field' => \ProgramCms\UiBundle\Component\Form\Field::class,
         'text' => \ProgramCms\UiBundle\Component\Form\Element\Text::class,
         'textarea' => \ProgramCms\UiBundle\Component\Form\Element\TextArea::class,
+        'editor' => \ProgramCms\UiBundle\Component\Form\Element\Editor::class,
         'password' => \ProgramCms\UiBundle\Component\Form\Element\Password::class,
         'hidden' => \ProgramCms\UiBundle\Component\Form\Element\Hidden::class,
         'select' => \ProgramCms\UiBundle\Component\Form\Element\Select::class,
         'multiselect' => \ProgramCms\UiBundle\Component\Form\Element\MultiSelect::class,
+        'date' => \ProgramCms\UiBundle\Component\Form\Element\Date::class,
         'switcher' => \ProgramCms\UiBundle\Component\Form\Element\Switcher::class,
         'plainText' => \ProgramCms\UiBundle\Component\Form\Element\PlainText::class,
         'image' => \ProgramCms\UiBundle\Component\Form\Element\Image::class,
         'imageUploader' => \ProgramCms\UiBundle\Component\Form\Element\ImageUploader::class,
+        'file' => \ProgramCms\UiBundle\Component\Form\Element\File::class,
+        'color' => \ProgramCms\UiBundle\Component\Form\Element\Color::class,
     ];
 
     /**

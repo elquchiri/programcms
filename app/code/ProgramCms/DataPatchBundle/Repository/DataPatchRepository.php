@@ -9,18 +9,14 @@
 namespace ProgramCms\DataPatchBundle\Repository;
 
 use Doctrine\Persistence\ManagerRegistry;
+use ProgramCms\CoreBundle\Repository\AbstractRepository;
 use ProgramCms\DataPatchBundle\Entity\DataPatch;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
- * @extends ServiceEntityRepository<DataPatch>
- *
- * @method DataPatch|null find($id, $lockMode = null, $lockVersion = null)
- * @method DataPatch|null findOneBy(array $criteria, array $orderBy = null)
- * @method DataPatch[]    findAll()
- * @method DataPatch[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class DataPatchRepository
+ * @package ProgramCms\DataPatchBundle\Repository
  */
-class DataPatchRepository extends ServiceEntityRepository
+class DataPatchRepository extends AbstractRepository
 {
     /**
      * DataPatchRepository constructor.
@@ -29,31 +25,5 @@ class DataPatchRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, DataPatch::class);
-    }
-
-    /**
-     * @param DataPatch $entity
-     * @param bool $flush
-     */
-    public function save(DataPatch $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    /**
-     * @param DataPatch $entity
-     * @param bool $flush
-     */
-    public function remove(DataPatch $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
     }
 }

@@ -10,11 +10,12 @@ namespace ProgramCms\UiBundle\Component\Form\Element;
 
 /**
  * Class Switcher
- * @package ProgramCms\UiBundle\Block\Form\Fields
+ * @package ProgramCms\UiBundle\Component\Form\Element
  */
 class Switcher extends AbstractElement
 {
     const NAME = 'switcher';
+
     /**
      * @var string
      */
@@ -25,9 +26,12 @@ class Switcher extends AbstractElement
      */
     public function isChecked(): bool
     {
-        return $this->hasData('value') && in_array($this->getValue(), ['on', 1]);
+        return $this->hasData('value') && in_array($this->getValue(), ['on', 1, true]);
     }
 
+    /**
+     * @return string
+     */
     public function getComponentName()
     {
         return self::NAME;

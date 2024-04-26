@@ -8,6 +8,7 @@
 
 namespace ProgramCms\UserBundle\Model\Provider\Button;
 
+use ProgramCms\RouterBundle\Service\Url;
 use ProgramCms\UiBundle\DataProvider\ButtonProviderInterface;
 
 /**
@@ -17,6 +18,20 @@ use ProgramCms\UiBundle\DataProvider\ButtonProviderInterface;
 class NewUserButton implements ButtonProviderInterface
 {
     /**
+     * @var Url
+     */
+    protected Url $url;
+
+    /**
+     * NewUserButton constructor.
+     * @param Url $url
+     */
+    public function __construct(Url $url)
+    {
+        $this->url = $url;
+    }
+
+    /**
      * @return string[]
      */
     public function getData(): array
@@ -24,8 +39,8 @@ class NewUserButton implements ButtonProviderInterface
         return [
             'buttonType' => 'primary',
             'class' => 'btn-primary',
-            'buttonAction' => '',
-            'label' => 'New User'
+            'buttonAction' => $this->url->getUrlByRouteName('user_index_new'),
+            'label' => 'Add New User'
         ];
     }
 }

@@ -8,9 +8,11 @@
 
 namespace ProgramCms\ConfigBundle\Model;
 
+use ProgramCms\ConfigBundle\Model\Attribute\Backend\AbstractBackend;
 use ProgramCms\ConfigBundle\Model\Structure\Element\Field;
 use ProgramCms\CoreBundle\App\ScopeInterface;
 use ProgramCms\CoreBundle\Model\DataObject;
+use ProgramCms\CoreBundle\Model\ObjectManager;
 
 /**
  * Class Config
@@ -34,16 +36,23 @@ class Config extends DataObject
     protected \ProgramCms\ConfigBundle\App\Config $config;
 
     /**
+     * @var ObjectManager
+     */
+    protected ObjectManager $objectManager;
+
+    /**
      * Config constructor.
      * @param ConfigSerializer $configSerializer
      * @param Loader $loader
      * @param \ProgramCms\ConfigBundle\App\Config $config
+     * @param ObjectManager $objectManager
      * @param array $data
      */
     public function __construct(
         ConfigSerializer $configSerializer,
         Loader $loader,
         \ProgramCms\ConfigBundle\App\Config $config,
+        ObjectManager $objectManager,
         array $data = []
     )
     {
@@ -51,6 +60,7 @@ class Config extends DataObject
         $this->configSerializer = $configSerializer;
         $this->loader = $loader;
         $this->config = $config;
+        $this->objectManager = $objectManager;
     }
 
     /**
@@ -74,18 +84,11 @@ class Config extends DataObject
      * @param $groups
      * @param $sectionId
      * @param $oldConfig
+     * @throws \ReflectionException
      */
     protected function _processGroup($groupId, $groupData, $groups, $sectionId, $oldConfig)
     {
-        $groupPath = $sectionId . '/' . $groupId;
-
         if (isset($groupData['fields'])) {
-            $group = $this->configSerializer->getElement($groupPath);
-            $fieldsetData = [];
-            foreach ($groupData['fields'] as $fieldId => $fieldData) {
-                $fieldsetData[$fieldId] = $fieldData['value'] ?? null;
-            }
-
             foreach ($groupData['fields'] as $fieldId => $fieldData) {
                 $field = $this->getField($sectionId, $groupId, $fieldId);
 
@@ -93,8 +96,15 @@ class Config extends DataObject
                     $fieldData['value'] = null;
                 }
 
-                if ($field->getType() == 'multiline' && is_array($fieldData['value'])) {
+                if ($field->getType() == 'multiselect' && is_array($fieldData['value'])) {
                     $fieldData['value'] = trim(implode(PHP_EOL, $fieldData['value']));
+                }
+
+                if($field->hasBackendModel()) {
+                    $backendModelClass = $field->getBackendModel();
+                    /** @var AbstractBackend $backendModel */
+                    $backendModel = $this->objectManager->create($backendModelClass);
+                    $backendModel->beforeSave($fieldData);
                 }
 
                 $path = $this->getFieldPath($sectionId, $groupId, $fieldId);

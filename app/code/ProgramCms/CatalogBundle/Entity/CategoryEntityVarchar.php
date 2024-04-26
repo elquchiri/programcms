@@ -9,6 +9,7 @@
 namespace ProgramCms\CatalogBundle\Entity;
 
 use ProgramCms\CatalogBundle\Repository\CategoryEntityVarcharRepository;
+use ProgramCms\CatalogBundle\App\ScopedAttributeValue;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -16,22 +17,32 @@ use Doctrine\ORM\Mapping as ORM;
  * @package ProgramCms\CatalogBundle\Entity
  */
 #[ORM\Entity(repositoryClass: CategoryEntityVarcharRepository::class)]
-class CategoryEntityVarchar
+class CategoryEntityVarchar extends ScopedAttributeValue
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $value_id = null;
-
-    #[ORM\Column]
-    private ?int $attribute_id = null;
-
-    #[ORM\Column]
-    private ?int $website_view_id = null;
-
-    #[ORM\Column]
-    private ?int $entity_id = null;
-
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     private ?string $value = null;
+
+    /**
+     * @param mixed $value
+     * @return $this
+     */
+    public function setValue(mixed $value): static
+    {
+        if(is_string($value) && !empty($value)) {
+            $this->value = $value;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getValue(): ?string
+    {
+        return $this->value;
+    }
 }

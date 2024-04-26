@@ -8,14 +8,15 @@
 
 namespace ProgramCms\ThemeBundle\Controller\Adminhtml\Index;
 
+use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\RouterBundle\Service\Url;
 
 /**
- * Class IndexController
+ * Class ConfigController
  * @package ProgramCms\ThemeBundle\Controller\Adminhtml\Index
  */
-class ConfigController extends \ProgramCms\CoreBundle\Controller\AdminController
+class ConfigController extends AdminController
 {
     /**
      * @var Url
@@ -23,7 +24,7 @@ class ConfigController extends \ProgramCms\CoreBundle\Controller\AdminController
     protected Url $url;
 
     /**
-     * IndexController constructor.
+     * ConfigController constructor.
      * @param Context $context
      * @param Url $url
      */

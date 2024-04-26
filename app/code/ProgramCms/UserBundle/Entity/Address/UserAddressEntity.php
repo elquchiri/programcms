@@ -40,10 +40,10 @@ class UserAddressEntity extends Entity
     private ?string $city;
 
     /**
-     * @var int|null
+     * @var string|null
      */
-    #[ORM\Column(type: 'integer')]
-    private ?int $country_id;
+    #[ORM\Column(type: 'string', length: 5)]
+    private ?string $country_code;
 
     /**
      * @var string|null
@@ -102,6 +102,56 @@ class UserAddressEntity extends Entity
     public function setUser(UserEntity $userEntity): static
     {
         $this->user = $userEntity;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFirstName(): ?string
+    {
+        return $this->first_name;
+    }
+
+    public function setFirstName(string $firstName): static
+    {
+        $this->first_name = $firstName;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLastName(): ?string
+    {
+        return $this->last_name;
+    }
+
+    /**
+     * @param string $lastName
+     * @return $this
+     */
+    public function setLastName(string $lastName): static
+    {
+        $this->last_name = $lastName;
+        return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsActive(): ?bool
+    {
+        return $this->is_active;
+    }
+
+    /**
+     * @param bool $isActive
+     * @return $this
+     */
+    public function setIsActive(bool $isActive): static
+    {
+        $this->is_active = $isActive;
         return $this;
     }
 }

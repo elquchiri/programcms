@@ -10,13 +10,14 @@ namespace ProgramCms\ConfigBundle\Entity;
 
 use ProgramCms\ConfigBundle\Repository\CoreConfigDataRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
 
 /**
  * Class CoreConfigData
  * @package ProgramCms\ConfigBundle\Entity
  */
 #[ORM\Entity(repositoryClass: CoreConfigDataRepository::class)]
-class CoreConfigData
+class CoreConfigData extends AbstractEntity
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -123,5 +124,13 @@ class CoreConfigData
     {
         $this->value = $value;
         return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getEntityId(): ?int
+    {
+        return $this->config_id;
     }
 }

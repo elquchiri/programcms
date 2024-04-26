@@ -8,19 +8,15 @@
 
 namespace ProgramCms\WebsiteBundle\Model\Provider\DataSource;
 
-use ProgramCms\RouterBundle\Service\Request;
+use ProgramCms\UiBundle\Model\Provider\DataSource\Options;
 use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
 
 /**
  * Class Websites
  * @package ProgramCms\WebsiteBundle\Model\Provider\DataSource
  */
-class Websites extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
+class Websites extends Options
 {
-    /**
-     * @var Request
-     */
-    protected Request $request;
     /**
      * @var WebsiteRepository
      */
@@ -28,15 +24,12 @@ class Websites extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
 
     /**
      * Websites constructor.
-     * @param Request $request
      * @param WebsiteRepository $websiteRepository
      */
     public function __construct(
-        Request $request,
         WebsiteRepository $websiteRepository,
     )
     {
-        $this->request = $request;
         $this->websiteRepository = $websiteRepository;
     }
 
@@ -46,15 +39,10 @@ class Websites extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
     public function getOptionsArray(): array
     {
         $options = [];
-
         $websites = $this->websiteRepository->findAll();
-        /**
-         * Populate Options
-         */
         foreach($websites as $website) {
             $options[$website->getWebsiteId()] = $website->getWebsiteName();
         }
-
         return $options;
     }
 }

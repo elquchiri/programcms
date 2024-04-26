@@ -9,14 +9,12 @@
 namespace ProgramCms\CoreBundle\Model\Db\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use ProgramCms\EavBundle\EventListener\EntityListener;
 use DateTime;
 
 /**
  * Class Entity
  * @package ProgramCms\CoreBundle\Entity
  */
-#[ORM\EntityListeners([EntityListener::class])]
 class Entity extends AbstractEntity
 {
     /**

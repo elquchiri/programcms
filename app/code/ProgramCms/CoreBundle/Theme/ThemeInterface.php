@@ -15,6 +15,11 @@ namespace ProgramCms\CoreBundle\Theme;
 interface ThemeInterface
 {
     /**
+     * Default Area
+     */
+    const DEFAULT_AREA = 'frontend';
+
+    /**
      * @return string
      */
     public function getName(): string;
@@ -33,4 +38,9 @@ interface ThemeInterface
      * @return string
      */
     public function getNamespace(): string;
+
+    /**
+     * @return string
+     */
+    public function getArea(): string;
 }

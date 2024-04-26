@@ -8,6 +8,7 @@
 
 namespace ProgramCms\WebsiteBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
 use ProgramCms\WebsiteBundle\Model\ScopeInterface;
@@ -15,6 +16,10 @@ use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
 use ProgramCms\CoreBundle\App\ScopeInterface as AppScopeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Class Website
+ * @package ProgramCms\WebsiteBundle\Entity
+ */
 #[ORM\Entity(repositoryClass: WebsiteRepository::class)]
 class Website extends AbstractEntity implements AppScopeInterface
 {
@@ -55,7 +60,7 @@ class Website extends AbstractEntity implements AppScopeInterface
      */
     #[ORM\ManyToOne(targetEntity: WebsiteGroup::class)]
     #[ORM\JoinColumn(name: 'default_website_group_id', referencedColumnName: 'website_group_id')]
-    private ?WebsiteGroup $defaultGroup;
+    private ?WebsiteGroup $defaultGroup = null;
 
     /**
      * @var int|null
@@ -64,15 +69,29 @@ class Website extends AbstractEntity implements AppScopeInterface
     private ?int $is_default = null;
 
     /**
-     * @var Collection|null
+     * @var Collection
      */
     #[ORM\OneToMany(mappedBy: 'website', targetEntity: WebsiteGroup::class)]
-    private ?Collection $groups = null;
+    private Collection $groups;
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+        $this->groups = new ArrayCollection();
+    }
 
     /**
      * @return int|null
      */
     public function getWebsiteId(): ?int
+    {
+        return $this->website_id;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getEntityId(): ?int
     {
         return $this->website_id;
     }
@@ -96,10 +115,10 @@ class Website extends AbstractEntity implements AppScopeInterface
     }
 
     /**
-     * @param string $is_active
+     * @param mixed $is_active
      * @return $this
      */
-    public function setIsActive(string $is_active): static
+    public function setIsActive(mixed $is_active): static
     {
         $this->is_active = $is_active === 'on' ? 1 : 0;
         return $this;
@@ -213,7 +232,7 @@ class Website extends AbstractEntity implements AppScopeInterface
     }
 
     /**
-     * @param Website $website
+     * @param WebsiteGroup $websiteGroup
      * @return $this
      */
     public function addGroup(WebsiteGroup $websiteGroup): static

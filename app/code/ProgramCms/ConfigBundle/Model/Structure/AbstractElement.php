@@ -9,13 +9,14 @@
 namespace ProgramCms\ConfigBundle\Model\Structure;
 
 use ProgramCms\ConfigBundle\App\Context;
+use ProgramCms\ConfigBundle\Model\StructureElementInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class AbstractElement
  * @package ProgramCms\ConfigBundle\Model\Structure
  */
-abstract class AbstractElement implements \ProgramCms\ConfigBundle\Model\StructureElementInterface
+abstract class AbstractElement implements StructureElementInterface
 {
     /**
      * @var array

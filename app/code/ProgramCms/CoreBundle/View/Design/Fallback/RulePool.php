@@ -206,14 +206,14 @@ class RulePool
                 'rule' => $this->simpleFactory->create(['pattern' => "<theme_dir>/assets/css/source"])
             ]),
             'ruleModular' => new Composite([
+                $this->themeFactory->create([
+                    'rule' => $this->simpleFactory->create(['pattern' => "<theme_dir>/<bundle_name>/assets/css/source"])
+                ]),
                 $this->bundleFactory->create([
                     'rule' => $this->simpleFactory->create(['pattern' => "<bundle_dir>/Resources/views/<area>/assets/css/source"])
                 ]),
                 $this->bundleFactory->create([
                     'rule' => $this->simpleFactory->create(['pattern' => "<bundle_dir>/Resources/views/base/assets/css/source"])
-                ]),
-                $this->themeFactory->create([
-                    'rule' => $this->simpleFactory->create(['pattern' => "<theme_dir>/<bundle_name>/assets/css/source"])
                 ])
             ])
         ]);

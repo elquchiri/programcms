@@ -25,25 +25,31 @@ a {
 
 .main-wrapper {
   height: 100%;
-  margin-left: 93px;
+  margin-left: 87px;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: stretch;
   align-content: stretch;
+
+  .content-container {
+    .side-col {
+      padding-right: 15px;
+    }
+  }
 }
 
 .notices-notifications {
-  padding: 0 21px 0 31px;
+  padding: 0 21px 0 25px;
 }
 
 .page-main-actions {
-  padding: 31px 21px 0 31px;
+  padding: 31px 21px 0 25px;
 }
 
 .messages-wrapper {
-  padding: 11px 21px 0 31px;
+  padding: 11px 21px 0 25px;
   font-size: 14px;
 }
 
@@ -51,7 +57,7 @@ a {
   height: 100%;
 }
 .content .content-header {
-  padding: 31px 21px 0 31px;
+  padding: 31px 21px 0 25px;
 }
 .content .content-header h2 {
   padding: 0;
@@ -63,5 +69,5 @@ a {
   padding: 5px 0 0 5px;
 }
 .content .content-container {
-  padding: 21px 21px 0 31px;
+  padding: 21px 21px 0 25px;
 }

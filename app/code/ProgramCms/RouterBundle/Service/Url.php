@@ -21,10 +21,12 @@ class Url
      * @var UrlGeneratorInterface
      */
     protected UrlGeneratorInterface $urlGenerator;
+
     /**
      * @var AreaList
      */
     protected AreaList $areaList;
+
     /**
      * @var Request
      */
@@ -39,7 +41,7 @@ class Url
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         AreaList $areaList,
-        \ProgramCms\RouterBundle\Service\Request $request
+        Request $request
     )
     {
         $this->urlGenerator = $urlGenerator;
@@ -52,7 +54,7 @@ class Url
      */
     public function getBaseUrl(): string
     {
-        return $this->urlGenerator->generate('', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        return $this->request->getCurrentRequest()->getSchemeAndHttpHost();
     }
 
     /**

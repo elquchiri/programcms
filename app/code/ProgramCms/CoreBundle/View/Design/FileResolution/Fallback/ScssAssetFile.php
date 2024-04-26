@@ -10,7 +10,7 @@ namespace ProgramCms\CoreBundle\View\Design\FileResolution\Fallback;
 
 use ProgramCms\CoreBundle\App\State;
 use ProgramCms\CoreBundle\View\Design\Fallback\RulePool;
-use ProgramCms\CoreBundle\View\Design\FileResolution\Fallback\Resolver\Merge;
+use ProgramCms\CoreBundle\View\Design\FileResolution\Fallback\Resolver\Simple;
 use ProgramCms\CoreBundle\View\Design\ThemeInterface;
 
 /**
@@ -31,11 +31,11 @@ class ScssAssetFile extends File
 
     /**
      * ScssAssetFile constructor.
-     * @param Merge $resolver
+     * @param Simple $resolver
      * @param State $state
      */
     public function __construct(
-        Merge $resolver,
+        Simple $resolver,
         State $state,
     )
     {
