@@ -8,11 +8,13 @@
 
 namespace ProgramCms\ThemeBundle\Block\Html;
 
+use ProgramCms\CoreBundle\View\Element\Template;
+
 /**
  * Class Breadcrumbs
  * @package ProgramCms\ThemeBundle\Block\Html
  */
-class Breadcrumbs extends \ProgramCms\CoreBundle\View\Element\Template
+class Breadcrumbs extends Template
 {
 
 }

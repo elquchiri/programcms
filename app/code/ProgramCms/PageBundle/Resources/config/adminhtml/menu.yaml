@@ -1,0 +1,15 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+menu:
+  content:
+    groups:
+      elements:
+        actions:
+          pages:
+            label: "Pages"
+            action: 'page_index_index'
+            sortOrder: 1

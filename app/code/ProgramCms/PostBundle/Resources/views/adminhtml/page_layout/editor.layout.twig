@@ -1,0 +1,17 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% layout %}
+    {% require handle="admin-1column" %}
+
+    {% referenceContainer name="main.wrapper" remove="true" %}{% endReferenceContainer %}
+
+    {% referenceContainer name="page.content" %}
+        {% container name="main.editor" htmlTag="div" htmlClass="main-wrapper" %}{% endContainer %}
+    {% endReferenceContainer %}
+{% endLayout %}

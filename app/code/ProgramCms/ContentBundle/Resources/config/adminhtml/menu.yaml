@@ -12,12 +12,8 @@ menu:
     groups:
       elements:
         label: 'Elements'
-        sortOrder: 1
+        sortOrder: 2
         actions:
-          help:
-            label: "Pages"
-            action: ''
-            sortOrder: 1
           about:
             label: 'Piece of Content'
             action: ''

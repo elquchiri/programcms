@@ -11,6 +11,7 @@ namespace ProgramCms\PostBundle\Controller\Adminhtml\Index;
 use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\CoreBundle\View\Result\Page;
 use ReflectionException;
 
 /**
@@ -44,7 +45,7 @@ class IndexController extends AdminController
      */
     public function execute(): object
     {
-        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
+        $pageResult = $this->objectManager->create(Page::class);
         $pageResult->getConfig()->getTitle()->set(
             $this->trans("Posts")
         );

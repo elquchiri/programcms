@@ -9,7 +9,7 @@
 namespace ProgramCms\CatalogBundle\Entity;
 
 use DateTime;
-use ProgramCms\CatalogBundle\App\ScopedAttributeValue;
+use ProgramCms\WebsiteBundle\App\ScopedAttributeValue;
 use ProgramCms\CatalogBundle\Repository\CategoryEntityDatetimeRepository;
 use Doctrine\ORM\Mapping as ORM;
 

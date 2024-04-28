@@ -6,6 +6,85 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-{% page layout="admin-2columns-left" %}
-    {% referenceContainer name="content" %}{% endReferenceContainer %}
+{% page %}
+    {% referenceContainer name="content" %}
+        {% block name="themes_listing" class="ui.block.listing" %}
+            {% arguments %}
+                {% argument name="buttons" type="array" %}
+                    {% argument name="new" type="string" %}ProgramCms\PostBundle\Model\Provider\Button\NewPostButton{% endArgument %}
+                {% endArgument %}
+                {% argument name="dataSource" type="array" %}
+                    {% argument name="dataProvider" type="array" %}
+                        {% argument name="class" type="string" %}ProgramCms\PostBundle\Model\Provider\PostDataProvider{% endArgument %}
+                        {% argument name="primaryFieldName" type="string" %}entity_id{% endArgument %}
+                        {% argument name="requestFieldName" type="string" %}id{% endArgument %}
+                    {% endArgument %}
+                {% endArgument %}
+            {% endArguments %}
+            {% block name="toolbar" class="ui.block.listing.toolbar" %}
+                {% block name="filters" class="ui.block.listing.filters" %}{% endBlock %}
+                {% block name="search" class="ui.block.listing.search" %}{% endBlock %}
+                {% block name="massActions" class="ui.block.listing.massActions" %}
+                    {% arguments %}
+                        {% argument name="settings" type="array" %}
+                            {% argument name="delete" type="array" %}
+                                {% argument name="url" type="string" %}delete{% endArgument %}
+                                {% argument name="label" type="string" %}Delete All{% endArgument %}
+                            {% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="pagination" class="ui.block.listing.pagination" %}{% endBlock %}
+            {% endBlock %}
+            {% block name="columns" class="ui.block.columns" %}
+                {% block name="selectionsColumn" class="ui.block.selectionsColumn" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="entity_id" class="ui.block.column" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="label" type="string" %}#{% endArgument %}
+                            {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="theme_title" class="ui.block.column" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="label" type="string" %}Title{% endArgument %}
+                            {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="parent_theme_title" class="ui.block.column" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="label" type="string" %}Parent Theme{% endArgument %}
+                            {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="theme_path" class="ui.block.column" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="label" type="string" %}Path{% endArgument %}
+                            {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="actionsColumn" class="ProgramCms\\ThemeBundle\\Ui\\Grid\\Column\\ThemeActions" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="label" type="string" %}Actions{% endArgument %}
+                            {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+            {% endBlock %}
+        {% endBlock %}
+    {% endReferenceContainer %}
 {% endPage %}

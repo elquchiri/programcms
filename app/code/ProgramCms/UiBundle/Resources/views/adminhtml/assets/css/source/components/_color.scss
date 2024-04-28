@@ -330,7 +330,6 @@ input.clr-color:focus {
 }
 
 .clr-field {
-  display: inline-block;
   position: relative;
   color: transparent;
 }
@@ -358,7 +357,6 @@ input.clr-color:focus {
   text-indent: -1000px;
   white-space: nowrap;
   overflow: hidden;
-  pointer-events: none;
 }
 
 .clr-field.clr-rtl button {
@@ -598,5 +596,5 @@ input.clr-color:focus {
 }
 
 .circle .clr-field button {
-  border-radius: 50%;
+  border-radius: 5px;
 }

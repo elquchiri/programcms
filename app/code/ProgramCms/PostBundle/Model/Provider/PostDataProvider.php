@@ -8,18 +8,23 @@
 
 namespace ProgramCms\PostBundle\Model\Provider;
 
+use ProgramCms\PostBundle\Model\Collection\Collection;
+use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;
+
 /**
  * Class PostDataProvider
  * @package ProgramCms\PostBundle\Model\Provider
  */
-class PostDataProvider extends \ProgramCms\UiBundle\Model\Provider\DataProvider\AbstractDataProvider
+class PostDataProvider extends AbstractDataProvider
 {
-
     /**
-     * @return mixed
+     * PostDataProvider constructor.
+     * @param Collection $collection
      */
-    public function getData(): mixed
+    public function __construct(
+        Collection $collection
+    )
     {
-
+        $this->collection = $collection;
     }
 }

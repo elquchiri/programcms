@@ -1,0 +1,34 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="row">
+    <div class="col-md-9">
+        <div
+                data-controller="editor"
+                id="{{ block.getNameInLayout() }}"
+                class="full-editor"
+                aria-describedby="{{ block.getNameInLayout() }}"
+                data-editor-placeholder-value="{{ block.trans('Write your post ...') }}"
+                style="width: 85%; margin: 0 auto 0 auto;"
+        ></div>
+    </div>
+    <div class="col-md">
+        <form>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>

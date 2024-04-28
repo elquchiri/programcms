@@ -121,3 +121,5 @@
 "Anonymization can be a good solution, this will completely encode user's data and helps keeping it in the database.": "يمكن أن يكون إخفاء الهوية حلاً جيدًا، حيث سيؤدي ذلك إلى تشفير بيانات المستخدم بالكامل ويساعد في الاحتفاظ بها في قاعدة البيانات."
 "Cancel": "إلغاء"
 "Username": "اسم المستخدم"
+"Woman": "أُنثى"
+"Man": "ذَكَر"

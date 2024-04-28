@@ -8,6 +8,7 @@
 
 namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\Website;
 
+use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\RouterBundle\Service\Url;
 use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
@@ -17,12 +18,13 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  * Class IndexController
  * @package ProgramCms\WebsiteBundle\Controller\Adminhtml\Website
  */
-class IndexController extends \ProgramCms\CoreBundle\Controller\AdminController
+class IndexController extends AdminController
 {
     /**
      * @var Url
      */
     protected Url $url;
+
     /**
      * @var WebsiteRepository
      */

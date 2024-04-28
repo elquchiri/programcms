@@ -35,4 +35,14 @@ class CategoryRepository extends AbstractRepository
     {
         return $this->findOneBy(['entity_id' => $id]);
     }
+
+    /**
+     * Get Default Category
+     * @return object|null
+     */
+    public function getDefaultCategory(): ?Category
+    {
+        $all = $this->findAll();
+        return reset($all);
+    }
 }

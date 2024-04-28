@@ -8,8 +8,10 @@
 
 namespace ProgramCms\MailBundle;
 
+use ProgramCms\ConfigBundle\ProgramCmsConfigBundle;
 use ProgramCms\CoreBundle\ProgramCmsCoreBundle;
 use ProgramCms\ThemeBundle\ProgramCmsThemeBundle;
+use ProgramCms\UiBundle\ProgramCmsUiBundle;
 
 /**
  * Class ProgramCmsMailBundle
@@ -26,7 +28,9 @@ class ProgramCmsMailBundle extends ProgramCmsCoreBundle
     {
         return [
             ProgramCmsCoreBundle::class,
+            ProgramCmsConfigBundle::class,
             ProgramCmsThemeBundle::class,
+            ProgramCmsUiBundle::class
         ];
     }
 }

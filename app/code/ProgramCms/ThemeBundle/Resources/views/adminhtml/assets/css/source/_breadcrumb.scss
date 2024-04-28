@@ -1,0 +1,17 @@
+/*!
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+
+.breadcrumb-container {
+  margin-top: .5rem;
+  padding-left: 25px;
+  padding-top: 31px;
+  font-size: 13px;
+}
+
+.breadcrumb-content ~ .content-header {
+  padding-top: 0 !important;
+}

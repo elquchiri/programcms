@@ -11,13 +11,16 @@
         {% block name="sidebar" class="ProgramCms\\AdminBundle\\Block\\Sidebar" template="@ProgramCmsAdminBundle/sidebar.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}
     {% referenceContainer name="main.top" %}
-        {% container name="navbar.header" htmlTag="nav" htmlClass="navbar navbar-expand-lg container-fluid content-header" %}
+        {% container name="navbar.header" htmlTag="nav" htmlClass="navbar navbar-expand-lg content-header" %}
             {# Page Title Block #}
             {% block name="page.title" class="ProgramCms\\ThemeBundle\\Block\\Html\\Title" template="@ProgramCmsThemeBundle/title.html.twig" %}{% endBlock %}
             {# Admin Navbar Fast Access Container #}
             {% container name="navbar.collapse" htmlTag="div" htmlClass="collapse navbar-collapse justify-content-end" %}
                 {% block name="account.dropdown" class="ProgramCms\\AdminBundle\\Block\\Account\\Navigation" template="@ProgramCmsAdminBundle/admin_account_dropdown.html.twig" %}{% endBlock %}
             {% endContainer %}
+        {% endContainer %}
+        {% container name="breadcrumb" htmlTag="div" htmlClass="breadcrumb-content" before="-" %}
+            {% block name="breadcrumb.content" class="ProgramCms\\ThemeBundle\\Block\\Html\\Breadcrumb" template="@ProgramCmsThemeBundle/breadcrumb.html.twig" %}{% endBlock %}
         {% endContainer %}
     {% endReferenceContainer %}
     {% referenceContainer name="page.main.actions" %}

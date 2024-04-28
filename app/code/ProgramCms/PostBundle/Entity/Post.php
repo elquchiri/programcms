@@ -8,79 +8,67 @@
 
 namespace ProgramCms\PostBundle\Entity;
 
-use ProgramCms\PostBundle\Repository\PostRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ProgramCms\EavBundle\Entity\EavAttributeSet;
+use ProgramCms\EavBundle\Model\Entity\Entity;
+use ProgramCms\PostBundle\Api\PostInterface;
+use ProgramCms\PostBundle\Repository\PostRepository;
+use ProgramCms\UserBundle\Entity\UserEntity;
 
+/**
+ * Class Post
+ * @package ProgramCms\PostBundle\Entity
+ */
 #[ORM\Entity(repositoryClass: PostRepository::class)]
-class Post
+class Post extends Entity implements PostInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @var EavAttributeSet|null
+     */
+    #[ORM\ManyToOne(targetEntity: EavAttributeSet::class)]
+    #[ORM\JoinColumn(name: 'attribute_set_id', referencedColumnName: 'attribute_set_id', nullable: true)]
+    private ?EavAttributeSet $attributeSet = null;
 
-    #[ORM\Column]
-    private ?int $entity_id = null;
+    /**
+     * @var UserEntity|null
+     */
+    #[ORM\ManyToOne(targetEntity: UserEntity::class)]
+    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'entity_id')]
+    private ?UserEntity $user;
 
-    #[ORM\Column(length: 255)]
-    private ?string $customer_firstname = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $customer_lastname = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $customer_email = null;
-
-    public function getId(): ?int
+    /**
+     * @return UserEntity|null
+     */
+    public function getUser(): ?UserEntity
     {
-        return $this->id;
+        return $this->user;
     }
 
-    public function getEntityId(): ?int
+    /**
+     * @param UserEntity $user
+     * @return $this
+     */
+    public function setUser(UserEntity $user): static
     {
-        return $this->entity_id;
-    }
-
-    public function setEntityId(int $entity_id): self
-    {
-        $this->entity_id = $entity_id;
-
+        $this->user = $user;
         return $this;
     }
 
-    public function getCustomerFirstname(): ?string
+    /**
+     * @return EavAttributeSet|null
+     */
+    public function getAttributeSet(): ?EavAttributeSet
     {
-        return $this->customer_firstname;
+        return $this->attributeSet;
     }
 
-    public function setCustomerFirstname(string $customer_firstname): self
+    /**
+     * @param EavAttributeSet $attributeSet
+     * @return $this
+     */
+    public function setAttributeSet(EavAttributeSet $attributeSet): static
     {
-        $this->customer_firstname = $customer_firstname;
-
-        return $this;
-    }
-
-    public function getCustomerLastname(): ?string
-    {
-        return $this->customer_lastname;
-    }
-
-    public function setCustomerLastname(string $customer_lastname): self
-    {
-        $this->customer_lastname = $customer_lastname;
-
-        return $this;
-    }
-
-    public function getCustomerEmail(): ?string
-    {
-        return $this->customer_email;
-    }
-
-    public function setCustomerEmail(string $customer_email): self
-    {
-        $this->customer_email = $customer_email;
-
+        $this->attributeSet = $attributeSet;
         return $this;
     }
 }

@@ -9,11 +9,13 @@
 namespace ProgramCms\RouterBundle\Routing;
 
 use ProgramCms\CoreBundle\Data\Process\Find;
+use ProgramCms\CoreBundle\ProgramCmsCoreBundle;
 use ReflectionException;
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class ProgramCmsRouteLoader
@@ -99,13 +101,13 @@ class ProgramCmsRouteLoader extends Loader
 
         foreach ($bundles as $bundleClass) {
             $reflectedBundle = new \ReflectionClass($bundleClass);
-            if ($reflectedBundle->hasMethod('isProgramCmsBundle')) {
+            if ($reflectedBundle->isSubclassOf(ProgramCmsCoreBundle::class)) {
                 $bundleDirectory = dirname($reflectedBundle->getFileName());
                 $routesFilePath = $bundleDirectory . '/Resources/config/routes.yaml';
 
                 // Load the configuration file
                 if (file_exists($routesFilePath)) {
-                    $router = \Symfony\Component\Yaml\Yaml::parseFile($routesFilePath);
+                    $router = Yaml::parseFile($routesFilePath);
                     if(isset($router['router'])) {
                         $router = $router['router'];
                         if (isset($router[\ProgramCms\RouterBundle\Helper\Data::PROGRAMCMS_AREA_CODE_FRONTEND])) {

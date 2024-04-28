@@ -9,6 +9,7 @@
 namespace ProgramCms\EavBundle\Model\EntityManager\Entity\Attribute;
 
 use Doctrine\ORM\EntityManagerInterface;
+use ProgramCms\CoreBundle\Model\Db\Collection\AbstractCollection;
 use ProgramCms\EavBundle\Entity\EavAttribute;
 use ProgramCms\EavBundle\Entity\EavEntityType;
 use ProgramCms\EavBundle\Model\Config;
@@ -17,7 +18,7 @@ use ProgramCms\EavBundle\Model\Config;
  * Class Collection
  * @package ProgramCms\EavBundle\Model\EntityManager\Entity\Attribute
  */
-class Collection extends \ProgramCms\CoreBundle\Model\Db\Collection\AbstractCollection
+class Collection extends AbstractCollection
 {
     /**
      * @var Config

@@ -25,6 +25,11 @@ system_config:
               source: ProgramCms\AdminBundle\Model\Provider\DataSource\ThemeSelector
               helpMessage: 'If no value is specified, the system default is used. The system default may be modified by third-party bundles.'
               scope: 'default'
+            breadcrumb:
+              label: 'Enable Breadcrumb'
+              type: 'switcher'
+              helpMessage: 'It is recommended to activate the breadcrumb to have a clear view of the location where you are. This will activate breadcrumb on backoffice only.'
+              scope: 'default'
     developer:
       label: 'Developer'
       tab: 'core_advanced'

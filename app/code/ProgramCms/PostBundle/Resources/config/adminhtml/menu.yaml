@@ -5,11 +5,13 @@
 #  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
 ##
 menu:
-  catalog:
+  content:
     groups:
-      default:
+      posts:
+        label: 'Posts'
+        sortOrder: 1
         actions:
-          posts:
-            label: 'Posts'
+          help:
+            label: "Posts"
             action: 'post_index_index'
             sortOrder: 1

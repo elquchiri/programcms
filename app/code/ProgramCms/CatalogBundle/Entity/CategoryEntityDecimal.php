@@ -10,7 +10,7 @@ namespace ProgramCms\CatalogBundle\Entity;
 
 use ProgramCms\CatalogBundle\Repository\CategoryEntityDecimalRepository;
 use Doctrine\ORM\Mapping as ORM;
-use ProgramCms\CatalogBundle\App\ScopedAttributeValue;
+use ProgramCms\WebsiteBundle\App\ScopedAttributeValue;
 
 /**
  * Class CategoryEntityDecimal

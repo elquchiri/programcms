@@ -7,3 +7,11 @@
 
 @import "variables";
 @import "~bootstrap/scss/bootstrap";
+
+@import "breadcrumb";
+
+.form-control {
+  &:focus {
+    border: 1px solid $primary !important;
+  }
+}

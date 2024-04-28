@@ -9,7 +9,7 @@
 namespace ProgramCms\CatalogBundle\Entity;
 
 use ProgramCms\CatalogBundle\Repository\CategoryEntityVarcharRepository;
-use ProgramCms\CatalogBundle\App\ScopedAttributeValue;
+use ProgramCms\WebsiteBundle\App\ScopedAttributeValue;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

@@ -14,5 +14,8 @@ namespace ProgramCms\UiBundle\DataProvider;
  */
 interface ButtonProviderInterface
 {
+    /**
+     * @return array
+     */
     public function getData(): array;
 }

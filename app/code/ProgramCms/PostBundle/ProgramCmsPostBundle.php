@@ -8,9 +8,12 @@
 
 namespace ProgramCms\PostBundle;
 
+use ProgramCms\AdminBundle\ProgramCmsAdminBundle;
 use ProgramCms\CatalogBundle\ProgramCmsCatalogBundle;
+use ProgramCms\ConfigBundle\ProgramCmsConfigBundle;
 use ProgramCms\CoreBundle\ProgramCmsCoreBundle;
 use ProgramCms\ThemeBundle\ProgramCmsThemeBundle;
+use ProgramCms\UiBundle\ProgramCmsUiBundle;
 use ProgramCms\UserBundle\ProgramCmsUserBundle;
 
 /**
@@ -28,9 +31,12 @@ class ProgramCmsPostBundle extends ProgramCmsCoreBundle
     {
         return [
             ProgramCmsCoreBundle::class,
+            ProgramCmsConfigBundle::class,
             ProgramCmsThemeBundle::class,
-            ProgramCmsCatalogBundle::class,
-            ProgramCmsUserBundle::class
+            ProgramCmsUiBundle::class,
+            ProgramCmsAdminBundle::class,
+            ProgramCmsUserBundle::class,
+            ProgramCmsCatalogBundle::class
         ];
     }
 }

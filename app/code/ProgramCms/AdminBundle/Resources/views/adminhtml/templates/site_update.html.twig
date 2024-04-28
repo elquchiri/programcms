@@ -6,7 +6,7 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<p class="mt-1" style="font-size: 11px; font-weight: 600; color: #0f5132">
+<p class="mt-2 mb-0" style="font-size: 11px; font-weight: 600; color: #0f5132">
     {{ block.getUpdatePhrase() }}
     <img
         src="{{ asset('bundles/programcmsadmin/images/updated-site.png') }}"
@@ -14,3 +14,4 @@
         alt="{{ block.trans('Updated Site Badge') }}"
     >
 </p>
+<p style="font-size: 11px;">{{ block.trans('Last update: 1 day ago.') }}</p>

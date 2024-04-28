@@ -9,26 +9,21 @@
 namespace ProgramCms\CatalogBundle\Controller\Adminhtml\Category;
 
 use ProgramCms\CatalogBundle\Repository\CategoryRepository;
-use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\CoreBundle\View\Result\Page;
+use ReflectionException;
 
 /**
  * Class EditController
  * @package ProgramCms\CatalogBundle\Controller\Adminhtml\Category
  */
-class EditController extends AdminController
+class EditController extends AbstractCategoryController
 {
     /**
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
-
-    /**
-     * @var CategoryRepository
-     */
-    private CategoryRepository $categoryRepository;
 
     /**
      * EditController constructor.
@@ -42,14 +37,13 @@ class EditController extends AdminController
         ObjectManager $objectManager
     )
     {
-        parent::__construct($context);
-        $this->categoryRepository = $categoryRepository;
+        parent::__construct($context, $categoryRepository);
         $this->objectManager = $objectManager;
     }
 
     /**
      * @return object|null
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function execute()
     {

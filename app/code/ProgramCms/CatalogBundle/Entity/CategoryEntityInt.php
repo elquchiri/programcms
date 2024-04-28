@@ -10,7 +10,7 @@ namespace ProgramCms\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use ProgramCms\CatalogBundle\Repository\CategoryEntityIntRepository;
-use ProgramCms\CatalogBundle\App\ScopedAttributeValue;
+use ProgramCms\WebsiteBundle\App\ScopedAttributeValue;
 
 /**
  * Class CategoryEntityInt

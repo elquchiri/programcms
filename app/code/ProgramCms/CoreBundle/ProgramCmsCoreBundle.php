@@ -21,15 +21,6 @@ class ProgramCmsCoreBundle extends Bundle implements DependentBundleInterface
     public const VERSION = '1.0.0';
 
     /**
-     * Define bundle as ProgramCms Bundle Type
-     * @return bool
-     */
-    public function isProgramCmsBundle(): bool
-    {
-        return true;
-    }
-
-    /**
      * @return string
      */
     public function getVersion(): string

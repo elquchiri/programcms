@@ -10,6 +10,7 @@ namespace ProgramCms\ConfigBundle\Controller\Adminhtml;
 
 use HttpResponseException;
 use ProgramCms\ConfigBundle\Model\ConfigSerializer;
+use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\CoreBundle\View\Result\Page;
@@ -21,7 +22,7 @@ use ReflectionException;
  * Class AbstractConfigController
  * @package ProgramCms\ConfigBundle\Controller\Adminhtml
  */
-abstract class AbstractConfigController extends \ProgramCms\CoreBundle\Controller\AdminController
+abstract class AbstractConfigController extends AdminController
 {
     /**
      * @var ObjectManager
@@ -83,13 +84,5 @@ abstract class AbstractConfigController extends \ProgramCms\CoreBundle\Controlle
             $this->translator->trans("Configuration")
         );
         return $pageResult;
-    }
-
-    /**
-     * @return ConfigSerializer
-     */
-    public function getConfigSerializer(): ConfigSerializer
-    {
-        return $this->configSerializer;
     }
 }

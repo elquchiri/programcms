@@ -49,6 +49,7 @@ class SaveController extends AdminController
      * @param Url $url
      * @param WebsiteRepository $websiteRepository
      * @param ObjectManager $objectManager
+     * @param ObjectSerializer $objectSerializer
      */
     public function __construct(
         Context $context,

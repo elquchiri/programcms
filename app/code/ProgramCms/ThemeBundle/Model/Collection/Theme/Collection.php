@@ -18,7 +18,7 @@ use ProgramCms\ThemeBundle\Entity\Theme;
 class Collection extends AbstractCollection
 {
     /**
-     * Initialize Collection
+     * Initialize Theme Collection
      */
     protected function _construct()
     {

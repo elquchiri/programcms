@@ -8,11 +8,13 @@
 
 namespace ProgramCms\ConfigBundle\Controller\Adminhtml\SystemConfig;
 
+use ProgramCms\ConfigBundle\Controller\Adminhtml\AbstractConfigController;
+
 /**
  * Class EditController
  * @package ProgramCms\ConfigBundle\Controller\Adminhtml\SystemConfig
  */
-class EditController extends \ProgramCms\ConfigBundle\Controller\Adminhtml\AbstractConfigController
+class EditController extends AbstractConfigController
 {
     /**
      * @return object|null

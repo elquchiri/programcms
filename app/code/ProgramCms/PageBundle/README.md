@@ -1,0 +1,1 @@
+The Favorite bundle contains common infrastructure that provides Favorite in ProgramCMS application.

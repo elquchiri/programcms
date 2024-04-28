@@ -58,7 +58,7 @@ Finally, run :
 ## Features & CMS Philosophy
 
 - Strong Authentication and Roles System
-- Improved Content Manager and Editor System
+- Improved Content Manager and Page Editor System
 - Improved And Full Control Page Views
 - Marketing System
 - Modular / Extensible System
@@ -75,6 +75,16 @@ Finally, run :
 - Strong & Full Customizable EAV System
 - Dependency Injection & Aspect-Oriented Programming Support
 - Data Based AI to process, generate and translate content
+- Advanced Email Templates Builder
+
+## Frontend Libraries
+| Library   | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| Stimulus | `Framework` |  |
+| Select2 | `Library` |  |
+| Interact | `Library` |  |
+| EditorJS | `Library` |  |
+| GrapesJS | `Library` |  |
 
 ## Demo
 
@@ -91,15 +101,24 @@ Backend Demo :
 - Catalog Categories
 
 ![image](public/images/backend-category-demo.png)
+
 - Centralized Configuration
 
 ![image](public/images/backend-config-demo.png)
+
+- Email & Newsletter Builder
+
+![image](public/images/backend-email-builder-demo.png)
 
 - i18n Dashboard AR:
 
 ![image](public/images/dashboard-ar.png)
 
-Frontend Home Page :
+- Page Builder
+
+![image](public/images/backend-page-builder-demo.png)
+
+Basic Frontend Home Page :
 
 ![image](public/images/frontend-demo.png)
 
@@ -114,9 +133,10 @@ Frontend Home Page :
 
 ## Remarkable Changes
 
-- 2022/12: First commit in the project
-- 2023/06: Changing Project name from ElectroForums to ProgramCMS
-- 2023/08: Finally, The Inspiring Logo (°P) Founded
+- 2022/12: First commit in the project.
+- 2023/06: Changing Project name from ElectroForums to ProgramCMS.
+- 2023/08: Finally, The Inspiring Logo (°P) Founded.
+- 2024/04: First stable beta version for internal use.
 ## Donation
 
 Your donation will help, Improve and Speed up productivity of The Amazing ProgramCMS.

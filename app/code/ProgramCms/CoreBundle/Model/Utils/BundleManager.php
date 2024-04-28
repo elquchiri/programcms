@@ -9,9 +9,9 @@
 namespace ProgramCms\CoreBundle\Model\Utils;
 
 use Exception;
+use ProgramCms\CoreBundle\ProgramCmsCoreBundle;
 use ReflectionException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use ProgramCms\CoreBundle\Helper\BundleManager as BundleManagerHelper;
 
 /**
  * Class BundleManager
@@ -51,7 +51,7 @@ class BundleManager
     /**
      * Get parameter from container
      * @param $parameter
-     * @return array|bool|float|int|string|\UnitEnum|null
+     * @return array|bool|float|int|string|null
      */
     public function getContainerParameter($parameter)
     {
@@ -68,7 +68,7 @@ class BundleManager
         $bundles = [];
         foreach ($this->getContainerParameter('kernel.bundles') as $bundleName => $bundleClass) {
             $reflectedBundle = new \ReflectionClass($bundleClass);
-            if ($reflectedBundle->hasMethod(BundleManagerHelper::PROGRAMCMS_METHOD_DEFINER) && $reflectedBundle->getMethod(BundleManagerHelper::PROGRAMCMS_METHOD_DEFINER)) {
+            if ($reflectedBundle->isSubclassOf(ProgramCmsCoreBundle::class)) {
                 $bundleDirectory = dirname($reflectedBundle->getFileName());
                 $bundles[$bundleName] = [
                     'name' => $reflectedBundle->getShortName(),

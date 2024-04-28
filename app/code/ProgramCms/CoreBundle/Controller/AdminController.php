@@ -124,4 +124,13 @@ abstract class AdminController extends AbstractController
             ? sprintf($this->translator->trans($message), ...$params)
             : $this->translator->trans($message);
     }
+
+    /**
+     * Helper to get user
+     * @return Security
+     */
+    public function getSecurity(): Security
+    {
+        return $this->security;
+    }
 }

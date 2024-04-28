@@ -47,7 +47,8 @@ class Notification extends Template
     {
         return [
             'message' => sprintf(
-                $this->translator->trans("One or more of the Cache Types are invalidated: Page Cache. Please go to %s and refresh cache types."), "<a href=\"#\">{$this->translator->trans("Cache Management")}</a>")
+                $this->translator->trans("Some of the Cache Types have been invalidated, specifically the Page Cache. Please navigate to %s and refresh the cache types."), "<a href=\"#\">{$this->translator->trans("Cache Management")}</a>"
+            )
         ];
     }
 }
