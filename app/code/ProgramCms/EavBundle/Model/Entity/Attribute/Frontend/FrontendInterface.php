@@ -16,8 +16,9 @@ interface FrontendInterface
 {
     /**
      * @param string $attributeCode
+     * @param $value
      * @param object $object
      * @return mixed
      */
-    public function getValue(string $attributeCode, object $object);
+    public function getValue(string $attributeCode, $value, object $object);
 }

@@ -31,15 +31,9 @@ abstract class AttributeValue extends AbstractEntity implements AttributeValueIn
     /**
      * @var EavAttribute|null
      */
-    #[ORM\OneToOne(targetEntity: EavAttribute::class)]
+    #[ORM\ManyToOne(targetEntity: EavAttribute::class)]
     #[ORM\JoinColumn(name: "attribute_id", referencedColumnName: "attribute_id")]
     protected ?EavAttribute $attribute_id = null;
-
-    /**
-     * @var int|null
-     */
-    #[ORM\Column]
-    protected ?int $entity_id = null;
 
     /**
      * @param int $valueId
@@ -75,24 +69,6 @@ abstract class AttributeValue extends AbstractEntity implements AttributeValueIn
     public function getAttributeId(): ?EavAttribute
     {
         return $this->attribute_id;
-    }
-
-    /**
-     * @param int $entityId
-     * @return $this
-     */
-    public function setEntityId(int $entityId): static
-    {
-        $this->entity_id = $entityId;
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getEntityId(): ?int
-    {
-        return $this->entity_id;
     }
 
     /**

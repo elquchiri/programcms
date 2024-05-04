@@ -21,10 +21,12 @@ class Request
      * @var \Symfony\Component\HttpFoundation\Request
      */
     protected \Symfony\Component\HttpFoundation\Request $request;
+
     /**
      * @var RouterInterface
      */
     protected RouterInterface $router;
+
     /**
      * @var RequestStack
      */
@@ -62,6 +64,7 @@ class Request
     }
 
     /**
+     * Set Request Parameter
      * @param $param
      * @param $value
      */
@@ -76,18 +79,13 @@ class Request
     public function getParameters(): array
     {
         $parameters = [];
-
         $request = $this->getCurrentRequest();
         $requestParams = explode('/', $request->get('parameters'));
-
-        for ($i=0; $i<count($requestParams); $i++) {
-            if(!isset($requestParams[$i+1])) {
-                break;
-            }
-
-            $parameters[$requestParams[$i]] = $requestParams[$i+1];
+        for ($i = 0; $i < count($requestParams) - 1; $i += 2) {
+            $key = $requestParams[$i];
+            $value = $requestParams[$i + 1];
+            $parameters[$key] = $value;
         }
-
         return $parameters ?? [];
     }
 

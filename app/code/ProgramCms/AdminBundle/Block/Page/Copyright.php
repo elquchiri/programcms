@@ -55,6 +55,7 @@ class Copyright extends \ProgramCms\CoreBundle\View\Element\Template
         return sprintf(
             $this->translator->trans("Copyright &copy; %s ProgramCMS Community Edition. All rights reserved."),
             $this->getCopyrightYear()
-        );
+        ) . "<br>Permission is hereby granted, free of charge, to any person obtaining a copy<br>
+of this software and associated documentation files (the \"Software\").";
     }
 }

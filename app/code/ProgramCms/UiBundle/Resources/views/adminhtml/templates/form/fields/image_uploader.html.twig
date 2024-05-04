@@ -12,13 +12,13 @@
     data-image-uploader-preview-value="{{ block.getPreviewId() }}"
     data-image-uploader-browse-value="#label-browse"
 >
-    <div class="btn-group mt-1" role="group" aria-label="{{ block.getId() }}">
+    <div class="mt-1" aria-label="{{ block.getId() }}">
         <a
             data-action="image-uploader#triggerBrowse"
-            class="btn btn-outline-secondary btn-sm border-end-0">
+            class="btn btn-outline-secondary btn-sm">
             {{ block.trans('Upload') }}
         </a>
-        <a class="btn btn-outline-secondary btn-sm" data-action="image-uploader#openMediaBrowser">{{ block.trans('Select from Gallery') }}</a>
+        <a class="btn btn-outline-secondary btn-sm ms-1" data-action="image-uploader#openMediaBrowser">{{ block.trans('Select from Gallery') }}</a>
     </div>
 
     <div class="image-uploader__browser mt-3" id="{{ block.getPreviewId() }}" {% if block.hasValue() %}style="background-image: url({{ block.getValue() }})"{% endif %}>

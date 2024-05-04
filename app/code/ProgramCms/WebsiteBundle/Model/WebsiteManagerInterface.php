@@ -31,6 +31,12 @@ interface WebsiteManagerInterface
     public function getWebsite($websiteId = null): ?Website;
 
     /**
+     * @param $websiteView
+     * @return $this
+     */
+    public function setCurrentWebsiteView($websiteView): static;
+
+    /**
      * @param null $groupId
      * @return WebsiteGroup|null
      */

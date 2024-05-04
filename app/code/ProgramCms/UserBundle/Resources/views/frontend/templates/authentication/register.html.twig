@@ -49,6 +49,13 @@
                                 <span class="text-danger">*</span>
                                 <input type="text" id="user_lastname" name="user_lastname" class="form-control" value="{{ block.getUser().getUserLastName() }}" />
                             </div>
+                            <div class="mb-3">
+                                <label for="user_lastname" class="form-label fw-bold">{{ block.trans('Country') }}</label>
+                                <span class="text-danger">*</span>
+                                <select id="user_country" name="user_country" class="form-select">
+                                    {{ block.getCountries()|raw }}
+                                </select>
+                            </div>
 
                             {{ block.getChildHtml()|raw }}
 

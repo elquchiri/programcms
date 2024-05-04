@@ -26,7 +26,7 @@ class LoginAsUserButton implements ButtonProviderInterface
             'buttonAction' => '',
             'label' => 'Access as User',
             'confirm' => [
-                'title' => 'You are about to access as user',
+                'title' => 'Access as User',
                 'text' => "Actions taken while in <span class='fw-bold' style='font-size: 14px;'>Authenticate as User</span> will affect actual user data. Please respect the user's privacy by asking for their consent before inspecting their user account.",
                 'yes' => 'Access as User',
                 'no' => 'Cancel'

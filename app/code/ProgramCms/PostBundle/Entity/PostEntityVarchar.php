@@ -9,7 +9,6 @@
 namespace ProgramCms\PostBundle\Entity;
 
 use ProgramCms\PostBundle\Repository\PostEntityVarcharRepository;
-use ProgramCms\WebsiteBundle\App\ScopedAttributeValue;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package ProgramCms\PostBundle\Entity
  */
 #[ORM\Entity(repositoryClass: PostEntityVarcharRepository::class)]
-class PostEntityVarchar extends ScopedAttributeValue
+class PostEntityVarchar extends \ProgramCms\PostBundle\App\Eav\AbstractPostEntity
 {
     /**
      * @var string|null

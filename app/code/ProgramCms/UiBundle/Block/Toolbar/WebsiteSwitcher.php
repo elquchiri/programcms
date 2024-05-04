@@ -8,9 +8,15 @@
 
 namespace ProgramCms\UiBundle\Block\Toolbar;
 
+use Doctrine\Common\Collections\AbstractLazyCollection;
+use Doctrine\ORM\LazyCriteriaCollection;
+use ProgramCms\CoreBundle\View\Element\Template;
 use ProgramCms\CoreBundle\View\Element\Template\Context;
 use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\WebsiteBundle\Entity\Website;
+use ProgramCms\WebsiteBundle\Entity\WebsiteGroup;
+use ProgramCms\WebsiteBundle\Entity\WebsiteView;
 use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
 use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
 use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
@@ -19,29 +25,36 @@ use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
  * Class WebsiteSwitcher
  * @package ProgramCms\UiBundle\Block\Toolbar
  */
-class WebsiteSwitcher extends \ProgramCms\CoreBundle\View\Element\Template
+class WebsiteSwitcher extends Template
 {
     /**
      * @var string
      */
     protected string $_template = "@ProgramCmsUiBundle/toolbar/website_switcher.html.twig";
+
     /**
      * @var WebsiteRepository
      */
     protected WebsiteRepository $websiteRepository;
+
     /**
      * @var Url
      */
     protected Url $url;
+
     /**
      * @var WebsiteViewRepository
      */
     protected WebsiteViewRepository $websiteViewRepository;
+
     /**
      * @var WebsiteGroupRepository
      */
     protected WebsiteGroupRepository $websiteGroupRepository;
 
+    /**
+     * @var mixed
+     */
     protected $_currentSectionId;
 
     /**
@@ -75,9 +88,9 @@ class WebsiteSwitcher extends \ProgramCms\CoreBundle\View\Element\Template
 
     /**
      * Get All Websites
-     * @return array
+     * @return AbstractLazyCollection|LazyCriteriaCollection
      */
-    public function getAllWebsites(): array
+    public function getAllWebsites()
     {
         return $this->websiteRepository->findAll();
     }
@@ -92,30 +105,42 @@ class WebsiteSwitcher extends \ProgramCms\CoreBundle\View\Element\Template
     }
 
     /**
-     * @param $website
+     * @param Website $website
      * @return string
      */
-    public function getWebsiteSwitcherUrl($website): string
+    public function getWebsiteSwitcherUrl(Website $website): string
     {
-        return $this->getUrl('config_systemconfig_edit', ['section' => $this->_currentSectionId, 'website' => $website->getWebsiteId()]);
+        return $this->url->getUrl('*', [
+            'website_view' => false,
+            'website' => $website->getWebsiteId(),
+            'website_group' => false
+        ]);
     }
 
     /**
-     * @param $group
+     * @param WebsiteGroup $group
      * @return string
      */
-    public function getWebsiteGroupSwitcherUrl($group): string
+    public function getWebsiteGroupSwitcherUrl(WebsiteGroup $group): string
     {
-        return $this->getUrl('config_systemconfig_edit', ['section' => $this->_currentSectionId, 'website_group' => $group->getWebsiteGroupId()]);
+        return $this->url->getUrl('*', [
+            'website_view' => false,
+            'website' => false,
+            'website_group' => $group->getWebsiteGroupId()
+        ]);
     }
 
     /**
-     * @param $websiteView
+     * @param WebsiteView $websiteView
      * @return string
      */
-    public function getWebsiteViewSwitcherUrl($websiteView): string
+    public function getWebsiteViewSwitcherUrl(WebsiteView $websiteView): string
     {
-        return $this->getUrl('config_systemconfig_edit', ['section' => $this->_currentSectionId, 'website_view' => $websiteView->getWebsiteViewId()]);
+        return $this->url->getUrl('*', [
+            'website_view' => $websiteView->getWebsiteViewId(),
+            'website' => false,
+            'website_group' => false
+        ]);
     }
 
     /**
@@ -142,5 +167,29 @@ class WebsiteSwitcher extends \ProgramCms\CoreBundle\View\Element\Template
      */
     public function getDefaultLabel(): string {
         return $this->hasData('default_label') ? $this->trans($this->getData('default_label')) : $this->trans('All Websites');
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSwitchWebsites(): bool
+    {
+        return $this->hasData('switch_websites') ? $this->getData('switch_websites') : true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSwitchGroups(): bool
+    {
+        return $this->hasData('switch_groups') ? $this->getData('switch_groups') : true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSwitchViews(): bool
+    {
+        return $this->hasData('switch_views') ? $this->getData('switch_views') : true;
     }
 }

@@ -23,7 +23,7 @@ abstract class ScopedAttributeValue extends AttributeValue implements ScopedAttr
     /**
      * @var WebsiteView|null
      */
-    #[ORM\OneToOne(targetEntity: WebsiteView::class)]
+    #[ORM\ManyToOne(targetEntity: WebsiteView::class)]
     #[ORM\JoinColumn(name: "website_view", referencedColumnName: "website_view_id")]
     protected ?WebsiteView $websiteView = null;
 

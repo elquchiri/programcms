@@ -9,8 +9,7 @@
 namespace ProgramCms\WebsiteBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
-use JetBrains\PhpStorm\Pure;
-use ProgramCms\CatalogBundle\Entity\Category;
+use ProgramCms\CatalogBundle\Entity\CategoryEntity;
 use ProgramCms\CoreBundle\App\ScopeInterface as AppScopeInterface;
 use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
 use ProgramCms\WebsiteBundle\Model\ScopeInterface;
@@ -66,16 +65,16 @@ class WebsiteGroup extends AbstractEntity implements AppScopeInterface
     /**
      * @var WebsiteView|null
      */
-    #[ORM\ManyToOne(targetEntity: WebsiteView::class)]
+    #[ORM\ManyToOne(targetEntity: WebsiteView::class, cascade: ["persist"])]
     #[ORM\JoinColumn(name: 'default_website_view_id', referencedColumnName: 'website_view_id')]
     private ?WebsiteView $defaultWebsiteView;
 
     /**
-     * @var Category|null
+     * @var CategoryEntity|null
      */
-    #[ORM\ManyToOne(targetEntity: Category::class)]
+    #[ORM\ManyToOne(targetEntity: CategoryEntity::class, cascade: ["persist"])]
     #[ORM\JoinColumn(name: 'root_category_id', referencedColumnName: 'entity_id')]
-    private ?Category $category = null;
+    private ?CategoryEntity $category = null;
 
     /**
      * @var ?Collection
@@ -228,24 +227,24 @@ class WebsiteGroup extends AbstractEntity implements AppScopeInterface
     /**
      * @return int|null
      */
-    #[Pure] public function getDefaultWebsiteViewId(): ?int
+    public function getDefaultWebsiteViewId(): ?int
     {
         return $this->defaultWebsiteView->getWebsiteViewId();
     }
 
     /**
-     * @return Category|null
+     * @return CategoryEntity|null
      */
-    public function getRootCategory(): ?Category
+    public function getCategory(): ?CategoryEntity
     {
         return $this->category;
     }
 
     /**
-     * @param string $category
+     * @param CategoryEntity $category
      * @return $this
      */
-    public function setRootCategory(Category $category): self
+    public function setCategory(CategoryEntity $category): self
     {
         $this->category = $category;
         return $this;

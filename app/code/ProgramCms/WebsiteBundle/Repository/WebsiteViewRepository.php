@@ -8,6 +8,9 @@
 
 namespace ProgramCms\WebsiteBundle\Repository;
 
+use Doctrine\Common\Collections\AbstractLazyCollection;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\LazyCriteriaCollection;
 use ProgramCms\CoreBundle\Repository\AbstractRepository;
 use ProgramCms\WebsiteBundle\Entity\WebsiteView;
 use Doctrine\Persistence\ManagerRegistry;
@@ -38,10 +41,19 @@ class WebsiteViewRepository extends AbstractRepository
 
     /**
      * @param string $code
-     * @return object|null
+     * @return WebsiteView|null
      */
     public function getByCode(string $code): ?object
     {
         return $this->findOneBy(['website_view_code' => $code]);
+    }
+
+    /**
+     * @return AbstractLazyCollection|LazyCriteriaCollection
+     */
+    public function findAll()
+    {
+        $criteria = Criteria::create();
+        return $this->matching($criteria->andWhere(Criteria::expr()->neq('website_view_code', 'admin')));
     }
 }

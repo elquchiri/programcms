@@ -57,13 +57,13 @@ Finally, run :
 
 ## Features & CMS Philosophy
 
+- Multi Website / Language System
 - Strong Authentication and Roles System
 - Improved Content Manager and Page Editor System
 - Improved And Full Control Page Views
 - Marketing System
 - Modular / Extensible System
 - Centralized Configuration System
-- Multi Website / Language System
 - ProgramCMS Manager for Extensions
 - Advanced Reporting System
 - Strong Administration Dashboard
@@ -76,6 +76,8 @@ Finally, run :
 - Dependency Injection & Aspect-Oriented Programming Support
 - Data Based AI to process, generate and translate content
 - Advanced Email Templates Builder
+- Advanced Text Chat System
+- Advanced Live Customer Service
 
 ## Frontend Libraries
 | Library   | Type     | Description                |
@@ -85,6 +87,7 @@ Finally, run :
 | Interact | `Library` |  |
 | EditorJS | `Library` |  |
 | GrapesJS | `Library` |  |
+| Socket.io | `Library` |  |
 
 ## Demo
 

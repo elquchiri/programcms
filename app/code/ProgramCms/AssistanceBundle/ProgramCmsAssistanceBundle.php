@@ -8,11 +8,14 @@
 
 namespace ProgramCms\AssistanceBundle;
 
+use ProgramCms\CoreBundle\ProgramCmsCoreBundle;
+use ProgramCms\ThemeBundle\ProgramCmsThemeBundle;
+
 /**
  * Class ProgramCmsAssistanceBundle
  * @package ProgramCms\AssistanceBundle
  */
-class ProgramCmsAssistanceBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
+class ProgramCmsAssistanceBundle extends ProgramCmsCoreBundle
 {
     public const VERSION = '1.0.0';
 
@@ -22,8 +25,8 @@ class ProgramCmsAssistanceBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBu
     public static function getDependencies(): array
     {
         return [
-            \ProgramCms\CoreBundle\ProgramCmsCoreBundle::class,
-            \ProgramCms\ThemeBundle\ProgramCmsThemeBundle::class,
+            ProgramCmsCoreBundle::class,
+            ProgramCmsThemeBundle::class,
         ];
     }
 }

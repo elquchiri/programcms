@@ -51,11 +51,11 @@ class Config extends AbstractHelper
     }
 
     /**
-     * @param $scopeType
+     * @param string $scopeType
      * @param $scopeId
      * @return mixed
      */
-    public function getLocale($scopeType = ScopeInterface::SCOPE_DEFAULT, $scopeId = 0)
+    public function getLocale(string $scopeType = ScopeInterface::SCOPE_DEFAULT, $scopeId = 0)
     {
         return $this->config->getValue(
             self::LOCALE_CONFIG_PATH, $scopeType, $scopeId

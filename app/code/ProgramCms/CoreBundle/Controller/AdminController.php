@@ -11,6 +11,8 @@ namespace ProgramCms\CoreBundle\Controller;
 use HttpResponseException;
 use ProgramCms\CoreBundle\App\AreaList;
 use ProgramCms\CoreBundle\App\State;
+use ProgramCms\CoreBundle\View\Result\Page;
+use ProgramCms\WebsiteBundle\Model\WebsiteManagerInterface;
 use ReflectionException;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,6 +26,8 @@ use ProgramCms\CoreBundle\View\DesignLoader;
  */
 abstract class AdminController extends AbstractController
 {
+    const ADMIN_WEBSITE_CODE = 'admin';
+
     /**
      * @var State
      */
@@ -55,7 +59,12 @@ abstract class AdminController extends AbstractController
     protected DesignLoader $designLoader;
 
     /**
-     * Controller constructor.
+     * @var WebsiteManagerInterface
+     */
+    protected WebsiteManagerInterface $websiteManager;
+
+    /**
+     * AdminController constructor.
      * @param Context $context
      */
     public function __construct(
@@ -69,6 +78,7 @@ abstract class AdminController extends AbstractController
         $this->security = $context->getSecurity();
         $this->translator = $context->getTranslator();
         $this->designLoader = $context->getDesignLoader();
+        $this->websiteManager = $context->getWebsiteManager();
     }
 
     /**
@@ -79,6 +89,9 @@ abstract class AdminController extends AbstractController
      */
     public function dispatch(): mixed
     {
+        $currentWebsiteView = $this->websiteManager->getWebsiteView(self::ADMIN_WEBSITE_CODE);
+        $this->websiteManager->setCurrentWebsiteView($currentWebsiteView);
+
         // Set Current AreaCode
         $areaCode = $this->areaList->getCodeByFrontName($this->getRequest()->getFrontName());
         $this->state->setAreaCode($areaCode);
@@ -96,7 +109,7 @@ abstract class AdminController extends AbstractController
 
         // Run Controller's Action
         $result = $this->execute();
-        if($result instanceof \ProgramCms\CoreBundle\View\Result\Page) {
+        if($result instanceof Page) {
             try {
                 return $result->render();
             } catch (\Exception $e) {

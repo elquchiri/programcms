@@ -10,12 +10,13 @@ namespace ProgramCms\CatalogBundle\Model\Category;
 
 use ProgramCms\CatalogBundle\Model\Collection\Category\Collection;
 use ProgramCms\CatalogBundle\Repository\CategoryRepository;
+use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;
 
 /**
  * Class DataProvider
  * @package ProgramCms\CatalogBundle\Model\Category
  */
-class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvider
+class DataProvider extends AbstractDataProvider
 {
     /**
      * @var CategoryRepository

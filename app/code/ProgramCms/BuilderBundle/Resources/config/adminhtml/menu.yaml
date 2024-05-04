@@ -1,0 +1,21 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+menu:
+  website:
+    groups:
+      attributes:
+        label: 'Attributes'
+        actions:
+          category:
+            label: 'Category'
+            action: 'builder_eav_index'
+          post:
+            label: 'Post'
+            action: ''
+          user:
+            label: 'User'
+            action: ''

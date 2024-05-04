@@ -8,7 +8,7 @@
 
 namespace ProgramCms\CatalogBundle\Repository;
 
-use ProgramCms\CatalogBundle\Entity\Category;
+use ProgramCms\CatalogBundle\Entity\CategoryEntity;
 use Doctrine\Persistence\ManagerRegistry;
 use ProgramCms\CoreBundle\Repository\AbstractRepository;
 
@@ -24,7 +24,7 @@ class CategoryRepository extends AbstractRepository
      */
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Category::class);
+        parent::__construct($registry, CategoryEntity::class);
     }
 
     /**
@@ -37,12 +37,23 @@ class CategoryRepository extends AbstractRepository
     }
 
     /**
-     * Get Default Category
+     * Get Root Category
      * @return object|null
      */
-    public function getDefaultCategory(): ?Category
+    public function getRootCategory(): ?CategoryEntity
     {
-        $all = $this->findAll();
-        return reset($all);
+        return $this->findOneBy([
+            'parent' => null
+        ]);
+    }
+
+    /**
+     * Get Default Category
+     * @return CategoryEntity|null
+     */
+    public function getDefaultCategory(): ?CategoryEntity
+    {
+        $rootCategory = $this->getRootCategory();
+        return $rootCategory->getChildren()->first();
     }
 }

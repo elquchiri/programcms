@@ -8,34 +8,40 @@
 
 namespace ProgramCms\UserBundle\Block\Account;
 
+use ProgramCms\CoreBundle\View\Element\Template;
 use ProgramCms\CoreBundle\View\Element\Template\Context;
 use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\WebsiteBundle\Model\Provider\CountrySelector;
 
 /**
  * Class Register
  * @package ProgramCms\UserBundle\Block\Account
  */
-class Register extends \ProgramCms\CoreBundle\View\Element\Template
+class Register extends Template
 {
     /**
      * @var Url
      */
     protected Url $url;
+    protected CountrySelector $countrySelector;
 
     /**
      * Register constructor.
      * @param Context $context
      * @param Url $url
+     * @param CountrySelector $countrySelector
      * @param array $data
      */
     public function __construct(
         Context $context,
         Url $url,
+        CountrySelector $countrySelector,
         array $data = []
     )
     {
         parent::__construct($context, $data);
         $this->url = $url;
+        $this->countrySelector = $countrySelector;
     }
 
     /**
@@ -56,5 +62,18 @@ class Register extends \ProgramCms\CoreBundle\View\Element\Template
     public function getSubmitUrl(): string
     {
         return $this->url->getUrlByRouteName('user_account_register');
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountries(): string
+    {
+        $selectOptionsHtml = "";
+        $countries = $this->countrySelector->getOptionsArray();
+        foreach($countries as $code => $country) {
+            $selectOptionsHtml .= "<option value='{$code}'>{$country}</option>";
+        }
+        return $selectOptionsHtml;
     }
 }

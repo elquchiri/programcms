@@ -85,6 +85,16 @@ class WebsiteManager implements WebsiteManagerInterface
     }
 
     /**
+     * @param $websiteView
+     * @return $this
+     */
+    public function setCurrentWebsiteView($websiteView): static
+    {
+        $this->currentWebsiteViewId = $websiteView;
+        return $this;
+    }
+
+    /**
      * @param null $websiteId
      * @return Website|null
      */

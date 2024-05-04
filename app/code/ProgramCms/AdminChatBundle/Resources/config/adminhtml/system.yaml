@@ -1,0 +1,30 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+system_config:
+  sections:
+    system:
+      groups:
+        live_chat:
+          label: 'Backend Live Chat'
+          scope: 'default'
+          fields:
+            enable:
+              label: 'Enable Live Chat'
+              type: 'switcher'
+              scope: 'default'
+            host:
+              label: 'Server Host'
+              type: 'text'
+              scope: 'default'
+            port:
+              label: 'Server Port'
+              type: 'text'
+              scope: 'default'
+            activate:
+              label: 'Start Node Server'
+              type: 'button'
+              scope: 'default'

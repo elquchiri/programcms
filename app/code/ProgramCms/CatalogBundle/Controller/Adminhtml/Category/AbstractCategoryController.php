@@ -11,7 +11,12 @@ namespace ProgramCms\CatalogBundle\Controller\Adminhtml\Category;
 use ProgramCms\CatalogBundle\Repository\CategoryRepository;
 use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
+use ProgramCms\CoreBundle\View\Result\Page;
+use ProgramCms\UiBundle\Component\Form\Element\Hidden;
+use ProgramCms\WebsiteBundle\Model\WebsiteManagerInterface;
 use ReflectionException;
+use Exception;
+use HttpResponseException;
 
 /**
  * Class AbstractCategoryController
@@ -20,34 +25,34 @@ use ReflectionException;
 abstract class AbstractCategoryController extends AdminController
 {
     /**
-     * @var CategoryRepository
+     * @var WebsiteManagerInterface
      */
-    protected CategoryRepository $categoryRepository;
+    protected WebsiteManagerInterface $websiteManager;
 
     /**
      * AbstractCategoryController constructor.
      * @param Context $context
-     * @param CategoryRepository $categoryRepository
+     * @param WebsiteManagerInterface $websiteManager
      */
     public function __construct(
         Context $context,
-        CategoryRepository $categoryRepository
     )
     {
+        $this->websiteManager = $context->getWebsiteManager();
         parent::__construct($context);
-        $this->categoryRepository = $categoryRepository;
     }
 
     /**
-     * @return mixed
-     * @throws \HttpResponseException
-     * @throws ReflectionException
+     * @throws Exception
      */
-    public function dispatch(): mixed
+    protected function prepareLayout(Page $pageResult)
     {
-        if(!$this->getRequest()->getParam('id')) {
-            $this->getRequest()->setParam('id', $this->categoryRepository->getDefaultCategory()->getEntityId());
-        }
-        return parent::dispatch();
+        $layout = $pageResult->getLayout();
+        $request = $this->getRequest();
+        $formBlock = $layout->getBlock('category_form');
+        $hiddenWebsiteViewScope = $layout->createBlock(Hidden::class, 'website_view', [
+            'value' => $request->getParam('website_view')
+        ]);
+        $formBlock->setChild('website_view', $hiddenWebsiteViewScope);
     }
 }

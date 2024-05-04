@@ -58,7 +58,7 @@ class Website extends AbstractEntity implements AppScopeInterface
     /**
      * @var WebsiteGroup|null
      */
-    #[ORM\ManyToOne(targetEntity: WebsiteGroup::class)]
+    #[ORM\ManyToOne(targetEntity: WebsiteGroup::class, cascade: ["persist"])]
     #[ORM\JoinColumn(name: 'default_website_group_id', referencedColumnName: 'website_group_id')]
     private ?WebsiteGroup $defaultGroup = null;
 
@@ -74,6 +74,10 @@ class Website extends AbstractEntity implements AppScopeInterface
     #[ORM\OneToMany(mappedBy: 'website', targetEntity: WebsiteGroup::class)]
     private Collection $groups;
 
+    /**
+     * Website constructor.
+     * @param array $data
+     */
     public function __construct(array $data = [])
     {
         parent::__construct($data);

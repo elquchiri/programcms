@@ -8,17 +8,21 @@
 
 namespace ProgramCms\WebsiteBundle\Model\Provider;
 
+use ProgramCms\UiBundle\Model\Provider\DataSource\Options;
+use Symfony\Component\Intl\Countries;
+
 /**
  * Class CountrySelector
  * @package ProgramCms\WebsiteBundle\Model\Provider
  */
-class CountrySelector extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
+class CountrySelector extends Options
 {
     /**
+     * Returns list of translatable country names indexed with alpha2 codes as keys.
      * @return string[]
      */
     public function getOptionsArray(): array
     {
-        return \Symfony\Component\Intl\Countries::getNames();
+        return Countries::getNames();
     }
 }

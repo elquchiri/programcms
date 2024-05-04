@@ -131,13 +131,16 @@ class Output
             'website_view',
             $currentWebsiteView->getWebsiteViewId()
         );
-        $theme = $this->themeDataHelper->getAppliedTheme();
+
         if($this->getAreaCode() === 'adminhtml') {
             if($user = $this->security->getUser()) {
                 $locale = $user->getInterfaceLocale();
             }
             $theme = $this->themeDataHelper->getAppliedBackendTheme();
+        }else{
+            $theme = $this->themeDataHelper->getAppliedTheme();
         }
+
         return $theme->getThemePath() . '/' . $locale;
     }
 }

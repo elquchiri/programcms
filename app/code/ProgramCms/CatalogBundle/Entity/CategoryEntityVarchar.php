@@ -8,8 +8,8 @@
 
 namespace ProgramCms\CatalogBundle\Entity;
 
+use ProgramCms\CatalogBundle\App\Eav\CategoryEntityValue;
 use ProgramCms\CatalogBundle\Repository\CategoryEntityVarcharRepository;
-use ProgramCms\WebsiteBundle\App\ScopedAttributeValue;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package ProgramCms\CatalogBundle\Entity
  */
 #[ORM\Entity(repositoryClass: CategoryEntityVarcharRepository::class)]
-class CategoryEntityVarchar extends ScopedAttributeValue
+class CategoryEntityVarchar extends CategoryEntityValue
 {
     /**
      * @var string|null

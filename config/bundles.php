@@ -37,6 +37,8 @@ return [
     ProgramCms\GdprBundle\ProgramCmsGdprBundle::class => ['all' => true],
     ProgramCms\FavoriteBundle\ProgramCmsFavoriteBundle::class => ['all' => true],
     ProgramCms\PageBundle\ProgramCmsPageBundle::class => ['all' => true],
+    ProgramCms\AdminChatBundle\ProgramCmsAdminChatBundle::class => ['all' => true],
+    ProgramCms\BuilderBundle\ProgramCmsBuilderBundle::class => ['all' => true],
     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
     Symfony\Bundle\TwigBundle\TwigBundle::class => ['all' => true],
     Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true],

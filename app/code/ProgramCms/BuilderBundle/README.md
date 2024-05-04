@@ -1,0 +1,1 @@
+The Builder bundle contains common infrastructure that provides assistance in ProgramCMS application.

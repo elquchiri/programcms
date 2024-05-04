@@ -9,7 +9,6 @@
 namespace ProgramCms\PostBundle\Entity;
 
 use DateTime;
-use ProgramCms\WebsiteBundle\App\ScopedAttributeValue;
 use ProgramCms\PostBundle\Repository\PostEntityDatetimeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -18,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package ProgramCms\PostBundle\Entity
  */
 #[ORM\Entity(repositoryClass: PostEntityDatetimeRepository::class)]
-class PostEntityDatetime extends ScopedAttributeValue
+class PostEntityDatetime extends \ProgramCms\PostBundle\App\Eav\AbstractPostEntity
 {
     /**
      * @var DateTime|null

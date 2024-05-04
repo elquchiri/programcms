@@ -9,7 +9,7 @@
 namespace ProgramCms\CatalogBundle\Entity;
 
 use DateTime;
-use ProgramCms\WebsiteBundle\App\ScopedAttributeValue;
+use ProgramCms\CatalogBundle\App\Eav\CategoryEntityValue;
 use ProgramCms\CatalogBundle\Repository\CategoryEntityDatetimeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package ProgramCms\CatalogBundle\Entity
  */
 #[ORM\Entity(repositoryClass: CategoryEntityDatetimeRepository::class)]
-class CategoryEntityDatetime extends ScopedAttributeValue
+class CategoryEntityDatetime extends CategoryEntityValue
 {
     /**
      * @var DateTime|null

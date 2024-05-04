@@ -8,6 +8,9 @@
 
 namespace ProgramCms\WebsiteBundle\Repository;
 
+use Doctrine\Common\Collections\AbstractLazyCollection;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\LazyCriteriaCollection;
 use ProgramCms\CoreBundle\Repository\AbstractRepository;
 use ProgramCms\WebsiteBundle\Entity\WebsiteGroup;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,7 +22,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class WebsiteGroupRepository extends AbstractRepository
 {
     /**
-     * WebsiteRootRepository constructor.
+     * WebsiteGroupRepository constructor.
      * @param ManagerRegistry $registry
      */
     public function __construct(ManagerRegistry $registry)
@@ -43,5 +46,14 @@ class WebsiteGroupRepository extends AbstractRepository
     public function getByCode(string $code): ?object
     {
         return $this->findOneBy(['website_group_code' => $code]);
+    }
+
+    /**
+     * @return AbstractLazyCollection|LazyCriteriaCollection
+     */
+    public function findAll()
+    {
+        $criteria = Criteria::create();
+        return $this->matching($criteria->andWhere(Criteria::expr()->neq('website_group_code', 'admin')));
     }
 }

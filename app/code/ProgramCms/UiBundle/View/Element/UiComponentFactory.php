@@ -44,6 +44,7 @@ class UiComponentFactory extends DataObject
         'imageUploader' => \ProgramCms\UiBundle\Component\Form\Element\ImageUploader::class,
         'file' => \ProgramCms\UiBundle\Component\Form\Element\File::class,
         'color' => \ProgramCms\UiBundle\Component\Form\Element\Color::class,
+        'button' => \ProgramCms\UiBundle\Component\Form\Element\Button::class,
     ];
 
     /**

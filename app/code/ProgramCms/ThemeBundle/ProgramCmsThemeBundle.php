@@ -8,11 +8,13 @@
 
 namespace ProgramCms\ThemeBundle;
 
+use ProgramCms\CoreBundle\ProgramCmsCoreBundle;
+
 /**
  * Class ProgramCmsThemeBundle
  * @package ProgramCms\ThemeBundle
  */
-class ProgramCmsThemeBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
+class ProgramCmsThemeBundle extends ProgramCmsCoreBundle
 {
     public const VERSION = '1.0.0';
 
@@ -22,7 +24,7 @@ class ProgramCmsThemeBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
     public static function getDependencies(): array
     {
         return [
-            \ProgramCms\CoreBundle\ProgramCmsCoreBundle::class
+            ProgramCmsCoreBundle::class
         ];
     }
 }

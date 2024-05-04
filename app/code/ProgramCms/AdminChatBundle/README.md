@@ -1,0 +1,1 @@
+The Chat bundle contains common infrastructure that provides Chat and assistance in ProgramCMS application.

@@ -9,20 +9,20 @@
 namespace ProgramCms\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ProgramCms\CatalogBundle\App\Eav\CategoryEntityValue;
 use ProgramCms\CatalogBundle\Repository\CategoryEntityIntRepository;
-use ProgramCms\WebsiteBundle\App\ScopedAttributeValue;
 
 /**
  * Class CategoryEntityInt
  * @package ProgramCms\CatalogBundle\Entity
  */
 #[ORM\Entity(repositoryClass: CategoryEntityIntRepository::class)]
-class CategoryEntityInt extends ScopedAttributeValue
+class CategoryEntityInt extends CategoryEntityValue
 {
     /**
      * @var int|null
      */
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $value = null;
 
     /**

@@ -9,3 +9,4 @@ config:
     gdpr:
       general:
         active: 1
+        mandatory: 0

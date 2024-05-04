@@ -8,11 +8,17 @@
 
 namespace ProgramCms\ForumBundle;
 
+use ProgramCms\CatalogBundle\ProgramCmsCatalogBundle;
+use ProgramCms\ConfigBundle\ProgramCmsConfigBundle;
+use ProgramCms\CoreBundle\ProgramCmsCoreBundle;
+use ProgramCms\ThemeBundle\ProgramCmsThemeBundle;
+use ProgramCms\UiBundle\ProgramCmsUiBundle;
+
 /**
  * Class ProgramCmsForumBundle
  * @package ProgramCms\ForumBundle
  */
-class ProgramCmsForumBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
+class ProgramCmsForumBundle extends ProgramCmsCoreBundle
 {
     public const VERSION = '1.0.0';
 

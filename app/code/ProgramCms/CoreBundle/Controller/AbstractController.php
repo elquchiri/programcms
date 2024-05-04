@@ -58,6 +58,7 @@ abstract class AbstractController extends AbstractSymfonyController
     }
 
     /**
+     * Dispatch Action
      * @return mixed
      */
     abstract public function dispatch(): mixed;

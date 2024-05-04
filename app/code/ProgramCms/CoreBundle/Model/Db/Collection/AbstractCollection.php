@@ -129,13 +129,14 @@ abstract class AbstractCollection implements CollectionInterface
     /**
      * @param string $field
      * @param $value
+     * @param string $filter
      * @return AbstractCollection
      */
-    public function addFieldToFilter(string $field, $value): static
+    public function addFieldToFilter(string $field, $value, string $filter = 'eq'): static
     {
         $this->getQueryBuilder()->where(
             $this->getQueryBuilder()->expr()->andX(
-                $this->getQueryBuilder()->expr()->eq('main_table.' . $field, '?1'),
+                $this->getQueryBuilder()->expr()->$filter('main_table.' . $field, '?1'),
             )
         )->setParameter(1, $value);
 

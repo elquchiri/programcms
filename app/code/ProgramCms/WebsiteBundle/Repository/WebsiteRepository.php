@@ -8,6 +8,9 @@
 
 namespace ProgramCms\WebsiteBundle\Repository;
 
+use Doctrine\Common\Collections\AbstractLazyCollection;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\LazyCriteriaCollection;
 use ProgramCms\CoreBundle\Repository\AbstractRepository;
 use ProgramCms\WebsiteBundle\Entity\Website;
 use Doctrine\Persistence\ManagerRegistry;
@@ -51,5 +54,14 @@ class WebsiteRepository extends AbstractRepository
     public function getDefaultWebsite(): object
     {
         return $this->findOneBy(['is_default' => 1]);
+    }
+
+    /**
+     * @return AbstractLazyCollection|LazyCriteriaCollection
+     */
+    public function findAll()
+    {
+        $criteria = Criteria::create();
+        return $this->matching($criteria->andWhere(Criteria::expr()->neq('website_code', 'admin')));
     }
 }

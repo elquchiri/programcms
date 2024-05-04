@@ -12,6 +12,7 @@ use ProgramCms\CatalogBundle\Repository\CategoryRepository;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\CoreBundle\View\Result\Page;
+use ProgramCms\WebsiteBundle\Model\WebsiteManagerInterface;
 use ReflectionException;
 
 /**
@@ -26,18 +27,23 @@ class IndexController extends AbstractCategoryController
     protected ObjectManager $objectManager;
 
     /**
+     * @var CategoryRepository
+     */
+    protected CategoryRepository $categoryRepository;
+
+    /**
      * IndexController constructor.
      * @param Context $context
-     * @param CategoryRepository $categoryRepository
      * @param ObjectManager $objectManager
+     * @param CategoryRepository $categoryRepository
      */
     public function __construct(
         Context $context,
-        CategoryRepository $categoryRepository,
-        ObjectManager $objectManager
+        ObjectManager $objectManager,
+        CategoryRepository $categoryRepository
     )
     {
-        parent::__construct($context, $categoryRepository);
+        parent::__construct($context);
         $this->objectManager = $objectManager;
         $this->categoryRepository = $categoryRepository;
     }
@@ -48,8 +54,12 @@ class IndexController extends AbstractCategoryController
      */
     public function execute()
     {
+        if(!$this->getRequest()->getParam('id')) {
+            $this->getRequest()->setParam('id', $this->categoryRepository->getDefaultCategory()->getEntityId());
+        }
         $pageResult = $this->objectManager->create(Page::class);
-        $pageResult->getConfig()->getTitle()->set("Default Category");
+        // Forward to EditController
+        $this->forward('ProgramCms\CatalogBundle\Controller\Adminhtml\Category\EditController::execute');
         return $pageResult;
     }
 }

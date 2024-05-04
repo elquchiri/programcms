@@ -8,8 +8,10 @@
 
 namespace ProgramCms\WebsiteBundle\Model\Website;
 
+use Doctrine\ORM\EntityManagerInterface;
 use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;
 use ProgramCms\WebsiteBundle\Entity\Website;
 use ProgramCms\WebsiteBundle\Entity\WebsiteGroup;
 use ProgramCms\WebsiteBundle\Entity\WebsiteView;
@@ -19,12 +21,13 @@ use ProgramCms\WebsiteBundle\Model\Collection\Website\Collection;
  * Class DataProvider
  * @package ProgramCms\WebsiteBundle\Model\Website
  */
-class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvider
+class DataProvider extends AbstractDataProvider
 {
     /**
      * @var Request
      */
     protected Request $request;
+
     /**
      * @var Url
      */
@@ -32,17 +35,18 @@ class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvide
 
     /**
      * DataProvider constructor.
-     * @param Collection $collection
      * @param Request $request
      * @param Url $url
+     * @param EntityManagerInterface $entityManager
      */
     public function __construct(
-        Collection $collection,
         Request $request,
-        Url $url
+        Url $url,
+        EntityManagerInterface $entityManager
     )
     {
-        $this->collection = $collection;
+        // Use new collection to avoid Form Component filtering by id
+        $this->collection = new Collection($entityManager);
         $this->request = $request;
         $this->url = $url;
     }
@@ -58,7 +62,7 @@ class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvide
         $id = $this->request->getParam('id');
 
         /** @var Website $website */
-        foreach(parent::getData() as $website) {
+        foreach($this->collection->getData() as $website) {
             $root = [
                 'label' => $website->getWebsiteName(),
                 'is_active' => $routeName === 'website_website_edit' && (int)$id === $website->getWebsiteId(),
@@ -90,6 +94,7 @@ class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvide
                 }
             }
             $tree[$website->getWebsiteCode()] = $root;
+            unset($root);
         }
 
         return $tree;

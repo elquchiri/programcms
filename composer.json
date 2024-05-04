@@ -78,6 +78,8 @@
             "ProgramCms\\FavoriteBundle\\": "app/code/ProgramCms/FavoriteBundle",
             "ProgramCms\\GdprBundle\\": "app/code/ProgramCms/GdprBundle",
             "ProgramCms\\PageBundle\\": "app/code/ProgramCms/PageBundle",
+            "ProgramCms\\AdminChatBundle\\": "app/code/ProgramCms/AdminChatBundle",
+            "ProgramCms\\BuilderBundle\\": "app/code/ProgramCms/BuilderBundle",
             "ProgramCms\\Backend\\": "app/design/adminhtml/ProgramCms/Backend",
             "ProgramCms\\Blank\\": "app/design/frontend/ProgramCms/Blank",
             "ProgramCms\\Forumtimes\\": "app/design/frontend/ProgramCms/Forumtimes",

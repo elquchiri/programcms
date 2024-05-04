@@ -8,7 +8,7 @@
 
 namespace ProgramCms\UserBundle\Entity;
 
-use ProgramCms\EavBundle\Model\Entity\Attribute\AttributeValue;
+use ProgramCms\UserBundle\App\Eav\AbstractUserEntity;
 use ProgramCms\UserBundle\Repository\UserEntityIntRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package ProgramCms\UserBundle\Entity
  */
 #[ORM\Entity(repositoryClass: UserEntityIntRepository::class)]
-class UserEntityInt extends AttributeValue
+class UserEntityInt extends AbstractUserEntity
 {
     /**
      * @var int|null

@@ -7,55 +7,59 @@
  */
 #}
 <table class="table table-striped table-forums">
-    <thead>
-        <th class="text-center"></th>
-        <th>فئة تجريبية</th>
-        <th class="text-center">
-            <img
-                src="{{ asset('bundles/programcmsforum/images/viewers.png') }}"
-                alt="{{ block.trans('Are online now in this category') }}"
-                title="{{ block.trans('Are online now in this category') }}"
-            />
-        </th>
-        <th class="text-center">{{ block.trans('Subjects') }}</th>
-        <th class="text-center">{{ block.trans('Comments') }}</th>
-        <th>{{ block.trans('Last post') }}</th>
-        <th>{{ block.trans('Managers') }}</th>
-    </thead>
-    <tbody>
-    <tr>
-        <td class="text-center">
-            <img src="{{ asset('bundles/programcmstheme/images/logo.png') }}"  alt=""/>
-        </td>
-        <td>
-            <a href="">منتدى تجريبي</a>
-            <p class="text-muted" style="font-size: 12px;">هذا المنتدى هو تجربة لنسخة المنتديات.</p>
-        </td>
-        <td class="text-center">0</td>
-        <td class="text-center">
-            1
-        </td>
-        <td class="text-center">1</td>
-        <td>
-            <p class="text-muted p-0 m-0" style="font-size: 13px;">05:40 - اليوم</p>
-            <a href="#">محمد القشيري</a>
-        </td>
-        <td>
-            <a href="#">محمد القشيري</a>
-        </td>
-        <td>
-            <div class="btn-group">
-                <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true"
-                   aria-expanded="false">
-                    {{ block.trans('View') }}
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">{{ block.trans('View Forum') }}</a></li>
-                    <li><a class="dropdown-item" href="#">{{ block.trans('#Trend Subjects') }}</a></li>
-                    <li><a class="dropdown-item" href="#">{{ block.trans('Message the forum moderator') }}</a></li>
-                </ul>
-            </div>
-        </td>
-    </tr>
-    </tbody>
+    {% for category in block.getCategories() %}
+        <thead>
+            <th class="text-center"></th>
+            <th>{{ category.getCategoryName() }}</th>
+            <th class="text-center">
+                <img
+                    src="{{ asset('bundles/programcmsforum/images/viewers.png') }}"
+                    alt="{{ block.trans('Are online now in this category') }}"
+                    title="{{ block.trans('Are online now in this category') }}"
+                />
+            </th>
+            <th class="text-center">{{ block.trans('Subjects') }}</th>
+            <th class="text-center">{{ block.trans('Comments') }}</th>
+            <th>{{ block.trans('Last post') }}</th>
+            <th>{{ block.trans('Managers') }}</th>
+        </thead>
+        <tbody>
+        {% for forum in block.getCategoryForums(category) %}
+            <tr>
+                <td class="text-center">
+                    <img src="{{ asset('bundles/programcmstheme/images/logo.png') }}"  alt=""/>
+                </td>
+                <td>
+                    <a href="">{{ forum.getCategoryName() }}</a>
+                    <p class="text-muted" style="font-size: 12px;">{{ forum.getCategoryDescription() }}</p>
+                </td>
+                <td class="text-center">0</td>
+                <td class="text-center">
+                    1
+                </td>
+                <td class="text-center">1</td>
+                <td>
+                    <p class="text-muted p-0 m-0" style="font-size: 13px;">05:40 - اليوم</p>
+                    <a href="#">محمد القشيري</a>
+                </td>
+                <td>
+                    <a href="#">محمد القشيري</a>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true"
+                           aria-expanded="false">
+                            {{ block.trans('View') }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">{{ block.trans('View Forum') }}</a></li>
+                            <li><a class="dropdown-item" href="#">{{ block.trans('#Trend Subjects') }}</a></li>
+                            <li><a class="dropdown-item" href="#">{{ block.trans('Message the forum moderator') }}</a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    {% endfor %}
 </table>

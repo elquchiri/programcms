@@ -14,6 +14,7 @@ use ProgramCms\CoreBundle\App\State;
 use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\RouterBundle\Service\Response;
 use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\WebsiteBundle\Model\WebsiteManagerInterface;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -76,6 +77,11 @@ class Context implements ContextInterface
     protected Url $url;
 
     /**
+     * @var WebsiteManagerInterface
+     */
+    protected WebsiteManagerInterface $websiteManager;
+
+    /**
      * Context constructor.
      * @param Request $request
      * @param Response $response
@@ -87,6 +93,7 @@ class Context implements ContextInterface
      * @param Config $config
      * @param DesignLoader $designLoader
      * @param Url $url
+     * @param WebsiteManagerInterface $websiteManager
      */
     public function __construct(
         Request $request,
@@ -98,7 +105,8 @@ class Context implements ContextInterface
         TranslatorInterface $translator,
         Config $config,
         DesignLoader $designLoader,
-        Url $url
+        Url $url,
+        WebsiteManagerInterface $websiteManager
     )
     {
         $this->request = $request;
@@ -111,6 +119,7 @@ class Context implements ContextInterface
         $this->config = $config;
         $this->designLoader = $designLoader;
         $this->url = $url;
+        $this->websiteManager = $websiteManager;
     }
 
     /**
@@ -191,5 +200,13 @@ class Context implements ContextInterface
     public function getUrl(): Url
     {
         return $this->url;
+    }
+
+    /**
+     * @return WebsiteManagerInterface
+     */
+    public function getWebsiteManager(): WebsiteManagerInterface
+    {
+        return $this->websiteManager;
     }
 }

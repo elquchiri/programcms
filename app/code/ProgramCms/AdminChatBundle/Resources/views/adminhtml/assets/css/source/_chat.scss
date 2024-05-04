@@ -1,0 +1,18 @@
+/*!
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+
+.chat-widget {
+  position: fixed;
+  bottom: 21px;
+  right: 21px;
+  width: 40px;
+  height: 40px;
+  background-color: #0b5ed7;
+  border-radius: 100%;
+  box-shadow: 2px 2px 2px 2px #0a58ca;
+  cursor: pointer;
+}

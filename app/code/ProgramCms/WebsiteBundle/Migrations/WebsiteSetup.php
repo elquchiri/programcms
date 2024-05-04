@@ -36,6 +36,9 @@ class WebsiteSetup implements DataPatchInterface
         $this->websiteRepository = $websiteRepository;
     }
 
+    /**
+     * Setup Base Frontend Website
+     */
     public function execute(): void
     {
         $website = new Website();
@@ -49,6 +52,7 @@ class WebsiteSetup implements DataPatchInterface
             ->setWebsiteName('Main Website')
             ->setDefaultGroup($group);
         $group
+            ->setWebsite($website)
             ->setIsActive('on')
             ->setSortOrder(1)
             ->setWebsiteGroupCode('base_group')
@@ -60,6 +64,9 @@ class WebsiteSetup implements DataPatchInterface
             ->setWebsiteViewCode('default')
             ->setWebsiteViewName('Default View')
             ->setWebsiteGroup($group);
+
+        // Save website and its dependencies.
+        $this->websiteRepository->save($website);
     }
 
     /**

@@ -8,17 +8,21 @@
 
 namespace ProgramCms\WebsiteBundle\Model\Collection\WebsiteView;
 
+use ProgramCms\CoreBundle\Model\Db\Collection\AbstractCollection;
+use ProgramCms\WebsiteBundle\Entity\WebsiteView;
+
 /**
  * Class Collection
- * @package ProgramCms\WebsiteBundle\Model\Collection\Website
+ * @package ProgramCms\WebsiteBundle\Model\Collection\WebsiteView
  */
-class Collection extends \ProgramCms\CoreBundle\Model\Db\Collection\AbstractCollection
+class Collection extends AbstractCollection
 {
     /**
      * Initialize Collection
      */
     protected function _construct()
     {
-        $this->_initEntity(\ProgramCms\WebsiteBundle\Entity\WebsiteView::class);
+        $this->_initEntity(WebsiteView::class);
+        $this->addFieldToFilter('website_view_code', 'admin', 'neq');
     }
 }

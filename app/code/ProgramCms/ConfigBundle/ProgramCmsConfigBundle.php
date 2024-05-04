@@ -8,11 +8,15 @@
 
 namespace ProgramCms\ConfigBundle;
 
+use ProgramCms\AdminBundle\ProgramCmsAdminBundle;
+use ProgramCms\CoreBundle\ProgramCmsCoreBundle;
+use ProgramCms\ThemeBundle\ProgramCmsThemeBundle;
+
 /**
  * Class ProgramCmsConfigBundle
  * @package ProgramCms\ConfigBundle
  */
-class ProgramCmsConfigBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
+class ProgramCmsConfigBundle extends ProgramCmsCoreBundle
 {
     public const VERSION = '1.0.0';
 
@@ -22,9 +26,9 @@ class ProgramCmsConfigBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
     public static function getDependencies(): array
     {
         return [
-            \ProgramCms\CoreBundle\ProgramCmsCoreBundle::class,
-            \ProgramCms\ThemeBundle\ProgramCmsThemeBundle::class,
-            \ProgramCms\AdminBundle\ProgramCmsAdminBundle::class
+            ProgramCmsCoreBundle::class,
+            ProgramCmsThemeBundle::class,
+            ProgramCmsAdminBundle::class
         ];
     }
 }

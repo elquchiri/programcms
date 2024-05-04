@@ -67,7 +67,7 @@ class SaveController extends AdminController
     {
         $request = $this->getRequest()->getCurrentRequest();
         if ($request->isMethod('POST')) {
-            $userId = (bool)$this->getRequest()->getParam('entity_id');
+            $userId = $this->getRequest()->getParam('entity_id');
             /** @var UserEntity $user */
             $user = $this->userEntityRepository->getById($userId) ?? new UserEntity();
             // Populate User Entity

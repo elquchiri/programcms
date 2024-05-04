@@ -28,6 +28,7 @@ class EavEntityTypeRepository extends AbstractRepository
     }
 
     /**
+     * Get Entity Type by Entity Namespace
      * @param string $typeCode
      * @return object|null
      */

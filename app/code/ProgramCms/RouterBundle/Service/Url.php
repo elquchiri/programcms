@@ -88,4 +88,24 @@ class Url
     {
         return $this->request->getPathInfo();
     }
+
+    /**
+     * @param string $routeName
+     * @param array $params
+     * @return string
+     */
+    public function getUrl(string $routeName, array $params = []): string
+    {
+        if($routeName == '*') {
+            $routeName = $this->getRouteName();
+        }
+        $parameters = $this->request->getParameters();
+        $parameters = array_merge($parameters, $params);
+        foreach($params as $paramName => $paramValue) {
+            if(!$paramValue) {
+                unset($parameters[$paramName]);
+            }
+        }
+        return $this->getUrlByRouteName($routeName, $parameters);
+    }
 }

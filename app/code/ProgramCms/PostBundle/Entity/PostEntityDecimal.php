@@ -10,14 +10,13 @@ namespace ProgramCms\PostBundle\Entity;
 
 use ProgramCms\PostBundle\Repository\PostEntityDecimalRepository;
 use Doctrine\ORM\Mapping as ORM;
-use ProgramCms\WebsiteBundle\App\ScopedAttributeValue;
 
 /**
  * Class PostEntityDecimal
  * @package ProgramCms\PostBundle\Entity
  */
 #[ORM\Entity(repositoryClass: PostEntityDecimalRepository::class)]
-class PostEntityDecimal extends ScopedAttributeValue
+class PostEntityDecimal extends \ProgramCms\PostBundle\App\Eav\AbstractPostEntity
 {
     /**
      * @var float|null

@@ -10,6 +10,7 @@ namespace ProgramCms\AdminBundle\Block\Account;
 
 use ProgramCms\CoreBundle\View\Element\Template\Context;
 use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\WebsiteBundle\Helper\Config;
 
 /**
  * Class Navigation
@@ -23,6 +24,11 @@ class Navigation extends \ProgramCms\CoreBundle\View\Element\Template
     protected Url $url;
 
     /**
+     * @var Config 
+     */
+    protected Config $websiteConfig;
+
+    /**
      * Navigation constructor.
      * @param Context $context
      * @param Url $url
@@ -31,11 +37,13 @@ class Navigation extends \ProgramCms\CoreBundle\View\Element\Template
     public function __construct(
         Context $context,
         Url $url,
+        Config $websiteConfig,
         array $data = []
     )
     {
         parent::__construct($context, $data);
         $this->url = $url;
+        $this->websiteConfig = $websiteConfig;
     }
 
     /**
@@ -52,5 +60,13 @@ class Navigation extends \ProgramCms\CoreBundle\View\Element\Template
     public function getLogoutUrl(): string
     {
         return $this->url->getUrlByRouteName('admin_systemaccount_logout');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFrontendBaseUrl()
+    {
+        return $this->websiteConfig->getBaseUrl();
     }
 }

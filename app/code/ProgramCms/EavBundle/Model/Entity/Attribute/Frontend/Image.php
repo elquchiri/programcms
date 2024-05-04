@@ -32,13 +32,13 @@ class Image extends AbstractFrontend
 
     /**
      * @param string $attributeCode
+     * @param $value
      * @param object $object
      * @return string
      */
-    public function getValue(string $attributeCode, object $object): string
+    public function getValue(string $attributeCode, $value, object $object): string
     {
         $tableName = $object->getTableName();
-        $imageFileName = $object->getData($attributeCode);
-        return $this->url->getBaseUrl() . '/media/' . $tableName . '/' . $attributeCode . '/' . $imageFileName;
+        return $this->url->getBaseUrl() . '/media/' . $tableName . '/' . $attributeCode . '/' . $value;
     }
 }

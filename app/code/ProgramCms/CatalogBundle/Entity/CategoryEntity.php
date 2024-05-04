@@ -8,11 +8,11 @@
 
 namespace ProgramCms\CatalogBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use ProgramCms\CatalogBundle\Repository\CategoryRepository;
-use Doctrine\ORM\Mapping as ORM;
-use ProgramCms\CoreBundle\Model\Db\Entity\Entity;
+use ProgramCms\EavBundle\Model\Entity\Entity;
 use ProgramCms\EavBundle\Entity\EavAttributeSet;
 
 /**
@@ -20,7 +20,7 @@ use ProgramCms\EavBundle\Entity\EavAttributeSet;
  * @package ProgramCms\CatalogBundle\Entity
  */
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
-class Category extends Entity
+class CategoryEntity extends Entity
 {
     /**
      * @var EavAttributeSet|null
@@ -30,20 +30,20 @@ class Category extends Entity
     private ?EavAttributeSet $attribute_set = null;
 
     /**
-     * @var Category|null
+     * @var CategoryEntity|null
      */
-    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'children')]
+    #[ORM\ManyToOne(targetEntity: CategoryEntity::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent', referencedColumnName: 'entity_id', nullable: true)]
-    private ?Category $parent = null;
+    private ?CategoryEntity $parent = null;
 
     /**
      * @var Collection
      */
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: Category::class)]
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: CategoryEntity::class)]
     protected Collection $children;
 
     /**
-     * Category constructor.
+     * CategoryEntity constructor.
      * @param array $data
      */
     public function __construct(
@@ -55,18 +55,18 @@ class Category extends Entity
     }
 
     /**
-     * @return Category|null
+     * @return CategoryEntity|null
      */
-    public function getParent(): ?Category
+    public function getParent(): ?CategoryEntity
     {
         return $this->parent;
     }
 
     /**
-     * @param Category $category
+     * @param CategoryEntity $category
      * @return $this
      */
-    public function setParent(Category $category): static
+    public function setParent(CategoryEntity $category): static
     {
         $this->parent = $category;
         return $this;
@@ -91,10 +91,18 @@ class Category extends Entity
     }
 
     /**
-     * @return Collection
+     * @return Collection<CategoryEntity>
      */
     public function getChildren(): Collection
     {
         return $this->children;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasChildren(): bool
+    {
+        return !$this->children->isEmpty();
     }
 }

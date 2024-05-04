@@ -8,13 +8,15 @@
 
 namespace ProgramCms\CatalogBundle\Model\Provider\DataSource;
 
+use ProgramCms\CatalogBundle\Helper\Data;
+use ProgramCms\UiBundle\Model\Provider\DataSource\Options;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Class EnableDisable
+ * Class DisplayMode
  * @package ProgramCms\CatalogBundle\Model\Provider\DataSource
  */
-class DisplayMode extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
+class DisplayMode extends Options
 {
     /**
      * @var TranslatorInterface
@@ -36,8 +38,7 @@ class DisplayMode extends \ProgramCms\UiBundle\Model\Provider\DataSource\Options
     public function getOptionsArray(): array
     {
         return [
-            "1" => $this->translator->trans("Only Categories"),
-            "2" => $this->translator->trans("Categories and Posts")
+            Data::CATEGORY_DISPLAY_MODE => $this->translator->trans("Only Categories")
         ];
     }
 }

@@ -9,12 +9,12 @@
 <div class="category-buttons pt-3">
     <div class="d-grid">
         <div class="btn-group" role="group" aria-label="Basic outlined example">
-            <button type="button" class="btn btn-outline-secondary btn-sm add-category" id="root" data-ef-url="">
+            <a href="{{ block.getNewRootCategoryUrl() }}" class="btn btn-secondary btn-sm add-category" id="root">
                 {{ block.trans('New Root Category') }}
-            </button>
-            <button type="button" class="btn btn-outline-secondary btn-sm add-category" id="subcategory" data-ef-url="" >
+            </a>
+            <a href="{{ block.getNewSubCategoryUrl() }}" class="btn btn-outline-secondary btn-sm add-category" id="subcategory">
                 {{ block.trans('Add Subcategory') }}
-            </button>
+            </a>
         </div>
     </div>
 </div>

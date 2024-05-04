@@ -14,7 +14,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-end">
             <a class="dropdown-item" href="{{ block.getAccountSettingsUrl() }}">{% trans %}Account Setting{% endtrans %} (Admin)</a>
-            <a class="dropdown-item" href="#">{% trans %}User View{% endtrans %}</a>
+            <a class="dropdown-item" href="{{ block.getFrontendBaseUrl() }}" target="_blank">{% trans %}User View{% endtrans %}</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{ block.getLogoutUrl() }}">{% trans %}Logout{% endtrans %}</a>
         </div>

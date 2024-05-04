@@ -9,10 +9,20 @@
   margin: 0;
 }
 
+@font-face {
+  font-family: ProgramCMS;
+  src: url("fonts/BlinkMacSystemFont-Medium.otf");
+}
+
+@font-face {
+  font-family: ProgramCMS;
+  src: url("fonts/BlinkMacSystemFont-Black.otf");
+  font-weight: bold;
+}
+
 html, body {
-  font-family: 'Arial', 'sans-serif';
+  font-family: 'ProgramCMS', 'Arial', 'sans-serif';
   height: 100%;
-  overflow-x: hidden;
 }
 
 a {
@@ -41,15 +51,15 @@ a {
 }
 
 .notices-notifications {
-  padding: 0 21px 0 25px;
+  padding: 0 21px 0 27px;
 }
 
 .page-main-actions {
-  padding: 31px 21px 0 25px;
+  padding: 31px 21px 0 28px;
 }
 
 .messages-wrapper {
-  padding: 11px 21px 0 25px;
+  padding: 11px 21px 0 28px;
   font-size: 14px;
 }
 
@@ -57,7 +67,7 @@ a {
   height: 100%;
 }
 .content .content-header {
-  padding: 31px 21px 0 25px;
+  padding: 31px 21px 0 28px;
 }
 .content .content-header h2 {
   padding: 0;
@@ -69,5 +79,5 @@ a {
   padding: 5px 0 0 5px;
 }
 .content .content-container {
-  padding: 21px 21px 0 25px;
+  padding: 21px 21px 0 28px;
 }

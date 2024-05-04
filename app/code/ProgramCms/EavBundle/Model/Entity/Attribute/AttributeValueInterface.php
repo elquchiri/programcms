@@ -39,15 +39,15 @@ interface AttributeValueInterface
     public function getAttributeId(): ?EavAttribute;
 
     /**
-     * @param int $entityId
+     * @param $entityId
      * @return $this
      */
-    public function setEntityId(int $entityId): static;
+    public function setEntityId($entityId): static;
 
     /**
-     * @return int|null
+     * @return mixed
      */
-    public function getEntityId(): ?int;
+    public function getEntityId();
 
     /**
      * @param mixed $value

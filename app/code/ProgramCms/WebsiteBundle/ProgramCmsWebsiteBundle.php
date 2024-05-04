@@ -8,11 +8,15 @@
 
 namespace ProgramCms\WebsiteBundle;
 
+use ProgramCms\CoreBundle\ProgramCmsCoreBundle;
+use ProgramCms\ThemeBundle\ProgramCmsThemeBundle;
+use ProgramCms\UiBundle\ProgramCmsUiBundle;
+
 /**
  * Class ProgramCmsWebsiteBundle
  * @package ProgramCms\WebsiteBundle
  */
-class ProgramCmsWebsiteBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
+class ProgramCmsWebsiteBundle extends ProgramCmsCoreBundle
 {
     public const VERSION = '1.0.0';
 

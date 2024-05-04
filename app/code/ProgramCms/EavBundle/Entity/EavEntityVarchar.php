@@ -8,7 +8,6 @@
 
 namespace ProgramCms\EavBundle\Entity;
 
-use ProgramCms\EavBundle\Model\Entity\Attribute\AttributeValue;
 use ProgramCms\EavBundle\Repository\EavEntityVarcharRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package ProgramCms\EavBundle\Entity
  */
 #[ORM\Entity(repositoryClass: EavEntityVarcharRepository::class)]
-class EavEntityVarchar extends AttributeValue
+class EavEntityVarchar extends \ProgramCms\EavBundle\Model\Attribute\AbstractEavEntity
 {
 
     #[ORM\Column(length: 255)]

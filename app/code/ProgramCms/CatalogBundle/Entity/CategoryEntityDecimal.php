@@ -8,16 +8,16 @@
 
 namespace ProgramCms\CatalogBundle\Entity;
 
+use ProgramCms\CatalogBundle\App\Eav\CategoryEntityValue;
 use ProgramCms\CatalogBundle\Repository\CategoryEntityDecimalRepository;
 use Doctrine\ORM\Mapping as ORM;
-use ProgramCms\WebsiteBundle\App\ScopedAttributeValue;
 
 /**
  * Class CategoryEntityDecimal
  * @package ProgramCms\CatalogBundle\Entity
  */
 #[ORM\Entity(repositoryClass: CategoryEntityDecimalRepository::class)]
-class CategoryEntityDecimal extends ScopedAttributeValue
+class CategoryEntityDecimal extends CategoryEntityValue
 {
     /**
      * @var float|null

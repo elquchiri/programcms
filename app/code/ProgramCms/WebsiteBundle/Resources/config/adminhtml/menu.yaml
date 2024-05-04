@@ -23,15 +23,3 @@ menu:
           terms:
             label: 'Terms and Conditions'
             action: ''
-      attributes:
-        label: 'Attributes'
-        actions:
-          category:
-            label: 'Category'
-            action: ''
-          post:
-            label: 'Post'
-            action: ''
-          user:
-            label: 'User'
-            action: ''

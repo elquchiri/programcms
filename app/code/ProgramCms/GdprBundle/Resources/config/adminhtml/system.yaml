@@ -20,3 +20,7 @@ system_config:
               type: 'switcher'
               label: 'Activate GDPR'
               scope: 'default|website|website_view'
+            mandatory:
+              type: 'switcher'
+              label: 'GDPR is Mandatory'
+              scope: 'default|website|website_view'
