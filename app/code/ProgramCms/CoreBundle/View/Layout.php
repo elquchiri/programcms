@@ -230,6 +230,7 @@ class Layout implements LayoutInterface
      * @param $targetElementName
      * @param $before
      * @param $after
+     * @throws Exception
      */
     private function _moveElement($element, $destination, $before, $after)
     {
@@ -580,16 +581,16 @@ class Layout implements LayoutInterface
     /**
      * Get Block instance by name
      * @param string $name
-     * @return Element\AbstractBlock
+     * @return false|mixed
      */
-    public function getBlock(string $name): \ProgramCms\CoreBundle\View\Element\AbstractBlock
+    public function getBlock(string $name)
     {
         return $this->blocks[$name] ?? false;
     }
 
     /**
      * @param $name
-     * @return Element\AbstractBlock
+     * @return false|mixed
      */
     public function getUiComponent($name)
     {
@@ -599,7 +600,7 @@ class Layout implements LayoutInterface
     /**
      * @param string $parentName
      * @param string $alias
-     * @return false|mixed|Element\AbstractBlock
+     * @return mixed
      * @throws Exception
      */
     public function getChildBlock(string $parentName, string $alias): mixed
@@ -836,8 +837,19 @@ class Layout implements LayoutInterface
      * Used internally to debug page elements
      * @return Layout\Data\Structure
      */
-    public function getStructure()
+    public function getStructure(): Structure
     {
         return $this->structure;
+    }
+
+    /**
+     * @param string $name
+     * @param string $attribute
+     * @param $value
+     * @throws Exception
+     */
+    public function overrideAttribute(string $name, string $attribute, $value)
+    {
+        $this->structure->setAttribute($name, $attribute, $value);
     }
 }

@@ -333,6 +333,7 @@ class Structure
      * @param string $childId
      * @param int|null $position
      * @return int
+     * @throws Exception
      * @see _insertChild() for position explanation
      */
     public function reorderChild($parentId, $childId, $position)

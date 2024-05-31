@@ -6,6 +6,7 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
+{% if block.isEnabled() %}
 <div class="col-md">
     <div class="float-end">
         <label for="newsletter_email" class="mb-2 text-muted">{{ block.trans('Subscribe to our Newsletter :') }}</label>
@@ -19,3 +20,4 @@
         </div>
     </div>
 </div>
+{% endif %}

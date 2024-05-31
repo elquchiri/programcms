@@ -7,13 +7,29 @@
  */
 #}
 <div class="navigation_bar">
-    <nav id="menu">
-        <div class="container">
+    <nav id="menu" class="mb-2">
+        <div class="container-fluid">
             <label for="tm" id="toggle-menu">Navigation <span class="drop-icon">▾</span></label>
             <input type="checkbox" id="tm">
             <ul class="main-menu clearfix">
                 <li>
                     <a href="#">{{ block.trans('Home') }}</a>
+                </li>
+                <li>
+                    <a href="#">{{ block.trans('مشاركاتك') }}</a>
+                </li>
+                <li>
+                    <a href="#">{{ block.trans('Posts') }}</a>
+                </li>
+                <li><a href="#">{{ block.trans('Community') }}</a></li>
+                <li>
+                    <a href="#">{{ block.trans('الرسائل') }}</a>
+                </li>
+                <li>
+                    <a href="#">{{ block.trans('مواضيع ترند') }}</a>
+                </li>
+                <li>
+                    <a href="#">{{ block.trans('الأرشيف') }}</a>
                 </li>
                 <li>
                     <a href="#">
@@ -40,8 +56,9 @@
                         <li><a href="#">Item 3.4</a></li>
                     </ul>
                 </li>
-                <li><a href="#">{{ block.trans('Community') }}</a></li>
                 <li><a href="#">{{ block.trans('Assistance') }}</a></li>
+                <li><a href="#">{{ block.trans('Create an Account') }}</a></li>
+
                 {# Calls child menu items #}
                 {{ block.getChildHtml() }}
             </ul>

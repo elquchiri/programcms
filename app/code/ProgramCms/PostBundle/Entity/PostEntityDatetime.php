@@ -9,6 +9,7 @@
 namespace ProgramCms\PostBundle\Entity;
 
 use DateTime;
+use ProgramCms\PostBundle\App\Eav\AbstractPostEntity;
 use ProgramCms\PostBundle\Repository\PostEntityDatetimeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package ProgramCms\PostBundle\Entity
  */
 #[ORM\Entity(repositoryClass: PostEntityDatetimeRepository::class)]
-class PostEntityDatetime extends \ProgramCms\PostBundle\App\Eav\AbstractPostEntity
+class PostEntityDatetime extends AbstractPostEntity
 {
     /**
      * @var DateTime|null

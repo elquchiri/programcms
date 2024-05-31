@@ -21,21 +21,36 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: EavAttributeGroupRepository::class)]
 class EavAttributeGroup extends AbstractEntity
 {
+    /**
+     * @var int|null
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $attribute_group_id = null;
 
+    /**
+     * @var EavAttributeSet|null
+     */
     #[ORM\ManyToOne(targetEntity: EavAttributeSet::class, inversedBy: 'attributeSetGroups')]
     #[ORM\JoinColumn(name: 'attribute_set_id', referencedColumnName: 'attribute_set_id')]
     private ?EavAttributeSet $attributeSet = null;
 
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     private ?string $attribute_group_name = null;
 
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     private ?string $attribute_group_code = null;
 
+    /**
+     * @var Collection
+     */
     #[ORM\JoinTable(name: 'eav_attribute_group_relation')]
     #[ORM\ManyToMany(targetEntity: EavAttribute::class, inversedBy: 'groups')]
     #[ORM\JoinColumn(name: 'attribute_group_id', referencedColumnName: 'attribute_group_id')]
@@ -44,9 +59,13 @@ class EavAttributeGroup extends AbstractEntity
 
     /**
      * EavAttributeGroup constructor.
+     * @param array $data
      */
-    public function __construct()
+    public function __construct(
+        array $data = []
+    )
     {
+        parent::__construct($data);
         $this->attributes = new ArrayCollection();
     }
 

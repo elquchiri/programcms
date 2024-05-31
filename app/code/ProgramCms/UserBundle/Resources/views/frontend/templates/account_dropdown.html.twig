@@ -11,7 +11,9 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
-                {{ block.trans('Account') }}
+                <div class="profile-image" style="display: inline-block; border: 3px solid #6d9dcb; width: 38px; height: 38px; border-radius: 50%; padding: 1px;">
+                    <img src="{{ app.user.getProfileImage() }}" style="width: 100%; height: 100%; border-radius: 50%;" alt="" />
+                </div>
             </a>
             <div class="dropdown-menu dropdown-menu-end">
                 <a class="dropdown-item" href="#">{{ block.trans('Profile') }}</a>

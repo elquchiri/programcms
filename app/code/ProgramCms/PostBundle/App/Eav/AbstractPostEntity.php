@@ -10,7 +10,7 @@ namespace ProgramCms\PostBundle\App\Eav;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\MappedSuperclass;
-use ProgramCms\PostBundle\Entity\Post;
+use ProgramCms\PostBundle\Entity\PostEntity;
 use ProgramCms\WebsiteBundle\App\ScopedAttributeValue;
 
 /**
@@ -21,11 +21,11 @@ use ProgramCms\WebsiteBundle\App\ScopedAttributeValue;
 abstract class AbstractPostEntity extends ScopedAttributeValue
 {
     /**
-     * @var Post
+     * @var PostEntity
      */
-    #[ORM\ManyToOne(targetEntity: Post::class)]
+    #[ORM\ManyToOne(targetEntity: PostEntity::class)]
     #[ORM\JoinColumn(name: "entity_id", referencedColumnName: "entity_id")]
-    protected Post $entity_id;
+    protected PostEntity $entity_id;
 
     /**
      * @param $entityId
@@ -38,7 +38,7 @@ abstract class AbstractPostEntity extends ScopedAttributeValue
     }
 
     /**
-     * @return Post
+     * @return PostEntity
      */
     public function getEntityId()
     {

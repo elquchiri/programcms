@@ -1,0 +1,20 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% page %}
+    {% referenceContainer name="content" %}
+        {% container name="home.forums" htmlTag="div" htmlClass="row" %}
+            {% container name="home.forums.listing" htmlTag="div" htmlClass="col-md-10" %}
+                {% block name="home.forums.block" class="ForumSuite\\ForumBundle\\Block\\Cms\\Categories" template="@ForumSuiteForumBundle/cms/forums.html.twig" %}{% endBlock %}
+            {% endContainer %}
+            {% container name="home.user.login" htmlTag="div" htmlClass="col-md-2" %}
+                {% block name="home.user.block" class="ProgramCms\\UserBundle\\Block\\Account\\Login" template="@ForumSuiteForumBundle/user/login.html.twig" %}{% endBlock %}
+            {% endContainer %}
+        {% endContainer %}
+    {% endReferenceContainer %}
+{% endPage %}

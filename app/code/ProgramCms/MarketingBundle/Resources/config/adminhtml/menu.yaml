@@ -16,7 +16,7 @@ menu:
           emailTemplates:
             label: "Email Templates"
             action: 'mailer_index_index'
-            sortOrder: 1
+            sortOrder: 3
       seoSearch:
         label: 'SEO & Search'
         actions:

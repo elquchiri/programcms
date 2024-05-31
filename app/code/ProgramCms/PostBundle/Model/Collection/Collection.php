@@ -9,7 +9,7 @@
 namespace ProgramCms\PostBundle\Model\Collection;
 
 use ProgramCms\CoreBundle\Model\Db\Collection\AbstractCollection;
-use ProgramCms\PostBundle\Entity\Post;
+use ProgramCms\PostBundle\Entity\PostEntity;
 
 /**
  * Class Collection
@@ -22,6 +22,6 @@ class Collection extends AbstractCollection
      */
     protected function _construct()
     {
-        $this->_initEntity(Post::class);
+        $this->_initEntity(PostEntity::class);
     }
 }

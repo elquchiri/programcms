@@ -1,0 +1,41 @@
+/*!
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+
+@import "_begin-ignore.css";
+@import '~grapesjs/dist/css/grapes.min.css';
+@import "coloris";
+@import "_end-ignore.css";
+
+.gjs-cv-canvas {
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.panel__basic-actions-zoom {
+  position: static;
+}
+.panel__basic-actions-title {
+  position: static;
+}
+
+.editor-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  height: calc(100% - 40px - 58px);
+}
+
+.editor-canvas {
+  flex-grow: 1;
+}
+
+.panel__left {
+  flex-basis: 230px;
+  position: relative;
+  overflow-y: auto;
+}

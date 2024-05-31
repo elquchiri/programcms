@@ -68,7 +68,7 @@
                     {% arguments %}
                         {% argument name="data" type="array" %}
                             {% argument name="type" type="string" %}text{% endArgument %}
-                            {% argument name="label" type="string" %}Name{% endArgument %}
+                            {% argument name="label" type="string" %}Category Name{% endArgument %}
                             {% argument name="isRequired" type="boolean" %}true{% endArgument %}
                             {% argument name="source" type="string" %}category_form{% endArgument %}
                         {% endArgument %}
@@ -79,6 +79,7 @@
                 {% arguments %}
                     {% argument name="data" type="array" %}
                         {% argument name="label" type="string" %}Content{% endArgument %}
+                        {% argument name="collapse" type="boolean" %}true{% endArgument %}
                     {% endArgument %}
                 {% endArguments %}
                 {% block name="category_image" class="ui.block.form.field" %}
@@ -105,6 +106,7 @@
                 {% arguments %}
                     {% argument name="data" type="array" %}
                         {% argument name="label" type="string" %}Display Settings{% endArgument %}
+                        {% argument name="collapse" type="boolean" %}true{% endArgument %}
                     {% endArgument %}
                 {% endArguments %}
                 {% block name="category_display_mode" class="ui.block.form.field" %}
@@ -131,6 +133,7 @@
                 {% arguments %}
                     {% argument name="data" type="array" %}
                         {% argument name="label" type="string" %}Search Engine Optimization{% endArgument %}
+                        {% argument name="collapse" type="boolean" %}true{% endArgument %}
                     {% endArgument %}
                 {% endArguments %}
                 {% block name="category_url_key" class="ui.block.form.field" %}
@@ -165,6 +168,32 @@
                         {% argument name="data" type="array" %}
                             {% argument name="type" type="string" %}textarea{% endArgument %}
                             {% argument name="label" type="string" %}Meta Description{% endArgument %}
+                            {% argument name="source" type="string" %}category_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+            {% endBlock %}
+            {% block name="schedule_new" class="ui.block.form.fieldset" %}
+                {% arguments %}
+                    {% argument name="data" type="array" %}
+                        {% argument name="label" type="string" %}Schedule Status{% endArgument %}
+                        {% argument name="collapse" type="boolean" %}true{% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+                {% block name="schedule_new_from" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}date{% endArgument %}
+                            {% argument name="label" type="string" %}From{% endArgument %}
+                            {% argument name="source" type="string" %}category_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="schedule_new_to" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}date{% endArgument %}
+                            {% argument name="label" type="string" %}To{% endArgument %}
                             {% argument name="source" type="string" %}category_form{% endArgument %}
                         {% endArgument %}
                     {% endArguments %}

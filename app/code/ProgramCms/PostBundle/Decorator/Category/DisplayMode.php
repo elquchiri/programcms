@@ -48,6 +48,7 @@ class DisplayMode
     }
 
     /**
+     * Before Decorator
      * @return array
      */
     public function getOptionsArray(): array

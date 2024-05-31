@@ -38,7 +38,7 @@ class ReferenceBlockTokenParser extends \Twig\TokenParser\AbstractTokenParser
 
         $stream->expect(\Twig\Token::BLOCK_END_TYPE);
 
-        return new \ProgramCms\ThemeBundle\Node\ReferenceBlockNode($body, ['name' => $blockName], $lineno, $this->getTag());
+        return new \ProgramCms\ThemeBundle\Node\ReferenceBlockNode($body, ['name' => $blockName, 'remove' => $remove], $lineno, $this->getTag());
     }
 
     /**

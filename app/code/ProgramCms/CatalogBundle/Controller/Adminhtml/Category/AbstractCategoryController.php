@@ -32,7 +32,6 @@ abstract class AbstractCategoryController extends AdminController
     /**
      * AbstractCategoryController constructor.
      * @param Context $context
-     * @param WebsiteManagerInterface $websiteManager
      */
     public function __construct(
         Context $context,

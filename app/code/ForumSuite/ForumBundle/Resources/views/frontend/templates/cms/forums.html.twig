@@ -1,0 +1,126 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="forums-tools" style="border-radius: 5px 5px 0 0;font-size: 13px;       color: #FFFFFF;
+              background-color: #818386;
+              -webkit-box-shadow: inset -1px 25px 32px -10px #6c737a;
+              box-shadow: inset -1px 25px 32px -10px #a1a4a7;">
+    <div class="row p-2 ps-3 pe-3">
+        <div class="col-md-6" style="color: #efe9e9; font-weight: bold;">
+                        <span class="me-2 ms-1">
+                            <img src="{{ asset('bundles/forumsuiteforum/images/online.png') }}"/>
+                        </span>
+            <span class="me-2">475 عضو</span>
+            <span class="me-2">57 مشرف</span>
+            <span class="me-2">1458 زائر (ة)</span>
+        </div>
+        <div class="col-md-6 text-end">
+            الاربعاء 08 ماي، 00:15
+            &middot;
+            بتوقيت
+            <div class="btn-group">
+                <a class="dropdown-toggle" type="button" style="font-weight: bold; color: #FFFFFF"
+                   data-bs-toggle="dropdown" data-bs-auto-close="true"
+                   aria-expanded="false">
+                    GMT + 1
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#">{{ block.trans('View Forum') }}</a></li>
+                    <li><a class="dropdown-item" href="#">{{ block.trans('#Trend Subjects') }}</a></li>
+                    <li><a class="dropdown-item" href="#">{{ block.trans('Message the forum moderator') }}</a></li>
+                    <li><a class="dropdown-item" href="#">{{ block.trans('إضافة المنتدى للمفضلة') }}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-forums caption-top mb-5">
+        {% for category in block.getCategories() %}
+            <thead class="table-forum-times">
+            <th colspan="2" class="text-center" style="width: 23%;">{{ category.getCategoryName() }}</th>
+            <th class="text-center" style="width: 5%">{{ block.trans('Subjects') }}</th>
+            <th class="text-center" style="width: 5%">{{ block.trans('Comments') }}</th>
+            <th class="text-center" style="width: 3%">
+                <img
+                        src="{{ asset('bundles/forumsuiteforum/images/viewers-white.png') }}"
+                        alt="{{ block.trans('Are online now in this category') }}"
+                        title="{{ block.trans('Are online now in this category') }}"
+                />
+            </th>
+            <th class="text-center" style="width: 15%">{{ block.trans('Last post') }}</th>
+            <th class="text-center" style="width: 7%">{{ block.trans('المراقب') }}</th>
+            <th class="text-center" style="width: 25%">{{ block.trans('آخر موضوع') }}</th>
+            <th class="text-center" style="width: 7%"></th>
+            </thead>
+            <tbody>
+            {% for forum in block.getCategoryForums(category) %}
+                <tr>
+                    <td class="text-center">
+                        {{ block.getCategoryImage(forum)|raw }}
+                    </td>
+                    <td class="forum-category" style="background-color: #eaeef9">
+                        <a href="{{ block.getForumUrl(forum) }}">{{ forum.getCategoryName() }}</a>
+                        <p class="text-muted" style="font-size: 12px;">{{ forum.getCategoryDescription() }}</p>
+                    </td>
+                    <td class="text-center" style="background-color: #d8dff0; font-weight: bold; font-size: 13px;">
+                        {{ block.countCategoryPosts() }}
+                    </td>
+                    <td class="text-center" style="background-color: #d8dff0; font-weight: bold; font-size: 13px;">
+                        {{ block.countCategoryComments() }}
+                    </td>
+                    <td class="text-center" style="background-color: #d8dff0">0</td>
+                    <td class="text-center last_post" style="background-color: #d8dff0">
+                        <p class="text-muted p-0 m-0" style="font-size: 13px;">05:40 - اليوم</p>
+                        <a href="#" style="font-weight: bold; font-size: 13px;">محمد القشيري</a>
+                    </td>
+                    <td class="text-center managers">
+                        <a href="#">محمد</a>
+                    </td>
+                    <td class="" style="background-color: #eaeef9">
+                        <div class="row">
+                            <div class="col-md-2 pt-2 text-end">
+                                <div class="profile-image"
+                                     style="display: inline-block; border: 2px solid #8db4db; width: 33px; height: 33px; border-radius: 50%; padding: 1px;">
+                                    <img src="http://ar.dev-programcms.com/media/category_entity/category_image/49557724-66371ef861a65.jpg"
+                                         style="width: 100%; height: 100%; border-radius: 50%;" alt=""/>
+                                </div>
+                            </div>
+                            <div class="col-md p-0">
+                                <a href="" style="font-size: 14px;">مرحبا بكم في برنامج ProgramCMS ForumSuite</a>
+                                <p class="m-0 text-muted" style="font-size: 13px;">نشر من طرف : <a href=""
+                                                                                                   class="text-muted"
+                                                                                                   style="font-size: 12px;">نجيب
+                                        محفوظ</a></p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <div class="btn-group dropdown">
+                            <a class="dropdown-toggle" type="button" style="font-size: 13px;" data-bs-toggle="dropdown"
+                               data-bs-auto-close="true"
+                               aria-expanded="false">
+                                {{ block.trans('خيارات') }}
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">{{ block.trans('View Forum') }}</a></li>
+                                <li><a class="dropdown-item" href="#">{{ block.trans('#Trend Subjects') }}</a></li>
+                                <li><a class="dropdown-item"
+                                       href="#">{{ block.trans('Message the forum moderator') }}</a></li>
+                                <li><a class="dropdown-item" href="#">{{ block.trans('إضافة المنتدى للمفضلة') }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        {% endfor %}
+    </table>
+</div>

@@ -33,7 +33,9 @@
         {% block name="navigation.bar" class="ProgramCms\\ThemeBundle\\Block\\Html\\TopMenu" template="@ProgramCmsThemeBundle/navigation_bar.html.twig" %}{% endBlock %}
         {% container name="top.container" htmlTag="div" htmlClass="top-container" %}{% endContainer %}
         {# Breadcrump Block #}
-        {% block name="breadcrumb" class="ProgramCms\\CoreBundle\\View\\Element\\Template" template="@ProgramCmsThemeBundle/breadcrumb.html.twig" %}{% endBlock %}
+        {% container name="breadcrumb.container" htmlTag="div" htmlClass="ef-breadcrumb container" %}
+            {% block name="breadcrumb" class="ProgramCms\\CoreBundle\\View\\Element\\Template" template="@ProgramCmsThemeBundle/breadcrumb.html.twig" %}{% endBlock %}
+        {% endContainer %}
     {% endReferenceContainer %}
     {# Flash Messages Block #}
     {% referenceContainer name="page.messages" %}

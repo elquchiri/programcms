@@ -9,12 +9,14 @@
 namespace ProgramCms\ThemeBundle\Node;
 
 use Twig\Compiler;
+use Twig\Node\Node;
+use Twig\Node\NodeCaptureInterface;
 
 /**
  * Class MoveNode
  * @package ProgramCms\ThemeBundle\Node
  */
-class MoveNode extends \Twig\Node\Node implements \Twig\Node\NodeCaptureInterface
+class MoveNode extends Node implements NodeCaptureInterface
 {
     /**
      * MoveNode constructor.

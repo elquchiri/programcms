@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\Collection;
 use ProgramCms\CatalogBundle\Repository\CategoryRepository;
 use ProgramCms\EavBundle\Model\Entity\Entity;
 use ProgramCms\EavBundle\Entity\EavAttributeSet;
+use ProgramCms\PostBundle\Entity\PostEntity;
 
 /**
  * Class Category
@@ -43,6 +44,15 @@ class CategoryEntity extends Entity
     protected Collection $children;
 
     /**
+     * @var Collection
+     */
+    #[ORM\JoinTable(name: 'category_post_relation')]
+    #[ORM\ManyToMany(targetEntity: PostEntity::class, inversedBy: 'categories', cascade: ["persist"])]
+    #[ORM\JoinColumn(name: 'category_id', referencedColumnName: 'entity_id')]
+    #[ORM\InverseJoinColumn(name: 'post_id', referencedColumnName: 'entity_id')]
+    protected Collection $posts;
+
+    /**
      * CategoryEntity constructor.
      * @param array $data
      */
@@ -52,6 +62,7 @@ class CategoryEntity extends Entity
     {
         parent::__construct($data);
         $this->children = new ArrayCollection();
+        $this->posts = new ArrayCollection();
     }
 
     /**
@@ -104,5 +115,47 @@ class CategoryEntity extends Entity
     public function hasChildren(): bool
     {
         return !$this->children->isEmpty();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    /**
+     * @param ArrayCollection $posts
+     * @return $this
+     */
+    public function setPosts(ArrayCollection $posts): static
+    {
+        $this->posts = $posts;
+        return $this;
+    }
+
+    /**
+     * @param PostEntity $post
+     * @return $this
+     */
+    public function addPost(PostEntity $post): static
+    {
+        if(!$this->posts->contains($post)) {
+            $this->posts[] = $post;
+            $post->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param PostEntity $post
+     * @return $this
+     */
+    public function removePost(PostEntity $post): static
+    {
+        $this->posts->removeElement($post);
+        return $this;
     }
 }

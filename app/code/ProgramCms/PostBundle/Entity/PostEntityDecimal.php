@@ -8,6 +8,7 @@
 
 namespace ProgramCms\PostBundle\Entity;
 
+use ProgramCms\PostBundle\App\Eav\AbstractPostEntity;
 use ProgramCms\PostBundle\Repository\PostEntityDecimalRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -16,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package ProgramCms\PostBundle\Entity
  */
 #[ORM\Entity(repositoryClass: PostEntityDecimalRepository::class)]
-class PostEntityDecimal extends \ProgramCms\PostBundle\App\Eav\AbstractPostEntity
+class PostEntityDecimal extends AbstractPostEntity
 {
     /**
      * @var float|null

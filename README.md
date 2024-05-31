@@ -150,3 +150,7 @@ Your donation will help, Improve and Speed up productivity of The Amazing Progra
 <img src="https://raw.githubusercontent.com/elquchiri/programcms/master/public/images/logo.png">
 <img src="https://raw.githubusercontent.com/elquchiri/programcms/master/public/images/logo-anime.png">
 </p>
+
+<p align="center">
+<small style="color: gray;">" The Man is The Style " - His majesty, king Hassan 2</small>
+</p>

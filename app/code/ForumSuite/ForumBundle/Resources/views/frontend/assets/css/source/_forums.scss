@@ -1,0 +1,46 @@
+/*!
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+
+.table-forums {
+  .table-forum-times {
+    th {
+      color: #FFFFFF;
+      background-color: #575757;
+      -webkit-box-shadow: inset -1px 25px 32px -10px #9b9393;
+      box-shadow: inset -1px 25px 32px -10px #848383;
+      padding-top: 5px;
+    }
+  }
+
+  th {
+    font-size: 13px;
+  }
+
+  td {
+    a {
+      color: #000000;
+      font-size: 17px;
+    }
+
+    &.forum-category {
+
+    }
+
+    &.last_post {
+      a {
+        font-size: 15px;
+      }
+    }
+
+    &.managers {
+      a {
+        font-size: 14px;
+        font-weight: bold;
+      }
+    }
+  }
+}

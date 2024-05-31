@@ -8,6 +8,7 @@
 
 namespace ProgramCms\AdminBundle\Block\Page;
 
+use ProgramCms\CoreBundle\View\Element\Template;
 use ProgramCms\CoreBundle\View\Element\Template\Context;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -15,7 +16,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * Class Copyright
  * @package ProgramCms\AdminBundle\Block\Page
  */
-class Copyright extends \ProgramCms\CoreBundle\View\Element\Template
+class Copyright extends Template
 {
     /**
      * @var TranslatorInterface
@@ -53,9 +54,8 @@ class Copyright extends \ProgramCms\CoreBundle\View\Element\Template
     protected function _toHtml(): string
     {
         return sprintf(
-            $this->translator->trans("Copyright &copy; %s ProgramCMS Community Edition. All rights reserved."),
+            $this->translator->trans("<b style='font-size: 11px;'>Copyright &copy; %s ProgramCMS</b> CE. All rights reserved."),
             $this->getCopyrightYear()
-        ) . "<br>Permission is hereby granted, free of charge, to any person obtaining a copy<br>
-of this software and associated documentation files (the \"Software\").";
+        ) . "<p class='m-0' style='font-size: 10.5px'>Permission is hereby granted, free of charge, to any person obtaining<br>a copy of this software and associated documentation files.</p>";
     }
 }

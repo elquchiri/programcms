@@ -1,0 +1,273 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="pcms-editor">
+    <div class="panel__post">
+        <div class="row">
+            <div style="padding: 9px 21px 9px 21px;">
+                <div class="editor-header">
+                    <div class="image-input-container">
+                        <a href="{{ block.getCategoryUrl() }}">
+                            <img class="float-start" src="{{ block.getCategory().getCategoryImage() }}" width="40"
+                                 height="40" alt=""/>
+                        </a>
+                        <input type="text" class="form-control ms-2 post_title" placeholder="عنوان الموضوع ...">
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-success rounded-start-5">مشاركة الموضوع</button>
+                        <button type="button" class="btn btn-success rounded-end-5 dropdown-toggle"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="visually-hidden">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">حفظ الموضوع على الخاص</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <p class="mb-0 p-3 pt-2 pb-2 text-muted" style="font-size: 13px;">
+                                يتم حفظ الموضوع على حسابك و لن يتم نشره في الموقع. يمكنك نشره لاحقا.
+                            </p>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel__top mt-2">
+                    <div class="panel__actions">
+                        <div class="editor-rte-action btn-redo"></div>
+                        <div class="editor-rte-action btn-undo"></div>
+                        <div class="editor-rte-action btn-print"></div>
+                    </div>
+                    <div class="panel__actions">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle editor-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                100%
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel__actions">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle editor-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                كلاسيكي
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel__actions">
+                        <div class="editor-rte-action btn-bold" id="bold"></div>
+                        <div class="editor-rte-action btn-italic" id="italic"></div>
+                        <div class="editor-rte-action btn-underline" id="underline"></div>
+                        <div class="editor-rte-action btn-text-color" id="textColor">
+                            <input type="text" style="position: absolute; width: 1px; height: 1px; left: 0; top: 0; border: 0; background: inherit" id="text-color-choose" />
+                            <div id="choosen-color" style="position:absolute; width: 19px; height: 3px; background-color: black; left: 0; right: 0; margin: auto; bottom: 7px;"></div>
+                        </div>
+                    </div>
+                    <div class="panel__actions">
+                        <div class="editor-rte-action btn-link" id="link"></div>
+                        <div class="editor-rte-action btn-image" id="image"></div>
+                    </div>
+                    <div class="panel__actions">
+                        <div class="editor-rte-action btn-unordered-list" id="unorderedList"></div>
+                        <div class="editor-rte-action btn-numbered-list" id="numberedList"></div>
+                        <div class="editor-rte-action btn-check-list" id="checkList"></div>
+                    </div>
+                    <div class="panel__actions">
+                        <div class="editor-rte-action btn-left-align" id="leftAlign"></div>
+                        <div class="editor-rte-action btn-center-align" id="centerAlign"></div>
+                        <div class="editor-rte-action btn-right-align" id="rightAlign"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="editor-row">
+        <div class="editor-canvas" data-controller="editor" id="gjs" aria-describedby="gjs">
+            <p>يمكنك الكتابة هنا ..</p>
+        </div>
+        {# <div class="panel__left"> #}
+        {# <div class="layers-container"></div> #}
+        {# </div> #}
+    </div>
+</div>
+
+<style>
+    html, body {
+        overflow: hidden;
+    }
+    .pcms-editor {
+        width: 100%;
+        height: 100%;
+        display: none;
+    }
+
+    .editor-rte-action {
+        width: 31px;
+        height: 31px;
+        margin: 3px;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    .editor-rte-action:hover {
+        background-color: #CCCCCC;
+    }
+
+    .editor-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center; /* Vertically center items */
+    }
+
+    .image-input-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .image-input-container img {
+        max-width: 100px;
+    }
+
+    .post_title {
+        width: 400px;
+        border: 0;
+        outline: none;
+        box-shadow: none;
+        background-color: inherit;
+        font-size: 16px;
+    }
+
+    .editor-header ::placeholder {
+        color: #000000;
+        opacity: 1; /* Firefox */
+    }
+
+    .editor-header ::-ms-input-placeholder { /* Edge 12 -18 */
+        color: #000000;
+    }
+
+    .gjs-one-bg {
+        background-color: #e5e5e5;
+        color: #000000;
+    }
+
+    .btn-redo {
+        background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/redo.png') no-repeat center center;
+    }
+
+    .btn-undo {
+        background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/undo.png') no-repeat center center;
+    }
+
+    .btn-print {
+        background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/print.png') no-repeat center center;
+    }
+
+    .btn-bold {
+        background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/bold.png') no-repeat center center;
+    }
+
+    .btn-italic {
+        background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/italic.png') no-repeat center center;
+    }
+
+    .btn-underline {
+        background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/underline.png') no-repeat center center;
+    }
+
+    .btn-text-color {
+        position: relative;
+        background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/text-color.png') no-repeat center 5px;
+    }
+
+    .btn-link {
+        position: relative;
+        background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/link.png') no-repeat center 5px;
+    }
+
+    .btn-image {
+        position: relative;
+        background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/image.png') no-repeat center 5px;
+    }
+
+    .btn-unordered-list {
+        position: relative;
+        background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/unordered-list.png') no-repeat center 5px;
+    }
+
+    .btn-numbered-list {
+        position: relative;
+        background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/numbered-list.png') no-repeat center 5px;
+    }
+
+    .btn-check-list {
+        position: relative;
+        background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/check-list.png') no-repeat center 5px;
+    }
+
+    .btn-center-align {
+        position: relative;
+        background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/center-align.png') no-repeat center 5px;
+    }
+
+    .btn-left-align {
+        position: relative;
+        background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/left-align.png') no-repeat center 5px;
+    }
+
+    .btn-right-align {
+        position: relative;
+        background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/right-align.png') no-repeat center 5px;
+    }
+
+    .editor-dropdown {
+        background-color: inherit;
+        padding: 0 9px 0 9px;
+        border: 0;
+        color: #000000;
+        font-size: 15px;
+        margin-top: 5px;
+        z-index: 100;
+    }
+
+    .panel__actions {
+        display: flex;
+        position: relative;
+        padding: 0 5px 0 5px;
+    }
+    .panel__actions:after {
+        content: '';
+        height: 50%;
+        width: 1px;
+        position: absolute;
+        left: 0;
+        top: 25%;
+        background-color: #c2c0c0;
+    }
+
+    .panel__top {
+        display: flex;
+        width: 100%;
+        background-color: #eee;
+        border-radius: 5px;
+        padding: 3px 0 3px 0;
+    }
+
+    .gjs-highlighter {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    .gjs-badge {
+        display: none !important;
+    }
+
+</style>

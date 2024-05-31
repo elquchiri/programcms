@@ -9,13 +9,14 @@
 namespace ProgramCms\ThemeBundle\Ui\Grid\Column;
 
 use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\UiBundle\Component\Listing\ActionsColumn;
 use ProgramCms\UiBundle\View\Element\Context;
 
 /**
  * Class ThemeActions
  * @package ProgramCms\ThemeBundle\Ui\Grid\Column
  */
-class ThemeActions extends \ProgramCms\UiBundle\Component\Listing\ActionsColumn
+class ThemeActions extends ActionsColumn
 {
     /**
      * @var Url

@@ -5,27 +5,33 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 .collapser {
-    margin-bottom: 11px;
     border-bottom: 1px solid #dedede;
-}
-.collapser .collapser-container {
-    padding-top: 11px;
-}
-.collapser .collapser-container .multiselect {
-    height: 300px;
-}
-.collapser .collapser-container .multiselect option {
-    padding: 5px;
-}
 
-.collapser a.collapser-label {
-    font-size: 15px;
-    padding-bottom: 13px;
-    font-weight: bold;
-    color: #232222;
-    display: block;
-    background: url('../../../../../public/images/down-arrow.png') no-repeat 99% top;
-}
-.collapser a.collapser-label.open {
-    background: url('../../../../../public/images/up-arrow.png') no-repeat 99% top;
+    .collapser-container {
+        padding-top: 11px;
+
+        .multiselect {
+            height: 300px;
+
+            option {
+                padding: 5px;
+            }
+        }
+    }
+
+    a {
+        &.collapser-label {
+            font-size: 15px;
+            padding-bottom: 18px;
+            padding-top: 18px;
+            font-weight: bold;
+            color: #232222;
+            display: block;
+            background: url('../../../../../public/images/down-arrow.png') no-repeat 99% 17px;
+
+            &.open {
+                background: url('../../../../../public/images/up-arrow.png') no-repeat 99% 17px;
+            }
+        }
+    }
 }

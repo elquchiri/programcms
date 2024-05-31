@@ -8,7 +8,7 @@
 #}
 {% page %}
     {% referenceContainer name="content" %}
-        {% block name="themes_listing" class="ui.block.listing" %}
+        {% block name="posts_listing" class="ui.block.listing" %}
             {% arguments %}
                 {% argument name="buttons" type="array" %}
                     {% argument name="new" type="string" %}ProgramCms\PostBundle\Model\Provider\Button\NewPostButton{% endArgument %}
@@ -40,7 +40,7 @@
                 {% block name="selectionsColumn" class="ui.block.selectionsColumn" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
-                            {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                            {% argument name="source" type="string" %}posts_listing{% endArgument %}
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
@@ -48,15 +48,15 @@
                     {% arguments %}
                         {% argument name="data" type="array" %}
                             {% argument name="label" type="string" %}#{% endArgument %}
-                            {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                            {% argument name="source" type="string" %}posts_listing{% endArgument %}
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
-                {% block name="theme_title" class="ui.block.column" %}
+                {% block name="post_name" class="ui.block.column" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
-                            {% argument name="label" type="string" %}Title{% endArgument %}
-                            {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                            {% argument name="label" type="string" %}Post Name{% endArgument %}
+                            {% argument name="source" type="string" %}posts_listing{% endArgument %}
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
@@ -64,7 +64,7 @@
                     {% arguments %}
                         {% argument name="data" type="array" %}
                             {% argument name="label" type="string" %}Parent Theme{% endArgument %}
-                            {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                            {% argument name="source" type="string" %}posts_listing{% endArgument %}
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
@@ -72,15 +72,15 @@
                     {% arguments %}
                         {% argument name="data" type="array" %}
                             {% argument name="label" type="string" %}Path{% endArgument %}
-                            {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                            {% argument name="source" type="string" %}posts_listing{% endArgument %}
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
-                {% block name="actionsColumn" class="ProgramCms\\ThemeBundle\\Ui\\Grid\\Column\\ThemeActions" %}
+                {% block name="actionsColumn" class="ProgramCms\\PostBundle\\Ui\\Listing\\Column\\PostActions" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
                             {% argument name="label" type="string" %}Actions{% endArgument %}
-                            {% argument name="source" type="string" %}themes_listing{% endArgument %}
+                            {% argument name="source" type="string" %}posts_listing{% endArgument %}
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}

@@ -11,11 +11,11 @@ system_config:
       tab: 'user'
       scope: 'default|website|website_view'
       groups:
-        group1:
-          label: 'My Group'
+        general:
+          label: 'General'
           scope: 'default|website|website_view'
           fields:
-            field1:
-              type: 'text'
-              label: 'Enable module'
+            enable:
+              type: 'switcher'
+              label: 'Enable Newsletter'
               scope: 'default|website|website_view'

@@ -1,0 +1,41 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="card" style="box-shadow: 0 25px 15px -10px #afafaf">
+    <div class="card-body" style="font-size: 13px; box-shadow: inset 0 25px 15px -10px #b5ceff">
+        <form action="{{ block.getSubmitUrl() }}" method="POST">
+            <div class="row">
+                <div class="col-3">
+                    <img src="{{ asset('bundles/forumsuiteforum/images/login.png') }}"  alt=""/>
+                </div>
+                <div class="col">
+                    <h6 style="color: #0d6efd; font-weight: bold">{{ block.trans('Log in') }}</h6>
+                    <p style="color: #888888">{{ block.trans('Join our Community.') }}</p>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label" style="font-weight: bold;">{{ block.trans('Email') }}</label>
+                <input type="email" name="email" class="form-control" id="email" placeholder="{{ block.trans('Email') }}" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">لن نشارك بريدك الإلكتروني أبدًا مع أي شخص آخر.</div>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label" style="font-weight: bold;">{{ block.trans('Password') }}</label>
+                <input type="password" name="password" class="form-control" id="password">
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" id="_remember_me" name="_remember_me" class="form-check-input">
+                <label class="form-check-label" for="_remember_me">
+                    {{ block.trans('Remember me on this device') }}
+                </label>
+            </div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <button type="submit" class="btn btn-primary btn-sm float-end">{{ block.trans('Login Now') }}</button>
+        </form>
+    </div>
+</div>

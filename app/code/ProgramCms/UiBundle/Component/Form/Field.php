@@ -12,13 +12,14 @@ use Exception;
 use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
 use ProgramCms\CoreBundle\Serialize\Serializer\ObjectSerializer;
 use ProgramCms\UiBundle\Component\AbstractComponent;
+use ProgramCms\UiBundle\Component\Form\Element\AbstractElement;
 use ProgramCms\UiBundle\View\Element\Context;
 
 /**
  * Class Field
  * @package ProgramCms\UiBundle\Component\Form
  */
-class Field extends \ProgramCms\UiBundle\Component\Form\Element\AbstractElement
+class Field extends AbstractElement
 {
     const NAME = 'field';
 

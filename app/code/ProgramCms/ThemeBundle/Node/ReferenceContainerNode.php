@@ -25,11 +25,30 @@ class ReferenceContainerNode extends AbstractNode implements \Twig\Node\NodeCapt
     {
         $containerName = $this->getAttribute('name');
         $remove = (bool) $this->getAttribute('remove');
+        $containerHtmlTag = $this->getAttribute('containerHtmlTag');
+        $containerHtmlClass = $this->getAttribute('containerHtmlClass');
+        $containerIdClass = $this->getAttribute('containerIdClass');
 
         if($remove) {
             // Remove container from Elements Tree
             $compiler
                 ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->addElementToRemove('$containerName')")
+                ->raw(";\n");
+        }
+
+        if($containerHtmlTag) {
+            $compiler
+                ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->overrideAttribute('$containerName', 'htmlTag', '$containerHtmlTag')")
+                ->raw(";\n");
+        }
+        if($containerHtmlClass) {
+            $compiler
+                ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->overrideAttribute('$containerName', 'htmlClass', '$containerHtmlClass')")
+                ->raw(";\n");
+        }
+        if($containerIdClass) {
+            $compiler
+                ->write("\$this->env->getExtension('\ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->overrideAttribute('$containerName', 'htmlId', '$containerIdClass')")
                 ->raw(";\n");
         }
 

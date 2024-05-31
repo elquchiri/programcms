@@ -94,13 +94,13 @@ class EavEntityPersistSubscriber implements EventSubscriber
                                 'entity_id' => $entity,
                                 'attribute_id' => $attribute->getAttributeId()
                             ];
-                            $isScopped = false;
+                            $isScoped = false;
 
                             $reflection = new \ReflectionClass($backendType);
                             if($reflection->isSubclassOf(ScopedAttributeValue::class)) {
                                 $currentWebsiteView = $this->websiteManager->getWebsiteView();
                                 $findBy['websiteView'] = $currentWebsiteView;
-                                $isScopped = true;
+                                $isScoped = true;
                             }
 
                             /** @var AbstractRepository $repository */
@@ -111,7 +111,7 @@ class EavEntityPersistSubscriber implements EventSubscriber
                                 $attributeValue = $this->objectManager->create($backendType);
                                 $attributeValue->setEntityId($entity);
                                 $attributeValue->setAttributeId($attribute);
-                                if($isScopped) {
+                                if($isScoped) {
                                     $attributeValue->setWebsiteView($currentWebsiteView);
                                 }
                             }

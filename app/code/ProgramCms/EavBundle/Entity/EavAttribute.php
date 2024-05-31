@@ -103,10 +103,10 @@ class EavAttribute extends AbstractEntity
     private Collection $labels;
 
     /**
-     * @var ArrayCollection|Collection
+     * @var Collection
      */
     #[ORM\ManyToMany(targetEntity: EavAttributeGroup::class, mappedBy: 'attributes')]
-    private Collection|ArrayCollection $groups;
+    private Collection $groups;
 
     /**
      * @var AdditionalEavAttribute|null

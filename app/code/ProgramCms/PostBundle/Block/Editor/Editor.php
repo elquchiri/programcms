@@ -8,6 +8,8 @@
 
 namespace ProgramCms\PostBundle\Block\Editor;
 
+use ProgramCms\CatalogBundle\Entity\CategoryEntity;
+use ProgramCms\CatalogBundle\Repository\CategoryRepository;
 use ProgramCms\CoreBundle\View\Element\Template;
 
 /**
@@ -16,5 +18,41 @@ use ProgramCms\CoreBundle\View\Element\Template;
  */
 class Editor extends Template
 {
+    /**
+     * @var CategoryRepository
+     */
+    protected CategoryRepository $categoryRepository;
 
+    /**
+     * Editor constructor.
+     * @param Template\Context $context
+     * @param CategoryRepository $categoryRepository
+     * @param array $data
+     */
+    public function __construct(
+        Template\Context $context,
+        CategoryRepository $categoryRepository,
+        array $data = []
+    )
+    {
+        parent::__construct($context, $data);
+        $this->categoryRepository = $categoryRepository;
+    }
+
+    /**
+     * @return CategoryEntity
+     */
+    public function getCategory(): CategoryEntity
+    {
+        $categoryId = $this->getRequest()->getParam('category');
+        return $this->categoryRepository->getById($categoryId);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCategoryUrl(): string
+    {
+        return $this->getUrl('catalog_category_view', ['id' => $this->getCategory()->getEntityId()]);
+    }
 }

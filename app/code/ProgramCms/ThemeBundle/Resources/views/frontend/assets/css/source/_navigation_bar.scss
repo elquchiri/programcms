@@ -53,11 +53,14 @@
   position: relative;
   display: block;
   color: #000000;
+  font-size: 13.5px;
+  font-weight: bold;
 }
 
 #menu,
 #toggle-menu {
-  background-color: #EEEEEE;
+  background-color: #939393;
+  box-shadow: inset 1px 25px 32px -10px #d5d6d8;
 }
 
 #toggle-menu,
@@ -71,8 +74,8 @@
 }
 
 #menu a:hover {
-  background-color: #EEEEEE;
-  color: #09c;
+  background-color: #e6e6e6;
+  color: #0d647d;
 }
 
 #menu .sub-menu {

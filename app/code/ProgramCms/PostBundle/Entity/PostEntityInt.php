@@ -9,6 +9,7 @@
 namespace ProgramCms\PostBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ProgramCms\PostBundle\App\Eav\AbstractPostEntity;
 use ProgramCms\PostBundle\Repository\PostEntityIntRepository;
 
 /**
@@ -16,7 +17,7 @@ use ProgramCms\PostBundle\Repository\PostEntityIntRepository;
  * @package ProgramCms\PostBundle\Entity
  */
 #[ORM\Entity(repositoryClass: PostEntityIntRepository::class)]
-class PostEntityInt extends \ProgramCms\PostBundle\App\Eav\AbstractPostEntity
+class PostEntityInt extends AbstractPostEntity
 {
     /**
      * @var int|null

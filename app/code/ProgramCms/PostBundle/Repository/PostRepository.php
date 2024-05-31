@@ -9,7 +9,7 @@
 namespace ProgramCms\PostBundle\Repository;
 
 use ProgramCms\CoreBundle\Repository\AbstractRepository;
-use ProgramCms\PostBundle\Entity\Post;
+use ProgramCms\PostBundle\Entity\PostEntity;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -24,6 +24,6 @@ class PostRepository extends AbstractRepository
      */
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Post::class);
+        parent::__construct($registry, PostEntity::class);
     }
 }

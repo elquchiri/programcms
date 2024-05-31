@@ -8,16 +8,12 @@
 #}
 {% page %}
     {% move name="header.panel.wrapper" destination="footer.legal.copyright" before="copyright" %}
+    {% move name="navigation.bar" destination="header.wrapper" before="-" %}
+    {% move name="form.search.mini" destination="navigation.bar" %}
 
-    {% referenceContainer name="navbar.collapse" remove="true" %}{% endReferenceContainer %}
-
-    {% referenceContainer name="logo.container" %}
-        {% block name="account.resume" class="ProgramCms\\CoreBundle\\View\\Element\\Template" template="@ProgramCmsThemeBundle/account.html.twig" after="logo" %}{% endBlock %}
-    {% endReferenceContainer %}
-
-    {% referenceContainer name="navbar" %}
-        {% container name="forum.navbar" htmlTag="div" htmlClass="collapse navbar-collapse justify-content-end" %}
-            {% block name="forum.home" class="ProgramCms\\CoreBundle\\View\\Element\\Template" template="@ProgramCmsThemeBundle/forum_home.html.twig" %}{% endBlock %}
-        {% endContainer %}
-    {% endReferenceContainer %}
+    {% referenceContainer name="header.panel" htmlClass="panel header container-fluid" %}{% endReferenceContainer %}
+    {% referenceContainer name="navbar" htmlClass="navbar navbar-expand-lg container-fluid p-0" %}{% endReferenceContainer %}
+    {% referenceContainer name="main.content" htmlClass="page-main container-fluid" %}{% endReferenceContainer %}
+    {% referenceContainer name="breadcrumb.container" htmlTag="div" htmlClass="ef-breadcrumb container-fluid" %}{% endReferenceContainer %}
+    {% referenceContainer name="footer.columns.container" htmlClass="container-fluid" %}{% endReferenceContainer %}
 {% endPage %}

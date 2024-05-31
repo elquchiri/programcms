@@ -9,7 +9,11 @@ menu:
     groups:
       communication:
         actions:
+          newsletters:
+            label: "Newsletters"
+            action: 'newsletter_index_index'
+            sortOrder: 1
           newsletterSubscribers:
             label: "Newsletter Subscribers"
             action: ''
-            sortOrder: 1
+            sortOrder: 2
