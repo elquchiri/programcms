@@ -9,14 +9,15 @@ import {Controller} from "@hotwired/stimulus";
 import grapesjs from 'grapesjs';
 import ar from '../locale/ar';
 import Coloris from "@melloware/coloris";
+import Loader from "@programcms/loader";
 
 application.register('editor', class extends Controller {
+    editor;
 
     connect() {
-        const editorId = $(this.element).attr('id');
-
-        const editor = grapesjs.init({
-            container: '#' + editorId,
+        let self = this;
+        self.editor = grapesjs.init({
+            container: '#editor-wrapper',
             fromElement: true,
             height: '100%',
             width: 'auto',
@@ -26,9 +27,6 @@ application.register('editor', class extends Controller {
                 locale: 'ar',
                 messages: {ar},
             },
-            // layerManager: {
-            //     appendTo: '.layers-container'
-            // },
             // Avoid any default panel
             panels: {defaults: []},
             storageManager: false,
@@ -48,25 +46,25 @@ application.register('editor', class extends Controller {
             `,
         });
 
-        editor.on('load', () => {
-            const wrapper = editor.getWrapper();
+        self.editor.on('load', () => {
+            const wrapper = self.editor.getWrapper();
             wrapper.addStyle({direction: 'rtl'});
             $('.pcms-editor').show();
-            editor.select(wrapper.getChildAt(0));
+            self.editor.select(wrapper.getChildAt(0));
             wrapper.set({
                 attributes: { id: 'my-wrapper' }
             });
-            const iframe = editor.Canvas.getFrameEl();
+            const iframe = self.editor.Canvas.getFrameEl();
             const iframeBody = iframe.contentDocument.body;
             iframeBody.style.backgroundColor = '#eee';
             iframeBody.style.borderTop = 'thick solid red !important;';
         });
 
-        editor.on('rte:enable', function () {
-            editor.RichTextEditor.getToolbarEl().style.display = 'none';
+        self.editor.on('rte:enable', function () {
+            self.editor.RichTextEditor.getToolbarEl().style.display = 'none';
         });
 
-        editor.on('canvas:frame:load', ({window}) => {
+        self.editor.on('canvas:frame:load', ({window}) => {
             function isSelectionInTag(tag) {
                 const currentNode = window.getSelection().anchorNode;
                 if(currentNode) {
@@ -83,7 +81,7 @@ application.register('editor', class extends Controller {
             //     }
             // });
 
-            const iframe = editor.Canvas.getFrameEl();
+            const iframe = self.editor.Canvas.getFrameEl();
             const styleEl = window.document.createElement('style');
             styleEl.innerHTML = `
                 *::-webkit-scrollbar-thumb {background: #888 !important;}
@@ -104,14 +102,14 @@ application.register('editor', class extends Controller {
             let actionId = $(this).attr('id');
             switch(actionId) {
                 case 'bold':
-                    editor.RichTextEditor.run('bold');
+                    self.editor.RichTextEditor.run('bold');
                     //editor.RichTextEditor.globalRte.exec('fontWeight', 'bold');
                     break;
                 case 'italic':
-                    editor.RichTextEditor.run('italic');
+                    self.editor.RichTextEditor.run('italic');
                     break;
                 case 'underline':
-                    editor.RichTextEditor.run('underline');
+                    self.editor.RichTextEditor.run('underline');
                     break;
                 case 'textColor':
                     $('#text-color-choose').trigger('click');
@@ -129,10 +127,39 @@ application.register('editor', class extends Controller {
             rtl: true,
             margin: 30,
             onChange: function(color, input) {
-                let rte = editor.RichTextEditor.globalRte;
+                let rte = self.editor.RichTextEditor.globalRte;
                 rte.exec('foreColor', color);
                 //rte.insertHTML(`<span style="color: ${color}">${rte.selection()}</span>`);
                 $('#choosen-color').css({backgroundColor: color});
+            }
+        });
+    }
+
+    onSubmit(event) {
+        event.preventDefault();
+        let form = $(this.element);
+        let self = this;
+        let postTitleElement = $('input[name=post_title]');
+        let categoryId = $('input[name=category_id]');
+        console.log(self.editor.getHtml(), self.editor.getCss());
+        $.ajax({
+            url: form.attr('action'),
+            method: 'post',
+            data: {
+                'post_title': postTitleElement.val(),
+                'post_data': JSON.stringify(self.editor.getProjectData()),
+                'post_html': self.editor.getHtml(),
+                'post_css': self.editor.getCss(),
+                'category_id': categoryId.val()
+            },
+            beforeSend: function() {
+                Loader.startLoader();
+            },
+            success: function(response) {
+                console.log(response);
+            },
+            complete: function() {
+                Loader.stopLoader();
             }
         });
     }

@@ -204,5 +204,29 @@ class SetupEavModel extends AbstractDataPatch
                 'note' => "Meta Description"
             ]
         );
+
+        $this->eavSetup->addAttribute(
+            PostEntity::class,
+            'post_html',
+            [
+                'backend_type' => PostEntityText::class,
+                'frontend_input' => 'textarea',
+                'frontend_label' => 'Post HTML',
+                'is_required' => true,
+                'note' => "Meta HTML Content"
+            ]
+        );
+
+        $this->eavSetup->addAttribute(
+            PostEntity::class,
+            'post_css',
+            [
+                'backend_type' => PostEntityText::class,
+                'frontend_input' => 'textarea',
+                'frontend_label' => 'Post CSS',
+                'is_required' => true,
+                'note' => "Post CSS Content"
+            ]
+        );
     }
 }

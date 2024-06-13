@@ -8,27 +8,12 @@
 
 namespace ProgramCms\EavBundle\Model\Entity\Attribute\Frontend;
 
-use ProgramCms\RouterBundle\Service\Url;
-
 /**
  * Class Image
  * @package ProgramCms\EavBundle\Model\Entity\Attribute\Frontend
  */
 class Image extends AbstractFrontend
 {
-    /**
-     * @var Url
-     */
-    protected Url $url;
-
-    /**
-     * Image constructor.
-     * @param Url $url
-     */
-    public function __construct(Url $url)
-    {
-        $this->url = $url;
-    }
 
     /**
      * @param string $attributeCode
@@ -38,7 +23,6 @@ class Image extends AbstractFrontend
      */
     public function getValue(string $attributeCode, $value, object $object): string
     {
-        $tableName = $object->getTableName();
-        return $this->url->getBaseUrl() . '/media/' . $tableName . '/' . $attributeCode . '/' . $value;
+        return $value;
     }
 }

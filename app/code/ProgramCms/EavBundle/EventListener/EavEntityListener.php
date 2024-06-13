@@ -75,7 +75,6 @@ class EavEntityListener
 
             if ($eavEntityType) {
                 $entityType = $entity->setEntityType($eavEntityType);
-                //$entityType->getEntityType()->setEntity($entity);
                 /** @var EavAttribute $attribute */
                 foreach($entityType->getEntityType()->getAttributes() as $attribute) {
                     $backendType = $attribute->getBackendType();

@@ -11,6 +11,7 @@ namespace ProgramCms\EavBundle\Model\Entity\Attribute\Backend;
 use Gedmo\Sluggable\Util\Urlizer;
 use \ProgramCms\CoreBundle\Model\Utils\BundleManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use ProgramCms\RouterBundle\Service\Url;
 
 /**
  * Class Image
@@ -24,12 +25,22 @@ class Image extends AbstractBackend
     protected BundleManager $bundleManager;
 
     /**
+     * @var Url
+     */
+    protected Url $url;
+
+    /**
      * Image constructor.
      * @param BundleManager $bundleManager
+     * @param Url $url
      */
-    public function __construct(BundleManager $bundleManager)
+    public function __construct(
+        BundleManager $bundleManager,
+        Url $url
+    )
     {
         $this->bundleManager = $bundleManager;
+        $this->url = $url;
     }
 
     /**
@@ -48,7 +59,8 @@ class Image extends AbstractBackend
                 $destination = $rootDirectory . '/public/media/'. $tableName .'/' . $attributeCode;
                 $uploadedFile->move($destination, $newFilename);
                 // Replace config field value
-                $object->setData($attributeCode, $newFilename);
+                $publicFileName = $this->url->getBaseUrl() . '/media/' . $tableName . '/' . $attributeCode . '/' . $newFilename;
+                $object->setData($attributeCode, $publicFileName);
             }
         }
     }

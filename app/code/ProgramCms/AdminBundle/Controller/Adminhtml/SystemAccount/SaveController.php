@@ -25,25 +25,29 @@ class SaveController extends \ProgramCms\CoreBundle\Controller\AdminController
      * @var TranslatorInterface
      */
     protected TranslatorInterface $translator;
+
     /**
      * @var AdminUserRepository
      */
     protected AdminUserRepository $adminUserRepository;
+
     /**
      * @var Security
      */
     protected Security $security;
+
     /**
      * @var Url
      */
     protected Url $url;
+
     /**
      * @var UserPasswordHasherInterface
      */
     protected UserPasswordHasherInterface $passwordHasher;
 
     /**
-     * IndexController constructor.
+     * SaveController constructor.
      * @param Context $context
      * @param AdminUserRepository $adminUserRepository
      * @param Security $security

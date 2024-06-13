@@ -24,7 +24,7 @@ class Post extends Template
     protected PostRepository $postRepository;
 
     /**
-     * Publisher constructor.
+     * Post constructor.
      * @param Template\Context $context
      * @param PostRepository $postRepository
      * @param array $data

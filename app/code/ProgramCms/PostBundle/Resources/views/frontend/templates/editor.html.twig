@@ -10,92 +10,92 @@
     <div class="panel__post">
         <div class="row">
             <div style="padding: 9px 21px 9px 21px;">
-                <div class="editor-header">
-                    <div class="image-input-container">
-                        <a href="{{ block.getCategoryUrl() }}">
-                            <img class="float-start" src="{{ block.getCategory().getCategoryImage() }}" width="40"
-                                 height="40" alt=""/>
-                        </a>
-                        <input type="text" class="form-control ms-2 post_title" placeholder="عنوان الموضوع ...">
-                    </div>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-success rounded-start-5">مشاركة الموضوع</button>
-                        <button type="button" class="btn btn-success rounded-end-5 dropdown-toggle"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="visually-hidden">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">حفظ الموضوع على الخاص</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <p class="mb-0 p-3 pt-2 pb-2 text-muted" style="font-size: 13px;">
-                                يتم حفظ الموضوع على حسابك و لن يتم نشره في الموقع. يمكنك نشره لاحقا.
-                            </p>
-                        </ul>
-                    </div>
-                </div>
-                <div class="panel__top mt-2">
-                    <div class="panel__actions">
-                        <div class="editor-rte-action btn-redo"></div>
-                        <div class="editor-rte-action btn-undo"></div>
-                        <div class="editor-rte-action btn-print"></div>
-                    </div>
-                    <div class="panel__actions">
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle editor-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                100%
+                <form action="{{ block.getNewPostUrl() }}" method="post" data-controller="editor">
+                    <div class="editor-header">
+                        <div class="image-input-container">
+                            <a href="{{ block.getCategoryUrl() }}">
+                                <img class="float-start" src="{{ block.getCategory().getCategoryImage() }}" width="40"
+                                     height="40" alt=""/>
+                            </a>
+                            <input type="text" name="post_title" class="form-control ms-2 post_title" placeholder="عنوان الموضوع ...">
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-success rounded-start-5" data-action="editor#onSubmit">مشاركة الموضوع</button>
+                            <button type="button" class="btn btn-success rounded-end-5 dropdown-toggle"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="visually-hidden">Toggle Dropdown</span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">حفظ الموضوع على الخاص</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <p class="mb-0 p-3 pt-2 pb-2 text-muted" style="font-size: 13px;">
+                                    يتم حفظ الموضوع على حسابك و لن يتم نشره في الموقع. يمكنك نشره لاحقا.
+                                </p>
                             </ul>
                         </div>
                     </div>
-                    <div class="panel__actions">
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle editor-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                كلاسيكي
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                            </ul>
+                    <div class="panel__top mt-2">
+                        <div class="panel__actions">
+                            <div class="editor-rte-action btn-redo"></div>
+                            <div class="editor-rte-action btn-undo"></div>
+                            <div class="editor-rte-action btn-print"></div>
+                        </div>
+                        <div class="panel__actions">
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle editor-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    100%
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="panel__actions">
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle editor-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    كلاسيكي
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="panel__actions">
+                            <div class="editor-rte-action btn-bold" id="bold"></div>
+                            <div class="editor-rte-action btn-italic" id="italic"></div>
+                            <div class="editor-rte-action btn-underline" id="underline"></div>
+                            <div class="editor-rte-action btn-text-color" id="textColor">
+                                <input type="text" style="position: absolute; width: 1px; height: 1px; left: 0; top: 0; border: 0; background: inherit" id="text-color-choose" />
+                                <div id="choosen-color" style="position:absolute; width: 19px; height: 3px; background-color: black; left: 0; right: 0; margin: auto; bottom: 7px;"></div>
+                            </div>
+                        </div>
+                        <div class="panel__actions">
+                            <div class="editor-rte-action btn-link" id="link"></div>
+                            <div class="editor-rte-action btn-image" id="image"></div>
+                        </div>
+                        <div class="panel__actions">
+                            <div class="editor-rte-action btn-unordered-list" id="unorderedList"></div>
+                            <div class="editor-rte-action btn-numbered-list" id="numberedList"></div>
+                            <div class="editor-rte-action btn-check-list" id="checkList"></div>
+                        </div>
+                        <div class="panel__actions">
+                            <div class="editor-rte-action btn-left-align" id="leftAlign"></div>
+                            <div class="editor-rte-action btn-center-align" id="centerAlign"></div>
+                            <div class="editor-rte-action btn-right-align" id="rightAlign"></div>
                         </div>
                     </div>
-                    <div class="panel__actions">
-                        <div class="editor-rte-action btn-bold" id="bold"></div>
-                        <div class="editor-rte-action btn-italic" id="italic"></div>
-                        <div class="editor-rte-action btn-underline" id="underline"></div>
-                        <div class="editor-rte-action btn-text-color" id="textColor">
-                            <input type="text" style="position: absolute; width: 1px; height: 1px; left: 0; top: 0; border: 0; background: inherit" id="text-color-choose" />
-                            <div id="choosen-color" style="position:absolute; width: 19px; height: 3px; background-color: black; left: 0; right: 0; margin: auto; bottom: 7px;"></div>
-                        </div>
-                    </div>
-                    <div class="panel__actions">
-                        <div class="editor-rte-action btn-link" id="link"></div>
-                        <div class="editor-rte-action btn-image" id="image"></div>
-                    </div>
-                    <div class="panel__actions">
-                        <div class="editor-rte-action btn-unordered-list" id="unorderedList"></div>
-                        <div class="editor-rte-action btn-numbered-list" id="numberedList"></div>
-                        <div class="editor-rte-action btn-check-list" id="checkList"></div>
-                    </div>
-                    <div class="panel__actions">
-                        <div class="editor-rte-action btn-left-align" id="leftAlign"></div>
-                        <div class="editor-rte-action btn-center-align" id="centerAlign"></div>
-                        <div class="editor-rte-action btn-right-align" id="rightAlign"></div>
-                    </div>
-                </div>
+                    <input type="hidden" name="category_id" value="{{ block.getCategory().getEntityId()}}" />
+                </form>
             </div>
         </div>
     </div>
 
     <div class="editor-row">
-        <div class="editor-canvas" data-controller="editor" id="gjs" aria-describedby="gjs">
+        <div class="editor-canvas" id="editor-wrapper" aria-describedby="gjs">
             <p>يمكنك الكتابة هنا ..</p>
         </div>
-        {# <div class="panel__left"> #}
-        {# <div class="layers-container"></div> #}
-        {# </div> #}
     </div>
 </div>
 

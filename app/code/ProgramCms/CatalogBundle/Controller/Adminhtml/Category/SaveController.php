@@ -87,7 +87,7 @@ class SaveController extends AdminController
                 unset($formData['entity_id']);
             }
 
-            if(isset($formData['website_view']) && !empty($formData['website_view'])) {
+             if(isset($formData['website_view']) && !empty($formData['website_view'])) {
                 // Set Current Website View
                 $this->websiteManager->setCurrentWebsiteView($formData['website_view']);
             }

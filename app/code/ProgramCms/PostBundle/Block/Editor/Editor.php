@@ -55,4 +55,12 @@ class Editor extends Template
     {
         return $this->getUrl('catalog_category_view', ['id' => $this->getCategory()->getEntityId()]);
     }
+
+    /**
+     * @return string
+     */
+    public function getNewPostUrl(): string
+    {
+        return $this->getUrl('post_index_save');
+    }
 }

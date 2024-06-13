@@ -9,7 +9,7 @@
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
         <a class="navbar-brand" href="">
-            <img src="{{ block.getPost().getCategories().last().getCategoryImage() }}" width="40" height="40"/>
+            <img src="{{ block.getPost().getCategories().last().getCategoryImage() }}" width="40" height="40" alt=""/>
         </a>
         <p class="mt-3">
             <a href="" style="color: #000000">{{ block.getPost().getCategories().last().getCategoryName() }}</a>
@@ -92,7 +92,7 @@
                     </ul>
                 </td>
                 <td>
-                    {{ block.getPost().getPostContent() }}
+                    {{ block.getPost().getPostHtml()|raw }}
                 </td>
             </tr>
             <tr>
