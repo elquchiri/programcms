@@ -28,7 +28,7 @@ class Entity extends AbstractEntity
     /**
      * @var DateTime|null
      */
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime', nullable: true)]
     protected ?DateTime $created_at = null;
 
     /**

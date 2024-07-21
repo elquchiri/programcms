@@ -64,6 +64,16 @@ class Request
     }
 
     /**
+     * Checks if param exists in the request
+     * @param $param
+     * @return bool
+     */
+    public function hasParam($param): bool
+    {
+        return !empty($this->getParam($param)) || !is_null($this->getParam($param));
+    }
+
+    /**
      * Set Request Parameter
      * @param $param
      * @param $value

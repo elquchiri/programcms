@@ -10,6 +10,173 @@
 @import "coloris";
 @import "_end-ignore.css";
 
+.pcms-editor {
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.editor-rte-action {
+  width: 31px;
+  height: 31px;
+  margin: 3px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.editor-rte-action:hover {
+  background-color: #CCCCCC;
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Vertically center items */
+}
+
+.image-input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.image-input-container img {
+  max-width: 100px;
+}
+
+.post_title {
+  width: 400px;
+  border: 0;
+  outline: none;
+  box-shadow: none;
+  background-color: inherit;
+  font-size: 16px;
+}
+
+.editor-header ::placeholder {
+  color: #000000;
+  opacity: 1; /* Firefox */
+}
+
+.editor-header ::-ms-input-placeholder { /* Edge 12 -18 */
+  color: #000000;
+}
+
+.gjs-one-bg {
+  background-color: #e5e5e5;
+  color: #000000;
+}
+
+.btn-redo {
+  background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/redo.png') no-repeat center center;
+}
+
+.btn-undo {
+  background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/undo.png') no-repeat center center;
+}
+
+.btn-print {
+  background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/print.png') no-repeat center center;
+}
+
+.btn-bold {
+  background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/bold.png') no-repeat center center;
+}
+
+.btn-italic {
+  background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/italic.png') no-repeat center center;
+}
+
+.btn-underline {
+  background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/underline.png') no-repeat center center;
+}
+
+.btn-text-color {
+  position: relative;
+  background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/text-color.png') no-repeat center 5px;
+}
+
+.btn-link {
+  position: relative;
+  background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/link.png') no-repeat center 5px;
+}
+
+.btn-image {
+  position: relative;
+  background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/image.png') no-repeat center 5px;
+}
+
+.btn-unordered-list {
+  position: relative;
+  background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/unordered-list.png') no-repeat center 5px;
+}
+
+.btn-numbered-list {
+  position: relative;
+  background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/numbered-list.png') no-repeat center 5px;
+}
+
+.btn-check-list {
+  position: relative;
+  background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/check-list.png') no-repeat center 5px;
+}
+
+.btn-center-align {
+  position: relative;
+  background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/center-align.png') no-repeat center 5px;
+}
+
+.btn-left-align {
+  position: relative;
+  background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/left-align.png') no-repeat center 5px;
+}
+
+.btn-right-align {
+  position: relative;
+  background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/right-align.png') no-repeat center 5px;
+}
+
+.editor-dropdown {
+  background-color: inherit;
+  padding: 0 9px 0 9px;
+  border: 0;
+  color: #000000;
+  font-size: 15px;
+  margin-top: 5px;
+  z-index: 100;
+}
+
+.panel__actions {
+  display: flex;
+  position: relative;
+  padding: 0 5px 0 5px;
+}
+.panel__actions:after {
+  content: '';
+  height: 50%;
+  width: 1px;
+  position: absolute;
+  left: 0;
+  top: 25%;
+  background-color: #c2c0c0;
+}
+
+.panel__top {
+  display: flex;
+  width: 100%;
+  background-color: #eee;
+  border-radius: 5px;
+  padding: 3px 0 3px 0;
+}
+
+.gjs-highlighter {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.gjs-badge {
+  display: none !important;
+}
+
 .gjs-cv-canvas {
   top: 0;
   width: 100%;

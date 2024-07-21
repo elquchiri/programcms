@@ -8,19 +8,19 @@
 
 namespace ProgramCms\PostBundle\Controller\Index;
 
-use ProgramCms\CatalogBundle\Entity\CategoryEntity;
-use ProgramCms\CatalogBundle\Repository\CategoryRepository;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Controller\Controller;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\CoreBundle\View\Result\Page;
+use ProgramCms\PostBundle\Entity\PostEntity;
+use ProgramCms\PostBundle\Repository\PostRepository;
 use ReflectionException;
 
 /**
- * Class NewController
+ * Class EditController
  * @package ProgramCms\PostBundle\Controller\Index
  */
-class NewController extends Controller
+class EditController extends Controller
 {
     /**
      * @var ObjectManager
@@ -28,25 +28,25 @@ class NewController extends Controller
     protected ObjectManager $objectManager;
 
     /**
-     * @var CategoryRepository
+     * @var PostRepository
      */
-    protected CategoryRepository $categoryRepository;
+    protected PostRepository $postRepository;
 
     /**
-     * NewController constructor.
+     * EditController constructor.
      * @param Context $context
      * @param ObjectManager $objectManager
-     * @param CategoryRepository $categoryRepository
+     * @param PostRepository $postRepository
      */
     public function __construct(
         Context $context,
         ObjectManager $objectManager,
-        CategoryRepository $categoryRepository
+        PostRepository $postRepository
     )
     {
         parent::__construct($context);
         $this->objectManager = $objectManager;
-        $this->categoryRepository = $categoryRepository;
+        $this->postRepository = $postRepository;
     }
 
     /**
@@ -55,11 +55,12 @@ class NewController extends Controller
      */
     public function execute()
     {
-        $categoryId = $this->getRequest()->getParam('category');
-        $category = $this->categoryRepository->getById($categoryId);
+        $postId = $this->getRequest()->getParam('post_id');
+        /** @var PostEntity $post */
+        $post = $this->postRepository->getById($postId);
         $pageResult = $this->objectManager->create(Page::class);
-        if($category) {
-            $pageResult->getConfig()->getTitle()->set($category->getCategoryName());
+        if($post) {
+            $pageResult->getConfig()->getTitle()->set($post->getPostName());
         }
         return $pageResult;
     }

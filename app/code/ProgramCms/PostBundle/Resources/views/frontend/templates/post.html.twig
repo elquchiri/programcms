@@ -8,11 +8,11 @@
 #}
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">
-            <img src="{{ block.getPost().getCategories().last().getCategoryImage() }}" width="40" height="40" alt=""/>
+        <a class="navbar-brand" href="{{ block.getCategoryUrl() }}">
+            <img src="{{ block.getCategory().getCategoryImage() }}" width="40" height="40" alt=""/>
         </a>
         <p class="mt-3">
-            <a href="" style="color: #000000">{{ block.getPost().getCategories().last().getCategoryName() }}</a>
+            <a href="{{ block.getCategoryUrl() }}" style="color: #000000">{{ block.getCategory().getCategoryName() }}</a>
             <span style="display: block; font-size: 13px;" class="mt-1">{{ block.trans('Managed by') }}: <a href="">Med ELQ</a></span>
         </p>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -26,7 +26,7 @@
             </ul>
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                 <li class="nav-item me-3">
-                    <a class="nav-link text-center" aria-current="page" href="" style="font-size: 13px; font-weight: bold;">
+                    <a class="nav-link text-center" aria-current="page" href="{{ block.newPostUrl() }}" style="font-size: 13px; font-weight: bold;">
                         <img src="{{ asset('bundles/programcmspost/images/new.png') }}" alt=""/>
                         <p>{{ block.trans('New Post') }}</p>
                     </a>
@@ -80,7 +80,9 @@
                             <div class="profile-image" style="display: inline-block; border: 3px solid #6d9dcb; width: 38px; height: 38px; border-radius: 50%; padding: 1px;">
                                 <img src="{{ block.getPost().getUser().getProfileImage() }}" style="width: 100%; height: 100%; border-radius: 50%;" alt="" />
                             </div>
-                            <p class="m-0 mt-2">{{ block.getPost().getUser().getFullname() }}</p>
+                            <p class="m-0 mt-2">
+                                <a href="">{{ block.getPost().getUser().getFullname() }}</a>
+                            </p>
                             <p class="text-muted m-0" style="font-size: 13px;">مدير المنتديات</p>
                         </li>
                         <li class="list-group-item" style="font-size: 14px;">
@@ -92,16 +94,81 @@
                     </ul>
                 </td>
                 <td>
-                    {{ block.getPost().getPostHtml()|raw }}
+                    <div class="post_content p-2">
+                        {{ block.getPost().getPostHtml()|raw }}
+                    </div>
+                    <div class="post_options text-end mt-3 p-3">
+                        <div class="btn-group dropdown">
+                            <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true"
+                               aria-expanded="false">
+                                {{ block.trans('Edit') }}
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ block.getEditPostUrl() }}">{{ block.trans('Edit Post') }}</a></li>
+                                <li><a class="dropdown-item" data-controller="delete-comment" data-action="delete-comment#onDelete" id="{{ block.getPost().getEntityId() }}" href="#">{{ block.trans('Delete Post') }}</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <textarea class="form-control"></textarea>
-                    <input type="submit" class="btn btn-primary" value="Add Comment">
-                </td>
-            </tr>
+
+            {% if block.hasComments() %}
+                {% for comment in block.getComments() %}
+                    <tr id="comment-{{ comment.getEntityId() }}">
+                        <td>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item text-center">
+                                    <div class="profile-image" style="display: inline-block; border: 3px solid #6d9dcb; width: 38px; height: 38px; border-radius: 50%; padding: 1px;">
+                                        <img src="{{ comment.getUser().getProfileImage() }}" style="width: 100%; height: 100%; border-radius: 50%;" alt="" />
+                                    </div>
+                                    <p class="m-0 mt-2">{{ comment.getUser().getFullname() }}</p>
+                                    <p class="text-muted m-0" style="font-size: 13px;">مدير المنتديات</p>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <div class="post_comment p-2">
+                                {{ comment.getComment() }}
+                            </div>
+                            <div class="comment_options text-end mt-3 p-3">
+                                <div class="btn-group dropdown">
+                                    <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true"
+                                       aria-expanded="false">
+                                        {{ block.trans('Edit') }}
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">{{ block.trans('Edit Comment') }}</a></li>
+                                        <li><a class="dropdown-item" data-controller="delete-comment" data-action="delete-comment#onDelete" id="{{ comment.getEntityId() }}" href="#">{{ block.trans('Delete Comment') }}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+
+            {% if(block.getSecurityUser()) %}
+                <tr id="comment-container">
+                    <td>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item text-center">
+                                <div class="profile-image" style="display: inline-block; border: 3px solid #6d9dcb; width: 38px; height: 38px; border-radius: 50%; padding: 1px;">
+                                    <img src="{{ block.getUser().getProfileImage() }}" style="width: 100%; height: 100%; border-radius: 50%;" alt="" />
+                                </div>
+                                <p class="m-0 mt-2">{{ block.getUser().getFullname() }}</p>
+                                <p class="text-muted m-0" style="font-size: 13px;">مدير المنتديات</p>
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <form action="{{ block.getCommentUrl() }}" method="POST" data-controller="new-comment">
+                            <textarea name="comment" class="form-control" placeholder="{{ block.trans('Write a comment ..') }}" rows="5"></textarea>
+                            <input type="hidden" name="post_id" value="{{ block.getPost().getEntityId() }}" />
+                            <input type="submit" class="btn btn-primary float-end mt-2" data-action="new-comment#onSubmit" value="{{ block.trans('Add Comment') }}">
+                        </form>
+                    </td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 </div>

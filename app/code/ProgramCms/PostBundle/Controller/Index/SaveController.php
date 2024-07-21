@@ -15,6 +15,7 @@ use ProgramCms\CoreBundle\Controller\Controller;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\PostBundle\Entity\PostEntity;
 use ProgramCms\PostBundle\Repository\PostRepository;
+use ProgramCms\UserBundle\Repository\UserEntityRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
@@ -39,23 +40,31 @@ class SaveController extends Controller
     protected CategoryRepository $categoryRepository;
 
     /**
+     * @var UserEntityRepository
+     */
+    protected UserEntityRepository $userRepository;
+
+    /**
      * SaveController constructor.
      * @param Context $context
      * @param ObjectManager $objectManager
      * @param PostRepository $postRepository
      * @param CategoryRepository $categoryRepository
+     * @param UserEntityRepository $userRepository
      */
     public function __construct(
         Context $context,
         ObjectManager $objectManager,
         PostRepository $postRepository,
-        CategoryRepository $categoryRepository
+        CategoryRepository $categoryRepository,
+        UserEntityRepository $userRepository
     )
     {
         parent::__construct($context);
         $this->objectManager = $objectManager;
         $this->postRepository = $postRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -63,21 +72,32 @@ class SaveController extends Controller
      */
     public function execute()
     {
-        $editorJson = $this->getRequest()->getParam('post_content');
+        $postId = $this->getRequest()->getParam('post_id');
+        $editorJson = $this->getRequest()->getParam('post_data');
         $postTitle = $this->getRequest()->getParam('post_title');
         $postHtml = $this->getRequest()->getParam('post_html');
         $postCss = $this->getRequest()->getParam('post_css');
         $categoryId = $this->getRequest()->getParam('category_id');
         /** @var CategoryEntity $category */
         $category = $this->categoryRepository->getById($categoryId);
-        $post = new PostEntity();
+        $userId = $this->getUser()->getUserIdentifier();
+        $user = $this->userRepository->getByEmail($userId);
+
+        // Prepare Post
+        if(!is_null($postId) && !empty($postId)) {
+            $post = $this->postRepository->getById($postId);
+        }else{
+            $post = new PostEntity();
+            $post
+                ->addCategory($category)
+                ->setUser($user)
+                ->setCreatedAt();
+        }
         $post
-            ->addCategory($category)
             ->setPostName($postTitle)
             ->setPostContent($editorJson)
             ->setPostHtml($postHtml)
             ->setPostCss($postCss)
-            ->setCreatedAt()
             ->setUpdatedAt();
 
         // Save Post

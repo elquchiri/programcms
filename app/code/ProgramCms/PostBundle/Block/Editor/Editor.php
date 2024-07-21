@@ -59,8 +59,16 @@ class Editor extends Template
     /**
      * @return string
      */
-    public function getNewPostUrl(): string
+    public function getSavePostUrl(): string
     {
         return $this->getUrl('post_index_save');
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPostId()
+    {
+        return $this->getRequest()->hasParam('post_id') ? $this->getRequest()->getParam('post_id') : null;
     }
 }

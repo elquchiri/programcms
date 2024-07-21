@@ -1,0 +1,22 @@
+/*!
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+
+.comment_options {
+    .btn-group {
+        .dropdown-toggle {
+            font-size: 15px;
+        }
+
+        .dropdown-menu {
+            li {
+                a {
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+}

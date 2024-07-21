@@ -78,7 +78,10 @@ class View extends Template
      */
     public function getPostUrl(PostEntity $post): string
     {
-        return $this->url->getUrlByRouteName('post_index_view', ['id' => $post->getEntityId()]);
+        return $this->url->getUrlByRouteName(
+            'post_index_view',
+            ['category' => $this->getCategory()->getEntityId(), 'id' => $post->getEntityId()]
+        );
     }
 
     /**
@@ -95,5 +98,13 @@ class View extends Template
     public function newPostUrl(): string
     {
         return $this->url->getUrlByRouteName('post_index_new', ['category' => $this->getCategory()->getEntityId()]);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCategoryUrl(): string
+    {
+        return $this->url->getUrl('catalog_category_view', ['id' => $this->getCategory()->getEntityId()]);
     }
 }

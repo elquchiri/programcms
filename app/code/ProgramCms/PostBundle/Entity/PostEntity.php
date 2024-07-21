@@ -45,6 +45,9 @@ class PostEntity extends Entity implements PostInterface
     #[ORM\ManyToMany(targetEntity: CategoryEntity::class, mappedBy: 'posts', cascade: ["persist"])]
     private Collection $categories;
 
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class)]
+    private Collection $comments;
+
     /**
      * PostEntity constructor.
      * @param array $data
@@ -119,7 +122,6 @@ class PostEntity extends Entity implements PostInterface
             $this->categories[] = $category;
             $category->addPost($this);
         }
-
         return $this;
     }
 
@@ -131,5 +133,35 @@ class PostEntity extends Entity implements PostInterface
     {
         $this->categories->removeElement($category);
         return $this;
+    }
+
+    /**
+     * @param Comment $comment
+     * @return $this
+     */
+    public function addComment(Comment $comment): static
+    {
+        if(!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+        }
+        return $this;
+    }
+
+    /**
+     * @param Comment $comment
+     * @return $this
+     */
+    public function removeComment(Comment $comment): static
+    {
+        $this->comments->removeElement($comment);
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
     }
 }
