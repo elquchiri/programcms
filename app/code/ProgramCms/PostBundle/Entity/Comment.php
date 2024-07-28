@@ -31,6 +31,9 @@ class Comment extends Entity
     #[ORM\Column(type: 'text')]
     private string $comment;
 
+    #[ORM\Column(type: 'text')]
+    private string $comment_json;
+
     /**
      * @param UserEntity $user
      * @return $this
@@ -83,5 +86,23 @@ class Comment extends Entity
     public function getComment(): string
     {
         return $this->comment;
+    }
+
+    /**
+     * @param $commentJson
+     * @return $this
+     */
+    public function setCommentJson($commentJson): static
+    {
+        $this->comment_json = $commentJson;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCommentJson(): ?string
+    {
+        return $this->comment_json;
     }
 }

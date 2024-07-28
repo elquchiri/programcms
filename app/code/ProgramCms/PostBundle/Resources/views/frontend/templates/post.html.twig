@@ -128,7 +128,7 @@
                         </td>
                         <td>
                             <div class="post_comment p-2">
-                                {{ comment.getComment() }}
+                                {{ comment.getComment()|raw }}
                             </div>
                             <div class="comment_options text-end mt-3 p-3">
                                 <div class="btn-group dropdown">
@@ -137,7 +137,7 @@
                                         {{ block.trans('Edit') }}
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">{{ block.trans('Edit Comment') }}</a></li>
+                                        <li><a class="dropdown-item" href="{{ block.getEditCommentUrl(comment) }}">{{ block.trans('Edit Comment') }}</a></li>
                                         <li><a class="dropdown-item" data-controller="delete-comment" data-action="delete-comment#onDelete" id="{{ comment.getEntityId() }}" href="#">{{ block.trans('Delete Comment') }}</a></li>
                                     </ul>
                                 </div>
@@ -161,7 +161,7 @@
                         </ul>
                     </td>
                     <td>
-                        <form action="{{ block.getCommentUrl() }}" method="POST" data-controller="new-comment">
+                        <form action="{{ block.getCommentSaveUrl() }}" method="POST" data-controller="new-comment">
                             <textarea name="comment" class="form-control" placeholder="{{ block.trans('Write a comment ..') }}" rows="5"></textarea>
                             <input type="hidden" name="post_id" value="{{ block.getPost().getEntityId() }}" />
                             <input type="submit" class="btn btn-primary float-end mt-2" data-action="new-comment#onSubmit" value="{{ block.trans('Add Comment') }}">

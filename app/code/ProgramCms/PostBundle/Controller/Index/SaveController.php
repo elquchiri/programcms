@@ -77,16 +77,16 @@ class SaveController extends Controller
         $postTitle = $this->getRequest()->getParam('post_title');
         $postHtml = $this->getRequest()->getParam('post_html');
         $postCss = $this->getRequest()->getParam('post_css');
-        $categoryId = $this->getRequest()->getParam('category_id');
-        /** @var CategoryEntity $category */
-        $category = $this->categoryRepository->getById($categoryId);
-        $userId = $this->getUser()->getUserIdentifier();
-        $user = $this->userRepository->getByEmail($userId);
 
         // Prepare Post
         if(!is_null($postId) && !empty($postId)) {
             $post = $this->postRepository->getById($postId);
         }else{
+            $categoryId = $this->getRequest()->getParam('category_id');
+            /** @var CategoryEntity $category */
+            $category = $this->categoryRepository->getById($categoryId);
+            $userId = $this->getUser()->getUserIdentifier();
+            $user = $this->userRepository->getByEmail($userId);
             $post = new PostEntity();
             $post
                 ->addCategory($category)

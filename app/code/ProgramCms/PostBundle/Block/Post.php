@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\Collection;
 use ProgramCms\CatalogBundle\Entity\CategoryEntity;
 use ProgramCms\CatalogBundle\Repository\CategoryRepository;
 use ProgramCms\CoreBundle\View\Element\Template;
+use ProgramCms\PostBundle\Entity\Comment;
 use ProgramCms\PostBundle\Entity\PostEntity;
 use ProgramCms\PostBundle\Repository\PostRepository;
 use ProgramCms\UserBundle\Entity\UserEntity;
@@ -118,9 +119,20 @@ class Post extends Template
     /**
      * @return string
      */
-    public function getCommentUrl(): string
+    public function getCommentSaveUrl(): string
     {
-        return $this->getUrl('post_comment_new');
+        return $this->getUrl('post_comment_save');
+    }
+
+    /**
+     * @param Comment $comment
+     * @return string
+     */
+    public function getEditCommentUrl(Comment $comment): string
+    {
+        return $this->getUrl('post_comment_edit',
+            ['category' => $this->getCategory()->getEntityId(), 'comment_id' => $comment->getEntityId()]
+        );
     }
 
     /**

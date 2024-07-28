@@ -17,6 +17,8 @@ application.register('editor', class extends Controller {
     connect() {
         let self = this;
         const postId = $('#post_id').val();
+        const commentId = $('#comment_id').val();
+
         self.editor = grapesjs.init({
             container: '#editor-wrapper',
             fromElement: true,
@@ -59,8 +61,12 @@ application.register('editor', class extends Controller {
 
             self.updateEditorStyle(self.editor);
 
-            if (postId != null || postId !== '') {
-                self.loadProjectData(self.editor, postId);
+            if (postId != null && postId !== '') {
+                self.loadPostProjectData(self.editor, postId);
+            }
+
+            if(commentId != null && commentId !== '') {
+                self.loadCommentProjectData(self.editor, commentId);
             }
         });
 
@@ -138,17 +144,31 @@ application.register('editor', class extends Controller {
         let postTitleElement = $('input[name=post_title]');
         let categoryId = $('input[name=category_id]');
         const postId = $('#post_id').val();
-        $.ajax({
-            url: form.attr('action'),
-            method: 'post',
-            data: {
+        const commentId = $('#comment_id').val();
+        const editorMode = $('#editor_mode').val();
+        let data;
+        if(editorMode === 'post') {
+            data = {
                 'post_id': postId,
                 'post_title': postTitleElement.val(),
                 'post_data': JSON.stringify(self.editor.getProjectData()),
                 'post_html': self.editor.getHtml(),
                 'post_css': self.editor.getCss(),
                 'category_id': categoryId.val()
-            },
+            };
+        }else{
+            data = {
+                'comment_id' : commentId,
+                'comment_data': JSON.stringify(self.editor.getProjectData()),
+                'comment': self.editor.getHtml(),
+                'comment_css': self.editor.getCss()
+            }
+        }
+        console.log(data);
+        $.ajax({
+            url: form.attr('action'),
+            method: 'post',
+            data: data,
             beforeSend: function () {
                 Loader.startLoader();
             },
@@ -161,7 +181,7 @@ application.register('editor', class extends Controller {
         });
     }
 
-    loadProjectData(editor, postId) {
+    loadPostProjectData(editor, postId) {
         // Load Project Data
         const base_url = window.location.origin;
         let self = this;
@@ -170,6 +190,32 @@ application.register('editor', class extends Controller {
             method: 'post',
             data: {
                 'post_id': postId
+            },
+            beforeSend: function () {
+                Loader.startLoader();
+            },
+            success: function (result) {
+                if(result.edit) {
+                    let data = JSON.parse(result.data);
+                    editor.loadProjectData(data);
+                    self.updateEditorStyle(editor);
+                }
+            },
+            complete: function () {
+                Loader.stopLoader();
+            }
+        });
+    }
+
+    loadCommentProjectData(editor, commentId) {
+        // Load Project Data
+        const base_url = window.location.origin;
+        let self = this;
+        $.ajax({
+            url: base_url + '/post/ajax/loadcomment/comment_id/' + commentId,
+            method: 'post',
+            data: {
+                'comment_id': commentId
             },
             beforeSend: function () {
                 Loader.startLoader();

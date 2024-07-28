@@ -10,7 +10,7 @@
     <div class="panel__post">
         <div class="row">
             <div style="padding: 9px 21px 0 21px; border-bottom: 1px solid #dedede">
-                <form action="{{ block.getSavePostUrl() }}" method="post" data-controller="editor">
+                <form action="{{ block.getSaveUrl() }}" method="post" data-controller="editor">
                     <div class="editor-header">
                         <div class="image-input-container">
                             <a href="{{ block.getCategoryUrl() }}">
@@ -87,7 +87,13 @@
                         </div>
                     </div>
                     <input type="hidden" name="category_id" value="{{ block.getCategory().getEntityId()}}" />
-                    <input type="hidden" name="post_id" id="post_id" value="{{ block.getPostId() }}" />
+                    {% if block.isPostMode() %}
+                        <input type="hidden" name="post_id" id="post_id" value="{{ block.getPostId() }}" />
+                    {% endif %}
+                    {% if block.isCommentMode() %}
+                        <input type="hidden" name="comment_id" id="comment_id" value="{{ block.getCommentId() }}" />
+                    {% endif %}
+                    <input type="hidden" id="editor_mode" value="{{ block.getEditorMode() }}" />
                 </form>
             </div>
         </div>
