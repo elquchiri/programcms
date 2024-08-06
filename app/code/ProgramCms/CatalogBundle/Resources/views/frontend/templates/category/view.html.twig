@@ -102,20 +102,20 @@
                                 <a href="{{ block.getPostUrl(post) }}">{{ post.getPostName() }}</a>
                             </td>
                             <td class="text-center">
-                                <a href="#">{{ post.getUser().getFullname() }}</a>
+                                <a href="#" style="font-size: 14px;">{{ post.getUser().getFullname() }}</a>
                             </td>
                             <td class="text-center" style="background-color: #d8dff0; font-weight: bold; font-size: 13px;">
-                                1587
+                                {{ block.countComments(post) }}
                             </td>
                             <td class="text-center" style="background-color: #d8dff0; font-weight: bold; font-size: 13px;">
                                 475
                             </td>
                             <td class="text-center">
-                                <a href="#">Med ELQ</a>
+                                <a href="#" style="font-size: 14px;">Med ELQ</a>
                             </td>
                             <td class="text-center">
                                 <div class="btn-group dropstart">
-                                    <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true"
+                                    <a class="dropdown-toggle" type="button" style="font-size: 14px;" data-bs-toggle="dropdown" data-bs-auto-close="true"
                                        aria-expanded="false">
                                         {{ block.trans('View') }}
                                     </a>

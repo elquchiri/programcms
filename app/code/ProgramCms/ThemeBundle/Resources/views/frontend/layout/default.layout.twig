@@ -30,7 +30,11 @@
     {# Page Top Container #}
     {% referenceContainer name="page.top" %}
         {# Navigation Section Block #}
-        {% block name="navigation.bar" class="ProgramCms\\ThemeBundle\\Block\\Html\\TopMenu" template="@ProgramCmsThemeBundle/navigation_bar.html.twig" %}{% endBlock %}
+        {% container name="navigation.bar" htmlTag="nav" htmlClass="mb-2" htmlId="menu" %}
+            {% container name="navigation.nav.container" htmlTag="div" htmlClass="container" %}
+                {% block name="navigation.block" class="ProgramCms\\ThemeBundle\\Block\\Html\\TopMenu" template="@ProgramCmsThemeBundle/navigation_bar.html.twig" %}{% endBlock %}
+            {% endContainer %}
+        {% endContainer %}
         {% container name="top.container" htmlTag="div" htmlClass="top-container" %}{% endContainer %}
         {# Breadcrump Block #}
         {% container name="breadcrumb.container" htmlTag="div" htmlClass="ef-breadcrumb container" %}

@@ -13,6 +13,7 @@ use ProgramCms\CatalogBundle\Entity\CategoryEntity;
 use ProgramCms\CatalogBundle\Repository\CategoryRepository;
 use ProgramCms\CoreBundle\View\Element\Template;
 use ProgramCms\PostBundle\Entity\PostEntity;
+use ProgramCms\PostBundle\Repository\CommentRepository;
 use ProgramCms\RouterBundle\Service\Url;
 
 /**
@@ -32,15 +33,22 @@ class View extends Template
     protected Url $url;
 
     /**
+     * @var CommentRepository
+     */
+    protected CommentRepository $commentRepository;
+
+    /**
      * View constructor.
      * @param Template\Context $context
      * @param CategoryRepository $categoryRepository
+     * @param CommentRepository $commentRepository
      * @param Url $url
      * @param array $data
      */
     public function __construct(
         Template\Context $context,
         CategoryRepository $categoryRepository,
+        CommentRepository $commentRepository,
         Url $url,
         array $data = []
     )
@@ -48,6 +56,7 @@ class View extends Template
         parent::__construct($context, $data);
         $this->categoryRepository = $categoryRepository;
         $this->url = $url;
+        $this->commentRepository = $commentRepository;
     }
 
     /**
@@ -106,5 +115,16 @@ class View extends Template
     public function getCategoryUrl(): string
     {
         return $this->url->getUrl('catalog_category_view', ['id' => $this->getCategory()->getEntityId()]);
+    }
+
+    /**
+     * @param PostEntity $postEntity
+     * @return int
+     */
+    public function countComments(PostEntity $postEntity): int
+    {
+        return $this->commentRepository->count([
+            'post' => $postEntity
+        ]);
     }
 }
