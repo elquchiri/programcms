@@ -8,11 +8,28 @@
 
 namespace ProgramCms\UserBundle\Block\Account;
 
+use ProgramCms\CoreBundle\View\Element\Template;
+
 /**
  * Class Navigation
  * @package ProgramCms\UserBundle\Block\Account
  */
-class Navigation extends \ProgramCms\CoreBundle\View\Element\Template
+class Navigation extends Template
 {
+    /**
+     * @return string
+     */
+    public function generateMenu(): string
+    {
+        $html = "";
+        $items = $this->getChildBlocks();
+        uasort($items, function ($firstItem, $secondItem) {
+            return $firstItem->getData('sortOrder') <=> $secondItem->getData('sortOrder');
+        });
+        foreach($items as $child) {
+            $html .= $child->toHtml();
+        }
 
+        return $html;
+    }
 }

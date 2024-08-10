@@ -11,7 +11,7 @@
         {% container name="header.panel.wrapper" htmlTag="div" htmlClass="panel wrapper" %}
             {% container name="header.panel" htmlTag="div" htmlClass="panel header container" %}
                 {# Account navigation links #}
-                {% block name="website.navigation" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsUserBundle/account_navigation.html.twig" %}{% endBlock %}
+                {% block name="website.navigation" class="ProgramCms\\CoreBundle\\View\\Element\\Template" template="@ProgramCmsUserBundle/account_navigation.html.twig" %}{% endBlock %}
             {% endContainer %}
         {% endContainer %}
         {% container name="header.wrapper" htmlTag="div" htmlClass="panel content" %}

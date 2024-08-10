@@ -6,13 +6,6 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<nav class="nav flex-column">
-    <a class="nav-link active" href="{{ block.getUrl('user_edit_index') }}">{{ block.trans('Dashboard') }}</a>
-    <a class="nav-link" href="{{ block.getUrl('user_edit_information') }}">{{ block.trans('Edit Informations') }}</a>
-    <a class="nav-link" href="">{{ block.trans('Update Password') }}</a>
-    <a class="nav-link" href="{{ block.getUrl('user_address_index') }}">{{ block.trans('Addresses') }}</a>
-
-    {{ block.getChildHtml()|raw }}
-
-    <a class="nav-link" style="color: #888;" href="#">{{ block.trans('Delete my account') }}</a>
+<nav class="nav flex-column account-nav">
+    {{ block.generateMenu()|raw }}
 </nav>

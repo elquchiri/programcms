@@ -1,0 +1,35 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<form action="{{ block.getSaveInformationUrl() }}" method="POST">
+    <div class="row mb-4">
+        <div class="col">
+            <label class="form-label" for="first_name">{{ block.trans('First Name') }}</label>
+            <input type="text" name="first_name" id="first_name" class="form-control" value="{{ app.user.getUserFirstname() }}">
+        </div>
+        <div class="col">
+            <label class="form-label" for="last_name">{{ block.trans('Last Name') }}</label>
+            <input type="text" name="last_name" id="last_name" class="form-control" value="{{ app.user.getUserLastname() }}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label class="form-label" for="email">{{ block.trans('Email') }}</label>
+            <input type="text" name="email" id="email" class="form-control" value="{{ app.user.email }}">
+        </div>
+        <div class="col">
+            <label class="form-label" for="username">{{ block.trans('User Name') }}</label>
+            <input type="text" name="username" id="username" class="form-control" value="{{ app.user.getUsername() }}">
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12">
+            <input type="submit" class="btn btn-primary" value="{{ block.trans('Save') }}">
+        </div>
+    </div>
+</form>

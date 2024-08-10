@@ -8,6 +8,35 @@
 #}
 {% page %}
     {% referenceContainer name="sidebar.main" %}
-        {% block name="user.account.navigation" class="ProgramCms\\UserBundle\\Block\\Account\\Edit\\Dashboard" template="@ProgramCmsUserBundle/dashboard/navigation.bar.html.twig" %}{% endBlock %}
+        {% block name="user.account.navigation" class="ProgramCms\\UserBundle\\Block\\Account\\Navigation" template="@ProgramCmsUserBundle/dashboard/navigation.bar.html.twig" %}
+            {% block name="user.account.dashboard" class="ProgramCms\\CoreBundle\\View\\Element\\Html\\Link\\Item" %}
+                {% arguments %}
+                    {% argument name="label" type="string" %}Dashboard{% endArgument %}
+                    {% argument name="path" type="string" %}user_edit_index{% endArgument %}
+                    {% argument name="sortOrder" type="string" %}1{% endArgument %}
+                {% endArguments %}
+            {% endBlock %}
+            {% block name="user.account.information" class="ProgramCms\\CoreBundle\\View\\Element\\Html\\Link\\Item" %}
+                {% arguments %}
+                    {% argument name="label" type="string" %}Edit Information{% endArgument %}
+                    {% argument name="path" type="string" %}user_edit_information{% endArgument %}
+                    {% argument name="sortOrder" type="string" %}2{% endArgument %}
+                {% endArguments %}
+            {% endBlock %}
+            {% block name="user.account.password" class="ProgramCms\\CoreBundle\\View\\Element\\Html\\Link\\Item" %}
+                {% arguments %}
+                    {% argument name="label" type="string" %}Update Password{% endArgument %}
+                    {% argument name="path" type="string" %}user_edit_password{% endArgument %}
+                    {% argument name="sortOrder" type="string" %}3{% endArgument %}
+                {% endArguments %}
+            {% endBlock %}
+            {% block name="user.account.addresses" class="ProgramCms\\CoreBundle\\View\\Element\\Html\\Link\\Item" %}
+                {% arguments %}
+                    {% argument name="label" type="string" %}Addresses{% endArgument %}
+                    {% argument name="path" type="string" %}user_address_index{% endArgument %}
+                    {% argument name="sortOrder" type="string" %}4{% endArgument %}
+                {% endArguments %}
+            {% endBlock %}
+        {% endBlock %}
     {% endReferenceContainer %}
 {% endPage %}

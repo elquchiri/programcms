@@ -5,5 +5,8 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-@import "flashes";
-@import "account";
+.account-nav {
+  .nav-link {
+    padding-left: 0;
+  }
+}
