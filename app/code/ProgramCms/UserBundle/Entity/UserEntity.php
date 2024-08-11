@@ -102,6 +102,13 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
     private Collection $addresses;
 
     /**
+     * @var UserAddressEntity|null
+     */
+    #[ORM\ManyToOne(targetEntity: UserAddressEntity::class)]
+    #[ORM\JoinColumn(name: 'default_address', referencedColumnName: 'entity_id')]
+    private ?UserAddressEntity $defaultAddress;
+
+    /**
      * UserEntity constructor.
      * @param array $data
      */
@@ -420,5 +427,23 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
     {
         $this->addresses->removeElement($userAddressEntity);
         return $this;
+    }
+
+    /**
+     * @param UserAddressEntity $address
+     * @return $this
+     */
+    public function setDefaultAddress(UserAddressEntity $address): static
+    {
+        $this->defaultAddress = $address;
+        return $this;
+    }
+
+    /**
+     * @return UserAddressEntity|null
+     */
+    public function getDefaultAddress(): ?UserAddressEntity
+    {
+        return $this->defaultAddress;
     }
 }

@@ -8,8 +8,8 @@
 
 namespace ProgramCms\UserBundle\Entity\Address;
 
-use ProgramCms\UserBundle\App\Eav\AbstractUserEntity;
-use ProgramCms\UserBundle\Repository\UserEntityDatetimeRepository;
+use ProgramCms\UserBundle\App\Eav\AbstractUserAddressEntity;
+use ProgramCms\UserBundle\Repository\Address\UserAddressEntityDatetimeRepository;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 
@@ -17,8 +17,8 @@ use DateTime;
  * Class UserAddressEntityDatetime
  * @package ProgramCms\UserBundle\Entity\Address
  */
-#[ORM\Entity(repositoryClass: UserEntityDatetimeRepository::class)]
-class UserAddressEntityDatetime extends AbstractUserEntity
+#[ORM\Entity(repositoryClass: UserAddressEntityDatetimeRepository::class)]
+class UserAddressEntityDatetime extends AbstractUserAddressEntity
 {
     /**
      * @var DateTime|null

@@ -70,7 +70,7 @@ class Request
      */
     public function hasParam($param): bool
     {
-        return !empty($this->getParam($param)) || !is_null($this->getParam($param));
+        return !empty($this->getParam($param)) && !is_null($this->getParam($param));
     }
 
     /**

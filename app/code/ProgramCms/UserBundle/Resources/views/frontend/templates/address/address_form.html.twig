@@ -1,0 +1,77 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<form action="{{ block.getSaveAddressUrl() }}" method="POST">
+    <div class="row mt-4">
+        <div class="col-md">
+            <div class="row">
+                <div class="form-group col-md">
+                    <label for="inputCity" class="mb-2">{{ block.trans('First Name') }}</label>
+                    <input type="text" name="firstname" class="form-control" id="inputCity" value="{% if block.getAddress() %}{{ block.getAddress().getFirstname() }}{% endif %}">
+                </div>
+                <div class="form-group col-md">
+                    <label for="inputState" class="mb-2">{{ block.trans('Last Name') }}</label>
+                    <input type="text" name="lastname" class="form-control" id="inputCity" value="{% if block.getAddress() %}{{ block.getAddress().getLastname() }}{% endif %}">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="form-group col-md">
+                    <label for="inputState" class="mb-2">{{ block.trans('Phone') }}</label>
+                    <input type="text" name="telephone" class="form-control" id="inputCity" value="{% if block.getAddress() %}{{ block.getAddress().getTelephone() }}{% endif %}">
+                </div>
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="form-group">
+                <label for="inputAddress" class="mb-2">{{ block.trans('Address') }}</label>
+                <input type="text" name="street" class="form-control" id="inputAddress" value="{% if block.getAddress() %}{{ block.getAddress().getStreet() }}{% endif %}" placeholder="1234 Main St">
+            </div>
+            <div class="form-group mt-2">
+                <input type="text" name="street2" class="form-control" id="inputAddress2" placeholder="{{ block.trans('Apartment, studio, or floor') }}">
+            </div>
+            <div class="row mt-3">
+                <div class="form-group col-md">
+                    <label for="inputCity" class="mb-2">{{ block.trans('City') }}</label>
+                    <input type="text" name="city" class="form-control" id="inputCity" value="{% if block.getAddress() %}{{ block.getAddress().getCity() }}{% endif %}">
+                </div>
+                <div class="form-group col-md">
+                    <label for="inputState" class="mb-2">{{ block.trans('Country') }}</label>
+                    <select name="country" id="inputState" class="form-control">
+                        {{ block.getCountries()|raw }}
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md">
+                    <div class="form-group">
+                        <label for="inputZip" class="mb-2">{{ block.trans('Zip Code') }}</label>
+                        <input type="text" name="zipcode" class="form-control" id="inputZip" value="{% if block.getAddress() %}{{ block.getAddress().getZipcode() }}{% endif %}">
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="form-group">
+                        <label for="inputState" class="mb-2">{{ block.trans('State') }}</label>
+                        <input type="text" name="region" class="form-control" id="inputZip" value="{% if block.getAddress() %}{{ block.getAddress().getRegion() }}{% endif %}">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md">
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" name="default_address" class="form-check-input" id="default_address" {% if block.isDefaultAddressChecked() %}checked{% endif %}>
+                        <label class="form-check-label" for="default_address">
+                            {{ block.trans('Use as my default address') }}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="id" value="{{ block.getAddressId() }}" />
+    <input type="submit" class="btn btn-primary mt-4" value="{{ block.trans('Save Address') }}" />
+</form>

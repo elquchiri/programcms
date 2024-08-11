@@ -181,6 +181,18 @@ class UserAddressEav implements DataPatchInterface
                 'note' => "User's Address Country Code"
             ]
         );
+
+        $this->eavSetup->addAttribute(
+            UserAddressEntity::class,
+            'zipcode',
+            [
+                'backend_type' => UserAddressEntityVarchar::class,
+                'frontend_input' => 'text',
+                'frontend_label' => 'Zip Code',
+                'is_required' => true,
+                'note' => "User's Address Zip Code"
+            ]
+        );
     }
 
     /**

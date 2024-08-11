@@ -25,16 +25,19 @@ abstract class AbstractBlock extends DataObject implements BlockInterface
      * @var string
      */
     protected string $_nameInLayout;
+
     /**
      * Twig Environment instance
      * @var Environment
      */
     protected Environment $environment;
+
     /**
      * Current Block Layout
      * @var Layout
      */
     protected Layout $layout;
+
     /**
      * @var Url
      */
@@ -50,6 +53,7 @@ abstract class AbstractBlock extends DataObject implements BlockInterface
         array $data = []
     )
     {
+        parent::__construct($data);
         $this->layout = $context->getLayout();
         $this->_url = $context->getUrl();
         $this->_construct();

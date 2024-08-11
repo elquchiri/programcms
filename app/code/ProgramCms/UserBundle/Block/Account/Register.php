@@ -23,6 +23,10 @@ class Register extends Template
      * @var Url
      */
     protected Url $url;
+
+    /**
+     * @var CountrySelector
+     */
     protected CountrySelector $countrySelector;
 
     /**

@@ -8,16 +8,16 @@
 
 namespace ProgramCms\UserBundle\Entity\Address;
 
-use ProgramCms\UserBundle\App\Eav\AbstractUserEntity;
-use ProgramCms\UserBundle\Repository\UserEntityTextRepository;
+use ProgramCms\UserBundle\App\Eav\AbstractUserAddressEntity;
+use ProgramCms\UserBundle\Repository\Address\UserAddressEntityTextRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class UserAddressEntityText
  * @package ProgramCms\UserBundle\Entity\Address
  */
-#[ORM\Entity(repositoryClass: UserEntityTextRepository::class)]
-class UserAddressEntityText extends AbstractUserEntity
+#[ORM\Entity(repositoryClass: UserAddressEntityTextRepository::class)]
+class UserAddressEntityText extends AbstractUserAddressEntity
 {
     /**
      * @var string|null

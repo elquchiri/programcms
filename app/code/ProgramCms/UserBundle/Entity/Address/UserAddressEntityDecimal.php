@@ -8,16 +8,16 @@
 
 namespace ProgramCms\UserBundle\Entity\Address;
 
-use ProgramCms\UserBundle\App\Eav\AbstractUserEntity;
-use ProgramCms\UserBundle\Repository\UserEntityDecimalRepository;
+use ProgramCms\UserBundle\App\Eav\AbstractUserAddressEntity;
+use ProgramCms\UserBundle\Repository\Address\UserAddressEntityDecimalRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class UserAddressEntityDecimal
  * @package ProgramCms\UserBundle\Entity\Address
  */
-#[ORM\Entity(repositoryClass: UserEntityDecimalRepository::class)]
-class UserAddressEntityDecimal extends AbstractUserEntity
+#[ORM\Entity(repositoryClass: UserAddressEntityDecimalRepository::class)]
+class UserAddressEntityDecimal extends AbstractUserAddressEntity
 {
     /**
      * @var float|null

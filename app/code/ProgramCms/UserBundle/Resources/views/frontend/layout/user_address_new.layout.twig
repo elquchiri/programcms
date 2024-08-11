@@ -9,6 +9,6 @@
 {% page %}
     {% require handle="user_account" %}
     {% referenceContainer name="content" %}
-        {% block name="user.edit.addresses" class="ProgramCms\\UserBundle\\Block\\Account\\Edit\\Address" template="@ProgramCmsUserBundle/address/addresses.html.twig" %}{% endBlock %}
+        {% block name="user.edit.new.address" class="ProgramCms\\UserBundle\\Block\\Account\\Edit\\Address" template="@ProgramCmsUserBundle/address/address_form.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}
 {% endPage %}

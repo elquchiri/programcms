@@ -15,10 +15,10 @@ use ProgramCms\CoreBundle\View\Result\Page;
 use ReflectionException;
 
 /**
- * Class IndexController
+ * Class NewController
  * @package ProgramCms\UserBundle\Controller\Address
  */
-class IndexController extends Controller
+class NewController extends Controller
 {
     /**
      * @var ObjectManager
@@ -26,7 +26,7 @@ class IndexController extends Controller
     protected ObjectManager $objectManager;
 
     /**
-     * IndexController constructor.
+     * NewController constructor.
      * @param Context $context
      * @param ObjectManager $objectManager
      */
@@ -47,7 +47,7 @@ class IndexController extends Controller
     {
         $pageResult = $this->objectManager->create(Page::class);
         $pageResult->getConfig()->getTitle()->set(
-            $this->trans("Addresses")
+            $this->trans("New Address")
         );
         return $pageResult;
     }

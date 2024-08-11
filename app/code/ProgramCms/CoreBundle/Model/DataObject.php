@@ -8,6 +8,8 @@
 
 namespace ProgramCms\CoreBundle\Model;
 
+use Exception;
+
 /**
  * Represents a Data Object Entity
  * Class DataObject
@@ -174,9 +176,10 @@ class DataObject
     }
 
     /**
-     * @param string $name
+     * @param string $method
      * @param array $arguments
-     * @throws \Exception
+     * @return array|bool|mixed|DataObject|null
+     * @throws Exception
      */
     public function __call(string $method, array $arguments)
     {
@@ -195,7 +198,7 @@ class DataObject
                 $key = $this->_underscore(substr($method, 3));
                 return $this->hasData($key);
         }
-        throw new \Exception(
+        throw new Exception(
             sprintf('Invalid method %1::%2', get_class($this), $method)
         );
     }

@@ -16,6 +16,7 @@ use ProgramCms\EavBundle\Repository\EavEntityTypeRepository;
 use ProgramCms\EavBundle\Setup\EavSetup;
 use ProgramCms\UserBundle\Entity\UserEavAttribute;
 use ProgramCms\UserBundle\Entity\UserEntity;
+use ProgramCms\UserBundle\Entity\UserEntityInt;
 use ProgramCms\UserBundle\Entity\UserEntityText;
 use ProgramCms\UserBundle\Entity\UserEntityVarchar;
 
