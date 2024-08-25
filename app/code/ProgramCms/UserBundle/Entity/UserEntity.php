@@ -11,6 +11,8 @@ namespace ProgramCms\UserBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use ProgramCms\EavBundle\Model\Entity\Entity;
+use ProgramCms\FavoriteBundle\Entity\Favorite;
+use ProgramCms\PostBundle\Entity\PostEntity;
 use ProgramCms\UserBundle\Entity\Address\UserAddressEntity;
 use ProgramCms\UserBundle\Repository\UserEntityRepository;
 use ProgramCms\WebsiteBundle\Entity\WebsiteView;
@@ -107,6 +109,15 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
     #[ORM\ManyToOne(targetEntity: UserAddressEntity::class)]
     #[ORM\JoinColumn(name: 'default_address', referencedColumnName: 'entity_id')]
     private ?UserAddressEntity $defaultAddress;
+
+    /**
+     * @var Collection
+     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: PostEntity::class)]
+    private Collection $posts;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Favorite::class)]
+    private Collection $favorite;
 
     /**
      * UserEntity constructor.
@@ -445,5 +456,41 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
     public function getDefaultAddress(): ?UserAddressEntity
     {
         return $this->defaultAddress;
+    }
+
+    /**
+     * @param Collection $posts
+     * @return $this
+     */
+    public function setPosts(Collection $posts): static
+    {
+        $this->posts = $posts;
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    /**
+     * @param Collection $favorite
+     * @return $this
+     */
+    public function setFavorite(Collection $favorite): static
+    {
+        $this->favorite = $favorite;
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getFavorite(): Collection
+    {
+        return $this->favorite;
     }
 }

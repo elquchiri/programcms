@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\Collection;
 use ProgramCms\CatalogBundle\Entity\CategoryEntity;
 use ProgramCms\CatalogBundle\Repository\CategoryRepository;
 use ProgramCms\CoreBundle\View\Element\Template;
+use ProgramCms\FavoriteBundle\Repository\FavoriteRepository;
 use ProgramCms\PostBundle\Entity\Comment;
 use ProgramCms\PostBundle\Entity\PostEntity;
 use ProgramCms\PostBundle\Repository\PostRepository;
@@ -47,12 +48,18 @@ class Post extends Template
     protected CategoryRepository $categoryRepository;
 
     /**
+     * @var FavoriteRepository
+     */
+    protected FavoriteRepository $favoriteRepository;
+
+    /**
      * Post constructor.
      * @param Template\Context $context
      * @param PostRepository $postRepository
      * @param Security $security
      * @param UserEntityRepository $userEntityRepository
      * @param CategoryRepository $categoryRepository
+     * @param FavoriteRepository $favoriteRepository
      * @param array $data
      */
     public function __construct(
@@ -61,15 +68,16 @@ class Post extends Template
         Security $security,
         UserEntityRepository $userEntityRepository,
         CategoryRepository $categoryRepository,
+        FavoriteRepository $favoriteRepository,
         array $data = []
     )
     {
         parent::__construct($context, $data);
-
         $this->postRepository = $postRepository;
         $this->security = $security;
         $this->userEntityRepository = $userEntityRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->favoriteRepository = $favoriteRepository;
     }
 
     /**
@@ -177,5 +185,27 @@ class Post extends Template
             'post_index_edit',
             ['category' => $this->getCategory()->getEntityId(),'post_id' => $this->getPost()->getEntityId()]
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddToFavoriteUrl(): string
+    {
+        return $this->getUrl('favorite_index_new', [
+            'category' => $this->getCategory()->getEntityId(),
+            'post' => $this->getPost()->getEntityId()
+        ]);
+    }
+
+    /**
+     * @param PostEntity $post
+     * @return bool
+     */
+    public function isPostInFavorite(): bool
+    {
+        /** @var UserEntity $user */
+        $user = $this->getSecurityUser();
+        return $this->favoriteRepository->isFavorite($user, $this->getPost());
     }
 }

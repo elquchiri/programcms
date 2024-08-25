@@ -23,7 +23,7 @@ abstract class AbstractUserAddressEntity extends AttributeValue
     /**
      * @var UserAddressEntity
      */
-    #[ORM\ManyToOne(targetEntity: UserAddressEntity::class)]
+    #[ORM\ManyToOne(targetEntity: UserAddressEntity::class, cascade: ["remove"])]
     #[ORM\JoinColumn(name: "entity_id", referencedColumnName: "entity_id")]
     protected UserAddressEntity $entity_id;
 

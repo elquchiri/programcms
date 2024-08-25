@@ -9,6 +9,7 @@
 namespace ProgramCms\FavoriteBundle;
 
 use ProgramCms\CoreBundle\ProgramCmsCoreBundle;
+use ProgramCms\PostBundle\ProgramCmsPostBundle;
 use ProgramCms\ThemeBundle\ProgramCmsThemeBundle;
 use ProgramCms\UserBundle\ProgramCmsUserBundle;
 
@@ -29,6 +30,7 @@ class ProgramCmsFavoriteBundle extends ProgramCmsCoreBundle
             ProgramCmsCoreBundle::class,
             ProgramCmsThemeBundle::class,
             ProgramCmsUserBundle::class,
+            ProgramCmsPostBundle::class
         ];
     }
 }

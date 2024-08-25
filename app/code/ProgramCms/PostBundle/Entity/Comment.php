@@ -20,17 +20,29 @@ use ProgramCms\UserBundle\Entity\UserEntity;
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment extends Entity
 {
+    /**
+     * @var UserEntity|null
+     */
     #[ORM\ManyToOne(targetEntity: UserEntity::class)]
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'entity_id')]
     private ?UserEntity $user;
 
+    /**
+     * @var PostEntity|null
+     */
     #[ORM\ManyToOne(targetEntity: PostEntity::class)]
     #[ORM\JoinColumn(name: 'post_id', referencedColumnName: 'entity_id')]
     private ?PostEntity $post;
 
+    /**
+     * @var string
+     */
     #[ORM\Column(type: 'text')]
     private string $comment;
 
+    /**
+     * @var string
+     */
     #[ORM\Column(type: 'text')]
     private string $comment_json;
 

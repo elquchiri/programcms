@@ -6,7 +6,8 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<table class="table table-striped">
+<h3>{{ block.trans('Addresses') }}</h3>
+<table class="table table-striped mt-4">
     <tr>
         <th>{{ block.trans('First Name') }}</th>
         <th>{{ block.trans('Last Name') }}</th>
@@ -24,7 +25,7 @@
             <td>{{ address.getLastname() }}</td>
             <td>{{ address.getStreet() }}</td>
             <td>{{ address.getCity() }}</td>
-            <td>{{ address.getCountryCode() }}</td>
+            <td>{{ block.getCountryByCode(address.getCountryCode()) }}</td>
             <td>{{ address.getState() }}</td>
             <td>{{ address.getZipcode() }}</td>
             <td>{{ address.getTelephone() }}</td>

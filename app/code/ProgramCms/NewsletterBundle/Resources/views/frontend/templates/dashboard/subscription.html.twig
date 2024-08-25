@@ -1,0 +1,24 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="row mb-5">
+    <div class="col-md-6">
+        <strong class="fs-5 fw-bold">{{ block.trans('Newsletter Subscription') }}</strong>
+        <div class="mt-3">
+            <form action="{{ block.getSaveNewsletterUrl() }}" method="POST">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" name="newsletter_subscription" type="checkbox" id="newsletter_subscription" value="1"{% if block.isUserSubscribed() %} checked{% endif %}>
+                    <label class="form-check-label" for="newsletter_subscription">
+                        {{ block.trans('General Subscription') }}
+                    </label>
+                </div>
+                <input type="submit" class="btn btn-primary mt-4" value="{{ block.trans('Save') }}" />
+            </form>
+        </div>
+    </div>
+</div>

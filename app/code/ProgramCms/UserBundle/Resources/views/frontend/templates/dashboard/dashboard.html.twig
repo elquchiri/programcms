@@ -6,17 +6,56 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
+<div class="row mb-5">
+    <div class="col-md-6">
+        <strong class="fs-5 fw-bold">{{ block.trans('Profile') }}</strong>
+        <div class="mt-1">
+            <p class="m-0">{{ block.getUser().getFullname() }}</p>
+            <p class="m-0">{{ block.getUser().getEmail() }}</p>
+            <p class="mt-2">
+                <a href="{{ block.getEditInformationUrl() }}">{{ block.trans('Edit') }}</a> &middot;
+                <a href="{{ block.getEditPasswordUrl() }}">{{ block.trans('Update Password') }}</a>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <strong class="fs-5 fw-bold">{{ block.trans('Newsletter') }}</strong>
+        <div class="mt-1">
+            <p class="m-0">{{ block.trans("You're subscribing to General Newsletter") }}</p>
+            <p class="mt-2">
+                <a href="">{{ block.trans('Edit') }}</a>
+            </p>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-6 mb-5">
-        <h5 class="card-title">{{ block.trans('Profile') }}</h5>
-        <p class="card-text">Your Profile is Completed in 24%</p>
+        <strong class="fs-5 fw-bold">{{ block.trans('Default Address') }}</strong>
+        <span class="ms-1 me-1">&mdash;</span>
+        <a href="{{ block.getUserAddressesUrl() }}">{{ block.trans('Manage Addresses') }}</a>
+        <div class="mt-1">
+            <p class="m-0">{{ block.getUserDefaultAddress().getFirstname() }} {{ block.getUserDefaultAddress().getLastname() }}</p>
+            <p class="m-0">{{ block.getUserDefaultAddress().getStreet() }}</p>
+            <p class="m-0">{{ block.getUserDefaultAddress().getCity() }}, {{ block.getUserDefaultAddress().getRegion() }}</p>
+            <p class="m-0">{{ block.getCountryByCode() }}</p>
+            <p class="m-0">
+                {{ block.trans('T:') }}
+                <a href="tel:{{ block.getUserDefaultAddress().getTelephone() }}">
+                    {{ block.getUserDefaultAddress().getTelephone() }}
+                </a>
+            </p>
+            <p class="mt-2">
+                <a href="{{ block.getDefaultAddressEditUrl() }}">{{ block.trans('Edit Address') }}</a>
+            </p>
+        </div>
     </div>
     <div class="col-md-6 mb-5">
-        <h5 class="card-title">{{ block.trans('Favorite') }}</h5>
-        <p class="card-text">You have <b>23</b> subjects in your list.</p>
-    </div>
-    <div class="col-md-6 mb-5">
-        <h5 class="card-title">{{ block.trans('Newsletter') }}</h5>
-        <p class="card-text">You're subscribing to <b>General</b> Newsletter</p>
+        <strong class="fs-5 fw-bold">{{ block.trans('Favorite') }}</strong>
+        <div class="mt-1">
+            <p class="m-0">{{ block.getFavoriteMessage() }}</p>
+            <p class="mt-2">
+                <a href="{{ block.getUserFavoriteUrl() }}">{{ block.trans('Go To Favorite List') }}</a>
+            </p>
+        </div>
     </div>
 </div>

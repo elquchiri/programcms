@@ -10,14 +10,16 @@
 <div class="col-md">
     <div class="float-end">
         <label for="newsletter_email" class="mb-2 text-muted">{{ block.trans('Subscribe to our Newsletter :') }}</label>
-        <div class="input-group">
-            <span class="input-group-text">
-                <img src="{{ asset('bundles/programcmsnewsletter/images/newsletter.png') }}" alt="Newsletter"/>
-            </span>
-            <input type="text" id="newsletter_email" class="form-control" placeholder="{{ block.trans('Enter your email address') }}"
-                   aria-label="Enter your email address" aria-describedby="Enter your email address">
-            <button class="btn btn-primary" type="button" id="button-addon2">{{ block.trans('Subscribe') }}</button>
-        </div>
+        <form action="{{ block.getSubmitNewsletterUrl() }}" method="POST">
+            <div class="input-group">
+                <span class="input-group-text">
+                    <img src="{{ asset('bundles/programcmsnewsletter/images/newsletter.png') }}" alt="Newsletter"/>
+                </span>
+                <input type="text" name="newsletter_email" id="newsletter_email" class="form-control" placeholder="{{ block.trans('Enter your email address') }}"
+                       aria-label="Enter your email address" aria-describedby="Enter your email address">
+                <input type="submit" class="btn btn-primary" id="button-addon2" value="{{ block.trans('Subscribe') }}" />
+            </div>
+        </form>
     </div>
 </div>
 {% endif %}

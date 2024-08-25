@@ -31,6 +31,14 @@
                         <p>{{ block.trans('New Post') }}</p>
                     </a>
                 </li>
+                {% if block.isPostInFavorite() == false %}
+                <li class="nav-item me-3 text-center">
+                    <a href="{{ block.getAddToFavoriteUrl() }}" class="nav-link" aria-current="page" href="" style="font-size: 13px; font-weight: bold;">
+                        <img src="{{ asset('bundles/programcmspost/images/favorite.png') }}"/>
+                        <p>{{ block.trans('Add to Favorite') }}</p>
+                    </a>
+                </li>
+                {% endif %}
                 <li class="nav-item me-3 text-center">
                     <a class="nav-link" aria-current="page" href="" style="font-size: 13px; font-weight: bold;">
                         <img src="{{ asset('bundles/programcmspost/images/hot.png') }}"/>

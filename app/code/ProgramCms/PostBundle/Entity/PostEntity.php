@@ -45,6 +45,9 @@ class PostEntity extends Entity implements PostInterface
     #[ORM\ManyToMany(targetEntity: CategoryEntity::class, mappedBy: 'posts', cascade: ["persist"])]
     private Collection $categories;
 
+    /**
+     * @var Collection
+     */
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class)]
     private Collection $comments;
 

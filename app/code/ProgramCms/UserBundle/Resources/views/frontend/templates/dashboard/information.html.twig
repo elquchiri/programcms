@@ -6,7 +6,8 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<form action="{{ block.getSaveInformationUrl() }}" method="POST">
+<h3>{{ block.trans('Edit Information') }}</h3>
+<form action="{{ block.getSaveInformationUrl() }}" method="POST" class="mt-4">
     <div class="row mb-4">
         <div class="col">
             <label class="form-label" for="first_name">{{ block.trans('First Name') }}</label>

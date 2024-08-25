@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-md-12">
+        <strong class="fs-5 fw-bold">{{ block.trans('Last Posts') }}</strong>
+        <table class="table table-striped mt-3">
+            <thead>
+            <tr>
+                <th scope="col">{{ block.trans('My Posts') }}</th>
+                <th scope="col" class="text-center">{{ block.trans('Comments') }}</th>
+                <th scope="col" class="text-center">{{ block.trans('Read') }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for post in block.getPosts() %}
+                <tr>
+                    <td><a href="{{ block.getPostUrl(post) }}">{{ post.getPostName() }}</a></td>
+                    <td class="text-center">{{ post.getComments().count() }}</td>
+                    <td class="text-center">0</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

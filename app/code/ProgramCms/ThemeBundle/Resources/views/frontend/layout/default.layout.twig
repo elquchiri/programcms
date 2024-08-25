@@ -43,7 +43,9 @@
     {% endReferenceContainer %}
     {# Flash Messages Block #}
     {% referenceContainer name="page.messages" %}
-        {% block name="page.alerts.block" class="ProgramCms\\CoreBundle\\View\\Element\\Template" template="@ProgramCmsThemeBundle/flashes.html.twig" %}{% endBlock %}
+        {% container name="page.messages.wrapper" htmlTag="div" htmlClass="container" %}
+            {% block name="page.alerts.block" class="ProgramCms\\CoreBundle\\View\\Element\\Template" template="@ProgramCmsThemeBundle/flashes.html.twig" %}{% endBlock %}
+        {% endContainer %}
     {% endReferenceContainer %}
     {# Main Container #}
     {% referenceContainer name="main" %}

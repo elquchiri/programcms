@@ -1,0 +1,15 @@
+"one month ago": "منذ شهر واحد"
+"two months ago": "منذ شهرين"
+"%s months ago": "منذ %s اشهر"
+"%s month ago": "منذ %s شهر"
+
+"one day ago": "منذ يوم واحد"
+"two days ago": "منذ يومين"
+"%s days ago": "منذ %s أيام"
+"%s day ago": "منذ %s يوم"
+
+"%s year%s ago": "منذ %s سنة%s"
+"%s hour%s ago": "منذ %s ساعة%s"
+"%s minute%s ago": "منذ %s دقيقة%s"
+"%s second%s ago": "منذ %s ثانية%s"
+"just now": "الآن"
