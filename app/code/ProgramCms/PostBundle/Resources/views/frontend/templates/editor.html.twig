@@ -38,13 +38,13 @@
                     </div>
                     <div class="panel__top mt-2">
                         <div class="panel__actions">
-                            <div class="editor-rte-action btn-redo"></div>
-                            <div class="editor-rte-action btn-undo"></div>
-                            <div class="editor-rte-action btn-print"></div>
+                            <div class="editor-rte-action editor-icon btn-redo"></div>
+                            <div class="editor-rte-action editor-icon btn-undo"></div>
+                            <div class="editor-rte-action editor-icon btn-print"></div>
                         </div>
                         <div class="panel__actions">
                             <div class="dropdown">
-                                <button class="btn dropdown-toggle editor-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn dropdown-toggle editor-dropdown editor-rte-action" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     100%
                                 </button>
                                 <ul class="dropdown-menu">
@@ -54,36 +54,37 @@
                         </div>
                         <div class="panel__actions">
                             <div class="dropdown">
-                                <button class="btn dropdown-toggle editor-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn dropdown-toggle editor-dropdown editor-rte-action" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     كلاسيكي
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">كلاسيكي</a></li>
+                                    <li><a class="dropdown-item" href="#" style="font-size: 21px">عنوان 1</a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="panel__actions">
-                            <div class="editor-rte-action btn-bold" id="bold"></div>
-                            <div class="editor-rte-action btn-italic" id="italic"></div>
-                            <div class="editor-rte-action btn-underline" id="underline"></div>
-                            <div class="editor-rte-action btn-text-color" id="textColor">
+                            <div class="editor-rte-action editor-icon btn-bold" id="bold"></div>
+                            <div class="editor-rte-action editor-icon btn-italic" id="italic"></div>
+                            <div class="editor-rte-action editor-icon btn-underline" id="underline"></div>
+                            <div class="editor-rte-action editor-icon btn-text-color" id="textColor">
                                 <input type="text" style="position: absolute; width: 1px; height: 1px; left: 0; top: 0; border: 0; background: inherit" id="text-color-choose" />
-                                <div id="choosen-color" style="position:absolute; width: 19px; height: 3px; background-color: black; left: 0; right: 0; margin: auto; bottom: 7px;"></div>
+                                <div id="choosen-color" style="position:absolute; width: 19px; height: 3px; background-color: black; left: 0; right: 0; margin: auto; bottom: 6px;"></div>
                             </div>
                         </div>
                         <div class="panel__actions">
-                            <div class="editor-rte-action btn-link" id="link"></div>
-                            <div class="editor-rte-action btn-image" id="image"></div>
+                            <div class="editor-rte-action editor-icon btn-link" id="link"></div>
+                            <div class="editor-rte-action editor-icon btn-image" id="image"></div>
                         </div>
                         <div class="panel__actions">
-                            <div class="editor-rte-action btn-unordered-list" id="unorderedList"></div>
-                            <div class="editor-rte-action btn-numbered-list" id="numberedList"></div>
-                            <div class="editor-rte-action btn-check-list" id="checkList"></div>
+                            <div class="editor-rte-action editor-icon btn-unordered-list" id="unorderedList"></div>
+                            <div class="editor-rte-action editor-icon btn-numbered-list" id="orderedList"></div>
+                            <div class="editor-rte-action editor-icon btn-check-list" id="checkList"></div>
                         </div>
                         <div class="panel__actions">
-                            <div class="editor-rte-action btn-left-align" id="leftAlign"></div>
-                            <div class="editor-rte-action btn-center-align" id="centerAlign"></div>
-                            <div class="editor-rte-action btn-right-align" id="rightAlign"></div>
+                            <div class="editor-rte-action editor-icon btn-left-align" id="leftAlign"></div>
+                            <div class="editor-rte-action editor-icon btn-center-align" id="centerAlign"></div>
+                            <div class="editor-rte-action editor-icon btn-right-align" id="rightAlign"></div>
                         </div>
                     </div>
                     <input type="hidden" name="category_id" value="{{ block.getCategory().getEntityId()}}" />
@@ -101,7 +102,39 @@
 
     <div class="editor-row">
         <div class="editor-canvas" id="editor-wrapper" aria-describedby="gjs">
-            <p>يمكنك الكتابة هنا ..</p>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade modal__actions" id="linkModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">{{ block.trans('Add Link') }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form_link">
+                    <div class="mb-3">
+                        <label for="link_title" class="form-label">{{ block.trans('Link Title') }}</label>
+                        <input type="text" class="form-control" id="link_title" aria-describedby="link_title">
+                    </div>
+                    <div class="mb-3">
+                        <label for="link_url" class="form-label">{{ block.trans('Link') }}</label>
+                        <input type="text" class="form-control" id="link_url">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {{ block.trans('Close') }}
+                </button>
+                <button type="button" class="btn btn-primary" id="add_link_button">
+                    {{ block.trans('Add Link') }}
+                </button>
+            </div>
         </div>
     </div>
 </div>

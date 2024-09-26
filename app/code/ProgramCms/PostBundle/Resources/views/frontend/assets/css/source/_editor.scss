@@ -17,13 +17,18 @@
 }
 
 .editor-rte-action {
-  width: 31px;
-  height: 31px;
-  margin: 3px;
+  margin: 0 2px 0 2px;
   border-radius: 3px;
   cursor: pointer;
 }
+.editor-icon {
+  width: 29px;
+  height: 29px;
+}
 .editor-rte-action:hover {
+  background-color: #CCCCCC;
+}
+.editor-rte-action.active {
   background-color: #CCCCCC;
 }
 
@@ -92,7 +97,7 @@
 
 .btn-text-color {
   position: relative;
-  background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/text-color.png') no-repeat center 5px;
+  background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/text-color.png') no-repeat center 3px;
 }
 
 .btn-link {

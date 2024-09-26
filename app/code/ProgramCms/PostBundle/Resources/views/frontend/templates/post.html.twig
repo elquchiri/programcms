@@ -103,7 +103,10 @@
                 </td>
                 <td>
                     <div class="post_content p-2">
-                        {{ block.getPost().getPostHtml()|raw }}
+                        <style>
+                            {{ block.getPost().getPostCss()|raw }}
+                        </style>
+                        {{ block.formatPost(block.getPost().getPostHtml())|raw }}
                     </div>
                     <div class="post_options text-end mt-3 p-3">
                         <div class="btn-group dropdown">

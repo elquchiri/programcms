@@ -6,7 +6,8 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<div class="row mb-5">
+<h3>{{ block.trans('My Account') }}</h3>
+<div class="row mb-5 mt-4">
     <div class="col-md-6">
         <strong class="fs-5 fw-bold">{{ block.trans('Profile') }}</strong>
         <div class="mt-1">
@@ -23,7 +24,7 @@
         <div class="mt-1">
             <p class="m-0">{{ block.trans("You're subscribing to General Newsletter") }}</p>
             <p class="mt-2">
-                <a href="">{{ block.trans('Edit') }}</a>
+                <a href="{{ block.getNewsletterEditUrl() }}">{{ block.trans('Edit') }}</a>
             </p>
         </div>
     </div>

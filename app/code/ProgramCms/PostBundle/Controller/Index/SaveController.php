@@ -77,12 +77,12 @@ class SaveController extends Controller
         $postTitle = $this->getRequest()->getParam('post_title');
         $postHtml = $this->getRequest()->getParam('post_html');
         $postCss = $this->getRequest()->getParam('post_css');
+        $categoryId = $this->getRequest()->getParam('category_id');
 
         // Prepare Post
         if(!is_null($postId) && !empty($postId)) {
             $post = $this->postRepository->getById($postId);
         }else{
-            $categoryId = $this->getRequest()->getParam('category_id');
             /** @var CategoryEntity $category */
             $category = $this->categoryRepository->getById($categoryId);
             $userId = $this->getUser()->getUserIdentifier();
@@ -105,7 +105,17 @@ class SaveController extends Controller
 
         return $this->json([
             'success' => true,
-            'title' => $postTitle
+            'redirect_url' => $this->getPostUrl($categoryId, $post->getEntityId())
         ]);
+    }
+
+    /**
+     * @param $category
+     * @param $post
+     * @return string
+     */
+    public function getPostUrl($category, $post): string
+    {
+        return $this->getUrl()->getUrl('post_index_view', ['category' => $category, 'post' => $post]);
     }
 }

@@ -112,4 +112,12 @@ class Dashboard extends Template
         $favoriteNum = $this->getUser()->getFavorite()->count();
         return sprintf($this->trans('You have %s subjects in your list.'), $favoriteNum);
     }
+
+    /**
+     * @return string
+     */
+    public function getNewsletterEditUrl(): string
+    {
+        return $this->getUrl('newsletter_manage_index');
+    }
 }

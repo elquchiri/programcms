@@ -208,4 +208,13 @@ class Post extends Template
         $user = $this->getSecurityUser();
         return $this->favoriteRepository->isFavorite($user, $this->getPost());
     }
+
+    /**
+     * @param string $fullHtml
+     * @return string
+     */
+    public function formatPost(string $fullHtml): string
+    {
+        return preg_replace('/<body[^>]*>(.*?)<\/body>/is', '$1', $fullHtml);
+    }
 }
