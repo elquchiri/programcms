@@ -15,6 +15,7 @@ use ProgramCms\CoreBundle\View\Element\Template;
 use ProgramCms\PostBundle\Entity\PostEntity;
 use ProgramCms\PostBundle\Repository\CommentRepository;
 use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\UserBundle\Entity\UserEntity;
 
 /**
  * Class View
@@ -126,5 +127,14 @@ class View extends Template
         return $this->commentRepository->count([
             'post' => $postEntity
         ]);
+    }
+
+    /**
+     * @param UserEntity $user
+     * @return string
+     */
+    public function getUserUrl(UserEntity $user): string
+    {
+        return $this->getUrl('user_profile_view', ['id' => $user->getEntityId()]);
     }
 }

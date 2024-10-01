@@ -7,6 +7,15 @@
  */
 #}
 {% page %}
+    {% referenceBlock name="navigation.block" %}
+        {% block name="navigation.homepage.link" class="ProgramCms\\ThemeBundle\\Block\\Html\\Item" %}
+            {% arguments %}
+                {% argument name="label" type="string" %}Home{% endArgument %}
+                {% argument name="path" type="string" %}cms_index_index{% endArgument %}
+                {% argument name="sortOrder" type="string" %}1{% endArgument %}
+            {% endArguments %}
+        {% endBlock %}
+    {% endReferenceBlock %}
     {% referenceBlock name="footer.links" %}
         {% block name="privacy-policy-link" class="ProgramCms\\ThemeBundle\\Block\\Page\\Current" %}
             {% arguments %}

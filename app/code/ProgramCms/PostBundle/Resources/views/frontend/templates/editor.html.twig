@@ -101,9 +101,19 @@
     </div>
 
     <div class="editor-row">
-        <div class="editor-canvas" id="editor-wrapper" aria-describedby="gjs">
+        <div id="blocks" class="editor-column">
 
         </div>
+        <div class="editor-canvas editor-column" id="editor-wrapper" aria-describedby="gjs">
+
+        </div>
+        <div id="components" class="editor-column">
+
+        </div>
+    </div>
+
+    <div class="editor_message" style="display: none; position: fixed; top: 0; left: 0; right: 0; margin: auto; width: 500px; min-height: 20px; background-color: rgba(255, 227, 16, 0.4); z-index: 99999; border-radius: 0 0 3px 3px">
+        <div class="editor_message_container p-2" style="font-size: 14px; text-align: center"></div>
     </div>
 </div>
 
@@ -137,7 +147,11 @@
             </div>
         </div>
     </div>
+
 </div>
+
+
+
 
 <style>
     html, body {

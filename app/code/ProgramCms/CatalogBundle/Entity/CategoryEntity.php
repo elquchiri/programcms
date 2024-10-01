@@ -158,4 +158,12 @@ class CategoryEntity extends Entity
         $this->posts->removeElement($post);
         return $this;
     }
+
+    /**
+     * @return PostEntity|null
+     */
+    public function getLastPost()
+    {
+        return $this->posts->last();
+    }
 }

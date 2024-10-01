@@ -16,6 +16,7 @@
                 {% argument name="dataSource" type="array" %}
                     {% argument name="dataProvider" type="array" %}
                         {% argument name="class" type="string" %}ProgramCms\AdminBundle\Model\Account\DataProvider{% endArgument %}
+                        {% argument name="primaryFieldName" type="string" %}user_id{% endArgument %}
                     {% endArgument %}
                     {% argument name="settings" type="array" %}
                         {% argument name="submitUrl" type="string" %}admin_systemaccount_save{% endArgument %}

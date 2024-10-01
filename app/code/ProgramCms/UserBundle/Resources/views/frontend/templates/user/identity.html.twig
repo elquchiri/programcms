@@ -1,0 +1,19 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="user_photo" style="background-color: #dedede; padding: 11px;">
+    <div class="profile-image" >
+        <img src="{{ block.getUser().getProfileImage() }}" style="width: 100%; height: 100%;" alt="" />
+    </div>
+</div>
+<div class="user_actions">
+    <div class="btn-group d-flex" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-outline-primary">{{ block.trans('Follow') }}</button>
+        <button type="button" class="btn btn-outline-primary">{{ block.trans('Message') }}</button>
+    </div>
+</div>

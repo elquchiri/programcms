@@ -9,6 +9,7 @@
 namespace ProgramCms\UserBundle\Block\Account;
 
 use ProgramCms\CoreBundle\View\Element\Template;
+use Symfony\Bundle\SecurityBundle\Security;
 
 /**
  * Class AccountDropDown
@@ -16,5 +17,31 @@ use ProgramCms\CoreBundle\View\Element\Template;
  */
 class AccountDropDown extends Template
 {
+    /**
+     * @var Security
+     */
+    protected Security $security;
 
+    /**
+     * AccountDropDown constructor.
+     * @param Template\Context $context
+     * @param Security $security
+     * @param array $data
+     */
+    public function __construct(
+        Template\Context $context,
+        Security $security,
+        array $data = []
+    )
+    {
+        parent::__construct($context, $data);
+        $this->security = $security;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserUrl(): string {
+        return $this->getUrl('user_profile_view', ['id' => $this->security->getUser()->getEntityId()]);
+    }
 }

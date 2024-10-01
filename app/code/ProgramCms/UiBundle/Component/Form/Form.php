@@ -57,6 +57,7 @@ class Form extends AbstractComponent
         if ($this->hasData('dataSource')) {
             $dataProvider = $this->getContext()->getDataProvider($formName);
             $requestFieldName = $dataProvider->getRequestFieldName();
+            $data = $dataProvider->getData();
 
             // Filter Provided Data by primaryFieldName
             if (!empty($requestFieldName)) {

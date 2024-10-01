@@ -106,7 +106,7 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
     /**
      * @var UserAddressEntity|null
      */
-    #[ORM\ManyToOne(targetEntity: UserAddressEntity::class)]
+    #[ORM\ManyToOne(targetEntity: UserAddressEntity::class, cascade: ["persist"])]
     #[ORM\JoinColumn(name: 'default_address', referencedColumnName: 'entity_id')]
     private ?UserAddressEntity $defaultAddress;
 

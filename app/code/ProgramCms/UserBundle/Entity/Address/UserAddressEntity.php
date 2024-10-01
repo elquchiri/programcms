@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ProgramCms\EavBundle\Model\Entity\Entity;
 use ProgramCms\UserBundle\Entity\UserEntity;
 use ProgramCms\UserBundle\Repository\Address\UserAddressEntityRepository;
+use Symfony\Component\Intl\Countries;
 
 /**
  * Class UserAddressEntity
@@ -67,5 +68,13 @@ class UserAddressEntity extends Entity
     {
         $this->is_active = $isActive;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountry(): string
+    {
+        return Countries::getName($this->getData('country_code'));
     }
 }

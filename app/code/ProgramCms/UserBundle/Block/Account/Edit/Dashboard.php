@@ -12,7 +12,6 @@ use ProgramCms\CoreBundle\View\Element\Template;
 use ProgramCms\UserBundle\Entity\Address\UserAddressEntity;
 use ProgramCms\UserBundle\Entity\UserEntity;
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\Intl\Countries;
 
 /**
  * Class Dashboard
@@ -20,11 +19,15 @@ use Symfony\Component\Intl\Countries;
  */
 class Dashboard extends Template
 {
+    /**
+     * @var Security
+     */
     protected Security $security;
 
     /**
      * Dashboard constructor.
      * @param Template\Context $context
+     * @param Security $security
      * @param array $data
      */
     public function __construct(
@@ -53,14 +56,6 @@ class Dashboard extends Template
     public function getUserDefaultAddress(): UserAddressEntity
     {
         return $this->getUser()->getDefaultAddress();
-    }
-
-    /**
-     * @return string
-     */
-    public function getCountryByCode(): string
-    {
-        return Countries::getName($this->getUserDefaultAddress()->getCountryCode());
     }
 
     /**

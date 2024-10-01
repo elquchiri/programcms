@@ -1,0 +1,35 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<h3>{{ block.trans('Posts') }}</h3>
+{% if block.hasPosts() %}
+    <div class="favorite-list row row-cols-1 row-cols-md-3 g-4 mt-3 mb-5">
+        {% for post in block.getPosts() %}
+            <div class="col">
+                <div class="card h-100" >
+                    <div class="card-body">
+                        <a href="" style="color: #000000; font-weight: bold; font-size: 17px;">
+                            {{ post.getPostName() }}
+                        </a>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            {{ post.getUser().getFullname() }}
+                        </h6>
+                        <p class="card-text">{{ block.getPreviewText(post.getPostHtml(), 500)|raw }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">{{ block.trans('Last updated')}} </small>
+                        &middot;
+                        <small class="text-muted">{{ block.trans('Comments')}}: {{ post.getComments().count() }}</small>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="text-muted">{{ block.trans('There are no topics in your favorites.') }}</p>
+{% endif %}

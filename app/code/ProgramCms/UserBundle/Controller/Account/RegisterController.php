@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\RouterBundle\Service\Request;
+use ProgramCms\UserBundle\Entity\Address\UserAddressEntity;
 use ProgramCms\UserBundle\Entity\UserEntity as User;
 use ProgramCms\UserBundle\Security\LoginAuthenticator;
 use ProgramCms\WebsiteBundle\Model\WebsiteManagerInterface;
@@ -134,7 +135,8 @@ class RegisterController extends \ProgramCms\CoreBundle\Controller\Controller
                 'password' => $this->getRequest()->getParam('password'),
                 'username' => $this->getRequest()->getParam('username'),
                 'user_firstname' => $this->getRequest()->getParam('user_firstname'),
-                'user_lastname' => $this->getRequest()->getParam('user_lastname')
+                'user_lastname' => $this->getRequest()->getParam('user_lastname'),
+                'user_country' => $this->getRequest()->getParam('user_country')
             ];
             $user->setEmail($data['email'])
                 ->setPassword($data['password'])
@@ -154,6 +156,14 @@ class RegisterController extends \ProgramCms\CoreBundle\Controller\Controller
                 );
                 // Set Account Role as 'USER'
                 $user->setRoles(['USER']);
+
+                // Set Default Address
+                $defaultAddress = new UserAddressEntity();
+                $defaultAddress
+                    ->setIsActive(true)
+                    ->setCountryCode($data['user_country'])
+                    ->updateTimestamps();
+                $user->setDefaultAddress($defaultAddress);
 
                 // Save User
                 $this->entityManager->persist($user);

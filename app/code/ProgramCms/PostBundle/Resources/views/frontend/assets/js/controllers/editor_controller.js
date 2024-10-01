@@ -24,7 +24,7 @@ application.register('editor', class extends Controller {
             fromElement: true,
             height: '100%',
             width: 'auto',
-            canvasCss: '#gjs { background-color: #dedede; !important } p { outline: none !important; } .gjs-hovered {outline: none !important; box-shadow: none !important; } .gjs-selected {outline: none !important; box-shadow: none !important;}',
+            // canvasCss: '#gjs { background-color: #dedede; !important } p { outline: none !important; } .gjs-hovered {outline: none !important; box-shadow: none !important; } .gjs-selected {outline: none !important; box-shadow: none !important;}',
             i18n: {
                 detectLocale: false,
                 locale: 'ar',
@@ -35,18 +35,125 @@ application.register('editor', class extends Controller {
             storageManager: false,
             showToolbar: false,
             keepEmptyTextNodes: false,
+            blockManager: {
+                appendTo: '#blocks',
+                blocks: [
+                    {
+                        id: 'section', // id is mandatory
+                        label: 'section', // You can use HTML/SVG inside labels
+                        media: `<img src="http://ar.dev-programcms.com/media/category_entity/category_image/5a1d2c6a4ac6b00ff574e276-666591d5d57e5.png" style="width: 50px; height: 50px" />`,
+                        attributes: {class: 'gjs-block-section'},
+                        content: `<section>
+                          <h1>This is a simple title</h1>
+                          <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
+                        </section>`,
+                    }, {
+                        id: 'text',
+                        label: 'text',
+                        media: `<svg style="width:48px;height:48px" viewBox="0 0 24 24">
+<path fill="currentColor" d="M18.5,4L19.66,8.35L18.7,8.61C18.25,7.74 17.79,6.87 17.26,6.43C16.73,6 16.11,6 15.5,6H13V16.5C13,17 13,17.5 13.33,17.75C13.67,18 14.33,18 15,18V19H9V18C9.67,18 10.33,18 10.67,17.75C11,17.5 11,17 11,16.5V6H8.5C7.89,6 7.27,6 6.74,6.43C6.21,6.87 5.75,7.74 5.3,8.61L4.34,8.35L5.5,4H18.5Z" />
+</svg>`,
+                        content: '<div data-gjs-type="text">Insert your text here</div>',
+                    }, {
+                        id: 'image',
+                        label: 'image',
+                        media: `<svg style="width:48px;height:48px" viewBox="0 0 24 24">
+<path fill="currentColor" d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z" />
+</svg>`,
+                        select: true,
+                        content: {type: 'image'},
+                        activate: true,
+                    },
+                    {
+                        id: 'one-column',
+                        'label': 'column',
+                        media: `<svg viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M2 20h20V4H2v16Zm-1 0V4a1 1 0 0 1 1-1h20a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1Z"></path>
+                        </svg>`,
+                        select: true,
+                        hover: true,
+                        activate: true
+                    },
+                    {
+                        id: 'two-columns',
+                        'label': '2columns',
+                        media: `<svg viewBox="0 0 23 24">
+        <path fill="currentColor" d="M2 20h8V4H2v16Zm-1 0V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1ZM13 20h8V4h-8v16Zm-1 0V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1Z"></path>
+      </svg>`,
+                        select: true,
+                        hover: true,
+                        activate: true
+                    }
+                ]
+            },
             style: `
                 #my-wrapper {
-                  width: 900px;
                   margin: 0 auto;
-                  padding: 25px 35px 25px 35px;
-                  margin-top: 15px;
-                  margin-bottom: 15px;
-                  border: 1px solid #CCC;
+                  padding: 15px 35px 25px 35px;
                   background-color: #FFFFFF;
                   min-height: 1000px;
                 }
             `,
+            styleManager: {
+                appendTo: '#components',
+                sectors: [{
+                    name: 'general',
+                    open: true,
+                    // Use built-in properties
+                    buildProps: ['width', 'height', 'padding', 'margin'],
+                    // Use `properties` to define/override single property
+                    properties: [
+                        {
+                            // Type of the input,
+                            // options: integer | radio | select | color | slider | file | composite | stack
+                            type: 'integer',
+                            name: 'width',
+                            property: 'width', // CSS property (if buildProps contains it will be extended)
+                            units: ['px', '%'], // Units, available only for 'integer' types
+                            defaults: 'auto', // Default value
+                            min: 0, // Min value, available only for 'integer' types
+                        }
+                    ]
+                },
+                    {
+                    name: 'dimension',
+                    open: false,
+                    // Use built-in properties
+                    buildProps: ['width', 'min-height', 'padding'],
+                    // Use `properties` to define/override single property
+                    properties: [
+                        {
+                            // Type of the input,
+                            // options: integer | radio | select | color | slider | file | composite | stack
+                            type: 'integer',
+                            name: 'The width', // Label for the property
+                            property: 'width', // CSS property (if buildProps contains it will be extended)
+                            units: ['px', '%'], // Units, available only for 'integer' types
+                            defaults: 'auto', // Default value
+                            min: 0, // Min value, available only for 'integer' types
+                        }
+                    ]
+                },{
+                    name: 'extra',
+                    open: false,
+                    buildProps: ['background-color', 'box-shadow', 'custom-prop'],
+                    properties: [
+                        {
+                            id: 'custom-prop',
+                            name: 'Custom Label',
+                            property: 'font-size',
+                            type: 'select',
+                            defaults: '32px',
+                            // List of options, available only for 'select' and 'radio'  types
+                            options: [
+                                { value: '12px', name: 'Tiny' },
+                                { value: '18px', name: 'Medium' },
+                                { value: '32px', name: 'Big' },
+                            ],
+                        }
+                    ]
+                }]
+            },
         });
 
         self.editor.on('load', () => {
@@ -83,7 +190,7 @@ application.register('editor', class extends Controller {
                 self.loadPostProjectData(self.editor, postId);
             }
 
-            if(commentId != null && commentId !== '') {
+            if (commentId != null && commentId !== '') {
                 self.loadCommentProjectData(self.editor, commentId);
             }
         });
@@ -140,7 +247,7 @@ application.register('editor', class extends Controller {
                     $('#text-color-choose').trigger('click');
                     break;
                 case 'unorderedList':
-                    self.editor.RichTextEditor.globalRte.insertHTML('<ul><li>'+ selectedText + '</li></ul>');
+                    self.editor.RichTextEditor.globalRte.insertHTML('<ul><li>' + selectedText + '</li></ul>');
                     break;
                 case 'orderedList':
                     const appendedComponent = self.editor.getWrapper().append('<ul><li><br></li></ul>', {
@@ -176,68 +283,68 @@ application.register('editor', class extends Controller {
             e.stopPropagation();
         });
 
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                const selectedComponent = self.editor.getSelected();
-                if(selectedComponent.props().tagName === 'p') {
-                    const appendedComponent = self.editor.getWrapper().append('<p><br></p>', {
-                        at: (selectedComponent.index() + 1)
-                    });
-                    const el = appendedComponent[0].getEl();
-                    self.editor.select(appendedComponent[0]);
-                    el.setAttribute('contenteditable', 'true');
-                    //el.focus();
-                    appendedComponent[0].getView().onActive();
-
-                    setTimeout(function() {
-                        appendedComponent[0].getEl().removeChild(appendedComponent[0].getEl().firstChild);
-                    });
-                }
-            }
-        });
-        window.addEventListener('keyup', (e) => {
-            if (e.key === 'Enter') {
-                const selectedComponent = self.editor.getSelected();
-                if(selectedComponent.props().tagName === 'ul') {
-                    if (
-                        selectedComponent.getEl().children.length >= 2 &&
-                        selectedComponent.getEl().children[selectedComponent.getEl().children.length - 2].firstChild.tagName === 'BR' &&
-                        selectedComponent.getEl().children[selectedComponent.getEl().children.length - 1].firstChild.tagName === 'BR'
-                    ) {
-                        if (selectedComponent.getEl().children.length >= 2) {
-                            let counted = selectedComponent.index() + 1;
-                            selectedComponent.getEl().removeChild(selectedComponent.getEl().children[selectedComponent.getEl().children.length - 1]);
-                            selectedComponent.getEl().removeChild(selectedComponent.getEl().children[selectedComponent.getEl().children.length - 1]);
-                            if(selectedComponent.getEl().children.length === 0) {
-                                // let newComponent = selectedComponent.replaceWith('<p><br></p>');
-                                counted = selectedComponent.index();
-                                selectedComponent.remove();
-                                // newComp[0].getEl().focus();
-                            }
-                            const newComp = self.editor.getWrapper().append('<p><br></p>', {at: counted});
-                            newComp[0].getEl().setAttribute('contenteditable', 'true');
-                            self.editor.select(newComp[0]);
-                            newComp[0].getEl().focus();
-                        }
-                    }
-                }else {
-                    self.editor.select(selectedComponent);
-                    // Remove <br>
-                    //selectedComponent.getEl().removeChild(selectedComponent.getEl().firstChild);
-                }
-            }
-        });
+        // window.addEventListener('keydown', (e) => {
+        //     if (e.key === 'Enter') {
+        //         const selectedComponent = self.editor.getSelected();
+        //         if (selectedComponent.props().tagName === 'p') {
+        //             const appendedComponent = self.editor.getWrapper().append('<p><br></p>', {
+        //                 at: (selectedComponent.index() + 1)
+        //             });
+        //             const el = appendedComponent[0].getEl();
+        //             self.editor.select(appendedComponent[0]);
+        //             el.setAttribute('contenteditable', 'true');
+        //             //el.focus();
+        //             appendedComponent[0].getView().onActive();
+        //
+        //             setTimeout(function () {
+        //                 appendedComponent[0].getEl().removeChild(appendedComponent[0].getEl().firstChild);
+        //             });
+        //         }
+        //     }
+        // });
+        // window.addEventListener('keyup', (e) => {
+        //     if (e.key === 'Enter') {
+        //         const selectedComponent = self.editor.getSelected();
+        //         if (selectedComponent.props().tagName === 'ul') {
+        //             if (
+        //                 selectedComponent.getEl().children.length >= 2 &&
+        //                 selectedComponent.getEl().children[selectedComponent.getEl().children.length - 2].firstChild.tagName === 'BR' &&
+        //                 selectedComponent.getEl().children[selectedComponent.getEl().children.length - 1].firstChild.tagName === 'BR'
+        //             ) {
+        //                 if (selectedComponent.getEl().children.length >= 2) {
+        //                     let counted = selectedComponent.index() + 1;
+        //                     selectedComponent.getEl().removeChild(selectedComponent.getEl().children[selectedComponent.getEl().children.length - 1]);
+        //                     selectedComponent.getEl().removeChild(selectedComponent.getEl().children[selectedComponent.getEl().children.length - 1]);
+        //                     if (selectedComponent.getEl().children.length === 0) {
+        //                         // let newComponent = selectedComponent.replaceWith('<p><br></p>');
+        //                         counted = selectedComponent.index();
+        //                         selectedComponent.remove();
+        //                         // newComp[0].getEl().focus();
+        //                     }
+        //                     const newComp = self.editor.getWrapper().append('<p><br></p>', {at: counted});
+        //                     newComp[0].getEl().setAttribute('contenteditable', 'true');
+        //                     self.editor.select(newComp[0]);
+        //                     newComp[0].getEl().focus();
+        //                 }
+        //             }
+        //         } else {
+        //             self.editor.select(selectedComponent);
+        //             // Remove <br>
+        //             //selectedComponent.getEl().removeChild(selectedComponent.getEl().firstChild);
+        //         }
+        //     }
+        // });
 
         self.editor.on('component:selected', (component) => {
-            if(self.editor.getSelected().props().tagName === 'li') {
+            if (self.editor.getSelected().props().tagName === 'li') {
                 const selectedParent = self.editor.getSelected().parent();
                 self.editor.select(selectedParent);
             }
 
-            if(self.editor.getSelected().props().tagName === 'p') {
-                component.getEl().setAttribute('contenteditable', 'true');
-                component.getEl().focus();
-            }
+            // if (self.editor.getSelected().props().tagName === 'p') {
+            //     component.getEl().setAttribute('contenteditable', 'true');
+            //     component.getEl().focus();
+            // }
 
             if (component.is('wrapper')) {
                 // Deselect the wrapper
@@ -283,12 +390,12 @@ application.register('editor', class extends Controller {
             }
         });
 
-        $('#add_link_button').on('click', function(e) {
+        $('#add_link_button').on('click', function (e) {
             e.preventDefault();
             let linkUrl = $('#link_url').val();
             let linkTitle = $('#link_title').val();
 
-            self.editor.RichTextEditor.globalRte.insertHTML("<a href='"+ linkUrl +"'>"+ linkTitle +"</a>");
+            self.editor.RichTextEditor.globalRte.insertHTML("<a href='" + linkUrl + "'>" + linkTitle + "</a>");
             $('#linkModal').modal('hide');
         });
     }
@@ -322,7 +429,7 @@ application.register('editor', class extends Controller {
         const commentId = $('#comment_id').val();
         const editorMode = $('#editor_mode').val();
         let data;
-        if(editorMode === 'post') {
+        if (editorMode === 'post') {
             data = {
                 'post_id': postId,
                 'post_title': postTitleElement.val(),
@@ -331,9 +438,9 @@ application.register('editor', class extends Controller {
                 'post_css': self.editor.getCss(),
                 'category_id': categoryId.val()
             };
-        }else{
+        } else {
             data = {
-                'comment_id' : commentId,
+                'comment_id': commentId,
                 'comment_data': JSON.stringify(self.editor.getProjectData()),
                 'comment': self.editor.getHtml(),
                 'comment_css': self.editor.getCss()
@@ -348,7 +455,17 @@ application.register('editor', class extends Controller {
                 Loader.startLoader();
             },
             success: function (response) {
-                window.location.href = response.redirect_url;
+                if(response.success) {
+                    window.location.href = response.redirect_url;
+                }else{
+                    if(response.message) {
+                        $('.editor_message').show();
+                        $('.editor_message_container').html(response.message);
+                        setTimeout(function() {
+                            $('.editor_message').fadeOut();
+                        }, 3000);
+                    }
+                }
             },
             complete: function () {
                 Loader.stopLoader();
@@ -370,8 +487,9 @@ application.register('editor', class extends Controller {
                 Loader.startLoader();
             },
             success: function (result) {
-                if(result.edit) {
+                if (result.edit) {
                     let data = JSON.parse(result.data);
+                    $('.post_title').val(result.title);
                     editor.loadProjectData(data);
                     self.updateEditorStyle(editor);
                 }
@@ -396,7 +514,7 @@ application.register('editor', class extends Controller {
                 Loader.startLoader();
             },
             success: function (result) {
-                if(result.edit) {
+                if (result.edit) {
                     let data = JSON.parse(result.data);
                     editor.loadProjectData(data);
                     self.updateEditorStyle(editor);
@@ -412,58 +530,12 @@ application.register('editor', class extends Controller {
         const styleEl = window.document.createElement('style');
         const iframe = editor.Canvas.getFrameEl();
         const iframeBody = iframe.contentDocument.body;
-        iframeBody.style.backgroundColor = '#eee';
-        iframeBody.style.borderTop = 'thick solid red !important;';
 
         styleEl.innerHTML = `
-                        *::-webkit-scrollbar-thumb {background: #888 !important;}
+                        *::-webkit-scrollbar-thumb {background: #ccc !important;}
                         *::-webkit-scrollbar-track {background: inherit !important;}
                     `;
         // Append the style element to the iframe document head
         iframe.contentDocument.head.appendChild(styleEl);
-    }
-
-    isInsideUl(editor, keyMode) {
-        // Get the currently selected component
-        const selected = editor.getSelected();
-
-        // If there's no selection, return false
-        if (!selected) return false;
-
-        if (selected.props().tagName === 'p') {
-            return false;
-        }
-
-        const selectedElement = selected.getEl();
-        const size = selectedElement.children.length;
-        // if(selectedElement !== undefined) {
-        //     return false;
-        // }
-
-        if (selected.props().tagName === 'ul') {
-            if (keyMode === 'down') {
-                return true;
-            } else {
-                if (
-                    selectedElement.children.length >= 3 &&
-                    selectedElement.children[size - 2].innerHTML === '<br>' &&
-                    selectedElement.lastChild.innerHTML === '<br>'
-                ) {
-                    return false;
-                }
-            }
-        }
-        // return selected.props().tagName === 'ul';
-
-        // Traverse up the component tree to check for a <ul> element
-        let parent = selected;
-        while (parent) {
-            if (parent.get('tagName') === 'ul') {
-                return true; // The cursor is inside a <ul> element
-            }
-            parent = parent.parent(); // Move to the parent component
-        }
-
-        return false; // No <ul> element found
     }
 });

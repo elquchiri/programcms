@@ -35,16 +35,26 @@
         <span class="ms-1 me-1">&mdash;</span>
         <a href="{{ block.getUserAddressesUrl() }}">{{ block.trans('Manage Addresses') }}</a>
         <div class="mt-1">
+            {% if(block.getUserDefaultAddress().getFirstname()) %}
             <p class="m-0">{{ block.getUserDefaultAddress().getFirstname() }} {{ block.getUserDefaultAddress().getLastname() }}</p>
-            <p class="m-0">{{ block.getUserDefaultAddress().getStreet() }}</p>
-            <p class="m-0">{{ block.getUserDefaultAddress().getCity() }}, {{ block.getUserDefaultAddress().getRegion() }}</p>
-            <p class="m-0">{{ block.getCountryByCode() }}</p>
+            {% endif %}
+            {% if(block.getUserDefaultAddress().getStreet()) %}
+                <p class="m-0">{{ block.getUserDefaultAddress().getStreet() }}</p>
+            {% endif %}
+            {% if(block.getUserDefaultAddress().getCity()) %}
+                <p class="m-0">{{ block.getUserDefaultAddress().getCity() }}, {{ block.getUserDefaultAddress().getRegion() }}</p>
+            {% endif %}
+            {% if(block.getUserDefaultAddress().getCountry()) %}
+                <p class="m-0">{{ block.getUserDefaultAddress().getCountry() }}</p>
+            {% endif %}
+            {% if(block.getUserDefaultAddress().getTelephone()) %}
             <p class="m-0">
                 {{ block.trans('T:') }}
                 <a href="tel:{{ block.getUserDefaultAddress().getTelephone() }}">
                     {{ block.getUserDefaultAddress().getTelephone() }}
                 </a>
             </p>
+            {% endif %}
             <p class="mt-2">
                 <a href="{{ block.getDefaultAddressEditUrl() }}">{{ block.trans('Edit Address') }}</a>
             </p>

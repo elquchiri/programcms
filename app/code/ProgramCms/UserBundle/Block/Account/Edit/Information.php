@@ -23,4 +23,12 @@ class Information extends Template
     {
         return $this->getUrl('user_save_information');
     }
+
+    /**
+     * @return string
+     */
+    public function getSaveProfileImageUrl(): string
+    {
+        return $this->getUrl('user_save_userimage');
+    }
 }

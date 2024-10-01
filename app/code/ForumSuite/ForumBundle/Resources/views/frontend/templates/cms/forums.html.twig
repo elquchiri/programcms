@@ -70,50 +70,55 @@
                         <p class="text-muted" style="font-size: 12px;">{{ forum.getCategoryDescription() }}</p>
                     </td>
                     <td class="text-center" style="background-color: #d8dff0; font-weight: bold; font-size: 13px;">
-                        {{ block.countCategoryPosts() }}
+                        {{ block.countCategoryPosts(forum) }}
                     </td>
                     <td class="text-center" style="background-color: #d8dff0; font-weight: bold; font-size: 13px;">
-                        {{ block.countCategoryComments() }}
+                        {{ block.countCategoryComments(forum) }}
                     </td>
                     <td class="text-center" style="background-color: #d8dff0">0</td>
                     <td class="text-center last_post" style="background-color: #d8dff0">
+                        {% if block.getLastComment(forum) %}
                         <p class="text-muted p-0 m-0" style="font-size: 13px;">05:40 - اليوم</p>
-                        <a href="#" style="font-weight: bold; font-size: 13px;">محمد القشيري</a>
+                        <a href="{{ block.getUserUrl(block.getLastComment(forum).getUser()) }}" style="font-weight: bold; font-size: 13px;">{{ block.getLastComment(forum).getUser().getFullname() }}</a>
+                        {% endif %}
                     </td>
                     <td class="text-center managers">
                         <a href="#">محمد</a>
                     </td>
                     <td class="" style="background-color: #eaeef9">
+                        {% if forum.getLastPost() %}
                         <div class="row">
-                            <div class="col-md-2 pt-2 text-end">
+                            <div class="col-md-2 pt-1 text-end">
                                 <div class="profile-image"
                                      style="display: inline-block; border: 2px solid #8db4db; width: 33px; height: 33px; border-radius: 50%; padding: 1px;">
-                                    <img src="http://ar.dev-programcms.com/media/category_entity/category_image/49557724-66371ef861a65.jpg"
+                                    <img src="{{ forum.getLastPost().getUser().getProfileImage() }}"
                                          style="width: 100%; height: 100%; border-radius: 50%;" alt=""/>
                                 </div>
                             </div>
                             <div class="col-md p-0">
-                                <a href="" style="font-size: 14px;">مرحبا بكم في برنامج ProgramCMS ForumSuite</a>
-                                <p class="m-0 text-muted" style="font-size: 13px;">نشر من طرف : <a href=""
-                                                                                                   class="text-muted"
-                                                                                                   style="font-size: 12px;">نجيب
-                                        محفوظ</a></p>
+                                <a href="{{ block.getPostUrl(forum, forum.getLastPost()) }}" style="font-size: 14px;">{{ forum.getLastPost().getPostName() }}</a>
+                                <p class="m-0 text-muted" style="font-size: 13px;">
+                                    {{ block.trans('Posted by')}} :
+                                    <a href="{{ block.getUserUrl(forum.getLastPost().getUser()) }}" class="text-muted" style="font-size: 12px;">
+                                        {{ forum.getLastPost().getUser().getFullname() }}
+                                    </a>
+                                </p>
                             </div>
                         </div>
+                        {% endif %}
                     </td>
                     <td class="text-center">
                         <div class="btn-group dropdown">
                             <a class="dropdown-toggle" type="button" style="font-size: 13px;" data-bs-toggle="dropdown"
                                data-bs-auto-close="true"
                                aria-expanded="false">
-                                {{ block.trans('خيارات') }}
+                                {{ block.trans('Options') }}
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">{{ block.trans('View Forum') }}</a></li>
                                 <li><a class="dropdown-item" href="#">{{ block.trans('#Trend Subjects') }}</a></li>
                                 <li><a class="dropdown-item"
                                        href="#">{{ block.trans('Message the forum moderator') }}</a></li>
-                                <li><a class="dropdown-item" href="#">{{ block.trans('إضافة المنتدى للمفضلة') }}</a>
                                 </li>
                             </ul>
                         </div>

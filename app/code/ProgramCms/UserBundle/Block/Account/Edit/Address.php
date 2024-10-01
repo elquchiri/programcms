@@ -14,7 +14,6 @@ use ProgramCms\UserBundle\Entity\UserEntity;
 use ProgramCms\UserBundle\Repository\Address\UserAddressEntityRepository;
 use ProgramCms\WebsiteBundle\Model\Provider\CountrySelector;
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\Intl\Countries;
 
 /**
  * Class Address
@@ -150,14 +149,5 @@ class Address extends Template
     public function getRemoveAddressUrl(UserAddressEntity $address): string
     {
         return $this->getUrl('user_address_delete', ['id' => $address->getEntityId()]);
-    }
-
-    /**
-     * @param string $countryCode
-     * @return string
-     */
-    public function getCountryByCode(string $countryCode): string
-    {
-        return Countries::getName($countryCode);
     }
 }

@@ -51,6 +51,7 @@ class LoadPostController extends Controller
         $post = $this->postRepository->getById($postId);
         return $this->json([
             'edit' => true,
+            'title' => $post->getPostName(),
             'data' => $post->getPostContent()
         ]);
     }

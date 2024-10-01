@@ -1,0 +1,42 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="about pt-3">
+    <div class="mb-3 row">
+        <label for="firstname" class="col-sm-2 col-form-label">{{ block.trans('First Name') }}</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="firstname" value="{{ block.getUser().getUserFirstname() }}">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="lastname" class="col-sm-2 col-form-label">{{ block.trans('Last Name') }}</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="lastname" value="{{ block.getUser().getUserLastname() }}">
+        </div>
+    </div>
+    {% if block.getUser().getDefaultAddress() %}
+    <div class="mb-3 row">
+        <label for="address" class="col-sm-2 col-form-label">{{ block.trans('Address') }}</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="address" value="{{ block.getUser().getDefaultAddress().getCountry() }}">
+        </div>
+    </div>
+    {% endif %}
+    <div class="mb-3 row">
+        <label for="username" class="col-sm-2 col-form-label">{{ block.trans('User Name') }}</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="username" value="{{ block.getUser().getUserName() }}">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="username" class="col-sm-2 col-form-label">{{ block.trans('Account Created') }}</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="username" value="{{ block.getUserCreationTime() }}">
+        </div>
+    </div>
+</div>

@@ -10,13 +10,14 @@ namespace ProgramCms\AdminBundle\Model\Account;
 
 use ProgramCms\AdminBundle\Model\Collection\Account\Collection;
 use ProgramCms\AdminBundle\Repository\AdminUserRepository;
+use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;
 use Symfony\Bundle\SecurityBundle\Security;
 
 /**
  * Class DataProvider
  * @package ProgramCms\AdminBundle\Model\Account
  */
-class DataProvider extends \ProgramCms\UiBundle\DataProvider\AbstractDataProvider
+class DataProvider extends AbstractDataProvider
 {
     /**
      * @var AdminUserRepository

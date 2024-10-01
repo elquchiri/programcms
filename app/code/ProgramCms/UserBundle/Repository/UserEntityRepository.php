@@ -55,4 +55,17 @@ class UserEntityRepository extends AbstractRepository
     {
         return $this->findOneBy(['reset_token' => $token]);
     }
+
+    /**
+     * @param int $limit
+     * @return int|mixed|string
+     */
+    public function getLastUsers(int $limit = 3)
+    {
+        return $this->createQueryBuilder('u')
+            ->orderBy('u.entity_id', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }

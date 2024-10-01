@@ -14,6 +14,11 @@
   display: none;
 }
 
+#menu .main-menu a.active {
+  background-color: #e6e6e6;
+  color: #0d647d;
+}
+
 #tm:checked + .main-menu {
   display: block;
 }

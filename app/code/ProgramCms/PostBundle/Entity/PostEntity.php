@@ -167,4 +167,12 @@ class PostEntity extends Entity implements PostInterface
     {
         return $this->comments;
     }
+
+    /**
+     * @return Comment|bool
+     */
+    public function getLastComment(): Comment|bool
+    {
+        return $this->comments->last();
+    }
 }

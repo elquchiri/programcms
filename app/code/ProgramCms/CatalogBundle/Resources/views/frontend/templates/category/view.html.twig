@@ -25,34 +25,38 @@
                     </p>
                 </ul>
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li class="nav-item me-3">
                         <a class="nav-link text-center" aria-current="page" href="{{ block.newPostUrl() }}" style="font-size: 13px; font-weight: bold;">
                             <img src="{{ asset('bundles/programcmspost/images/new.png') }}" alt=""/>
                             <p>{{ block.trans('New Post') }}</p>
                         </a>
                     </li>
+                    {% endif %}
                     <li class="nav-item me-3 text-center">
                         <a class="nav-link" aria-current="page" href="" style="font-size: 13px; font-weight: bold;">
                             <img src="{{ asset('bundles/programcmspost/images/hot.png') }}"/>
-                            <p>مواضيع نشطة</p>
+                            <p>{{ block.trans('Active Topics') }}</p>
                         </a>
                     </li>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li class="nav-item me-3">
                         <a class="nav-link text-center" aria-current="page" href="{{ block.newPostUrl() }}" style="font-size: 13px; font-weight: bold;">
                             <img src="{{ asset('bundles/programcmspost/images/posts.png') }}" alt=""/>
-                            <p>مواضيعك هنا</p>
+                            <p>{{ block.trans('Your topics here') }}</p>
                         </a>
                     </li>
                     <li class="nav-item me-3 text-center">
                         <a class="nav-link" aria-current="page" href="" style="font-size: 13px; font-weight: bold;">
                             <img src="{{ asset('bundles/programcmspost/images/message.png') }}"/>
-                            <p>مراسلة المنتدى</p>
+                            <p>{{ block.trans('Message Managers') }}</p>
                         </a>
                     </li>
+                    {% endif %}
                     <li class="me-2">
                         <div class="form-floating">
                             <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                                <option selected>1/4587</option>
+                                <option selected>1/1</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -111,7 +115,9 @@
                                 475
                             </td>
                             <td class="text-center">
-                                <a href="#" style="font-size: 14px;">Med ELQ</a>
+                                {% if post.getLastComment() %}
+                                <a href="{{ block.getUserUrl(post.getLastComment().getUser()) }}" style="font-size: 14px;">{{ post.getLastComment().getUser().getFullname() }}</a>
+                                {% endif %}
                             </td>
                             <td class="text-center">
                                 <div class="btn-group dropstart">

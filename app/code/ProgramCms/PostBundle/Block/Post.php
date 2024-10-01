@@ -117,6 +117,14 @@ class Post extends Template
     }
 
     /**
+     * @return string
+     */
+    public function getUserUrl(): string
+    {
+        return $this->getUrl('user_profile_view', ['id' => $this->getPost()->getUser()->getEntityId()]);
+    }
+
+    /**
      * @return UserInterface|null
      */
     public function getSecurityUser(): ?UserInterface

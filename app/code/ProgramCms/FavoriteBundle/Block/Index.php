@@ -77,7 +77,7 @@ class Index extends Template
      */
     public function getPreviewText($html, $length): string
     {
-        return substr($html, 0, $length) . ' ...';
+        return strlen($html) > $length ? substr($html, 0, $length) . ' ...' : $html;
     }
 
     /**

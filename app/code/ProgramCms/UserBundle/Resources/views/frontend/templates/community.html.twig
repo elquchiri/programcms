@@ -1,0 +1,23 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="community row row-cols-1 row-cols-md-6 g-4 mt-3 mb-5">
+    {% for user in block.getUsers() %}
+        <div class="col-md">
+            <div class="text-center">
+                <div class="profile-image" style="display: inline-block; border: 3px solid #6d9dcb; width: 78px; height: 78px; border-radius: 50%; padding: 1px;">
+                    <a href="{{ block.getUserUrl(user) }}"><img src="{{ user.getProfileImage() }}" style="width: 100%; height: 100%; border-radius: 50%;" alt="" /></a>
+                </div>
+                <p class="mt-3 mb-0">
+                    <a href="{{ block.getUserUrl(user) }}">{{ user.getFullname() }}</a>
+                </p>
+                <p class="text-muted m-0 p-0">{{ block.trans('Member') }}</p>
+            </div>
+        </div>
+    {% endfor %}
+</div>

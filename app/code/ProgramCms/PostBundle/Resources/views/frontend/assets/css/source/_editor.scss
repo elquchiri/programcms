@@ -16,6 +16,19 @@
   display: none;
 }
 
+.editor-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  height: calc(100% - 40px - 58px);
+}
+
+.editor-column {
+  flex: 1; /* Each column takes equal width */
+  background-color: #FFFFFF;
+}
+
 .editor-rte-action {
   margin: 0 2px 0 2px;
   border-radius: 3px;
@@ -67,7 +80,7 @@
 }
 
 .gjs-one-bg {
-  background-color: #e5e5e5;
+  background-color: #FFFFFF;
   color: #000000;
 }
 
@@ -194,16 +207,8 @@
   position: static;
 }
 
-.editor-row {
-  display: flex;
-  justify-content: flex-start;
-  align-items: stretch;
-  flex-wrap: nowrap;
-  height: calc(100% - 40px - 58px);
-}
-
 .editor-canvas {
-  flex-grow: 1;
+  flex-grow: 4;
 }
 
 .panel__left {
@@ -211,3 +216,32 @@
   position: relative;
   overflow-y: auto;
 }
+
+.block-icon {
+  width: 50px;
+  height: 50px;
+
+  &.section-icon {
+    background: url('http://ar.dev-programcms.com/bundles/programcmspost/images/editor/undo.png') no-repeat center center;
+  }
+}
+
+.gjs-block {
+  width: 28% !important;
+  min-height: 70px !important;
+
+  .gjs-block-label {
+    font-weight: bold;
+  }
+
+  &.gjs-four-color-h:hover {
+    color: #0a58ca;
+  }
+}
+
+#components {
+  overflow-y: auto;
+  border-left: 1px solid #CCC;
+}
+*::-webkit-scrollbar-thumb {background: #888 !important;}
+*::-webkit-scrollbar-track {background: inherit !important;}

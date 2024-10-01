@@ -9,11 +9,12 @@
 {% page %}
     {% referenceContainer name="content" %}
         {% container name="home.forums" htmlTag="div" htmlClass="row" %}
-            {% container name="home.forums.listing" htmlTag="div" htmlClass="col-md-10" %}
+            {% container name="home.forums.listing" htmlTag="div" htmlClass="col" %}
                 {% block name="home.forums.block" class="ForumSuite\\ForumBundle\\Block\\Cms\\Categories" template="@ForumSuiteForumBundle/cms/forums.html.twig" %}{% endBlock %}
             {% endContainer %}
             {% container name="home.user.login" htmlTag="div" htmlClass="col-md-2" %}
                 {% block name="home.user.block" class="ProgramCms\\UserBundle\\Block\\Account\\Login" template="@ForumSuiteForumBundle/user/login.html.twig" %}{% endBlock %}
+                {% block name="home.forum.last_users" class="ForumSuite\\ForumBundle\\Block\\User\\LastUsers" template="@ForumSuiteForumBundle/user/last_users.html.twig" %}{% endBlock %}
             {% endContainer %}
         {% endContainer %}
     {% endReferenceContainer %}

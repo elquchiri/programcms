@@ -9,8 +9,11 @@
 namespace ForumSuite\ForumBundle\Block\Cms;
 
 use Doctrine\Common\Collections\Collection;
+use ProgramCms\CatalogBundle\Entity\CategoryEntity;
 use ProgramCms\CoreBundle\View\Element\Template;
+use ProgramCms\PostBundle\Entity\PostEntity;
 use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\UserBundle\Entity\UserEntity;
 use ProgramCms\WebsiteBundle\Model\WebsiteManagerInterface;
 
 /**
@@ -100,18 +103,59 @@ class Categories extends Template
     }
 
     /**
+     * @param CategoryEntity $category
      * @return int
      */
-    public function countCategoryPosts()
+    public function countCategoryPosts(CategoryEntity $category): int
     {
-        return rand(000, 999);
+        return $category->getPosts()->count();
+    }
+
+
+    /**
+     * @param CategoryEntity $category
+     * @return int
+     */
+    public function countCategoryComments(CategoryEntity $category): int
+    {
+        $count = 0;
+        /** @var PostEntity $post */
+        foreach($category->getPosts() as $post) {
+            $count += $post->getComments()->count();
+        }
+        return $count;
     }
 
     /**
-     * @return int
+     * @param CategoryEntity $category
+     * @return false
      */
-    public function countCategoryComments()
+    public function getLastComment(CategoryEntity $category)
     {
-        return rand(000, 999);
+        foreach($category->getPosts() as $post) {
+            if($post->getComments()->count()) {
+                return $post->getComments()->last();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param UserEntity $user
+     * @return string
+     */
+    public function getUserUrl(UserEntity $user): string
+    {
+        return $this->getUrl('user_profile_view', ['id' => $user->getEntityId()]);
+    }
+
+    /**
+     * @param CategoryEntity $category
+     * @param PostEntity $post
+     * @return string
+     */
+    public function getPostUrl(CategoryEntity $category, PostEntity $post): string
+    {
+        return $this->getUrl('post_index_view', ['category' => $category->getEntityId(), 'id' => $post->getEntityId()]);
     }
 }

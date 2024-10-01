@@ -6,7 +6,8 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<div class="card" style="box-shadow: 0 25px 15px -10px #afafaf">
+{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+<div class="card mb-3" style="box-shadow: 0 25px 15px -10px #afafaf">
     <div class="card-body" style="font-size: 13px; box-shadow: inset 0 25px 15px -10px #b5ceff">
         <form action="{{ block.getSubmitUrl() }}" method="POST">
             <div class="row">
@@ -39,3 +40,4 @@
         </form>
     </div>
 </div>
+{% endif %}

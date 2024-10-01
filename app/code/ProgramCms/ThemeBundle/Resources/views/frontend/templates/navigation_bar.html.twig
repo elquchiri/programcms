@@ -9,54 +9,34 @@
 
 <label for="tm" id="toggle-menu">Navigation <span class="drop-icon">▾</span></label>
 <input type="checkbox" id="tm">
-<ul class="main-menu clearfix">
-    <li>
-        <a href="#">{{ block.trans('Home') }}</a>
-    </li>
-    <li>
-        <a href="#">{{ block.trans('مشاركاتك') }}</a>
-    </li>
-    <li>
-        <a href="#">{{ block.trans('Posts') }}</a>
-    </li>
-    <li><a href="#">{{ block.trans('Community') }}</a></li>
-    <li>
-        <a href="#">{{ block.trans('الرسائل') }}</a>
-    </li>
-    <li>
-        <a href="#">{{ block.trans('مواضيع ترند') }}</a>
-    </li>
-    <li>
-        <a href="#">{{ block.trans('الأرشيف') }}</a>
-    </li>
-    <li>
-        <a href="#">
-            {{ block.trans('Blog') }}
-            <span class="drop-icon">▾</span>
-            <label title="Toggle Drop-down" class="drop-icon" for="sm1">▾</label>
-        </a>
-        <input type="checkbox" id="sm1">
-        <ul class="sub-menu">
-            <li><a href="#">Item 2.1</a></li>
-            <li>
-                <a href="#">
-                    Item 2.2
-                    <span class="drop-icon">▾</span>
-                    <label title="Toggle Drop-down" class="drop-icon" for="sm2">▾</label>
-                </a>
-                <input type="checkbox" id="sm2">
-                <ul class="sub-menu">
-                    <li><a href="#">Item 2.2.1</a></li>
-                    <li><a href="#">Item 2.2.2</a></li>
-                    <li><a href="#">Item 2.2.3</a></li>
-                </ul>
-            </li>
-            <li><a href="#">Item 3.4</a></li>
-        </ul>
-    </li>
-    <li><a href="#">{{ block.trans('Assistance') }}</a></li>
-    <li><a href="#">{{ block.trans('Create an Account') }}</a></li>
+{#<ul class="main-menu clearfix">#}
+{#    <li>#}
+{#        <a href="#">#}
+{#            {{ block.trans('Blog') }}#}
+{#            <span class="drop-icon">▾</span>#}
+{#            <label title="Toggle Drop-down" class="drop-icon" for="sm1">▾</label>#}
+{#        </a>#}
+{#        <input type="checkbox" id="sm1">#}
+{#        <ul class="sub-menu">#}
+{#            <li><a href="#">Item 2.1</a></li>#}
+{#            <li>#}
+{#                <a href="#">#}
+{#                    Item 2.2#}
+{#                    <span class="drop-icon">▾</span>#}
+{#                    <label title="Toggle Drop-down" class="drop-icon" for="sm2">▾</label>#}
+{#                </a>#}
+{#                <input type="checkbox" id="sm2">#}
+{#                <ul class="sub-menu">#}
+{#                    <li><a href="#">Item 2.2.1</a></li>#}
+{#                    <li><a href="#">Item 2.2.2</a></li>#}
+{#                    <li><a href="#">Item 2.2.3</a></li>#}
+{#                </ul>#}
+{#            </li>#}
+{#            <li><a href="#">Item 3.4</a></li>#}
+{#        </ul>#}
+{#    </li>#}
+{#</ul>#}
 
-    {# Calls child menu items #}
-    {{ block.getChildHtml() }}
-</ul>
+<nav class="main-menu clearfix">
+    {{ block.generateMenu()|raw }}
+</nav>

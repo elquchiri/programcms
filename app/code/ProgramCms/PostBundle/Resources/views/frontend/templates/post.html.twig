@@ -25,36 +25,38 @@
 
             </ul>
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                <li class="nav-item me-3">
-                    <a class="nav-link text-center" aria-current="page" href="{{ block.newPostUrl() }}" style="font-size: 13px; font-weight: bold;">
-                        <img src="{{ asset('bundles/programcmspost/images/new.png') }}" alt=""/>
-                        <p>{{ block.trans('New Post') }}</p>
-                    </a>
-                </li>
-                {% if block.isPostInFavorite() == false %}
-                <li class="nav-item me-3 text-center">
-                    <a href="{{ block.getAddToFavoriteUrl() }}" class="nav-link" aria-current="page" href="" style="font-size: 13px; font-weight: bold;">
-                        <img src="{{ asset('bundles/programcmspost/images/favorite.png') }}"/>
-                        <p>{{ block.trans('Add to Favorite') }}</p>
-                    </a>
-                </li>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="nav-item me-3">
+                        <a class="nav-link text-center" aria-current="page" href="{{ block.newPostUrl() }}" style="font-size: 13px; font-weight: bold;">
+                            <img src="{{ asset('bundles/programcmspost/images/new.png') }}" alt=""/>
+                            <p>{{ block.trans('New Post') }}</p>
+                        </a>
+                    </li>
+                    {% if block.isPostInFavorite() == false %}
+                    <li class="nav-item me-3 text-center">
+                        <a href="{{ block.getAddToFavoriteUrl() }}" class="nav-link" aria-current="page" style="font-size: 13px; font-weight: bold;">
+                            <img src="{{ asset('bundles/programcmspost/images/favorite.png') }}"/>
+                            <p>{{ block.trans('Add to Favorite') }}</p>
+                        </a>
+                    </li>
+                    {% endif %}
                 {% endif %}
                 <li class="nav-item me-3 text-center">
                     <a class="nav-link" aria-current="page" href="" style="font-size: 13px; font-weight: bold;">
                         <img src="{{ asset('bundles/programcmspost/images/hot.png') }}"/>
-                        <p>مواضيع نشطة</p>
+                        <p>{{ block.trans('Active Topics') }}</p>
                     </a>
                 </li>
                 <li class="nav-item me-3 text-center">
                     <a class="nav-link" aria-current="page" href="" style="font-size: 13px; font-weight: bold;">
                         <img src="{{ asset('bundles/programcmspost/images/message.png') }}"/>
-                        <p>مراسلة المنتدى</p>
+                        <p>{{ block.trans('Message Managers') }}</p>
                     </a>
                 </li>
                 <li class="me-2">
                     <div class="form-floating">
                         <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                            <option selected>1/4587</option>
+                            <option selected>1/1</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -89,7 +91,7 @@
                                 <img src="{{ block.getPost().getUser().getProfileImage() }}" style="width: 100%; height: 100%; border-radius: 50%;" alt="" />
                             </div>
                             <p class="m-0 mt-2">
-                                <a href="">{{ block.getPost().getUser().getFullname() }}</a>
+                                <a href="{{ block.getUserUrl() }}">{{ block.getPost().getUser().getFullname() }}</a>
                             </p>
                             <p class="text-muted m-0" style="font-size: 13px;">مدير المنتديات</p>
                         </li>
@@ -158,7 +160,7 @@
                 {% endfor %}
             {% endif %}
 
-            {% if(block.getSecurityUser()) %}
+            {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
                 <tr id="comment-container">
                     <td>
                         <ul class="list-group list-group-flush">

@@ -79,6 +79,13 @@ class SaveController extends Controller
         $postCss = $this->getRequest()->getParam('post_css');
         $categoryId = $this->getRequest()->getParam('category_id');
 
+        if(empty($postTitle)) {
+            return $this->json([
+                'success' => false,
+                'message' => $this->trans('Please give a title to the topic.')
+            ]);
+        }
+
         // Prepare Post
         if(!is_null($postId) && !empty($postId)) {
             $post = $this->postRepository->getById($postId);
@@ -116,6 +123,6 @@ class SaveController extends Controller
      */
     public function getPostUrl($category, $post): string
     {
-        return $this->getUrl()->getUrl('post_index_view', ['category' => $category, 'post' => $post]);
+        return $this->getUrl()->getUrl('post_index_view', ['category' => $category, 'id' => $post]);
     }
 }

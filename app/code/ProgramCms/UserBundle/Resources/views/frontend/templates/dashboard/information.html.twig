@@ -7,30 +7,53 @@
  */
 #}
 <h3>{{ block.trans('Edit Information') }}</h3>
-<form action="{{ block.getSaveInformationUrl() }}" method="POST" class="mt-4">
-    <div class="row mb-4">
-        <div class="col">
-            <label class="form-label" for="first_name">{{ block.trans('First Name') }}</label>
-            <input type="text" name="first_name" id="first_name" class="form-control" value="{{ app.user.getUserFirstname() }}">
-        </div>
-        <div class="col">
-            <label class="form-label" for="last_name">{{ block.trans('Last Name') }}</label>
-            <input type="text" name="last_name" id="last_name" class="form-control" value="{{ app.user.getUserLastname() }}">
+<div class="row">
+    <div class="col-md-9">
+        <form action="{{ block.getSaveInformationUrl() }}" method="POST" class="mt-4">
+            <div class="row mb-4">
+                <div class="col">
+                    <label class="form-label" for="first_name">{{ block.trans('First Name') }}</label>
+                    <input type="text" name="first_name" id="first_name" class="form-control" value="{{ app.user.getUserFirstname() }}">
+                </div>
+                <div class="col">
+                    <label class="form-label" for="last_name">{{ block.trans('Last Name') }}</label>
+                    <input type="text" name="last_name" id="last_name" class="form-control" value="{{ app.user.getUserLastname() }}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label class="form-label" for="email">{{ block.trans('Email') }}</label>
+                    <input type="text" name="email" id="email" class="form-control" value="{{ app.user.email }}">
+                </div>
+                <div class="col">
+                    <label class="form-label" for="username">{{ block.trans('User Name') }}</label>
+                    <input type="text" name="username" id="username" class="form-control" value="{{ app.user.getUsername() }}">
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-12">
+                    <input type="submit" class="btn btn-primary" value="{{ block.trans('Save') }}">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col">
+        <div class="user_photo" style="text-align: center" data-controller="image-uploader" data-image-uploader-browse-value="#label-browse" data-image-uploader-preview-value="#photo-preview">
+            <div class="profile-image" id="photo-preview"
+                 style="background-size: cover; background-image: url({{ app.user.getProfileImage() }}); display: inline-block; border: 2px solid #8db4db; width: 93px; height: 93px; border-radius: 50%; padding: 1px;">
+            </div>
+            <div class="options">
+                <label for="browse-photo" id="label-browse" class="btn btn-sm btn-outline-primary mt-2 browse-photo" data-action="image-uploader#triggerBrowse">{{ block.trans('Change Photo') }}</label>
+            </div>
+            <form action="{{ block.getSaveProfileImageUrl() }}" method="POST" id="send_photo_form" enctype="multipart/form-data">
+                <input
+                        id="browse-photo"
+                        type="file"
+                        name="profile_photo"
+                        class="d-none"
+                        accept="image/*"
+                        data-action="change->image-uploader#uploadImage">
+            </form>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <label class="form-label" for="email">{{ block.trans('Email') }}</label>
-            <input type="text" name="email" id="email" class="form-control" value="{{ app.user.email }}">
-        </div>
-        <div class="col">
-            <label class="form-label" for="username">{{ block.trans('User Name') }}</label>
-            <input type="text" name="username" id="username" class="form-control" value="{{ app.user.getUsername() }}">
-        </div>
-    </div>
-    <div class="row mt-5">
-        <div class="col-12">
-            <input type="submit" class="btn btn-primary" value="{{ block.trans('Save') }}">
-        </div>
-    </div>
-</form>
+</div>

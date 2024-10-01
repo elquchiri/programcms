@@ -26,6 +26,9 @@ var _default = {
     blockManager: {
         labels: {
             // 'block-id': 'Block Label',
+            section: 'قسم',
+            text: 'نص',
+            image: 'صورة'
         },
         categories: {
             // 'category-id': 'Category Label',
@@ -88,17 +91,21 @@ var _default = {
         layer: 'Layer',
         fileButton: 'Images',
         sectors: {
-            general: 'General',
+            general: 'عام',
             layout: 'Layout',
             typography: 'Typography',
             decorations: 'Decorations',
-            extra: 'Extra',
+            extra: 'إضافي',
             flex: 'Flex',
-            dimension: 'Dimension'
+            dimension: 'البعد'
         },
         // Default names for sub properties in Composite and Stack types.
         // Other labels are generated directly from their property names (eg. 'font-size' will be 'Font size').
         properties: {
+            'width': 'عرض',
+            'height': 'ارتفاع',
+            'padding': 'حشوة',
+            'margin': 'هامِش',
             'text-shadow-h': 'X',
             'text-shadow-v': 'Y',
             'text-shadow-blur': 'Blur',
@@ -109,14 +116,14 @@ var _default = {
             'box-shadow-spread': 'Spread',
             'box-shadow-color': 'Color',
             'box-shadow-type': 'Type',
-            'margin-top-sub': 'Top',
-            'margin-right-sub': 'Right',
-            'margin-bottom-sub': 'Bottom',
-            'margin-left-sub': 'Left',
-            'padding-top-sub': 'Top',
-            'padding-right-sub': 'Right',
-            'padding-bottom-sub': 'Bottom',
-            'padding-left-sub': 'Left',
+            'margin-top-sub': 'قمة',
+            'margin-right-sub': 'يمين',
+            'margin-bottom-sub': 'أسفل',
+            'margin-left-sub': 'يسار',
+            'padding-top-sub': 'قمة',
+            'padding-right-sub': 'يمين',
+            'padding-bottom-sub': 'أسفل',
+            'padding-left-sub': 'يسار',
             'border-width-sub': 'Width',
             'border-style-sub': 'Style',
             'border-color-sub': 'Color',
