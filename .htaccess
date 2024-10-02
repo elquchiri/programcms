@@ -1,7 +1,10 @@
 RewriteEngine on
 
-SetEnvIf Host .*dev-programcms.* PROGRAMCMS_RUN_CODE=en
+SetEnvIf Host .*dev-programcms.* PROGRAMCMS_RUN_CODE=default
 SetEnvIf Host .*dev-programcms.* PROGRAMCMS_RUN_TYPE=website_view
 
-SetEnvIf Host ar\.dev-programcms.* PROGRAMCMS_RUN_CODE=ar
-SetEnvIf Host ar\.dev-programcms.* PROGRAMCMS_RUN_TYPE=website_view
+#SetEnvIf Host .*dev-programcms.* PROGRAMCMS_RUN_CODE=en
+#SetEnvIf Host .*dev-programcms.* PROGRAMCMS_RUN_TYPE=website_view
+#
+#SetEnvIf Host ar\.dev-programcms.* PROGRAMCMS_RUN_CODE=ar
+#SetEnvIf Host ar\.dev-programcms.* PROGRAMCMS_RUN_TYPE=website_view

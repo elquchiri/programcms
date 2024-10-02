@@ -91,7 +91,7 @@ class LocaleSwitcher extends Template
         $locale = $this->configHelper->getLocale('website_view', $websiteView->getWebsiteViewId());
         $countryCode = explode('_', $locale)[1];
         return [
-            'flag' => 'bundles/programcmswebsite/images/flags/' . $countryCode . '.png',
+            'flag' => strtolower('bundles/programcmswebsite/images/flags/' . $countryCode . '.png'),
             'name' => Locales::getName(
                 $this->configHelper->getLocale(
                     'website_view', $websiteView->getWebsiteViewId()
