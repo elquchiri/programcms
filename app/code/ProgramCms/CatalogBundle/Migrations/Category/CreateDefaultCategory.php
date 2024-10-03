@@ -14,6 +14,9 @@ use ProgramCms\DataPatchBundle\Model\DataPatchInterface;
 use ProgramCms\EavBundle\Entity\EavAttributeSet;
 use ProgramCms\EavBundle\Repository\EavAttributeSetRepository;
 use ProgramCms\EavBundle\Repository\EavEntityTypeRepository;
+use ProgramCms\WebsiteBundle\Entity\Website;
+use ProgramCms\WebsiteBundle\Repository\WebsiteGroupRepository;
+use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
 
 /**
  * Class CreateDefaultCategory
@@ -37,20 +40,36 @@ class CreateDefaultCategory implements DataPatchInterface
     protected EavEntityTypeRepository $eavEntityTypeRepository;
 
     /**
+     * @var WebsiteRepository
+     */
+    protected WebsiteRepository $websiteRepository;
+
+    /**
+     * @var WebsiteGroupRepository
+     */
+    protected WebsiteGroupRepository $websiteGroupRepository;
+
+    /**
      * CreateDefaultCategory constructor.
      * @param CategoryRepository $categoryRepository
      * @param EavAttributeSetRepository $eavAttributeSetRepository
      * @param EavEntityTypeRepository $eavEntityTypeRepository
+     * @param WebsiteRepository $websiteRepository
+     * @param WebsiteGroupRepository $websiteGroupRepository
      */
     public function __construct(
         CategoryRepository $categoryRepository,
         EavAttributeSetRepository $eavAttributeSetRepository,
-        EavEntityTypeRepository $eavEntityTypeRepository
+        EavEntityTypeRepository $eavEntityTypeRepository,
+        WebsiteRepository $websiteRepository,
+        WebsiteGroupRepository $websiteGroupRepository
     )
     {
         $this->categoryRepository = $categoryRepository;
         $this->eavAttributeSetRepository = $eavAttributeSetRepository;
         $this->eavEntityTypeRepository = $eavEntityTypeRepository;
+        $this->websiteRepository = $websiteRepository;
+        $this->websiteGroupRepository = $websiteGroupRepository;
     }
 
     /**
@@ -75,14 +94,18 @@ class CreateDefaultCategory implements DataPatchInterface
         $this->categoryRepository->save($rootCategory);
 
         // Create Default Category
-        $this->createDefaultCategory($rootCategory, $attributeSet);
+        $defaultCategory = $this->createDefaultCategory($rootCategory, $attributeSet);
+
+        // Assign default category to default website group
+        $this->assignCategoryToWebsiteGroup($defaultCategory);
     }
 
     /**
      * @param CategoryEntity $parent
      * @param EavAttributeSet $attributeSet
+     * @return CategoryEntity|null
      */
-    private function createDefaultCategory(CategoryEntity $parent, EavAttributeSet $attributeSet)
+    private function createDefaultCategory(CategoryEntity $parent, EavAttributeSet $attributeSet): ?CategoryEntity
     {
         $category = new CategoryEntity();
         $category
@@ -93,6 +116,20 @@ class CreateDefaultCategory implements DataPatchInterface
 
         // Save Default Category
         $this->categoryRepository->save($category);
+
+        return $category;
+    }
+
+    /**
+     * @param CategoryEntity $defaultCategory
+     */
+    private function assignCategoryToWebsiteGroup(CategoryEntity $defaultCategory)
+    {
+        /** @var Website $website */
+        $website = $this->websiteRepository->getDefaultWebsite();
+        $group = $website->getDefaultGroup();
+        $group->setCategory($defaultCategory);
+        $this->websiteGroupRepository->save($group);
     }
 
     /**

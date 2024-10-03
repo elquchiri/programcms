@@ -66,7 +66,7 @@ class Website extends AbstractEntity implements AppScopeInterface
      * @var int|null
      */
     #[ORM\Column(nullable: true)]
-    private ?int $is_default = null;
+    private ?bool $is_default;
 
     /**
      * @var Collection
@@ -221,7 +221,7 @@ class Website extends AbstractEntity implements AppScopeInterface
      * @param int $is_default
      * @return $this
      */
-    public function setIsDefault(int $is_default): self
+    public function setIsDefault(bool $is_default): self
     {
         $this->is_default = $is_default;
         return $this;

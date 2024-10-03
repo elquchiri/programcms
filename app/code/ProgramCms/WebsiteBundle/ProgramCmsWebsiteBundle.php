@@ -10,7 +10,6 @@ namespace ProgramCms\WebsiteBundle;
 
 use ProgramCms\CoreBundle\ProgramCmsCoreBundle;
 use ProgramCms\ThemeBundle\ProgramCmsThemeBundle;
-use ProgramCms\UiBundle\ProgramCmsUiBundle;
 
 /**
  * Class ProgramCmsWebsiteBundle
@@ -26,8 +25,8 @@ class ProgramCmsWebsiteBundle extends ProgramCmsCoreBundle
     public static function getDependencies(): array
     {
         return [
-            \ProgramCms\CoreBundle\ProgramCmsCoreBundle::class,
-            \ProgramCms\ThemeBundle\ProgramCmsThemeBundle::class,
+            ProgramCmsCoreBundle::class,
+            ProgramCmsThemeBundle::class
         ];
     }
 }
