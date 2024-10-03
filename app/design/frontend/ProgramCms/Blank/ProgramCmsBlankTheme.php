@@ -39,4 +39,13 @@ class ProgramCmsBlankTheme extends Theme
             'email' => 'elquchiri@gmail.com'
         ];
     }
+
+    /**
+     * Return empty string for no parent association
+     * @return string
+     */
+    public function getParent(): string
+    {
+        return '';
+    }
 }

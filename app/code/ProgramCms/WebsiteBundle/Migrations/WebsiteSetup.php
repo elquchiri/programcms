@@ -8,6 +8,8 @@
 
 namespace ProgramCms\WebsiteBundle\Migrations;
 
+use ProgramCms\CatalogBundle\Migrations\Category\CreateDefaultCategory;
+use ProgramCms\CatalogBundle\Repository\CategoryRepository;
 use ProgramCms\DataPatchBundle\Model\DataPatchInterface;
 use ProgramCms\WebsiteBundle\Entity\Website;
 use ProgramCms\WebsiteBundle\Entity\WebsiteGroup;
@@ -26,14 +28,22 @@ class WebsiteSetup implements DataPatchInterface
     protected WebsiteRepository $websiteRepository;
 
     /**
+     * @var CategoryRepository
+     */
+    protected CategoryRepository $categoryRepository;
+
+    /**
      * WebsiteSetup constructor.
      * @param WebsiteRepository $websiteRepository
+     * @param CategoryRepository $categoryRepository
      */
     public function __construct(
-        WebsiteRepository $websiteRepository
+        WebsiteRepository $websiteRepository,
+        CategoryRepository $categoryRepository
     )
     {
         $this->websiteRepository = $websiteRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -44,6 +54,7 @@ class WebsiteSetup implements DataPatchInterface
         $website = new Website();
         $group = new WebsiteGroup();
         $view = new WebsiteView();
+        $defaultCategory = $this->categoryRepository->getDefaultCategory();
 
         $website
             ->setIsActive('on')
@@ -57,6 +68,7 @@ class WebsiteSetup implements DataPatchInterface
             ->setSortOrder(1)
             ->setWebsiteGroupCode('base_group')
             ->setWebsiteGroupName('Main Website Group')
+            ->setCategory($defaultCategory)
             ->setDefaultWebsiteView($view);
         $view
             ->setIsActive('on')
@@ -74,6 +86,6 @@ class WebsiteSetup implements DataPatchInterface
      */
     public static function getDependencies(): array
     {
-        return [];
+        return [CreateDefaultCategory::class];
     }
 }

@@ -80,6 +80,7 @@ class UpgradeThemes extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $themes = $this->bundleManager->getAllThemes();
+        //dd($themes);
         foreach($themes as $themePath => $theme) {
             if(!$this->themeRepository->getByThemePath($themePath)) {
                 /** @var AbstractTheme $themeObject */
@@ -92,7 +93,7 @@ class UpgradeThemes extends Command
                         ->setCode(str_replace('/', '_', $themeObject->getShortPath()))
                         ->setThemeTitle($themeObject->getName())
                         ->setThemePath($themeObject->getShortPath());
-                    if($parentPath) {
+                    if(!empty($parentPath)) {
                         /** @var Theme $parentTheme */
                         $parentTheme = $this->themeRepository->getByThemePath($parentPath);
                         $themeEntity->setParent($parentTheme);
