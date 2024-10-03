@@ -91,7 +91,7 @@
                 </thead>
                 <tbody>
                     {% if not block.hasPosts() %}
-                        <caption class="text-center p-3" style="font-size: 14px;">لم يتم العثور على أي مشاركات في هذا التصنيف</caption>
+                        <caption class="text-center p-3" style="font-size: 14px;">{{ block.trans('No posts found in this category.') }}</caption>
                     {% endif %}
                     {% for post in block.getPosts() %}
                         <tr>

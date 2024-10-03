@@ -160,6 +160,7 @@ class RegisterController extends \ProgramCms\CoreBundle\Controller\Controller
                 // Set Default Address
                 $defaultAddress = new UserAddressEntity();
                 $defaultAddress
+                    ->setUser($user)
                     ->setIsActive(true)
                     ->setCountryCode($data['user_country'])
                     ->updateTimestamps();
