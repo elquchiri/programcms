@@ -50,7 +50,8 @@ class WebsiteSetup implements DataPatchInterface
             ->setWebsiteCode('base')
             ->setSortOrder(1)
             ->setWebsiteName('Main Website')
-            ->setDefaultGroup($group);
+            ->setDefaultGroup($group)
+            ->setIsDefault(true);
         $group
             ->setWebsite($website)
             ->setIsActive('on')
