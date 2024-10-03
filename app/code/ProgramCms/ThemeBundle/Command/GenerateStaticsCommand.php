@@ -177,8 +177,8 @@ class GenerateStaticsCommand extends Command
         $this->generateWebpackConfig();
 
         // Run npm run dev command
-        $output->writeln('Compiling styles using npm run dev...');
-        $npmRunCommand = 'webpack --mode production';
+        $output->writeln('Compiling styles using npm run build ...');
+        $npmRunCommand = 'npm run build';
         $output->writeln(shell_exec($npmRunCommand));
         $assetsInstallCommand = 'php bin/pcms assets:install';
         $output->writeln(shell_exec($assetsInstallCommand));
