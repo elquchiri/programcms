@@ -10,6 +10,7 @@ namespace ProgramCms\RouterBundle\Routing;
 
 use ProgramCms\CoreBundle\Data\Process\Find;
 use ProgramCms\CoreBundle\ProgramCmsCoreBundle;
+use ProgramCms\RouterBundle\Helper\Data;
 use ReflectionException;
 use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -31,7 +32,7 @@ class ProgramCmsRouteLoader extends Loader
     /**
      * @var RouteCollection
      */
-    private $routes;
+    private RouteCollection $routes;
 
     /**
      * @var ContainerInterface
@@ -81,7 +82,7 @@ class ProgramCmsRouteLoader extends Loader
      */
     public function supports(mixed $resource, string $type = null): bool
     {
-        return $type === \ProgramCms\RouterBundle\Helper\Data::PROGRAMCMS_ROUTING_LOADER;
+        return $type === Data::PROGRAMCMS_ROUTING_LOADER;
     }
 
     /**
@@ -110,13 +111,13 @@ class ProgramCmsRouteLoader extends Loader
                     $router = Yaml::parseFile($routesFilePath);
                     if(isset($router['router'])) {
                         $router = $router['router'];
-                        if (isset($router[\ProgramCms\RouterBundle\Helper\Data::PROGRAMCMS_AREA_CODE_FRONTEND])) {
-                            foreach ($router[\ProgramCms\RouterBundle\Helper\Data::PROGRAMCMS_AREA_CODE_FRONTEND] as $key => $route) {
+                        if (isset($router[Data::PROGRAMCMS_AREA_CODE_FRONTEND])) {
+                            foreach ($router[Data::PROGRAMCMS_AREA_CODE_FRONTEND] as $route) {
                                 $this->frontName = $route['frontName'];
                             }
                         }
-                        if (isset($router[\ProgramCms\RouterBundle\Helper\Data::PROGRAMCMS_AREA_CODE_ADMINHTML])) {
-                            foreach ($router[\ProgramCms\RouterBundle\Helper\Data::PROGRAMCMS_AREA_CODE_ADMINHTML] as $key => $route) {
+                        if (isset($router[Data::PROGRAMCMS_AREA_CODE_ADMINHTML])) {
+                            foreach ($router[Data::PROGRAMCMS_AREA_CODE_ADMINHTML] as $key => $route) {
                                 $this->frontAdminName = $route['frontName'];
                             }
                         }
@@ -145,7 +146,8 @@ class ProgramCmsRouteLoader extends Loader
                                 if ($refl->isAbstract()) {
                                     continue;
                                 }
-                                $areaCode = str_contains($file->getPath(), '\\Adminhtml\\') ? 'adminhtml' : 'frontend';
+                                $filePath = str_replace('\\', '/', $file->getPath());
+                                $areaCode = str_contains($filePath, '/Adminhtml/') ? 'adminhtml' : 'frontend';
                                 $this->addRoute($controllerClass, $areaCode);
                             }
                         }
@@ -174,17 +176,17 @@ class ProgramCmsRouteLoader extends Loader
         $folderName = $parts[count($parts) - 2];
         $className = preg_replace('/(.)(Controller)/', '$1', $parts[count($parts) - 1]);
 
-        if($areaCode == \ProgramCms\RouterBundle\Helper\Data::PROGRAMCMS_AREA_CODE_ADMINHTML) {
-            $routeName = \ProgramCms\RouterBundle\Helper\Data::PROGRAMCMS_AREA_CODE_ADMINHTML . '_' . strtolower($this->frontAdminName . '_' . $folderName . '_' . $className);
-            $path = \ProgramCms\RouterBundle\Helper\Data::ADMIN_ROUTE_PREFIX . '/' . strtolower($this->frontAdminName . '/' . $folderName . '/' . $className) . '/{parameters<.*>?}';
+        if($areaCode == Data::PROGRAMCMS_AREA_CODE_ADMINHTML) {
+            $routeName = Data::PROGRAMCMS_AREA_CODE_ADMINHTML . '_' . strtolower($this->frontAdminName . '_' . $folderName . '_' . $className);
+            $path = Data::ADMIN_ROUTE_PREFIX . '/' . strtolower($this->frontAdminName . '/' . $folderName . '/' . $className) . '/{parameters<.*>?}';
         }else{
-            $routeName = \ProgramCms\RouterBundle\Helper\Data::PROGRAMCMS_AREA_CODE_FRONTEND . '_' . strtolower($this->frontName . '_' . $folderName . '_' . $className);
+            $routeName = Data::PROGRAMCMS_AREA_CODE_FRONTEND . '_' . strtolower($this->frontName . '_' . $folderName . '_' . $className);
             $path = strtolower($this->frontName . '/' . $folderName . '/' . $className) . '/{parameters<.*>?}';
         }
 
         // Create a new route object with the controller and action
         $defaults = [
-            '_controller' => $controllerClass . '::' . \ProgramCms\RouterBundle\Helper\Data::PROGRAMCMS_ROUTING_CLASS_METOHD
+            '_controller' => $controllerClass . '::' . Data::PROGRAMCMS_ROUTING_CLASS_METOHD
         ];
         $requirements = [];
 
