@@ -44,7 +44,6 @@ security:
     access_control:
         - { path: '^/admin/admin/index/index', roles: PUBLIC_ACCESS }
         - { path: '^/admin/admin/recovery/index', roles: PUBLIC_ACCESS }
-        # - { path: ^/user/register, roles: ROLE_USER }
         - { path: '^/admin', roles: ROLE_ADMIN }
 
 when@test:

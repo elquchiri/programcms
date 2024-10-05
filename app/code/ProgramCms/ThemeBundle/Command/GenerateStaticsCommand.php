@@ -48,6 +48,8 @@ class GenerateStaticsCommand extends Command
 
     const WEBPACK_CONFIG_FILE = 'webpack.config.js';
 
+    const AREAS = ['adminhtml', 'frontend'];
+
     /**
      * @var array
      */
@@ -62,8 +64,6 @@ class GenerateStaticsCommand extends Command
      * @var array
      */
     protected array $jsFiles = [];
-
-    const AREAS = ['adminhtml', 'frontend'];
 
     /**
      * @var WebsiteViewRepository
