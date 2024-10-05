@@ -44,7 +44,7 @@ application.register('new-comment', class extends Controller {
                     "                                             style=\"width: 100%; height: 100%; border-radius: 50%;\" alt=\"\"/>\n" +
                     "                                    </div>\n" +
                     "                                    <p class=\"m-0 mt-2\">"+ user.fullname +"</p>\n" +
-                    "                                    <p class=\"text-muted m-0\" style=\"font-size: 13px;\">مدير المنتديات</p>\n" +
+                    "                                    <p class=\"text-muted m-0\" style=\"font-size: 13px;\"></p>\n" +
                     "                                </li>\n" +
                     "                            </ul>\n" +
                     "                        </td>\n" +

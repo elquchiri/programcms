@@ -93,7 +93,7 @@
                             <p class="m-0 mt-2">
                                 <a href="{{ block.getUserUrl() }}">{{ block.getPost().getUser().getFullname() }}</a>
                             </p>
-                            <p class="text-muted m-0" style="font-size: 13px;">مدير المنتديات</p>
+                            <p class="text-muted m-0" style="font-size: 13px;">{{ block.trans('Member') }}</p>
                         </li>
                         <li class="list-group-item" style="font-size: 14px;">
                             مشاركات: 300
@@ -135,7 +135,7 @@
                                         <img src="{{ comment.getUser().getProfileImage() }}" style="width: 100%; height: 100%; border-radius: 50%;" alt="" />
                                     </div>
                                     <p class="m-0 mt-2">{{ comment.getUser().getFullname() }}</p>
-                                    <p class="text-muted m-0" style="font-size: 13px;">مدير المنتديات</p>
+                                    <p class="text-muted m-0" style="font-size: 13px;">{{ block.trans('Member') }}</p>
                                 </li>
                             </ul>
                         </td>
@@ -169,7 +169,7 @@
                                     <img src="{{ block.getUser().getProfileImage() }}" style="width: 100%; height: 100%; border-radius: 50%;" alt="" />
                                 </div>
                                 <p class="m-0 mt-2">{{ block.getUser().getFullname() }}</p>
-                                <p class="text-muted m-0" style="font-size: 13px;">مدير المنتديات</p>
+                                <p class="text-muted m-0" style="font-size: 13px;">{{ block.trans('Member') }}</p>
                             </li>
                         </ul>
                     </td>
