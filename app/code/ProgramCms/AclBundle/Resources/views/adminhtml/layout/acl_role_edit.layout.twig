@@ -1,0 +1,122 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% page layout="admin-2columns-left" %}
+    {% referenceContainer name="content" %}
+        {% block name="role_form" class="ui.block.form" %}
+            {% arguments %}
+                {% argument name="data" type="array" %}
+                    {% argument name="label" type="string" %}Role information{% endArgument %}
+                {% endArgument %}
+                {% argument name="buttons" type="array" %}
+                    {% argument name="back" type="string" %}ProgramCms\AclBundle\Model\Provider\Button\Role\Back{% endArgument %}
+                    {% argument name="save" type="string" %}ProgramCms\AclBundle\Model\Provider\Button\Role\Save{% endArgument %}
+                {% endArgument %}
+                {% argument name="dataSource" type="array" %}
+                    {% argument name="dataProvider" type="array" %}
+                        {% argument name="class" type="string" %}ProgramCms\AclBundle\Model\Provider\Listing\Role\DataProvider{% endArgument %}
+                        {% argument name="primaryFieldName" type="string" %}role_id{% endArgument %}
+                        {% argument name="requestFieldName" type="string" %}id{% endArgument %}
+                    {% endArgument %}
+                    {% argument name="settings" type="array" %}
+                        {% argument name="submitUrl" type="string" %}acl_role_save{% endArgument %}
+                    {% endArgument %}
+                {% endArgument %}
+                {% argument name="layout" type="array" %}
+                    {% argument name="navContainerName" type="string" %}sidebar.main{% endArgument %}
+                    {% argument name="type" type="string" %}tabs{% endArgument %}
+                {% endArgument %}
+            {% endArguments %}
+            {% block name="role_view" class="ui.block.form.fieldset" %}
+                {% arguments %}
+                    {% argument name="data" type="array" %}
+                        {% argument name="label" type="string" %}Role Detail{% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+                {% block name="role_id" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}hidden{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                            {% argument name="source" type="string" %}role_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="role_name" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}text{% endArgument %}
+                            {% argument name="label" type="string" %}Role Name{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                            {% argument name="source" type="string" %}role_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="role_code" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}text{% endArgument %}
+                            {% argument name="label" type="string" %}Role Code{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                            {% argument name="source" type="string" %}role_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="description" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}textarea{% endArgument %}
+                            {% argument name="label" type="string" %}Role Description{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}false{% endArgument %}
+                            {% argument name="source" type="string" %}role_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+            {% endBlock %}
+            {% block name="resources_tab" class="ui.block.form.fieldset" %}
+                {% arguments %}
+                    {% argument name="data" type="array" %}
+                        {% argument name="label" type="string" %}Role Permissions{% endArgument %}
+                        {% argument name="open" type="boolean" %}false{% endArgument %}
+                        {% argument name="collapse" type="boolean" %}true{% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+                {% block name="permissions" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}tree{% endArgument %}
+                            {% argument name="label" type="string" %}Resources{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                            {% argument name="sourceModel" type="string" %}ProgramCms\AclBundle\Model\Provider\DataSource\Acl\DataProvider{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+            {% endBlock %}
+            {% block name="role_security" class="ui.block.form.fieldset" %}
+                {% arguments %}
+                    {% argument name="data" type="array" %}
+                        {% argument name="label" type="string" %}User Identity Verification{% endArgument %}
+                        {% argument name="open" type="boolean" %}true{% endArgument %}
+                        {% argument name="collapse" type="boolean" %}true{% endArgument %}
+                    {% endArgument %}
+                {% endArguments %}
+                {% block name="password" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}password{% endArgument %}
+                            {% argument name="label" type="string" %}Your Password{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+            {% endBlock %}
+        {% endBlock %}
+    {% endReferenceContainer %}
+
+    {% require handle="includes/role_users" %}
+{% endPage %}

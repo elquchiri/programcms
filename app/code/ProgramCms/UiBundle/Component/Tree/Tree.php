@@ -9,16 +9,20 @@
 namespace ProgramCms\UiBundle\Component\Tree;
 
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\UiBundle\Component\AbstractComponent;
 use ProgramCms\UiBundle\View\Element\Context;
 
 /**
  * Class Tree
  * @package ProgramCms\UiBundle\Block\Tree
  */
-class Tree extends \ProgramCms\UiBundle\Component\AbstractComponent
+class Tree extends AbstractComponent
 {
     const NAME = 'tree';
 
+    /**
+     * @var ObjectManager
+     */
     private ObjectManager $objectManager;
 
     /**
@@ -43,6 +47,10 @@ class Tree extends \ProgramCms\UiBundle\Component\AbstractComponent
         return self::NAME;
     }
 
+    /**
+     * @return array
+     * @throws \ReflectionException
+     */
     public function getDataSourceData()
     {
         if($this->hasData('dataSource')) {

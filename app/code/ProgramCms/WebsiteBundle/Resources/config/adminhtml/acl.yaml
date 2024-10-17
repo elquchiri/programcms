@@ -1,0 +1,26 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+acl:
+  ProgramCmsAdminBundle_admin:
+    ProgramCmsWebsiteBundle_website:
+      label: 'Website Permissions'
+      ProgramCmsWebsiteBundle_website_create:
+        label: 'Create Websites'
+      ProgramCmsWebsiteBundle_website_delete:
+        label: 'Delete Websites'
+      ProgramCmsWebsiteBundle_group:
+        label: 'Group Permissions'
+        ProgramCmsWebsiteBundle_group_create:
+          label: 'Create Groups'
+        ProgramCmsWebsiteBundle_group_delete:
+          label: 'Remove Groups'
+      ProgramCmsWebsiteBundle_website_view:
+        label: 'Website View Permissions'
+        ProgramCmsWebsiteBundle_website_view_create:
+          label: 'Create Website Views'
+        ProgramCmsWebsiteBundle_website_view_delete:
+          label: 'Remove Website Views'

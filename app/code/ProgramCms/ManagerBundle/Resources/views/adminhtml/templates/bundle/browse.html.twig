@@ -1,0 +1,39 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="bundle-list row row-cols-1 row-cols-md-4 g-4 mt-3 mb-5">
+    <div class="col">
+        <div class="card h-100" style="box-shadow: inset 0 3px 2px #eee">
+            <div class="card-body">
+                <p>
+                    <img alt=""
+                         src="http://programcms.com/media/category_entity/category_image/42e27dd3e9434ef597473b8a28abdc5c-1-67016bc008cbb.png">
+                </p>
+                <a href="">
+                    <h6 class="card-title fw-bold">ProgramCMS Forum Suite</h6>
+                </a>
+                <p class="card-subtitle mb-2 text-muted" style="font-size: 12px;">
+                    by ProgramCMS
+                </p>
+                <p class="card-text">As one of ProgramCMS’ oldest forum builders, we’re proud to serve users from around
+                    the world, from all walks of life, and from different stages of online growth.
+
+                </p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">{{ block.trans('+254 active installation') }}</small>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">{{ block.trans('Requires 3 bundles') }}</small>
+            </div>
+            <div class="card-footer card-actions">
+                <a href="" class="btn btn-sm btn-primary float-end">{{ block.trans('Install') }}</a>
+            </div>
+        </div>
+    </div>
+</div>

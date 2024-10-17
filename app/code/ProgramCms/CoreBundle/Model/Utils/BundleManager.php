@@ -72,7 +72,8 @@ class BundleManager
                 $bundleDirectory = dirname($reflectedBundle->getFileName());
                 $bundles[$bundleName] = [
                     'name' => $reflectedBundle->getShortName(),
-                    'path' => $bundleDirectory
+                    'path' => $bundleDirectory,
+                    'class' => $bundleClass
                 ];
             }
         }

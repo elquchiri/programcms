@@ -93,7 +93,7 @@ class Select extends AbstractElement
     /**
      * @return false
      */
-    public function isMultiple()
+    public function isMultiple(): bool
     {
         return false;
     }

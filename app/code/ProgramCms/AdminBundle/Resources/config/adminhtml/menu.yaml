@@ -60,11 +60,11 @@ menu:
             label: 'History'
             action: ''
       roles:
-        label: 'Roles'
+        label: 'Permissions'
         actions:
           roles:
             label: 'Roles'
-            action: ''
+            action: 'acl_role_index'
           adminUsers:
             label: 'Admin Users'
-            action: ''
+            action: 'admin_user_index'

@@ -8,11 +8,8 @@
 
 namespace ProgramCms\UserBundle\Controller\Adminhtml\Index;
 
-use Doctrine\ORM\EntityManagerInterface;
 use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
-use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
-use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\CoreBundle\Serialize\Serializer\ObjectSerializer;
 use ProgramCms\RouterBundle\Service\Url;
 use ProgramCms\UserBundle\Entity\UserEntity;

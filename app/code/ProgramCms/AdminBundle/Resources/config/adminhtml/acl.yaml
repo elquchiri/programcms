@@ -1,0 +1,19 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+acl:
+  ProgramCmsAdminBundle_admin:
+    label: 'Admin Permissions'
+    ProgramCmsAdminBundle_acl:
+      label: 'ACL & Roles'
+      ProgramCmsAdminBundle_roles:
+        label: 'Roles Permissions'
+        ProgramCmsAdminBundle_create:
+          label: 'Add Roles'
+        ProgramCmsAdminBundle_delete:
+          label: 'Delete Roles'
+        ProgramCmsAdminBundle_view:
+          label: 'View Roles'

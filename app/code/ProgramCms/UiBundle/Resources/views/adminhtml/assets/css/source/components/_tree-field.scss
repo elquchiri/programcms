@@ -1,0 +1,94 @@
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+
+.tree-field {
+  position: relative;
+  margin-top: 5px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+}
+.tree-field span {
+  letter-spacing: 0.4px;
+  color: #a8a8a8;
+}
+.tree-field .fa-folder-open, .tree-field .fa-folder {
+  color: #007bff;
+}
+.tree-field .fa-html5 {
+  color: #f21f10;
+}
+.tree-field ul {
+  padding-left: 5px;
+  list-style: none;
+}
+.tree-field ul.child {
+  display: none;
+}
+.tree-field ul li {
+  position: relative;
+  padding-top: 5px;
+  padding-bottom: 0;
+  padding-left: 15px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.tree-field ul li span.title {
+  color: #232222;
+  background: url("../../../../../public/images/open-sign.png") no-repeat 0 center;
+  padding-left: 21px;
+}
+.tree-field ul li span.title .category-name {
+  color: #232222;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+.tree-field ul li span.title.closed {
+  color: #232222;
+  background: url("../../../../../public/images/close-sign.png") no-repeat 0 center;
+  padding-left: 21px;
+}
+.tree-field ul li span.active {
+  background-color: #f5d6c7;
+  color: #000000;
+  border-radius: 3px;
+  padding: 0 3px 3px 3px;
+  font-size: 12.5px;
+  font-weight: bold;
+}
+.tree-field ul li:before {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  width: 10px;
+  height: 1px;
+  margin: auto;
+  content: '';
+  background-color: #dedede;
+}
+.tree-field ul li:after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  content: '';
+  background-color: #dedede;
+}
+.tree-field ul li:last-child:after {
+  height: 15px;
+}
+.tree-field ul a {
+  cursor: pointer;
+}
+.tree-field ul a:hover {
+  text-decoration: none;
+}

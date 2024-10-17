@@ -8,12 +8,19 @@
 
 namespace ProgramCms\AdminBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use ProgramCms\AclBundle\Entity\Role;
 use ProgramCms\AdminBundle\Repository\AdminUserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Class AdminUser
+ * @package ProgramCms\AdminBundle\Entity
+ */
 #[ORM\Entity(repositoryClass: AdminUserRepository::class)]
 class AdminUser extends AbstractEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -38,12 +45,6 @@ class AdminUser extends AbstractEntity implements UserInterface, PasswordAuthent
     private ?string $email = null;
 
     /**
-     * @var array
-     */
-    #[ORM\Column(type: 'json')]
-    private array $roles = [];
-
-    /**
      * @var string|null
      */
     #[ORM\Column(length: 255)]
@@ -66,6 +67,22 @@ class AdminUser extends AbstractEntity implements UserInterface, PasswordAuthent
      */
     #[ORM\Column(nullable: true)]
     private ?string $interface_locale = null;
+
+    /**
+     * @var Collection
+     */
+    #[ORM\ManyToMany(targetEntity: Role::class, mappedBy: 'users', cascade: ['persist'])]
+    private Collection $roles;
+
+    /**
+     * AdminUser constructor.
+     * @param array $data
+     */
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+        $this->roles = new ArrayCollection();
+    }
 
     /**
      * @param int $user_id
@@ -180,6 +197,14 @@ class AdminUser extends AbstractEntity implements UserInterface, PasswordAuthent
     }
 
     /**
+     * @return string
+     */
+    public function getFullName(): string
+    {
+        return trim($this->getFirstName() . " " . $this->getLastName());
+    }
+
+    /**
      * @param string $interface_locale
      * @return $this
      */
@@ -215,19 +240,63 @@ class AdminUser extends AbstractEntity implements UserInterface, PasswordAuthent
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
+        $roles = [];
         $roles[] = 'ROLE_ADMIN';
+
+        foreach($this->roles as $role) {
+            $roles[] = $role->getRoleCode();
+        }
 
         return array_unique($roles);
     }
 
     /**
-     * @param array $roles
+     * @return ArrayCollection|Collection
+     */
+    public function getCollectionRoles(): ArrayCollection|Collection
+    {
+        return $this->roles;
+    }
+
+    /**
      * @return $this
      */
-    public function setRoles(array $roles): static
+    public function setRoles(mixed $roles): static
     {
-        $this->roles = $roles;
+        $this->cleanRoles();
+
+        foreach($roles as $role) {
+            $this->addRole($role);
+        }
         return $this;
+    }
+
+    /**
+     * @param Role $role
+     * @return $this
+     */
+    public function addRole(Role $role): static
+    {
+        if(!$this->roles->contains($role)) {
+            $this->roles[] = $role;
+            $role->addUser($this);
+        }
+        return $this;
+    }
+
+    /**
+     * @param Role $role
+     */
+    public function removeRole(Role $role)
+    {
+        $this->roles->removeElement($role);
+        $role->removeUser($this);
+    }
+
+    public function cleanRoles()
+    {
+        foreach($this->roles as $role) {
+            $this->removeRole($role);
+        }
     }
 }

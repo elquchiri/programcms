@@ -9,6 +9,7 @@
 namespace ProgramCms\ConfigBundle\Model;
 
 use Exception;
+use ProgramCms\ConfigBundle\Model\Structure\Element\FlyweightFactory;
 use ProgramCms\ConfigBundle\Model\Structure\Element\Tab;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ReflectionException;
@@ -55,7 +56,7 @@ class ConfigSerializer
     /**
      * @var Structure\Element\Iterator\Tab
      */
-    protected \ProgramCms\ConfigBundle\Model\Structure\Element\Iterator\Tab $_tabIterator;
+    protected Structure\Element\Iterator\Tab $_tabIterator;
 
     /**
      * ConfigSerializer constructor.
@@ -68,14 +69,13 @@ class ConfigSerializer
      */
     public function __construct(
         Container $container,
-        \ProgramCms\ConfigBundle\Model\Structure\Element\FlyweightFactory $flyweightFactory,
+        FlyweightFactory $flyweightFactory,
         ObjectManager $objectManager,
-        \ProgramCms\ConfigBundle\Model\ScopeDefiner $scopeDefiner,
-        \ProgramCms\ConfigBundle\Model\Structure\Element\Iterator\Tab $_tabIterator
+        ScopeDefiner $scopeDefiner,
+        Structure\Element\Iterator\Tab $_tabIterator
     )
     {
         $this->_data = [];
-        $this->sectionId = "";
         $this->container = $container;
         $this->objectManager = $objectManager;
         $this->flyweightFactory = $flyweightFactory;

@@ -8,6 +8,7 @@
 
 namespace ProgramCms\CoreBundle\Serialize\Serializer;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
 use ReflectionException;
@@ -55,7 +56,7 @@ class ObjectSerializer
                 $propertyObject = $refClass->getProperty($property);
                 $name = $propertyObject->name;
                 $type = $propertyObject->getType();
-                if ($type instanceof \ReflectionNamedType && !$type->isBuiltin()) {
+                if ($type instanceof \ReflectionNamedType && !($type->isBuiltin()) && ($type->getName() != Collection::class)) {
                     $repository = $this->entityManager->getRepository($type->getName());
                     if ($repository) {
                         $obj = $repository->getById($formData[$name]);

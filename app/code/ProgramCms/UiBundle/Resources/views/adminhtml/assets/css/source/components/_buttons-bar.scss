@@ -15,11 +15,12 @@
     text-align: right;
 }
 
-.ef-buttons-bar .nav-item {
-    margin-left: 11px;
-}
-
 .navbar-actions {
+    .navbar-nav {
+        .nav-item {
+            margin-left: 21px !important;
+        }
+    }
     .back {
         background: url("../../../../../public/images/back.png") no-repeat 3px center;
         padding-left: 29px;

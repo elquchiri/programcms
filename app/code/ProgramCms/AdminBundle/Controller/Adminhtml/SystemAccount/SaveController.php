@@ -9,6 +9,7 @@
 namespace ProgramCms\AdminBundle\Controller\Adminhtml\SystemAccount;
 
 use ProgramCms\AdminBundle\Repository\AdminUserRepository;
+use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\RouterBundle\Service\Url;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -19,7 +20,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * Class SaveController
  * @package ProgramCms\AdminBundle\Controller\Adminhtml\SystemAccount
  */
-class SaveController extends \ProgramCms\CoreBundle\Controller\AdminController
+class SaveController extends AdminController
 {
     /**
      * @var TranslatorInterface

@@ -64,7 +64,7 @@ class Copyright extends \ProgramCms\AdminBundle\Block\Page\Copyright
             $copyRightHtmlOutput .= sprintf(
                 "<p class=\"mt-1\" style=\"font-size: 10px;\">".
                 $this->trans("Designed & Maintained by") .
-                "<a href=\"mailto: elquchiri@gmail.com\" style='color: #777'> ".
+                "<a href=\"mailto: elquchiri@gmail.com\"> ".
                 $this->trans("Mohamed EL QUCHIRI").
                 "</a>" .
                 "</p>", $yearsOfExistence);

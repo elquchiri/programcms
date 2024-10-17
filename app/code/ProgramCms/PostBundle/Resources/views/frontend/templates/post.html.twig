@@ -111,6 +111,7 @@
                         {{ block.formatPost(block.getPost().getPostHtml())|raw }}
                     </div>
                     <div class="post_options text-end mt-3 p-3">
+                        {% if is_granted('edit', block.getPost()) %}
                         <div class="btn-group dropdown">
                             <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true"
                                aria-expanded="false">
@@ -121,6 +122,7 @@
                                 <li><a class="dropdown-item" data-controller="delete-comment" data-action="delete-comment#onDelete" id="{{ block.getPost().getEntityId() }}" href="#">{{ block.trans('Delete Post') }}</a></li>
                             </ul>
                         </div>
+                        {% endif %}
                     </div>
                 </td>
             </tr>

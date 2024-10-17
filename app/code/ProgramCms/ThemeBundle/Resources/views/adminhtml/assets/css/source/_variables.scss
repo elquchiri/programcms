@@ -16,8 +16,11 @@ $input-border-radius: 3px;
 $form-select-focus-box-shadow: none;
 $form-select-box-shadow: none;
 
-//Modals
+// Modals
 $modal-inner-padding: 2rem * .5;
 $modal-header-border-width: 0;
 $modal-content-border-radius: .3rem;
 $modal-footer-border-width: 0;
+
+// Checks / Radios
+$form-check-input-border: 1px solid rgba(0, 0, 0, .50);

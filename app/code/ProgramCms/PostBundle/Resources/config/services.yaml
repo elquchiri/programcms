@@ -16,3 +16,6 @@ services:
       - '../../DependencyInjection/'
       - '../../Resources/'
       - '../../Tests/'
+
+  ProgramCms\PostBundle\Security\PostVoter:
+    tags: [security.voter]

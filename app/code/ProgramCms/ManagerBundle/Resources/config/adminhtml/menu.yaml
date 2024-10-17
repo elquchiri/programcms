@@ -14,11 +14,11 @@ menu:
         actions:
           installedPlugins:
             label: "Installed Bundles"
-            action: ''
+            action: 'manager_bundle_index'
             sortOrder: 1
           storeBundles:
             label: 'Browse Bundles in Store »'
-            action: ''
+            action: 'manager_bundle_browse'
             sortOrder: 2
           storeThemes:
             label: 'Browse Themes in Store »'

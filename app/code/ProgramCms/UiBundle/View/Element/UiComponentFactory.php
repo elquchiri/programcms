@@ -45,6 +45,7 @@ class UiComponentFactory extends DataObject
         'file' => \ProgramCms\UiBundle\Component\Form\Element\File::class,
         'color' => \ProgramCms\UiBundle\Component\Form\Element\Color::class,
         'button' => \ProgramCms\UiBundle\Component\Form\Element\Button::class,
+        'tree' => \ProgramCms\UiBundle\Component\Form\Element\Tree::class,
     ];
 
     /**

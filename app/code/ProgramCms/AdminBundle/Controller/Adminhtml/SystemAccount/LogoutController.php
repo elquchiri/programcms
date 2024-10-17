@@ -8,6 +8,7 @@
 
 namespace ProgramCms\AdminBundle\Controller\Adminhtml\SystemAccount;
 
+use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -17,7 +18,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  * Class LogoutController
  * @package ProgramCms\AdminBundle\Controller\Adminhtml\SystemAccount
  */
-class LogoutController extends \ProgramCms\CoreBundle\Controller\AdminController
+class LogoutController extends AdminController
 {
     /**
      * @var Security

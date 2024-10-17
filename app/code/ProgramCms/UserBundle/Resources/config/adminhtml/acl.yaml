@@ -1,0 +1,14 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+acl:
+  ProgramCmsAdminBundle_admin:
+    ProgramCmsUserBundle_user:
+      label: 'User permissions'
+      ProgramCmsUserBundle_user_view:
+        label: 'View Users'
+      ProgramCmsUserBundle_user_edit:
+        label: 'Edit Users'

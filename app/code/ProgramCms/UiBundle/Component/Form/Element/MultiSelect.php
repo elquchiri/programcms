@@ -32,8 +32,21 @@ class MultiSelect extends Select
     /**
      * @return bool
      */
-    public function isMultiple()
+    public function isMultiple(): bool
     {
         return true;
+    }
+
+    /**
+     * Get MultiSelect value and convert array to string if any
+     * @return mixed
+     */
+    public function getValue(): mixed
+    {
+        $value = parent::getValue();
+        if(is_array($value)) {
+            return implode(',', $value);
+        }
+        return $value;
     }
 }

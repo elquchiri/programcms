@@ -18,10 +18,12 @@
                     <td class="text-muted">{{ block.trans('Account Lock') }} :</td>
                     <td>{{ block.getLockLabel() }}</td>
                 </tr>
+                {% if is_granted('ProgramCmsAdminBundle_admin') %}
                 <tr>
                     <td class="text-muted">{{ block.trans('Confirmed email') }} :</td>
                     <td>{{ block.getEmailConfirmation() }}</td>
                 </tr>
+                {% endif %}
                 <tr>
                     <td class="text-muted">{{ block.trans('Account Created') }} :</td>
                     <td>{{ block.getAccountCreationDate() }}</td>

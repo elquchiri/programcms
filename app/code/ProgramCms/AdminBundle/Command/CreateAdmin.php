@@ -119,7 +119,7 @@ class CreateAdmin extends Command
             ->setEmail($email)
             ->setFirstName($firstname ?? '')
             ->setLastName($lastname ?? '')
-            ->setRoles(['ROLE_ADMIN'])
+            //->setRoles(['ROLE_ADMIN'])
             ->setIsActive($isActive ?? 1)
             ->setInterfaceLocale($locale)
             ->setPassword(
