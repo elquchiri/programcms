@@ -6,18 +6,18 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
-namespace ProgramCms\AclBundle\Security;
+namespace ProgramCms\UserBundle\Security;
 
-use ProgramCms\AclBundle\Entity\Permission;
-use ProgramCms\AclBundle\Entity\Role;
-use ProgramCms\AdminBundle\Entity\AdminUser;
-use ProgramCms\RouterBundle\Service\Request;
+use ProgramCms\UserBundle\Entity\Group\UserGroup;
+use ProgramCms\UserBundle\Entity\Group\UserGroupPermission;
+use ProgramCms\UserBundle\Entity\UserEntity;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\CacheableVoterInterface;
+use ProgramCms\RouterBundle\Service\Request;
 
 /**
  * Class PermissionVoter
- * @package ProgramCms\AclBundle\Security
+ * @package ProgramCms\UserBundle\Security
  */
 class PermissionVoter implements CacheableVoterInterface
 {
@@ -46,17 +46,17 @@ class PermissionVoter implements CacheableVoterInterface
     public function vote(TokenInterface $token, mixed $subject, array $attributes)
     {
         $attribute = reset($attributes);
-        /** @var AdminUser $user */
+        /** @var UserEntity $user */
         $user = $token->getUser();
         if(!$user) {
             return false;
         }
 
-        $roles = $user->getCollectionRoles();
-        /** @var Role $role */
-        foreach($roles as $role) {
-            /** @var Permission $permission */
-            foreach($role->getPermissions() as $permission) {
+        $groups = $user->getCollectionGroups();
+        /** @var UserGroup $group */
+        foreach($groups as $group) {
+            /** @var UserGroupPermission $permission */
+            foreach($group->getPermissions() as $permission) {
                 if($attribute == $permission->getResource()) {
                     return true;
                 }
@@ -71,10 +71,9 @@ class PermissionVoter implements CacheableVoterInterface
      */
     public function supportsAttribute(string $attribute): bool
     {
-        if($this->request->getCurrentAreaCode() != 'adminhtml') {
+        if($this->request->getCurrentAreaCode() != 'frontend') {
             return false;
         }
-
         return true;
     }
 

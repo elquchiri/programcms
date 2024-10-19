@@ -267,6 +267,14 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
     }
 
     /**
+     * @return Collection|null
+     */
+    public function getCollectionGroups(): ?Collection
+    {
+        return $this->groups;
+    }
+
+    /**
      * @return string|null
      */
     public function getUserFirstname(): ?string
