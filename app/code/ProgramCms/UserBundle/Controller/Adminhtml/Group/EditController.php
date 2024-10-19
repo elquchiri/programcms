@@ -56,13 +56,13 @@ class EditController extends AdminController
      */
     public function execute()
     {
-        $id = $this->getRequest()->getParam('id');
+        $id = (int)$this->getRequest()->getParam('id');
         /** @var UserGroup $userGroup */
         $userGroup = $this->userGroupRepository->getById($id);
         $pageResult = $this->objectManager->create(Page::class);
         if($userGroup) {
             $pageResult->getConfig()->getTitle()->set(
-                $this->trans("Group %s", $userGroup->getLabel())
+                $this->trans("Edit Group — %s", $userGroup->getName())
             );
         }
         return $pageResult;

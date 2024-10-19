@@ -33,6 +33,17 @@ class UserGroupRepository extends AbstractRepository
      */
     public function getById(int $id): ?object
     {
-        return $this->findOneBy(['entity_id' => $id]);
+        return $this->findOneBy(['group_id' => $id]);
+    }
+
+    /**
+     * @param string $groupCode
+     * @return object|null
+     */
+    public function getByGroupCode(string $groupCode): ?object
+    {
+        return $this->findOneBy([
+            'code' => $groupCode
+        ]);
     }
 }

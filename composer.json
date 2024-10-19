@@ -81,6 +81,7 @@
             "ProgramCms\\AdminChatBundle\\": "app/code/ProgramCms/AdminChatBundle",
             "ProgramCms\\BuilderBundle\\": "app/code/ProgramCms/BuilderBundle",
             "ProgramCms\\AclBundle\\": "app/code/ProgramCms/AclBundle",
+            "ProgramCms\\RewriteBundle\\": "app/code/ProgramCms/RewriteBundle",
             "ProgramCms\\Backend\\": "app/design/adminhtml/ProgramCms/Backend",
             "ProgramCms\\Blank\\": "app/design/frontend/ProgramCms/Blank",
             "ProgramCms\\Forumtimes\\": "app/design/frontend/ProgramCms/Forumtimes",

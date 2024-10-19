@@ -9,6 +9,7 @@
 namespace ProgramCms\AclBundle\Model;
 
 use ProgramCms\CoreBundle\Model\Utils\BundleManager;
+use ReflectionException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -42,7 +43,7 @@ class AclSerializer
     }
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     private function parseConfig()
     {

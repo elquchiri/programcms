@@ -30,6 +30,7 @@ security:
             logout:
                 path: adminhtml_admin_systemaccount_logout
                 target: adminhtml_admin_index_index
+            access_denied_handler: ProgramCms\AclBundle\Security\AccessDeniedHandler
         main:
             lazy: true
             provider: app_user_provider

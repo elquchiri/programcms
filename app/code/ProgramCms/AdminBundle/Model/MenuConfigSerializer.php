@@ -11,8 +11,9 @@ namespace ProgramCms\AdminBundle\Model;
 use ProgramCms\CoreBundle\Data\Process\Sort;
 use ProgramCms\CoreBundle\Model\Utils\BundleManager;
 use ProgramCms\RouterBundle\Service\Url;
-use ReflectionException;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use ReflectionException;
 
 /**
  * Class MenuConfigSerializer
@@ -36,6 +37,12 @@ class MenuConfigSerializer
      * @var TranslatorInterface
      */
     protected TranslatorInterface $translator;
+
+    /**
+     * @var Security
+     */
+    protected Security $security;
+
     /**
      * Stores Hole Merged Menu elements
      * @var array
@@ -48,12 +55,14 @@ class MenuConfigSerializer
      * @param Url $url
      * @param Sort $sort
      * @param TranslatorInterface $translator
+     * @param Security $security
      */
     public function __construct(
         BundleManager $bundleManager,
         Url $url,
         Sort $sort,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        Security $security
     )
     {
         $this->menu = [];
@@ -61,6 +70,7 @@ class MenuConfigSerializer
         $this->url = $url;
         $this->sort = $sort;
         $this->translator = $translator;
+        $this->security = $security;
     }
 
     /**
@@ -90,6 +100,10 @@ class MenuConfigSerializer
             $menu = $menuTree['menu'];
 
             foreach ($menu as $menuItemKey => $menuItem) {
+                // ACL Processing
+                if($this->notGranted($menuItem)) {
+                    continue;
+                }
                 $this->menu[$menuItemKey] = [
                     'label' => $menuItem['label'] ? $this->translator->trans($menuItem['label']) : '',
                     'htmlClass' => $menuItem['htmlClass'] ?? '',
@@ -99,6 +113,10 @@ class MenuConfigSerializer
 
                 if (isset($menuItem['groups'])) {
                     foreach ($menuItem['groups'] as $groupKey => $group) {
+                        // ACL Processing
+                        if($this->notGranted($group)) {
+                            continue;
+                        }
                         $this->menu[$menuItemKey]['groups'][$groupKey] = [
                             'label' => $groupKey == 'default' ? '' : $this->translator->trans($group['label']) ?? '',
                             'sortOrder' => $group['sortOrder'] ?? 5
@@ -106,6 +124,10 @@ class MenuConfigSerializer
 
                         if (isset($group['actions'])) {
                             foreach ($group['actions'] as $actionKey => $action) {
+                                // ACL Processing
+                                if($this->notGranted($action)) {
+                                    continue;
+                                }
                                 $this->menu[$menuItemKey]['groups'][$groupKey]['actions'][$actionKey] = [
                                     'label' => $this->translator->trans($action['label']) ?? '',
                                     'action' => isset($action['action']) ? $this->_getUrl($action['action']) : '',
@@ -117,6 +139,20 @@ class MenuConfigSerializer
                 }
             }
         }
+    }
+
+    /**
+     * @param array $menuItem
+     * @return bool
+     */
+    public function notGranted(array $menuItem): bool
+    {
+        if(isset($menuItem['acl'])) {
+            if(!$this->security->isGranted($menuItem['acl'])) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

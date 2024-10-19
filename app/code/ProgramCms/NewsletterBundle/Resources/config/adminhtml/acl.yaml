@@ -1,0 +1,17 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+acl:
+  ProgramCmsAdminBundle_admin:
+    ProgramCmsMarketingBundle_marketing:
+      ProgramCmsNewsletterBundle_newsletter:
+        label: 'Newsletter Permissions'
+        ProgramCmsNewsletterBundle_newsletter_view:
+          label: 'View Newsletters'
+        ProgramCmsNewsletterBundle_newsletter_edit:
+          label: 'Edit Newsletters'
+        ProgramCmsNewsletterBundle_newsletter_delete:
+          label: 'Delete Newsletters'

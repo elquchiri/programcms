@@ -1,0 +1,16 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+acl:
+  ProgramCmsAdminBundle_admin:
+    ProgramCmsPageBundle_page:
+      label: 'Page Permissions'
+      ProgramCmsPageBundle_page_view:
+        label: 'View Pages'
+      ProgramCmsPageBundle_page_edit:
+        label: 'Edit Pages'
+      ProgramCmsPageBundle_page_delete:
+        label: 'Delete Pages'

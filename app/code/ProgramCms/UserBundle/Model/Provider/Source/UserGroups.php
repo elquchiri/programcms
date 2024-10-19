@@ -42,7 +42,7 @@ class UserGroups extends Options
         $groups = [];
         /** @var UserGroup $group */
         foreach($this->collection->getData() as $group) {
-            $groups[$group->getCode()] = $group->getLabel();
+            $groups[$group->getCode()] = $group->getName();
         }
         return $groups;
     }

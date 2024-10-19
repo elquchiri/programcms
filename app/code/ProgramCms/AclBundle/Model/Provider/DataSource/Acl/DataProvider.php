@@ -12,7 +12,6 @@ use ProgramCms\AclBundle\Entity\Permission;
 use ProgramCms\AclBundle\Entity\Role;
 use ProgramCms\AclBundle\Model\AclSerializer;
 use ProgramCms\AclBundle\Repository\RoleRepository;
-use ProgramCms\AdminBundle\Entity\AdminUser;
 use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\RouterBundle\Service\Url;
 use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;

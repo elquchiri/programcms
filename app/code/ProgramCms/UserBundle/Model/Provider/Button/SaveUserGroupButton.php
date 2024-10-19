@@ -23,7 +23,7 @@ class SaveUserGroupButton implements ButtonProviderInterface
     {
         return [
             'buttonType' => 'save',
-            'buttonTarget' => 'user_form',
+            'buttonTarget' => 'user_group_form',
             'label' => 'Save Group'
         ];
     }

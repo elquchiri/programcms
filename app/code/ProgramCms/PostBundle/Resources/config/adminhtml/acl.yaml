@@ -1,0 +1,16 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+acl:
+  ProgramCmsAdminBundle_admin:
+    ProgramCmsPostBundle_post:
+      label: 'Post Permissions'
+      ProgramCmsPostBundle_post_view:
+        label: 'View Posts'
+      ProgramCmsPostBundle_post_edit:
+        label: 'Edit Posts'
+      ProgramCmsPostBundle_post_delete:
+        label: 'Delete Posts'

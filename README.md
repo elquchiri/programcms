@@ -57,10 +57,9 @@ Finally, run :
 
 ## Features & CMS Philosophy
 
-- Multi Website / Language System
-- Strong Authentication and Roles System
-- Improved Content Manager and Page Editor System
-- Improved And Full Control Page Views
+- Multi Website Support
+- Users System with an Advanced Roles & ACL Support
+- Improved Content and Page Editor System
 - Marketing System
 - Modular / Extensible System
 - Centralized Configuration System
@@ -79,6 +78,7 @@ Finally, run :
 - Advanced Text Chat System
 - Advanced Live Customer Service
 
+And much much more ..
 ## Frontend Libraries
 | Library   | Type     | Description                |
 | :-------- | :------- | :------------------------- |

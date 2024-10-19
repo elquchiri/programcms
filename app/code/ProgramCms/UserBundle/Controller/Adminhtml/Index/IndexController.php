@@ -45,6 +45,8 @@ class IndexController extends AdminController
      */
     public function execute()
     {
+        $this->denyAccessUnlessGranted('ProgramCmsUserBundle_user_view');
+
         $pageResult = $this->objectManager->create(Page::class);
         $pageResult->getConfig()->getTitle()->set(
             $this->trans("All Users")

@@ -51,7 +51,7 @@ class UserGroupActions extends ActionsColumn
                 $actions = [
                     [
                         'label' => 'Edit',
-                        'url' => $this->url->getUrlByRouteName('user_group_edit', ['id' => $rowData->getEntityId()]),
+                        'url' => $this->url->getUrlByRouteName('user_group_edit', ['id' => $rowData->getGroupId()]),
                         'type' => 'url'
                     ]
                 ];

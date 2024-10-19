@@ -8,12 +8,13 @@
 
 namespace ProgramCms\ConfigBundle\Model;
 
-use Exception;
 use ProgramCms\ConfigBundle\Model\Structure\Element\FlyweightFactory;
 use ProgramCms\ConfigBundle\Model\Structure\Element\Tab;
 use ProgramCms\CoreBundle\Model\ObjectManager;
-use ReflectionException;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\Container;
+use ReflectionException;
+use Exception;
 
 /**
  * Class ConfigSerializer
@@ -35,6 +36,11 @@ class ConfigSerializer
      * @var ScopeDefiner
      */
     protected ScopeDefiner $_scopeDefiner;
+
+    /**
+     * @var Security
+     */
+    protected Security $security;
 
     /**
      * Stores Hole Merged Configuration
@@ -65,6 +71,7 @@ class ConfigSerializer
      * @param ObjectManager $objectManager
      * @param ScopeDefiner $scopeDefiner
      * @param Structure\Element\Iterator\Tab $_tabIterator
+     * @param Security $security
      * @throws ReflectionException
      */
     public function __construct(
@@ -72,7 +79,8 @@ class ConfigSerializer
         FlyweightFactory $flyweightFactory,
         ObjectManager $objectManager,
         ScopeDefiner $scopeDefiner,
-        Structure\Element\Iterator\Tab $_tabIterator
+        Structure\Element\Iterator\Tab $_tabIterator,
+        Security $security
     )
     {
         $this->_data = [];
@@ -81,6 +89,7 @@ class ConfigSerializer
         $this->flyweightFactory = $flyweightFactory;
         $this->_scopeDefiner = $scopeDefiner;
         $this->_tabIterator = $_tabIterator;
+        $this->security = $security;
 
         // Parse Config
         $this->parseConfig();
@@ -110,6 +119,10 @@ class ConfigSerializer
                 $config = \Symfony\Component\Yaml\Yaml::parseFile($configFilePath)['system_config'];
 
                 if (isset($config['tab'])) {
+                    // ACL Check
+                    if($this->notGranted($config['tab'])) {
+                        continue;
+                    }
                     if (isset($config['tab']['id']) && isset($config['tab']['label'])) {
                         $tabId = $config['tab']['id'];
                         $this->_data['tabs'][$tabId] = [
@@ -123,6 +136,10 @@ class ConfigSerializer
 
                 if (isset($config['sections'])) {
                     foreach ($config['sections'] as $sectionId => $section) {
+                        // ACL Check
+                        if($this->notGranted($section)) {
+                            continue;
+                        }
                         if (isset($section['tab'])) {
                             $this->_data['sections'][$sectionId] = [
                                 'id' => $sectionId,
@@ -134,6 +151,10 @@ class ConfigSerializer
                         }
                         if (isset($section['groups'])) {
                             foreach ($section['groups'] as $groupId => $group) {
+                                // ACL Check
+                                if($this->notGranted($group)) {
+                                    continue;
+                                }
                                 if (isset($group['label'])) {
                                     $this->_data['sections'][$sectionId]['children'][$groupId] = [
                                         'id' => $groupId,
@@ -145,6 +166,10 @@ class ConfigSerializer
                                 }
                                 if (isset($group['fields'])) {
                                     foreach ($group['fields'] as $fieldId => $field) {
+                                        // ACL Check
+                                        if($this->notGranted($field)) {
+                                            continue;
+                                        }
                                         $this->_data['sections'][$sectionId]['children'][$groupId]['children'][$fieldId] = [
                                             'id' => $fieldId,
                                             'label' => $field['label'],
@@ -172,6 +197,20 @@ class ConfigSerializer
         uasort($this->_data['tabs'], function ($firstItem, $secondItem) {
             return $firstItem['sortOrder'] <=> $secondItem['sortOrder'];
         });
+    }
+
+    /**
+     * @param array $menuItem
+     * @return bool
+     */
+    public function notGranted(array $menuItem): bool
+    {
+        if(isset($menuItem['acl'])) {
+            if(!$this->security->isGranted($menuItem['acl'])) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

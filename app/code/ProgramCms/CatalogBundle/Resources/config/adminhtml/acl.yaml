@@ -1,0 +1,24 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+acl:
+  ProgramCmsAdminBundle_admin:
+    ProgramCmsUserBundle_catalog:
+      label: 'Catalog Permissions'
+      ProgramCmsUserBundle_catalog_category:
+        label: 'Category permissions'
+        ProgramCmsUserBundle_catalog_category_create:
+          label: 'Create Categories'
+          ProgramCmsUserBundle_catalog_category_create_root:
+            label: 'Create Root Categories'
+          ProgramCmsUserBundle_catalog_category_create_sub:
+            label: 'Create Sub Categories'
+        ProgramCmsUserBundle_catalog_category_edit:
+          label: 'Edit Categories'
+          ProgramCmsUserBundle_catalog_category_edit_root:
+            label: 'Edit Root Categories'
+          ProgramCmsUserBundle_catalog_category_edit_sub:
+            label: 'Edit Sub Categories'

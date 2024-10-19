@@ -10,10 +10,14 @@ namespace ProgramCms\UserBundle\Controller\Account;
 
 use Doctrine\ORM\EntityManagerInterface;
 use ProgramCms\CoreBundle\Controller\Context;
+use ProgramCms\CoreBundle\Controller\Controller;
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\CoreBundle\View\Result\Page;
 use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\UserBundle\Entity\Address\UserAddressEntity;
+use ProgramCms\UserBundle\Entity\Group\UserGroup;
 use ProgramCms\UserBundle\Entity\UserEntity as User;
+use ProgramCms\UserBundle\Repository\Group\UserGroupRepository;
 use ProgramCms\UserBundle\Security\LoginAuthenticator;
 use ProgramCms\WebsiteBundle\Model\WebsiteManagerInterface;
 use ProgramCms\UserBundle\Helper\Config as UserConfigHelper;
@@ -27,7 +31,7 @@ use ReflectionException;
  * Class RegisterController
  * @package ProgramCms\UserBundle\Controller\Account
  */
-class RegisterController extends \ProgramCms\CoreBundle\Controller\Controller
+class RegisterController extends Controller
 {
     /**
      * @var ObjectManager
@@ -75,6 +79,11 @@ class RegisterController extends \ProgramCms\CoreBundle\Controller\Controller
     protected UserConfigHelper $userConfigHelper;
 
     /**
+     * @var UserGroupRepository
+     */
+    protected UserGroupRepository $userGroupRepository;
+
+    /**
      * RegisterController constructor.
      * @param Context $context
      * @param UserPasswordHasherInterface $userPasswordHasher
@@ -85,6 +94,7 @@ class RegisterController extends \ProgramCms\CoreBundle\Controller\Controller
      * @param UserAuthenticatorInterface $userAuthenticator
      * @param LoginAuthenticator $loginAuthenticator
      * @param UserConfigHelper $userConfigHelper
+     * @param UserGroupRepository $userGroupRepository
      */
     public function __construct(
         Context $context,
@@ -95,7 +105,8 @@ class RegisterController extends \ProgramCms\CoreBundle\Controller\Controller
         ValidatorInterface $validator,
         UserAuthenticatorInterface $userAuthenticator,
         LoginAuthenticator $loginAuthenticator,
-        UserConfigHelper $userConfigHelper
+        UserConfigHelper $userConfigHelper,
+        UserGroupRepository $userGroupRepository
     )
     {
         parent::__construct($context);
@@ -108,6 +119,7 @@ class RegisterController extends \ProgramCms\CoreBundle\Controller\Controller
         $this->userAuthenticator = $userAuthenticator;
         $this->loginAuthenticator = $loginAuthenticator;
         $this->userConfigHelper = $userConfigHelper;
+        $this->userGroupRepository = $userGroupRepository;
     }
 
     /**
@@ -120,7 +132,7 @@ class RegisterController extends \ProgramCms\CoreBundle\Controller\Controller
             return $this->redirect($this->url->getUrlByRouteName('cms_index_index'));
         }
 
-        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
+        $pageResult = $this->objectManager->create(Page::class);
         $pageResult->getConfig()->getTitle()->set(
             $this->trans("Create an Account")
         );
@@ -154,8 +166,10 @@ class RegisterController extends \ProgramCms\CoreBundle\Controller\Controller
                 $user->setPassword(
                     $this->userPasswordHasher->hashPassword($user, $data['password'])
                 );
-                // Set Account Role as 'USER'
-                $user->setRoles(['USER']);
+                // Set Default Account Role
+                /** @var UserGroup $defaultGroup */
+                $defaultGroup = $this->userGroupRepository->getByGroupCode('ROLE_USER');
+                $user->setGroups([$defaultGroup]);
 
                 // Set Default Address
                 $defaultAddress = new UserAddressEntity();

@@ -42,7 +42,7 @@ class BrowseController extends AdminController
     {
         $pageResult = $this->objectManager->create(Page::class);
         $pageResult->getConfig()->getTitle()->set(
-            $this->trans("Browse Bundles")
+            $this->trans("Store Bundles")
         );
         return $pageResult;
     }

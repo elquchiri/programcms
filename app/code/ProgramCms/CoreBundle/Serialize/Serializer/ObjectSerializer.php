@@ -41,7 +41,7 @@ class ObjectSerializer
      * @param array $formData
      * @throws ReflectionException
      */
-    public function arrayToObject(AbstractEntity $object, array $formData)
+    public function arrayToObject(AbstractEntity $object, array $formData, $excludeKeys = [])
     {
         $refClass = new \ReflectionClass($object);
 
@@ -52,6 +52,9 @@ class ObjectSerializer
         }
 
         foreach($formData as $property => $dataValue) {
+            if(in_array($property, $excludeKeys)) {
+                continue;
+            }
             if($refClass->hasProperty($property)) {
                 $propertyObject = $refClass->getProperty($property);
                 $name = $propertyObject->name;

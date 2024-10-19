@@ -40,7 +40,7 @@ class NewUserButton implements ButtonProviderInterface
             'buttonType' => 'primary',
             'class' => 'btn-primary',
             'buttonAction' => $this->url->getUrlByRouteName('user_index_new'),
-            'label' => 'Add New User'
+            'label' => 'New User'
         ];
     }
 }

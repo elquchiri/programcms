@@ -11,7 +11,7 @@
         {% block name="user_groups" class="ui.block.listing" %}
             {% arguments %}
                 {% argument name="buttons" type="array" %}
-                    {% argument name="new" type="string" %}ProgramCms\UserBundle\Model\Provider\Button\NewUserButton{% endArgument %}
+                    {% argument name="new" type="string" %}ProgramCms\UserBundle\Model\Provider\Button\NewUserGroupButton{% endArgument %}
                 {% endArgument %}
                 {% argument name="dataSource" type="array" %}
                     {% argument name="dataProvider" type="array" %}
@@ -45,10 +45,18 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
-                {% block name="label" class="ui.block.column" %}
+                {% block name="name" class="ui.block.column" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
                             {% argument name="label" type="string" %}Group Label{% endArgument %}
+                            {% argument name="source" type="string" %}user_groups{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="description" class="ui.block.column" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="label" type="string" %}Group Description{% endArgument %}
                             {% argument name="source" type="string" %}user_groups{% endArgument %}
                         {% endArgument %}
                     {% endArguments %}

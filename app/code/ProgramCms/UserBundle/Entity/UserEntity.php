@@ -14,6 +14,7 @@ use ProgramCms\EavBundle\Model\Entity\Entity;
 use ProgramCms\FavoriteBundle\Entity\Favorite;
 use ProgramCms\PostBundle\Entity\PostEntity;
 use ProgramCms\UserBundle\Entity\Address\UserAddressEntity;
+use ProgramCms\UserBundle\Entity\Group\UserGroup;
 use ProgramCms\UserBundle\Repository\UserEntityRepository;
 use ProgramCms\WebsiteBundle\Entity\WebsiteView;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -43,10 +44,10 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
     private ?string $email = null;
 
     /**
-     * @var array
+     * @var Collection
      */
-    #[ORM\Column(type: 'json')]
-    private array $roles = [];
+    #[ORM\ManyToMany(targetEntity: UserGroup::class, mappedBy: 'users', cascade: ['persist'])]
+    private Collection $groups;
 
     /**
      * @var string
@@ -130,6 +131,9 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
         parent::__construct($data);
         $this->logs = new ArrayCollection();
         $this->addresses = new ArrayCollection();
+        $this->groups = new ArrayCollection();
+        $this->favorite = new ArrayCollection();
+        $this->posts = new ArrayCollection();
     }
 
     /**
@@ -191,39 +195,75 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        return $this->getGroups();
     }
 
     /**
-     * @param array $roles
-     * @return $this
+     * @param array $groups
+     * @return UserEntity
      */
-    public function setRoles(array $roles): self
+    public function setRoles(array $groups): self
     {
-        $this->roles = $roles;
+        $this->setGroups($groups);
         return $this;
     }
 
     /**
-     * @return string
+     * @param array $groups
+     * @return $this
      */
-    public function getGroups(): string
+    public function setGroups(array $groups): self
     {
-        return implode(',', $this->getRoles());
+        $this->cleanGroups();
+
+        foreach($groups as $group) {
+            $this->addGroup($group);
+        }
+        return $this;
     }
 
     /**
-     * @param string $groups
+     * @param UserGroup $group
      * @return $this
      */
-    public function setGroups(string $groups): static
+    public function addGroup(UserGroup $group): static
     {
-        $this->roles = explode(',', $groups);
+        if(!$this->groups->contains($group)) {
+            $this->groups[] = $group;
+            $group->addUser($this);
+        }
         return $this;
+    }
+
+    /**
+     * @param UserGroup $group
+     */
+    public function removeGroup(UserGroup $group)
+    {
+        $this->groups->removeElement($group);
+        $group->removeUser($this);
+    }
+
+    public function cleanGroups()
+    {
+        foreach($this->groups as $group) {
+            $this->removeGroup($group);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getGroups(): array
+    {
+        $groups = [];
+        $groups[] = 'ROLE_USER';
+        /** @var UserGroup $group */
+        foreach($this->groups as $group) {
+            $groups[] = $group->getCode();
+        }
+
+        return array_unique($groups);
     }
 
     /**
@@ -492,5 +532,13 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
     public function getFavorite(): Collection
     {
         return $this->favorite;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getProfileImage(): ?string
+    {
+        return ($this->hasData('profile_image') && !empty($this->getData('profile_image'))) ? $this->getData('profile_image') : '/bundles/programcmsuser/images/no-photo-m.png';
     }
 }

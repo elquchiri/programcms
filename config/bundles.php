@@ -40,6 +40,7 @@ return [
     ProgramCms\AdminChatBundle\ProgramCmsAdminChatBundle::class => ['all' => true],
     ProgramCms\BuilderBundle\ProgramCmsBuilderBundle::class => ['all' => true],
     ProgramCms\AclBundle\ProgramCmsAclBundle::class => ['all' => true],
+    ProgramCms\RewriteBundle\ProgramCmsRewriteBundle::class => ['all' => true],
     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
     Symfony\Bundle\TwigBundle\TwigBundle::class => ['all' => true],
     Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true],

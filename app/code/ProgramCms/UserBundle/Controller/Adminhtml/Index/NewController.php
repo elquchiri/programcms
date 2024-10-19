@@ -47,7 +47,7 @@ class NewController extends AdminController
     {
         $pageResult = $this->objectManager->create(Page::class);
         $pageResult->getConfig()->getTitle()->set(
-            $this->trans('Add New User')
+            $this->trans('New User')
         );
         return $pageResult;
     }

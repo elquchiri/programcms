@@ -27,7 +27,7 @@ menu:
           searchTerms:
             label: "Search Terms"
             action: ''
-            sortOrder: 1
+            sortOrder: 2
       earn:
         label: 'Earn & Monetization'
         actions:

@@ -9,6 +9,7 @@ menu:
     label: 'Users'
     htmlClass: 'sidebar-users'
     sortOrder: 3
+    acl: 'ProgramCmsUserBundle_user'
     groups:
       default:
         actions:
@@ -16,6 +17,7 @@ menu:
             label: "All Users"
             action: 'user_index_index'
             sortOrder: 1
+            acl: 'ProgramCmsUserBundle_user_view'
           online:
             label: 'Now Online'
             action: 'user_index_connected'
@@ -24,3 +26,7 @@ menu:
             label: 'User Groups'
             action: 'user_group_index'
             sortOrder: 3
+          login_attempts:
+            label: 'Login Attempts'
+            action: 'user_group_index'
+            sortOrder: 4

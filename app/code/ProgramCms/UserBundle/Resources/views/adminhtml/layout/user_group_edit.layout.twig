@@ -16,8 +16,11 @@
                 {% argument name="dataSource" type="array" %}
                     {% argument name="dataProvider" type="array" %}
                         {% argument name="class" type="string" %}ProgramCms\UserBundle\Model\Provider\Listing\Groups\DataProvider{% endArgument %}
-                        {% argument name="primaryFieldName" type="string" %}entity_id{% endArgument %}
+                        {% argument name="primaryFieldName" type="string" %}group_id{% endArgument %}
                         {% argument name="requestFieldName" type="string" %}id{% endArgument %}
+                    {% endArgument %}
+                    {% argument name="settings" type="array" %}
+                        {% argument name="submitUrl" type="string" %}user_group_save{% endArgument %}
                     {% endArgument %}
                 {% endArgument %}
                 {% argument name="buttons" type="array" %}
@@ -31,7 +34,7 @@
                         {% argument name="label" type="string" %}General{% endArgument %}
                     {% endArgument %}
                 {% endArguments %}
-                {% block name="entity_id" class="ui.block.form.field" %}
+                {% block name="group_id" class="ui.block.form.field" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
                             {% argument name="type" type="string" %}hidden{% endArgument %}
@@ -48,12 +51,22 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
-                {% block name="label" class="ui.block.form.field" %}
+                {% block name="name" class="ui.block.form.field" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
                             {% argument name="type" type="string" %}text{% endArgument %}
                             {% argument name="label" type="string" %}Group Label{% endArgument %}
-                            {% argument name="helpMessage" type="string" %}The group label can appear to users.{% endArgument %}
+                            {% argument name="helpMessage" type="string" %}The group label may appear to users.{% endArgument %}
+                            {% argument name="source" type="string" %}user_group_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="description" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}textarea{% endArgument %}
+                            {% argument name="label" type="string" %}Group Description{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}false{% endArgument %}
                             {% argument name="source" type="string" %}user_group_form{% endArgument %}
                         {% endArgument %}
                     {% endArguments %}
@@ -65,15 +78,13 @@
                         {% argument name="label" type="string" %}Access Control List{% endArgument %}
                     {% endArgument %}
                 {% endArguments %}
-                {% block name="category.tree" class="ProgramCms\\UiBundle\\Component\\Tree\\Tree" %}
+                {% block name="permissions" class="ui.block.form.field" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
-                            {% argument name="isOpen" type="boolean" %}true{% endArgument %}
-                        {% endArgument %}
-                        {% argument name="dataSource" type="array" %}
-                            {% argument name="dataProvider" type="array" %}
-                                {% argument name="class" type="string" %}ProgramCms\WebsiteBundle\Model\Website\DataProvider{% endArgument %}
-                            {% endArgument %}
+                            {% argument name="type" type="string" %}tree{% endArgument %}
+                            {% argument name="label" type="string" %}Resources{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                            {% argument name="sourceModel" type="string" %}ProgramCms\UserBundle\Model\Provider\DataSource\Acl\DataProvider{% endArgument %}
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
