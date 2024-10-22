@@ -1,0 +1,28 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+acl:
+  ProgramCmsUserBundle_user:
+    ProgramCmsPostBundle_post:
+      label: 'Post Permissions'
+      ProgramCmsPostBundle_post_create:
+        label: 'Add Permissions'
+        ProgramCmsPostBundle_post_create_all:
+          label: 'Add Posts in all categories'
+        ProgramCmsPostBundle_post_create_categories:
+          label: 'Add Posts in specific categories only'
+      ProgramCmsPostBundle_post_edit:
+        label: 'Edit Permissions'
+        ProgramCmsPostBundle_post_edit_my:
+          label: 'Edit My Posts'
+        ProgramCmsPostBundle_post_edit_categories:
+          label: 'Edit Posts in specific categories only'
+      ProgramCmsPostBundle_post_delete:
+        label: 'Delete Permissions'
+        ProgramCmsPostBundle_post_delete_my:
+          label: 'Delete My Posts'
+        ProgramCmsPostBundle_post_delete_categories:
+          label: 'Delete Posts in specific categories only'

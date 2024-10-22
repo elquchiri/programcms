@@ -6,9 +6,8 @@
 </p>
 <p><img src="https://raw.githubusercontent.com/elquchiri/programcms/master/public/images/programcms-logo-presentation.png"></p>
 
-ProgramCMS provides you with a complete, trustworthy CMS & easy to use PHP Framework to build and deploy All kind of Web Sites.
-
-Written in PHP, on top of Symfony, it makes it very easy to reuse, install or create new bundles to Improve your Application.
+ProgramCMS is designed with simplicity, performance and usability in mind. It works efficiently across all major desktop and mobile platforms, can be extended with lots of plugins, has a beautiful, easy to use and well-documented API and a simple, readable source code that is a joy to contribute to.
+It provides you with a complete, trustworthy CMS & easy to use PHP Framework to build and deploy All kind of Web Sites.
 
 The Manager Bundle deliver & Maintain ProgramCMS Bundles, so you can add to your Website, with ease, any kind of features and modules which fit the best with your application's needs.
 

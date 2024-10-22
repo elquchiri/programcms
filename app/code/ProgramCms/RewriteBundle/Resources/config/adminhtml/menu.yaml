@@ -1,0 +1,15 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+menu:
+  marketing:
+    groups:
+      seoSearch:
+        actions:
+          urlRewrites:
+            label: "URL Rewrites"
+            action: 'rewrite_url_index'
+            sortOrder: 1

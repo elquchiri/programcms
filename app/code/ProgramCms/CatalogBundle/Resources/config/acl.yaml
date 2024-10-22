@@ -1,0 +1,28 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+acl:
+  ProgramCmsUserBundle_user:
+    ProgramCmsCatalogBundle_catalog:
+      label: 'Catalog Permissions'
+      ProgramCmsCatalogBundle_catalog_category:
+        label: 'Category Permissions'
+        ProgramCmsCatalogBundle_catalog_category_view:
+          label: 'View Permissions'
+          ProgramCmsCatalogBundle_catalog_category_view_all:
+            label: 'View All Categories'
+          ProgramCmsCatalogBundle_catalog_category_view_spesific:
+            label: 'View Specific Categories only'
+        ProgramCmsCatalogBundle_catalog_category_add:
+          label: 'Add Categories'
+        ProgramCmsCatalogBundle_catalog_category_edit:
+          label: 'Edit Permissions'
+          ProgramCmsCatalogBundle_catalog_category_edit_all:
+            label: 'Edit All Categories'
+          ProgramCmsCatalogBundle_catalog_category_edit_category:
+            label: 'Edit Specific Categories only'
+        ProgramCmsCatalogBundle_catalog_category_delete:
+          label: 'Delete Permissions'

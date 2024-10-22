@@ -20,10 +20,6 @@ menu:
       seoSearch:
         label: 'SEO & Search'
         actions:
-          urlRewrites:
-            label: "URL Rewrites"
-            action: ''
-            sortOrder: 1
           searchTerms:
             label: "Search Terms"
             action: ''

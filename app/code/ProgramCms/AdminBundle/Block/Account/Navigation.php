@@ -8,15 +8,18 @@
 
 namespace ProgramCms\AdminBundle\Block\Account;
 
+use ProgramCms\AdminBundle\Entity\AdminUser;
+use ProgramCms\CoreBundle\View\Element\Template;
 use ProgramCms\CoreBundle\View\Element\Template\Context;
 use ProgramCms\RouterBundle\Service\Url;
 use ProgramCms\WebsiteBundle\Helper\Config;
+use Symfony\Bundle\SecurityBundle\Security;
 
 /**
  * Class Navigation
  * @package ProgramCms\AdminBundle\Block\Account
  */
-class Navigation extends \ProgramCms\CoreBundle\View\Element\Template
+class Navigation extends Template
 {
     /**
      * @var Url
@@ -29,21 +32,30 @@ class Navigation extends \ProgramCms\CoreBundle\View\Element\Template
     protected Config $websiteConfig;
 
     /**
+     * @var Security
+     */
+    protected Security $security;
+
+    /**
      * Navigation constructor.
      * @param Context $context
      * @param Url $url
+     * @param Config $websiteConfig
+     * @param Security $security
      * @param array $data
      */
     public function __construct(
         Context $context,
         Url $url,
         Config $websiteConfig,
+        Security $security,
         array $data = []
     )
     {
         parent::__construct($context, $data);
         $this->url = $url;
         $this->websiteConfig = $websiteConfig;
+        $this->security = $security;
     }
 
     /**
@@ -63,10 +75,20 @@ class Navigation extends \ProgramCms\CoreBundle\View\Element\Template
     }
 
     /**
-     * @return mixed
+     * @return string|null
      */
-    public function getFrontendBaseUrl()
+    public function getFrontendBaseUrl(): ?string
     {
         return $this->websiteConfig->getBaseUrl();
+    }
+
+    /**
+     * @return string
+     */
+    public function getAdminName(): string
+    {
+        /** @var AdminUser $user */
+        $user = $this->security->getUser();
+        return !empty($user->getFirstName()) ? $user->getFirstName() : $this->trans('Admin');
     }
 }

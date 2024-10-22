@@ -56,6 +56,6 @@ class Copyright extends Template
         return sprintf(
             $this->translator->trans("<b style='font-size: 11px;'>Copyright &copy; %s ProgramCMS</b> CE. All rights reserved."),
             $this->getCopyrightYear()
-        ) . "<p class='m-0' style='font-size: 10.5px'>Permission is hereby granted, free of charge, to any person obtaining<br>a copy of this software and associated documentation files.</p>";
+        ) . "<p class='m-0' style='font-size: 10.5px'>Permission is hereby granted, free of charge, to any person<br>obtaining a copy of this software and associated<br>documentation files (the \"Software\").</p>";
     }
 }

@@ -71,11 +71,11 @@ class PermissionVoter implements CacheableVoterInterface
      */
     public function supportsAttribute(string $attribute): bool
     {
-        if($this->request->getCurrentAreaCode() != 'adminhtml') {
-            return false;
+        if($this->request->getCurrentAreaCode() == 'adminhtml') {
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     /**

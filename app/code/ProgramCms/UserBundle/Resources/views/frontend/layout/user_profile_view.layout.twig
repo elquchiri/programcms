@@ -8,12 +8,12 @@
 #}
 {% page %}
     {% referenceContainer name="sidebar.main" %}
-        {% container name="user.identity" %}
+        {% container name="user.identity" htmlTag="div" htmlClass="mb-5" %}
             {% block name="user.identity.block" class="ProgramCms\\UserBundle\\Block\\User\\Identity" template="@ProgramCmsUserBundle/user/identity.html.twig" %}{% endBlock %}
         {% endContainer %}
     {% endReferenceContainer %}
     {% referenceContainer name="content" %}
-        {% container name="user.profile.content" htmlTag="div" htmlClass="ps-5" %}
+        {% container name="user.profile.content" htmlTag="div" htmlClass="ps-5 mb-5" %}
             {% block name="user.resume.block" class="ProgramCms\\UserBundle\\Block\\User\\Resume" template="@ProgramCmsUserBundle/user/resume.html.twig" %}{% endBlock %}
             {% block name="user.tabs.block" class="ProgramCms\\UserBundle\\Block\\User\\Tabs" template="@ProgramCmsUserBundle/user/tabs.html.twig" %}{% endBlock %}
             {% block name="user.about.block" class="ProgramCms\\UserBundle\\Block\\User\\About" template="@ProgramCmsUserBundle/user/about.html.twig" %}{% endBlock %}

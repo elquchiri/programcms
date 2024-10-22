@@ -99,11 +99,7 @@ class SaveController extends AdminController
                 $user->setGroups($groups);
             }
 
-            if (!$user) {
-                $user->setCreatedAt();
-            }
-            $user->setUpdatedAt();
-
+            $user->updateTimestamps();
             // Add data for eav processing
             $user->addData($formData);
 

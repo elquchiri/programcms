@@ -30,10 +30,7 @@
                     GMT + 1
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="#">{{ block.trans('View Forum') }}</a></li>
-                    <li><a class="dropdown-item" href="#">{{ block.trans('#Trend Subjects') }}</a></li>
-                    <li><a class="dropdown-item" href="#">{{ block.trans('Message the forum moderator') }}</a></li>
-                    <li><a class="dropdown-item" href="#">{{ block.trans('إضافة المنتدى للمفضلة') }}</a></li>
+                    <li><a class="dropdown-item" href="#">GMT + 1</a></li>
                 </ul>
             </div>
         </div>
@@ -45,7 +42,7 @@
         {% for category in block.getCategories() %}
             <thead class="table-forum-times">
             <th colspan="2" class="text-center" style="width: 23%;">{{ category.getCategoryName() }}</th>
-            <th class="text-center" style="width: 5%">{{ block.trans('Subjects') }}</th>
+            <th class="text-center" style="width: 5%">{{ block.trans('Posts') }}</th>
             <th class="text-center" style="width: 5%">{{ block.trans('Comments') }}</th>
             <th class="text-center" style="width: 3%">
                 <img
@@ -55,8 +52,8 @@
                 />
             </th>
             <th class="text-center" style="width: 15%">{{ block.trans('Last post') }}</th>
-            <th class="text-center" style="width: 7%">{{ block.trans('المراقب') }}</th>
-            <th class="text-center" style="width: 25%">{{ block.trans('آخر موضوع') }}</th>
+            <th class="text-center" style="width: 7%">{{ block.trans('Monitor') }}</th>
+            <th class="text-center" style="width: 25%">{{ block.trans('Last Post') }}</th>
             <th class="text-center" style="width: 7%"></th>
             </thead>
             <tbody>

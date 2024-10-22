@@ -30,3 +30,7 @@ menu:
             label: 'Login Attempts'
             action: 'user_group_index'
             sortOrder: 4
+          locked_users:
+            label: 'Locked Users'
+            action: 'user_group_index'
+            sortOrder: 4
