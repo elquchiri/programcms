@@ -21,8 +21,15 @@ use Symfony\Component\Security\Http\Authorization\AccessDeniedHandlerInterface;
  */
 class AccessDeniedHandler implements AccessDeniedHandlerInterface
 {
+    /**
+     * @var Url
+     */
     protected Url $url;
 
+    /**
+     * AccessDeniedHandler constructor.
+     * @param Url $url
+     */
     public function __construct(Url $url)
     {
         $this->url = $url;

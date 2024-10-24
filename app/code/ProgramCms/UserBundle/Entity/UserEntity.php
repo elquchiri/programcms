@@ -46,7 +46,7 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
     /**
      * @var Collection
      */
-    #[ORM\ManyToMany(targetEntity: UserGroup::class, mappedBy: 'users', cascade: ['persist'])]
+    #[ORM\ManyToMany(targetEntity: UserGroup::class, mappedBy: 'users')]
     private Collection $groups;
 
     /**
