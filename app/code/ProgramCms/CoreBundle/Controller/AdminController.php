@@ -12,6 +12,7 @@ use HttpResponseException;
 use ProgramCms\CoreBundle\App\AreaList;
 use ProgramCms\CoreBundle\App\State;
 use ProgramCms\CoreBundle\View\Result\Page;
+use ProgramCms\RouterBundle\Service\Url;
 use ProgramCms\WebsiteBundle\Model\WebsiteManagerInterface;
 use ReflectionException;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -64,6 +65,11 @@ abstract class AdminController extends AbstractController
     protected WebsiteManagerInterface $websiteManager;
 
     /**
+     * @var Url
+     */
+    protected Url $url;
+
+    /**
      * AdminController constructor.
      * @param Context $context
      */
@@ -79,6 +85,7 @@ abstract class AdminController extends AbstractController
         $this->translator = $context->getTranslator();
         $this->designLoader = $context->getDesignLoader();
         $this->websiteManager = $context->getWebsiteManager();
+        $this->url = $context->getUrl();
     }
 
     /**
@@ -145,5 +152,13 @@ abstract class AdminController extends AbstractController
     public function getSecurity(): Security
     {
         return $this->security;
+    }
+
+    /**
+     * @return Url
+     */
+    public function getUrl(): Url
+    {
+        return $this->url;
     }
 }

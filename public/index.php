@@ -12,7 +12,7 @@ use ProgramCms\CoreBundle\App\Kernel;
 if (!defined('PHP_VERSION_ID') || PHP_VERSION_ID < 80100) {
     echo <<<HTML
 <div style="font:12px/1.35em arial, helvetica, sans-serif;">
-    <p>ProgramCMS supports PHP 8.1.0 or later. Please read ProgramCMS System Requirements
+    <p>ProgramCMS supports PHP 8.1.0 or later. Please read ProgramCMS System Requirements</p>
 </div>
 HTML;
     exit(1);

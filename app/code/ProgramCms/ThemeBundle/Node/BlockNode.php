@@ -8,6 +8,7 @@
 
 namespace ProgramCms\ThemeBundle\Node;
 
+use ProgramCms\ThemeBundle\Node\Argument\ArgumentsNode;
 use Twig\Compiler;
 
 /**
@@ -36,7 +37,7 @@ class BlockNode extends AbstractNode implements \Twig\Node\NodeCaptureInterface
         $after = $this->getAttribute('after');
         $arguments = [];
         foreach($this->getNode('body') as $argumentsNode) {
-            if($argumentsNode instanceof \ProgramCms\ThemeBundle\Node\Argument\ArgumentsNode) {
+            if($argumentsNode instanceof ArgumentsNode) {
                 $compiler->getEnvironment()->getExtension('ProgramCms\ThemeBundle\Extension\ThemeExtension')->getLayout()->getArgumentAsArray($argumentsNode, $arguments);
             }
         }

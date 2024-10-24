@@ -42,12 +42,10 @@
                             <div class="mb-3">
                                 <label for="user_firstname" class="form-label fw-bold">{{ block.trans('First Name') }}</label>
                                 <span class="text-danger">*</span>
-                                <input type="text" id="user_firstname" name="user_firstname" class="form-control" value="{{ block.getUser().getUserFirstName() }}" />
-                            </div>
-                            <div class="mb-3">
-                                <label for="user_lastname" class="form-label fw-bold">{{ block.trans('Last Name') }}</label>
-                                <span class="text-danger">*</span>
-                                <input type="text" id="user_lastname" name="user_lastname" class="form-control" value="{{ block.getUser().getUserLastName() }}" />
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="user_firstname" name="user_firstname" placeholder="{{ block.trans('First Name') }}" value="{{ block.getUser().getUserFirstName() }}">
+                                    <input type="text" class="form-control" id="user_lastname" name="user_lastname" placeholder="{{ block.trans('Last Name') }}" value="{{ block.getUser().getUserLastName() }}">
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label for="user_lastname" class="form-label fw-bold">{{ block.trans('Country') }}</label>
@@ -67,8 +65,8 @@
                             </div>
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                             <div class="mt-5">
-                                <button type="submit" class="btn btn-primary btn-block" style="width: 100%;">
-                                    {{ block.trans('Create my Account') }}
+                                <button type="submit" class="btn btn-primary btn-block fw-bold" style="width: 100%;">
+                                    {{ block.trans('Create My Account') }}
                                 </button>
                             </div>
                         </form>

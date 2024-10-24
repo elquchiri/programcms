@@ -17,6 +17,7 @@ use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\UserBundle\Entity\Address\UserAddressEntity;
 use ProgramCms\UserBundle\Entity\Group\UserGroup;
 use ProgramCms\UserBundle\Entity\UserEntity as User;
+use ProgramCms\UserBundle\Model\Validation\RegisterValidatorInterface;
 use ProgramCms\UserBundle\Repository\Group\UserGroupRepository;
 use ProgramCms\UserBundle\Security\LoginAuthenticator;
 use ProgramCms\WebsiteBundle\Model\WebsiteManagerInterface;
@@ -24,7 +25,6 @@ use ProgramCms\UserBundle\Helper\Config as UserConfigHelper;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use ReflectionException;
 
 /**
@@ -59,9 +59,9 @@ class RegisterController extends Controller
     protected WebsiteManagerInterface $websiteManager;
 
     /**
-     * @var ValidatorInterface
+     * @var RegisterValidatorInterface
      */
-    protected ValidatorInterface $validator;
+    protected RegisterValidatorInterface $validator;
 
     /**
      * @var UserAuthenticatorInterface
@@ -90,7 +90,7 @@ class RegisterController extends Controller
      * @param EntityManagerInterface $entityManager
      * @param ObjectManager $objectManager
      * @param WebsiteManagerInterface $websiteManager
-     * @param ValidatorInterface $validator
+     * @param RegisterValidatorInterface $validator
      * @param UserAuthenticatorInterface $userAuthenticator
      * @param LoginAuthenticator $loginAuthenticator
      * @param UserConfigHelper $userConfigHelper
@@ -102,7 +102,7 @@ class RegisterController extends Controller
         EntityManagerInterface $entityManager,
         ObjectManager $objectManager,
         WebsiteManagerInterface $websiteManager,
-        ValidatorInterface $validator,
+        RegisterValidatorInterface $validator,
         UserAuthenticatorInterface $userAuthenticator,
         LoginAuthenticator $loginAuthenticator,
         UserConfigHelper $userConfigHelper,
@@ -156,10 +156,9 @@ class RegisterController extends Controller
                 ->setUserFirstname($data['user_firstname'])
                 ->setUserLastname($data['user_lastname'])
                 ->setWebsiteView($currentWebsiteView)
-                ->setCreatedAt()
-                ->setUpdatedAt();
+                ->updateTimestamps();
 
-            $errors = $this->validator->validate($user);
+            $errors = $this->validator->validate($user, $data);
             // If no errors found, create the user
             if(count($errors) === 0) {
                 // encode the plain password
@@ -196,7 +195,7 @@ class RegisterController extends Controller
                 $errorMessages = "<p>" . $this->trans('Please review the following information:') . "</p>";
                 $errorMessages .= "<ul class='m-0'>";
                 foreach($errors as $error) {
-                    $errorMessages .= "<li>" . str_replace(['{{ value }}'], [$data[$error->getPropertyPath()]], $this->trans($error->getMessageTemplate())) . "</li>";
+                    $errorMessages .= "<li>" . $error . "</li>";
                 }
                 $errorMessages .= "</ul>";
 

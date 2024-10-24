@@ -12,6 +12,7 @@ use ProgramCms\CoreBundle\App\Config;
 use ProgramCms\CoreBundle\App\AreaList;
 use ProgramCms\CoreBundle\App\State;
 use ProgramCms\CoreBundle\View\DesignLoader;
+use ProgramCms\CoreBundle\View\Result\Page;
 use ProgramCms\RouterBundle\Service\Url;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -103,7 +104,7 @@ abstract class Controller extends AbstractController
         $this->localeSwitcher->setLocale($locale);
 
         $result = $this->execute();
-        if($result instanceof \ProgramCms\CoreBundle\View\Result\Page) {
+        if($result instanceof Page) {
             try {
                 return $result->render();
             } catch (\Exception $e) {

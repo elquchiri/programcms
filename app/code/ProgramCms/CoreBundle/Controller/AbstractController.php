@@ -62,4 +62,9 @@ abstract class AbstractController extends AbstractSymfonyController
      * @return mixed
      */
     abstract public function dispatch(): mixed;
+
+    public function addFlash(string $type, mixed $message): void
+    {
+        parent::addFlash($type, $message);
+    }
 }

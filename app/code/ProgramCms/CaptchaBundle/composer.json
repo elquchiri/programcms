@@ -1,0 +1,36 @@
+{
+    "name": "programcms/captcha-bundle",
+    "description": "Represents Captcha entities and interfaces in ProgramCMS application",
+    "license": "MIT",
+    "type": "programcms-bundle",
+    "keywords": [
+        "ProgramCms",
+        "Admin",
+        "Captcha",
+        "Image",
+        "Number",
+        "Connect",
+        "Sign Up",
+        "Sign In",
+        "Logout",
+        "Bundle",
+        "CMS"
+    ],
+    "authors": [
+        {
+            "name": "Mohamed EL QUCHIRI",
+            "email": "elquchiri@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "programcms/core-bundle": "*",
+        "gregwar/captcha": "1.*"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "ProgramCms\\CaptchaBundle\\": ""
+        }
+    }
+}

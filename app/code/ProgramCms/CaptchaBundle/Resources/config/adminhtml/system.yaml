@@ -1,0 +1,21 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+system_config:
+  sections:
+    captcha:
+      label: 'CAPTCHA'
+      tab: 'core_security'
+      scope: 'default|website|website_view'
+      groups:
+        pages:
+          label: 'Page Settings'
+          scope: 'default|website|website_view'
+          fields:
+            register:
+              label: 'Active in Register Page'
+              type: 'switcher'
+              scope: 'default|website|website_view'

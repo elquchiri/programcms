@@ -1,0 +1,23 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% if block.isEnabled() %}
+<div class="mb-3">
+    <label for="user_lastname" class="form-label fw-bold">{{ block.trans('Verification') }}</label>
+    <span class="text-danger">*</span>
+    <div class="input-group">
+        <input type="text" class="form-control text-center" name="captcha_verify" style="font-size: 17px;">
+        <span class="input-group-text">
+            <img src="{{ block.getCaptchaImage() }}" />
+        </span>
+    </div>
+    <div id="emailHelp" class="form-text">
+        {{ block.trans("Please past the captcha in the image bellow to the field, so that we can verify that you're a human.") }}
+    </div>
+</div>
+{% endif %}
