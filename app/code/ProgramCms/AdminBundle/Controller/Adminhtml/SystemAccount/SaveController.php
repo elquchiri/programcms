@@ -11,7 +11,7 @@ namespace ProgramCms\AdminBundle\Controller\Adminhtml\SystemAccount;
 use ProgramCms\AdminBundle\Repository\AdminUserRepository;
 use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;

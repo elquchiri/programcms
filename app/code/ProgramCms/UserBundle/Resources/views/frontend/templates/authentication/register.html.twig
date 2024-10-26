@@ -20,7 +20,7 @@
                                     {{ block.trans('Email') }}
                                     <span class="text-danger">*</span>
                                 </label>
-                                <input type="email" id="email" name="email" class="form-control" value="{{ block.getUser().getEmail() }}" />
+                                <input type="email" id="email" name="email" class="form-control" value="{{ block.getUser().getEmail() }}" autofocus/>
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label fw-bold">
@@ -30,17 +30,7 @@
                                 <input type="password" id="password" name="password" class="form-control" />
                             </div>
                             <div class="mb-3">
-                                <label for="username" class="form-label fw-bold">
-                                    {{ block.trans('User Name') }}
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <input type="text" id="username" name="username" class="form-control" value="{{ block.getUser().getUsername() }}" />
-                                <div id="emailHelp" class="form-text">
-                                    {{ block.trans('This will be your identifier in the website.') }}
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="user_firstname" class="form-label fw-bold">{{ block.trans('First Name') }}</label>
+                                <label for="user_firstname" class="form-label fw-bold">{{ block.trans('Full Name') }}</label>
                                 <span class="text-danger">*</span>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="user_firstname" name="user_firstname" placeholder="{{ block.trans('First Name') }}" value="{{ block.getUser().getUserFirstName() }}">
@@ -53,6 +43,16 @@
                                 <select id="user_country" name="user_country" class="form-select">
                                     {{ block.getCountries()|raw }}
                                 </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="username" class="form-label fw-bold">
+                                    {{ block.trans('User Name') }}
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" id="username" name="username" class="form-control" value="{{ block.getUser().getUsername() }}" />
+                                <div id="emailHelp" class="form-text">
+                                    {{ block.trans('This will be your identifier in the website.') }}
+                                </div>
                             </div>
 
                             {{ block.getChildHtml()|raw }}

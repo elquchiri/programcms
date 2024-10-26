@@ -14,7 +14,7 @@ use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\CoreBundle\View\Result\Page;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use ReflectionException;
 

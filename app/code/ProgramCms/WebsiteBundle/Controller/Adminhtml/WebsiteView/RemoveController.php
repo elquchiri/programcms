@@ -10,7 +10,7 @@ namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\WebsiteView;
 
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use ProgramCms\WebsiteBundle\Repository\WebsiteViewRepository;
 
 /**

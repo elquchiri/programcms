@@ -10,8 +10,7 @@ namespace ProgramCms\CatalogBundle\Block;
 
 use ProgramCms\CatalogBundle\Repository\CategoryRepository;
 use ProgramCms\CoreBundle\View\Element\Template;
-use ProgramCms\RouterBundle\Service\Request;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 
 /**
  * Class CategoryTreeButtons

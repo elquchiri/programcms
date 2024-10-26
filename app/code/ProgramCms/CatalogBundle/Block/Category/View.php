@@ -14,7 +14,7 @@ use ProgramCms\CatalogBundle\Repository\CategoryRepository;
 use ProgramCms\CoreBundle\View\Element\Template;
 use ProgramCms\PostBundle\Entity\PostEntity;
 use ProgramCms\PostBundle\Repository\CommentRepository;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use ProgramCms\UserBundle\Entity\UserEntity;
 
 /**

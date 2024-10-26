@@ -13,7 +13,7 @@ use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Serialize\Serializer\ObjectSerializer;
 use ProgramCms\RewriteBundle\Entity\UrlRewrite;
 use ProgramCms\RewriteBundle\Repository\UrlRewriteRepository;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 
 /**
  * Class SaveController
@@ -64,6 +64,14 @@ class SaveController extends AdminController
             $postData = $request->request->all();
             $urlRewrite = !empty($urlRewriteId) && $this->urlRewriteRepository->getById($urlRewriteId) ? $this->urlRewriteRepository->getById($urlRewriteId) :  new UrlRewrite();
             $this->objectSerializer->arrayToObject($urlRewrite, $postData);
+
+            if(isset($postData['arguments_json'])) {
+                if(!json_validate($postData['arguments_json'])) {
+                    $this->addFlash('danger', $this->trans('Invalid Arguments Json Value.'));
+                    return $this->redirect($this->url->getUrlByRouteName('rewrite_url_edit', ['id' => $urlRewrite->getUrlRewriteId()]));
+                }
+                $urlRewrite->setArguments($postData['arguments_json']);
+            }
 
             $this->urlRewriteRepository->save($urlRewrite);
             $this->addFlash('success', $this->trans('URL Rewrite successfully saved.'));

@@ -8,7 +8,7 @@
 
 namespace ProgramCms\ThemeBundle\Model\Provider\Button;
 
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 
 /**
  * Class BackToThemesButton

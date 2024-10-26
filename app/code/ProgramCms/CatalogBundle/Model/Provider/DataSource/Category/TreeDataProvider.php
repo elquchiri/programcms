@@ -11,7 +11,7 @@ namespace ProgramCms\CatalogBundle\Model\Provider\DataSource\Category;
 use ProgramCms\CatalogBundle\Entity\CategoryEntity;
 use ProgramCms\CatalogBundle\Repository\CategoryRepository;
 use ProgramCms\RouterBundle\Service\Request;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;
 use ProgramCms\CatalogBundle\Model\Collection\Category\Collection;
 

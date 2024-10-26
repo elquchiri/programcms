@@ -19,7 +19,7 @@
                         <form method="POST" action="{{ block.getSubmitUrl() }}">
                             <div class="mb-3">
                                 <label for="email" class="form-label fw-bold">{{ block.trans('Email') }}</label>
-                                <input type="email" class="form-control" id="email" name="email" value="{{ block.getLastEmail() }}">
+                                <input type="email" class="form-control" id="email" name="email" value="{{ block.getLastEmail() }}" autofocus>
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label fw-bold">{{ block.trans('Password') }}</label>

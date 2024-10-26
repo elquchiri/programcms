@@ -8,42 +8,6 @@
 #}
 <!doctype html>
 <html dir="{{ dir }}" lang="{{ lang }}">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('bundles/programcmstheme/images/favicon/logo.png') }}">
-        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('bundles/programcmstheme/images/favicon/logo.png') }}">
-        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('bundles/programcmstheme/images/favicon/logo.png') }}">
-        <link rel="manifest" href="{{ asset('bundles/programcmstheme/images/favicon/site.webmanifest') }}">
-        {# Page Title #}
-        <title>{{ title }}</title>
-
-        {#
-        /*
-         * Load Global app css file
-         * Merge All static css files
-         */
-        #}
-        <link rel="stylesheet" type="text/css" href="{{ appCss }}">
-        {% for cssFile in css %}
-            <link rel="stylesheet" type="text/css" href="{{ asset(cssFile) }}" />
-        {% endfor %}
-    </head>
-    <body>
-        {# Print Body Content #}
-        {{ html|raw }}
-
-        {#
-        /*
-         * Load Global app js file
-         * Merge All static Javascript files
-         * Ensure JS files being loaded after DOM ready
-         */
-        #}
-        {% for jsFile in js %}
-            <script type="text/javascript" src="{{ asset(jsFile) }}"></script>
-        {% endfor %}
-        <script type="text/javascript" src="{{ appJs }}"></script>
-    </body>
+    {# Print Body Content #}
+    {{ html|raw }}
 </html>

@@ -11,7 +11,7 @@ namespace ProgramCms\CoreBundle\View\Element;
 use Exception;
 use ProgramCms\CoreBundle\Model\DataObject;
 use ProgramCms\CoreBundle\View\Layout;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use Twig\Environment;
 
 /**

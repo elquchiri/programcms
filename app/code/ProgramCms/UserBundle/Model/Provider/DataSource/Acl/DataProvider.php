@@ -13,7 +13,7 @@ use ProgramCms\UserBundle\Entity\Group\UserGroupPermission;
 use ProgramCms\UserBundle\Model\Acl\AclSerializer;
 use ProgramCms\UserBundle\Repository\Group\UserGroupRepository;
 use ProgramCms\RouterBundle\Service\Request;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;
 use Symfony\Bundle\SecurityBundle\Security;
 

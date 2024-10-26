@@ -1,0 +1,21 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+system_config:
+  sections:
+    url_rewrite:
+      label: 'URL Rewrite'
+      tab: 'core_marketing'
+      scope: 'default|website|website_view'
+      groups:
+        general:
+          label: 'General'
+          scope: 'default|website|website_view'
+          fields:
+            enable:
+              label: 'Enable URL Rewrite'
+              type: 'switcher'
+              scope: 'default|website|website_view'

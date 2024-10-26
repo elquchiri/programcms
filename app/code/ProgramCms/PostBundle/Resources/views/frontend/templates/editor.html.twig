@@ -17,21 +17,21 @@
                                 <img class="float-start" src="{{ block.getCategory().getCategoryImage() }}" width="40"
                                      height="40" alt=""/>
                             </a>
-                            <input type="text" name="post_title" class="form-control ms-2 post_title" placeholder="عنوان الموضوع ...">
+                            <input type="text" name="post_title" class="form-control ms-2 post_title" placeholder="{{ block.trans('Post Title ...') }}">
                         </div>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-success rounded-start-5" data-action="editor#onSubmit">مشاركة الموضوع</button>
+                            <button type="button" class="btn btn-success rounded-start-5" data-action="editor#onSubmit">{{ block.trans('Share Post') }}</button>
                             <button type="button" class="btn btn-success rounded-end-5 dropdown-toggle"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="visually-hidden">Toggle Dropdown</span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">حفظ الموضوع على الخاص</a></li>
+                                <li><a class="dropdown-item" href="#">{{ block.trans('Save Post on Private') }}</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
                                 <p class="mb-0 p-3 pt-2 pb-2 text-muted" style="font-size: 13px;">
-                                    يتم حفظ الموضوع على حسابك و لن يتم نشره في الموقع. يمكنك نشره لاحقا.
+                                    {{ block.trans('The topic is saved to your account and will not be published on the site. You can publish it later.') }}
                                 </p>
                             </ul>
                         </div>

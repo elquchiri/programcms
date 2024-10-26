@@ -10,6 +10,6 @@ menu:
       seoSearch:
         actions:
           urlRewrites:
-            label: "URL Rewrites"
+            label: "URL Rewrite"
             action: 'rewrite_url_index'
             sortOrder: 1

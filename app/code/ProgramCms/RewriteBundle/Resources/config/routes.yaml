@@ -6,5 +6,8 @@
 ##
 router:
   adminhtml:
-    acl_root:
+    rewrite_root:
+      frontName: 'rewrite'
+  frontend:
+    rewrite_root:
       frontName: 'rewrite'

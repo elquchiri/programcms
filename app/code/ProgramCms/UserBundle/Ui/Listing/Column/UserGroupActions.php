@@ -8,7 +8,7 @@
 
 namespace ProgramCms\UserBundle\Ui\Listing\Column;
 
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use ProgramCms\UiBundle\Component\Listing\ActionsColumn;
 use ProgramCms\UiBundle\View\Element\Context;
 

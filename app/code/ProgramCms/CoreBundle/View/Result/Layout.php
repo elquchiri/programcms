@@ -8,6 +8,7 @@
 
 namespace ProgramCms\CoreBundle\View\Result;
 
+use ProgramCms\CoreBundle\Model\Utils\BundleManager;
 use ProgramCms\CoreBundle\View\Element\Template\Context;
 use ProgramCms\RouterBundle\Service\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,6 +41,11 @@ class Layout extends AbstractResult
     protected Environment $env;
 
     /**
+     * @var BundleManager
+     */
+    private BundleManager $bundleManager;
+
+    /**
      * @throws SyntaxError
      * @throws RuntimeError
      * @throws LoaderError
@@ -49,6 +55,7 @@ class Layout extends AbstractResult
         $this->request = $context->getRequest();
         $this->env = $context->getEnvironment();
         $this->layout = $context->getLayout();
+        $this->bundleManager = $context->getBundleManager();
         // Construct Layout Elements
         $this->_initLayout();
     }
@@ -60,7 +67,10 @@ class Layout extends AbstractResult
      */
     private function _initLayout()
     {
-        $currentRouteName = $this->request->getCurrentRouteName();
+        $routeName = $this->request->getCurrentRequest()->attributes->get('_route');
+        $routes = $this->bundleManager->getContainer()->get('router')->getRouteCollection();
+        $routeDefaults = $routes->get($routeName)->getDefaults();
+        $currentRouteName = $routeDefaults['target_path'] ?? $this->request->getCurrentRouteName();
         $this->env->render($currentRouteName . '.' . self::LAYOUT_EXTENSION);
         // Generate Layout Elements
         $this->getLayout()->generateElements();

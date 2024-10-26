@@ -7,6 +7,11 @@
  */
 #}
 {% page layout="admin-1column" %}
+    {# Head Section #}
+    {% referenceContainer name="head" %}
+        {% block name="head.block" class="ProgramCms\\ThemeBundle\\Block\\Page\\Head\\Head" template="@ProgramCmsThemeBundle/head/head.html.twig" %}{% endBlock %}
+        {% block name="head.title" class="ProgramCms\\ThemeBundle\\Block\\Page\\Head\\Title" template="@ProgramCmsThemeBundle/head/title.html.twig" %}{% endBlock %}
+    {% endReferenceContainer %}
     {% referenceContainer name="page.menu" %}
         {% block name="sidebar" class="ProgramCms\\AdminBundle\\Block\\Sidebar" template="@ProgramCmsAdminBundle/sidebar.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}
@@ -40,5 +45,9 @@
                 {% block name="links" class="ProgramCms\\CoreBundle\\View\\Element\\Template" template="@ProgramCmsAdminBundle/links.html.twig" %}{% endBlock %}
             {% endContainer %}
         {% endContainer %}
+    {% endReferenceContainer %}
+    {# Load Javascript #}
+    {% referenceContainer name="before.body" %}
+        {% block name="before.body.block" class="ProgramCms\\ThemeBundle\\Block\\Page\\Body\\BeforeBody" template="@ProgramCmsThemeBundle/body/before_body.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}
 {% endPage %}

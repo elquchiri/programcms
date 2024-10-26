@@ -8,11 +8,14 @@
 
 namespace ProgramCms\RouterBundle;
 
+use ProgramCms\CoreBundle\ProgramCmsCoreBundle;
+use ProgramCms\RouterBundle\Helper\Data;
+
 /**
  * Class ProgramCmsRouterBundle
  * @package ProgramCms\RouterBundle
  */
-class ProgramCmsRouterBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
+class ProgramCmsRouterBundle extends ProgramCmsCoreBundle
 {
     public const VERSION = '1.0.0';
 
@@ -27,8 +30,7 @@ class ProgramCmsRouterBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
      */
     private function loadRoutes()
     {
-        $routes = $this->container->get('routing.loader')->load('.', \ProgramCms\RouterBundle\Helper\Data::PROGRAMCMS_ROUTING_LOADER);
-
+        $routes = $this->container->get('routing.loader')->load('.', Data::PROGRAMCMS_ROUTING_LOADER);
         $this->container->get('router')->getRouteCollection()->addCollection($routes);
     }
 
@@ -38,7 +40,7 @@ class ProgramCmsRouterBundle extends \ProgramCms\CoreBundle\ProgramCmsCoreBundle
     public static function getDependencies(): array
     {
         return [
-            \ProgramCms\CoreBundle\ProgramCmsCoreBundle::class,
+            ProgramCmsCoreBundle::class,
         ];
     }
 }

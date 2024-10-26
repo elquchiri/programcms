@@ -9,7 +9,7 @@
 namespace ProgramCms\WebsiteBundle\Model\Provider\Button;
 
 use ProgramCms\RouterBundle\Service\Request;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 
 /**
  * Class AddGroupButton

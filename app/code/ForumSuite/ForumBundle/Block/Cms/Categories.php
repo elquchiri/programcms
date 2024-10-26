@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\Collection;
 use ProgramCms\CatalogBundle\Entity\CategoryEntity;
 use ProgramCms\CoreBundle\View\Element\Template;
 use ProgramCms\PostBundle\Entity\PostEntity;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use ProgramCms\UserBundle\Entity\UserEntity;
 use ProgramCms\WebsiteBundle\Model\WebsiteManagerInterface;
 

@@ -13,7 +13,7 @@ use ProgramCms\CoreBundle\App\AreaList;
 use ProgramCms\CoreBundle\App\State;
 use ProgramCms\CoreBundle\View\DesignLoader;
 use ProgramCms\CoreBundle\View\Result\Page;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Translation\LocaleSwitcher;

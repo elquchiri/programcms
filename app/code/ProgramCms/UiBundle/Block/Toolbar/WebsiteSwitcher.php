@@ -13,7 +13,7 @@ use Doctrine\ORM\LazyCriteriaCollection;
 use ProgramCms\CoreBundle\View\Element\Template;
 use ProgramCms\CoreBundle\View\Element\Template\Context;
 use ProgramCms\RouterBundle\Service\Request;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use ProgramCms\WebsiteBundle\Entity\Website;
 use ProgramCms\WebsiteBundle\Entity\WebsiteGroup;
 use ProgramCms\WebsiteBundle\Entity\WebsiteView;

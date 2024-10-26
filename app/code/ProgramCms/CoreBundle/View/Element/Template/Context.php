@@ -17,7 +17,7 @@ use ProgramCms\CoreBundle\View\FileSystem;
 use ProgramCms\CoreBundle\View\Layout;
 use ProgramCms\CoreBundle\View\Page\Config;
 use ProgramCms\RouterBundle\Service\Request;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use ProgramCms\ThemeBundle\Webpack\Output as WebpackOutput;

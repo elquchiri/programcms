@@ -9,7 +9,7 @@
 namespace ProgramCms\PageBundle\Model\Provider\Button;
 
 use ProgramCms\UiBundle\DataProvider\ButtonProviderInterface;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 
 /**
  * Class NewPageButton

@@ -9,6 +9,7 @@
 namespace ProgramCms\RewriteBundle\Entity;
 
 use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use ProgramCms\RewriteBundle\Repository\UrlRewriteRepository;
 use ProgramCms\WebsiteBundle\Entity\WebsiteView;
@@ -39,6 +40,12 @@ class UrlRewrite extends AbstractEntity
      */
     #[ORM\Column(type: 'string')]
     private ?string $target_path;
+
+    /**
+     * @var string|null
+     */
+    #[ORM\Column(type: 'string')]
+    private ?string $arguments;
 
     /**
      * @var int|null
@@ -141,5 +148,23 @@ class UrlRewrite extends AbstractEntity
     public function getWebsiteView(): ?WebsiteView
     {
         return $this->websiteView;
+    }
+
+    /**
+     * @param string $arguments
+     * @return $this
+     */
+    public function setArguments(string $arguments): self
+    {
+        $this->arguments = $arguments;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getArguments(): ?string
+    {
+        return $this->arguments;
     }
 }

@@ -8,7 +8,7 @@
 
 namespace ProgramCms\EavBundle\Model\Entity\Attribute\Frontend;
 
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 
 /**
  * Class File

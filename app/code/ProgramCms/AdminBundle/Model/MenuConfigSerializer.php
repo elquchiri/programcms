@@ -10,7 +10,7 @@ namespace ProgramCms\AdminBundle\Model;
 
 use ProgramCms\CoreBundle\Data\Process\Sort;
 use ProgramCms\CoreBundle\Model\Utils\BundleManager;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use ReflectionException;

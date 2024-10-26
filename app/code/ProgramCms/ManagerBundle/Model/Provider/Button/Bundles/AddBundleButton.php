@@ -8,7 +8,7 @@
 
 namespace ProgramCms\ManagerBundle\Model\Provider\Button\Bundles;
 
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use ProgramCms\UiBundle\DataProvider\ButtonProviderInterface;
 
 /**

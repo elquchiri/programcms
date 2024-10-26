@@ -13,7 +13,7 @@ use ProgramCms\AclBundle\Entity\Role;
 use ProgramCms\AclBundle\Model\AclSerializer;
 use ProgramCms\AclBundle\Repository\RoleRepository;
 use ProgramCms\RouterBundle\Service\Request;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;
 use Symfony\Bundle\SecurityBundle\Security;
 

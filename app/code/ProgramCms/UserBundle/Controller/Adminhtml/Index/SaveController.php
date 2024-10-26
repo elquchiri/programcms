@@ -11,7 +11,7 @@ namespace ProgramCms\UserBundle\Controller\Adminhtml\Index;
 use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Serialize\Serializer\ObjectSerializer;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use ProgramCms\UserBundle\Entity\UserEntity;
 use ProgramCms\UserBundle\Repository\UserEntityRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;

@@ -9,7 +9,7 @@
 namespace ProgramCms\AdminBundle\Block\Recovery;
 
 use ProgramCms\CoreBundle\View\Element\Template\Context;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 
 /**
  * Class Recovery

@@ -10,7 +10,7 @@ namespace ProgramCms\WebsiteBundle\Controller\Adminhtml\Website;
 
 use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use ProgramCms\WebsiteBundle\Repository\WebsiteRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 

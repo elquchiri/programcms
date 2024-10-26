@@ -15,7 +15,7 @@ use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Serialize\Serializer\ObjectSerializer;
 use ProgramCms\PostBundle\Entity\PostEntity;
 use ProgramCms\PostBundle\Repository\PostRepository;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use ReflectionException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 

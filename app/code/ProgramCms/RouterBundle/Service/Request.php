@@ -133,7 +133,10 @@ class Request
     public function getCurrentRouteName(): string
     {
         $layoutNameElements = explode("_", $this->getFullRouteName());
-        return $layoutNameElements[1] . '_' . $layoutNameElements[2] . '_' . $layoutNameElements[3];
+        if(isset($layoutNameElements[0]) && in_array($layoutNameElements[0], ['frontend', 'adminhtml'])) {
+            return $layoutNameElements[1] . '_' . $layoutNameElements[2] . '_' . $layoutNameElements[3];
+        }
+        return $this->getFullRouteName();
     }
 
     /**
@@ -143,12 +146,7 @@ class Request
      */
     public function getFullRouteName(): string
     {
-        try {
-            $currentRequest = $this->requestStack->getCurrentRequest();
-            return $currentRequest ? $this->router->match($currentRequest->getPathInfo())['_route'] : "";
-        }catch(\Exception $ex) {
-            return "";
-        }
+        return $this->getCurrentRequest()->attributes->get('_route');
     }
 
     /**

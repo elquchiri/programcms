@@ -7,6 +7,11 @@
  */
 #}
 {% page layout="3columns" %}
+    {# Head Section #}
+    {% referenceContainer name="head" %}
+        {% block name="head.block" class="ProgramCms\\ThemeBundle\\Block\\Page\\Head\\Head" template="@ProgramCmsThemeBundle/head/head.html.twig" %}{% endBlock %}
+        {% block name="head.title" class="ProgramCms\\ThemeBundle\\Block\\Page\\Head\\Title" template="@ProgramCmsThemeBundle/head/title.html.twig" %}{% endBlock %}
+    {% endReferenceContainer %}
     {# Page Top Container #}
     {% referenceContainer name="page.top" %}
         {# Navigation Section Block #}
@@ -73,5 +78,9 @@
         {% container name="footer.legal.copyright" %}
             {% block name="copyright" class="ProgramCms\\ThemeBundle\\Block\\Page\\Copyright" %}{% endBlock %}
         {% endContainer %}
+    {% endReferenceContainer %}
+    {# Load Javascript #}
+    {% referenceContainer name="before.body" %}
+        {% block name="before.body.block" class="ProgramCms\\ThemeBundle\\Block\\Page\\Body\\BeforeBody" template="@ProgramCmsThemeBundle/body/before_body.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}
 {% endPage %}

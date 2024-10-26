@@ -8,7 +8,7 @@
 
 namespace ProgramCms\ConfigBundle\Model\Attribute\Frontend;
 
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 
 /**
  * Class File

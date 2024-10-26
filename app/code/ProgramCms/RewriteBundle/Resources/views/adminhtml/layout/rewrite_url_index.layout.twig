@@ -67,6 +67,14 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
+                {% block name="arguments" class="ui.block.column" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="label" type="string" %}Arguments{% endArgument %}
+                            {% argument name="source" type="string" %}url_rewrite_listing{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
                 {% block name="redirect_type" class="ui.block.column" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}

@@ -18,6 +18,8 @@ application.register('editor', class extends Controller {
         let self = this;
         const postId = $('#post_id').val();
         const commentId = $('#comment_id').val();
+        let lang = $('html').attr('lang');
+        let langCode = lang.split('_')[0];
 
         self.editor = grapesjs.init({
             container: '#editor-wrapper',
@@ -27,7 +29,7 @@ application.register('editor', class extends Controller {
             // canvasCss: '#gjs { background-color: #dedede; !important } p { outline: none !important; } .gjs-hovered {outline: none !important; box-shadow: none !important; } .gjs-selected {outline: none !important; box-shadow: none !important;}',
             i18n: {
                 detectLocale: false,
-                locale: 'ar',
+                locale: langCode,
                 messages: {ar},
             },
             // Avoid any default panel
@@ -41,7 +43,9 @@ application.register('editor', class extends Controller {
                     {
                         id: 'section', // id is mandatory
                         label: 'section', // You can use HTML/SVG inside labels
-                        media: `<img src="http://ar.dev-programcms.com/media/category_entity/category_image/5a1d2c6a4ac6b00ff574e276-666591d5d57e5.png" style="width: 50px; height: 50px" />`,
+                        media: `<svg viewBox="0 0 24 24">
+        <path fill="currentColor" d="M20,20H4A2,2 0 0,1 2,18V6A2,2 0 0,1 4,4H20A2,2 0 0,1 22,6V18A2,2 0 0,1 20,20M4,6V18H20V6H4M6,9H18V11H6V9M6,13H16V15H6V13Z"></path>
+    </svg>`,
                         attributes: {class: 'gjs-block-section'},
                         content: `<section>
                           <h1>This is a simple title</h1>
@@ -63,8 +67,14 @@ application.register('editor', class extends Controller {
                         select: true,
                         content: {type: 'image'},
                         activate: true,
-                    },
-                    {
+                    }, {
+                        id: 'button',
+                        label: 'Button',
+                        media: `<svg viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M20 20.5C20 21.3 19.3 22 18.5 22H13C12.6 22 12.3 21.9 12 21.6L8 17.4L8.7 16.6C8.9 16.4 9.2 16.3 9.5 16.3H9.7L12 18V9C12 8.4 12.4 8 13 8S14 8.4 14 9V13.5L15.2 13.6L19.1 15.8C19.6 16 20 16.6 20 17.1V20.5M20 2H4C2.9 2 2 2.9 2 4V12C2 13.1 2.9 14 4 14H8V12H4V4H20V12H18V14H20C21.1 14 22 13.1 22 12V4C22 2.9 21.1 2 20 2Z"></path>
+                        </svg>`,
+                        content: '<div data-gjs-type="text">Insert your text here</div>',
+                    }, {
                         id: 'one-column',
                         'label': 'column',
                         media: `<svg viewBox="0 0 24 24">

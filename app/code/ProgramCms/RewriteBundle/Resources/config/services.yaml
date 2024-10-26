@@ -16,3 +16,21 @@ services:
       - '../../DependencyInjection/'
       - '../../Resources/'
       - '../../Tests/'
+
+  ProgramCms\RewriteBundle\Routing\RewriteUrlLoader:
+    tags: [ routing.loader ]
+
+  doctrine.rewrite_user_persist.listener:
+    class: ProgramCms\RewriteBundle\EventListener\UserPersistSubscriber
+    tags:
+      - { name: doctrine.event_subscriber }
+
+  doctrine.rewrite_category_persist.listener:
+    class: ProgramCms\RewriteBundle\EventListener\CategoryPersistSubscriber
+    tags:
+      - { name: doctrine.event_subscriber }
+
+  doctrine.rewrite_post_persist.listener:
+    class: ProgramCms\RewriteBundle\EventListener\PostPersistSubscriber
+    tags:
+      - { name: doctrine.event_subscriber }

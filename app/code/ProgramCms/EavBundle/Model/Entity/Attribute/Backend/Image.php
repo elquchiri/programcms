@@ -11,7 +11,7 @@ namespace ProgramCms\EavBundle\Model\Entity\Attribute\Backend;
 use Gedmo\Sluggable\Util\Urlizer;
 use \ProgramCms\CoreBundle\Model\Utils\BundleManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 
 /**
  * Class Image

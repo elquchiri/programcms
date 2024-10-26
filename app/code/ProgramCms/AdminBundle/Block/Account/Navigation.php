@@ -11,7 +11,7 @@ namespace ProgramCms\AdminBundle\Block\Account;
 use ProgramCms\AdminBundle\Entity\AdminUser;
 use ProgramCms\CoreBundle\View\Element\Template;
 use ProgramCms\CoreBundle\View\Element\Template\Context;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use ProgramCms\WebsiteBundle\Helper\Config;
 use Symfony\Bundle\SecurityBundle\Security;
 

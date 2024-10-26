@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  * Class Url
  * @package ProgramCms\RouterBundle\Service
  */
-class Url
+class Url implements UrlInterface
 {
     /**
      * @var UrlGeneratorInterface

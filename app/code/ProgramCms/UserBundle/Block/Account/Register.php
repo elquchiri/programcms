@@ -10,7 +10,7 @@ namespace ProgramCms\UserBundle\Block\Account;
 
 use ProgramCms\CoreBundle\View\Element\Template;
 use ProgramCms\CoreBundle\View\Element\Template\Context;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use ProgramCms\WebsiteBundle\Model\Provider\CountrySelector;
 
 /**
@@ -55,8 +55,8 @@ class Register extends Template
     {
         return sprintf(
             $this->trans('I accept %s and %s.'),
-            '<a href="#">' . $this->trans('The conditions') . '</a>',
-            '<a href="#">' . $this->trans('Confidential policy') . '</a>'
+            '<a href="#">' . $this->trans('the conditions') . '</a>',
+            '<a href="#">' . $this->trans('confidential policy') . '</a>'
         );
     }
 

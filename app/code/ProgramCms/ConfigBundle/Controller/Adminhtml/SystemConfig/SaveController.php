@@ -13,7 +13,7 @@ use \ProgramCms\ConfigBundle\Model\ConfigSerializer;
 use ProgramCms\ConfigBundle\Model\Config as ConfigModel;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Model\ObjectManager;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

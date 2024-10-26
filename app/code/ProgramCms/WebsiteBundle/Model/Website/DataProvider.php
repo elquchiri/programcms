@@ -10,7 +10,7 @@ namespace ProgramCms\WebsiteBundle\Model\Website;
 
 use Doctrine\ORM\EntityManagerInterface;
 use ProgramCms\RouterBundle\Service\Request;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;
 use ProgramCms\WebsiteBundle\Entity\Website;
 use ProgramCms\WebsiteBundle\Entity\WebsiteGroup;

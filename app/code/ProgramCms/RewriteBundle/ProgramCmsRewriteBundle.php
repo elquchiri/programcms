@@ -8,8 +8,11 @@
 
 namespace ProgramCms\RewriteBundle;
 
+use ProgramCms\CatalogBundle\ProgramCmsCatalogBundle;
 use ProgramCms\CoreBundle\ProgramCmsCoreBundle;
-use ProgramCms\ThemeBundle\ProgramCmsThemeBundle;
+use ProgramCms\MarketingBundle\ProgramCmsMarketingBundle;
+use ProgramCms\RewriteBundle\Helper\Data;
+use ProgramCms\UserBundle\ProgramCmsUserBundle;
 
 /**
  * Class ProgramCmsRewriteBundle
@@ -19,6 +22,21 @@ class ProgramCmsRewriteBundle extends ProgramCmsCoreBundle
 {
     public const VERSION = '1.0.0';
 
+    public function boot()
+    {
+        parent::boot();
+        $this->loadRoutes();
+    }
+
+    /**
+     * Loading Routes from RewriteUrlLoader to support Url Rewriting
+     */
+    private function loadRoutes()
+    {
+        $routes = $this->container->get('routing.loader')->load('.', Data::URL_REWRITE_LOADER);
+        $this->container->get('router')->getRouteCollection()->addCollection($routes);
+    }
+
     /**
      * @return string[]
      */
@@ -26,7 +44,9 @@ class ProgramCmsRewriteBundle extends ProgramCmsCoreBundle
     {
         return [
             ProgramCmsCoreBundle::class,
-            ProgramCmsThemeBundle::class
+            ProgramCmsMarketingBundle::class,
+            ProgramCmsUserBundle::class,
+            ProgramCmsCatalogBundle::class
         ];
     }
 }

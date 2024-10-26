@@ -27,9 +27,11 @@
 .admin-table tr th {
     padding: 11px 15px;
     cursor: pointer;
-    background-color: #363839;
-    border-color: #3e3e3e;
-    font-size: 12px;
+    background-color: #2a2e32;
+    color: #fff;
+    font-size: 12.5px;
+    -webkit-box-shadow: inset -1px 25px 32px -10px #625f5f;
+    box-shadow: inset -1px 25px 32px -10px #625f5f;
     &:hover {
         background-color: #2a2e32;
     }

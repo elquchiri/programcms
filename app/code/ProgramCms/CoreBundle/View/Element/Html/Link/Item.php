@@ -9,7 +9,7 @@
 namespace ProgramCms\CoreBundle\View\Element\Html\Link;
 
 use ProgramCms\CoreBundle\View\Element\Template;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 
 /**
  * Class Item

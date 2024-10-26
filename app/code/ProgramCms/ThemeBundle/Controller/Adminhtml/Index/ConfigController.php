@@ -10,7 +10,7 @@ namespace ProgramCms\ThemeBundle\Controller\Adminhtml\Index;
 
 use ProgramCms\CoreBundle\Controller\AdminController;
 use ProgramCms\CoreBundle\Controller\Context;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 
 /**
  * Class ConfigController

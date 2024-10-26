@@ -58,8 +58,9 @@ Finally, run :
 
 - Multi Website Support
 - Users System with an Advanced Roles & ACL Support
-- Improved Content and Page Editor System
+- Advanced Content and Page Builder Editor
 - Marketing System
+-  Url Rewriting & SEO-Friendly System
 - Modular / Extensible System
 - Centralized Configuration System
 - ProgramCMS Manager for Extensions

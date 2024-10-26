@@ -45,7 +45,7 @@ class IndexController extends AdminController
     {
         $pageResult = $this->objectManager->create(Page::class);
         $pageResult->getConfig()->getTitle()->set(
-            $this->trans("Url Rewrites")
+            $this->trans("URL Rewrite")
         );
         return $pageResult;
     }

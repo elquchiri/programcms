@@ -8,6 +8,7 @@
 
 namespace ProgramCms\UserBundle\Security;
 
+use ProgramCms\RouterBundle\Service\UrlInterface;
 use ProgramCms\UserBundle\Helper\Config as UserConfigHelper;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +32,7 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
-    const LOGIN_ROUTE = 'frontend_user_account_login';
+    const LOGIN_ROUTE = 'user_account_login';
 
     /**
      * @var UrlGeneratorInterface
@@ -44,17 +45,25 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
     protected UserConfigHelper $userConfigHelper;
 
     /**
+     * @var UrlInterface
+     */
+    protected UrlInterface $url;
+
+    /**
      * LoginAuthenticator constructor.
      * @param UrlGeneratorInterface $urlGenerator
      * @param UserConfigHelper $userConfigHelper
+     * @param UrlInterface $url
      */
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
-        UserConfigHelper $userConfigHelper
+        UserConfigHelper $userConfigHelper,
+        UrlInterface $url
     )
     {
         $this->urlGenerator = $urlGenerator;
         $this->userConfigHelper = $userConfigHelper;
+        $this->url = $url;
     }
 
     /**
@@ -98,6 +107,6 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
      */
     protected function getLoginUrl(Request $request): string
     {
-        return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+        return $this->url->getUrlByRouteName(self::LOGIN_ROUTE);
     }
 }

@@ -8,8 +8,12 @@
 #}
 {% layout %}
     {% container name="root" %}
-        {% container name="page.wrapper" htmlTag="div" htmlClass="page-wrapper" %}
-            {% container name="page.content" htmlTag="div" htmlClass="content" %}{% endContainer %}
+        {% container name="head" htmlTag="head" %}{% endContainer %}
+        {% container name="body" htmlTag="body" %}
+            {% container name="page.wrapper" htmlTag="div" htmlClass="page-wrapper" %}
+                {% container name="page.content" htmlTag="div" htmlClass="content" %}{% endContainer %}
+            {% endContainer %}
+            {% container name="before.body" %}{% endContainer %}
         {% endContainer %}
     {% endContainer %}
 {% endLayout %}

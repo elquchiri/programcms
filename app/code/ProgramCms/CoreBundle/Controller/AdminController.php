@@ -12,7 +12,7 @@ use HttpResponseException;
 use ProgramCms\CoreBundle\App\AreaList;
 use ProgramCms\CoreBundle\App\State;
 use ProgramCms\CoreBundle\View\Result\Page;
-use ProgramCms\RouterBundle\Service\Url;
+use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use ProgramCms\WebsiteBundle\Model\WebsiteManagerInterface;
 use ReflectionException;
 use Symfony\Bundle\SecurityBundle\Security;

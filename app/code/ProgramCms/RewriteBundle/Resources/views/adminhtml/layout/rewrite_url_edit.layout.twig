@@ -79,6 +79,16 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
+                {% block name="arguments" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}textarea{% endArgument %}
+                            {% argument name="label" type="string" %}Arguments{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}false{% endArgument %}
+                            {% argument name="source" type="string" %}url_rewrite_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
                 {% block name="redirect_type" class="ui.block.form.field" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}

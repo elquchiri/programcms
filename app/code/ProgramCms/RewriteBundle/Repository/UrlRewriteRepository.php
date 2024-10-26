@@ -37,4 +37,33 @@ class UrlRewriteRepository extends AbstractRepository
             'url_rewrite_id' => $id
         ]);
     }
+
+    /**
+     * @param string $requestPath
+     * @param array $arguments
+     * @return object|null
+     */
+    public function getByRequestPath(string $requestPath): ?object
+    {
+        return $this->findOneBy([
+            'request_path' => $requestPath
+        ], [
+            'url_rewrite_id' => 'DESC'
+        ]);
+    }
+
+    /**
+     * @param string $targetPath
+     * @param array $arguments
+     * @return object|null
+     */
+    public function getByTargetPath(string $targetPath, array $arguments = []): ?object
+    {
+        return $this->findOneBy([
+            'target_path' => $targetPath,
+            'arguments' => !empty($arguments) ? json_encode($arguments) : ''
+        ], [
+            'url_rewrite_id' => 'DESC'
+        ]);
+    }
 }
