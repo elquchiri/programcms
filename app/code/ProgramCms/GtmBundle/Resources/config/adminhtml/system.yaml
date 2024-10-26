@@ -1,0 +1,25 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+system_config:
+  sections:
+    gtm:
+      label: 'Google Tag Manager'
+      tab: 'core_marketing'
+      scope: 'default|website|website_view'
+      groups:
+        general:
+          label: 'General'
+          scope: 'default|website|website_view'
+          fields:
+            enable:
+              label: 'Enable Google Tag Manager'
+              type: 'switcher'
+              scope: 'default|website|website_view'
+            container_id:
+              label: 'Container ID'
+              type: 'text'
+              scope: 'default|website|website_view'

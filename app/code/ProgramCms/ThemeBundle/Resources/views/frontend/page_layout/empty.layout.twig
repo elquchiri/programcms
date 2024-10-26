@@ -10,6 +10,7 @@
     {% container name="root" %}
         {% container name="head" htmlTag="head" %}{% endContainer %}
         {% container name="body" htmlTag="body" %}
+            {% container name="before.body" %}{% endContainer %}
             {% container name="page.wrapper" htmlTag="div" htmlClass="page-wrapper" %}
                 {% container name="global.notices" before="-" %}{% endContainer %}
                 {% container name="main.content" htmlTag="main" htmlClass="page-main container" %}
@@ -18,7 +19,7 @@
                     {% endContainer %}
                 {% endContainer %}
             {% endContainer %}
-            {% container name="before.body" %}{% endContainer %}
+            {% container name="after.body" %}{% endContainer %}
         {% endContainer %}
     {% endContainer %}
 {% endLayout %}

@@ -80,7 +80,7 @@
         {% endContainer %}
     {% endReferenceContainer %}
     {# Load Javascript #}
-    {% referenceContainer name="before.body" %}
+    {% referenceContainer name="after.body" %}
         {% block name="before.body.block" class="ProgramCms\\ThemeBundle\\Block\\Page\\Body\\BeforeBody" template="@ProgramCmsThemeBundle/body/before_body.html.twig" %}{% endBlock %}
     {% endReferenceContainer %}
 {% endPage %}

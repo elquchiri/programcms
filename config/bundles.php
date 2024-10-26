@@ -43,6 +43,7 @@ return [
     ProgramCms\RewriteBundle\ProgramCmsRewriteBundle::class => ['all' => true],
     ProgramCms\CaptchaBundle\ProgramCmsCaptchaBundle::class => ['all' => true],
     ProgramCms\DriveBundle\ProgramCmsDriveBundle::class => ['all' => true],
+    ProgramCms\GtmBundle\ProgramCmsGtmBundle::class => ['all' => true],
     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
     Symfony\Bundle\TwigBundle\TwigBundle::class => ['all' => true],
     Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true],

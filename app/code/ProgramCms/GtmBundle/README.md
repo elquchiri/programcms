@@ -1,0 +1,1 @@
+The GTM bundle contains common infrastructure that provides an ability to apply GTM in ProgramCMS application.

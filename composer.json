@@ -85,6 +85,7 @@
             "ProgramCms\\RewriteBundle\\": "app/code/ProgramCms/RewriteBundle",
             "ProgramCms\\CaptchaBundle\\": "app/code/ProgramCms/CaptchaBundle",
             "ProgramCms\\DriveBundle\\": "app/code/ProgramCms/DriveBundle",
+            "ProgramCms\\GtmBundle\\": "app/code/ProgramCms/GtmBundle",
             "ProgramCms\\Backend\\": "app/design/adminhtml/ProgramCms/Backend",
             "ProgramCms\\Blank\\": "app/design/frontend/ProgramCms/Blank",
             "ProgramCms\\Forumtimes\\": "app/design/frontend/ProgramCms/Forumtimes",

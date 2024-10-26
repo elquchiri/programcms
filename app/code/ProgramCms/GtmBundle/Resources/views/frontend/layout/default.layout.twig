@@ -1,0 +1,16 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% page %}
+    {% referenceContainer name="head" %}
+        {% block name="gtm.script" class="ProgramCms\\GtmBundle\\Block\\Gtm" template="@ProgramCmsGtmBundle/gtm.html.twig" before="-" %}{% endBlock %}
+    {% endReferenceContainer %}
+    {% referenceContainer name="before.body" %}
+        {% block name="gtm.before.body.script" class="ProgramCms\\GtmBundle\\Block\\Gtm" template="@ProgramCmsGtmBundle/before_body_gtm.html.twig" before="-" %}{% endBlock %}
+    {% endReferenceContainer %}
+{% endPage %}
