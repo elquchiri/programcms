@@ -3,6 +3,7 @@
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
+/public/phpinfo.php
 /var/
 /vendor/
 /.idea/
@@ -17,3 +18,4 @@ yarn-error.log
 .phpunit.result.cache
 
 /public/media/
+/public/pdriver/

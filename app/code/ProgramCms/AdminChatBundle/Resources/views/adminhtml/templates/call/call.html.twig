@@ -1,0 +1,122 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<style>
+    .center {
+        display: flex;
+        flex: 1;
+        padding: 20px;
+    }
+
+    .left {
+        flex: 3;
+        margin-right: 10px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .right {
+        flex: 1;
+        background-color: #FFFFFF;
+        border-radius: 5px;
+        margin: 5px;
+        overflow-y: auto;
+    }
+
+    .bottom {
+        padding: 0 20px 20px 20px;
+        text-align: center;
+    }
+    .video {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        border-radius: 5px;
+    }
+
+    .video video {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-radius: 5px;
+    }
+
+    .conversation_status {
+        position: absolute;
+        top: 18px;
+        left: 15px;
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+    }
+    .online {
+        background-color: forestgreen;
+    }
+    .offline {
+        background-color: #a59b9b;
+    }
+
+    .users_in_room a {
+        padding-left: 31px !important;
+        padding-top: 12px;
+        font-size: 15px;
+    }
+</style>
+<div class="chat-call-container" data-controller="chat-call">
+    <div class="center">
+        <div class="left">
+            <div id="row-full">
+                <div class="column" id="chat_user_{{ block.getUser().getUserId() }}">
+                    <div class="video">
+                        <video autoplay muted id="local-video" style="height: 100%; width: 100%"></video>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="text-muted" style="padding: 11px 15px 11px 15px">
+                Participants
+                ({{ block.countUsers() }})
+            </div>
+            <ul class="users_in_room list-group list-group-flush">
+                {% for user in block.getUsers() %}
+                    <a href="#" class="list-group-item list-group-item-action" id="{{ user.getUserId() }}">
+                        <div class="conversation_status offline"></div>
+                        {{ user.getFullName() }}
+                        <button class="invite btn btn-outline-success btn-sm float-end rounded-pill" data-user-id="{{ user.getUserId() }}">+ Invite</button>
+                    </a>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="call_options">
+            <div class="control-button" style="margin-left: auto;" id="toggle-camera" title="Disable Camera"></div>
+            <div class="control-button" id="disable-audio" title="Disable Audio"></div>
+            <div class="control-button" id="disconnect" title="Disconnect"></div>
+
+            <div class="control-button" style="margin-left: auto;" id="chat_menu" title="Show Participants"></div>
+        </div>
+    </div>
+
+    <input type="hidden" id="conversation_id" value="{{ block.getConversation().getConversationId() }}-conv"/>
+</div>
+
+<script>
+    let connectedUserObject = {
+        sessionId: 'PHPSESSID={{ block.getSessionId() }}',
+        id: {{ block.getUser().getUserId() }},
+        firstname: '{{ block.getUser().getFirstName() }}',
+        lastname: '{{ block.getUser().getLastName() }}',
+        users: {{ block.getUsersIds() }}
+    };
+</script>

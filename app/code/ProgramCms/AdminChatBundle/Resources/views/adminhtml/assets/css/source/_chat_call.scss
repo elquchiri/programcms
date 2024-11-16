@@ -1,0 +1,94 @@
+/*!
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+
+.chat-call-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #3e3e3e;
+
+  #row-full {
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    max-height: 100%;
+
+    .column {
+      text-align: center;
+      flex: 1 0 25%; /* Set max 4 columns per row */
+      gap: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-height: 100%;
+      margin: 5px;
+      background-color: #000000;
+      border-radius: 5px;
+    }
+  }
+
+  .call_options {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+  }
+}
+
+.control-button {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 24px;
+  transition: background-color 0.3s ease;
+
+  &#toggle-camera {
+    background-image: url('../../../../../public/images/call/enable_camera.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    &.enabled {
+      background-image: url('../../../../../public/images/call/disable_camera.png');
+    }
+  }
+
+  &#disable-audio {
+    background-image: url('../../../../../public/images/call/enable_audio.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    &.enabled {
+      background-image: url('../../../../../public/images/call/disable_audio.png');
+    }
+  }
+
+  &#disconnect {
+    background-image: url('../../../../../public/images/call/disconnect.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+  &#chat_menu {
+    background-image: url('../../../../../public/images/call/users.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+}
+
+.control-button:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.control-button i {
+  font-size: 20px;
+}

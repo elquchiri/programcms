@@ -7,7 +7,44 @@
  */
 #}
 {% if block.isChatEnabled() %}
-    <div data-controller="chat-client">
-        <div class="chat-widget"></div>
+    <script>
+        let connectedUserObject = {
+            sessionId: 'PHPSESSID={{ block.getSessionId() }}',
+            id: {{ block.getUser().getUserId() }},
+            firstname: '{{ block.getUser().getFirstName() }}',
+            lastname: '{{ block.getUser().getLastName() }}'
+        };
+    </script>
+
+    <div class="chat-client" data-controller="chat-client">
+        <div class="chat-container">
+            <div class="chat-box collapsed full_collapsed" id="chat-box-conversations">
+                <div class="title">
+                    <div class="conversation_status"></div>
+                    <span class="conversation_title">Messaging (<span class="online_users_counter">-</span>)</span></span>
+                    <span class="float-end">
+                        <a href="#" class="new_message_button">
+                            <img src="{{ asset('bundles/programcmsadminchat/images/new_message.png') }}" alt="" />
+                        </a>
+                    </span>
+                </div>
+                <div class="find_conversation">
+                    <input type="text" placeholder="Search for conversation or user ..." />
+                </div>
+                <ul id="online-admins-container" class="list-group list-group-flush">
+
+                </ul>
+            </div>
+        </div>
     </div>
+
+    <audio id="notificationSound"
+           src="{{ asset('bundles/programcmsadminchat/sounds/notification.mp3') }}"
+           preload="auto"
+    ></audio>
+    <audio id="callSound"
+           src="{{ asset('bundles/programcmsadminchat/sounds/call.mp3') }}"
+           preload="auto"
+           loop
+    ></audio>
 {% endif %}

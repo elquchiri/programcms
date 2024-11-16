@@ -62,7 +62,7 @@ class Copyright extends \ProgramCms\AdminBundle\Block\Page\Copyright
         $copyRightHtmlOutput = $this->subject->toHtml();
         if(($yearsOfExistence = $this->subject->getCopyrightYear() - self::PROGRAMCMS_BIRTHDAY) >= 1) {
             $copyRightHtmlOutput .= sprintf(
-                "<p class=\"mt-1\" style=\"font-size: 10px;\">".
+                "<p class=\"mt-2\" style=\"font-size: 10px;\">".
                 $this->trans("Designed by") .
                 "<a href=\"mailto: elquchiri@gmail.com\"> ".
                 $this->trans("MED EL QUCHIRI").

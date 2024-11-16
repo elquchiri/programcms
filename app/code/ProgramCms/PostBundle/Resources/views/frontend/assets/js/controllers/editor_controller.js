@@ -10,9 +10,11 @@ import grapesjs from 'grapesjs';
 import ar from '../locale/ar';
 import Coloris from "@melloware/coloris";
 import Loader from "@programcms/loader";
+import Drive from "@programcms/drive";
 
 application.register('editor', class extends Controller {
     editor;
+    selectedAsset = false;
 
     connect() {
         let self = this;
@@ -20,6 +22,7 @@ application.register('editor', class extends Controller {
         const commentId = $('#comment_id').val();
         let lang = $('html').attr('lang');
         let langCode = lang.split('_')[0];
+        const baseUrl = window.location.origin;
 
         self.editor = grapesjs.init({
             container: '#editor-wrapper',
@@ -50,7 +53,7 @@ application.register('editor', class extends Controller {
                         content: `<section>
                           <h1>This is a simple title</h1>
                           <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
-                        </section>`,
+                        </section>`
                     }, {
                         id: 'text',
                         label: 'text',
@@ -61,20 +64,62 @@ application.register('editor', class extends Controller {
                     }, {
                         id: 'image',
                         label: 'image',
+                        select: true,
                         media: `<svg style="width:48px;height:48px" viewBox="0 0 24 24">
 <path fill="currentColor" d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z" />
 </svg>`,
-                        select: true,
                         content: {type: 'image'},
-                        activate: true,
+                        activate: true
+                    }, {
+                        id: 'video',
+                        label: 'Video',
+                        media: `<img src="/bundles/programcmspost/images/editor/blocks/video.png">`,
+                        select: true,
+                        content: {type: 'video'},
+                        activate: true
+                    }, {
+                        id: 'file',
+                        label: 'File',
+                        media: `<img src="/bundles/programcmspost/images/editor/blocks/file.png">`,
+                        select: true,
+                        content: {type: 'file'},
+                        activate: true
+                    }, {
+                        id: 'code',
+                        label: 'Code',
+                        media: `<img src="/bundles/programcmspost/images/editor/blocks/code.png">`,
+                        select: true,
+                        content: '<div class="code"><pre><code>Hello world !</code></pre></div>',
+                        activate: true
                     }, {
                         id: 'button',
                         label: 'Button',
                         media: `<svg viewBox="0 0 24 24">
                             <path fill="currentColor" d="M20 20.5C20 21.3 19.3 22 18.5 22H13C12.6 22 12.3 21.9 12 21.6L8 17.4L8.7 16.6C8.9 16.4 9.2 16.3 9.5 16.3H9.7L12 18V9C12 8.4 12.4 8 13 8S14 8.4 14 9V13.5L15.2 13.6L19.1 15.8C19.6 16 20 16.6 20 17.1V20.5M20 2H4C2.9 2 2 2.9 2 4V12C2 13.1 2.9 14 4 14H8V12H4V4H20V12H18V14H20C21.1 14 22 13.1 22 12V4C22 2.9 21.1 2 20 2Z"></path>
                         </svg>`,
-                        content: '<div data-gjs-type="text">Insert your text here</div>',
-                    }, {
+                        content: '<button class="btn btn-primary" data-gjs-type="button">Insert your text here</button>',
+                    },
+                    {
+                        id: 'divider',
+                        'label': 'Divider',
+                        media: `<svg viewBox="0 0 24 24">
+        <path fill="currentColor" d="M21 18H2V20H21V18M19 10V14H4V10H19M20 8H3C2.45 8 2 8.45 2 9V15C2 15.55 2.45 16 3 16H20C20.55 16 21 15.55 21 15V9C21 8.45 20.55 8 20 8M21 4H2V6H21V4Z"></path>
+    </svg>`,
+                        select: true,
+                        hover: true,
+                        activate: true
+                    },
+                    {
+                        id: 'quote',
+                        'label': 'Quote',
+                        media: `<svg viewBox="0 0 24 24">
+        <path fill="currentColor" d="M14,17H17L19,13V7H13V13H16M6,17H9L11,13V7H5V13H8L6,17Z"></path>
+    </svg>`,
+                        select: true,
+                        hover: true,
+                        activate: true
+                    },
+                    {
                         id: 'one-column',
                         'label': 'column',
                         media: `<svg viewBox="0 0 24 24">
@@ -90,6 +135,16 @@ application.register('editor', class extends Controller {
                         media: `<svg viewBox="0 0 23 24">
         <path fill="currentColor" d="M2 20h8V4H2v16Zm-1 0V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1ZM13 20h8V4h-8v16Zm-1 0V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1Z"></path>
       </svg>`,
+                        select: true,
+                        hover: true,
+                        activate: true
+                    },
+                    {
+                        id: 'three-columns',
+                        'label': '3columns',
+                        media: `<svg viewBox="0 0 23 24">
+      <path fill="currentColor" d="M2 20h4V4H2v16Zm-1 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1ZM17 20h4V4h-4v16Zm-1 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1ZM9.5 20h4V4h-4v16Zm-1 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1Z"></path>
+    </svg>`,
                         select: true,
                         hover: true,
                         activate: true
@@ -126,73 +181,176 @@ application.register('editor', class extends Controller {
                     ]
                 },
                     {
-                    name: 'dimension',
-                    open: false,
-                    // Use built-in properties
-                    buildProps: ['width', 'min-height', 'padding'],
-                    // Use `properties` to define/override single property
-                    properties: [
-                        {
-                            // Type of the input,
-                            // options: integer | radio | select | color | slider | file | composite | stack
-                            type: 'integer',
-                            name: 'The width', // Label for the property
-                            property: 'width', // CSS property (if buildProps contains it will be extended)
-                            units: ['px', '%'], // Units, available only for 'integer' types
-                            defaults: 'auto', // Default value
-                            min: 0, // Min value, available only for 'integer' types
-                        }
-                    ]
-                },{
-                    name: 'extra',
-                    open: false,
-                    buildProps: ['background-color', 'box-shadow', 'custom-prop'],
-                    properties: [
-                        {
-                            id: 'custom-prop',
-                            name: 'Custom Label',
-                            property: 'font-size',
-                            type: 'select',
-                            defaults: '32px',
-                            // List of options, available only for 'select' and 'radio'  types
-                            options: [
-                                { value: '12px', name: 'Tiny' },
-                                { value: '18px', name: 'Medium' },
-                                { value: '32px', name: 'Big' },
-                            ],
-                        }
-                    ]
-                }]
+                        name: 'dimension',
+                        open: false,
+                        // Use built-in properties
+                        buildProps: ['width', 'min-height', 'padding'],
+                        // Use `properties` to define/override single property
+                        properties: [
+                            {
+                                // Type of the input,
+                                // options: integer | radio | select | color | slider | file | composite | stack
+                                type: 'integer',
+                                name: 'The width',
+                                property: 'width',
+                                units: ['px', '%'],
+                                defaults: 'auto',
+                                min: 0,
+                            }
+                        ]
+                    }, {
+                        name: 'extra',
+                        open: false,
+                        buildProps: ['background-color', 'box-shadow', 'custom-prop'],
+                        properties: [
+                            {
+                                id: 'custom-prop',
+                                name: 'Custom Label',
+                                property: 'font-size',
+                                type: 'select',
+                                defaults: '32px',
+                                // List of options, available only for 'select' and 'radio'  types
+                                options: [
+                                    {value: '12px', name: 'Tiny'},
+                                    {value: '18px', name: 'Medium'},
+                                    {value: '32px', name: 'Big'},
+                                ],
+                            }
+                        ]
+                    }]
             },
+            assetManager: {
+                custom: {
+                    open(props) {
+                        // Init and open your external Asset Manager
+                        props.types = ['image', 'video', 'file'];
+                        self.openMediaBrowser(props);
+                        props.container = $('.file_manager')[0];
+                    },
+                    close(props) {
+
+                    },
+                },
+                assets: [],
+                upload: baseUrl + '/drive/ajax/upload',
+                uploadName: 'files',
+                autoAdd: true
+            }
+        });
+
+        self.editor.DomComponents.addType('video', {
+            model: {
+                defaults: {
+                    tagName: 'video',
+                    style: { width: '100%', height: '100%' },
+                    traits: [
+                        {
+                            type: 'text',
+                            label: 'Source',
+                            name: 'src',
+                            changeProp: 1,
+                        }
+                    ],
+                    stylable: ['width', 'height'],
+                }
+            },
+            view: {
+                events: {
+                    'dblclick': 'clickOnElement'
+                },
+                init() {
+                    this.listenTo(this.model, 'change:target', this.updateTarget);
+                },
+                updateTarget(src) {
+                    this.model.set('src', src);
+                },
+                clickOnElement(ev) {
+                    const editor = self.editor;
+                    const assetManager = editor.AssetManager;
+                    assetManager.open();
+                }
+            }
+        });
+
+        self.editor.DomComponents.addType('file', {
+            model: {
+                defaults: {
+                    tagName: 'div',
+                    fileUrl: '',
+                    fileName: '',
+                    fileSize: '',
+                },
+                init() {
+                    this.listenTo(this, 'change:fileUrl', this.toHTML);
+                    this.listenTo(this, 'change:fileName', this.toHTML);
+                    this.listenTo(this, 'change:fileSize', this.toHTML);
+                },
+                toHTML() {
+                    let html = `<div style="width: 400px; padding: 17px; background-color: #888;">`;
+                    const url = this.get('fileUrl');
+                    const name = this.get('fileName');
+                    const size = this.get('fileSize') ?? 0;
+                    if(url) {
+                        html += `<a href="${url}" target="_blank">${name}</a>`;
+                        html += `<div>Size: ${size} KB</div>`;
+                    }else{
+                        html += 'Double Click to add File ...';
+                    }
+                    html += `</div>`;
+                    return html;
+                }
+            },
+            view: {
+                events: {
+                    'dblclick': 'clickOnElement'
+                },
+                init({model}) {
+                    if (self.editor.BlockManager.getDragBlock() === self.editor.BlockManager.get('file')) {
+                        self.editor.AssetManager.open();
+                    }
+                    this.listenTo(model, 'change:fileUrl', this.onRender);
+                    this.listenTo(model, 'change:fileName', this.onRender);
+                    this.listenTo(model, 'change:fileSize', this.onRender);
+                },
+                onRender() {
+                    let html = `<div style="width: 400px; padding: 17px; background-color: #888;">`;
+                    const url = this.model.get('fileUrl');
+                    const name = this.model.get('fileName');
+                    const size = this.model.get('fileSize');
+                    if(url) {
+                        html += `<a href="${url}" target="_blank">${name}</a>`;
+                        html += `<p>Size: ${size} Kb</p>`;
+                    }else{
+                        html += 'Double-cliquez pour ajouter un fichier';
+                    }
+                    html += `</div>`;
+                    this.el.innerHTML = html;
+                },
+                clickOnElement(ev) {
+                    const selfInner = this;
+                    const assetManager = self.editor.AssetManager;
+                    assetManager.open();
+                    $('body').on('pcms:drive:file:selected', '#drive-image', function (e, selectedFile, selectedFileName, selectedFileSize) {
+                        if (selectedFile) {
+                            selfInner.model.set('fileUrl', selectedFile);
+                            selfInner.model.set('fileName', selectedFileName);
+                            selfInner.model.set('fileSize', selectedFileSize);
+                            selfInner.onRender();
+                        }
+                    });
+                }
+            }
         });
 
         self.editor.on('load', () => {
             const wrapper = self.editor.getWrapper();
-            wrapper.addStyle({direction: 'rtl'});
+            const dir = $('html').attr('dir');
+            wrapper.addStyle({direction: dir});
             $('.pcms-editor').show();
             self.editor.select(wrapper.getChildAt(0));
             wrapper.set({
                 attributes: {id: 'my-wrapper', 'selectable': false, 'draggable': false}
             });
-
-            // Add default text
-            const defaultComp = self.editor.getWrapper().append({
-                type: 'text',
-                tagName: 'p',
-                content: 'Hello',
-                draggable: false,
-                droppable: true,
-                //style: {'padding': 0, 'margin': 0},
-                editable: true,
-                selectable: true
-            }, {
-                at: 0
-            });
-            const el = defaultComp[0].getEl();
-            self.editor.select(defaultComp[0]);
-            el.setAttribute('contenteditable', 'true');
-            el.focus();
-            defaultComp[0].getView().onActive();
 
             self.updateEditorStyle(self.editor);
 
@@ -243,7 +401,6 @@ application.register('editor', class extends Controller {
             let selectedText = self.editor.RichTextEditor.globalRte.selection().toString();
             switch (actionId) {
                 case 'bold':
-                    console.log(selectedText);
                     self.editor.RichTextEditor.run('bold');
                     // self.editor.RichTextEditor.globalRte.exec('fontWeight', 'bold');
                     break;
@@ -275,12 +432,12 @@ application.register('editor', class extends Controller {
                     break;
                 case 'leftAlign':
                     self.editor.getSelected().addStyle({
-                        'text-align': 'right'
+                        'text-align': 'left'
                     });
                     break;
                 case 'rightAlign':
                     self.editor.getSelected().addStyle({
-                        'text-align': 'left'
+                        'text-align': 'right'
                     });
                     break;
                 case 'link':
@@ -293,68 +450,11 @@ application.register('editor', class extends Controller {
             e.stopPropagation();
         });
 
-        // window.addEventListener('keydown', (e) => {
-        //     if (e.key === 'Enter') {
-        //         const selectedComponent = self.editor.getSelected();
-        //         if (selectedComponent.props().tagName === 'p') {
-        //             const appendedComponent = self.editor.getWrapper().append('<p><br></p>', {
-        //                 at: (selectedComponent.index() + 1)
-        //             });
-        //             const el = appendedComponent[0].getEl();
-        //             self.editor.select(appendedComponent[0]);
-        //             el.setAttribute('contenteditable', 'true');
-        //             //el.focus();
-        //             appendedComponent[0].getView().onActive();
-        //
-        //             setTimeout(function () {
-        //                 appendedComponent[0].getEl().removeChild(appendedComponent[0].getEl().firstChild);
-        //             });
-        //         }
-        //     }
-        // });
-        // window.addEventListener('keyup', (e) => {
-        //     if (e.key === 'Enter') {
-        //         const selectedComponent = self.editor.getSelected();
-        //         if (selectedComponent.props().tagName === 'ul') {
-        //             if (
-        //                 selectedComponent.getEl().children.length >= 2 &&
-        //                 selectedComponent.getEl().children[selectedComponent.getEl().children.length - 2].firstChild.tagName === 'BR' &&
-        //                 selectedComponent.getEl().children[selectedComponent.getEl().children.length - 1].firstChild.tagName === 'BR'
-        //             ) {
-        //                 if (selectedComponent.getEl().children.length >= 2) {
-        //                     let counted = selectedComponent.index() + 1;
-        //                     selectedComponent.getEl().removeChild(selectedComponent.getEl().children[selectedComponent.getEl().children.length - 1]);
-        //                     selectedComponent.getEl().removeChild(selectedComponent.getEl().children[selectedComponent.getEl().children.length - 1]);
-        //                     if (selectedComponent.getEl().children.length === 0) {
-        //                         // let newComponent = selectedComponent.replaceWith('<p><br></p>');
-        //                         counted = selectedComponent.index();
-        //                         selectedComponent.remove();
-        //                         // newComp[0].getEl().focus();
-        //                     }
-        //                     const newComp = self.editor.getWrapper().append('<p><br></p>', {at: counted});
-        //                     newComp[0].getEl().setAttribute('contenteditable', 'true');
-        //                     self.editor.select(newComp[0]);
-        //                     newComp[0].getEl().focus();
-        //                 }
-        //             }
-        //         } else {
-        //             self.editor.select(selectedComponent);
-        //             // Remove <br>
-        //             //selectedComponent.getEl().removeChild(selectedComponent.getEl().firstChild);
-        //         }
-        //     }
-        // });
-
         self.editor.on('component:selected', (component) => {
             if (self.editor.getSelected().props().tagName === 'li') {
                 const selectedParent = self.editor.getSelected().parent();
                 self.editor.select(selectedParent);
             }
-
-            // if (self.editor.getSelected().props().tagName === 'p') {
-            //     component.getEl().setAttribute('contenteditable', 'true');
-            //     component.getEl().focus();
-            // }
 
             if (component.is('wrapper')) {
                 // Deselect the wrapper
@@ -362,27 +462,6 @@ application.register('editor', class extends Controller {
                 component.getEl().focus();
             }
         });
-
-        // self.editor.on('component:update', (component) => {
-        //     component.replaceWith('<p>Hello</p>');
-        //     //component.getEl().removeChild(component.getEl().lastChild);
-        // });
-
-        // self.editor.DomComponents.addType('text', {
-        //     view: {
-        //         tagName: 'p',
-        //         events: {
-        //             click: 'onActive',  // Listen for the click event
-        //         },
-        //         onActive(e) {
-        //             const editable = self.editor.getSelected().getEl();
-        //             self.editor.select(this.model); // Select the model in the editor
-        //             //self.editor.trigger('component:toggled'); // Trigger the component toggled event
-        //             editable.setAttribute('contenteditable', 'true'); // Make the element content editable
-        //             editable.focus(); // Focus the element
-        //         },
-        //     },
-        // });
 
         // Init Coloris
         Coloris.init();
@@ -465,13 +544,13 @@ application.register('editor', class extends Controller {
                 Loader.startLoader();
             },
             success: function (response) {
-                if(response.success) {
+                if (response.success) {
                     window.location.href = response.redirect_url;
-                }else{
-                    if(response.message) {
+                } else {
+                    if (response.message) {
                         $('.editor_message').show();
                         $('.editor_message_container').html(response.message);
-                        setTimeout(function() {
+                        setTimeout(function () {
                             $('.editor_message').fadeOut();
                         }, 3000);
                     }
@@ -539,13 +618,45 @@ application.register('editor', class extends Controller {
     updateEditorStyle(editor) {
         const styleEl = window.document.createElement('style');
         const iframe = editor.Canvas.getFrameEl();
-        const iframeBody = iframe.contentDocument.body;
-
         styleEl.innerHTML = `
                         *::-webkit-scrollbar-thumb {background: #ccc !important;}
                         *::-webkit-scrollbar-track {background: inherit !important;}
                     `;
         // Append the style element to the iframe document head
         iframe.contentDocument.head.appendChild(styleEl);
+    }
+
+    openMediaBrowser(props) {
+        Drive.init({
+            container: "drive-image",
+            editor: this.editor
+        });
+
+        Drive.openDialog();
+
+        const self = this;
+        $('body').on('pcms:drive:file:selected', '#drive-image', function (e, selectedFile, selectedFileName, selectedFileSize) {
+            e.preventDefault();
+
+            self.selectedAsset = self.editor.AssetManager.get(selectedFile);
+
+            props.select(self.selectedAsset);
+
+            const selected = self.editor.getSelected();
+            if (selected && selected.is('video')) {
+                selected.getView().updateTarget(self.selectedAsset.getSrc());
+            }
+
+            if (selected && selected.is('file')) {
+                selected.set('fileUrl', selectedFile);
+                selected.set('fileName', selectedFileName);
+                selected.set('fileSize', selectedFileSize);
+            }
+
+            props.close();
+        }).on('pcms:drive:closed', '#drive-image', function (e) {
+            e.preventDefault();
+            props.close();
+        });
     }
 });

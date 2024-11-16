@@ -41,20 +41,22 @@
     <table class="table table-forums caption-top mb-5">
         {% for category in block.getCategories() %}
             <thead class="table-forum-times">
-            <th colspan="2" class="text-center" style="width: 23%;">{{ category.getCategoryName() }}</th>
-            <th class="text-center" style="width: 5%">{{ block.trans('Posts') }}</th>
-            <th class="text-center" style="width: 5%">{{ block.trans('Comments') }}</th>
-            <th class="text-center" style="width: 3%">
-                <img
-                        src="{{ asset('bundles/forumsuiteforum/images/viewers-white.png') }}"
-                        alt="{{ block.trans('Are online now in this category') }}"
-                        title="{{ block.trans('Are online now in this category') }}"
-                />
-            </th>
-            <th class="text-center" style="width: 15%">{{ block.trans('Last post') }}</th>
-            <th class="text-center" style="width: 7%">{{ block.trans('Monitor') }}</th>
-            <th class="text-center" style="width: 25%">{{ block.trans('Last Post') }}</th>
-            <th class="text-center" style="width: 7%"></th>
+            <tr>
+                <th colspan="2" class="text-center" style="width: 23%;">{{ category.getCategoryName() }}</th>
+                <th class="text-center" style="width: 5%">{{ block.trans('Posts') }}</th>
+                <th class="text-center" style="width: 5%">{{ block.trans('Comments') }}</th>
+                <th class="text-center" style="width: 3%">
+                    <img
+                            src="{{ asset('bundles/forumsuiteforum/images/viewers-white.png') }}"
+                            alt="{{ block.trans('Are online now in this category') }}"
+                            title="{{ block.trans('Are online now in this category') }}"
+                    />
+                </th>
+                <th class="text-center" style="width: 15%">{{ block.trans('Last post') }}</th>
+                <th class="text-center" style="width: 7%">{{ block.trans('Monitor') }}</th>
+                <th class="text-center" style="width: 25%">{{ block.trans('Last Post') }}</th>
+                <th class="text-center" style="width: 7%"></th>
+            </tr>
             </thead>
             <tbody>
             {% for forum in block.getCategoryForums(category) %}
@@ -76,7 +78,7 @@
                     <td class="text-center last_post" style="background-color: #d8dff0">
                         {% if block.getLastComment(forum) %}
                         <p class="text-muted p-0 m-0" style="font-size: 13px;">05:40 - اليوم</p>
-                        <a href="{{ block.getUserUrl(block.getLastComment(forum).getUser()) }}" style="font-weight: bold; font-size: 13px;">{{ block.getLastComment(forum).getUser().getFullname() }}</a>
+                        <a href="{{ block.getUserUrl(block.getLastComment(forum).getUser()) }}" style="font-weight: bold; font-size: 13px;">{{ block.getLastComment(forum).getUser().getUserFirstname() }}</a>
                         {% endif %}
                     </td>
                     <td class="text-center managers">

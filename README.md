@@ -85,7 +85,6 @@ And much much more ..
 | Stimulus | `Framework` |  |
 | Select2 | `Library` |  |
 | Interact | `Library` |  |
-| EditorJS | `Library` |  |
 | GrapesJS | `Library` |  |
 | Socket.io | `Library` |  |
 

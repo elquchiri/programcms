@@ -15,20 +15,6 @@ system_config:
       tab: 'core_general'
       scope: 'default|website|website_view'
       groups:
-        country_options:
-          label: 'Country Options'
-          scope: 'default|website|website_view'
-          fields:
-            default_country:
-              label: 'Default Country'
-              type: 'select'
-              source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
-              scope: 'default|website|website_view|can_restore'
-            allowed_countries:
-              label: 'Allow Countries'
-              type: 'multiselect'
-              source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
-              scope: 'default|website|website_view|can_restore'
         locale_options:
           label: 'Locale Options'
           scope: 'default|website|website_view'
@@ -42,6 +28,20 @@ system_config:
               label: 'Locale'
               type: 'select'
               source: ProgramCms\UiBundle\Model\Provider\DataSource\LocaleSelector
+              scope: 'default|website|website_view|can_restore'
+        country_options:
+          label: 'Country Options'
+          scope: 'default|website|website_view'
+          fields:
+            default_country:
+              label: 'Default Country'
+              type: 'select'
+              source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
+              scope: 'default|website|website_view|can_restore'
+            allowed_countries:
+              label: 'Allow Countries'
+              type: 'multiselect'
+              source: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
               scope: 'default|website|website_view|can_restore'
         website_information:
           label: 'Website Information'

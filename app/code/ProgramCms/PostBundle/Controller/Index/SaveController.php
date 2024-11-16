@@ -110,6 +110,8 @@ class SaveController extends Controller
         // Save Post
         $this->postRepository->save($post);
 
+        $this->addFlash('success', $this->trans('Post successfully saved.'));
+
         return $this->json([
             'success' => true,
             'redirect_url' => $this->getPostUrl($categoryId, $post->getEntityId())

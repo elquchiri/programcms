@@ -35,4 +35,21 @@ class AdminUserRepository extends AbstractRepository
     {
         return $this->findOneBy(['email' => $email]);
     }
+
+    /**
+     * @param string $qWord
+     * @return mixed
+     */
+    public function findByKeyword(string $qWord): mixed
+    {
+        $qb = $this->createQueryBuilder('u');
+        $fields = ['u.first_name', 'u.last_name'];
+        $orX = $qb->expr()->orX();
+        foreach ($fields as $field) {
+            $orX->add($qb->expr()->like($field, ':keyword'));
+        }
+        $qb->where($orX)
+            ->setParameter('keyword', '%' . $qWord . '%');
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -8,3 +8,6 @@ router:
   adminhtml:
     drive_root:
       frontName: 'drive'
+  frontend:
+    drive_root:
+      frontName: 'drive'

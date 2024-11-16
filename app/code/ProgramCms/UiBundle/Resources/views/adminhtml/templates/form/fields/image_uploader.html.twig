@@ -11,14 +11,19 @@
     data-controller="image-uploader"
     data-image-uploader-preview-value="{{ block.getPreviewId() }}"
     data-image-uploader-browse-value="#label-browse"
+    data-image-uploader-target-value="{{ block.getId() }}"
 >
     <div class="mt-1" aria-label="{{ block.getId() }}">
         <a
             data-action="image-uploader#triggerBrowse"
-            class="btn btn-outline-secondary btn-sm">
-            {{ block.trans('Upload') }}
+            class="btn btn-outline-primary btn-sm">
+            {{ block.trans('Upload Image') }}
         </a>
-        <a class="btn btn-outline-secondary btn-sm ms-1" data-action="image-uploader#openMediaBrowser">{{ block.trans('Select from Gallery') }}</a>
+        <a
+            class="btn btn-outline-secondary btn-sm ms-1"
+            data-action="image-uploader#openMediaBrowser">
+            {{ block.trans('Choose from Gallery') }}
+        </a>
     </div>
 
     <div class="image-uploader__browser mt-3" id="{{ block.getPreviewId() }}" {% if block.hasValue() %}style="background-image: url({{ block.getValue() }})"{% endif %}>

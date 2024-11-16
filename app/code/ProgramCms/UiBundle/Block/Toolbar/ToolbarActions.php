@@ -70,7 +70,8 @@ class ToolbarActions extends Template
                 $dataSource = $this->objectManager->create($buttonData);
                 $button = $dataSource->getData();
                 $button['class'] = $button['class'] ?? ($button['buttonType'] == 'save' ? 'btn-primary' : '');
-                $button['confirm'] = isset($button['confirm']) ? json_encode($button['confirm']) : false;               $buttons[] = $button;
+                $button['confirm'] = isset($button['confirm']) ? json_encode($button['confirm']) : false;
+                $buttons[] = $button;
             }
         }
         return $buttons;

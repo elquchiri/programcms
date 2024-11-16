@@ -9,7 +9,8 @@
 namespace ProgramCms\ConfigBundle\Model\Attribute\Backend;
 
 use Gedmo\Sluggable\Util\Urlizer;
-use ProgramCms\CoreBundle\Model\Utils\BundleManager;
+use ProgramCms\DriveBundle\Setup\DriveManagerInterface;
+use ProgramCms\RouterBundle\Service\UrlInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -19,17 +20,27 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class Image extends AbstractBackend
 {
     /**
-     * @var BundleManager
+     * @var DriveManagerInterface
      */
-    protected BundleManager $bundleManager;
+    protected DriveManagerInterface $driveManager;
+
+    /**
+     * @var UrlInterface
+     */
+    protected UrlInterface $url;
 
     /**
      * Image constructor.
-     * @param BundleManager $bundleManager
+     * @param DriveManagerInterface $driveManager
+     * @param UrlInterface $url
      */
-    public function __construct(BundleManager $bundleManager)
+    public function __construct(
+        DriveManagerInterface $driveManager,
+        UrlInterface $url
+    )
     {
-        $this->bundleManager = $bundleManager;
+        $this->driveManager = $driveManager;
+        $this->url = $url;
     }
 
     /**
@@ -39,15 +50,15 @@ class Image extends AbstractBackend
     {
         $uploadedFile = $fieldData['value'];
         if($uploadedFile instanceof UploadedFile) {
-            $rootDirectory = $this->bundleManager->getContainer()->getParameter('kernel.project_dir');
-
             if ($uploadedFile->isValid()) {
                 $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $newFilename = Urlizer::urlize($originalFilename) . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-                $destination = $rootDirectory . '/public/media/core_config';
-                $uploadedFile->move($destination, $newFilename);
+                $destination = 'media/core_config';
+                // Use DriverManager to upload Image
+                $this->driveManager->move($uploadedFile, $destination, $newFilename);
+                $publicFileName = $this->url->getBaseUrl() . '/' . $destination . '/' . $newFilename;
                 // Replace config field value
-                $fieldData['value'] = $newFilename;
+                $fieldData['value'] = $publicFileName;
             }
         }
     }

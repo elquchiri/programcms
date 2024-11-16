@@ -12,6 +12,7 @@ use ProgramCms\CoreBundle\App\Config;
 use ProgramCms\CoreBundle\DateTime\TransformerInterface;
 use ProgramCms\UiBundle\Component\AbstractComponent;
 use ProgramCms\UiBundle\View\Element\Context;
+use ProgramCms\UserBundle\Entity\Address\UserAddressEntity;
 use ProgramCms\UserBundle\Entity\UserEntity;
 use ProgramCms\UserBundle\Repository\UserEntityRepository;
 use ProgramCms\UserBundle\Repository\UserLogRepository;
@@ -169,5 +170,35 @@ class AccountView extends AbstractComponent
             return $this->transformer->transform($lastLog->getCreatedAt()) . ' ' . $status;
         }
         return $this->trans('Never') . ' ' . $status;
+    }
+
+    /**
+     * @return string
+     * @throws Exception
+     */
+    public function getDefaultAddress(): string
+    {
+        $address = $this->getUser()->getDefaultAddress();
+        $text = "<p class='mb-2'>";
+        if(!empty($firstname = $address->getFirstname())) {
+            $text .= $firstname . " ";
+        }
+        if(!empty($lastname = $address->getLastname())) {
+            $text .= $lastname;
+        }
+        $text .= "</p>";
+        if(!empty($street = $address->getStreet())) {
+            $text .= $street . "<br/>";
+        }
+        if(!empty($city = $address->getCity())) {
+            $text .= $city  . ", ";
+        }
+        if(!empty($country = $address->getCountry())) {
+            $text .= $country  . "<br/>";
+        }
+        if(!empty($telephone = $address->getTelephone())) {
+            $text .= 'T: ' . $telephone;
+        }
+        return $text;
     }
 }

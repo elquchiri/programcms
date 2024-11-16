@@ -134,7 +134,8 @@ class Request
     {
         $layoutNameElements = explode("_", $this->getFullRouteName());
         if(isset($layoutNameElements[0]) && in_array($layoutNameElements[0], ['frontend', 'adminhtml'])) {
-            return $layoutNameElements[1] . '_' . $layoutNameElements[2] . '_' . $layoutNameElements[3];
+            array_shift($layoutNameElements);
+            return implode("_", $layoutNameElements);
         }
         return $this->getFullRouteName();
     }

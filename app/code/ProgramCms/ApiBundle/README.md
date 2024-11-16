@@ -1,0 +1,1 @@
+The API bundle contains common infrastructure that provides an ability to apply API in ProgramCMS application.

@@ -45,7 +45,7 @@ class IndexController extends AdminController
     {
         $pageResult = $this->objectManager->create(Page::class);
         $pageResult->getConfig()->getTitle()->set(
-            $this->trans("P-Driver")
+            $this->trans("P-Drive Manager")
         );
         return $pageResult;
     }

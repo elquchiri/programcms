@@ -19,7 +19,7 @@ class Modal {
      * @type {string}
      */
     static MODAL_SKIN = "<div class=\"modal fade\" id=\"${modal_id}\" tabindex=\"-1\">\n" +
-        "  <div class=\"modal-dialog\">\n" +
+        "  <div class=\"modal-dialog ${modal_size} ${modal_scrollable}\">\n" +
         "    <div class=\"modal-content\">\n" +
         "      <div class=\"modal-header\">\n" +
         "        <h5 class=\"modal-title\"></h5>\n" +
@@ -37,10 +37,14 @@ class Modal {
      * @returns {{content}|*}
      */
     static prepareOptions(options) {
+        let modalSkin = this.MODAL_SKIN;
         options.id = options.id ?? Date.now();
         options.title = options.title ?? '';
-        options.skin = this.MODAL_SKIN.replace('${modal_id}', options.id);
         options.content = options.content ?? '';
+        modalSkin = modalSkin.replace('${modal_id}', options.id);
+        modalSkin = modalSkin.replace('${modal_size}', options.size ?? 'modal-m')
+        modalSkin = modalSkin.replace('${modal_scrollable}', options.scrollable ?? '')
+        options.skin = modalSkin;
         return options;
     }
 

@@ -53,6 +53,11 @@ class Actions extends ActionsColumn
                         'label' => $this->trans('Edit'),
                         'url' => $this->url->getUrlByRouteName('rewrite_url_edit', ['id' => $rowData->getUrlRewriteId()]),
                         'type' => 'url'
+                    ],
+                    [
+                        'label' => $this->trans('Delete'),
+                        'url' => $this->url->getUrlByRouteName('rewrite_url_delete', ['id' => $rowData->getUrlRewriteId()]),
+                        'type' => 'url'
                     ]
                 ];
                 $rowData->setDataUsingMethod(

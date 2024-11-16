@@ -70,7 +70,7 @@ class EavEntityPersistSubscriber implements EventSubscriber
         /** @var UnitOfWork $unitOfWork */
         $entityManager = $args->getObjectManager();
         $unitOfWork = $entityManager->getUnitOfWork();
-        // Get the entities scheduled for insertion, update, and deletion
+        // Get the entities scheduled for insertion, update
         $entitiesToSave = array_merge($unitOfWork->getScheduledEntityUpdates(), $unitOfWork->getScheduledEntityInsertions());
         foreach($entitiesToSave as $entity) {
             if($entity instanceof Entity) {

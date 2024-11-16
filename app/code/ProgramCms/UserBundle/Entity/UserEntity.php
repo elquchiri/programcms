@@ -547,6 +547,24 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
      */
     public function getProfileImage(): ?string
     {
-        return ($this->hasData('profile_image') && !empty($this->getData('profile_image'))) ? $this->getData('profile_image') : '/bundles/programcmsuser/images/no-photo-m.png';
+        return (
+            $this->hasData('profile_image')
+            && !empty($this->getData('profile_image'))
+            && $this->imageExists($this->getData('profile_image'))
+        ) ? $this->getData('profile_image')
+            : '/bundles/programcmsuser/images/no-photo-m.png';
+    }
+
+    /**
+     * @param $url
+     * @return bool
+     */
+    private function imageExists($url): bool
+    {
+        $headers = @get_headers($url);
+        if ($headers && str_contains($headers[0], '200')) {
+            return true;
+        }
+        return false;
     }
 }

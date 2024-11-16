@@ -25,18 +25,26 @@
 
             </ul>
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                {% if is_granted('edit', block.getPost()) %}
+                    <li class="nav-item me-3">
+                        <a class="nav-link text-center" aria-current="page" href="{{ block.getEditPostUrl() }}" style="font-size: 13px; font-weight: bold;">
+                            <img src="{{ asset('bundles/programcmspost/images/edit.png') }}" alt=""/>
+                            <p class="mt-1">{{ block.trans('Edit Post') }}</p>
+                        </a>
+                    </li>
+                {% endif %}
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li class="nav-item me-3">
                         <a class="nav-link text-center" aria-current="page" href="{{ block.newPostUrl() }}" style="font-size: 13px; font-weight: bold;">
                             <img src="{{ asset('bundles/programcmspost/images/new.png') }}" alt=""/>
-                            <p>{{ block.trans('New Post') }}</p>
+                            <p class="mt-1">{{ block.trans('New Post') }}</p>
                         </a>
                     </li>
                     {% if block.isPostInFavorite() == false %}
                     <li class="nav-item me-3 text-center">
                         <a href="{{ block.getAddToFavoriteUrl() }}" class="nav-link" aria-current="page" style="font-size: 13px; font-weight: bold;">
                             <img src="{{ asset('bundles/programcmspost/images/favorite.png') }}"/>
-                            <p>{{ block.trans('Add to Favorite') }}</p>
+                            <p class="mt-1">{{ block.trans('Add to Favorite') }}</p>
                         </a>
                     </li>
                     {% endif %}
@@ -44,13 +52,13 @@
                 <li class="nav-item me-3 text-center">
                     <a class="nav-link" aria-current="page" href="" style="font-size: 13px; font-weight: bold;">
                         <img src="{{ asset('bundles/programcmspost/images/hot.png') }}"/>
-                        <p>{{ block.trans('Active Topics') }}</p>
+                        <p class="mt-1">{{ block.trans('Active Posts') }}</p>
                     </a>
                 </li>
                 <li class="nav-item me-3 text-center">
                     <a class="nav-link" aria-current="page" href="" style="font-size: 13px; font-weight: bold;">
                         <img src="{{ asset('bundles/programcmspost/images/message.png') }}"/>
-                        <p>{{ block.trans('Message Managers') }}</p>
+                        <p class="mt-1">{{ block.trans('Report') }}</p>
                     </a>
                 </li>
                 <li class="me-2">
@@ -87,11 +95,11 @@
                 <td style="width: 1%">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item text-center">
-                            <div class="profile-image" style="display: inline-block; border: 3px solid #6d9dcb; width: 38px; height: 38px; border-radius: 50%; padding: 1px;">
+                            <div class="profile-image" style="display: inline-block; border: 3px solid #6d9dcb; width: 48px; height: 48px; border-radius: 50%; padding: 1px;">
                                 <img src="{{ block.getPost().getUser().getProfileImage() }}" style="width: 100%; height: 100%; border-radius: 50%;" alt="" />
                             </div>
                             <p class="m-0 mt-2">
-                                <a href="{{ block.getUserUrl() }}">{{ block.getPost().getUser().getFullname() }}</a>
+                                <a href="{{ block.getUserUrl() }}">{{ block.getPost().getUser().getUserFirstname() }}</a>
                             </p>
                             <p class="text-muted m-0" style="font-size: 13px;">{{ block.trans('Member') }}</p>
                         </li>
@@ -136,7 +144,7 @@
                                     <div class="profile-image" style="display: inline-block; border: 3px solid #6d9dcb; width: 38px; height: 38px; border-radius: 50%; padding: 1px;">
                                         <img src="{{ comment.getUser().getProfileImage() }}" style="width: 100%; height: 100%; border-radius: 50%;" alt="" />
                                     </div>
-                                    <p class="m-0 mt-2">{{ comment.getUser().getFullname() }}</p>
+                                    <p class="m-0 mt-2">{{ comment.getUser().getUserFirstname() }}</p>
                                     <p class="text-muted m-0" style="font-size: 13px;">{{ block.trans('Member') }}</p>
                                 </li>
                             </ul>
@@ -170,7 +178,7 @@
                                 <div class="profile-image" style="display: inline-block; border: 3px solid #6d9dcb; width: 38px; height: 38px; border-radius: 50%; padding: 1px;">
                                     <img src="{{ block.getUser().getProfileImage() }}" style="width: 100%; height: 100%; border-radius: 50%;" alt="" />
                                 </div>
-                                <p class="m-0 mt-2">{{ block.getUser().getFullname() }}</p>
+                                <p class="m-0 mt-2">{{ block.getUser().getUserFirstname() }}</p>
                                 <p class="text-muted m-0" style="font-size: 13px;">{{ block.trans('Member') }}</p>
                             </li>
                         </ul>

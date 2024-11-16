@@ -38,15 +38,18 @@
                 </tr>
             </table>
         </div>
-        <div class="col-md-5">
-            <div class="mb-2" style="font-weight: bold; font-size: 14px;">{{ block.trans('Default Address') }}</div>
+        <div class="col-md-3 ps-4">
+            <div class="mb-3" style="font-weight: bold; font-size: 14px;">{{ block.trans('Default Address') }} :</div>
             <p>
-                Mohamed EL QUCHIRI<br>
-                6146 Honey Bluff Parkway<br>
-                Calder, Michigan, 49628-7978<br>
-                United States<br>
-                T: (555) 229-3326
+                {{ block.getDefaultAddress()|raw }}
             </p>
+        </div>
+        <div class="col">
+            <div class="profile-image"
+                 style="display: inline-block; border: 2px solid #8db4db; width: 63px; height: 63px; border-radius: 50%; padding: 1px;">
+                <img src="{{ block.getUser().getProfileImage() }}"
+                     style="width: 100%; height: 100%; border-radius: 50%;" alt=""/>
+            </div>
         </div>
     </div>
 </div>

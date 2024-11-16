@@ -29,27 +29,27 @@
                     <li class="nav-item me-3">
                         <a class="nav-link text-center" aria-current="page" href="{{ block.newPostUrl() }}" style="font-size: 13px; font-weight: bold;">
                             <img src="{{ asset('bundles/programcmspost/images/new.png') }}" alt=""/>
-                            <p>{{ block.trans('New Post') }}</p>
+                            <p class="mt-1">{{ block.trans('New Post') }}</p>
                         </a>
                     </li>
                     {% endif %}
                     <li class="nav-item me-3 text-center">
                         <a class="nav-link" aria-current="page" href="" style="font-size: 13px; font-weight: bold;">
                             <img src="{{ asset('bundles/programcmspost/images/hot.png') }}"/>
-                            <p>{{ block.trans('Active Topics') }}</p>
+                            <p class="mt-1">{{ block.trans('Active Posts') }}</p>
                         </a>
                     </li>
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li class="nav-item me-3">
                         <a class="nav-link text-center" aria-current="page" href="{{ block.newPostUrl() }}" style="font-size: 13px; font-weight: bold;">
                             <img src="{{ asset('bundles/programcmspost/images/posts.png') }}" alt=""/>
-                            <p>{{ block.trans('Your topics here') }}</p>
+                            <p class="mt-1">{{ block.trans('Your posts here') }}</p>
                         </a>
                     </li>
                     <li class="nav-item me-3 text-center">
                         <a class="nav-link" aria-current="page" href="" style="font-size: 13px; font-weight: bold;">
                             <img src="{{ asset('bundles/programcmspost/images/message.png') }}"/>
-                            <p>{{ block.trans('Message Managers') }}</p>
+                            <p class="mt-1">{{ block.trans('Report') }}</p>
                         </a>
                     </li>
                     {% endif %}
@@ -106,7 +106,7 @@
                                 <a href="{{ block.getPostUrl(post) }}">{{ post.getPostName() }}</a>
                             </td>
                             <td class="text-center">
-                                <a href="#" style="font-size: 14px;">{{ post.getUser().getFullname() }}</a>
+                                <a href="#" style="font-size: 14px;">{{ post.getUser().getUserFirstname() }}</a>
                             </td>
                             <td class="text-center" style="background-color: #d8dff0; font-weight: bold; font-size: 13px;">
                                 {{ block.countComments(post) }}
@@ -116,7 +116,7 @@
                             </td>
                             <td class="text-center">
                                 {% if post.getLastComment() %}
-                                <a href="{{ block.getUserUrl(post.getLastComment().getUser()) }}" style="font-size: 14px;">{{ post.getLastComment().getUser().getFullname() }}</a>
+                                <a href="{{ block.getUserUrl(post.getLastComment().getUser()) }}" style="font-size: 14px;">{{ post.getLastComment().getUser().getUserFirstname() }}</a>
                                 {% endif %}
                             </td>
                             <td class="text-center">

@@ -20,18 +20,18 @@
                             <input type="text" name="post_title" class="form-control ms-2 post_title" placeholder="{{ block.trans('Post Title ...') }}">
                         </div>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-success rounded-start-5" data-action="editor#onSubmit">{{ block.trans('Share Post') }}</button>
-                            <button type="button" class="btn btn-success rounded-end-5 dropdown-toggle"
+                            <button type="button" class="btn btn-primary rounded-start-5 ps-4" data-action="editor#onSubmit">{{ block.trans('Share Post') }}</button>
+                            <button type="button" class="btn btn-primary rounded-end-5 pe-3 dropdown-toggle"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="visually-hidden">Toggle Dropdown</span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">{{ block.trans('Save Post on Private') }}</a></li>
+                                <li><a class="dropdown-item" href="#">{{ block.trans('Save Post Privately') }}</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
                                 <p class="mb-0 p-3 pt-2 pb-2 text-muted" style="font-size: 13px;">
-                                    {{ block.trans('The topic is saved to your account and will not be published on the site. You can publish it later.') }}
+                                    {{ block.trans('The Post is saved to your account and will not be published on the site. You can publish it later.') }}
                                 </p>
                             </ul>
                         </div>
@@ -105,7 +105,7 @@
 
         </div>
         <div class="editor-canvas editor-column" id="editor-wrapper" aria-describedby="gjs">
-
+            <div>What do you want to say ? ...</div>
         </div>
         <div id="components" class="editor-column">
 
@@ -147,11 +147,27 @@
             </div>
         </div>
     </div>
-
 </div>
 
-
-
+<!-- Modal -->
+{#<div class="modal fade" id="drive-editor-image" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
+{#    <div class="modal-dialog modal-dialog-scrollable modal-xl">#}
+{#        <div class="modal-content" style="background-color: rgba(255, 255, 255, 0.9)">#}
+{#            <div class="modal-header">#}
+{#                <div>#}
+{#                    <h1 class="modal-title fs-5" id="exampleModalLabel">Drive Gallery</h1>#}
+{#                    <small>Choose from Drive Gallery</small>#}
+{#                </div>#}
+{#                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
+{#            </div>#}
+{#            <div class="modal-body file_manager row"></div>#}
+{#            <div class="modal-footer">#}
+{#                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>#}
+{#                <button type="button" class="btn btn-primary">Save changes</button>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
 
 <style>
     html, body {

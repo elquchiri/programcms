@@ -12,7 +12,8 @@ application.register('image-uploader', class extends Controller {
 
     static values = {
         preview: String,
-        browse: String
+        browse: String,
+        target: String
     };
 
     connect() {
@@ -42,23 +43,56 @@ application.register('image-uploader', class extends Controller {
      * Open Media Browser
      */
     openMediaBrowser() {
+        const self = this;
+        let modalContent = "<div class=\"file_manager row mt-1 mb-5\" data-controller=\"file-manager\">\n" +
+            "<p class=\"ps-3 text-muted loader_container\">\n" +
+            "    <small>\n" +
+            "        Loading from PDrive ...\n" +
+            "    </small>\n" +
+            "</p>\n" +
+            "</div>\n" +
+            "<div class=\"file_manager_dragover\"></div>";
+
         const modalOptions = {
-            content: 'Do you really want to confirm this action ?',
+            id: 'drive-image',
+            size: 'modal-xl',
+            scrollable: 'modal-dialog-scrollable',
+            title: 'P-Drive Gallery',
+            content: modalContent,
             buttons: [
                 {
-                    text: 'Yes',
+                    text: 'Select',
                     class: 'btn-primary',
                     click: function() {
-                        alert('clicked');
+                        const activeFile = $('.file_item.active');
+                        const selectedImage = activeFile.find('img').attr('src');
+
+                        $('#img-' + self.targetValue).css({'background-image': 'url(' + selectedImage + ')'});
+                        $('#drive-image').modal('hide');
+
+                        let targetSelector = $('#' + self.targetValue);
+                        const targetSelectorName = targetSelector.attr('name');
+                        let fileInput = targetSelector.clone();
+                        let parentInput = targetSelector.parent();
+                        let newFileInput = $('<input>')
+                            .attr('type', 'hidden')
+                            .attr('name', targetSelectorName)
+                            .attr('id', self.targetValue)
+                            .attr('value', selectedImage);
+                        targetSelector.remove();
+                        $(parentInput).append(newFileInput);
+
                     }
                 },
                 {
-                    text: 'No',
+                    text: 'Close',
                     class: 'btn-light',
                     dismiss: true
                 }
             ]
         }
+
+        // Open Modal
         Modal.open('modal', modalOptions);
     }
 });

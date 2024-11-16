@@ -17,7 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Class BundleManager
  * @package ProgramCms\CoreBundle\Model\Utils
  */
-class BundleManager
+class BundleManager implements BundleManagerInterface
 {
     const BUNDLE = 'bundle';
 

@@ -59,11 +59,21 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
+                {% block name="account_lock" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}switcher{% endArgument %}
+                            {% argument name="label" type="string" %}Lock{% endArgument %}
+                            {% argument name="source" type="string" %}user_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
                 {% block name="websiteView" class="ui.block.form.field" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
                             {% argument name="type" type="string" %}select{% endArgument %}
                             {% argument name="label" type="string" %}Associate to View{% endArgument %}
+                            {% argument name="helpMessage" type="string" %}User can sign in only on this website.{% endArgument %}
                             {% argument name="isRequired" type="boolean" %}true{% endArgument %}
                             {% argument name="sourceModel" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\DataSource\WebsiteTree{% endArgument %}
                             {% argument name="source" type="string" %}user_form{% endArgument %}
@@ -124,16 +134,8 @@
                         {% argument name="data" type="array" %}
                             {% argument name="type" type="string" %}text{% endArgument %}
                             {% argument name="label" type="string" %}Username{% endArgument %}
+                            {% argument name="helpMessage" type="string" %}This is the user identifier on website.{% endArgument %}
                             {% argument name="isRequired" type="boolean" %}true{% endArgument %}
-                            {% argument name="source" type="string" %}user_form{% endArgument %}
-                        {% endArgument %}
-                    {% endArguments %}
-                {% endBlock %}
-                {% block name="account_lock" class="ui.block.form.field" %}
-                    {% arguments %}
-                        {% argument name="data" type="array" %}
-                            {% argument name="type" type="string" %}switcher{% endArgument %}
-                            {% argument name="label" type="string" %}Lock{% endArgument %}
                             {% argument name="source" type="string" %}user_form{% endArgument %}
                         {% endArgument %}
                     {% endArguments %}
@@ -188,17 +190,6 @@
                             {% argument name="type" type="string" %}textarea{% endArgument %}
                             {% argument name="label" type="string" %}Biography{% endArgument %}
                             {% argument name="placeholder" type="string" %}Biography{% endArgument %}
-                            {% argument name="source" type="string" %}user_form{% endArgument %}
-                        {% endArgument %}
-                    {% endArguments %}
-                {% endBlock %}
-                {% block name="groups" class="ui.block.form.field" %}
-                    {% arguments %}
-                        {% argument name="data" type="array" %}
-                            {% argument name="type" type="string" %}multiselect{% endArgument %}
-                            {% argument name="label" type="string" %}Groups{% endArgument %}
-                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
-                            {% argument name="sourceModel" type="string" %}ProgramCms\UserBundle\Model\Provider\Source\UserGroups{% endArgument %}
                             {% argument name="source" type="string" %}user_form{% endArgument %}
                         {% endArgument %}
                     {% endArguments %}

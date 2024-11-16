@@ -1,0 +1,22 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<form class="d-flex" role="search" data-controller="drive-search" style="margin-right: 11px;">
+    <div class="input-group" style="width: 370px">
+        <input type="text" id="drive_search" name="drive_search" style="width: 50%" class="form-control" placeholder="{{ block.trans('Search any file here ..') }}"
+               aria-label="Recipient's username" aria-describedby="button-drive-search">
+        <select name="" class="form-select">
+            <option value="1">ALL</option>
+        </select>
+        <button class="btn" type="button" id="button-drive-search"
+                style="border: 1px solid #CCC; padding-top: 0;">
+            <img src="{{ asset('bundles/programcmsui/images/search.png') }}"
+                 style="width: 15px; height: 15px"/>
+        </button>
+    </div>
+</form>

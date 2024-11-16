@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\Collection;
 use ProgramCms\AclBundle\Entity\Role;
 use ProgramCms\AdminBundle\Repository\AdminUserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ProgramCms\AdminChatBundle\Entity\AdminConversation;
 use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -73,6 +74,12 @@ class AdminUser extends AbstractEntity implements UserInterface, PasswordAuthent
      */
     #[ORM\ManyToMany(targetEntity: Role::class, mappedBy: 'users', cascade: ['persist'])]
     private Collection $roles;
+
+    /**
+     * @var Collection
+     */
+    #[ORM\ManyToMany(targetEntity: AdminConversation::class, mappedBy: 'users', cascade: ['persist'])]
+    private Collection $conversations;
 
     /**
      * AdminUser constructor.
@@ -205,6 +212,14 @@ class AdminUser extends AbstractEntity implements UserInterface, PasswordAuthent
     }
 
     /**
+     * @return string
+     */
+    public function getShortName(): string
+    {
+        return trim($this->getFirstName() . " " . $this->getLastName()[0] . '.');
+    }
+
+    /**
      * @param string $interface_locale
      * @return $this
      */
@@ -298,5 +313,45 @@ class AdminUser extends AbstractEntity implements UserInterface, PasswordAuthent
         foreach($this->roles as $role) {
             $this->removeRole($role);
         }
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    /**
+     * @param ArrayCollection $conversations
+     * @return $this
+     */
+    public function setConversations(ArrayCollection $conversations): self
+    {
+        $this->conversations = $conversations;
+        return $this;
+    }
+
+    /**
+     * @param AdminConversation $conversation
+     * @return $this
+     */
+    public function addConversation(AdminConversation $conversation): self
+    {
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations[] = $conversation;
+            $conversation->addUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param AdminConversation $conversation
+     */
+    public function removeConversation(AdminConversation $conversation)
+    {
+        $this->conversations->removeElement($conversation);
     }
 }

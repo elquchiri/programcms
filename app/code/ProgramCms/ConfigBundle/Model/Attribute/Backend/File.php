@@ -24,7 +24,7 @@ class File extends AbstractBackend
     protected BundleManager $bundleManager;
 
     /**
-     * Image constructor.
+     * File constructor.
      * @param BundleManager $bundleManager
      */
     public function __construct(BundleManager $bundleManager)

@@ -14,6 +14,17 @@
                     {% argument name="label" type="string" %}Access Control List{% endArgument %}
                 {% endArgument %}
             {% endArguments %}
+                {% block name="groups" class="ui.block.form.field" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="type" type="string" %}multiselect{% endArgument %}
+                            {% argument name="label" type="string" %}Groups{% endArgument %}
+                            {% argument name="isRequired" type="boolean" %}true{% endArgument %}
+                            {% argument name="sourceModel" type="string" %}ProgramCms\UserBundle\Model\Provider\Source\UserGroups{% endArgument %}
+                            {% argument name="source" type="string" %}user_form{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
         {% endBlock %}
     {% endReferenceBlock %}
 {% endPage %}
