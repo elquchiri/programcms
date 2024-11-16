@@ -66,9 +66,14 @@
     }
 
     .users_in_room a {
-        padding-left: 31px !important;
-        padding-top: 12px;
+        display: flex; /* Enables Flexbox layout */
+        align-items: center;
         font-size: 15px;
+        padding-left: 31px;
+    }
+
+    .invite {
+        margin-left: auto;
     }
 </style>
 <div class="chat-call-container" data-controller="chat-call">

@@ -83,11 +83,14 @@ class AdminConversationRepository extends AbstractRepository
     public function findUserConversationsOrderedByLastMessage(AdminUser $user): mixed
     {
         return $this->createQueryBuilder('c')
-            ->innerJoin('c.messages', 'm')
-//            ->groupBy('c.conversation_id')
-            ->orderBy('m.updated_at', 'DESC')
-            ->where(':user MEMBER OF c.users')
-            ->setParameter('user', $user)
+            ->innerJoin('c.users', 'cu')
+            ->leftJoin('c.messages', 'm')
+            ->where('cu.user_id = :userId')
+            ->setParameter('userId', $user->getUserId())
+            ->groupBy('c.conversation_id')
+            ->addSelect('m.updated_at AS HIDDEN lastMessageDate')
+            ->addSelect('cu.user_id AS HIDDEN userId')
+            ->orderBy('lastMessageDate', 'DESC')
             ->getQuery()
             ->getResult();
     }

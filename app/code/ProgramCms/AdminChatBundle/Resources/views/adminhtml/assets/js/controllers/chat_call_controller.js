@@ -242,11 +242,11 @@ application.register("chat-call", class extends Controller {
         const userSelector = $('#' + user.id);
         if(status === 'online') {
             userSelector.find('.conversation_status').removeClass('offline').addClass('online');
-            userSelector.find('button.invite').html('+ Invite').hide();
+            userSelector.find('button.invite').prop('disabled', true).html('+ Invite');
 
         }else if(status === 'offline') {
             userSelector.find('.conversation_status').removeClass('online').addClass('offline');
-            userSelector.find('button.invite').show();
+            userSelector.find('button.invite').prop('disabled', false);
         }
     }
 });

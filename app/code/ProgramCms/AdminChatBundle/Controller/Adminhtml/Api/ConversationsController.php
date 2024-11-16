@@ -67,8 +67,8 @@ class ConversationsController extends AdminController
             $response['conversations'][] = [
                 'id' => $conversation->getConversationId(),
                 'title' => $this->conversationHelper->formatConversationUsers($conversation),
-                'lastMessage' => $conversation->getMessages()->last()->getMessage(),
-                'updatedAt' => $this->transformer->timeAgo($conversation->getMessages()->last()->getUpdatedAt())
+                'lastMessage' => $conversation->getMessages()->last() ? $conversation->getMessages()->last()->getMessage() : '',
+                'updatedAt' => $conversation->getMessages()->last() ? $this->transformer->timeAgo($conversation->getMessages()->last()->getUpdatedAt()) : ''
             ];
         }
         $response['success'] = true;
