@@ -14,19 +14,81 @@
   width: 100%;
   height: 100%;
   display: none;
+  border-top: 2px solid #0b5ed7;
+
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #e5e5e5;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #acacac;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #747474;
+  }
 }
 
 .editor-row {
   display: flex;
+  gap: 21px;
   justify-content: flex-start;
   align-items: stretch;
   flex-wrap: nowrap;
   height: calc(100% - 40px - 58px);
-}
+  padding: 17px 11px 0 11px;
+  background-color: #f8f8f8;
 
-.editor-column {
-  flex: 1; /* Each column takes equal width */
-  background-color: #FFFFFF;
+  .editor-column {
+    flex: 1; /* Each column takes equal width */
+    background-color: #FFFFFF;
+  }
+
+  #blocks {
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    padding-left: 3px;
+    padding-right: 3px;
+    overflow-y: auto;
+    flex: 1.5;
+    background-color: #EEEEEE;
+  }
+
+  .editor-canvas {
+    flex: 2;
+    flex-grow: 4;
+    border: 3px solid #cecece;
+    border-radius: 5px;
+  }
+
+  #components {
+    flex: 1.5;
+    overflow-y: auto;
+    border: 2px solid #cecece;
+    border-radius: 5px;
+
+    #styles-container {
+      display: block;
+    }
+
+    #traits-container {
+      display: none;
+      padding: 11px;
+    }
+
+    #layers-container {
+      display: none;
+      position: relative;
+    }
+
+    #settings-container {
+      display: none;
+    }
+  }
 }
 
 .editor-rte-action {
@@ -39,21 +101,21 @@
   height: 29px;
 }
 .editor-rte-action:hover {
-  background-color: #CCCCCC;
+  background-color: #bbbbbb;
 }
 .editor-rte-action.active {
-  background-color: #CCCCCC;
+  background-color: #bbbbbb;
 }
 
 .editor-header {
   display: flex;
-  justify-content: space-between;
+  //justify-content: space-between;
   align-items: center; /* Vertically center items */
 }
 
 .image-input-container {
   display: flex;
-  justify-content: space-between;
+  flex: 1;
   align-items: center;
 }
 
@@ -62,12 +124,13 @@
 }
 
 .post_title {
-  width: 400px;
+  width: 90%;
   border: 0;
   outline: none;
   box-shadow: none;
   background-color: inherit;
-  font-size: 16px;
+  font-size: 15px;
+  font-weight: bold;
 }
 
 .editor-header ::placeholder {
@@ -153,6 +216,26 @@
   background: url("../../../../../public/images/editor/right-align.png") no-repeat center center;
 }
 
+.btn-style-manager {
+  position: relative;
+  background: url("../../../../../public/images/editor/traits/style_manager.png") no-repeat center center;
+}
+
+.btn-traits {
+  position: relative;
+  background: url("../../../../../public/images/editor/traits/traits.png") no-repeat center center;
+}
+
+.btn-layers {
+  position: relative;
+  background: url("../../../../../public/images/editor/traits/layers.png") no-repeat center center;
+}
+
+.btn-settings {
+  position: relative;
+  background: url("../../../../../public/images/editor/traits/settings.png") no-repeat center center;
+}
+
 .editor-dropdown {
   background-color: inherit;
   padding: 0 9px 0 9px;
@@ -181,14 +264,34 @@
 .panel__top {
   display: flex;
   width: 100%;
-  background-color: #eee;
+  background-color: #e7e7e7;
   border-radius: 5px;
   padding: 3px 0 3px 0;
+  box-shadow: 1px 1px 3px #9e9d9d;
+
+  .components_menu {
+    .editor-rte-action {
+      font-size: 14px;
+      padding-left: 21px;
+      padding-right: 21px;
+      width: auto;
+      background-position: center center;
+
+      &.with_text {
+        padding-top: 4px;
+        padding-left: 31px;
+        padding-right: 13px;
+        font-weight: bold;
+        background-position: 7px center;
+      }
+    }
+  }
 }
 
 .gjs-highlighter {
   outline: none !important;
   box-shadow: none !important;
+  border: 1px dashed #888888;
 }
 
 .gjs-badge {
@@ -205,10 +308,6 @@
 }
 .panel__basic-actions-title {
   position: static;
-}
-
-.editor-canvas {
-  flex-grow: 4;
 }
 
 .panel__left {
@@ -235,13 +334,11 @@
   }
 
   &.gjs-four-color-h:hover {
-    color: #0a58ca;
+    color: #c2502b;
+    border: 1px solid #c2502b;
   }
 }
 
-#components {
-  overflow-y: auto;
-  border-left: 1px solid #CCC;
+.components_manager {
+
 }
-*::-webkit-scrollbar-thumb {background: #888 !important;}
-*::-webkit-scrollbar-track {background: inherit !important;}

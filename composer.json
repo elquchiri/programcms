@@ -53,6 +53,7 @@
             "ProgramCms\\AdminBundle\\": "app/code/ProgramCms/AdminBundle",
             "ProgramCms\\CmsBundle\\": "app/code/ProgramCms/CmsBundle",
             "ForumSuite\\ForumBundle\\": "app/code/ForumSuite/ForumBundle",
+            "ForumSuite\\ExcellenceBundle\\": "app/code/ForumSuite/ExcellenceBundle",
             "ProgramCms\\ContentBundle\\": "app/code/ProgramCms/ContentBundle",
             "ProgramCms\\PostBundle\\": "app/code/ProgramCms/PostBundle",
             "ProgramCms\\WebsiteBundle\\": "app/code/ProgramCms/WebsiteBundle",

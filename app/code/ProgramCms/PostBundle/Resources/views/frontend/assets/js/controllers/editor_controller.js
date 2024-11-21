@@ -11,6 +11,7 @@ import ar from '../locale/ar';
 import Coloris from "@melloware/coloris";
 import Loader from "@programcms/loader";
 import Drive from "@programcms/drive";
+import hljs from 'highlight.js';
 
 application.register('editor', class extends Controller {
     editor;
@@ -30,13 +31,32 @@ application.register('editor', class extends Controller {
             height: '100%',
             width: 'auto',
             // canvasCss: '#gjs { background-color: #dedede; !important } p { outline: none !important; } .gjs-hovered {outline: none !important; box-shadow: none !important; } .gjs-selected {outline: none !important; box-shadow: none !important;}',
+            canvasCss: '.gjs-selected {outline: 1px dashed #0d6efd !important; box-shadow: none !important;}',
             i18n: {
                 detectLocale: false,
                 locale: langCode,
                 messages: {ar},
             },
-            // Avoid any default panel
-            panels: {defaults: []},
+            panels: {
+                defaults: [
+                    {
+                        id: 'layers',
+                        el: '#layers-container',
+                        // Make the panel resizable
+                        resizable: {
+                            maxDim: 350,
+                            minDim: 200,
+                            tc: false, // Top handler
+                            cl: true, // Left handler
+                            cr: false, // Right handler
+                            bc: false, // Bottom handler
+                            // Being a flex child we need to change `flex-basis` property
+                            // instead of the `width` (default)
+                            keyWidth: 'flex-basis',
+                        },
+                    },
+                ],
+            },
             storageManager: false,
             showToolbar: false,
             keepEmptyTextNodes: false,
@@ -44,11 +64,10 @@ application.register('editor', class extends Controller {
                 appendTo: '#blocks',
                 blocks: [
                     {
-                        id: 'section', // id is mandatory
-                        label: 'section', // You can use HTML/SVG inside labels
-                        media: `<svg viewBox="0 0 24 24">
-        <path fill="currentColor" d="M20,20H4A2,2 0 0,1 2,18V6A2,2 0 0,1 4,4H20A2,2 0 0,1 22,6V18A2,2 0 0,1 20,20M4,6V18H20V6H4M6,9H18V11H6V9M6,13H16V15H6V13Z"></path>
-    </svg>`,
+                        id: 'section',
+                        label: 'section',
+                        category: 'Text',
+                        media: `<img src="/bundles/programcmspost/images/editor/blocks/section.png">`,
                         attributes: {class: 'gjs-block-section'},
                         content: `<section>
                           <h1>This is a simple title</h1>
@@ -57,22 +76,21 @@ application.register('editor', class extends Controller {
                     }, {
                         id: 'text',
                         label: 'text',
-                        media: `<svg style="width:48px;height:48px" viewBox="0 0 24 24">
-<path fill="currentColor" d="M18.5,4L19.66,8.35L18.7,8.61C18.25,7.74 17.79,6.87 17.26,6.43C16.73,6 16.11,6 15.5,6H13V16.5C13,17 13,17.5 13.33,17.75C13.67,18 14.33,18 15,18V19H9V18C9.67,18 10.33,18 10.67,17.75C11,17.5 11,17 11,16.5V6H8.5C7.89,6 7.27,6 6.74,6.43C6.21,6.87 5.75,7.74 5.3,8.61L4.34,8.35L5.5,4H18.5Z" />
-</svg>`,
+                        category: 'Text',
+                        media: `<img src="/bundles/programcmspost/images/editor/blocks/text.png">`,
                         content: '<div data-gjs-type="text">Insert your text here</div>',
                     }, {
                         id: 'image',
                         label: 'image',
+                        category: 'Media',
                         select: true,
-                        media: `<svg style="width:48px;height:48px" viewBox="0 0 24 24">
-<path fill="currentColor" d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z" />
-</svg>`,
+                        media: `<img src="/bundles/programcmspost/images/editor/blocks/image.png">`,
                         content: {type: 'image'},
                         activate: true
                     }, {
                         id: 'video',
                         label: 'Video',
+                        category: 'Media',
                         media: `<img src="/bundles/programcmspost/images/editor/blocks/video.png">`,
                         select: true,
                         content: {type: 'video'},
@@ -80,24 +98,11 @@ application.register('editor', class extends Controller {
                     }, {
                         id: 'file',
                         label: 'File',
+                        category: 'Media',
                         media: `<img src="/bundles/programcmspost/images/editor/blocks/file.png">`,
                         select: true,
                         content: {type: 'file'},
                         activate: true
-                    }, {
-                        id: 'code',
-                        label: 'Code',
-                        media: `<img src="/bundles/programcmspost/images/editor/blocks/code.png">`,
-                        select: true,
-                        content: '<div class="code"><pre><code>Hello world !</code></pre></div>',
-                        activate: true
-                    }, {
-                        id: 'button',
-                        label: 'Button',
-                        media: `<svg viewBox="0 0 24 24">
-                            <path fill="currentColor" d="M20 20.5C20 21.3 19.3 22 18.5 22H13C12.6 22 12.3 21.9 12 21.6L8 17.4L8.7 16.6C8.9 16.4 9.2 16.3 9.5 16.3H9.7L12 18V9C12 8.4 12.4 8 13 8S14 8.4 14 9V13.5L15.2 13.6L19.1 15.8C19.6 16 20 16.6 20 17.1V20.5M20 2H4C2.9 2 2 2.9 2 4V12C2 13.1 2.9 14 4 14H8V12H4V4H20V12H18V14H20C21.1 14 22 13.1 22 12V4C22 2.9 21.1 2 20 2Z"></path>
-                        </svg>`,
-                        content: '<button class="btn btn-primary" data-gjs-type="button">Insert your text here</button>',
                     },
                     {
                         id: 'divider',
@@ -111,17 +116,17 @@ application.register('editor', class extends Controller {
                     },
                     {
                         id: 'quote',
-                        'label': 'Quote',
-                        media: `<svg viewBox="0 0 24 24">
-        <path fill="currentColor" d="M14,17H17L19,13V7H13V13H16M6,17H9L11,13V7H5V13H8L6,17Z"></path>
-    </svg>`,
+                        label: 'Quote',
+                        category: 'Text',
+                        media: `<img src="/bundles/programcmspost/images/editor/blocks/quote.png">`,
                         select: true,
                         hover: true,
                         activate: true
                     },
                     {
                         id: 'one-column',
-                        'label': 'column',
+                        label: 'column',
+                        category: 'Columns',
                         media: `<svg viewBox="0 0 24 24">
                             <path fill="currentColor" d="M2 20h20V4H2v16Zm-1 0V4a1 1 0 0 1 1-1h20a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1Z"></path>
                         </svg>`,
@@ -131,77 +136,155 @@ application.register('editor', class extends Controller {
                     },
                     {
                         id: 'two-columns',
-                        'label': '2columns',
+                        label: '2columns',
+                        category: 'Columns',
                         media: `<svg viewBox="0 0 23 24">
         <path fill="currentColor" d="M2 20h8V4H2v16Zm-1 0V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1ZM13 20h8V4h-8v16Zm-1 0V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1Z"></path>
       </svg>`,
                         select: true,
                         hover: true,
-                        activate: true
+                        activate: true,
+                        content: { type: 'two-columns' },
                     },
                     {
                         id: 'three-columns',
-                        'label': '3columns',
+                        label: '3columns',
+                        category: 'Columns',
                         media: `<svg viewBox="0 0 23 24">
       <path fill="currentColor" d="M2 20h4V4H2v16Zm-1 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1ZM17 20h4V4h-4v16Zm-1 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1ZM9.5 20h4V4h-4v16Zm-1 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1Z"></path>
     </svg>`,
                         select: true,
                         hover: true,
                         activate: true
-                    }
+                    },
+                    {
+                        id: 'unordered-list',
+                        label: 'U-List',
+                        category: 'Lists',
+                        media: `<img src="/bundles/programcmspost/images/editor/blocks/unordered_list.png">`,
+                        select: true,
+                        hover: true,
+                        activate: true,
+                        content: `<ul style="list-style-type: disc; padding-left: 20px;">
+            <li>List Item 1</li>
+            <li>List Item 2</li>
+            <li>List Item 3</li>
+        </ul>`
+                    },
+                    {
+                        id: 'ordered-list',
+                        label: 'O-List',
+                        category: 'Lists',
+                        media: `<img src="/bundles/programcmspost/images/editor/blocks/ordered_list.png">`,
+                        select: true,
+                        hover: true,
+                        activate: true
+                    },
+                    {
+                        id: 'check-list',
+                        label: 'C-List',
+                        category: 'Lists',
+                        media: `<img src="/bundles/programcmspost/images/editor/blocks/check_list.png">`,
+                        select: true,
+                        hover: true,
+                        activate: true
+                    },
+                    {
+                        id: 'table',
+                        label: 'Table',
+                        category: 'Table',
+                        media: `<img src="/bundles/programcmspost/images/editor/blocks/table.png">`,
+                        select: true,
+                        hover: true,
+                        activate: true,
+                        content: `
+    <table style="width:100%; border: 1px solid #ddd; padding: 7px">
+      <thead>
+        <tr>
+          <th style="border: 1px solid #ddd; padding: 8px;">Header 1</th>
+          <th style="border: 1px solid #ddd; padding: 8px;">Header 2</th>
+          <th style="border: 1px solid #ddd; padding: 8px;">Header 3</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="border: 1px solid #ddd; padding: 8px;">Row 1 Col 1</td>
+          <td style="border: 1px solid #ddd; padding: 8px;">Row 1 Col 2</td>
+          <td style="border: 1px solid #ddd; padding: 8px;">Row 1 Col 3</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid #ddd; padding: 8px;">Row 2 Col 1</td>
+          <td style="border: 1px solid #ddd; padding: 8px;">Row 2 Col 2</td>
+          <td style="border: 1px solid #ddd; padding: 8px;">Row 2 Col 3</td>
+        </tr>
+      </tbody>
+    </table>
+  `,
+                    },
+                    {
+                        id: 'code',
+                        label: 'Code',
+                        category: 'Coding',
+                        media: `<img src="/bundles/programcmspost/images/editor/blocks/code.png">`,
+                        select: true,
+                        // content: '<div class="code"><pre><code>Hello world !</code></pre></div>',
+                        content: '<pre><code>Hello World!</code></pre>',
+                        activate: true
+                    },
+                    {
+                        id: 'button',
+                        label: 'Button',
+                        category: 'Forms',
+                        media: `<img src="/bundles/programcmspost/images/editor/blocks/button.png">`,
+                        content: '<button class="btn btn-primary" data-gjs-type="button">Insert your text here</button>',
+                    },
                 ]
             },
             style: `
                 #my-wrapper {
                   margin: 0 auto;
-                  padding: 15px 35px 25px 35px;
-                  background-color: #FFFFFF;
+                  padding-left: 29px !important;
+                  padding-right: 29px !important;
+                  padding-top: 23px !important;
+                  padding-bottom: 23px !important;
+                  background-color: #FFFFFF !important;
                   min-height: 1000px;
                 }
             `,
+            layerManager: {
+                appendTo: '#layers-container',
+            },
             styleManager: {
-                appendTo: '#components',
+                appendTo: '#styles-container',
                 sectors: [{
                     name: 'general',
                     open: true,
-                    // Use built-in properties
-                    buildProps: ['width', 'height', 'padding', 'margin'],
-                    // Use `properties` to define/override single property
-                    properties: [
-                        {
-                            // Type of the input,
-                            // options: integer | radio | select | color | slider | file | composite | stack
-                            type: 'integer',
-                            name: 'width',
-                            property: 'width', // CSS property (if buildProps contains it will be extended)
-                            units: ['px', '%'], // Units, available only for 'integer' types
-                            defaults: 'auto', // Default value
-                            min: 0, // Min value, available only for 'integer' types
-                        }
-                    ]
+                    buildProps: ['border'],
+                    // properties: [
+                    //     {
+                    //         // options: integer | radio | select | color | slider | file | composite | stack
+                    //         type: 'integer',
+                    //         name: 'width',
+                    //         property: 'width', // CSS property (if buildProps contains it will be extended)
+                    //         units: ['px', '%'], // Units, available only for 'integer' types
+                    //         defaults: 'auto', // Default value
+                    //         min: 0, // Min value, available only for 'integer' types
+                    //     }
+                    // ]
                 },
                     {
+                        name: 'Appearance',
+                        open: true,
+                        buildProps: ['font-family', 'font-size', 'color', 'border', 'background-color']
+                    },
+                    {
                         name: 'dimension',
-                        open: false,
-                        // Use built-in properties
-                        buildProps: ['width', 'min-height', 'padding'],
-                        // Use `properties` to define/override single property
-                        properties: [
-                            {
-                                // Type of the input,
-                                // options: integer | radio | select | color | slider | file | composite | stack
-                                type: 'integer',
-                                name: 'The width',
-                                property: 'width',
-                                units: ['px', '%'],
-                                defaults: 'auto',
-                                min: 0,
-                            }
-                        ]
+                        open: true,
+                        buildProps: ['width', 'height', 'min-width', 'max-width', 'min-height', 'max-height', 'padding', 'margin']
                     }, {
                         name: 'extra',
-                        open: false,
-                        buildProps: ['background-color', 'box-shadow', 'custom-prop'],
+                        open: true,
+                        buildProps: ['background-color', 'box-shadow', 'custom-prop', 'video-url'],
                         properties: [
                             {
                                 id: 'custom-prop',
@@ -209,15 +292,17 @@ application.register('editor', class extends Controller {
                                 property: 'font-size',
                                 type: 'select',
                                 defaults: '32px',
-                                // List of options, available only for 'select' and 'radio'  types
                                 options: [
                                     {value: '12px', name: 'Tiny'},
                                     {value: '18px', name: 'Medium'},
-                                    {value: '32px', name: 'Big'},
-                                ],
+                                    {value: '32px', name: 'Big'}
+                                ]
                             }
                         ]
                     }]
+            },
+            traitManager: {
+                appendTo: '#traits-container',
             },
             assetManager: {
                 custom: {
@@ -243,14 +328,6 @@ application.register('editor', class extends Controller {
                 defaults: {
                     tagName: 'video',
                     style: { width: '100%', height: '100%' },
-                    traits: [
-                        {
-                            type: 'text',
-                            label: 'Source',
-                            name: 'src',
-                            changeProp: 1,
-                        }
-                    ],
                     stylable: ['width', 'height'],
                 }
             },
@@ -342,6 +419,60 @@ application.register('editor', class extends Controller {
             }
         });
 
+        self.editor.DomComponents.addType('table', {
+            model: {
+                defaults: {
+                    tagName: 'table',
+                    style: {width: '100%', height: 'auto'},
+                    stylable: ['width'],
+                    traits: [
+                        { type: 'text', name: 'Title' },
+                        { type: 'text', name: 'Cols' },
+                        { type: 'text', name: 'Rows' },
+                    ],
+                }
+            },
+        });
+
+        self.editor.DomComponents.addType('two-columns', {
+            model: {
+                defaults: {
+                    tagName: 'div',
+                    classes: ['row'],
+                    style: { display: 'flex', width: '100%', height: 'auto' },
+                    stylable: ['width', 'height', 'padding'],
+                    droppable: false,
+                    components: [
+                        {
+                            tagName: 'div',
+                            attributes: { id: 'column-1' }, // Unique ID for column 1
+                            style: { flex: 1, padding: '10px' },
+                            droppable: true,
+                            content: 'Column 1',
+                        },
+                        {
+                            tagName: 'div',
+                            attributes: { id: 'column-2' }, // Unique ID for column 2
+                            style: { flex: 1, padding: '10px' },
+                            droppable: true,
+                            content: 'Column 2',
+                        },
+                    ],
+                },
+            },
+        });
+
+        $('.components_manager div').on('click', function (e) {
+            e.preventDefault();
+            const selectedManager = $(this).attr('id');
+            // Link process
+            $('.components_manager div').removeClass('active');
+            $('#' + selectedManager).addClass('active');
+            // Manager process
+            $('.component_container').hide();
+            $('#components').find('#' + selectedManager + '-container').show();
+        });
+
         self.editor.on('load', () => {
             const wrapper = self.editor.getWrapper();
             const dir = $('html').attr('dir');
@@ -360,6 +491,41 @@ application.register('editor', class extends Controller {
 
             if (commentId != null && commentId !== '') {
                 self.loadCommentProjectData(self.editor, commentId);
+            }
+        });
+
+        let debounceTimer; // Timer for debounce
+
+        self.editor.on('component:update', (component) => {
+            const codeElement = component.getEl()?.querySelector('pre code');
+            if (codeElement) {
+                delete codeElement.dataset.highlighted;
+                const rawCode = codeElement.innerHTML; // Get the raw text content
+
+                codeElement.innerHTML = hljs.highlight(rawCode, {language: 'html'}).value; // Set the highlighted HTML
+            }
+        });
+
+        self.editor.on('component:selected', (component) => {
+            const el = component.getEl();
+
+            if (el.tagName === 'CODE') {
+                // Listen for input event
+                el.addEventListener('input', () => {
+                    // Clear the debounce timer
+                    clearTimeout(debounceTimer);
+
+                    // Delay the re-highlighting by 500ms to avoid triggering too frequently
+                    debounceTimer = setTimeout(() => {
+                        const rawCode = el.textContent; // Get the raw text content
+
+                        // Update the content model with the raw code
+                        component.set('content', rawCode);
+
+                        // Apply syntax highlighting after the user finishes typing
+                        el.innerHTML = hljs.highlight(rawCode, {language: 'html'}).value; // Set the highlighted HTML
+                    }, 500); // Adjust the debounce delay as needed (500ms)
+                });
             }
         });
 
@@ -448,19 +614,6 @@ application.register('editor', class extends Controller {
             }
             e.preventDefault();
             e.stopPropagation();
-        });
-
-        self.editor.on('component:selected', (component) => {
-            if (self.editor.getSelected().props().tagName === 'li') {
-                const selectedParent = self.editor.getSelected().parent();
-                self.editor.select(selectedParent);
-            }
-
-            if (component.is('wrapper')) {
-                // Deselect the wrapper
-                self.editor.select(component.getChildAt(0));
-                component.getEl().focus();
-            }
         });
 
         // Init Coloris
@@ -621,6 +774,7 @@ application.register('editor', class extends Controller {
         styleEl.innerHTML = `
                         *::-webkit-scrollbar-thumb {background: #ccc !important;}
                         *::-webkit-scrollbar-track {background: inherit !important;}
+                        *::-webkit-scrollbar {width: 5px;}
                     `;
         // Append the style element to the iframe document head
         iframe.contentDocument.head.appendChild(styleEl);

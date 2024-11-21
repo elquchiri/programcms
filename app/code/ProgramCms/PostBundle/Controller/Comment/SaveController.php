@@ -116,7 +116,7 @@ class SaveController extends Controller
             "assets" => [],
             "styles" => [
                 [
-                    "selectors" => ["#my-wrapper"],
+                    "selectors" => ["#editor-wrapper"],
                     "style" => [
                         "width" => "900px",
                         "margin-right" => "auto",

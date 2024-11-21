@@ -18,6 +18,7 @@ return [
     ProgramCms\UserBundle\ProgramCmsUserBundle::class => ['all' => true],
     ProgramCms\LoginAsUserBundle\ProgramCmsLoginAsUserBundle::class => ['all' => true],
     ForumSuite\ForumBundle\ForumSuiteForumBundle::class => ['all' => true],
+    ForumSuite\ExcellenceBundle\ForumSuiteExcellenceBundle::class => ['all' => true],
     ProgramCms\MailBundle\ProgramCmsMailBundle::class => ['all' => true],
     ProgramCms\ContactBundle\ProgramCmsContactBundle::class => ['all' => true],
     ProgramCms\NewsletterBundle\ProgramCmsNewsletterBundle::class => ['all' => true],

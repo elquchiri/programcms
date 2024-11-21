@@ -82,19 +82,19 @@
                         {% endif %}
                     </td>
                     <td class="text-center managers">
-                        <a href="#">محمد</a>
+                        <a href="#">Med</a>
                     </td>
                     <td class="" style="background-color: #eaeef9">
                         {% if forum.getLastPost() %}
                         <div class="row">
-                            <div class="col-md-2 pt-1 text-end">
+                            <div class="col-md-2 p-0 pt-1 text-end">
                                 <div class="profile-image"
                                      style="display: inline-block; border: 2px solid #8db4db; width: 33px; height: 33px; border-radius: 50%; padding: 1px;">
                                     <img src="{{ forum.getLastPost().getUser().getProfileImage() }}"
                                          style="width: 100%; height: 100%; border-radius: 50%;" alt=""/>
                                 </div>
                             </div>
-                            <div class="col-md p-0">
+                            <div class="col-md text-truncate">
                                 <a href="{{ block.getPostUrl(forum, forum.getLastPost()) }}" style="font-size: 14px;">{{ forum.getLastPost().getPostName() }}</a>
                                 <p class="m-0 text-muted" style="font-size: 13px;">
                                     {{ block.trans('Posted by')}} :

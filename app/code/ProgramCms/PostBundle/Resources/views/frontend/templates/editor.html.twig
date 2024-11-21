@@ -6,22 +6,53 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
+<style>
+    .gjs-sm-properties {
+        background: #FFFFFF !important;
+        color: #000000;
+    }
+    .gjs-sm-sector-title {
+        background: #e2e2e2 !important;
+        padding-left: 5px !important;
+        padding-top: 3px !important;
+        padding-bottom: 3px !important;
+        font-size: 14px;
+        color: #3d3d3d;
+    }
+    .gjs-sm-sector-caret {
+        height: 25px !important;
+    }
+    .gjs-sm-icon {
+        font-weight: bold;
+    }
+    .gjs-title {
+        padding-left: 5px !important;
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+        font-size: 14px;
+        color: #3d3d3d;
+    }
+</style>
 <div class="pcms-editor">
     <div class="panel__post">
         <div class="row">
-            <div style="padding: 9px 21px 0 21px; border-bottom: 1px solid #dedede">
+            <div style="padding: 9px 21px 0 21px;">
                 <form action="{{ block.getSaveUrl() }}" method="post" data-controller="editor">
                     <div class="editor-header">
                         <div class="image-input-container">
                             <a href="{{ block.getCategoryUrl() }}">
-                                <img class="float-start" src="{{ block.getCategory().getCategoryImage() }}" width="40"
-                                     height="40" alt=""/>
+                                <img class="float-start" src="{{ block.getCategory().getCategoryImage() }}" width="35"
+                                     height="35" alt=""/>
                             </a>
                             <input type="text" name="post_title" class="form-control ms-2 post_title" placeholder="{{ block.trans('Post Title ...') }}">
                         </div>
+                        <div class="form-check form-switch me-4">
+                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked>
+                            <label class="form-check-label text-primary" style="font-size: 12px; font-weight: bold;" for="flexSwitchCheckDefault">Auto Save</label>
+                        </div>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-primary rounded-start-5 ps-4" data-action="editor#onSubmit">{{ block.trans('Share Post') }}</button>
-                            <button type="button" class="btn btn-primary rounded-end-5 pe-3 dropdown-toggle"
+                            <button type="button" class="btn btn-primary rounded-start-5 ps-4" data-action="editor#onSubmit">{{ block.trans('Share') }}</button>
+                            <button type="button" class="btn btn-primary rounded-end-5 pe-3 dropdown-toggle active"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="visually-hidden">Toggle Dropdown</span>
                             </button>
@@ -55,11 +86,22 @@
                         <div class="panel__actions">
                             <div class="dropdown">
                                 <button class="btn dropdown-toggle editor-dropdown editor-rte-action" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    كلاسيكي
+                                    Classic
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">كلاسيكي</a></li>
-                                    <li><a class="dropdown-item" href="#" style="font-size: 21px">عنوان 1</a></li>
+                                    <li><a class="dropdown-item" href="#">Classic</a></li>
+                                    <li><a class="dropdown-item" href="#" style="font-size: 21px">Title 1</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="panel__actions">
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle editor-dropdown editor-rte-action" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Arial
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Classic</a></li>
+                                    <li><a class="dropdown-item" href="#" style="font-size: 21px">Title 1</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -74,17 +116,25 @@
                         </div>
                         <div class="panel__actions">
                             <div class="editor-rte-action editor-icon btn-link" id="link"></div>
-                            <div class="editor-rte-action editor-icon btn-image" id="image"></div>
-                        </div>
-                        <div class="panel__actions">
-                            <div class="editor-rte-action editor-icon btn-unordered-list" id="unorderedList"></div>
-                            <div class="editor-rte-action editor-icon btn-numbered-list" id="orderedList"></div>
-                            <div class="editor-rte-action editor-icon btn-check-list" id="checkList"></div>
                         </div>
                         <div class="panel__actions">
                             <div class="editor-rte-action editor-icon btn-left-align" id="leftAlign"></div>
                             <div class="editor-rte-action editor-icon btn-center-align" id="centerAlign"></div>
                             <div class="editor-rte-action editor-icon btn-right-align" id="rightAlign"></div>
+                        </div>
+                        <div class="components_menu" style="margin-left: auto; display: flex;">
+                            <div class="panel__actions components_manager">
+                                <div class="editor-rte-action with_text editor-icon btn-style-manager active" id="styles">Design</div>
+                            </div>
+                            <div class="panel__actions components_manager">
+                                <div class="editor-rte-action editor-icon btn-traits" id="traits"></div>
+                            </div>
+                            <div class="panel__actions components_manager">
+                                <div class="editor-rte-action editor-icon btn-settings" id="settings"></div>
+                            </div>
+                            <div class="panel__actions components_manager">
+                                <div class="editor-rte-action editor-icon btn-layers" id="layers"></div>
+                            </div>
                         </div>
                     </div>
                     <input type="hidden" name="category_id" value="{{ block.getCategory().getEntityId()}}" />
@@ -108,7 +158,23 @@
             <div>What do you want to say ? ...</div>
         </div>
         <div id="components" class="editor-column">
-
+            <div id="layers-container" class="component_container"></div>
+            <div id="styles-container" class="component_container"></div>
+            <div id="traits-container" class="component_container"></div>
+            <div id="settings-container" class="component_container p-3">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Meta Title</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Meta Description</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Meta Keywords</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -148,26 +214,6 @@
         </div>
     </div>
 </div>
-
-<!-- Modal -->
-{#<div class="modal fade" id="drive-editor-image" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">#}
-{#    <div class="modal-dialog modal-dialog-scrollable modal-xl">#}
-{#        <div class="modal-content" style="background-color: rgba(255, 255, 255, 0.9)">#}
-{#            <div class="modal-header">#}
-{#                <div>#}
-{#                    <h1 class="modal-title fs-5" id="exampleModalLabel">Drive Gallery</h1>#}
-{#                    <small>Choose from Drive Gallery</small>#}
-{#                </div>#}
-{#                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>#}
-{#            </div>#}
-{#            <div class="modal-body file_manager row"></div>#}
-{#            <div class="modal-footer">#}
-{#                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>#}
-{#                <button type="button" class="btn btn-primary">Save changes</button>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
 
 <style>
     html, body {

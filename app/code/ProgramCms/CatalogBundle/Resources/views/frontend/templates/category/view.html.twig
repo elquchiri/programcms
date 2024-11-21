@@ -20,7 +20,7 @@
                         <img src="{{ block.getCategory().getCategoryImage() }}" class="mt-3" width="40" height="40" alt=""/>
                     </a>
                     <p class="mt-3">
-                        <a href="{{ block.getCategoryUrl() }}" style="color: #000000">{{ block.getCategory().getCategoryName() }}</a>
+                        <a href="{{ block.getCategoryUrl() }}" style="color: #000000; font-weight: bold">{{ block.getCategory().getCategoryName() }}</a>
                         <span style="display: block; font-size: 13px;" class="mt-1">{{ block.trans('Managed by') }}: <a href="">Med ELQ</a></span>
                     </p>
                 </ul>
@@ -43,7 +43,7 @@
                     <li class="nav-item me-3">
                         <a class="nav-link text-center" aria-current="page" href="{{ block.newPostUrl() }}" style="font-size: 13px; font-weight: bold;">
                             <img src="{{ asset('bundles/programcmspost/images/posts.png') }}" alt=""/>
-                            <p class="mt-1">{{ block.trans('Your posts here') }}</p>
+                            <p class="mt-1">{{ block.trans('Your posts') }}</p>
                         </a>
                     </li>
                     <li class="nav-item me-3 text-center">
