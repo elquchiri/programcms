@@ -10,6 +10,8 @@ namespace ProgramCms\CoreBundle\Model\Db\Collection;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
+use ProgramCms\EavBundle\Entity\EavAttribute;
+use ReflectionException;
 
 /**
  * Class AbstractCollection
@@ -139,6 +141,110 @@ abstract class AbstractCollection implements CollectionInterface
                 $this->getQueryBuilder()->expr()->$filter('main_table.' . $field, '?1'),
             )
         )->setParameter(1, $value);
+
+        return $this;
+    }
+
+    /**
+     * @param string $field
+     * @param $value
+     * @param string $filter
+     * @return $this
+     */
+    public function addAttributeToFilter(string $field, $value, string $filter = 'eq'): static
+    {
+        $eavAttributeRepo = $this->entityManager->getRepository(EavAttribute::class);
+        /** @var EavAttribute $attribute */
+        $attribute = $eavAttributeRepo->findOneBy(['attribute_code' => $field]);
+
+        if (!$attribute) {
+            throw new \InvalidArgumentException("Attribute '$field' not found in EAV attributes.");
+        }
+
+        $backendType = $attribute->getBackendType(); // E.g., "ProgramCms\UserBundle\Entity\UserEntityVarchar"
+        if (!class_exists($backendType)) {
+            throw new \InvalidArgumentException("Backend type '$backendType' does not exist.");
+        }
+
+        $alias = 'eav_' . strtolower((new \ReflectionClass($backendType))->getShortName());
+        $this->getQueryBuilder()
+            ->join($backendType, $alias, 'WITH', "$alias.attribute_id = :attribute")
+            ->andWhere(
+                match ($filter) {
+                    'like' => $this->getQueryBuilder()->expr()->like("$alias.value", ':value'),
+                    'eq' => $this->getQueryBuilder()->expr()->eq("$alias.value", ':value'),
+                    'neq' => $this->getQueryBuilder()->expr()->neq("$alias.value", ':value'),
+                    default => throw new \InvalidArgumentException("Unsupported filter type: $filter"),
+                }
+            )
+            ->setParameter('attribute', $attribute)
+            ->setParameter('value', $filter === 'like' ? "%$value%" : $value);
+
+        return $this;
+    }
+
+    /**
+     * @param array|string $fields
+     * @return $this
+     * @throws ReflectionException
+     */
+    public function addAttributeToSelect(array|string $fields): static
+    {
+        $fields = (array)$fields; // Normalize input to array
+        foreach ($fields as $field) {
+            $eavAttributeRepo = $this->entityManager->getRepository(EavAttribute::class);
+            $attribute = $eavAttributeRepo->findOneBy(['attribute_code' => $field]);
+
+            if (!$attribute) {
+                throw new \InvalidArgumentException("Attribute '$field' not found in EAV attributes.");
+            }
+
+            $backendType = $attribute->getBackendType(); // E.g., "ProgramCms\UserBundle\Entity\UserEntityVarchar"
+            if (!class_exists($backendType)) {
+                throw new \InvalidArgumentException("Backend type '$backendType' does not exist.");
+            }
+
+            $alias = 'eav_' . strtolower((new \ReflectionClass($backendType))->getShortName());
+            $this->getQueryBuilder()
+                ->leftJoin($backendType, $alias, 'WITH', "$alias.attribute = :attribute_$field")
+                ->addSelect("$alias.value AS {$field}_value")
+                ->setParameter("attribute_$field", $attribute);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param array|string $fields
+     * @param string $keyword
+     * @return $this
+     */
+    public function addFullTextSearch(array|string $fields, string $keyword): static
+    {
+        $fieldList = is_array($fields) ? implode(',', (array)$fields) : $fields;
+
+        $this->getQueryBuilder()->andWhere("MATCH($fieldList) AGAINST (:keyword IN NATURAL LANGUAGE MODE)")
+            ->setParameter('keyword', $keyword);
+
+        return $this;
+    }
+
+    /**
+     * @param array|string $fields
+     * @param string $keyword
+     * @return $this
+     */
+    public function addKeywordSearch(array|string $fields, string $keyword): static
+    {
+        $expr = $this->getQueryBuilder()->expr();
+        $conditions = [];
+
+        foreach ((array) $fields as $field) {
+            $conditions[] = $expr->like('main_table.' . $field, '?1');
+        }
+
+        $this->getQueryBuilder()->andWhere(call_user_func_array([$expr, 'orX'], $conditions))
+            ->setParameter(1, '%' . $keyword . '%');
 
         return $this;
     }

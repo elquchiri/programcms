@@ -7,7 +7,7 @@
  */
 #}
 <div class="">
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg p-0">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -20,8 +20,8 @@
                         <img src="{{ block.getCategory().getCategoryImage() }}" class="mt-3" width="40" height="40" alt=""/>
                     </a>
                     <p class="mt-3">
-                        <a href="{{ block.getCategoryUrl() }}" style="color: #000000; font-weight: bold">{{ block.getCategory().getCategoryName() }}</a>
-                        <span style="display: block; font-size: 13px;" class="mt-1">{{ block.trans('Managed by') }}: <a href="">Med ELQ</a></span>
+                        <a href="{{ block.getCategoryUrl() }}" style="font-weight: bold">{{ block.getCategory().getCategoryName() }}</a>
+                        <span style="display: block; font-size: 13px;" class="mt-1 text-muted">{{ block.trans('Managed by') }}: <a href="">Med ELQ</a></span>
                     </p>
                 </ul>
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
@@ -29,26 +29,26 @@
                     <li class="nav-item me-3">
                         <a class="nav-link text-center" aria-current="page" href="{{ block.newPostUrl() }}" style="font-size: 13px; font-weight: bold;">
                             <img src="{{ asset('bundles/programcmspost/images/new.png') }}" alt=""/>
-                            <p class="mt-1">{{ block.trans('New Post') }}</p>
+                            <p class="mt-1">{{ block.trans('New') }}</p>
                         </a>
                     </li>
                     {% endif %}
                     <li class="nav-item me-3 text-center">
                         <a class="nav-link" aria-current="page" href="" style="font-size: 13px; font-weight: bold;">
                             <img src="{{ asset('bundles/programcmspost/images/hot.png') }}"/>
-                            <p class="mt-1">{{ block.trans('Active Posts') }}</p>
+                            <p class="mt-1">{{ block.trans('#Trend') }}</p>
                         </a>
                     </li>
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li class="nav-item me-3">
                         <a class="nav-link text-center" aria-current="page" href="{{ block.newPostUrl() }}" style="font-size: 13px; font-weight: bold;">
                             <img src="{{ asset('bundles/programcmspost/images/posts.png') }}" alt=""/>
-                            <p class="mt-1">{{ block.trans('Your posts') }}</p>
+                            <p class="mt-1">{{ block.trans('Yours') }}</p>
                         </a>
                     </li>
                     <li class="nav-item me-3 text-center">
                         <a class="nav-link" aria-current="page" href="" style="font-size: 13px; font-weight: bold;">
-                            <img src="{{ asset('bundles/programcmspost/images/message.png') }}"/>
+                            <img src="{{ asset('bundles/programcmspost/images/report.png') }}"/>
                             <p class="mt-1">{{ block.trans('Report') }}</p>
                         </a>
                     </li>

@@ -318,6 +318,11 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
         return $this->getUserFirstname() . ' ' . $this->getUserLastname();
     }
 
+    public function getShortName(): string
+    {
+        return trim($this->getUserFirstname() . " " . $this->getUserLastname()[0] . '.');
+    }
+
     /**
      * @return string|null
      */

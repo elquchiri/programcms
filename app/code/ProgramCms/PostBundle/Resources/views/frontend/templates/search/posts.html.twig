@@ -1,0 +1,41 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+{% set results = block.getResults() %}
+
+<div class="post_search_title">
+    Posts ({{ results['count'] }})
+</div>
+
+{% for post in results['data'] %}
+    <div class="card card-body mt-4">
+        <div class="post_container d-flex gap-4">
+            <div class="post_photo">
+                <img src="{{ post.getUser().getProfileImage() }}" style="width: 60px; height: 60px; border-radius: 11px; border: 2px solid #dedede;"  alt=""/>
+            </div>
+            <div class="post_content" style="flex: 1">
+                <div class="post_info text-muted" style="font-size: 14px;">
+                    By <a href="{{ block.getUserUrl(post.getUser()) }}">
+                        {{ post.getUser().getShortName() }}
+                    </a>
+                    &middot;
+                    {{ block.getPostUpdatedAt(post) }}
+                </div>
+                <div class="post_title fw-bold mt-1">
+                    <a href="" class="text-dark">{{ post.getPostName() }}</a>
+                </div>
+                <p class="post_description mt-2">
+                    Outil de régulation destiné à maîtriser la complexité, la gouvernance passe par la mise à jour des priorités, la planification des missions, la détermination des moyens, le suivi des décisions, la coordination des activités dans une vision éthique à moyen et long terme du développement cohérent de l’institution. Elle ne se réduit pas à l’administration d’un établissement sur la base d’un cadre réglementaire, hiérarchique ou procédural ; il y a gouvernance lorsqu’une marge importante est laissée à l’autonomie, à l’appréciation, à la consultation, mais également à la reddition des comptes.
+                </p>
+            </div>
+            <div class="post_options">
+                <a href="#" class="btn btn-primary btn-sm">Read</a>
+            </div>
+        </div>
+    </div>
+{% endfor %}

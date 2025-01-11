@@ -61,51 +61,34 @@ class Editor extends Template
      */
     public function getSaveUrl(): string
     {
-        return $this->isPostMode() ? $this->getUrl('post_index_save') : $this->getUrl('post_comment_save');
+        return $this->getUrl('post_index_save');
     }
 
     /**
-     * @return int|null
+     * @return bool|string
      */
-    public function getPostId()
+    public function getJsonData(): bool|string
     {
-        return $this->getRequest()->hasParam('post_id') ? $this->getRequest()->getParam('post_id') : null;
-    }
-
-    public function getSaveCommentUrl(): string
-    {
-        return $this->getUrl('post_comment_save');
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPostMode(): bool
-    {
-        return in_array($this->getRequest()->getCurrentRouteName(), ['post_index_edit', 'post_index_new']);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isCommentMode(): bool
-    {
-        return in_array($this->getRequest()->getCurrentRouteName(), ['post_comment_edit']);
+        return json_encode([
+            'category_id' => $this->getCategory()->getEntityId()
+        ]);
     }
 
     /**
      * @return string
      */
-    public function getEditorMode(): string
+    public function getLoadUrl(): string
     {
-        return $this->isPostMode() ? 'post' : 'comment';
+        return $this->getUrl('post_ajax_loadpost', [
+            'post_id' => $this->getPostId()
+        ]);
     }
 
     /**
      * @return mixed
      */
-    public function getCommentId()
+    public function getPostId()
     {
-        return $this->getRequest()->getParam('comment_id');
+        return $this->getRequest()->getParam('post_id');
     }
 }

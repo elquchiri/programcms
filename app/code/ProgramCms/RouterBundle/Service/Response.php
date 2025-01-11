@@ -8,18 +8,32 @@
 
 namespace ProgramCms\RouterBundle\Service;
 
+use Twig\Environment;
+
 /**
  * Class Response
  * @package ProgramCms\RouterBundle\Service
  */
 class Response
 {
+    /**
+     * @var Request
+     */
     protected Request $request;
-    private \Twig\Environment $twig;
 
+    /**
+     * @var Environment
+     */
+    private Environment $twig;
+
+    /**
+     * Response constructor.
+     * @param Request $request
+     * @param Environment $twig
+     */
     public function __construct(
         \ProgramCms\RouterBundle\Service\Request $request,
-        \Twig\Environment $twig
+        Environment $twig
     )
     {
         $this->twig = $twig;

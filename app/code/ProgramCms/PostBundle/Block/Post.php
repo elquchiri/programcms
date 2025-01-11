@@ -11,6 +11,7 @@ namespace ProgramCms\PostBundle\Block;
 use Doctrine\Common\Collections\Collection;
 use ProgramCms\CatalogBundle\Entity\CategoryEntity;
 use ProgramCms\CatalogBundle\Repository\CategoryRepository;
+use ProgramCms\CoreBundle\DateTime\TransformerInterface;
 use ProgramCms\CoreBundle\View\Element\Template;
 use ProgramCms\FavoriteBundle\Repository\FavoriteRepository;
 use ProgramCms\PostBundle\Entity\Comment;
@@ -53,6 +54,11 @@ class Post extends Template
     protected FavoriteRepository $favoriteRepository;
 
     /**
+     * @var TransformerInterface
+     */
+    protected TransformerInterface $transformer;
+
+    /**
      * Post constructor.
      * @param Template\Context $context
      * @param PostRepository $postRepository
@@ -60,6 +66,7 @@ class Post extends Template
      * @param UserEntityRepository $userEntityRepository
      * @param CategoryRepository $categoryRepository
      * @param FavoriteRepository $favoriteRepository
+     * @param TransformerInterface $transformer
      * @param array $data
      */
     public function __construct(
@@ -69,6 +76,7 @@ class Post extends Template
         UserEntityRepository $userEntityRepository,
         CategoryRepository $categoryRepository,
         FavoriteRepository $favoriteRepository,
+        TransformerInterface $transformer,
         array $data = []
     )
     {
@@ -78,6 +86,7 @@ class Post extends Template
         $this->userEntityRepository = $userEntityRepository;
         $this->categoryRepository = $categoryRepository;
         $this->favoriteRepository = $favoriteRepository;
+        $this->transformer = $transformer;
     }
 
     /**
@@ -168,6 +177,14 @@ class Post extends Template
     }
 
     /**
+     * @return int
+     */
+    public function countComments(): int
+    {
+        return  $this->getComments()->count();
+    }
+
+    /**
      * @return string
      */
     public function getCategoryUrl(): string
@@ -224,5 +241,22 @@ class Post extends Template
     public function formatPost(string $fullHtml): string
     {
         return preg_replace('/<body[^>]*>(.*?)<\/body>/is', '$1', $fullHtml);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPostUpdatedAt(): string
+    {
+        return $this->transformer->timeAgo($this->getPost()->getUpdatedAt());
+    }
+
+    /**
+     * @param Comment $comment
+     * @return string
+     */
+    public function getCommentUpdatedAt(Comment $comment): string
+    {
+        return $this->transformer->timeAgo($comment->getUpdatedAt());
     }
 }

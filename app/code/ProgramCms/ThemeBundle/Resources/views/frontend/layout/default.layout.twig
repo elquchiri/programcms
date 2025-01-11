@@ -15,7 +15,7 @@
     {# Page Top Container #}
     {% referenceContainer name="page.top" %}
         {# Navigation Section Block #}
-        {% container name="navigation.bar" htmlTag="nav" htmlClass="mb-2" htmlId="menu" %}
+        {% container name="navigation.bar" htmlTag="nav" htmlId="menu" %}
             {% container name="navigation.nav.container" htmlTag="div" htmlClass="container" %}
                 {% block name="navigation.block" class="ProgramCms\\ThemeBundle\\Block\\Html\\TopMenu" template="@ProgramCmsThemeBundle/navigation_bar.html.twig" %}{% endBlock %}
             {% endContainer %}
@@ -32,7 +32,7 @@
         {% endContainer %}
         {% container name="header.wrapper" htmlTag="div" htmlClass="panel content" %}
             {% container name="navbar" htmlTag="div" htmlClass="container" %}
-                {% container name="navbar.container" htmlTag="nav" htmlClass="navbar navbar-expand-lg" %}
+                {% container name="navbar.container" htmlTag="nav" htmlClass="navbar navbar-expand-lg p-0 pt-2 pb-2" %}
                     {% container name="logo.container" htmlTag="div" %}
                         {# Website LOGO Block #}
                         {% block name="logo" class="ProgramCms\\ThemeBundle\\Block\\Html\\Header\\Logo" template="@ProgramCmsThemeBundle/logo.html.twig" %}{% endBlock %}

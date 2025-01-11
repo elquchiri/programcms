@@ -1,8 +1,10 @@
 /*!
- * Copyright © ProgramCMS. All rights reserved.
- * See COPYING.txt for license details.
  *
- * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ *  * Copyright © ProgramCMS. All rights reserved.
+ *  * See COPYING.txt for license details.
+ *  *
+ *  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ *
  */
 
 .overlay {
@@ -16,12 +18,10 @@
   background: rgba(255, 255, 255, 0.8) url("../../../../../public/images/loader/spinner-1.5s-90px.gif") center no-repeat;
 }
 
-/* Turn off scrollbar when body element has the loading class */
 body.loading {
   overflow: hidden;
 }
 
-/* Make spinner image visible when body element has the loading class */
 body.loading .overlay {
   display: block;
 }

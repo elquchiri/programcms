@@ -26,4 +26,10 @@ interface TransformerInterface
      * @return string
      */
     public function transform(DateTime $dateTime, string $format = self::DEFAULT_FORMAT): string;
+
+    /**
+     * @param DateTime $dateTime
+     * @return string
+     */
+    public function timeAgo(DateTime $dateTime): string;
 }

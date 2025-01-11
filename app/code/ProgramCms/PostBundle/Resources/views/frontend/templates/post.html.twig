@@ -6,192 +6,260 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{ block.getCategoryUrl() }}">
-            <img src="{{ block.getCategory().getCategoryImage() }}" width="40" height="40" alt=""/>
-        </a>
-        <p class="mt-3">
-            <a href="{{ block.getCategoryUrl() }}" style="color: #000000; font-weight: bold">{{ block.getCategory().getCategoryName() }}</a>
-            <span style="display: block; font-size: 13px;" class="mt-1">{{ block.trans('Managed by') }}: <a href="">Med ELQ</a></span>
-        </p>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css"/>
 
-            </ul>
-            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                {% if is_granted('edit', block.getPost()) %}
-                    <li class="nav-item me-3">
-                        <a class="nav-link text-center" aria-current="page" href="{{ block.getEditPostUrl() }}" style="font-size: 13px; font-weight: bold;">
-                            <img src="{{ asset('bundles/programcmspost/images/edit.png') }}" alt=""/>
-                            <p class="mt-1">{{ block.trans('Edit Post') }}</p>
-                        </a>
-                    </li>
-                {% endif %}
-                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <li class="nav-item me-3">
-                        <a class="nav-link text-center" aria-current="page" href="{{ block.newPostUrl() }}" style="font-size: 13px; font-weight: bold;">
-                            <img src="{{ asset('bundles/programcmspost/images/new.png') }}" alt=""/>
-                            <p class="mt-1">{{ block.trans('New Post') }}</p>
-                        </a>
-                    </li>
-                    {% if block.isPostInFavorite() == false %}
+<nav class="navbar navbar-expand-lg p-0">
+    <a class="navbar-brand" href="{{ block.getCategoryUrl() }}">
+        <img style="margin-top: -21px;" src="{{ block.getCategory().getCategoryImage() }}" width="40" height="40"
+             alt=""/>
+    </a>
+    <p>
+        <a href="{{ block.getCategoryUrl() }}"
+           style="font-weight: bold">{{ block.getCategory().getCategoryName() }}</a>
+        <span style="display: block; font-size: 13px;" class="mt-1 text-muted">{{ block.trans('Managed by') }}: <a
+                    href="">Med ELQ</a></span>
+    </p>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        </ul>
+        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+            {% if is_granted('edit', block.getPost()) %}
+                <li class="nav-item me-4">
+                    <a class="nav-link text-center" aria-current="page" href="{{ block.getEditPostUrl() }}"
+                       style="font-size: 13px; font-weight: bold;">
+                        <img src="{{ asset('bundles/programcmspost/images/edit.png') }}" alt=""/>
+                        <p class="mt-1">{{ block.trans('Edit') }}</p>
+                    </a>
+                </li>
+            {% endif %}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <li class="nav-item me-3">
+                    <a class="nav-link text-center" aria-current="page" href="{{ block.newPostUrl() }}"
+                       style="font-size: 13px; font-weight: bold;">
+                        <img src="{{ asset('bundles/programcmspost/images/new.png') }}" alt=""/>
+                        <p class="mt-1">{{ block.trans('New') }}</p>
+                    </a>
+                </li>
+                {% if block.isPostInFavorite() == false %}
                     <li class="nav-item me-3 text-center">
-                        <a href="{{ block.getAddToFavoriteUrl() }}" class="nav-link" aria-current="page" style="font-size: 13px; font-weight: bold;">
+                        <a href="{{ block.getAddToFavoriteUrl() }}" class="nav-link" aria-current="page"
+                           style="font-size: 13px; font-weight: bold;">
                             <img src="{{ asset('bundles/programcmspost/images/favorite.png') }}"/>
-                            <p class="mt-1">{{ block.trans('Add to Favorite') }}</p>
+                            <p class="mt-1">{{ block.trans('Favorite') }}</p>
                         </a>
                     </li>
-                    {% endif %}
                 {% endif %}
-                <li class="nav-item me-3 text-center">
-                    <a class="nav-link" aria-current="page" href="" style="font-size: 13px; font-weight: bold;">
-                        <img src="{{ asset('bundles/programcmspost/images/hot.png') }}"/>
-                        <p class="mt-1">{{ block.trans('Active Posts') }}</p>
-                    </a>
-                </li>
-                <li class="nav-item me-3 text-center">
-                    <a class="nav-link" aria-current="page" href="" style="font-size: 13px; font-weight: bold;">
-                        <img src="{{ asset('bundles/programcmspost/images/message.png') }}"/>
-                        <p class="mt-1">{{ block.trans('Report') }}</p>
-                    </a>
-                </li>
-                <li class="me-2">
-                    <div class="form-floating">
-                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                            <option selected>1/1</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-                        <label for="floatingSelect">{{ block.trans('Page') }}</label>
-                    </div>
-                </li>
-                <li>
-                    <div class="form-floating">
-                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                            <option selected>Recent</option>
-                            <option value="1">Trending</option>
-                        </select>
-                        <label for="floatingSelect">{{ block.trans('Sort by') }}</label>
-                    </div>
-                </li>
-            </ul>
-        </div>
+            {% endif %}
+            <li class="nav-item me-3 text-center">
+                <a class="nav-link" aria-current="page" href="" style="font-size: 13px; font-weight: bold;">
+                    <img src="{{ asset('bundles/programcmspost/images/report.png') }}"/>
+                    <p class="mt-1">{{ block.trans('Report') }}</p>
+                </a>
+            </li>
+        </ul>
     </div>
 </nav>
-<div class="table-responsive rounded-start-2 rounded-end-2">
-    <table class="table table-bordered table-forums caption-top mb-5">
-        <thead class="table-forum-times">
-            <th colspan="2" class="text-center" style="width: 23%;">{{ block.getPost().getPostName() }}</th>
-        </thead>
-        <tbody>
-            <tr>
-                <td style="width: 1%">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item text-center">
-                            <div class="profile-image" style="display: inline-block; border: 3px solid #6d9dcb; width: 48px; height: 48px; border-radius: 50%; padding: 1px;">
-                                <img src="{{ block.getPost().getUser().getProfileImage() }}" style="width: 100%; height: 100%; border-radius: 50%;" alt="" />
-                            </div>
-                            <p class="m-0 mt-2">
-                                <a href="{{ block.getUserUrl() }}">{{ block.getPost().getUser().getUserFirstname() }}</a>
-                            </p>
-                            <p class="text-muted m-0" style="font-size: 13px;">{{ block.trans('Member') }}</p>
-                        </li>
-                        <li class="list-group-item" style="font-size: 14px;">
-                            {{ block.trans('Comments') }}: 300
-                        </li>
-                        <li class="list-group-item" style="font-size: 14px;">
-                            {{ block.trans('Excellence') }}: 500
-                        </li>
-                    </ul>
-                </td>
-                <td>
-                    <div class="post_content p-2">
+
+<div class="container-fluid post_container mb-5">
+    <div class="row sticky-md-top first-sticky" style="background-color: #FFFFFF">
+        <div class="col-md-12 text-center fw-bold p-2" style="font-size: 17px;">
+            <div class="d-flex flex-row">
+                <div class="post_reaction ms-3 mt-2">
+                    <button class="btn post-like-reaction position-relative" style="width: 49px; height: 45px;" type="button" id="like_post"></button>
+                    <button class="btn post-love-reaction" type="button" id="love_post" style="width: 49px; height: 45px;"></button>
+                    <button class="btn post-dislike-reaction" type="button" id="dislike_post" style="width: 49px; height: 45px;"></button>
+                </div>
+                <div class="post_title_container" style="flex: 1">
+                    <p class="text-muted m-0 mb-1" style="font-size: 13px; font-weight: normal">
+                        <b>32</b> reply &middot;
+                        <b>453</b> views &middot;
+                        Updated <b>{{ block.getPostUpdatedAt() }}</b>
+                    </p>
+                    {{ block.getPost().getPostName() }}
+                    <p class="text-muted m-0 mt-2" style="font-size: 14px; font-weight: normal">
+                        <span class="text-success me-2"><b>32</b> Like</span> &middot;
+                        <span class="text-muted"><b>453</b> Dislike</span>
+                    </p>
+                </div>
+                <div class="post_network input-group flex-nowrap justify-content-end me-3 mt-2" style="width: 120px; height: 50px;">
+                    <button class="btn post-left-button" type="button" id="but"></button>
+                    <button class="btn post-right-button" type="button" id="ui-pagination"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="row mt-3">
+                <div class="col-md-2 p-0">
+                    <div class="sticky-md-top pt-2 second-sticky">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="d-flex">
+                                    <img src="{{ block.getPost().getUser().getProfileImage() }}"
+                                         style="border: 2px solid #afafaf; width: 45px; height: 45px; border-radius: 9px;"
+                                         alt=""/>
+                                    <div class="ms-3">
+                                        <a class="fw-bold" style="color: #000000"
+                                           href="{{ block.getUserUrl() }}">{{ block.getPost().getUser().getShortName() }}</a>
+                                        <p class="text-muted m-0"
+                                           style="font-size: 13px;">{{ block.trans('Member') }}</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item" style="font-size: 13px;">
+                                <div class="profile_interaction_buttons btn-group btn-group-sm d-flex" role="group"
+                                     aria-label="Basic example">
+                                    <button type="button" class="btn btn-primary btn-follow">
+                                        {{ block.trans('Follow') }}
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary btn-message">
+                                        Message
+                                    </button>
+                                </div>
+                            </li>
+                            <li class="list-group-item" style="font-size: 13.5px;">
+                                300 Reply
+                            </li>
+                            <li class="list-group-item" style="font-size: 13.5px;">
+                                From Morocco
+                            </li>
+                            <li class="list-group-item text-muted" style="font-size: 13px;">
+                                {{ block.trans('Joined us') }} 2 years ago.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-10 ps-5 pe-4 pb-4">
+                    <div class="post_content" data-controller="post-viewer">
                         <style>
                             {{ block.getPost().getPostCss()|raw }}
                         </style>
                         {{ block.formatPost(block.getPost().getPostHtml())|raw }}
                     </div>
-                    <div class="post_options text-end mt-3 p-3">
-                        {% if is_granted('edit', block.getPost()) %}
-                        <div class="btn-group dropdown">
-                            <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true"
-                               aria-expanded="false">
-                                {{ block.trans('Edit') }}
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ block.getEditPostUrl() }}">{{ block.trans('Edit Post') }}</a></li>
-                                <li><a class="dropdown-item" data-controller="delete-comment" data-action="delete-comment#onDelete" id="{{ block.getPost().getEntityId() }}" href="#">{{ block.trans('Delete Post') }}</a></li>
-                            </ul>
-                        </div>
-                        {% endif %}
-                    </div>
-                </td>
-            </tr>
 
-            {% if block.hasComments() %}
-                {% for comment in block.getComments() %}
-                    <tr id="comment-{{ comment.getEntityId() }}">
-                        <td>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item text-center">
-                                    <div class="profile-image" style="display: inline-block; border: 3px solid #6d9dcb; width: 38px; height: 38px; border-radius: 50%; padding: 1px;">
-                                        <img src="{{ comment.getUser().getProfileImage() }}" style="width: 100%; height: 100%; border-radius: 50%;" alt="" />
+                    {# Comments #}
+                    {% if block.hasComments() %}
+                        <div class="mt-5 mb-5">
+                            <div class="text-primary fw-bold pt-3 pb-3">Comments ({{ block.countComments() }})</div>
+                            {% for comment in block.getComments() %}
+                                <div class="row" id="comment-{{ comment.getEntityId() }}"
+                                     style="border-top: 1px solid #CCC;">
+                                    <div class="col-md-2 p-0">
+                                        <div class="sticky-md-top pt-4 second-sticky">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item text-center">
+                                                    <div>
+                                                        <img src="{{ comment.getUser().getProfileImage() }}"
+                                                             style="border: 2px solid #afafaf; width: 45px; height: 45px; border-radius: 9px;"
+                                                             alt=""/>
+                                                    </div>
+                                                    <div class="mt-2">
+                                                        <a class="fw-bold" style="font-size: 14px; color: #000000"
+                                                           href="">{{ comment.getUser().getShortName() }}</a>
+                                                        <p class="text-muted m-0"
+                                                           style="font-size: 13px;">{{ block.trans('Member') }}</p>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item" style="font-size: 13px;">
+                                                    <div class="profile_interaction_buttons btn-group btn-group-sm d-flex"
+                                                         role="group" aria-label="Basic example">
+                                                        <button type="button" class="btn btn-primary btn-follow">
+                                                            {{ block.trans('Follow') }}
+                                                        </button>
+                                                        <button type="button" class="btn btn-outline-primary btn-message">
+                                                            Message
+                                                        </button>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <p class="m-0 mt-2">{{ comment.getUser().getUserFirstname() }}</p>
-                                    <p class="text-muted m-0" style="font-size: 13px;">{{ block.trans('Member') }}</p>
-                                </li>
-                            </ul>
-                        </td>
-                        <td>
-                            <div class="post_comment p-2">
-                                {{ comment.getComment()|raw }}
-                            </div>
-                            <div class="comment_options text-end mt-3 p-3">
-                                <div class="btn-group dropdown">
-                                    <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true"
-                                       aria-expanded="false">
-                                        {{ block.trans('Edit') }}
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="{{ block.getEditCommentUrl(comment) }}">{{ block.trans('Edit Comment') }}</a></li>
-                                        <li><a class="dropdown-item" data-controller="delete-comment" data-action="delete-comment#onDelete" id="{{ comment.getEntityId() }}" href="#">{{ block.trans('Delete Comment') }}</a></li>
-                                    </ul>
+                                    <div class="col-md-10 p-4">
+                                        <div class="post_comment ps-2">
+                                            {{ comment.getComment()|raw }}
+                                        </div>
+                                        <div class="comment_options d-flex justify-content-center mt-3 p-3">
+                                            <div class="comment_reaction d-block" style="flex: 1;">
+                                                <div class="input-group">
+                                                    <button class="btn comment-like-reaction fw-bold"
+                                                            style="color: #46860E;" type="button" id="like_comment">31
+                                                    </button>
+                                                    <button class="btn comment-dislike-reaction" type="button"
+                                                            id="dislike_comment"></button>
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                        <span class="fw-bold text-muted" style="font-size: 13px">
+                                            {{ block.getCommentUpdatedAt(comment) }}
+                                        </span>
+                                                <div class="btn-group dropdown ms-3">
+                                                    <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                                       data-bs-auto-close="true"
+                                                       aria-expanded="false">
+                                                        {{ block.trans('Edit') }}
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item"
+                                                               href="{{ block.getEditCommentUrl(comment) }}">{{ block.trans('Edit Comment') }}</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item" data-controller="delete-comment"
+                                                               data-action="delete-comment#onDelete"
+                                                               id="{{ comment.getEntityId() }}"
+                                                               href="#">{{ block.trans('Delete Comment') }}</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                {% endfor %}
-            {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
 
-            {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
-                <tr id="comment-container">
-                    <td>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item text-center">
-                                <div class="profile-image" style="display: inline-block; border: 3px solid #6d9dcb; width: 38px; height: 38px; border-radius: 50%; padding: 1px;">
-                                    <img src="{{ block.getUser().getProfileImage() }}" style="width: 100%; height: 100%; border-radius: 50%;" alt="" />
-                                </div>
-                                <p class="m-0 mt-2">{{ block.getUser().getUserFirstname() }}</p>
-                                <p class="text-muted m-0" style="font-size: 13px;">{{ block.trans('Member') }}</p>
-                            </li>
-                        </ul>
-                    </td>
-                    <td>
-                        <form action="{{ block.getCommentSaveUrl() }}" method="POST" data-controller="new-comment">
-                            <textarea name="comment" class="form-control" placeholder="{{ block.trans('Write a comment ..') }}" rows="5"></textarea>
-                            <input type="hidden" name="post_id" value="{{ block.getPost().getEntityId() }}" />
-                            <input type="submit" class="btn btn-primary float-end mt-2" data-action="new-comment#onSubmit" value="{{ block.trans('Add Comment') }}">
-                        </form>
-                    </td>
-                </tr>
-            {% endif %}
-        </tbody>
-    </table>
+                    {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
+                        <div class="row" id="comment-container">
+                            <div class="col-md-2 p-4">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item text-center">
+                                        <div class="profile-image"
+                                             style="display: inline-block; border: 3px solid #6d9dcb; width: 38px; height: 38px; border-radius: 50%; padding: 1px;">
+                                            <img src="{{ block.getUser().getProfileImage() }}"
+                                                 style="width: 100%; height: 100%; border-radius: 50%;" alt=""/>
+                                        </div>
+                                        <p class="m-0 mt-2">{{ block.getUser().getUserFirstname() }}</p>
+                                        <p class="text-muted m-0"
+                                           style="font-size: 13px;">{{ block.trans('Member') }}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-10 p-4">
+                                <form action="{{ block.getCommentSaveUrl() }}" method="POST"
+                                      data-controller="new-comment">
+                            <textarea name="comment" class="form-control"
+                                      placeholder="{{ block.trans('Write a comment ..') }}"
+                                      rows="5"></textarea>
+                                    <input type="hidden" name="post_id" value="{{ block.getPost().getEntityId() }}"/>
+                                    <input type="submit" class="btn btn-primary float-end mt-2"
+                                           data-action="new-comment#onSubmit"
+                                           value="{{ block.trans('Send') }}">
+                                </form>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 text-center">
+            <div class="sticky-md-top second-sticky pt-4">
+                <small class="text-muted">Ads.</small>
+            </div>
+        </div>
+    </div>
 </div>

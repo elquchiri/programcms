@@ -1,14 +1,18 @@
 /*!
- * Copyright © ProgramCMS. All rights reserved.
- * See COPYING.txt for license details.
  *
- * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ *  * Copyright © ProgramCMS. All rights reserved.
+ *  * See COPYING.txt for license details.
+ *  *
+ *  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ *
  */
 
 @import "_begin-ignore.css";
 @import '~grapesjs/dist/css/grapes.min.css';
 @import "coloris";
 @import "_end-ignore.css";
+
+@import "editor/top_panel";
 
 .pcms-editor {
   width: 100%;
@@ -54,19 +58,19 @@
     padding-left: 3px;
     padding-right: 3px;
     overflow-y: auto;
-    flex: 1.5;
+    flex: 1.2;
     background-color: #EEEEEE;
   }
 
   .editor-canvas {
     flex: 2;
     flex-grow: 4;
-    border: 3px solid #cecece;
+    border: 2px solid #cecece;
     border-radius: 5px;
   }
 
   #components {
-    flex: 1.5;
+    flex: 1.4;
     overflow-y: auto;
     border: 2px solid #cecece;
     border-radius: 5px;
@@ -96,13 +100,16 @@
   border-radius: 3px;
   cursor: pointer;
 }
+
 .editor-icon {
   width: 29px;
   height: 29px;
 }
+
 .editor-rte-action:hover {
   background-color: #bbbbbb;
 }
+
 .editor-rte-action.active {
   background-color: #bbbbbb;
 }
@@ -123,14 +130,18 @@
   max-width: 100px;
 }
 
-.post_title {
-  width: 90%;
+.editor_title {
+  width: 100%;
   border: 0;
   outline: none;
   box-shadow: none;
   background-color: inherit;
   font-size: 15px;
-  font-weight: bold;
+
+  &:hover, &:focus, &:active {
+    border: 0 !important;
+    outline: none !important;
+  }
 }
 
 .editor-header ::placeholder {
@@ -242,7 +253,6 @@
   border: 0;
   color: #000000;
   font-size: 15px;
-  margin-top: 5px;
   z-index: 100;
 }
 
@@ -251,6 +261,7 @@
   position: relative;
   padding: 0 5px 0 5px;
 }
+
 .panel__actions:after {
   content: '';
   height: 50%;
@@ -271,15 +282,15 @@
 
   .components_menu {
     .editor-rte-action {
-      font-size: 14px;
       padding-left: 21px;
       padding-right: 21px;
       width: auto;
       background-position: center center;
 
       &.with_text {
+        font-size: 13px;
         padding-top: 4px;
-        padding-left: 31px;
+        padding-left: 35px;
         padding-right: 13px;
         font-weight: bold;
         background-position: 7px center;
@@ -303,9 +314,11 @@
   width: 100%;
   height: 100%;
 }
+
 .panel__basic-actions-zoom {
   position: static;
 }
+
 .panel__basic-actions-title {
   position: static;
 }
@@ -341,4 +354,139 @@
 
 .components_manager {
 
+}
+
+.gjs-sm-properties {
+  background: #FFFFFF !important;
+  color: #000000;
+}
+
+.gjs-sm-sector-title {
+  background: #e2e2e2 !important;
+  padding-left: 5px !important;
+  padding-top: 3px !important;
+  padding-bottom: 3px !important;
+  font-size: 14px;
+  color: #3d3d3d;
+}
+
+.gjs-sm-sector-caret {
+  height: 25px !important;
+}
+
+.gjs-sm-icon {
+  font-weight: bold;
+}
+
+.gjs-title {
+  padding-left: 11px !important;
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+  font-size: 14px;
+  color: #3d3d3d;
+}
+
+.gjs-field {
+  background-color: #eee;
+  color: #000000;
+  border: 1px solid #dedede;
+}
+
+.gjs-block {
+  padding: 0;
+  justify-content: normal;
+  min-height: auto !important;
+  margin: 5px;
+  width: 21% !important;
+  min-width: auto !important;
+  border: 1px solid #cccccc;
+}
+
+.gjs-block__media {
+  margin-bottom: 0;
+}
+
+.gjs-block-label {
+  padding: 3px;
+  align-items: center;
+  justify-content: center;
+}
+
+.gjs-sm-field input, .gjs-clm-select input, .gjs-clm-field input, .gjs-sm-field select, .gjs-clm-select select, .gjs-clm-field select {
+  color: #000000 !important;
+}
+
+/* Menu bar styling */
+.menu-bar {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+.root-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.root-menu .menu-item {
+  position: relative;
+  padding: 2px 11px 2px 11px;
+  color: #2d2d2d;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.root-menu .menu-item:hover {
+  background-color: #dedede;
+}
+
+.sub-menu {
+  min-width: 200px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #FFFFFF;
+  display: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+}
+
+.sub-menu .menu-item {
+  white-space: nowrap;
+  padding: 10px 15px;
+}
+
+.sub-menu .menu-item:hover {
+  background-color: #dedede;
+}
+
+.sub-menu .sub-menu {
+  top: 0;
+  left: 100%;
+}
+
+.menu-item:hover > .sub-menu {
+  display: block;
+}
+
+.gjs-four-color {
+  color: #0a58ca;
+}
+
+.editor_message {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 500px;
+  min-height: 20px;
+  background-color: rgba(255, 227, 16, 0.4);
+  z-index: 99999;
+  border-radius: 0 0 3px 3px
 }

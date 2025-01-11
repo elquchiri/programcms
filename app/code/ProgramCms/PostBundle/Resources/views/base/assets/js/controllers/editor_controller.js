@@ -1,8 +1,10 @@
 /*
- * Copyright © ProgramCMS. All rights reserved.
- * See COPYING.txt for license details.
  *
- * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ *  * Copyright © ProgramCMS. All rights reserved.
+ *  * See COPYING.txt for license details.
+ *  *
+ *  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ *
  */
 
 import {Controller} from "@hotwired/stimulus";
@@ -11,26 +13,51 @@ import ar from '../locale/ar';
 import Coloris from "@melloware/coloris";
 import Loader from "@programcms/loader";
 import Drive from "@programcms/drive";
-import hljs from 'highlight.js';
+
+import {basicSetup} from 'codemirror';
+import {EditorView, keymap} from "@codemirror/view"
+import {EditorState} from '@codemirror/state';
+import {indentWithTab} from "@codemirror/commands"
+import {javascript} from '@codemirror/lang-javascript';
+import {python} from "@codemirror/lang-python";
+import {html} from "@codemirror/lang-html";
+import {php} from "@codemirror/lang-php";
+import {css} from "@codemirror/lang-css";
+
 
 application.register('editor', class extends Controller {
     editor;
     selectedAsset = false;
 
+    static values = {
+        loadEndpoint: {type: String},
+        saveEndpoint: {type: String},
+        entityId: {type: String},
+        json: {type: String},
+        icon: {type: String}
+    };
+
     connect() {
         let self = this;
-        const postId = $('#post_id').val();
         const commentId = $('#comment_id').val();
         let lang = $('html').attr('lang');
         let langCode = lang.split('_')[0];
         const baseUrl = window.location.origin;
+
+        $('html, body').css({'overflow': 'hidden'});
+        $('body').append("<div class=\"editor_message\">\n" +
+                "        <div class=\"editor_message_container p-2\" style=\"font-size: 14px; text-align: center\"></div>\n" +
+                "    </div>");
+
+        this.prepareEditorHeader();
+
+        this.preparePanelTop();
 
         self.editor = grapesjs.init({
             container: '#editor-wrapper',
             fromElement: true,
             height: '100%',
             width: 'auto',
-            // canvasCss: '#gjs { background-color: #dedede; !important } p { outline: none !important; } .gjs-hovered {outline: none !important; box-shadow: none !important; } .gjs-selected {outline: none !important; box-shadow: none !important;}',
             canvasCss: '.gjs-selected {outline: 1px dashed #0d6efd !important; box-shadow: none !important;}',
             i18n: {
                 detectLocale: false,
@@ -64,6 +91,13 @@ application.register('editor', class extends Controller {
                 appendTo: '#blocks',
                 blocks: [
                     {
+                        id: 'head',
+                        label: 'Title',
+                        category: 'Text',
+                        media: `<img src="/bundles/programcmspost/images/editor/blocks/head.png">`,
+                        content: `<h2>Title</h2>`
+                    },
+                    {
                         id: 'section',
                         label: 'section',
                         category: 'Text',
@@ -78,7 +112,8 @@ application.register('editor', class extends Controller {
                         label: 'text',
                         category: 'Text',
                         media: `<img src="/bundles/programcmspost/images/editor/blocks/text.png">`,
-                        content: '<div data-gjs-type="text">Insert your text here</div>',
+                        attributes: {class: 'gjs-block-section'},
+                        content: `<div>Insert your text here</div>`,
                     }, {
                         id: 'image',
                         label: 'image',
@@ -107,12 +142,11 @@ application.register('editor', class extends Controller {
                     {
                         id: 'divider',
                         'label': 'Divider',
-                        media: `<svg viewBox="0 0 24 24">
-        <path fill="currentColor" d="M21 18H2V20H21V18M19 10V14H4V10H19M20 8H3C2.45 8 2 8.45 2 9V15C2 15.55 2.45 16 3 16H20C20.55 16 21 15.55 21 15V9C21 8.45 20.55 8 20 8M21 4H2V6H21V4Z"></path>
-    </svg>`,
+                        media: `<img src="/bundles/programcmspost/images/editor/blocks/divider.png">`,
                         select: true,
                         hover: true,
-                        activate: true
+                        activate: true,
+                        content: `<hr/>`
                     },
                     {
                         id: 'quote',
@@ -121,41 +155,38 @@ application.register('editor', class extends Controller {
                         media: `<img src="/bundles/programcmspost/images/editor/blocks/quote.png">`,
                         select: true,
                         hover: true,
-                        activate: true
+                        activate: true,
+                        content: `<blockquote>Some Text Here</blockquote>`
                     },
                     {
                         id: 'one-column',
                         label: 'column',
                         category: 'Columns',
-                        media: `<svg viewBox="0 0 24 24">
-                            <path fill="currentColor" d="M2 20h20V4H2v16Zm-1 0V4a1 1 0 0 1 1-1h20a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1Z"></path>
-                        </svg>`,
+                        media: `<img src="/bundles/programcmspost/images/editor/blocks/column.png">`,
                         select: true,
                         hover: true,
-                        activate: true
+                        activate: true,
+                        content: {type: 'column'},
                     },
                     {
                         id: 'two-columns',
                         label: '2columns',
                         category: 'Columns',
-                        media: `<svg viewBox="0 0 23 24">
-        <path fill="currentColor" d="M2 20h8V4H2v16Zm-1 0V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1ZM13 20h8V4h-8v16Zm-1 0V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1Z"></path>
-      </svg>`,
+                        media: `<img src="/bundles/programcmspost/images/editor/blocks/2columns.png">`,
                         select: true,
                         hover: true,
                         activate: true,
-                        content: { type: 'two-columns' },
+                        content: {type: 'two-columns'},
                     },
                     {
                         id: 'three-columns',
                         label: '3columns',
                         category: 'Columns',
-                        media: `<svg viewBox="0 0 23 24">
-      <path fill="currentColor" d="M2 20h4V4H2v16Zm-1 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1ZM17 20h4V4h-4v16Zm-1 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1ZM9.5 20h4V4h-4v16Zm-1 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1Z"></path>
-    </svg>`,
+                        media: `<img src="/bundles/programcmspost/images/editor/blocks/3columns.png">`,
                         select: true,
                         hover: true,
-                        activate: true
+                        activate: true,
+                        content: {type: 'three-columns'},
                     },
                     {
                         id: 'unordered-list',
@@ -168,7 +199,6 @@ application.register('editor', class extends Controller {
                         content: `<ul style="list-style-type: disc; padding-left: 20px;">
             <li>List Item 1</li>
             <li>List Item 2</li>
-            <li>List Item 3</li>
         </ul>`
                     },
                     {
@@ -178,7 +208,11 @@ application.register('editor', class extends Controller {
                         media: `<img src="/bundles/programcmspost/images/editor/blocks/ordered_list.png">`,
                         select: true,
                         hover: true,
-                        activate: true
+                        activate: true,
+                        content: `<ol style="padding-left: 20px;">
+            <li>List Item 1</li>
+            <li>List Item 2</li>
+        </ol>`
                     },
                     {
                         id: 'check-list',
@@ -187,7 +221,11 @@ application.register('editor', class extends Controller {
                         media: `<img src="/bundles/programcmspost/images/editor/blocks/check_list.png">`,
                         select: true,
                         hover: true,
-                        activate: true
+                        activate: true,
+                        content: `<ul style="list-style-type: '&check;'; padding-left: 20px;">
+            <li>List Item 1</li>
+            <li>List Item 2</li>
+        </ul>`
                     },
                     {
                         id: 'table',
@@ -226,10 +264,13 @@ application.register('editor', class extends Controller {
                         label: 'Code',
                         category: 'Coding',
                         media: `<img src="/bundles/programcmspost/images/editor/blocks/code.png">`,
+                        content: {
+                            type: 'code', // Use the component type defined above
+                            codeContent: 'console.log("New Code Block!");', // Default content for the new block
+                            codeOutput: '',
+                        },
+                        activate: true,
                         select: true,
-                        // content: '<div class="code"><pre><code>Hello world !</code></pre></div>',
-                        content: '<pre><code>Hello World!</code></pre>',
-                        activate: true
                     },
                     {
                         id: 'button',
@@ -259,23 +300,25 @@ application.register('editor', class extends Controller {
                 sectors: [{
                     name: 'general',
                     open: true,
-                    buildProps: ['border'],
-                    // properties: [
-                    //     {
-                    //         // options: integer | radio | select | color | slider | file | composite | stack
-                    //         type: 'integer',
-                    //         name: 'width',
-                    //         property: 'width', // CSS property (if buildProps contains it will be extended)
-                    //         units: ['px', '%'], // Units, available only for 'integer' types
-                    //         defaults: 'auto', // Default value
-                    //         min: 0, // Min value, available only for 'integer' types
-                    //     }
-                    // ]
+                    buildProps: ['border']
                 },
                     {
                         name: 'Appearance',
                         open: true,
-                        buildProps: ['font-family', 'font-size', 'color', 'border', 'background-color']
+                        buildProps: ['font-family', 'font-size', 'color', 'border', 'background-color'],
+                        properties: [
+                            {
+                                id: 'font-family',
+                                name: 'Font Family',
+                                property: 'font-family',
+                                type: 'select',
+                                defaults: 'Tahoma, Geneva, sans-serif',
+                                options: [
+                                    {value: 'Arial', name: 'Arial'},
+                                    {value: 'Tahoma, Geneva, sans-serif', name: 'Tahoma'}
+                                ]
+                            }
+                        ]
                     },
                     {
                         name: 'dimension',
@@ -323,11 +366,21 @@ application.register('editor', class extends Controller {
             }
         });
 
+        self.editor.DomComponents.addType('default', {
+            model: {
+                defaults: {
+                    style: {
+                        'font-family': 'Arial', // Default font-family
+                    },
+                },
+            },
+        });
+
         self.editor.DomComponents.addType('video', {
             model: {
                 defaults: {
                     tagName: 'video',
-                    style: { width: '100%', height: '100%' },
+                    style: {width: '100%'},
                     stylable: ['width', 'height'],
                 }
             },
@@ -363,15 +416,15 @@ application.register('editor', class extends Controller {
                     this.listenTo(this, 'change:fileSize', this.toHTML);
                 },
                 toHTML() {
-                    let html = `<div style="width: 400px; padding: 17px; background-color: #888;">`;
+                    let html = `<div id="${this.getId()}" style="width: 400px; padding: 17px; background-color: #dedede; border-radius: 3px; border: 1px solid #888;">`;
                     const url = this.get('fileUrl');
                     const name = this.get('fileName');
                     const size = this.get('fileSize') ?? 0;
-                    if(url) {
-                        html += `<a href="${url}" target="_blank">${name}</a>`;
-                        html += `<div>Size: ${size} KB</div>`;
-                    }else{
-                        html += 'Double Click to add File ...';
+                    if (url) {
+                        html += `<div class="row"><div class="col-md-3 text-center"><img src="/bundles/programcmsdrive/images/file_types/file.png"></div><div class="col-md"><a href="${url}" target="_blank">${name}</a>`;
+                        html += `<div>Size: ${size} KB</div></div></div>`;
+                    } else {
+                        html += '...';
                     }
                     html += `</div>`;
                     return html;
@@ -394,10 +447,10 @@ application.register('editor', class extends Controller {
                     const url = this.model.get('fileUrl');
                     const name = this.model.get('fileName');
                     const size = this.model.get('fileSize');
-                    if(url) {
+                    if (url) {
                         html += `<a href="${url}" target="_blank">${name}</a>`;
                         html += `<p>Size: ${size} Kb</p>`;
-                    }else{
+                    } else {
                         html += 'Double-cliquez pour ajouter un fichier';
                     }
                     html += `</div>`;
@@ -419,6 +472,108 @@ application.register('editor', class extends Controller {
             }
         });
 
+        self.editor.DomComponents.addType('code', {
+            model: {
+                defaults: {
+                    tagName: 'div',
+                    traits: [
+                        {
+                            name: 'language',
+                            label: 'Language',
+                            type: 'select',
+                            options: [
+                                {value: 'javascript', name: 'JavaScript'},
+                                {value: 'htmlmixed', name: 'HTML'},
+                                {value: 'css', name: 'CSS'},
+                                {value: 'php', name: 'PHP'},
+                                {value: 'python', name: 'Python'},
+                            ],
+                        },
+                    ],
+                },
+                init() {
+
+                },
+                toHTML() {
+                    const language = this.getAttributes().language;
+                    return "<pre data-language=\"" + language + "\"><code>" + this.get('codeOutput') + "</code></pre>";
+                }
+            },
+            view: {
+                init({model}) {
+                    this.listenTo(model, 'render', this.onRender); // Trigger on initial render
+                    this.listenTo(model, 'update', this.onRender); // Trigger on updates
+                    this.listenTo(model, 'change:attributes:language', this.onLanguageChange);  // Listen to language change
+
+                },
+                onRender() {
+                    setTimeout(() => {
+                        if (!this.cmEditor && this.el) {
+                            this.initializeCodeMirror();
+                        }
+                    }, 0); // Delay to ensure DOM is fully rendered
+                },
+                onLanguageChange() {
+                    const language = this.model.getAttributes().language;
+                    if (this.cmEditor) {
+                        this.cmEditor.setState(EditorState.create({
+                            doc: this.model.get('codeContent'),
+                            extensions: [
+                                basicSetup,
+                                this.getLanguageExtension(language), // Apply the language mode
+                            ],
+                        }));
+                    }
+                },
+                getLanguageExtension(language) {
+                    switch (language) {
+                        case 'javascript':
+                            return javascript();
+                        case 'htmlmixed':
+                            return html();  // Assuming HTML is handled
+                        case 'css':
+                            return css();
+                        case 'php':
+                            return php();
+                        case 'python':
+                            return python();   // Assuming CSS is handled
+                        default:
+                            return javascript();  // Default to JavaScript
+                    }
+                },
+                initializeCodeMirror() {
+                    const language = this.model.getAttributes().language;
+                    this.cmEditor = new EditorView({
+                        state: EditorState.create({
+                            doc: this.model.get('codeContent') || 'console.log("Hello, GrapesJS!");',
+                            extensions: [
+                                basicSetup,
+                                this.getLanguageExtension(language),
+                                keymap.of([indentWithTab]),
+                                EditorView.updateListener.of((update) => {
+                                    if (update.docChanged) {
+                                        // Save CodeMirror content to the GrapesJS model
+                                        const newCode = this.cmEditor.state.doc.toString();
+                                        this.model.set('codeContent', newCode); // Save to the component model
+                                        if (language === 'htmlmixed') {
+                                            this.model.set('codeOutput', newCode.replace(/</g, '&lt;').replace(/>/g, '&gt;'));
+                                        } else if (language === 'php') {
+                                            this.model.set('codeOutput', newCode.replace(/&/g, '&amp;')
+                                                .replace(/</g, '&lt;')
+                                                .replace(/>/g, '&gt;'));
+                                        } else {
+                                            this.model.set('codeOutput', newCode);
+                                        }
+                                    }
+                                }),
+                            ],
+                        }),
+                        parent: this.el,
+                    });
+                }
+            }
+        });
+
         self.editor.DomComponents.addType('table', {
             model: {
                 defaults: {
@@ -426,11 +581,31 @@ application.register('editor', class extends Controller {
                     style: {width: '100%', height: 'auto'},
                     stylable: ['width'],
                     traits: [
-                        { type: 'text', name: 'Title' },
-                        { type: 'text', name: 'Cols' },
-                        { type: 'text', name: 'Rows' },
+                        {type: 'text', name: 'Title'},
+                        {type: 'text', name: 'Cols'},
+                        {type: 'text', name: 'Rows'},
                     ],
                 }
+            },
+        });
+
+        self.editor.DomComponents.addType('column', {
+            model: {
+                defaults: {
+                    tagName: 'div',
+                    style: {flex: 1, width: '100%', height: 'auto'},
+                    stylable: ['width', 'height', 'padding'],
+                    droppable: false,
+                    components: [
+                        {
+                            tagName: 'div',
+                            attributes: {id: 'column-1'}, // Unique ID for column 1
+                            style: {flex: 1, padding: '10px'},
+                            droppable: true,
+                            content: '',
+                        }
+                    ],
+                },
             },
         });
 
@@ -439,24 +614,39 @@ application.register('editor', class extends Controller {
                 defaults: {
                     tagName: 'div',
                     classes: ['row'],
-                    style: { display: 'flex', width: '100%', height: 'auto' },
+                    style: {display: 'flex', width: '100%', height: 'auto'},
                     stylable: ['width', 'height', 'padding'],
                     droppable: false,
                     components: [
                         {
-                            tagName: 'div',
-                            attributes: { id: 'column-1' }, // Unique ID for column 1
-                            style: { flex: 1, padding: '10px' },
-                            droppable: true,
-                            content: 'Column 1',
+                            type: 'column'
                         },
                         {
-                            tagName: 'div',
-                            attributes: { id: 'column-2' }, // Unique ID for column 2
-                            style: { flex: 1, padding: '10px' },
-                            droppable: true,
-                            content: 'Column 2',
+                            type: 'column'
                         },
+                    ],
+                },
+            },
+        });
+
+        self.editor.DomComponents.addType('three-columns', {
+            model: {
+                defaults: {
+                    tagName: 'div',
+                    classes: ['row'],
+                    style: {display: 'flex', width: '100%', height: 'auto'},
+                    stylable: ['width', 'height', 'padding'],
+                    droppable: false,
+                    components: [
+                        {
+                            type: 'column'
+                        },
+                        {
+                            type: 'column'
+                        },
+                        {
+                            type: 'column'
+                        }
                     ],
                 },
             },
@@ -485,47 +675,12 @@ application.register('editor', class extends Controller {
 
             self.updateEditorStyle(self.editor);
 
-            if (postId != null && postId !== '') {
-                self.loadPostProjectData(self.editor, postId);
+            if (self.entityIdValue != null && self.entityIdValue !== '') {
+                self.loadProjectData(self.editor);
             }
 
             if (commentId != null && commentId !== '') {
                 self.loadCommentProjectData(self.editor, commentId);
-            }
-        });
-
-        let debounceTimer; // Timer for debounce
-
-        self.editor.on('component:update', (component) => {
-            const codeElement = component.getEl()?.querySelector('pre code');
-            if (codeElement) {
-                delete codeElement.dataset.highlighted;
-                const rawCode = codeElement.innerHTML; // Get the raw text content
-
-                codeElement.innerHTML = hljs.highlight(rawCode, {language: 'html'}).value; // Set the highlighted HTML
-            }
-        });
-
-        self.editor.on('component:selected', (component) => {
-            const el = component.getEl();
-
-            if (el.tagName === 'CODE') {
-                // Listen for input event
-                el.addEventListener('input', () => {
-                    // Clear the debounce timer
-                    clearTimeout(debounceTimer);
-
-                    // Delay the re-highlighting by 500ms to avoid triggering too frequently
-                    debounceTimer = setTimeout(() => {
-                        const rawCode = el.textContent; // Get the raw text content
-
-                        // Update the content model with the raw code
-                        component.set('content', rawCode);
-
-                        // Apply syntax highlighting after the user finishes typing
-                        el.innerHTML = hljs.highlight(rawCode, {language: 'html'}).value; // Set the highlighted HTML
-                    }, 500); // Adjust the debounce delay as needed (500ms)
-                });
             }
         });
 
@@ -642,6 +797,148 @@ application.register('editor', class extends Controller {
         });
     }
 
+    prepareMenuBar() {
+        const menu = `<div class="menu-bar">
+                        <ul class="root-menu">
+                            <li class="menu-item">
+                                File
+                                <ul class="sub-menu">
+                                    <li class="menu-item">
+                                        New
+                                        <ul class="sub-menu">
+                                            <li class="menu-item">Project</li>
+                                            <li class="menu-item">File</li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item">Open</li>
+                                    <li class="menu-item">Save</li>
+                                </ul>
+                            </li>
+                            <li class="menu-item">
+                                Edit
+                                <ul class="sub-menu">
+                                    <li class="menu-item">Undo</li>
+                                    <li class="menu-item">Redo</li>
+                                    <li class="menu-item">
+                                        Preferences
+                                        <ul class="sub-menu">
+                                            <li class="menu-item">Settings</li>
+                                            <li class="menu-item">Shortcuts</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-item">
+                                Display
+                                <ul class="sub-menu">
+                                    <li class="menu-item">
+                                        New
+                                        <ul class="sub-menu">
+                                            <li class="menu-item">Project</li>
+                                            <li class="menu-item">File</li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item">Open</li>
+                                    <li class="menu-item">Save</li>
+                                </ul>
+                            </li>
+                            <li class="menu-item">
+                                Help
+                                <ul class="sub-menu">
+                                    <li class="menu-item">Documentation</li>
+                                    <li class="menu-item">About</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>`;
+        return menu;
+    }
+
+    prepareEditorHeader() {
+        const editorHeader = `<div class="image-input-container">
+                                <a href="">
+                                    <img class="float-start" src="${this.iconValue}" width="35"
+                                         height="35" alt=""/>
+                                </a>
+                                <div class="w-100 ms-2">
+                                    <input type="text" name="editor_title" id="editor_title" class="form-control editor_title p-1 ps-2" placeholder="Document Title ...">
+                                    ${this.prepareMenuBar()}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-check form-switch me-4">
+                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked>
+                            <label class="form-check-label text-primary" style="font-size: 12px; font-weight: bold;" for="flexSwitchCheckDefault">Auto Save</label>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary rounded-start-5 ps-4" data-action="editor#onSubmit">Share</button>
+                            <button type="button" class="btn btn-primary rounded-end-5 pe-3 dropdown-toggle active"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="visually-hidden">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Save Post Privately</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <p class="mb-0 p-3 pt-2 pb-2 text-muted" style="font-size: 13px;">
+                                    The Post is saved to your account and will not be published on the site. You can publish it later.
+                                </p>
+                            </ul>
+                        </div>`;
+        $('.editor-header').html(editorHeader);
+    }
+
+    preparePanelTop() {
+        const panelTop = `<div class="panel__actions">
+                            <div class="editor-rte-action editor-icon btn-redo"></div>
+                            <div class="editor-rte-action editor-icon btn-undo"></div>
+                            <div class="editor-rte-action editor-icon btn-print"></div>
+                        </div>
+                        <div class="panel__actions">
+                            ${this.selectUi([{label: '25%', value: '25'}, {label: '50%', value: '50'}, {label: '75%', value: '75'}, {label: '100%', value: '100'}])}
+                        </div>
+                        <div class="panel__actions">
+                            ${this.selectUi([{label: 'Classic', value: 'classic'}, {label: 'Title 1', value: 'title1', className: 'block_title_1'}, {label: 'Title 2', value: 'title2', className: 'block_title_2'}])}
+                        </div>
+                        <div class="panel__actions">
+                            ${this.selectUi([{label: 'Arial', value: 'arial'}, {label: 'Tahoma, sans-serif', value: 'tahoma', className: 'block_font_tahoma'},])}
+                        </div>
+                        <div class="panel__actions">
+                            <div class="editor-rte-action editor-icon btn-bold" id="bold"></div>
+                            <div class="editor-rte-action editor-icon btn-italic" id="italic"></div>
+                            <div class="editor-rte-action editor-icon btn-underline" id="underline"></div>
+                            <div class="editor-rte-action editor-icon btn-text-color" id="textColor">
+                                <input type="text" style="position: absolute; width: 1px; height: 1px; left: 0; top: 0; border: 0; background: inherit" id="text-color-choose" />
+                                <div id="choosen-color" style="position:absolute; width: 19px; height: 3px; background-color: black; left: 0; right: 0; margin: auto; bottom: 6px;"></div>
+                            </div>
+                        </div>
+                        <div class="panel__actions">
+                            <div class="editor-rte-action editor-icon btn-link" id="link"></div>
+                        </div>
+                        <div class="panel__actions">
+                            <div class="editor-rte-action editor-icon btn-left-align" id="leftAlign"></div>
+                            <div class="editor-rte-action editor-icon btn-center-align" id="centerAlign"></div>
+                            <div class="editor-rte-action editor-icon btn-right-align" id="rightAlign"></div>
+                        </div>
+                        <div class="components_menu" style="margin-left: auto; display: flex;">
+                            <div class="panel__actions components_manager">
+                                <div class="editor-rte-action with_text editor-icon btn-style-manager active" id="styles">Design</div>
+                            </div>
+                            <div class="panel__actions components_manager">
+                                <div class="editor-rte-action editor-icon btn-traits" id="traits"></div>
+                            </div>
+                            <div class="panel__actions components_manager">
+                                <div class="editor-rte-action editor-icon btn-settings" id="settings"></div>
+                            </div>
+                            <div class="panel__actions components_manager">
+                                <div class="editor-rte-action editor-icon btn-layers" id="layers"></div>
+                            </div>
+                        </div>`;
+
+        $('.panel__top').html(panelTop);
+    }
+
     isSelectionInTag(editor, tag) {
         const selection = editor.RichTextEditor.globalRte.selection();
         const currentNode = selection.anchorNode;
@@ -661,36 +958,40 @@ application.register('editor', class extends Controller {
         return false;
     }
 
+    selectUi(dataSource) {
+        let ui = `<div class="dropdown">
+                    <button class="btn dropdown-toggle editor-dropdown editor-rte-action" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        ${dataSource[0]['label']}
+                    </button>
+                    <ul class="dropdown-menu">`;
+        for(let i=0; i<dataSource.length; i++) {
+            const item = dataSource[i];
+            const itemClassName = item['className'] ?? '';
+            ui += `<li><a class="dropdown-item ${itemClassName}" href="#">${item['label']}</a></li>`;
+        }
+
+        ui += `</ul></div>`;
+        return ui;
+    }
+
     onSubmit(event) {
         event.preventDefault();
-        let form = $(this.element);
         let self = this;
-        let postTitleElement = $('input[name=post_title]');
-        let categoryId = $('input[name=category_id]');
-        const postId = $('#post_id').val();
-        const commentId = $('#comment_id').val();
-        const editorMode = $('#editor_mode').val();
-        let data;
-        if (editorMode === 'post') {
-            data = {
-                'post_id': postId,
-                'post_title': postTitleElement.val(),
-                'post_data': JSON.stringify(self.editor.getProjectData()),
-                'post_html': self.editor.getHtml(),
-                'post_css': self.editor.getCss(),
-                'category_id': categoryId.val()
-            };
-        } else {
-            data = {
-                'comment_id': commentId,
-                'comment_data': JSON.stringify(self.editor.getProjectData()),
-                'comment': self.editor.getHtml(),
-                'comment_css': self.editor.getCss()
-            }
+        let title = $('input[name=editor_title]');
+        let data = {
+            'entity_id': self.entityIdValue,
+            'title': title.val(),
+            'data': JSON.stringify(self.editor.getProjectData()),
+            'html': self.editor.getHtml(),
+            'css': self.editor.getCss()
+        };
+
+        if(this.jsonValue) {
+            Object.assign(data, JSON.parse(this.jsonValue));
         }
 
         $.ajax({
-            url: form.attr('action'),
+            url: self.saveEndpointValue,
             method: 'post',
             data: data,
             beforeSend: function () {
@@ -715,23 +1016,24 @@ application.register('editor', class extends Controller {
         });
     }
 
-    loadPostProjectData(editor, postId) {
+    /**
+     * Load Project
+     * @param editor
+     */
+    loadProjectData(editor) {
         // Load Project Data
-        const base_url = window.location.origin;
         let self = this;
         $.ajax({
-            url: base_url + '/post/ajax/loadpost/post_id/' + postId,
+            url: self.loadEndpointValue,
             method: 'post',
-            data: {
-                'post_id': postId
-            },
             beforeSend: function () {
+                console.log(Loader);
                 Loader.startLoader();
             },
             success: function (result) {
                 if (result.edit) {
                     let data = JSON.parse(result.data);
-                    $('.post_title').val(result.title);
+                    $('.editor_title').val(result.title);
                     editor.loadProjectData(data);
                     self.updateEditorStyle(editor);
                 }
@@ -774,7 +1076,13 @@ application.register('editor', class extends Controller {
         styleEl.innerHTML = `
                         *::-webkit-scrollbar-thumb {background: #ccc !important;}
                         *::-webkit-scrollbar-track {background: inherit !important;}
-                        *::-webkit-scrollbar {width: 5px;}
+                        *::-webkit-scrollbar {width: 1px;}
+                        html, body {
+                            font-family: Arial;
+                            line-height: 24px;
+                            font-size: 16px;
+                            color: #000000;
+                        }
                     `;
         // Append the style element to the iframe document head
         iframe.contentDocument.head.appendChild(styleEl);

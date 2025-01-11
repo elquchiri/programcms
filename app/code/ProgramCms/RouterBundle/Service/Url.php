@@ -74,6 +74,20 @@ class Url implements UrlInterface
     }
 
     /**
+     * @param $routeName
+     * @param array $params
+     * @return string
+     */
+    public function getUrlByFullRouteName($routeName, array $params = []): string
+    {
+        $urlParams = "";
+        foreach($params as $key => $value) {
+            $urlParams .= "/" . $key . "/" . $value;
+        }
+        return $this->urlGenerator->generate($routeName, [], UrlGeneratorInterface::ABSOLUTE_URL) . $urlParams;
+    }
+
+    /**
      * @return string
      */
     public function getRouteName(): string

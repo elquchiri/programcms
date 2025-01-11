@@ -120,4 +120,14 @@ class UrlDecorator implements UrlInterface
     {
         return $this->subject->getUrl($routeName, $params);
     }
+
+    /**
+     * @param $routeName
+     * @param array $params
+     * @return string
+     */
+    public function getUrlByFullRouteName($routeName, array $params = []): string
+    {
+        return $this->subject->getUrlByFullRouteName($routeName, $params);
+    }
 }

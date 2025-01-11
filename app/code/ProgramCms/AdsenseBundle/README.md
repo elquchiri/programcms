@@ -1,0 +1,1 @@
+The Adsense bundle contains common infrastructure that provides an ability to apply Google Adsense in ProgramCMS application.

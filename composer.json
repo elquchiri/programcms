@@ -88,6 +88,7 @@
             "ProgramCms\\DriveBundle\\": "app/code/ProgramCms/DriveBundle",
             "ProgramCms\\GtmBundle\\": "app/code/ProgramCms/GtmBundle",
             "ProgramCms\\ApiBundle\\": "app/code/ProgramCms/ApiBundle",
+            "ProgramCms\\AdsenseBundle\\": "app/code/ProgramCms/AdsenseBundle",
             "ProgramCms\\Backend\\": "app/design/adminhtml/ProgramCms/Backend",
             "ProgramCms\\Blank\\": "app/design/frontend/ProgramCms/Blank",
             "ProgramCms\\Forumtimes\\": "app/design/frontend/ProgramCms/Forumtimes",

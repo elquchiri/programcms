@@ -9,18 +9,26 @@
 namespace ProgramCms\CmsBundle\Controller\Index;
 
 use ProgramCms\CoreBundle\Controller\Context;
+use ProgramCms\CoreBundle\Controller\Controller;
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\CoreBundle\View\Result\Page;
+use Twig\Environment;
 
 /**
- * Class HomeController
- * @package ProgramCms\CmsBundle\Controller
+ * Class IndexController
+ * @package ProgramCms\CmsBundle\Controller\Index
  */
-class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
+class IndexController extends Controller
 {
     /**
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
+
+    /**
+     * @var Environment
+     */
+    protected Environment $environment;
 
     /**
      * IndexController constructor.
@@ -44,7 +52,9 @@ class IndexController extends \ProgramCms\CoreBundle\Controller\Controller
     public function execute()
     {
         // Prepare Home CMS Page by Id & send content
-        $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
+        /** @var Page $pageResult */
+        $pageResult = $this->objectManager->create(Page::class);
+
 
         $pageResult->getConfig()->getTitle()->set(
             $this->trans("Home Page")

@@ -1,0 +1,89 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="card">
+    <div class="card-header fw-bold text-muted" style="font-size: 14px;">Search Filters</div>
+<form>
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Post Filters
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item p-0">
+                        <div class="form-floating" style="border: 0; margin:0;">
+                            <input type="text" name="q" style="border: 0; margin: 0;" class="form-control" id="floatingPassword" placeholder="Password"
+                                   value="{% if block.getRequest().hasParam('q') %}{{ block.getRequest().getParam('q') }}{% endif %}">
+                            <label for="floatingPassword">By Keyword</label>
+                        </div>
+                    </li>
+                    <li class="list-group-item p-0">
+                        <div class="form-floating">
+                            <select class="form-select" style="border: 0;" id="floatingSelect" aria-label="Floating label select example">
+                                <option selected>All Categories</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                            <label for="floatingSelect">Category</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    User Filter
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item p-0">
+                        <div class="form-floating" style="border: 0; margin:0;">
+                            <input type="text" name="user" style="border: 0; margin: 0;" class="form-control" id="floatingPassword" placeholder="Password">
+                            <label for="floatingPassword">By User Full Name</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Default Filters
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Power with AI</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <input type="submit" class="btn btn-primary w-100" value="Search">
+            </li>
+        </ul>
+    </div>
+</form>
+</div>

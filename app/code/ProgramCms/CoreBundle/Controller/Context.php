@@ -19,6 +19,7 @@ use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use ProgramCms\CoreBundle\View\DesignLoader;
+use Twig\Environment;
 
 /**
  * Class Context
@@ -82,6 +83,11 @@ class Context implements ContextInterface
     protected WebsiteManagerInterface $websiteManager;
 
     /**
+     * @var Environment
+     */
+    protected Environment $environment;
+
+    /**
      * Context constructor.
      * @param Request $request
      * @param Response $response
@@ -94,6 +100,7 @@ class Context implements ContextInterface
      * @param DesignLoader $designLoader
      * @param Url $url
      * @param WebsiteManagerInterface $websiteManager
+     * @param Environment $environment
      */
     public function __construct(
         Request $request,
@@ -106,7 +113,8 @@ class Context implements ContextInterface
         Config $config,
         DesignLoader $designLoader,
         Url $url,
-        WebsiteManagerInterface $websiteManager
+        WebsiteManagerInterface $websiteManager,
+        Environment $environment
     )
     {
         $this->request = $request;
@@ -120,6 +128,7 @@ class Context implements ContextInterface
         $this->designLoader = $designLoader;
         $this->url = $url;
         $this->websiteManager = $websiteManager;
+        $this->environment = $environment;
     }
 
     /**
@@ -208,5 +217,13 @@ class Context implements ContextInterface
     public function getWebsiteManager(): WebsiteManagerInterface
     {
         return $this->websiteManager;
+    }
+
+    /**
+     * @return Environment
+     */
+    public function getEnvironment(): Environment
+    {
+        return $this->environment;
     }
 }

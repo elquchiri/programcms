@@ -1,0 +1,93 @@
+/*!
+ *
+ *  * Copyright © ProgramCMS. All rights reserved.
+ *  * See COPYING.txt for license details.
+ *  *
+ *  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ *
+ */
+
+.profile_interaction_buttons {
+    .btn-follow {
+        font-weight: bold;
+        border-radius: unset;
+    }
+
+    .btn-message {
+        border-radius: unset;
+    }
+}
+
+.comment_options {
+    .btn-group {
+        .dropdown-toggle {
+            font-size: 15px;
+        }
+
+        .dropdown-menu {
+            li {
+                a {
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+}
+
+.post-left-button {
+    width: 45px;
+    border: 1px solid #dedede;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url('../../../../../public/images/left-arrow.png');
+}
+.post-right-button {
+    width: 45px;
+    border: 1px solid #dedede;
+    background: url('../../../../../public/images/right-arrow.png') no-repeat center center;
+}
+
+.post_reaction {
+    button {
+        border: 1px solid #dedede;
+        background-repeat: no-repeat;
+        background-position: center center;
+        box-shadow: 2px 2px 2px #d3d1d1;
+    }
+    .post-like-reaction {
+        background-image: url('../../../../../public/images/like.png');
+        background-color: #d1f6d1;
+    }
+    .post-love-reaction {
+        background-image: url('../../../../../public/images/love.png');
+        background-color: #ffd5d5;
+    }
+    .post-dislike-reaction {
+        background-image: url('../../../../../public/images/dislike.png');
+    }
+}
+
+.comment_reaction {
+    button {
+        border: 1px solid #dedede;
+        background-repeat: no-repeat;
+        background-position: 7px center;
+        padding-left: 35px;
+        font-size: 14px;
+    }
+    .comment-like-reaction {
+        background-image: url('../../../../../public/images/like.png');
+    }
+    .comment-dislike-reaction {
+        background-image: url('../../../../../public/images/dislike.png');
+        background-position: center center;
+    }
+}
+
+.first-sticky.sticky-active {
+    z-index: 5;
+}
+.second-sticky.sticky-active {
+    padding-top: 99px !important;
+    z-index: 4;
+}

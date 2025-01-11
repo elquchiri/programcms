@@ -6,11 +6,10 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<form class="d-flex" role="search" style="margin-right: 11px;">
+<form action="{{ block.getSearchUrl() }}" method="GET" class="d-flex" role="search" style="margin-right: 11px;">
     <div class="input-group">
-        <input type="text" style="width: 290px" class="form-control" placeholder="{{ block.trans('Search anything here ..') }}"
-               aria-label="Recipient's username">
-        <button class="btn" type="button" id="button-mini-search"
+        <input type="text" name="q" style="width: 290px" class="form-control" placeholder="{{ block.trans('Search anything here ..') }}">
+        <button class="btn" type="submit" id="button-mini-search"
                 style="border: 1px solid #CCC; padding-top: 0;">
             <img src="{{ asset('bundles/programcmsui/images/search.png') }}"
                  style="width: 15px; height: 15px" alt=""/>

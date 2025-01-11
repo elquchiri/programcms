@@ -46,6 +46,7 @@ return [
     ProgramCms\DriveBundle\ProgramCmsDriveBundle::class => ['all' => true],
     ProgramCms\GtmBundle\ProgramCmsGtmBundle::class => ['all' => true],
     ProgramCms\ApiBundle\ProgramCmsApiBundle::class => ['all' => true],
+    ProgramCms\AdsenseBundle\ProgramCmsAdsenseBundle::class => ['all' => true],
     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
     Symfony\Bundle\TwigBundle\TwigBundle::class => ['all' => true],
     Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true],

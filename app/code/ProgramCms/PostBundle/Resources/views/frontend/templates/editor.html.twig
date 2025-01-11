@@ -6,145 +6,25 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<style>
-    .gjs-sm-properties {
-        background: #FFFFFF !important;
-        color: #000000;
-    }
-    .gjs-sm-sector-title {
-        background: #e2e2e2 !important;
-        padding-left: 5px !important;
-        padding-top: 3px !important;
-        padding-bottom: 3px !important;
-        font-size: 14px;
-        color: #3d3d3d;
-    }
-    .gjs-sm-sector-caret {
-        height: 25px !important;
-    }
-    .gjs-sm-icon {
-        font-weight: bold;
-    }
-    .gjs-title {
-        padding-left: 5px !important;
-        padding-top: 5px !important;
-        padding-bottom: 5px !important;
-        font-size: 14px;
-        color: #3d3d3d;
-    }
-</style>
 <div class="pcms-editor">
     <div class="panel__post">
         <div class="row">
-            <div style="padding: 9px 21px 0 21px;">
-                <form action="{{ block.getSaveUrl() }}" method="post" data-controller="editor">
+            <div style="padding: 3px 21px 0 21px;">
+                <form
+                    method="post"
+                    data-controller="editor"
+                    data-editor-load-endpoint-value="{{ block.getLoadUrl() }}"
+                    data-editor-save-endpoint-value="{{ block.getSaveUrl() }}"
+                    data-editor-entity-id-value="{{ block.getPostId() }}"
+                    data-editor-json-value="{{ block.getJsonData() }}"
+                    data-editor-icon-value="{{ block.getCategory().getCategoryImage() }}"
+                >
                     <div class="editor-header">
-                        <div class="image-input-container">
-                            <a href="{{ block.getCategoryUrl() }}">
-                                <img class="float-start" src="{{ block.getCategory().getCategoryImage() }}" width="35"
-                                     height="35" alt=""/>
-                            </a>
-                            <input type="text" name="post_title" class="form-control ms-2 post_title" placeholder="{{ block.trans('Post Title ...') }}">
-                        </div>
-                        <div class="form-check form-switch me-4">
-                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked>
-                            <label class="form-check-label text-primary" style="font-size: 12px; font-weight: bold;" for="flexSwitchCheckDefault">Auto Save</label>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-primary rounded-start-5 ps-4" data-action="editor#onSubmit">{{ block.trans('Share') }}</button>
-                            <button type="button" class="btn btn-primary rounded-end-5 pe-3 dropdown-toggle active"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="visually-hidden">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">{{ block.trans('Save Post Privately') }}</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <p class="mb-0 p-3 pt-2 pb-2 text-muted" style="font-size: 13px;">
-                                    {{ block.trans('The Post is saved to your account and will not be published on the site. You can publish it later.') }}
-                                </p>
-                            </ul>
-                        </div>
+
                     </div>
                     <div class="panel__top mt-2">
-                        <div class="panel__actions">
-                            <div class="editor-rte-action editor-icon btn-redo"></div>
-                            <div class="editor-rte-action editor-icon btn-undo"></div>
-                            <div class="editor-rte-action editor-icon btn-print"></div>
-                        </div>
-                        <div class="panel__actions">
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle editor-dropdown editor-rte-action" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    100%
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="panel__actions">
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle editor-dropdown editor-rte-action" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Classic
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Classic</a></li>
-                                    <li><a class="dropdown-item" href="#" style="font-size: 21px">Title 1</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="panel__actions">
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle editor-dropdown editor-rte-action" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Arial
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Classic</a></li>
-                                    <li><a class="dropdown-item" href="#" style="font-size: 21px">Title 1</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="panel__actions">
-                            <div class="editor-rte-action editor-icon btn-bold" id="bold"></div>
-                            <div class="editor-rte-action editor-icon btn-italic" id="italic"></div>
-                            <div class="editor-rte-action editor-icon btn-underline" id="underline"></div>
-                            <div class="editor-rte-action editor-icon btn-text-color" id="textColor">
-                                <input type="text" style="position: absolute; width: 1px; height: 1px; left: 0; top: 0; border: 0; background: inherit" id="text-color-choose" />
-                                <div id="choosen-color" style="position:absolute; width: 19px; height: 3px; background-color: black; left: 0; right: 0; margin: auto; bottom: 6px;"></div>
-                            </div>
-                        </div>
-                        <div class="panel__actions">
-                            <div class="editor-rte-action editor-icon btn-link" id="link"></div>
-                        </div>
-                        <div class="panel__actions">
-                            <div class="editor-rte-action editor-icon btn-left-align" id="leftAlign"></div>
-                            <div class="editor-rte-action editor-icon btn-center-align" id="centerAlign"></div>
-                            <div class="editor-rte-action editor-icon btn-right-align" id="rightAlign"></div>
-                        </div>
-                        <div class="components_menu" style="margin-left: auto; display: flex;">
-                            <div class="panel__actions components_manager">
-                                <div class="editor-rte-action with_text editor-icon btn-style-manager active" id="styles">Design</div>
-                            </div>
-                            <div class="panel__actions components_manager">
-                                <div class="editor-rte-action editor-icon btn-traits" id="traits"></div>
-                            </div>
-                            <div class="panel__actions components_manager">
-                                <div class="editor-rte-action editor-icon btn-settings" id="settings"></div>
-                            </div>
-                            <div class="panel__actions components_manager">
-                                <div class="editor-rte-action editor-icon btn-layers" id="layers"></div>
-                            </div>
-                        </div>
+
                     </div>
-                    <input type="hidden" name="category_id" value="{{ block.getCategory().getEntityId()}}" />
-                    {% if block.isPostMode() %}
-                        <input type="hidden" name="post_id" id="post_id" value="{{ block.getPostId() }}" />
-                    {% endif %}
-                    {% if block.isCommentMode() %}
-                        <input type="hidden" name="comment_id" id="comment_id" value="{{ block.getCommentId() }}" />
-                    {% endif %}
-                    <input type="hidden" id="editor_mode" value="{{ block.getEditorMode() }}" />
                 </form>
             </div>
         </div>
@@ -176,10 +56,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="editor_message" style="display: none; position: fixed; top: 0; left: 0; right: 0; margin: auto; width: 500px; min-height: 20px; background-color: rgba(255, 227, 16, 0.4); z-index: 99999; border-radius: 0 0 3px 3px">
-        <div class="editor_message_container p-2" style="font-size: 14px; text-align: center"></div>
     </div>
 </div>
 
@@ -214,9 +90,3 @@
         </div>
     </div>
 </div>
-
-<style>
-    html, body {
-        overflow: hidden;
-    }
-</style>

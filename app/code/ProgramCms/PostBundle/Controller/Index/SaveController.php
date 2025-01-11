@@ -72,11 +72,11 @@ class SaveController extends Controller
      */
     public function execute()
     {
-        $postId = $this->getRequest()->getParam('post_id');
-        $editorJson = $this->getRequest()->getParam('post_data');
-        $postTitle = $this->getRequest()->getParam('post_title');
-        $postHtml = $this->getRequest()->getParam('post_html');
-        $postCss = $this->getRequest()->getParam('post_css');
+        $postId = $this->getRequest()->getParam('entity_id');
+        $editorJson = $this->getRequest()->getParam('data');
+        $postTitle = $this->getRequest()->getParam('title');
+        $postHtml = $this->getRequest()->getParam('html');
+        $postCss = $this->getRequest()->getParam('css');
         $categoryId = $this->getRequest()->getParam('category_id');
 
         if(empty($postTitle)) {

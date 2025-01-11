@@ -16,5 +16,37 @@ use ProgramCms\CoreBundle\View\Element\Template;
  */
 class PageEditor extends Template
 {
+    /**
+     * @return string
+     */
+    public function getLoadUrl(): string
+    {
+        return $this->getUrl('page_ajax_loadpage', [
+            'page_id' => $this->getPageId()
+        ]);
+    }
 
+    /**
+     * @return string
+     */
+    public function getSaveUrl(): string
+    {
+        return $this->getUrl('page_index_save');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPageId()
+    {
+        return $this->getRequest()->getParam('page_id');
+    }
+
+    /**
+     * @return string
+     */
+    public function getBackIcon(): string
+    {
+        return '/bundles/programcmspage/images/back.png';
+    }
 }

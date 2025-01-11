@@ -24,6 +24,13 @@ interface UrlInterface
     public function getUrlByRouteName($routeName, array $params = []): string;
 
     /**
+     * @param $routeName
+     * @param array $params
+     * @return string
+     */
+    public function getUrlByFullRouteName($routeName, array $params = []): string;
+
+    /**
      * @return string
      */
     public function getRouteName(): string;
