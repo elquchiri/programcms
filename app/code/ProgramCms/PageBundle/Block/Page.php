@@ -45,7 +45,7 @@ class Page extends Template
     public function getPage()
     {
         $pageId = $this->getRequest()->getParam('id');
-        return $this->pageRepository->getById($pageId);
+        return $this->pageRepository->getByIdentifier($pageId);
     }
 
     /**

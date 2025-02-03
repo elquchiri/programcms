@@ -1,10 +1,8 @@
 /*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
  *
- *  * Copyright © ProgramCMS. All rights reserved.
- *  * See COPYING.txt for license details.
- *  *
- *  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
- *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
 import {Controller} from "@hotwired/stimulus";
@@ -64,6 +62,11 @@ application.register('editor', class extends Controller {
                 locale: langCode,
                 messages: {ar},
             },
+            canvas: {
+                styles: [
+                    "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css", // bootstrap styles
+                ],
+            },
             panels: {
                 defaults: [
                     {
@@ -82,14 +85,84 @@ application.register('editor', class extends Controller {
                             keyWidth: 'flex-basis',
                         },
                     },
+                    {
+                        id: 'panel-devices',
+                        el: '.panel__devices',
+                        buttons: [
+                            {
+                                id: 'device-desktop',
+                                label: '<svg style="display: block; max-width:22px" viewBox="0 0 24 24">\n' +
+                                    '            <path fill="currentColor" d="M21,16H3V4H21M21,2H3C1.89,2 1,2.89 1,4V16A2,2 0 0,0 3,18H10V20H8V22H16V20H14V18H21A2,2 0 0,0 23,16V4C23,2.89 22.1,2 21,2Z"></path>\n' +
+                                    '        </svg>',
+                                command: 'set-device-desktop',
+                                active: true,
+                                togglable: false,
+                            },
+                            {
+                                id: 'device-tablet',
+                                label: '<svg style="display: block; max-width:22px" viewBox="0 0 24 24">\n' +
+                                    '            <path fill="currentColor" d="M19,18H5V6H19M21,4H3C1.89,4 1,4.89 1,6V18A2,2 0 0,0 3,20H21A2,2 0 0,0 23,18V6C23,4.89 22.1,4 21,4Z"></path>\n' +
+                                    '        </svg>',
+                                command: 'set-device-tablet',
+                                active: true,
+                                togglable: false,
+                            },
+                            {
+                                id: 'device-mobile',
+                                label: '<svg style="display: block; max-width:22px" viewBox="0 0 24 24">\n' +
+                                    '            <path fill="currentColor" d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"></path>\n' +
+                                    '        </svg>',
+                                command: 'set-device-mobile',
+                                togglable: false,
+                            },
+                        ],
+                    },
+                    {
+                        id: 'basic-actions',
+                        el: '.panel__basic-actions',
+                        buttons: [
+                            {
+                                id: 'view',
+                                className: 'btn-view',
+                                label: 'View', // Text on the button
+                                command: 'preview', // Custom command for viewing
+                                togglable: true, // Allows toggling on/off
+                            },
+                        ],
+                    },
                 ],
             },
             storageManager: false,
             showToolbar: false,
             keepEmptyTextNodes: false,
+            deviceManager: {
+                devices: [
+                    {
+                        name: 'Desktop',
+                        width: '', // default size
+                    },
+                    {
+                        name: 'Mobile',
+                        width: '320px', // this value will be used on canvas width
+                        widthMedia: '480px', // this value will be used in CSS @media
+                    },
+                    {
+                        name: 'Tablet',
+                        width: '520px',
+                        widthMedia: '680px',
+                    },
+                ],
+            },
             blockManager: {
                 appendTo: '#blocks',
                 blocks: [
+                    {
+                        id: 'link',
+                        label: 'Link',
+                        category: 'Basic',
+                        media: `<img src="/bundles/programcmspost/images/editor/blocks/head.png">`,
+                        content: {type: 'link'}
+                    },
                     {
                         id: 'head',
                         label: 'Title',
@@ -189,6 +262,16 @@ application.register('editor', class extends Controller {
                         content: {type: 'three-columns'},
                     },
                     {
+                        id: 'division',
+                        label: 'division',
+                        category: 'Columns',
+                        media: `<img src="/bundles/programcmspost/images/editor/blocks/column.png">`,
+                        select: true,
+                        hover: true,
+                        activate: true,
+                        content: {type: 'division'},
+                    },
+                    {
                         id: 'unordered-list',
                         label: 'U-List',
                         category: 'Lists',
@@ -196,10 +279,7 @@ application.register('editor', class extends Controller {
                         select: true,
                         hover: true,
                         activate: true,
-                        content: `<ul style="list-style-type: disc; padding-left: 20px;">
-            <li>List Item 1</li>
-            <li>List Item 2</li>
-        </ul>`
+                        content: `<ul style="list-style-type: disc; padding-left: 20px;"><li>List Item 1</li><li>List Item 2</li></ul>`
                     },
                     {
                         id: 'ordered-list',
@@ -277,7 +357,8 @@ application.register('editor', class extends Controller {
                         label: 'Button',
                         category: 'Forms',
                         media: `<img src="/bundles/programcmspost/images/editor/blocks/button.png">`,
-                        content: '<button class="btn btn-primary" data-gjs-type="button">Insert your text here</button>',
+                        // content: '<button class="btn btn-primary" data-gjs-type="button">Insert your text here</button>',
+                        content: {type: 'button'},
                     },
                 ]
             },
@@ -300,52 +381,53 @@ application.register('editor', class extends Controller {
                 sectors: [{
                     name: 'general',
                     open: true,
-                    buildProps: ['border']
+                    buildProps: ['float', 'display', 'top', 'right', 'left', 'bottom'],
+                    properties: [
+                        {
+                            type: 'select',
+                            property: 'position',
+                            label: 'Position',
+                            default: 'static',
+                            options: [
+                                {id: 'static', label: 'static'},
+                                {id: 'relative', label: 'relative'},
+                                {id: 'absolute', label: 'absolute'},
+                                {id: 'fixed', label: 'fixed'},
+                            ]
+                        },
+                    ]
                 },
                     {
+                        name: 'typography',
+                        open: false,
+                        buildProps: ['font-family', 'font-size', 'font-weight', 'letter-spacing', 'color', 'line-height', 'text-align', 'text-decoration', 'text-shadow'],
+                    },
+                    {
                         name: 'Appearance',
-                        open: true,
-                        buildProps: ['font-family', 'font-size', 'color', 'border', 'background-color'],
+                        open: false,
+                        buildProps: ['border', 'border-radius', 'background', 'background-color', 'opacity', 'box-shadow'],
                         properties: [
                             {
-                                id: 'font-family',
-                                name: 'Font Family',
-                                property: 'font-family',
-                                type: 'select',
-                                defaults: 'Tahoma, Geneva, sans-serif',
-                                options: [
-                                    {value: 'Arial', name: 'Arial'},
-                                    {value: 'Tahoma, Geneva, sans-serif', name: 'Tahoma'}
-                                ]
-                            }
-                        ]
+                                name: 'Background Color',
+                                property: 'background-color',
+                                type: 'color',
+                            },
+                        ],
                     },
                     {
                         name: 'dimension',
-                        open: true,
+                        open: false,
                         buildProps: ['width', 'height', 'min-width', 'max-width', 'min-height', 'max-height', 'padding', 'margin']
-                    }, {
-                        name: 'extra',
-                        open: true,
-                        buildProps: ['background-color', 'box-shadow', 'custom-prop', 'video-url'],
-                        properties: [
-                            {
-                                id: 'custom-prop',
-                                name: 'Custom Label',
-                                property: 'font-size',
-                                type: 'select',
-                                defaults: '32px',
-                                options: [
-                                    {value: '12px', name: 'Tiny'},
-                                    {value: '18px', name: 'Medium'},
-                                    {value: '32px', name: 'Big'}
-                                ]
-                            }
-                        ]
-                    }]
+                    },
+                ]
             },
             traitManager: {
                 appendTo: '#traits-container',
+            },
+            selectorManager: {
+                appendTo: '#traits-container',
+                custom: true,
+                componentFirst: true,
             },
             assetManager: {
                 custom: {
@@ -366,6 +448,16 @@ application.register('editor', class extends Controller {
             }
         });
 
+        self.editor.Commands.add('set-device-desktop', {
+            run: (editor) => editor.setDevice('Desktop'),
+        });
+        self.editor.Commands.add('set-device-mobile', {
+            run: (editor) => editor.setDevice('Mobile'),
+        });
+        self.editor.Commands.add('set-device-tablet', {
+            run: (editor) => editor.setDevice('Tablet'),
+        });
+
         self.editor.DomComponents.addType('default', {
             model: {
                 defaults: {
@@ -376,12 +468,49 @@ application.register('editor', class extends Controller {
             },
         });
 
+        self.editor.DomComponents.addType('link', {
+            model: {
+                defaults: {
+                    tagName: 'a',
+                    attributes: { href: '#' },
+                    traits: [
+                        {
+                            type: 'text',
+                            label: 'Href',
+                            name: 'href',
+                            placeholder: 'https://example.com',
+                        },
+                        {
+                            type: 'text',
+                            label: 'Text',
+                            name: 'text',
+                            placeholder: 'Link text',
+                            changeProp: 1, // Allows real-time updates
+                        },
+                    ],
+                    text: 'Click me', // Default text for the link
+                },
+                init() {
+                    // Listen for changes to the "style" and "text" traits
+                    this.on('change:text', this.handleTextChange);
+                },
+                handleTextChange() {
+                    this.set('content', this.get('text')); // Update link text
+                },
+            },
+            view: {
+                onRender() {
+                    const text = this.model.get('text') || 'Click me';
+                    this.el.innerHTML = text;
+                },
+            },
+        });
+
         self.editor.DomComponents.addType('video', {
             model: {
                 defaults: {
                     tagName: 'video',
                     style: {width: '100%'},
-                    stylable: ['width', 'height'],
                 }
             },
             view: {
@@ -491,9 +620,6 @@ application.register('editor', class extends Controller {
                         },
                     ],
                 },
-                init() {
-
-                },
                 toHTML() {
                     const language = this.getAttributes().language;
                     return "<pre data-language=\"" + language + "\"><code>" + this.get('codeOutput') + "</code></pre>";
@@ -593,19 +719,47 @@ application.register('editor', class extends Controller {
             model: {
                 defaults: {
                     tagName: 'div',
-                    style: {flex: 1, width: '100%', height: 'auto'},
-                    stylable: ['width', 'height', 'padding'],
-                    droppable: false,
-                    components: [
+                    classes: ['col-md-1'], // Default class for the column
+                    style: { padding: '15px' },
+                    traits: [
                         {
-                            tagName: 'div',
-                            attributes: {id: 'column-1'}, // Unique ID for column 1
-                            style: {flex: 1, padding: '10px'},
-                            droppable: true,
-                            content: '',
-                        }
+                            type: 'select', // Dropdown trait
+                            label: 'Width',
+                            name: 'column-width',
+                            options: [
+                                { value: 'col-md-1', name: '1' },
+                                { value: 'col-md-2', name: '2' },
+                                { value: 'col-md-3', name: '3' },
+                                { value: 'col-md-4', name: '4' },
+                                { value: 'col-md-5', name: '5' },
+                                { value: 'col-md-6', name: '6' },
+                                { value: 'col-md-7', name: '7' },
+                                { value: 'col-md-8', name: '8' },
+                                { value: 'col-md-9', name: '9' },
+                                { value: 'col-md-10', name: '10' },
+                                { value: 'col-md-11', name: '11' },
+                                { value: 'col-md-12', name: '12' },
+                            ],
+                            changeProp: 1, // Trigger a property change when the value changes
+                        },
                     ],
                 },
+
+                // Listen for changes to the 'column-width' property and update the class
+                init() {
+                    this.listenTo(this, 'change:column-width', this.updateColumnWidth);
+                },
+
+                updateColumnWidth() {
+                    const widthClass = this.get('column-width');
+                    const classes = this.get('classes');
+                    // Extract class names as plain strings
+                    const classList = classes.map((cls) => (typeof cls === 'string' ? cls : cls.id || ''));
+                    // Remove existing col-md-* classes
+                    const filteredClasses = classList.filter((cls) => !cls.startsWith('col-md-'));
+                    filteredClasses.push(widthClass); // Add the new width class
+                    this.set('classes', filteredClasses);
+                }
             },
         });
 
@@ -614,9 +768,7 @@ application.register('editor', class extends Controller {
                 defaults: {
                     tagName: 'div',
                     classes: ['row'],
-                    style: {display: 'flex', width: '100%', height: 'auto'},
-                    stylable: ['width', 'height', 'padding'],
-                    droppable: false,
+                    droppable: true,
                     components: [
                         {
                             type: 'column'
@@ -634,9 +786,7 @@ application.register('editor', class extends Controller {
                 defaults: {
                     tagName: 'div',
                     classes: ['row'],
-                    style: {display: 'flex', width: '100%', height: 'auto'},
-                    stylable: ['width', 'height', 'padding'],
-                    droppable: false,
+                    droppable: true,
                     components: [
                         {
                             type: 'column'
@@ -648,6 +798,55 @@ application.register('editor', class extends Controller {
                             type: 'column'
                         }
                     ],
+                },
+            },
+        });
+
+        self.editor.DomComponents.addType('division', {
+            model: {
+                defaults: {
+                    tagName: 'div',
+                    style: {width: '100%', padding: '25px'},
+                },
+            },
+        });
+
+        self.editor.DomComponents.addType('button', {
+            model: {
+                defaults: {
+                    tagName: 'button',
+                    attributes: { type: 'button', class: 'btn btn-primary'},
+                    text: 'Click me!',
+                    editable: true,
+                    content: 'Click me!',
+                    traits: [
+                        {
+                            type: 'text',
+                            label: 'Text',
+                            name: 'text',
+                            changeProp: 1, // Triggers a rerender when changed
+                        },
+                        {
+                            type: 'text',
+                            label: 'Type',
+                            name: 'type',
+                            changeProp: 1,
+                        },
+                    ],
+                },
+                init() {
+                    this.on('change:text', this.handleTextChange); // Listen for text changes
+                },
+                handleTextChange() {
+                    const newText = this.get('text');
+                    this.set('content', newText);
+                    this.trigger('change:content');
+                },
+            },
+            view: {
+                onRender() {
+                    const text = this.model.get('text');
+                    this.el.innerHTML = text;
                 },
             },
         });
@@ -871,7 +1070,8 @@ application.register('editor', class extends Controller {
                             <label class="form-check-label text-primary" style="font-size: 12px; font-weight: bold;" for="flexSwitchCheckDefault">Auto Save</label>
                         </div>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-primary rounded-start-5 ps-4" data-action="editor#onSubmit">Share</button>
+                            <button type="button" class="btn btn-outline-primary rounded-start-5 ps-3" data-action="editor#onPreview">Preview</button>
+                            <button type="button" class="btn btn-primary active" data-action="editor#onSubmit">Save</button>
                             <button type="button" class="btn btn-primary rounded-end-5 pe-3 dropdown-toggle active"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="visually-hidden">Toggle Dropdown</span>
@@ -922,6 +1122,8 @@ application.register('editor', class extends Controller {
                             <div class="editor-rte-action editor-icon btn-right-align" id="rightAlign"></div>
                         </div>
                         <div class="components_menu" style="margin-left: auto; display: flex;">
+                            <div class="panel__devices"></div>
+                            
                             <div class="panel__actions components_manager">
                                 <div class="editor-rte-action with_text editor-icon btn-style-manager active" id="styles">Design</div>
                             </div>
@@ -934,7 +1136,8 @@ application.register('editor', class extends Controller {
                             <div class="panel__actions components_manager">
                                 <div class="editor-rte-action editor-icon btn-layers" id="layers"></div>
                             </div>
-                        </div>`;
+                        </div>
+                        `;
 
         $('.panel__top').html(panelTop);
     }
@@ -1014,6 +1217,10 @@ application.register('editor', class extends Controller {
                 Loader.stopLoader();
             }
         });
+    }
+
+    onPreview() {
+        this.editor.runCommand('core:preview'); // Enable preview mode
     }
 
     /**
@@ -1120,5 +1327,11 @@ application.register('editor', class extends Controller {
             e.preventDefault();
             props.close();
         });
+    }
+
+    getRandomIntInclusive(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 });

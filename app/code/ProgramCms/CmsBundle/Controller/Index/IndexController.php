@@ -8,11 +8,13 @@
 
 namespace ProgramCms\CmsBundle\Controller\Index;
 
+use ProgramCms\CmsBundle\Helper\Data;
 use ProgramCms\CoreBundle\Controller\Context;
 use ProgramCms\CoreBundle\Controller\Controller;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\CoreBundle\View\Result\Page;
-use Twig\Environment;
+use ProgramCms\PageBundle\Entity\PageEntity;
+use ProgramCms\PageBundle\Repository\PageRepository;
 
 /**
  * Class IndexController
@@ -26,22 +28,25 @@ class IndexController extends Controller
     protected ObjectManager $objectManager;
 
     /**
-     * @var Environment
+     * @var PageRepository
      */
-    protected Environment $environment;
+    protected PageRepository $pageRepository;
 
     /**
      * IndexController constructor.
      * @param Context $context
      * @param ObjectManager $objectManager
+     * @param PageRepository $pageRepository
      */
     public function __construct(
         Context $context,
-        ObjectManager $objectManager
+        ObjectManager $objectManager,
+        PageRepository $pageRepository
     )
     {
         parent::__construct($context);
         $this->objectManager = $objectManager;
+        $this->pageRepository = $pageRepository;
     }
 
     /**
@@ -52,13 +57,18 @@ class IndexController extends Controller
     public function execute()
     {
         // Prepare Home CMS Page by Id & send content
+        /** @var PageEntity $page */
+        $page = $this->pageRepository->getByIdentifier(Data::DEFAULT_HOME_PAGE_IDENTIFIER);
+        $args = is_null($page) ? [] : ['currentLayout' => 'page_index_view'];
+        $title = is_null($page) ? $this->trans("Home Page") : $page->getPageName();
+
         /** @var Page $pageResult */
-        $pageResult = $this->objectManager->create(Page::class);
-
-
+        $pageResult = $this->objectManager->create(Page::class, $args);
+        $this->getRequest()->setParam("id", Data::DEFAULT_HOME_PAGE_IDENTIFIER);
         $pageResult->getConfig()->getTitle()->set(
-            $this->trans("Home Page")
+            $title
         );
+
         return $pageResult;
     }
 }

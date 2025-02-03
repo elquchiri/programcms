@@ -23,6 +23,12 @@ use ProgramCms\PageBundle\Api\PageInterface;
 class PageEntity extends Entity implements PageInterface
 {
     /**
+     * @var string|null
+     */
+    #[ORM\Column(length: 255, unique: true, nullable: false)]
+    private ?string $page_identifier;
+
+    /**
      * @var EavAttributeSet|null
      */
     #[ORM\ManyToOne(targetEntity: EavAttributeSet::class)]
@@ -43,6 +49,24 @@ class PageEntity extends Entity implements PageInterface
     public function __construct(array $data = [])
     {
         parent::__construct($data);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPageIdentifier(): string
+    {
+        return $this->page_identifier;
+    }
+
+    /**
+     * @param string $pageIdentifier
+     * @return $this
+     */
+    public function setPageIdentifier(string $pageIdentifier): static
+    {
+        $this->page_identifier = $pageIdentifier;
+        return $this;
     }
 
     /**

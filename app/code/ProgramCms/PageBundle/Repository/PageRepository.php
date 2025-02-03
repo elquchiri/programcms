@@ -26,4 +26,15 @@ class PageRepository extends AbstractRepository
     {
         parent::__construct($registry, PageEntity::class);
     }
+
+    /**
+     * @param string $pageIdentifier
+     * @return object|null
+     */
+    public function getByIdentifier(string $pageIdentifier): ?object
+    {
+        return $this->findOneBy([
+            'page_identifier' => $pageIdentifier
+        ]);
+    }
 }

@@ -88,14 +88,20 @@ class Request
      */
     public function getParameters(): array
     {
-        $parameters = [];
+        $parameters = $this->getCurrentRequest()->query->all();
         $request = $this->getCurrentRequest();
+        $requestParams = $request->get('parameters');
+        if(is_array($requestParams)) {
+            return $requestParams;
+        }
+
         $requestParams = explode('/', $request->get('parameters'));
         for ($i = 0; $i < count($requestParams) - 1; $i += 2) {
             $key = $requestParams[$i];
             $value = $requestParams[$i + 1];
             $parameters[$key] = $value;
         }
+
         return $parameters ?? [];
     }
 

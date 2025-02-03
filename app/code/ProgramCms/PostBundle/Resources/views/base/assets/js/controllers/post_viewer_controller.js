@@ -1,10 +1,8 @@
 /*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
  *
- *  * Copyright © ProgramCMS. All rights reserved.
- *  * See COPYING.txt for license details.
- *  *
- *  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
- *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 
 import {Controller} from "@hotwired/stimulus";
@@ -49,18 +47,20 @@ application.register('post-viewer', class extends Controller {
 
         // Sticky
         $('html, body').on("scroll", function () {
-            const firstSticky = document.querySelector(".first-sticky"); // The main sticky element
-            const firstStickyBottom = firstSticky.getBoundingClientRect().bottom;
+            if($('.first-sticky').length > 0) {
+                const firstSticky = document.querySelector(".first-sticky"); // The main sticky element
+                const firstStickyBottom = firstSticky.getBoundingClientRect().bottom;
 
-            const secondStickies = document.querySelectorAll(".second-sticky");
-            secondStickies.forEach((sticky) => {
-                const stickyTop = sticky.getBoundingClientRect().top;
-                if (stickyTop <= firstStickyBottom) {
-                    sticky.classList.add("sticky-active");
-                } else {
-                    sticky.classList.remove("sticky-active");
-                }
-            });
+                const secondStickies = document.querySelectorAll(".second-sticky");
+                secondStickies.forEach((sticky) => {
+                    const stickyTop = sticky.getBoundingClientRect().top;
+                    if (stickyTop <= firstStickyBottom) {
+                        sticky.classList.add("sticky-active");
+                    } else {
+                        sticky.classList.remove("sticky-active");
+                    }
+                });
+            }
         });
     }
 

@@ -60,6 +60,14 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
+                {% block name="page_identifier" class="ui.block.column" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="label" type="string" %}Page Identifier{% endArgument %}
+                            {% argument name="source" type="string" %}page_listing{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
                 {% block name="actionsColumn" class="ProgramCms\\PageBundle\\Ui\\Grid\\Column\\PageActions" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}

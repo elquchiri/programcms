@@ -260,16 +260,33 @@
   display: flex;
   position: relative;
   padding: 0 5px 0 5px;
+
+  &:after {
+    content: '';
+    height: 50%;
+    width: 1px;
+    position: absolute;
+    left: 0;
+    top: 25%;
+    background-color: #c2c0c0;
+  }
 }
 
-.panel__actions:after {
-  content: '';
-  height: 50%;
-  width: 1px;
-  position: absolute;
-  left: 0;
-  top: 25%;
-  background-color: #c2c0c0;
+.panel__devices {
+  display: flex;
+  position: relative;
+  padding: 0 5px 0 5px;
+  background: transparent;
+
+  &:after {
+    content: '';
+    height: 50%;
+    width: 1px;
+    position: absolute;
+    left: 0;
+    top: 25%;
+    background-color: #c2c0c0;
+  }
 }
 
 .panel__top {
@@ -387,9 +404,9 @@
 }
 
 .gjs-field {
-  background-color: #eee;
   color: #000000;
-  border: 1px solid #dedede;
+  background-color: #ffffff;
+  border: 1px solid #CCCCCC;
 }
 
 .gjs-block {

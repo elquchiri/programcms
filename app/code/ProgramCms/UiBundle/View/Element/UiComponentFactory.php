@@ -12,6 +12,24 @@ use Exception;
 use ProgramCms\CoreBundle\Model\DataObject;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\UiBundle\Component\AbstractComponent;
+use ProgramCms\UiBundle\Component\Form\Element\Button;
+use ProgramCms\UiBundle\Component\Form\Element\Color;
+use ProgramCms\UiBundle\Component\Form\Element\Date;
+use ProgramCms\UiBundle\Component\Form\Element\Editor;
+use ProgramCms\UiBundle\Component\Form\Element\File;
+use ProgramCms\UiBundle\Component\Form\Element\Hidden;
+use ProgramCms\UiBundle\Component\Form\Element\Image;
+use ProgramCms\UiBundle\Component\Form\Element\ImageUploader;
+use ProgramCms\UiBundle\Component\Form\Element\MultiSelect;
+use ProgramCms\UiBundle\Component\Form\Element\Password;
+use ProgramCms\UiBundle\Component\Form\Element\PlainText;
+use ProgramCms\UiBundle\Component\Form\Element\Select;
+use ProgramCms\UiBundle\Component\Form\Element\Switcher;
+use ProgramCms\UiBundle\Component\Form\Element\Text;
+use ProgramCms\UiBundle\Component\Form\Element\TextArea;
+use ProgramCms\UiBundle\Component\Form\Element\Tree;
+use ProgramCms\UiBundle\Component\Form\Field;
+use ProgramCms\UiBundle\Component\Form\Fieldset;
 
 /**
  * Class UiComponentFactory
@@ -28,24 +46,24 @@ class UiComponentFactory extends DataObject
      * @var array|string[]
      */
     protected array $_instances = [
-        'fieldset' => \ProgramCms\UiBundle\Component\Form\Fieldset::class,
-        'field' => \ProgramCms\UiBundle\Component\Form\Field::class,
-        'text' => \ProgramCms\UiBundle\Component\Form\Element\Text::class,
-        'textarea' => \ProgramCms\UiBundle\Component\Form\Element\TextArea::class,
-        'editor' => \ProgramCms\UiBundle\Component\Form\Element\Editor::class,
-        'password' => \ProgramCms\UiBundle\Component\Form\Element\Password::class,
-        'hidden' => \ProgramCms\UiBundle\Component\Form\Element\Hidden::class,
-        'select' => \ProgramCms\UiBundle\Component\Form\Element\Select::class,
-        'multiselect' => \ProgramCms\UiBundle\Component\Form\Element\MultiSelect::class,
-        'date' => \ProgramCms\UiBundle\Component\Form\Element\Date::class,
-        'switcher' => \ProgramCms\UiBundle\Component\Form\Element\Switcher::class,
-        'plainText' => \ProgramCms\UiBundle\Component\Form\Element\PlainText::class,
-        'image' => \ProgramCms\UiBundle\Component\Form\Element\Image::class,
-        'imageUploader' => \ProgramCms\UiBundle\Component\Form\Element\ImageUploader::class,
-        'file' => \ProgramCms\UiBundle\Component\Form\Element\File::class,
-        'color' => \ProgramCms\UiBundle\Component\Form\Element\Color::class,
-        'button' => \ProgramCms\UiBundle\Component\Form\Element\Button::class,
-        'tree' => \ProgramCms\UiBundle\Component\Form\Element\Tree::class,
+        'fieldset' => Fieldset::class,
+        'field' => Field::class,
+        'text' => Text::class,
+        'textarea' => TextArea::class,
+        'editor' => Editor::class,
+        'password' => Password::class,
+        'hidden' => Hidden::class,
+        'select' => Select::class,
+        'multiselect' => MultiSelect::class,
+        'date' => Date::class,
+        'switcher' => Switcher::class,
+        'plainText' => PlainText::class,
+        'image' => Image::class,
+        'imageUploader' => ImageUploader::class,
+        'file' => File::class,
+        'color' => Color::class,
+        'button' => Button::class,
+        'tree' => Tree::class,
     ];
 
     /**

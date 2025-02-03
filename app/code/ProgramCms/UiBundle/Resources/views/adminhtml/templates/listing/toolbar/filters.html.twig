@@ -6,10 +6,10 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<ul class="nav nav-tabs grid-filters-tabs justify-content-end" role="tablist">
-    <li class="nav-item">
-        <a class="nav-link" id="filters-tab" data-bs-toggle="tab" data-bs-target="#filters" type="button" role="tab"
-           aria-controls="filters" aria-selected="true" href="#">
+<ul class="nav nav-tabs grid-filters-tabs justify-content-end" data-controller="filters" data-filters-status-value="{{ block.isFiltersActive() }}">
+    <li class="nav-item" id="filters-nav">
+        <a href="#" class="nav-link" id="filters-tab" data-bs-toggle="tab" data-bs-target="#filters" type="button" role="tab"
+           aria-controls="filters" aria-selected="true">
             {{ block.trans('Filters') }}
         </a>
     </li>
@@ -20,11 +20,6 @@
         <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Action</a></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-            <li>
-                <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="#">Separated link</a></li>
         </ul>
     </li>
     <li class="nav-item dropdown">
@@ -37,52 +32,26 @@
         </ul>
     </li>
 </ul>
-<div class="tab-content mb-3" id="myTabContent">
-    <div class="tab-pane fade" id="filters" role="tabpanel" aria-labelledby="filters-tab">
+<div class="tab-content mb-3">
+    <div class="tab-pane fade" id="filters" role="tabpanel">
         <div class="grid-filters">
-            <div class="row row-cols-4">
-                <div class="col">
-                    <div class="mt-3">
-                        <label for="exampleInputEmail1" class="form-label">#ID</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="From" id="exampleInputEmail1"
-                                   aria-describedby="emailHelp">
-                            <input type="text" class="form-control" placeholder="To" aria-label="Username"
-                                   aria-describedby="basic-addon1">
+            <form action="#" method="get">
+                <div class="row row-cols-4">
+                    {% for filterInput in block.getColumns() %}
+                    <div class="col">
+                        <div class="mt-3">
+                            <label for="{{ filterInput.name }}" class="form-label">{{ filterInput.label }}</label>
+                            {{ filterInput.input|raw }}
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-                <div class="col">
-                    <div class="mt-3">
-                        <label for="exampleInputEmail1" class="form-label">Title</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </div>
+                <div class="d-flex flex-row-reverse mt-3 mb-3">
+                    <input class="btn btn-primary btn-sm ms-2" type="submit" value="Apply Filters">
+                    <a href="#filters" class="btn btn-sm" role="button" data-bs-toggle="collapse">Cancel</a>
                 </div>
-                <div class="col">
-                    <div class="mt-3">
-                        <label for="exampleInputEmail1" class="form-label">Website View</label>
-                        <select class="form-select" aria-label="Default select example">
-                            <option value="1">All Website Views</option>
-                            <optgroup label="Main Website"></optgroup>
-                            <optgroup class="ps-2" label="Main Group"></optgroup>
-                            <option class="ps-3" value="1">Main Website View</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="mt-3">
-                        <label for="exampleInputEmail1" class="form-label">Status</label>
-                        <select class="form-select" aria-label="Default select example">
-                            <option value="1">Enabled</option>
-                            <option value="2">Disabled</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex flex-row-reverse mt-3 mb-3">
-                <input class="btn btn-primary btn-sm ms-2" type="submit" value="Apply Filters">
-                <a href="#filters" class="btn btn-sm" role="button" data-bs-toggle="collapse">Cancel</a>
-            </div>
+                <input type="hidden" name="hidden_listing_filters" value="1" />
+            </form>
         </div>
     </div>
 </div>

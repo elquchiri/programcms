@@ -8,7 +8,12 @@
 
 namespace ProgramCms\UiBundle\Component\Listing\Toolbar;
 
+use ProgramCms\CoreBundle\App\Request\Request;
+use ProgramCms\CoreBundle\View\Element\AbstractBlock;
 use ProgramCms\UiBundle\Component\AbstractComponent;
+use ProgramCms\UiBundle\Component\Listing\Columns;
+use ProgramCms\UiBundle\View\Element\Context;
+use ProgramCms\UiBundle\View\Element\UiComponentFactory;
 
 /**
  * Class Filters
@@ -24,10 +29,67 @@ class Filters extends AbstractComponent
     protected string $_template = "@ProgramCmsUiBundle/listing/toolbar/filters.html.twig";
 
     /**
+     * @var UiComponentFactory
+     */
+    protected UiComponentFactory $uiComponentFactory;
+
+    /**
+     * Filters constructor.
+     * @param Context $context
+     * @param array $data
+     * @param Request $request
+     */
+    public function __construct(
+        Context $context,
+        array $data = [],
+    )
+    {
+        parent::__construct($context, $data);
+        $this->uiComponentFactory = $context->getUiComponentFactory();
+    }
+
+    /**
      * @return string
      */
     public function getComponentName()
     {
         return self::NAME;
+    }
+
+    public function getColumns(): array
+    {
+        $filters = [];
+        $layout = $this->getLayout();
+        /** @var Columns $columnBlocks */
+        $columnBlocks = $layout->getBlock('columns');
+        /** @var AbstractBlock $block */
+        foreach($columnBlocks->getChildBlocks() as $block) {
+            if($block->hasData('filter')) {
+                $inputType = $block->getData('filter');
+                $inputName = $block->getNameInLayout() . '_filter';
+                $blockType = $this->uiComponentFactory->create(
+                    $inputType,
+                    $inputName,
+                    ['value' => $this->getRequest()->getParam($inputName)],
+                    $layout
+                );
+                $this->setChild($inputName, $blockType);
+
+                $filters[] = [
+                    'name' => $inputName,
+                    'label' => $block->getLabel(),
+                    'input' => $blockType->toHtml()
+                ];
+            }
+        }
+        return $filters;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFiltersActive(): bool
+    {
+        return $this->getRequest()->hasParam('hidden_listing_filters');
     }
 }

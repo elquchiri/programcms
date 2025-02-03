@@ -55,7 +55,7 @@ class ViewController extends Controller
     public function execute(): object
     {
         $pageId = $this->getRequest()->getParam('id');
-        $page = $this->pageRepository->getById($pageId);
+        $page = $this->pageRepository->getByIdentifier($pageId);
         $pageResult = $this->objectManager->create(Page::class);
         $pageResult->getConfig()->getTitle()->set($page->getPageName());
         return $pageResult;

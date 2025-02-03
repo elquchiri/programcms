@@ -8,8 +8,11 @@
 
 namespace ProgramCms\UiBundle\Component\Listing;
 
-use Exception;
+use ProgramCms\CoreBundle\App\RequestInterface;
+use ProgramCms\CoreBundle\View\Element\AbstractBlock;
 use ProgramCms\UiBundle\Component\AbstractComponent;
+use Exception;
+use ProgramCms\UiBundle\View\Element\Context;
 
 /**
  * Class Listing
@@ -18,10 +21,21 @@ use ProgramCms\UiBundle\Component\AbstractComponent;
 class Listing extends AbstractComponent
 {
     const NAME = 'listing';
+
     /**
      * @var string
      */
     protected string $_template = "@ProgramCmsUiBundle/listing/listing.html.twig";
+
+    protected \ProgramCms\RouterBundle\Service\Request $request;
+
+    public function __construct(
+        Context $context,
+        array $data = []
+    )
+    {
+        parent::__construct($context, $data);
+    }
 
     /**
      * @return array|mixed
@@ -34,7 +48,9 @@ class Listing extends AbstractComponent
 
         if ($this->hasData('dataSource')) {
             $dataProvider = $this->getContext()->getDataProvider($listingName);
-            $data = $dataProvider->getData();
+            $dataProvider->getData();
+            $filters = $this->request->getParameters();
+            $collection = $dataProvider->getCollection();
 
             // Filter Provided Data by primaryFieldName
             $primaryFieldName = $dataProvider->getPrimaryFieldName();
@@ -42,12 +58,29 @@ class Listing extends AbstractComponent
             if (!empty($requestFieldName)) {
                 $entityId = (int)$this->request->getParam($requestFieldName);
                 if (!empty($entityId)) {
-                    $data = $dataProvider
-                        ->getCollection()
-                        ->addFieldToFilter($primaryFieldName, $entityId)
-                        ->getData();
+                    $collection->addFieldToFilter($primaryFieldName, $entityId);
                 }
             }
+
+            /** @var Columns $columnBlocks */
+            if(!empty($filters)) {
+                $columnBlocks = $this->getChildBlock('columns');
+                if ($columnBlocks) {
+                    /** @var AbstractBlock $block */
+                    foreach ($columnBlocks->getChildBlocks() as $block) {
+                        $columnName = $block->getNameInLayout();
+                        if ($block->hasData('filter') &&
+                            isset($filters[$columnName . '_filter']) &&
+                            !empty($filters[$columnName . '_filter'])
+                        ) {
+                            $collection
+                                ->addFieldToFilter($columnName, $filters[$columnName . '_filter']);
+                        }
+                    }
+                }
+            }
+
+            $data = $collection->getData();
         }
 
         return $data;

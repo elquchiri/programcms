@@ -46,16 +46,23 @@ class Layout extends AbstractResult
     private BundleManager $bundleManager;
 
     /**
+     * @var string|null
+     */
+    protected string $currentLayout;
+
+    /**
      * @throws SyntaxError
      * @throws RuntimeError
      * @throws LoaderError
      */
-    public function __construct(Context $context)
+    public function __construct(Context $context, $currentLayout = '')
     {
         $this->request = $context->getRequest();
         $this->env = $context->getEnvironment();
         $this->layout = $context->getLayout();
         $this->bundleManager = $context->getBundleManager();
+        $this->currentLayout = $currentLayout;
+
         // Construct Layout Elements
         $this->_initLayout();
     }
@@ -71,6 +78,9 @@ class Layout extends AbstractResult
         $routes = $this->bundleManager->getContainer()->get('router')->getRouteCollection();
         $routeDefaults = $routes->get($routeName)->getDefaults();
         $currentRouteName = $routeDefaults['target_path'] ?? $this->request->getCurrentRouteName();
+        if(!empty($this->currentLayout)) {
+            $currentRouteName = $this->currentLayout;
+        }
         $this->env->render($currentRouteName . '.' . self::LAYOUT_EXTENSION);
         // Generate Layout Elements
         $this->getLayout()->generateElements();
@@ -82,6 +92,12 @@ class Layout extends AbstractResult
     public function getLayout(): \ProgramCms\CoreBundle\View\Layout
     {
         return $this->layout;
+    }
+
+    public function setCurrentLayout(string $layout): static
+    {
+        $this->currentLayout = $layout;
+        return $this;
     }
 
     /**

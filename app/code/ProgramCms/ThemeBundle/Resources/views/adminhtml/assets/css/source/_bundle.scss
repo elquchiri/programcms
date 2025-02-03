@@ -11,7 +11,14 @@
 @import "ajax-loader";
 
 .form-control {
+  border-radius: 0;
+
   &:focus {
     border: 1px solid $primary !important;
   }
+}
+
+.btn {
+  border-radius: 1px;
+  padding: 9px 15px 9px 15px;
 }

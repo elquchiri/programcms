@@ -45,7 +45,7 @@ class Captcha extends Template
     public function getCaptchaImage(): string
     {
         $builder = new CaptchaBuilder;
-        $builder->build();
+        $builder->build(150, 30);
         $this->getRequest()->getCurrentRequest()->getSession()
             ->set('phrase', $builder->getPhrase());
         return $builder->inline();

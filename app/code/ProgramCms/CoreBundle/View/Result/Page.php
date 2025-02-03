@@ -55,13 +55,15 @@ class Page extends Layout
      */
     public function __construct(
         Context $context,
+        $currentLayout = ''
     )
     {
-        parent::__construct($context);
+        parent::__construct($context, $currentLayout);
         $this->pageConfig = $context->getPageConfig();
         $this->env = $context->getEnvironment();
         $this->localeSwitcher = $context->getLocaleSwitcher();
         $this->language = $context->getLanguageHelper();
+        $this->currentLayout = $currentLayout;
     }
 
     /**
