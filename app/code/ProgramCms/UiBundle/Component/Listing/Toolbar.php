@@ -8,11 +8,13 @@
 
 namespace ProgramCms\UiBundle\Component\Listing;
 
+use ProgramCms\UiBundle\Component\AbstractComponent;
+
 /**
  * Class Toolbar
  * @package ProgramCms\UiBundle\Component\Listing
  */
-class Toolbar extends \ProgramCms\UiBundle\Component\AbstractComponent
+class Toolbar extends AbstractComponent
 {
     const NAME = 'toolbar';
     /**

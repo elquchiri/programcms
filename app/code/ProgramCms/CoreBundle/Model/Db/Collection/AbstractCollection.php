@@ -11,6 +11,7 @@ namespace ProgramCms\CoreBundle\Model\Db\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use ProgramCms\EavBundle\Entity\EavAttribute;
+use ProgramCms\EavBundle\Entity\EavEntityType;
 use ReflectionException;
 
 /**
@@ -136,11 +137,12 @@ abstract class AbstractCollection implements CollectionInterface
      */
     public function addFieldToFilter(string $field, $value, string $filter = 'eq'): static
     {
-        $this->getQueryBuilder()->where(
-            $this->getQueryBuilder()->expr()->andX(
-                $this->getQueryBuilder()->expr()->$filter('main_table.' . $field, '?1'),
-            )
-        )->setParameter(1, $value);
+        $qb = $this->getQueryBuilder();
+
+        // Use andWhere instead of where to accumulate conditions
+        $qb->andWhere(
+            $qb->expr()->$filter('main_table.' . $field, '?'.count($qb->getParameters())+1)
+        )->setParameter(count($qb->getParameters())+1, $value);
 
         return $this;
     }
@@ -150,6 +152,7 @@ abstract class AbstractCollection implements CollectionInterface
      * @param $value
      * @param string $filter
      * @return $this
+     * @throws ReflectionException
      */
     public function addAttributeToFilter(string $field, $value, string $filter = 'eq'): static
     {
@@ -219,21 +222,6 @@ abstract class AbstractCollection implements CollectionInterface
      * @param string $keyword
      * @return $this
      */
-    public function addFullTextSearch(array|string $fields, string $keyword): static
-    {
-        $fieldList = is_array($fields) ? implode(',', (array)$fields) : $fields;
-
-        $this->getQueryBuilder()->andWhere("MATCH($fieldList) AGAINST (:keyword IN NATURAL LANGUAGE MODE)")
-            ->setParameter('keyword', $keyword);
-
-        return $this;
-    }
-
-    /**
-     * @param array|string $fields
-     * @param string $keyword
-     * @return $this
-     */
     public function addKeywordSearch(array|string $fields, string $keyword): static
     {
         $expr = $this->getQueryBuilder()->expr();
@@ -247,5 +235,29 @@ abstract class AbstractCollection implements CollectionInterface
             ->setParameter(1, '%' . $keyword . '%');
 
         return $this;
+    }
+
+    /**
+     * @return array|string
+     */
+    public function getSql(): array|string
+    {
+        return $this->getQueryBuilder()->getQuery()->getSQL();
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntity(): string
+    {
+        return $this->entity;
+    }
+
+    /**
+     * @return EntityManagerInterface
+     */
+    public function getEntityManager(): EntityManagerInterface
+    {
+        return $this->entityManager;
     }
 }

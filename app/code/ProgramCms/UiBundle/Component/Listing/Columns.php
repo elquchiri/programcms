@@ -9,13 +9,14 @@
 namespace ProgramCms\UiBundle\Component\Listing;
 
 use ProgramCms\CoreBundle\Model\ObjectManager;
+use ProgramCms\UiBundle\Component\AbstractComponent;
 use ProgramCms\UiBundle\View\Element\Context;
 
 /**
  * Class Columns
  * @package ProgramCms\UiBundle\Component\Listing
  */
-class Columns extends \ProgramCms\UiBundle\Component\AbstractComponent
+class Columns extends AbstractComponent
 {
     const NAME = 'columns';
 
@@ -55,6 +56,7 @@ class Columns extends \ProgramCms\UiBundle\Component\AbstractComponent
     /**
      * Build Columns and Rows
      * @return string
+     * @throws \ReflectionException
      */
     public function _toHtml(): string
     {

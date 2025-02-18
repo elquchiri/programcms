@@ -8,13 +8,14 @@
 #}
 <div class="row">
     <div class="col-md-4">
-        <div class="input-group">
-            <input name="search" type="text" class="form-control"
-                   placeholder="{{ block.trans('Search by Keyword ..') }}"/>
-            <button class="btn" id="button-search"
-                    style="border: 1px solid #CCC; padding-top: 0;">
-                <img src="{{ asset('bundles/programcmsui/images/search.png') }}" alt=""/>
-            </button>
-        </div>
+        <form action="#" method="get">
+            <div class="input-group">
+                <input name="keyword_search" type="text" class="form-control" value="{{ block.getValue() }}"
+                       placeholder="{{ block.trans('Search by Keyword ..') }}"/>
+                <button class="btn" id="button-search" style="border: 1px solid #CCC; padding-top: 0;">
+                    <img src="{{ asset('bundles/programcmsui/images/search.png') }}" alt=""/>
+                </button>
+            </div>
+        </form>
     </div>
 </div>

@@ -1,0 +1,38 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="modal fade modal__actions" id="linkModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">{{ block.trans('Add Link') }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form_link">
+                    <div class="mb-3">
+                        <label for="link_title" class="form-label">{{ block.trans('Link Title') }}</label>
+                        <input type="text" class="form-control" id="link_title" aria-describedby="link_title">
+                    </div>
+                    <div class="mb-3">
+                        <label for="link_url" class="form-label">{{ block.trans('Link') }}</label>
+                        <input type="text" class="form-control" id="link_url">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {{ block.trans('Close') }}
+                </button>
+                <button type="button" class="btn btn-primary" id="add_link_button">
+                    {{ block.trans('Add Link') }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,9 +8,12 @@
 
 namespace ProgramCms\UiBundle\Component\Listing;
 
-use ProgramCms\CoreBundle\App\RequestInterface;
 use ProgramCms\CoreBundle\View\Element\AbstractBlock;
 use ProgramCms\UiBundle\Component\AbstractComponent;
+use ProgramCms\UiBundle\Component\Listing\Toolbar\Filters;
+use ProgramCms\UiBundle\Component\Listing\Toolbar\MassActions;
+use ProgramCms\UiBundle\Component\Listing\Toolbar\Pagination;
+use ProgramCms\UiBundle\Component\Listing\Toolbar\Search;
 use Exception;
 use ProgramCms\UiBundle\View\Element\Context;
 
@@ -22,20 +25,12 @@ class Listing extends AbstractComponent
 {
     const NAME = 'listing';
 
+    protected array $dateSourceData = [];
+
     /**
      * @var string
      */
     protected string $_template = "@ProgramCmsUiBundle/listing/listing.html.twig";
-
-    protected \ProgramCms\RouterBundle\Service\Request $request;
-
-    public function __construct(
-        Context $context,
-        array $data = []
-    )
-    {
-        parent::__construct($context, $data);
-    }
 
     /**
      * @return array|mixed
@@ -43,14 +38,14 @@ class Listing extends AbstractComponent
      */
     public function getDataSourceData()
     {
-        $data = [];
         $listingName = $this->getName();
+
+        if(!empty($this->dateSourceData)) {
+            return $this->dateSourceData;
+        }
 
         if ($this->hasData('dataSource')) {
             $dataProvider = $this->getContext()->getDataProvider($listingName);
-            $dataProvider->getData();
-            $filters = $this->request->getParameters();
-            $collection = $dataProvider->getCollection();
 
             // Filter Provided Data by primaryFieldName
             $primaryFieldName = $dataProvider->getPrimaryFieldName();
@@ -58,32 +53,72 @@ class Listing extends AbstractComponent
             if (!empty($requestFieldName)) {
                 $entityId = (int)$this->request->getParam($requestFieldName);
                 if (!empty($entityId)) {
-                    $collection->addFieldToFilter($primaryFieldName, $entityId);
+                    $dataProvider->addFilter($primaryFieldName, $entityId);
                 }
             }
 
-            /** @var Columns $columnBlocks */
-            if(!empty($filters)) {
-                $columnBlocks = $this->getChildBlock('columns');
-                if ($columnBlocks) {
-                    /** @var AbstractBlock $block */
-                    foreach ($columnBlocks->getChildBlocks() as $block) {
-                        $columnName = $block->getNameInLayout();
-                        if ($block->hasData('filter') &&
-                            isset($filters[$columnName . '_filter']) &&
-                            !empty($filters[$columnName . '_filter'])
-                        ) {
-                            $collection
-                                ->addFieldToFilter($columnName, $filters[$columnName . '_filter']);
-                        }
-                    }
-                }
+            if($this->getRequest()->hasParam('hidden_listing_filters')) {
+                $filters = $this->getParams();
+                $dataProvider->searchByFilters($filters);
             }
 
-            $data = $collection->getData();
+            if($this->getRequest()->hasParam('keyword_search')) {
+                $keywordSearch = $this->getRequest()->getParam('keyword_search');
+                if(!empty($keywordSearch)) {
+                    $dataProvider->addFullTextSearch($keywordSearch);
+                }
+            }
+            $this->dateSourceData = $dataProvider->getData();
         }
 
-        return $data;
+        return $this->dateSourceData;
+    }
+
+    private function getParams()
+    {
+        $filterParams = $this->request->getParameters();
+        $filters = [];
+        $columnBlocks = $this->getChildBlock($this->getName() . '_columns');
+        if ($columnBlocks) {
+            /** @var AbstractBlock $block */
+            foreach ($columnBlocks->getChildBlocks() as $block) {
+                $columnName = $block->getNameInLayout();
+                if ($block->hasData('filter') &&
+                    isset($filterParams[$columnName . '_filter']) &&
+                    !empty($filterParams[$columnName . '_filter'])
+                ) {
+                    $filters[$columnName] = $filterParams[$columnName . '_filter'];
+                }
+            }
+        }
+        return $filters;
+    }
+
+    /**
+     * @return array
+     * @throws Exception
+     */
+    private function getColumnsForKeywordSearch(): array
+    {
+        $columns = [];
+        $layout = $this->getLayout();
+        /** @var Columns $columnBlocks */
+        $columnBlocks = $layout->getBlock($this->getName() . '_columns');
+        $dataProvider = $this->getContext()->getDataProvider($this->getName());
+        /** @var AbstractBlock $block */
+        foreach($columnBlocks->getChildBlocks() as $block) {
+            $column = $block->getNameInLayout();
+            if(in_array($column, ['selectionsColumn', 'actionsColumn'])) {
+                continue;
+            }
+            if(in_array($column, array_keys($dataProvider->getFilterStrategies()))) {
+                continue;
+            }
+
+            $columns[] = $column;
+        }
+
+        return $columns;
     }
 
     /**
@@ -92,5 +127,41 @@ class Listing extends AbstractComponent
     public function getComponentName()
     {
         return self::NAME;
+    }
+
+    public function prepare()
+    {
+        parent::prepare();
+
+        $filters = $this->getData('filters');
+        $search = $this->getData('search');
+        $pagination = $this->getData('pagination');
+        $layout = $this->getLayout();
+
+        /** @var Toolbar $toolbarBlock */
+        $toolbarBlock = $layout->createBlock(
+            Toolbar::class, $this->getName() . '_toolbar'
+        );
+
+        $filtersBlock = $layout->createBlock(
+            Filters::class, $this->getName() . '_toolbar_filters'
+        );
+
+        $searchBlock = $layout->createBlock(
+            Search::class, $this->getName() . '_toolbar_search'
+        );
+        $paginationBlock = $layout->createBlock(
+            Pagination::class, $this->getName() . '_toolbar_pagination'
+        );
+        $massActions = $layout->createBlock(
+            MassActions::class, $this->getName() . '_toolbar_massActions'
+        );
+
+        $toolbarBlock->setChild($this->getName() . '_toolbar_filters', $filtersBlock);
+        $toolbarBlock->setChild($this->getName() . '_toolbar_search', $searchBlock);
+        $toolbarBlock->setChild($this->getName() . '_toolbar_pagination', $paginationBlock);
+        $toolbarBlock->setChild($this->getName() . '_toolbar_massActions', $massActions);
+
+        $this->setChild($this->getName() . '_toolbar', $toolbarBlock);
     }
 }

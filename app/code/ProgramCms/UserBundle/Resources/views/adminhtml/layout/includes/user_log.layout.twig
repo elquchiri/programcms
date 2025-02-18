@@ -24,40 +24,21 @@
                         {% endArgument %}
                     {% endArgument %}
                 {% endArguments %}
-
-                {% block name="toolbar" class="ui.block.listing.toolbar" %}
-                    {% block name="filters" class="ui.block.listing.filters" %}{% endBlock %}
-                    {% block name="search" class="ui.block.listing.search" %}{% endBlock %}
-
-                    {% block name="massActions" class="ui.block.listing.massActions" %}
-                        {% arguments %}
-                            {% argument name="settings" type="array" %}
-                                {% argument name="delete" type="array" %}
-                                    {% argument name="url" type="string" %}delete{% endArgument %}
-                                    {% argument name="label" type="string" %}Delete All{% endArgument %}
-                                {% endArgument %}
-                            {% endArgument %}
-                        {% endArguments %}
-                    {% endBlock %}
-
-                    {% block name="pagination" class="ui.block.listing.pagination" %}{% endBlock %}
-                {% endBlock %}
-
-                {% block name="columns" class="ui.block.columns" %}
+                {% block name="user_log_listing_columns" class="ui.block.columns" %}
                     {% block name="selectionsColumn" class="ui.block.selectionsColumn" %}
                         {% arguments %}
                             {% argument name="data" type="array" %}
-                                {% argument name="source" type="string" %}user_log{% endArgument %}
+                                {% argument name="source" type="string" %}user_log_listing{% endArgument %}
                             {% endArgument %}
                         {% endArguments %}
                     {% endBlock %}
-
                     {% block name="ip_address" class="ui.block.column" %}
                         {% arguments %}
                             {% argument name="data" type="array" %}
                                 {% argument name="label" type="string" %}IP Address{% endArgument %}
-                                {% argument name="source" type="string" %}user_log{% endArgument %}
+                                {% argument name="source" type="string" %}user_log_listing{% endArgument %}
                                 {% argument name="type" type="string" %}text{% endArgument %}
+                                {% argument name="filter" type="string" %}text{% endArgument %}
                             {% endArgument %}
                         {% endArguments %}
                     {% endBlock %}
@@ -65,7 +46,7 @@
                         {% arguments %}
                             {% argument name="data" type="array" %}
                                 {% argument name="label" type="string" %}Device{% endArgument %}
-                                {% argument name="source" type="string" %}user_log{% endArgument %}
+                                {% argument name="source" type="string" %}user_log_listing{% endArgument %}
                                 {% argument name="type" type="string" %}text{% endArgument %}
                                 {% argument name="dataScope" type="string" %}device{% endArgument %}
                             {% endArgument %}
@@ -75,7 +56,7 @@
                         {% arguments %}
                             {% argument name="data" type="array" %}
                                 {% argument name="label" type="string" %}OS{% endArgument %}
-                                {% argument name="source" type="string" %}user_log{% endArgument %}
+                                {% argument name="source" type="string" %}user_log_listing{% endArgument %}
                                 {% argument name="type" type="string" %}text{% endArgument %}
                             {% endArgument %}
                         {% endArguments %}
@@ -84,7 +65,7 @@
                         {% arguments %}
                             {% argument name="data" type="array" %}
                                 {% argument name="label" type="string" %}Browser{% endArgument %}
-                                {% argument name="source" type="string" %}user_log{% endArgument %}
+                                {% argument name="source" type="string" %}user_log_listing{% endArgument %}
                                 {% argument name="type" type="string" %}text{% endArgument %}
                             {% endArgument %}
                         {% endArguments %}
@@ -93,7 +74,7 @@
                         {% arguments %}
                             {% argument name="data" type="array" %}
                                 {% argument name="label" type="string" %}Date{% endArgument %}
-                                {% argument name="source" type="string" %}user_log{% endArgument %}
+                                {% argument name="source" type="string" %}user_log_listing{% endArgument %}
                                 {% argument name="type" type="string" %}date{% endArgument %}
                             {% endArgument %}
                         {% endArguments %}

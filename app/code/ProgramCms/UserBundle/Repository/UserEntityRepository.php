@@ -9,6 +9,8 @@
 namespace ProgramCms\UserBundle\Repository;
 
 use ProgramCms\CoreBundle\Repository\AbstractRepository;
+use ProgramCms\EavBundle\Entity\EavAttribute;
+use ProgramCms\EavBundle\Entity\EavEntityType;
 use ProgramCms\UserBundle\Entity\UserEntity;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -62,8 +64,8 @@ class UserEntityRepository extends AbstractRepository
      */
     public function getLastUsers(int $limit = 3)
     {
-        return $this->createQueryBuilder('u')
-            ->orderBy('u.entity_id', 'DESC')
+        return $this->createQueryBuilder('ue')
+            ->orderBy('ue.entity_id', 'DESC')
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();

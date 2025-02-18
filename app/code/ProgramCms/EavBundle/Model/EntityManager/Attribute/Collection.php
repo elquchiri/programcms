@@ -16,6 +16,9 @@ use ProgramCms\EavBundle\Entity\EavEntityType;
  */
 abstract class Collection extends \ProgramCms\EavBundle\Model\EntityManager\Entity\Attribute\Collection
 {
+    /**
+     * @var
+     */
     protected $_entityType;
 
     /**

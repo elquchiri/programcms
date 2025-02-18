@@ -12,7 +12,6 @@ use ProgramCms\CoreBundle\App\Config;
 use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;
 use ProgramCms\UserBundle\Entity\UserEntity;
 use ProgramCms\UserBundle\Model\ResourceModel\User\Collection;
-use ProgramCms\WebsiteBundle\Model\ScopeInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -21,8 +20,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class DataProvider extends AbstractDataProvider
 {
-    const EMAIL_CONFIRMATION_CONFIG = 'user_configuration/account_create/email_confirmation';
-
     /**
      * @var TranslatorInterface
      */
@@ -38,16 +35,19 @@ class DataProvider extends AbstractDataProvider
      * @param Collection $collection
      * @param TranslatorInterface $translator
      * @param Config $config
+     * @param array $filterStrategies
      */
     public function __construct(
         Collection $collection,
         TranslatorInterface $translator,
-        Config $config
+        Config $config,
+        array $filterStrategies = []
     )
     {
         $this->collection = $collection;
         $this->translator = $translator;
         $this->config = $config;
+        $this->filterStrategies = $filterStrategies;
     }
 
     /**
@@ -60,7 +60,7 @@ class DataProvider extends AbstractDataProvider
         foreach($data as $item) {
             $item
                 ->setData(
-                    'website_view',
+                    'websiteView',
                     $item->getWebsiteView()->getWebsiteName() . ' &middot; ' . $item->getWebsiteView()->getName()
                 )
                 ->setData('confirmed_email', $this->getEmailConfirmation($item));
@@ -74,17 +74,21 @@ class DataProvider extends AbstractDataProvider
      */
     private function getEmailConfirmation(UserEntity $user): string
     {
-        $userWebsiteView = $user->getWebsiteView();
-        $shouldConfirm = (bool) $this->config->getValue(
-            self::EMAIL_CONFIRMATION_CONFIG,
-            ScopeInterface::SCOPE_WEBSITE_VIEW,
-            $userWebsiteView->getWebsiteViewId()
-        );
-        if(!$shouldConfirm) {
-            return $this->translator->trans('Confirmation Not Required');
-        }
         return $user->isEmailConfirmed()
             ? $this->translator->trans('Email Confirmed')
             : $this->translator->trans('Email Not Confirmed');
+    }
+
+    /**
+     * @param string $field
+     * @param $value
+     */
+    public function addFilter(string $field, $value)
+    {
+        if(isset($this->filterStrategies[$field])) {
+            $this->filterStrategies[$field]->addFilter($this->getCollection(), $field, $value);
+        }else{
+            parent::addFilter($field, $value);
+        }
     }
 }

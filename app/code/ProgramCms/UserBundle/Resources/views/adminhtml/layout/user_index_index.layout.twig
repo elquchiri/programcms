@@ -21,24 +21,7 @@
                     {% endArgument %}
                 {% endArgument %}
             {% endArguments %}
-            {% block name="toolbar" class="ui.block.listing.toolbar" %}
-                {% block name="filters" class="ui.block.listing.filters" %}{% endBlock %}
-                {% block name="search" class="ui.block.listing.search" %}{% endBlock %}
-
-                {% block name="massActions" class="ui.block.listing.massActions" %}
-                    {% arguments %}
-                        {% argument name="settings" type="array" %}
-                            {% argument name="delete" type="array" %}
-                                {% argument name="url" type="string" %}delete{% endArgument %}
-                                {% argument name="label" type="string" %}Delete All{% endArgument %}
-                            {% endArgument %}
-                        {% endArgument %}
-                    {% endArguments %}
-                {% endBlock %}
-
-                {% block name="pagination" class="ui.block.listing.pagination" %}{% endBlock %}
-            {% endBlock %}
-            {% block name="columns" class="ui.block.columns" %}
+            {% block name="users_listing_columns" class="ui.block.columns" %}
                 {% block name="selectionsColumn" class="ui.block.selectionsColumn" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
@@ -59,6 +42,15 @@
                     {% arguments %}
                         {% argument name="data" type="array" %}
                             {% argument name="label" type="string" %}Username{% endArgument %}
+                            {% argument name="source" type="string" %}users_listing{% endArgument %}
+                            {% argument name="filter" type="string" %}text{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="name_prefix" class="ui.block.column" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="label" type="string" %}Prefix{% endArgument %}
                             {% argument name="source" type="string" %}users_listing{% endArgument %}
                             {% argument name="filter" type="string" %}text{% endArgument %}
                         {% endArgument %}
@@ -91,11 +83,13 @@
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
-                {% block name="website_view" class="ui.block.column" %}
+                {% block name="websiteView" class="ui.block.column" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}
                             {% argument name="label" type="string" %}Account Created in{% endArgument %}
                             {% argument name="source" type="string" %}users_listing{% endArgument %}
+                            {% argument name="filter" type="string" %}select{% endArgument %}
+                            {% argument name="filterOptions" type="string" %}ProgramCms\WebsiteBundle\Model\Provider\DataSource\WebsiteTree{% endArgument %}
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}
@@ -104,6 +98,17 @@
                         {% argument name="data" type="array" %}
                             {% argument name="label" type="string" %}Confirmed email{% endArgument %}
                             {% argument name="source" type="string" %}users_listing{% endArgument %}
+                            {% argument name="filter" type="string" %}select{% endArgument %}
+                            {% argument name="filterOptions" type="string" %}ProgramCms\UiBundle\Model\Provider\DataSource\YesNo{% endArgument %}
+                        {% endArgument %}
+                    {% endArguments %}
+                {% endBlock %}
+                {% block name="birthday" class="ui.block.column" %}
+                    {% arguments %}
+                        {% argument name="data" type="array" %}
+                            {% argument name="label" type="string" %}Birthday{% endArgument %}
+                            {% argument name="source" type="string" %}users_listing{% endArgument %}
+                            {% argument name="filter" type="string" %}text{% endArgument %}
                         {% endArgument %}
                     {% endArguments %}
                 {% endBlock %}

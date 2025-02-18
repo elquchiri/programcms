@@ -54,3 +54,5 @@ services:
     class: ProgramCms\UiBundle\Component\Listing\Toolbar\MassActions
   ui.block.listing.pagination:
     class: ProgramCms\UiBundle\Component\Listing\Toolbar\Pagination
+  ui.block.modal:
+    class: ProgramCms\UiBundle\Component\Modal\Modal

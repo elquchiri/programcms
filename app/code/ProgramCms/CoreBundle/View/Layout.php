@@ -720,7 +720,7 @@ class Layout implements LayoutInterface
      * @param $type
      * @param string $name
      * @param array $arguments
-     * @return mixed|void
+     * @return object|null
      * @throws Exception
      */
     public function createBlock($type, string $name = '', array $arguments = [])

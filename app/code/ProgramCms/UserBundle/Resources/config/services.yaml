@@ -19,3 +19,8 @@ services:
 
   ProgramCms\UserBundle\Security\PermissionVoter:
     tags: [security.voter]
+
+#  ProgramCms\UserBundle\Model\Provider\Listing\DataProvider:
+#    arguments:
+#      $filterStrategies:
+#        websiteView: '@ProgramCms\UserBundle\Ui\DataProvider\WebsiteViewFilter'

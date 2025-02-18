@@ -35,5 +35,34 @@ application.register('filters', class extends Controller {
             const tab = new Tab(filtersTab);
             tab.show();
         }
+
+        $('.export_listing li a').on('click', function(e) {
+            e.preventDefault();
+
+            let filters = {};
+            let searchValue = $('input[name=keyword_search]').val();
+            const baseUrl = window.location.origin;
+
+            $('#filters form')
+                .find(':input:not(:hidden)')
+                .serializeArray()
+                .forEach(function(item) {
+                    if (item.value !== '') {
+                        let cleanName = item.name.replace(/_filter$/, ''); // Remove '_filter' from the name
+                        filters[`filters[${cleanName}]`] = item.value; // Properly format for PHP
+                    }
+                });
+
+            // Convert object to URL parameters
+            let url = new URL(window.location.href);
+            let path = url.pathname;
+            let formattedPath = path.substring(1).replace(/\//g, '_').replace('admin_', '');
+            const uri = '?'
+                + $.param(filters)
+                + '&search=' + encodeURIComponent(searchValue)
+                + '&layout=' + formattedPath;
+
+            window.location.href = baseUrl + '/admin/ui/export/csv' + uri;
+        });
     }
 });

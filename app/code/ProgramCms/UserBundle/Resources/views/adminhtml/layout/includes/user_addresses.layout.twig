@@ -23,23 +23,35 @@
                             {% argument name="requestFieldName" type="string" %}id{% endArgument %}
                         {% endArgument %}
                     {% endArgument %}
+                    {% argument name="toolbar" type="array" %}
+                        {% argument name="filters" type="boolean" %}true{% endArgument %}
+                        {% argument name="search" type="boolean" %}true{% endArgument %}
+                        {% argument name="pagination" type="boolean" %}true{% endArgument %}
+                        {% argument name="massActions" type="array" %}
+                            {% argument name="settings" type="array" %}
+                                {% argument name="delete" type="array" %}
+                                    {% argument name="url" type="string" %}delete{% endArgument %}
+                                    {% argument name="label" type="string" %}Delete All{% endArgument %}
+                                {% endArgument %}
+                            {% endArgument %}
+                        {% endArgument %}
+                    {% endArgument %}
                 {% endArguments %}
-
-                {% block name="addresses_columns" class="ui.block.columns" %}
+                {% block name="user_addresses_listing_columns" class="ui.block.columns" %}
                     {% block name="user_addresses_listing_selectionsColumn" class="ui.block.selectionsColumn" %}
                         {% arguments %}
                             {% argument name="data" type="array" %}
-                                {% argument name="source" type="string" %}user_addresses{% endArgument %}
+                                {% argument name="source" type="string" %}user_addresses_listing{% endArgument %}
                             {% endArgument %}
                         {% endArguments %}
                     {% endBlock %}
-
                     {% block name="city" class="ui.block.column" %}
                         {% arguments %}
                             {% argument name="data" type="array" %}
                                 {% argument name="label" type="string" %}City{% endArgument %}
                                 {% argument name="source" type="string" %}user_addresses_listing{% endArgument %}
                                 {% argument name="type" type="string" %}text{% endArgument %}
+                                {% argument name="filter" type="string" %}text{% endArgument %}
                             {% endArgument %}
                         {% endArguments %}
                     {% endBlock %}
@@ -49,24 +61,27 @@
                                 {% argument name="label" type="string" %}Country{% endArgument %}
                                 {% argument name="source" type="string" %}user_addresses_listing{% endArgument %}
                                 {% argument name="type" type="string" %}text{% endArgument %}
+                                {% argument name="filter" type="string" %}text{% endArgument %}
                             {% endArgument %}
                         {% endArguments %}
                     {% endBlock %}
-                    {% block name="first_name" class="ui.block.column" %}
+                    {% block name="firstname" class="ui.block.column" %}
                         {% arguments %}
                             {% argument name="data" type="array" %}
                                 {% argument name="label" type="string" %}First Name{% endArgument %}
                                 {% argument name="source" type="string" %}user_addresses_listing{% endArgument %}
                                 {% argument name="type" type="string" %}text{% endArgument %}
+                                {% argument name="filter" type="string" %}text{% endArgument %}
                             {% endArgument %}
                         {% endArguments %}
                     {% endBlock %}
-                    {% block name="last_name" class="ui.block.column" %}
+                    {% block name="lastname" class="ui.block.column" %}
                         {% arguments %}
                             {% argument name="data" type="array" %}
                                 {% argument name="label" type="string" %}Last Name{% endArgument %}
                                 {% argument name="source" type="string" %}user_addresses_listing{% endArgument %}
                                 {% argument name="type" type="string" %}text{% endArgument %}
+                                {% argument name="filter" type="string" %}text{% endArgument %}
                             {% endArgument %}
                         {% endArguments %}
                     {% endBlock %}
@@ -76,6 +91,15 @@
                                 {% argument name="label" type="string" %}Date{% endArgument %}
                                 {% argument name="source" type="string" %}user_addresses_listing{% endArgument %}
                                 {% argument name="type" type="string" %}text{% endArgument %}
+                                {% argument name="filter" type="string" %}date{% endArgument %}
+                            {% endArgument %}
+                        {% endArguments %}
+                    {% endBlock %}
+                    {% block name="actionsColumn" class="ProgramCms\\UserBundle\\Ui\\Listing\\Column\\UserActions" %}
+                        {% arguments %}
+                            {% argument name="data" type="array" %}
+                                {% argument name="label" type="string" %}Actions{% endArgument %}
+                                {% argument name="source" type="string" %}user_addresses_listing{% endArgument %}
                             {% endArgument %}
                         {% endArguments %}
                     {% endBlock %}

@@ -6,14 +6,14 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-{{ block.getChildHtml('filters')|raw }}
+{{ block.getChildHtml(block.getName() ~ '_filters')|raw }}
 
-{{ block.getChildHtml('search')|raw }}
+{{ block.getChildHtml(block.getName() ~ '_search')|raw }}
 
 <nav class="navbar navbar-expand-lg">
     <div class="navbar-collapse">
-        {{ block.getChildHtml('massActions')|raw }}
+        {{ block.getChildHtml(block.getName() ~ '_massActions')|raw }}
         <div class="flex-nowrap mb-0">{{ block.countItems() }} {{ block.trans('records found') }}</div>
-        {{ block.getChildHtml('pagination')|raw }}
+        {{ block.getChildHtml(block.getName() ~ '_pagination')|raw }}
     </div>
 </nav>

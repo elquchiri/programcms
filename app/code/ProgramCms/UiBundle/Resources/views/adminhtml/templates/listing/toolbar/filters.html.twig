@@ -8,7 +8,7 @@
 #}
 <ul class="nav nav-tabs grid-filters-tabs justify-content-end" data-controller="filters" data-filters-status-value="{{ block.isFiltersActive() }}">
     <li class="nav-item" id="filters-nav">
-        <a href="#" class="nav-link" id="filters-tab" data-bs-toggle="tab" data-bs-target="#filters" type="button" role="tab"
+        <a href="#" class="nav-link" id="filters-tab" data-bs-toggle="tab" data-bs-target="#{{ block.getName() }}" type="button" role="tab"
            aria-controls="filters" aria-selected="true">
             {{ block.trans('Filters') }}
         </a>
@@ -18,39 +18,43 @@
             {{ block.trans('Columns') }}
         </a>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
+            {% for col in block.getCols() %}
+                <li><a class="dropdown-item" href="#">{{ col.label }}</a></li>
+            {% endfor %}
         </ul>
     </li>
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
             {{ block.trans('Export') }}
         </a>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu export_listing">
             <li><a class="dropdown-item" href="#">PDF</a></li>
             <li><a class="dropdown-item" href="#">CSV</a></li>
         </ul>
     </li>
 </ul>
 <div class="tab-content mb-3">
-    <div class="tab-pane fade" id="filters" role="tabpanel">
+    <div class="tab-pane fade" id="{{ block.getName() }}" role="tabpanel">
         <div class="grid-filters">
+            {# TODO: Remove <form> because a form inside a form is not supported in HTML, Replace with JS by creating a form and adding fieldset inputs inside it and add the form in the body #}
             <form action="#" method="get">
-                <div class="row row-cols-4">
-                    {% for filterInput in block.getColumns() %}
-                    <div class="col">
-                        <div class="mt-3">
-                            <label for="{{ filterInput.name }}" class="form-label">{{ filterInput.label }}</label>
-                            {{ filterInput.input|raw }}
+                <fieldset>
+                    <div class="row row-cols-4">
+                        {% for filterInput in block.getColumns() %}
+                        <div class="col">
+                            <div class="mt-3">
+                                <label for="{{ filterInput.name }}" class="form-label">{{ filterInput.label }}</label>
+                                {{ filterInput.input|raw }}
+                            </div>
                         </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
-                </div>
-                <div class="d-flex flex-row-reverse mt-3 mb-3">
-                    <input class="btn btn-primary btn-sm ms-2" type="submit" value="Apply Filters">
-                    <a href="#filters" class="btn btn-sm" role="button" data-bs-toggle="collapse">Cancel</a>
-                </div>
-                <input type="hidden" name="hidden_listing_filters" value="1" />
+                    <input type="hidden" name="hidden_listing_filters" value="1" />
+                    <div class="d-flex flex-row-reverse mt-3 mb-3">
+                        <button formaction="#" formmethod="get" class="btn btn-primary btn-sm ms-2">Apply Filters</button>
+                        <a href="{{ block.getResetUrl() }}" class="btn btn-sm">Reset</a>
+                    </div>
+                </fieldset>
             </form>
         </div>
     </div>

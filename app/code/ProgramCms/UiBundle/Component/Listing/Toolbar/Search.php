@@ -8,11 +8,13 @@
 
 namespace ProgramCms\UiBundle\Component\Listing\Toolbar;
 
+use ProgramCms\UiBundle\Component\AbstractComponent;
+
 /**
  * Class Search
  * @package ProgramCms\UiBundle\Component\Listing\Toolbar
  */
-class Search extends \ProgramCms\UiBundle\Component\AbstractComponent
+class Search extends AbstractComponent
 {
     const NAME = 'search';
 
@@ -27,5 +29,13 @@ class Search extends \ProgramCms\UiBundle\Component\AbstractComponent
     public function getComponentName()
     {
         return self::NAME;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValue(): string
+    {
+        return $this->getRequest()->getParam('keyword_search');
     }
 }

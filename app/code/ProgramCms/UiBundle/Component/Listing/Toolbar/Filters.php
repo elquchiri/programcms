@@ -56,21 +56,31 @@ class Filters extends AbstractComponent
         return self::NAME;
     }
 
+    /**
+     * @return array
+     * @throws \Exception
+     */
     public function getColumns(): array
     {
         $filters = [];
         $layout = $this->getLayout();
+        $listingName = substr($this->getName(), 0, -strlen('_toolbar_filters'));
+        $columnsName = $listingName . '_columns';
+
         /** @var Columns $columnBlocks */
-        $columnBlocks = $layout->getBlock('columns');
+        $columnBlocks = $layout->getBlock($columnsName);
         /** @var AbstractBlock $block */
-        foreach($columnBlocks->getChildBlocks() as $block) {
-            if($block->hasData('filter')) {
+        foreach ($columnBlocks->getChildBlocks() as $block) {
+            if ($block->hasData('filter')) {
                 $inputType = $block->getData('filter');
                 $inputName = $block->getNameInLayout() . '_filter';
                 $blockType = $this->uiComponentFactory->create(
                     $inputType,
                     $inputName,
-                    ['value' => $this->getRequest()->getParam($inputName)],
+                    [
+                        'value' => $this->getRequest()->getParam($inputName),
+                        'sourceModel' => $block->getData('filterOptions')
+                    ],
                     $layout
                 );
                 $this->setChild($inputName, $blockType);
@@ -91,5 +101,35 @@ class Filters extends AbstractComponent
     public function isFiltersActive(): bool
     {
         return $this->getRequest()->hasParam('hidden_listing_filters');
+    }
+
+    /**
+     * @return string
+     */
+    public function getResetUrl(): string
+    {
+        return $this->getUrl('user_index_index');
+    }
+
+    /**
+     * @return array
+     */
+    public function getCols(): array
+    {
+        $cols = [];
+        $layout = $this->getLayout();
+        $listingName = substr($this->getName(), 0, -strlen('_toolbar_filters'));
+        $columnsName = $listingName . '_columns';
+        /** @var Columns $columnBlocks */
+        $columnBlocks = $layout->getBlock($columnsName);
+        /** @var AbstractBlock $block */
+        foreach ($columnBlocks->getChildBlocks() as $block) {
+            $inputName = $block->getNameInLayout() . '_filter';
+            $cols[] = [
+                'name' => $inputName,
+                'label' => $block->getLabel(),
+            ];
+        }
+        return $cols;
     }
 }
