@@ -9,12 +9,13 @@
 namespace ProgramCms\UserBundle\Model\Provider\Button;
 
 use ProgramCms\RouterBundle\Service\UrlInterface as Url;
+use ProgramCms\UiBundle\DataProvider\ButtonProviderInterface;
 
 /**
  * Class BackToUsersButton
  * @package ProgramCms\UserBundle\Model\Provider\Button
  */
-class BackToUsersButton implements \ProgramCms\UiBundle\DataProvider\ButtonProviderInterface
+class BackToUsersButton implements ButtonProviderInterface
 {
     /**
      * @var Url

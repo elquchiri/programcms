@@ -16,7 +16,7 @@
                 {% for tabId, tab in block.getTabs %}
                     <li>
                         <a class="{% if tab.active %}active{% endif %}"
-                           href="#"
+                           href="#{{ tabId }}"
                            id="{{ tabId }}"
                            data-action="tabs#tabClick">
                             {{ tab.label }}

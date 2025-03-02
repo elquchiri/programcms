@@ -156,7 +156,7 @@ abstract class AbstractElement extends AbstractComponent
      */
     public function getValue(): mixed
     {
-        return $this->getData('value');
+        return $this->hasData('value') ? $this->getData('value') : '';
     }
 
     /**

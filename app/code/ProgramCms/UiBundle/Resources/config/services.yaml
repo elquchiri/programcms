@@ -56,3 +56,5 @@ services:
     class: ProgramCms\UiBundle\Component\Listing\Toolbar\Pagination
   ui.block.modal:
     class: ProgramCms\UiBundle\Component\Modal\Modal
+  ui.block.form.button:
+    class: ProgramCms\UiBundle\Component\Form\Element\Button

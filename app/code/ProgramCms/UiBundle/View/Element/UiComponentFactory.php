@@ -69,11 +69,14 @@ class UiComponentFactory extends DataObject
     /**
      * UiComponentFactory constructor.
      * @param ObjectManager $objectManager
+     * @param array $data
      */
     public function __construct(
-        ObjectManager $objectManager
+        ObjectManager $objectManager,
+        array $data = []
     )
     {
+        parent::__construct($data);
         $this->objectManager = $objectManager;
     }
 
@@ -87,10 +90,11 @@ class UiComponentFactory extends DataObject
      */
     public function create(string $identifier, string $name, array $arguments, &$layout): DataObject|AbstractComponent
     {
-        if(!isset($this->_instances[$identifier])) {
+        $classNamespace = $this->_instances[$identifier] ?? $identifier;
+        if(!class_exists($classNamespace)) {
             throw new Exception(sprintf('Unable to create UIComponent, "%s" Not Found.', $identifier));
         }
 
-        return $layout->createBlock($this->_instances[$identifier], $name, $arguments);
+        return $layout->createBlock($classNamespace, $name, $arguments);
     }
 }

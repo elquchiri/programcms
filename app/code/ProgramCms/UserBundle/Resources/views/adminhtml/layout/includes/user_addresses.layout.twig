@@ -14,6 +14,13 @@
                     {% argument name="label" type="string" %}Addresses{% endArgument %}
                 {% endArgument %}
             {% endArguments %}
+            {% block name="new_address" class="ProgramCms\\UserBundle\\Ui\\Component\\NewAddressButton" %}
+                {% arguments %}
+                    {% argument name="disabled" type="string" %}false{% endArgument %}
+                    {% argument name="value" type="string" %}Add New Address{% endArgument %}
+                    {% argument name="css_class" type="string" %}btn btn-sm btn-outline-primary float-end mb-3{% endArgument %}
+                {% endArguments %}
+            {% endBlock %}
             {% block name="user_addresses_listing" class="ui.block.listing" %}
                 {% arguments %}
                     {% argument name="dataSource" type="array" %}
@@ -85,17 +92,27 @@
                             {% endArgument %}
                         {% endArguments %}
                     {% endBlock %}
-                    {% block name="postecode" class="ui.block.column" %}
+                    {% block name="postcode" class="ui.block.column" %}
                         {% arguments %}
                             {% argument name="data" type="array" %}
-                                {% argument name="label" type="string" %}Date{% endArgument %}
+                                {% argument name="label" type="string" %}Postcode{% endArgument %}
                                 {% argument name="source" type="string" %}user_addresses_listing{% endArgument %}
                                 {% argument name="type" type="string" %}text{% endArgument %}
-                                {% argument name="filter" type="string" %}date{% endArgument %}
+                                {% argument name="filter" type="string" %}text{% endArgument %}
                             {% endArgument %}
                         {% endArguments %}
                     {% endBlock %}
-                    {% block name="actionsColumn" class="ProgramCms\\UserBundle\\Ui\\Listing\\Column\\UserActions" %}
+                    {% block name="street" class="ui.block.column" %}
+                        {% arguments %}
+                            {% argument name="data" type="array" %}
+                                {% argument name="label" type="string" %}Street{% endArgument %}
+                                {% argument name="source" type="string" %}user_addresses_listing{% endArgument %}
+                                {% argument name="type" type="string" %}text{% endArgument %}
+                                {% argument name="filter" type="string" %}text{% endArgument %}
+                            {% endArgument %}
+                        {% endArguments %}
+                    {% endBlock %}
+                    {% block name="actionsColumn" class="ProgramCms\\UserBundle\\Ui\\Listing\\Column\\UserAddressActions" %}
                         {% arguments %}
                             {% argument name="data" type="array" %}
                                 {% argument name="label" type="string" %}Actions{% endArgument %}

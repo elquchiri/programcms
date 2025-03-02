@@ -17,6 +17,7 @@ use ProgramCms\ConfigBundle\Model\Structure\Element\Group;
 use ProgramCms\ConfigBundle\Model\Structure\Element\Section;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\ConfigBundle\Model\Attribute\Frontend\AbstractFrontend;
+use ProgramCms\UiBundle\Component\Form\Element\Hidden;
 use ProgramCms\UiBundle\Component\Form\Form;
 use ProgramCms\UiBundle\View\Element\Context;
 
@@ -138,13 +139,13 @@ class ConfigForm extends Form
         $request = $this->getRequest();
 
         // Add hidden input to send sectionId parameter
-        $hiddenSectionInput = $layout->createBlock(\ProgramCms\UiBundle\Component\Form\Element\Hidden::class, 'section', [
+        $hiddenSectionInput = $layout->createBlock(Hidden::class, 'section', [
             'value' => $this->getSectionId()
         ]);
-        $hiddenWebsiteScope = $layout->createBlock(\ProgramCms\UiBundle\Component\Form\Element\Hidden::class, 'website', [
+        $hiddenWebsiteScope = $layout->createBlock(Hidden::class, 'website', [
             'value' => $request->getParam('website')
         ]);
-        $hiddenWebsiteViewScope = $layout->createBlock(\ProgramCms\UiBundle\Component\Form\Element\Hidden::class, 'website_view', [
+        $hiddenWebsiteViewScope = $layout->createBlock(Hidden::class, 'website_view', [
             'value' => $request->getParam('website_view')
         ]);
         $this->setChild('section', $hiddenSectionInput);
@@ -240,6 +241,7 @@ class ConfigForm extends Form
             'inherit' => $inherit,
             'helpMessage' => $field->getHelpMessage(),
             'sourceModel' => $field->getSourceModel(),
+            'frontendModel' => $field->getFrontendModel(),
             'scope' => $this->getScope(),
             'scopeLabel' => $this->getScopeLabel($field),
             'canUseDefaultValue' => $this->canUseDefaultValue($field->showInDefault()),

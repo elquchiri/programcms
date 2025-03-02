@@ -168,14 +168,6 @@ abstract class AbstractDataProvider implements DataProviderInterface
 
         $qb = $this->getCollection()->getQueryBuilder();
 
-        /** @var EavEntityType $eavEntityType */
-        $eavEntityType = $entityManager->getRepository(EavEntityType::class)
-            ->findOneBy(['entity_type_code' => $className]);
-
-        if (!$eavEntityType) {
-            throw new Exception("EAV entity type not found for UserEntity.");
-        }
-
         $metadata = $entityManager->getClassMetadata($className);
 
         foreach ($filters as $attributeCode => $value) {
@@ -184,6 +176,14 @@ abstract class AbstractDataProvider implements DataProviderInterface
                 $qb->andWhere("main_table.$attributeCode LIKE :value_$attributeCode")
                     ->setParameter("value_$attributeCode", "%$value%");
             } else {
+                /** @var EavEntityType $eavEntityType */
+                $eavEntityType = $entityManager->getRepository(EavEntityType::class)
+                    ->findOneBy(['entity_type_code' => $className]);
+
+                if (!$eavEntityType) {
+                    throw new Exception(sprintf("EAV entity type not found for %s.", $className));
+                }
+
                 // EAV attribute search
                 $attribute = $entityManager->getRepository(EavAttribute::class)
                     ->findOneBy(['attribute_code' => $attributeCode, 'entityType' => $eavEntityType]);

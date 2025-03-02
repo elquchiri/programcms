@@ -8,7 +8,8 @@
 #}
 <a
     id="{{ block.getId() }}"
-    class="btn btn-primary"
+    class="{{ block.getCssClass() }}"
+    {% if block.hasHref() %}href="{{ block.getHref() }}"{% endif %}
     aria-describedby="{{ block.getId() }}"
     {% if block.isDisabled() %}disabled="disabled"{% endif %}
->Start Server Node</a>
+>{% if block.hasValue() %}{{ block.getValue() }}{% endif %}</a>

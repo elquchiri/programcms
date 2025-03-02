@@ -25,4 +25,29 @@ class Button extends AbstractElement
     {
         return self::NAME;
     }
+
+    /**
+     * @return string
+     */
+    public function getCssClass(): string
+    {
+        return $this->hasData('css_class') ? $this->getData('css_class') : 'btn btn-primary';
+    }
+
+    /**
+     * @return string
+     */
+    public function getHref(): string
+    {
+        $routeName = $this->getData('url');
+        return !empty($routeName) ? parent::getUrl($routeName) : '';
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasHref(): bool
+    {
+        return !empty($this->getHref());
+    }
 }

@@ -26,5 +26,5 @@ system_config:
               scope: 'default'
             activate:
               label: 'Start Node Server'
-              type: 'button'
+              type: 'ProgramCms\AdminChatBundle\Component\Config\StartServerButton'
               scope: 'default'

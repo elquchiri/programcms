@@ -71,9 +71,12 @@
         <div class="col-md-12 text-center fw-bold p-2" style="font-size: 17px;">
             <div class="d-flex flex-row">
                 <div class="post_reaction ms-3 mt-2">
-                    <button class="btn post-like-reaction position-relative" style="width: 49px; height: 45px;" type="button" id="like_post"></button>
-                    <button class="btn post-love-reaction" type="button" id="love_post" style="width: 49px; height: 45px;"></button>
-                    <button class="btn post-dislike-reaction" type="button" id="dislike_post" style="width: 49px; height: 45px;"></button>
+                    <button class="btn post-like-reaction position-relative" style="width: 49px; height: 45px;"
+                            type="button" id="like_post"></button>
+                    <button class="btn post-love-reaction" type="button" id="love_post"
+                            style="width: 49px; height: 45px;"></button>
+                    <button class="btn post-dislike-reaction" type="button" id="dislike_post"
+                            style="width: 49px; height: 45px;"></button>
                 </div>
                 <div class="post_title_container" style="flex: 1">
                     <p class="text-muted m-0 mb-1" style="font-size: 13px; font-weight: normal">
@@ -87,7 +90,8 @@
                         <span class="text-muted"><b>453</b> Dislike</span>
                     </p>
                 </div>
-                <div class="post_network input-group flex-nowrap justify-content-end me-3 mt-2" style="width: 120px; height: 50px;">
+                <div class="post_network input-group flex-nowrap justify-content-end me-3 mt-2"
+                     style="width: 120px; height: 50px;">
                     <button class="btn post-left-button" type="button" id="but"></button>
                     <button class="btn post-right-button" type="button" id="ui-pagination"></button>
                 </div>
@@ -173,7 +177,8 @@
                                                         <button type="button" class="btn btn-primary btn-follow">
                                                             {{ block.trans('Follow') }}
                                                         </button>
-                                                        <button type="button" class="btn btn-outline-primary btn-message">
+                                                        <button type="button"
+                                                                class="btn btn-outline-primary btn-message">
                                                             Message
                                                         </button>
                                                     </div>
@@ -242,7 +247,7 @@
                             <div class="col-md-10 p-4">
                                 <form action="{{ block.getCommentSaveUrl() }}" method="POST"
                                       data-controller="new-comment">
-                            <textarea name="comment" class="form-control"
+                                    <textarea name="comment" class="form-control"
                                       placeholder="{{ block.trans('Write a comment ..') }}"
                                       rows="5"></textarea>
                                     <input type="hidden" name="post_id" value="{{ block.getPost().getEntityId() }}"/>

@@ -11,6 +11,7 @@ namespace ProgramCms\UserBundle\Ui\Listing\Column;
 use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use ProgramCms\UiBundle\Component\Listing\ActionsColumn;
 use ProgramCms\UiBundle\View\Element\Context;
+use ProgramCms\UserBundle\Entity\Address\UserAddressEntity;
 
 /**
  * Class UserAddressActions
@@ -47,11 +48,15 @@ class UserAddressActions extends ActionsColumn
             $dataSourceName = $this->getData('source');
             $dataSourceBlock = $this->getLayout()->getBlock($dataSourceName);
             $dataSourceData = $this->getContext()->getDataSourceData($dataSourceBlock);
+            /** @var UserAddressEntity $rowData */
             foreach($dataSourceData as $rowData) {
                 $actions = [
                     [
                         'label' => 'Edit',
-                        'url' => $this->url->getUrlByRouteName('user_index_edit', ['id' => $rowData->getEntityId()]),
+                        'url' => $this->url->getUrlByRouteName('user_address_edit', [
+                            'id' => $rowData->getEntityId(),
+                            'user' => $rowData->getUser()->getEntityId()
+                        ]),
                         'type' => 'url'
                     ]
                 ];

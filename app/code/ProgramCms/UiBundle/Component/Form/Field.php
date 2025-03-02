@@ -86,6 +86,7 @@ class Field extends AbstractElement
                 /** @var AbstractComponent $dataSourceBlock */
                 $dataSourceBlock = $this->getLayout()->getBlock($dataSourceName);
                 $dataSourceData = $this->getContext()->getDataSourceData($dataSourceBlock);
+                // Be sure $dataSourceData contains only one record
                 $item = current($dataSourceData);
                 if ($item) {
                     $data = $item->getDataUsingMethod($fieldName);

@@ -36,6 +36,23 @@ class Search extends AbstractComponent
      */
     public function getValue(): string
     {
-        return $this->getRequest()->getParam('keyword_search');
+        return $this->getRequest()->hasParam('collection_class') && $this->getRequest()->getParam('collection_class') === $this->getCollectionClass() ?
+            $this->getRequest()->getParam('keyword_search') : "";
+    }
+
+    /**
+     * @return string
+     */
+    public function getCollectionClass(): string
+    {
+        $collectionClass = $this->getData('collection_class');
+        return md5($collectionClass);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCurrentRequestUri(){
+        return $_SERVER['REQUEST_URI'];
     }
 }

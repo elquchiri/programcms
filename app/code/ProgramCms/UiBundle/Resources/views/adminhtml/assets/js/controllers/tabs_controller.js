@@ -10,12 +10,22 @@ import {Controller} from "@hotwired/stimulus";
 application.register('tabs', class extends Controller {
 
     connect() {
-        $('.collapser').hide().first().show();
+        $('.collapser').hide();
+
+        if (window.location.hash) {
+            let hash = window.location.hash;
+            const colapserId = hash.replace('#', '');
+
+            $('.tabs-menu ul li a').removeClass('active');
+            $('#' + colapserId).addClass('active');
+            // Activate the corresponding tab
+            $('#collapser-' + colapserId).show();
+        }else{
+            $('.collapser').first().show();
+        }
     }
 
     tabClick(event) {
-        event.preventDefault();
-
         let tabLink = event.currentTarget;
         let id = $(tabLink).attr('id');
 

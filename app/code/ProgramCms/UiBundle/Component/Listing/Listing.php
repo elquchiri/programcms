@@ -64,7 +64,9 @@ class Listing extends AbstractComponent
 
             if($this->getRequest()->hasParam('keyword_search')) {
                 $keywordSearch = $this->getRequest()->getParam('keyword_search');
-                if(!empty($keywordSearch)) {
+                $collectionClass = $this->getRequest()->hasParam('collection_class') &&
+                    $this->getRequest()->getParam('collection_class') === md5($dataProvider->getCollection()->getEntity());
+                if($collectionClass === true && !empty($keywordSearch)) {
                     $dataProvider->addFullTextSearch($keywordSearch);
                 }
             }
@@ -95,33 +97,6 @@ class Listing extends AbstractComponent
     }
 
     /**
-     * @return array
-     * @throws Exception
-     */
-    private function getColumnsForKeywordSearch(): array
-    {
-        $columns = [];
-        $layout = $this->getLayout();
-        /** @var Columns $columnBlocks */
-        $columnBlocks = $layout->getBlock($this->getName() . '_columns');
-        $dataProvider = $this->getContext()->getDataProvider($this->getName());
-        /** @var AbstractBlock $block */
-        foreach($columnBlocks->getChildBlocks() as $block) {
-            $column = $block->getNameInLayout();
-            if(in_array($column, ['selectionsColumn', 'actionsColumn'])) {
-                continue;
-            }
-            if(in_array($column, array_keys($dataProvider->getFilterStrategies()))) {
-                continue;
-            }
-
-            $columns[] = $column;
-        }
-
-        return $columns;
-    }
-
-    /**
      * @return string
      */
     public function getComponentName()
@@ -132,6 +107,7 @@ class Listing extends AbstractComponent
     public function prepare()
     {
         parent::prepare();
+        $dataProvider = $this->getContext()->getDataProvider($this->getName());
 
         $filters = $this->getData('filters');
         $search = $this->getData('search');
@@ -148,7 +124,9 @@ class Listing extends AbstractComponent
         );
 
         $searchBlock = $layout->createBlock(
-            Search::class, $this->getName() . '_toolbar_search'
+            Search::class, $this->getName() . '_toolbar_search', [
+                'collection_class' => $dataProvider->getCollection()->getEntity()
+            ]
         );
         $paginationBlock = $layout->createBlock(
             Pagination::class, $this->getName() . '_toolbar_pagination'

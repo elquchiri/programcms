@@ -10,12 +10,13 @@ namespace ProgramCms\ConfigBundle\Model\Provider\Button;
 
 use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\RouterBundle\Service\UrlInterface as Url;
+use ProgramCms\UiBundle\DataProvider\ButtonProviderInterface;
 
 /**
  * Class AddGroupButton
  * @package ProgramCms\WebsiteBundle\Model\Provider\Button
  */
-class SaveConfigButton implements \ProgramCms\UiBundle\DataProvider\ButtonProviderInterface
+class SaveConfigButton implements ButtonProviderInterface
 {
     /**
      * @var Url

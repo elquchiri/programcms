@@ -9,6 +9,7 @@
 namespace ProgramCms\UiBundle\Component\Form;
 
 use ProgramCms\CoreBundle\Model\Utils\BundleManager;
+use ProgramCms\UiBundle\Component\AbstractComponent;
 use ProgramCms\UiBundle\View\Element\Context;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -16,7 +17,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * Class Fieldset
  * @package ProgramCms\UiBundle\Block\Form
  */
-class Fieldset extends \ProgramCms\UiBundle\Component\AbstractComponent
+class Fieldset extends AbstractComponent
 {
     const NAME = 'fieldset';
     /**

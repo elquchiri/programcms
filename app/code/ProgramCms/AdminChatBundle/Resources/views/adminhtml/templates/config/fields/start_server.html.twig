@@ -1,0 +1,15 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<a
+        id="{{ block.getId() }}"
+        class="btn btn-primary"
+        aria-describedby="{{ block.getId() }}"
+        {% if block.isDisabled() %}disabled="disabled"{% endif %}>
+    Start Server Nodexx
+</a>

@@ -9,7 +9,9 @@
 namespace ProgramCms\ConfigBundle\Model\Structure;
 
 use ProgramCms\ConfigBundle\App\Context;
+use ProgramCms\ConfigBundle\App\ScopeConfigInterface;
 use ProgramCms\ConfigBundle\Model\StructureElementInterface;
+use ProgramCms\WebsiteBundle\Model\ScopeInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -137,9 +139,9 @@ abstract class AbstractElement implements StructureElementInterface
     public function isVisible(): bool
     {
         $showInScope = [
-            \ProgramCms\WebsiteBundle\Model\ScopeInterface::SCOPE_WEBSITE_VIEW => $this->_hasVisibilityValue('website_view'),
-            \ProgramCms\WebsiteBundle\Model\ScopeInterface::SCOPE_WEBSITE => $this->_hasVisibilityValue('website'),
-            \ProgramCms\ConfigBundle\App\ScopeConfigInterface::SCOPE_TYPE_DEFAULT => $this->_hasVisibilityValue('default'),
+            ScopeInterface::SCOPE_WEBSITE_VIEW => $this->_hasVisibilityValue('website_view'),
+            ScopeInterface::SCOPE_WEBSITE => $this->_hasVisibilityValue('website'),
+            ScopeConfigInterface::SCOPE_TYPE_DEFAULT => $this->_hasVisibilityValue('default'),
         ];
 
         return !empty($showInScope[$this->_scope]);

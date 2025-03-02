@@ -29,6 +29,9 @@ class Image extends AbstractElement
         return $this->hasValue() ? $this->getValue() : '';
     }
 
+    /**
+     * @return string
+     */
     public function getComponentName()
     {
         return self::NAME;

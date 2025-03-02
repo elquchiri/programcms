@@ -177,7 +177,7 @@ class ConfigSerializer
                                             'type' => $field['type'],
                                             'frontend_model' => $field['frontend_model'] ?? '',
                                             'backend_model' => $field['backend_model'] ?? '',
-                                            'helpMessage' => isset($field['helpMessage']) ? $field['helpMessage'] : '',
+                                            'helpMessage' => $field['helpMessage'] ?? '',
                                             'scope' => isset($field['scope']) ? explode('|', $field['scope']) : [],
                                             'path' => $sectionId . '/' . $groupId . '/' . $fieldId
                                         ];
