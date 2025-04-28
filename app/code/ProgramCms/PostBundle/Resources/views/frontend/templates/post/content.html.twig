@@ -1,0 +1,24 @@
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css"/>
+
+<div class="mt-4" data-controller="post-viewer">
+    <style>
+        {{ block.getPost().getPostCss()|raw }}
+    </style>
+
+    <h2 class="fw-bold lh-base">{{ block.getPost().getPostName() }}</h2>
+
+    <p class="text-muted m-0 mb-1" style="font-size: 14px; font-weight: normal">
+        <b>32</b> reply &middot;
+        <b>453</b> views &middot;
+        Updated <b>{{ block.getPostUpdatedAt() }}</b>
+    </p>
+
+    <div class="post_image mt-4" style="border: 1px solid #dedede; padding: 5px; background-color: #eee;">
+        <img src="{{ block.getPost().getPostImage() }}" style="width: 100%" />
+    </div>
+
+    <div class="mt-4">
+        {{ block.formatPost(block.getPost().getPostHtml())|raw }}
+    </div>
+</div>
+

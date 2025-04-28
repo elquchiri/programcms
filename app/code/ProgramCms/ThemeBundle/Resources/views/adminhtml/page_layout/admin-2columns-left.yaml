@@ -1,0 +1,11 @@
+require: admin-1column
+
+referenceContainers:
+  page.main.container:
+    containers:
+      side.col:
+        htmlTag: div
+        htmlClass: 'col-md-3 side-col'
+        before: "-"
+        containers:
+          sidebar.main: {}

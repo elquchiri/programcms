@@ -1,0 +1,6 @@
+referenceContainers:
+  navbar.collapse:
+    blocks:
+      account.notifications:
+        class: ProgramCms\CoreBundle\View\Element\Template
+        template: '@ProgramCmsNotificationBundle/notifications.html.twig'

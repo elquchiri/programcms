@@ -1,0 +1,52 @@
+referenceContainers:
+  content:
+    blocks:
+      user_groups:
+        class: "ui.block.listing"
+        arguments:
+          buttons:
+            new: ProgramCms\UserBundle\Model\Provider\Button\NewUserGroupButton
+          dataSource:
+            dataProvider:
+              class: ProgramCms\UserBundle\Model\Provider\Listing\Groups\DataProvider
+              primaryFieldName: "entity_id"
+              requestFieldName: "id"
+        blocks:
+          user_groups_columns:
+            class: "ui.block.columns"
+            blocks:
+              selectionsColumn:
+                class: "ui.block.selectionsColumn"
+                arguments:
+                  data:
+                    source: "user_groups"
+              entity_id:
+                class: "ui.block.column"
+                arguments:
+                  data:
+                    label: ""
+                    source: "user_groups"
+              code:
+                class: "ui.block.column"
+                arguments:
+                  data:
+                    label: "Code"
+                    source: "user_groups"
+              name:
+                class: "ui.block.column"
+                arguments:
+                  data:
+                    label: "Group Label"
+                    source: "user_groups"
+              description:
+                class: "ui.block.column"
+                arguments:
+                  data:
+                    label: "Group Description"
+                    source: "user_groups"
+              actionsColumn:
+                class: ProgramCms\UserBundle\Ui\Listing\Column\UserGroupActions
+                arguments:
+                  data:
+                    label: "Actions"
+                    source: "user_groups"

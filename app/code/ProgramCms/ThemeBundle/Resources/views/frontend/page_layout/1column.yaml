@@ -1,0 +1,19 @@
+require: empty
+referenceContainers:
+  page.wrapper:
+    containers:
+      page.top:
+        before: main.content
+      header.container:
+        htmlTag: header
+        htmlClass: page-header
+        before: main.content
+      messages.wrapper:
+        htmlTag: div
+        htmlClass: messages-wrapper
+        before: main.content
+        containers:
+          page.messages: { }
+      footer.container:
+        htmlTag: footer
+        htmlClass: footer

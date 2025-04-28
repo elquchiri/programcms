@@ -1,0 +1,21 @@
+referenceContainers:
+  content:
+    containers:
+      search.row:
+        htmlTag: div
+        htmlClass: row
+        containers:
+          search.row.filters:
+            htmlTag: div
+            htmlClass: col-md-4
+            blocks:
+              search.filters:
+                class: ProgramCms\SearchBundle\Block\Filters
+                template: '@ProgramCmsSearchBundle/filters.html.twig'
+          search.row.results:
+            htmlTag: div
+            htmlClass: col-md-8
+            blocks:
+              search.results:
+                class: ProgramCms\SearchBundle\Block\Results
+                template: '@ProgramCmsSearchBundle/results.html.twig'

@@ -7,5 +7,11 @@
  */
 #}
 {% layout %}
-    {% container name="root.editor" %}{% endContainer %}
+    {% require handle="admin-1column" %}
+
+    {% referenceContainer name="main.wrapper" remove="true" %}{% endReferenceContainer %}
+
+    {% referenceContainer name="page.content" %}
+        {% container name="main.editor" htmlTag="div" htmlClass="main-wrapper" %}{% endContainer %}
+    {% endReferenceContainer %}
 {% endLayout %}

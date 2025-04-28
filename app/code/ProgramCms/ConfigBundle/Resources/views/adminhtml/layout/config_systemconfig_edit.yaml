@@ -1,0 +1,35 @@
+# Copyright © ProgramCMS. All rights reserved.
+# See COPYING.txt for license details.
+#
+# Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+
+
+layout: "admin-2columns-left"
+
+referenceContainers:
+  buttons.bar:
+    blocks:
+      website.switcher:
+        class: "ui.block.toolbar.website_switcher"
+        arguments:
+          default_label: "Default Configuration"
+          switch_groups: false
+
+  sidebar.main:
+    blocks:
+      config.menu.block:
+        class: ProgramCms\ConfigBundle\Block\ConfigTabs
+        template: "@ProgramCmsConfigBundle/config_menu.html.twig"
+
+  content:
+    blocks:
+      config_form:
+        class: ProgramCms\ConfigBundle\Component\ConfigForm
+        arguments:
+          data:
+            label: "Configuration"
+          buttons:
+            save: ProgramCms\ConfigBundle\Model\Provider\Button\SaveConfigButton
+          dataSource:
+            settings:
+              submitUrl: "config_systemconfig_save"

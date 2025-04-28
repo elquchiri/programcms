@@ -1,0 +1,6 @@
+referenceContainers:
+  content:
+    blocks:
+      manager.bundles.browse:
+        class: ProgramCms\ManagerBundle\Block\BundleBrowser
+        template: "@ProgramCmsManagerBundle/bundle/browse.html.twig"

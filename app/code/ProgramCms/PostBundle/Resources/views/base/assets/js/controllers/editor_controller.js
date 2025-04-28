@@ -1081,7 +1081,7 @@ application.register('editor', class extends Controller {
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <p class="mb-0 p-3 pt-2 pb-2 text-muted" style="font-size: 13px;">
+                                <p class="mb-0 p-3 pt-2 pb-2 text-muted" style="font-size: 14px;">
                                     The Post is saved to your account and will not be published on the site. You can publish it later.
                                 </p>
                             </ul>
@@ -1180,23 +1180,46 @@ application.register('editor', class extends Controller {
     onSubmit(event) {
         event.preventDefault();
         let self = this;
-        let title = $('input[name=editor_title]');
-        let data = {
-            'entity_id': self.entityIdValue,
-            'title': title.val(),
-            'data': JSON.stringify(self.editor.getProjectData()),
-            'html': self.editor.getHtml(),
-            'css': self.editor.getCss()
-        };
 
-        if(this.jsonValue) {
-            Object.assign(data, JSON.parse(this.jsonValue));
+        const form = self.element;
+
+        // Crée un FormData à partir du formulaire (inclut les fichiers automatiquement)
+        const formData = new FormData(form);
+
+        // Ajoute les données custom (éditeur, HTML, CSS, etc.)
+        formData.append('entity_id', self.entityIdValue);
+        formData.append('title', $('input[name=editor_title]').val());
+        formData.append('data', JSON.stringify(self.editor.getProjectData()));
+        formData.append('html', self.editor.getHtml());
+        formData.append('css', self.editor.getCss());
+
+        const eavFields = document.querySelectorAll('#eavAttributes input, #eavAttributes select, #eavAttributes textarea');
+        eavFields.forEach(field => {
+            if (field.name) {
+                if (field.type === 'file') {
+                    for (let i = 0; i < field.files.length; i++) {
+                        formData.append(field.name, field.files[i]);
+                    }
+                } else {
+                    formData.append(field.name, field.value);
+                }
+            }
+        });
+
+        // Si tu veux merger aussi du JSON existant
+        if (this.jsonValue) {
+            const jsonData = JSON.parse(this.jsonValue);
+            for (const [key, value] of Object.entries(jsonData)) {
+                formData.append(key, value);
+            }
         }
 
         $.ajax({
             url: self.saveEndpointValue,
             method: 'post',
-            data: data,
+            data: formData,
+            processData: false, // Important pour envoyer des fichiers !
+            contentType: false, // Important pour laisser le navigateur gérer le type
             beforeSend: function () {
                 Loader.startLoader();
             },
@@ -1207,9 +1230,7 @@ application.register('editor', class extends Controller {
                     if (response.message) {
                         $('.editor_message').show();
                         $('.editor_message_container').html(response.message);
-                        setTimeout(function () {
-                            $('.editor_message').fadeOut();
-                        }, 3000);
+                        setTimeout(() => $('.editor_message').fadeOut(), 3000);
                     }
                 }
             },

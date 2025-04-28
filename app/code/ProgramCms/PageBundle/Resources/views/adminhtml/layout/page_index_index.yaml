@@ -1,0 +1,46 @@
+referenceContainers:
+  content:
+    blocks:
+      page_listing:
+        class: ui.block.listing
+        arguments:
+          buttons:
+            new: ProgramCms\PageBundle\Model\Provider\Button\NewPageButton
+          dataSource:
+            dataProvider:
+              class: ProgramCms\PageBundle\Model\Provider\Listing\PageDataProvider
+              primaryFieldName: entity_id
+              requestFieldName: id
+        blocks:
+          page_listing_columns:
+            class: ui.block.columns
+            blocks:
+              selectionsColumn:
+                class: ui.block.selectionsColumn
+                arguments:
+                  data:
+                    source: page_listing
+              entity_id:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: "#"
+                    source: page_listing
+              page_name:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: Page Title
+                    source: page_listing
+              page_identifier:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: Page Identifier
+                    source: page_listing
+              actionsColumn:
+                class: ProgramCms\PageBundle\Ui\Grid\Column\PageActions
+                arguments:
+                  data:
+                    label: Actions
+                    source: page_listing

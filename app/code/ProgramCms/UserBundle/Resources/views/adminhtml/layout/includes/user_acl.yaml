@@ -1,0 +1,42 @@
+referenceBlocks:
+  user_form:
+    blocks:
+      user_acl:
+        class: ui.block.form.fieldset
+        arguments:
+          data:
+            label: "Groupes & Permissions"
+        blocks:
+          groups:
+            class: ui.block.form.field
+            arguments:
+              data:
+                type: "multiselect"
+                label: "Groups"
+                isRequired: true
+                sourceModel: ProgramCms\UserBundle\Model\Provider\Source\UserGroups
+                source: user_form
+          can_edit_posts_on_category:
+            class: ui.block.form.field
+            arguments:
+              data:
+                type: "multiselect"
+                label: "Categories Where can Edit Posts"
+                sourceModel: ProgramCms\CatalogBundle\Model\Provider\DataSource\Category\Categories
+                source: user_form
+          can_delete_posts_on_category:
+            class: ui.block.form.field
+            arguments:
+              data:
+                type: "multiselect"
+                label: "Categories Where can Delete Posts"
+                sourceModel: ProgramCms\CatalogBundle\Model\Provider\DataSource\Category\Categories
+                source: user_form
+          can_edit_categories:
+            class: ui.block.form.field
+            arguments:
+              data:
+                type: "multiselect"
+                label: "Can Edit Categories"
+                sourceModel: ProgramCms\CatalogBundle\Model\Provider\DataSource\Category\Categories
+                source: user_form

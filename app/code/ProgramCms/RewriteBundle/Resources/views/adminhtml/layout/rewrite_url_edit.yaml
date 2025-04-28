@@ -1,0 +1,80 @@
+layout: admin-2columns-left
+referenceContainers:
+  content:
+    blocks:
+      url_rewrite_form:
+        class: ui.block.form
+        arguments:
+          data:
+            label: URL Information
+          buttons:
+            back: ProgramCms\RewriteBundle\Model\Provider\Button\Url\Back
+            login_as_user: ProgramCms\RewriteBundle\Model\Provider\Button\Url\DeleteButton
+            save: ProgramCms\RewriteBundle\Model\Provider\Button\Url\Save
+          dataSource:
+            dataProvider:
+              class: ProgramCms\RewriteBundle\Model\Provider\Listing\Url\DataProvider
+              primaryFieldName: url_rewrite_id
+              requestFieldName: id
+            settings:
+              submitUrl: rewrite_url_save
+          layout:
+            navContainerName: sidebar.main
+            type: tabs
+        blocks:
+          url_rewrite_view:
+            class: ui.block.form.fieldset
+            arguments:
+              data:
+                label: Rewrite Detail
+            blocks:
+              url_rewrite_id:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: hidden
+                    isRequired: true
+                    source: url_rewrite_form
+              websiteView:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: select
+                    label: Associate to View
+                    isRequired: true
+                    sourceModel: ProgramCms\WebsiteBundle\Model\Provider\DataSource\WebsiteTree
+                    size: col-md-3
+                    source: url_rewrite_form
+              request_path:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: Request Path
+                    isRequired: true
+                    source: url_rewrite_form
+              target_path:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: Target Path
+                    isRequired: true
+                    source: url_rewrite_form
+              arguments:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: textarea
+                    label: Arguments
+                    isRequired: false
+                    source: url_rewrite_form
+              redirect_type:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: select
+                    label: Redirect Type
+                    isRequired: false
+                    sourceModel: ProgramCms\RewriteBundle\Model\Provider\DataSource\RedirectTypes
+                    source: url_rewrite_form

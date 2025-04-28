@@ -23,7 +23,7 @@ abstract class AbstractCollection implements CollectionInterface
     /**
      * @var string
      */
-    protected string $entity;
+    protected string $entity = '';
 
     /**
      * @var EntityManagerInterface

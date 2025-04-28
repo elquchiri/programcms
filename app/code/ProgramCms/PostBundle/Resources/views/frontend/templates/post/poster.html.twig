@@ -1,0 +1,38 @@
+<div class="sticky-md-top pt-2 second-sticky">
+    <ul class="list-group list-group-flush mt-3">
+        <li class="list-group-item text-center">
+            <a href="{{ block.getUserUrl() }}">
+                <div class="poster_image" style="position: relative">
+                    <img class="rounded-circle" src="{{ block.getPost().getUser().getProfileImage() }}"
+                         style="padding: 3px; border: 2px solid #ccc; width: 101px; height: 101px;"
+                         alt=""/>
+                    <img style="border: 1px solid #888; position:absolute; left: 25px; width: 25px; height: 15px;" src="{{ block.getPosterFlag() }}">
+                </div>
+            </a>
+            <div class="mt-2">
+                <a class="fw-bold" style="font-size: 18px"
+                   href="{{ block.getUserUrl() }}">{{ block.getPost().getUser().getShortName() }}</a>
+                <div class="mt-2">
+                    {{ block.getUserGroups()|raw }}
+                </div>
+            </div>
+            <div class="profile_interaction_buttons btn-group btn-group-sm rounded-pill mt-3 mb-3" role="group">
+                <button type="button" class="btn btn-primary btn-follow">
+                    {{ block.trans('Follow') }}
+                </button>
+                <button type="button" class="btn btn-outline-primary btn-message fw-bold">
+                    Message
+                </button>
+            </div>
+        </li>
+        <li class="list-group-item" style="font-size: 13.5px;">
+            300 Reply
+        </li>
+        <li class="list-group-item" style="font-size: 13.5px;">
+            From: {{ block.getPost().getUser().getDefaultAddress().getCountry() }}
+        </li>
+        <li class="list-group-item text-muted" style="font-size: 13px;">
+            {{ block.trans('Joined us') }} 2 years ago.
+        </li>
+    </ul>
+</div>

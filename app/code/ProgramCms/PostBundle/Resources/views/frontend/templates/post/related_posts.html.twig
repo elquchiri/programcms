@@ -1,0 +1,39 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="related_posts mt-4 mb-4">
+    <h3>{{ block.trans('Related Posts') }}</h3>
+
+    {% if block.hasRelatedPosts() %}
+        <div class="favorite-list row row-cols-1 row-cols-md-3 g-4 mt-3 mb-5">
+            {% for post in block.getRelatedPosts() %}
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="{{ post.getPostImage() }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <a href="" style="color: #000000; font-weight: bold; font-size: 17px;">
+                                {{ post.getPostName() }}
+                            </a>
+                            <h6 class="card-subtitle mb-2 text-muted">
+                                {{ post.getUser().getFullname() }}
+                            </h6>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">{{ block.trans('Last updated') }} </small>
+                            &middot;
+                            <small class="text-muted">{{ block.trans('Comments') }}
+                                : {{ post.getComments().count() }}</small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted">{{ block.trans('There is no post added by you.') }}</p>
+    {% endif %}
+</div>

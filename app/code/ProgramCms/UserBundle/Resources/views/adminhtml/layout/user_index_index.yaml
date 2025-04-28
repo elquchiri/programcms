@@ -1,0 +1,101 @@
+referenceContainers:
+  content:
+    blocks:
+      users_listing:
+        class: ui.block.listing
+        arguments:
+          buttons:
+            new: ProgramCms\UserBundle\Model\Provider\Button\NewUserButton
+          dataSource:
+            dataProvider:
+              class: ProgramCms\UserBundle\Model\Provider\Listing\DataProvider
+              primaryFieldName: entity_id
+              requestFieldName: id
+        blocks:
+          users_listing_columns:
+            class: ui.block.columns
+            blocks:
+              selectionsColumn:
+                class: ui.block.selectionsColumn
+                arguments:
+                  data:
+                    source: users_listing
+              entity_id:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: "#"
+                    source: users_listing
+                    filter: text
+              profile_image:
+                class: ui.block.column
+                arguments:
+                  data:
+                    type: imageColumn
+                    htmlClass: 'rounded-circle listing_column_image'
+                    label: ''
+                    source: users_listing
+              username:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: Username
+                    source: users_listing
+                    filter: text
+              name_prefix:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: Prefix
+                    source: users_listing
+                    filter: text
+              user_firstname:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: First Name
+                    source: users_listing
+                    filter: text
+              user_lastname:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: Last Name
+                    source: users_listing
+                    filter: text
+              email:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: Email
+                    source: users_listing
+                    filter: text
+              websiteView:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: Account Created in
+                    source: users_listing
+                    filter: select
+                    filterOptions: ProgramCms\WebsiteBundle\Model\Provider\DataSource\WebsiteTree
+              confirmed_email:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: Confirmed email
+                    source: users_listing
+                    filter: select
+                    filterOptions: ProgramCms\UiBundle\Model\Provider\DataSource\YesNo
+              birthday:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: Birthday
+                    source: users_listing
+                    filter: text
+              actionsColumn:
+                class: ProgramCms\UserBundle\Ui\Listing\Column\UserActions
+                arguments:
+                  data:
+                    label: Actions
+                    source: users_listing

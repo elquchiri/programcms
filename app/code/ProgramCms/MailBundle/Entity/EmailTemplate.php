@@ -8,8 +8,8 @@
 
 namespace ProgramCms\MailBundle\Entity;
 
-use ProgramCms\CoreBundle\Model\Db\Entity\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
+use ProgramCms\CoreBundle\Model\Db\Entity\Entity;
 use Symfony\Component\Validator\Constraints\Unique;
 use ProgramCms\MailBundle\Repository\EmailTemplateRepository;
 
@@ -18,7 +18,7 @@ use ProgramCms\MailBundle\Repository\EmailTemplateRepository;
  * @package ProgramCms\MailBundle\Entity
  */
 #[ORM\Entity(repositoryClass: EmailTemplateRepository::class)]
-class EmailTemplate extends AbstractEntity
+class EmailTemplate extends Entity
 {
     /**
      * @var int|null
@@ -50,13 +50,25 @@ class EmailTemplate extends AbstractEntity
     /**
      * @var string|null
      */
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'text')]
+    private ?string $content;
+
+    /**
+     * @var string|null
+     */
+    #[ORM\Column(type: 'text')]
+    private ?string $css;
+
+    /**
+     * @var string|null
+     */
+    #[ORM\Column(type: 'text')]
     private ?string $html;
 
     /**
      * @var string|null
      */
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'text')]
     private ?string $text;
 
     /**
@@ -164,5 +176,41 @@ class EmailTemplate extends AbstractEntity
     {
         $this->text = $text;
         return $this;
+    }
+
+    /**
+     * @param string $content
+     * @return $this
+     */
+    public function setContent(string $content): static
+    {
+        $this->content = $content;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    /**
+     * @param string $content
+     * @return $this
+     */
+    public function setCss(string $css): static
+    {
+        $this->css = $css;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCss(): ?string
+    {
+        return $this->css;
     }
 }

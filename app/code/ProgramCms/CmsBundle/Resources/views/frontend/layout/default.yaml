@@ -1,0 +1,21 @@
+referenceBlocks:
+  navigation.block:
+    blocks:
+      navigation.homepage.link:
+        class: ProgramCms\ThemeBundle\Block\Html\Item
+        arguments:
+          label: 'Home'
+          path: 'cms_index_index'
+          sortOrder: '1'
+  footer.links:
+    blocks:
+      privacy-policy-link:
+        class: ProgramCms\ThemeBundle\Block\Page\Current
+        arguments:
+          label: 'Privacy and Cookie Policy'
+          path: 'privacy-cookie-policy'
+      about-us-link:
+        class: ProgramCms\ThemeBundle\Block\Page\Current
+        arguments:
+          label: 'About Us'
+          path: 'about-us'

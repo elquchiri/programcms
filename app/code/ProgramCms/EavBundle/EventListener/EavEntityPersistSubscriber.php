@@ -122,6 +122,8 @@ class EavEntityPersistSubscriber implements EventSubscriber
                                 $entityManager->persist($attributeValue);
                                 $unitOfWork->computeChangeSet($entityManager->getClassMetadata(get_class($attributeValue)), $attributeValue);
                             }
+
+                            unset($attributeValue);
                         }
                     }
                 }catch(\Exception $exception) {

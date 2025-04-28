@@ -135,18 +135,6 @@ class SetupEavModel extends AbstractDataPatch
 
         $this->eavSetup->addAttribute(
             PostEntity::class,
-            'post_enable_comments',
-            [
-                'backend_type' => PostEntityVarchar::class,
-                'frontend_input' => 'text',
-                'frontend_label' => 'Enable Comments',
-                'is_required' => true,
-                'note' => "Enable Comments"
-            ]
-        );
-
-        $this->eavSetup->addAttribute(
-            PostEntity::class,
             'post_sort_order',
             [
                 'backend_type' => PostEntityVarchar::class,
@@ -226,6 +214,30 @@ class SetupEavModel extends AbstractDataPatch
                 'frontend_label' => 'Post CSS',
                 'is_required' => true,
                 'note' => "Post CSS Content"
+            ]
+        );
+
+        $this->eavSetup->addAttribute(
+            PostEntity::class,
+            'post_pin',
+            [
+                'backend_type' => PostEntityVarchar::class,
+                'frontend_input' => 'switcher',
+                'frontend_label' => 'Post Pin',
+                'is_required' => true,
+                'note' => "Post Pin"
+            ]
+        );
+
+        $this->eavSetup->addAttribute(
+            PostEntity::class,
+            'post_lock',
+            [
+                'backend_type' => PostEntityVarchar::class,
+                'frontend_input' => 'switcher',
+                'frontend_label' => 'Post Lock',
+                'is_required' => false,
+                'note' => "Post Lock"
             ]
         );
     }

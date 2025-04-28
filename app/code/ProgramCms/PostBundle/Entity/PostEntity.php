@@ -175,4 +175,30 @@ class PostEntity extends Entity implements PostInterface
     {
         return $this->comments->last();
     }
+
+    /**
+     * @return string
+     */
+    public function getPostImage(): string
+    {
+        return (
+            $this->hasData('post_image')
+            && !empty($this->getData('post_image'))
+            && $this->imageExists($this->getData('post_image'))
+        ) ? $this->getData('post_image')
+            : '/bundles/programcmspost/images/no_image.png';
+    }
+
+    /**
+     * @param $url
+     * @return bool
+     */
+    private function imageExists($url): bool
+    {
+        $headers = @get_headers($url);
+        if ($headers && str_contains($headers[0], '200')) {
+            return true;
+        }
+        return false;
+    }
 }

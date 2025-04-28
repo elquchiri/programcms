@@ -59,9 +59,11 @@ class EditController extends Controller
         /** @var PostEntity $post */
         $post = $this->postRepository->getById($postId);
         $pageResult = $this->objectManager->create(Page::class);
+
         if($post) {
             $pageResult->getConfig()->getTitle()->set($post->getPostName());
         }
+
         return $pageResult;
     }
 }

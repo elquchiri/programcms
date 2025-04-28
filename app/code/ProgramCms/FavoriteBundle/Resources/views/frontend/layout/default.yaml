@@ -1,0 +1,10 @@
+referenceBlocks:
+  navigation.block:
+    blocks:
+      navigation.favorite.link:
+        class: ProgramCms\ThemeBundle\Block\Html\Item
+        arguments:
+          label: Favorite
+          path: favorite_index_index
+          sortOrder: 5
+          isAuth: true

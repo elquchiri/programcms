@@ -1,0 +1,7 @@
+layout: admin-login
+referenceContainers:
+  login.content:
+    blocks:
+      admin.recovery:
+        class: ProgramCms\AdminBundle\Block\Recovery\Recovery
+        template: "@ProgramCmsAdminBundle/recovery/recovery.html.twig"

@@ -11,6 +11,7 @@ namespace ProgramCms\UiBundle\Component\Listing;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\UiBundle\Component\AbstractComponent;
 use ProgramCms\UiBundle\View\Element\Context;
+use ProgramCms\UiBundle\View\Element\UiComponentFactory;
 
 /**
  * Class Columns
@@ -21,28 +22,30 @@ class Columns extends AbstractComponent
     const NAME = 'columns';
 
     /**
-     * To change to make it dynamic
-     * @var array|string[]
-     */
-    private array $formatters = [
-        'text' => \ProgramCms\UiBundle\Model\Formatter\Text::class,
-        'date' => \ProgramCms\UiBundle\Model\Formatter\Date::class
-    ];
-
-    /**
      * @var ObjectManager
      */
     protected ObjectManager $objectManager;
 
     /**
+     * @var UiComponentFactory
+     */
+    protected UiComponentFactory $uiComponentFactory;
+
+    /**
      * Columns constructor.
      * @param Context $context
+     * @param UiComponentFactory $uiComponentFactory
      * @param array $data
      */
-    public function __construct(Context $context, array $data = [])
+    public function __construct(
+        Context $context,
+        UiComponentFactory $uiComponentFactory,
+        array $data = []
+    )
     {
         parent::__construct($context, $data);
         $this->objectManager = $context->getObjectManager();
+        $this->uiComponentFactory = $uiComponentFactory;
     }
 
     /**
@@ -60,13 +63,14 @@ class Columns extends AbstractComponent
      */
     public function _toHtml(): string
     {
+        $layout = $this->getLayout();
         $parentName = $this->getLayout()->getParentName($this->getNameInLayout());
         $parentBlock = $this->getLayout()->getBlock($parentName);
         $dataSourceData = $this->getContext()->getDataSourceData($parentBlock);
 
         $html = "<table class=\"table table-bordered table-striped table-hover mt-3 admin-table\"><thead class=\"table-dark\"><tr>";
         foreach($this->getChildBlocks() as $childBlock) {
-            if($childBlock instanceof \ProgramCms\UiBundle\Component\Listing\SelectionsColumn) {
+            if($childBlock instanceof SelectionsColumn) {
                 $html .= "<th>" . $childBlock->toHtml() . "</th>";
                 continue;
             }
@@ -81,25 +85,28 @@ class Columns extends AbstractComponent
                 $params = $this->processParameters($childBlock);
 
                 if(!empty($params['source'])) {
-                    $type = $params['type'];
-                    $typeObject = $this->objectManager->create($this->formatters[$type]);
-
                     $childName = $childBlock->getName();
                     if($childBlock->hasData('dataScope')) {
                         $childName = $childBlock->getData('dataScope');
                     }
-
                     $value = $rowData->hasData($childName)
                         ? $rowData->getData($childName)
                         : $rowData->getDataUsingMethod($childName);
-                    $childBlock->setValue(
-                        $typeObject->getValue($value)
-                    );
 
-                    if($childBlock instanceof \ProgramCms\UiBundle\Component\Listing\ActionsColumn) {
-                        $childBlock->setValue($rowData->getDataUsingMethod($childName));
+                    $type = $params['type'];
+                    if($type === 'column') {
+                        $childBlock->setValue($value);
+                        $html .= "<td>" . $childBlock->toHtml() . "</td>";
+                    }else{
+                        $columnType = $this->uiComponentFactory->create(
+                            $type,
+                            'inner.' . $childName,
+                            array_merge_recursive($childBlock->getData(), ['value' => $value]),
+                            $layout
+                        );
+                        $html .= "<td>" . $columnType->toHtml() . "</td>";
+                        $layout->unsetBlock('inner.' . $childName);
                     }
-                    $html .= "<td>" . $childBlock->toHtml() . "</td>";
                 }
             }
             $html .= "</tr>";
@@ -120,7 +127,7 @@ class Columns extends AbstractComponent
     protected function processParameters(Column $block): array
     {
         return [
-            'type' => $block->hasData('type') ? $block->getData('type') : 'text',
+            'type' => $block->hasData('type') ? $block->getData('type') : 'column',
             'label' => $block->getData('label'),
             'source' => $block->hasData('source') ? $block->getData('source') : '',
         ];

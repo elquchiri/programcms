@@ -15,22 +15,21 @@
                         <span class="me-2 ms-1">
                             <img src="{{ asset('bundles/forumsuiteforum/images/online.png') }}"/>
                         </span>
-            <span class="me-2">475 عضو</span>
-            <span class="me-2">57 مشرف</span>
-            <span class="me-2">1458 زائر (ة)</span>
+            <span class="me-2">475 Users</span>
+            <span class="me-2">57 Managers</span>
+            <span class="me-2">1458 Visitors</span>
         </div>
-        <div class="col-md-6 text-end">
-            الاربعاء 08 ماي، 00:15
+        <div class="col-md-6 text-end fw-bold">
+            {{ block.getTodaysDate() }}
             &middot;
-            بتوقيت
             <div class="btn-group">
-                <a class="dropdown-toggle" type="button" style="font-weight: bold; color: #FFFFFF"
+                <a class="dropdown-toggle" type="button" style="color: #FFFFFF"
                    data-bs-toggle="dropdown" data-bs-auto-close="true"
                    aria-expanded="false">
                     GMT + 1
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="#">GMT + 1</a></li>
+                    <li><a class="dropdown-item" href="#">Edit Timezone</a></li>
                 </ul>
             </div>
         </div>
@@ -42,7 +41,7 @@
         {% for category in block.getCategories() %}
             <thead class="table-forum-times">
             <tr>
-                <th colspan="2" class="text-center" style="width: 23%;">{{ category.getCategoryName() }}</th>
+                <th colspan="2" class="text-center" style="width: 31%;">{{ category.getCategoryName() }}</th>
                 <th class="text-center" style="width: 5%">{{ block.trans('Posts') }}</th>
                 <th class="text-center" style="width: 5%">{{ block.trans('Comments') }}</th>
                 <th class="text-center" style="width: 3%">
@@ -52,20 +51,20 @@
                             title="{{ block.trans('Are online now in this category') }}"
                     />
                 </th>
-                <th class="text-center" style="width: 15%">{{ block.trans('Last post') }}</th>
+                <th class="text-center" style="width: 15%">{{ block.trans('Replyer') }}</th>
                 <th class="text-center" style="width: 7%">{{ block.trans('Monitor') }}</th>
-                <th class="text-center" style="width: 25%">{{ block.trans('Last Post') }}</th>
+                <th class="text-center" style="width: 21%">{{ block.trans('Last Post') }}</th>
                 <th class="text-center" style="width: 7%"></th>
             </tr>
             </thead>
             <tbody>
             {% for forum in block.getCategoryForums(category) %}
                 <tr>
-                    <td class="text-center">
-                        {{ block.getCategoryImage(forum)|raw }}
+                    <td class="text-center" style="vertical-align: top;">
+                        <div class="mt-1">{{ block.getCategoryImage(forum)|raw }}</div>
                     </td>
                     <td class="forum-category" style="background-color: #eaeef9">
-                        <a href="{{ block.getForumUrl(forum) }}">{{ forum.getCategoryName() }}</a>
+                        <a style="font-size: 15px;" class="fw-bold" href="{{ block.getForumUrl(forum) }}">{{ forum.getCategoryName() }}</a>
                         <p class="text-muted" style="font-size: 12px;">{{ forum.getCategoryDescription() }}</p>
                     </td>
                     <td class="text-center" style="background-color: #d8dff0; font-weight: bold; font-size: 13px;">
@@ -84,26 +83,30 @@
                     <td class="text-center managers">
                         <a href="#">Med</a>
                     </td>
-                    <td class="" style="background-color: #eaeef9">
+                    <td style="background-color: #eaeef9">
                         {% if forum.getLastPost() %}
-                        <div class="row">
-                            <div class="col-md-2 p-0 pt-1 text-end">
-                                <div class="profile-image"
-                                     style="display: inline-block; border: 2px solid #8db4db; width: 33px; height: 33px; border-radius: 50%; padding: 1px;">
-                                    <img src="{{ forum.getLastPost().getUser().getProfileImage() }}"
-                                         style="width: 100%; height: 100%; border-radius: 50%;" alt=""/>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="rounded-circle border border-primary overflow-hidden" style="width: 33px; height: 33px;">
+                                    <img src="{{ forum.getLastPost().getUser().getProfileImage() }}" alt=""
+                                         class="w-100 h-100 object-fit-cover">
+                                </div>
+                                <div class="flex-grow-1">
+                                    <a href="{{ block.getPostUrl(forum, forum.getLastPost()) }}"
+                                       class="d-block small"
+                                       title="{{ forum.getLastPost().getPostName() }}"
+                                    >
+                                        <div style="width: 300px; font-size: 15px;" class="text-truncate">
+                                        {{ forum.getLastPost().getPostName() }}
+                                        </div>
+                                    </a>
+                                    <small class="text-muted">
+                                        {{ block.trans('Posted by') }} :
+                                        <a style="font-size: 14px;" href="{{ block.getUserUrl(forum.getLastPost().getUser()) }}" class="text-muted">
+                                            {{ forum.getLastPost().getUser().getFullname() }}
+                                        </a>
+                                    </small>
                                 </div>
                             </div>
-                            <div class="col-md text-truncate">
-                                <a href="{{ block.getPostUrl(forum, forum.getLastPost()) }}" style="font-size: 14px;">{{ forum.getLastPost().getPostName() }}</a>
-                                <p class="m-0 text-muted" style="font-size: 13px;">
-                                    {{ block.trans('Posted by')}} :
-                                    <a href="{{ block.getUserUrl(forum.getLastPost().getUser()) }}" class="text-muted" style="font-size: 12px;">
-                                        {{ forum.getLastPost().getUser().getFullname() }}
-                                    </a>
-                                </p>
-                            </div>
-                        </div>
                         {% endif %}
                     </td>
                     <td class="text-center">
@@ -116,9 +119,7 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">{{ block.trans('View Forum') }}</a></li>
                                 <li><a class="dropdown-item" href="#">{{ block.trans('#Trend Subjects') }}</a></li>
-                                <li><a class="dropdown-item"
-                                       href="#">{{ block.trans('Message the forum moderator') }}</a></li>
-                                </li>
+                                <li><a class="dropdown-item" href="#">{{ block.trans('Message the forum moderator') }}</a></li>
                             </ul>
                         </div>
                     </td>

@@ -1,0 +1,8 @@
+referenceBlocks:
+  footer.links:
+    blocks:
+      assistance-link:
+        class: ProgramCms\ThemeBundle\Block\Page\Current
+        arguments:
+          label: Assistance
+          path: assistance

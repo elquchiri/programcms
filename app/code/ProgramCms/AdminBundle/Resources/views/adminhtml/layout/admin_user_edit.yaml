@@ -1,0 +1,105 @@
+layout: "admin-2columns-left"
+referenceContainers:
+  content:
+    blocks:
+      admin_user_form:
+        class: "ui.block.form"
+        arguments:
+          data:
+            label: "Admin Users"
+          buttons:
+            back: ProgramCms\AdminBundle\Model\Provider\Button\AdminUser\BackButton
+            save: ProgramCms\AdminBundle\Model\Provider\Button\AdminUser\SaveButton
+          dataSource:
+            dataProvider:
+              class: ProgramCms\AdminBundle\Model\Provider\Listing\AdminUser\DataProvider
+              primaryFieldName: "user_id"
+              requestFieldName: "id"
+            settings:
+              submitUrl: "admin_user_save"
+          layout:
+            navContainerName: "sidebar.main"
+            type: "tabs"
+        blocks:
+          user_view:
+            class: "ui.block.form.fieldset"
+            arguments:
+              data:
+                label: "Account Interface"
+            blocks:
+              user_id:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "hidden"
+                    isRequired: true
+                    source: "admin_user_form"
+              first_name:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "text"
+                    label: "First Name"
+                    isRequired: true
+                    source: "admin_user_form"
+              last_name:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "text"
+                    label: "Last Name"
+                    isRequired: true
+                    source: "admin_user_form"
+              email:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "text"
+                    label: "Email"
+                    isRequired: true
+                    source: "admin_user_form"
+              new_password:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "password"
+                    label: "New Password"
+                    source: "admin_user_form"
+              password_confirmation:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "password"
+                    label: "Password Confirmation"
+                    source: "admin_user_form"
+              interface_locale:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "select"
+                    label: "Interface Locale"
+                    sourceModel: ProgramCms\UiBundle\Model\Provider\DataSource\Locales
+                    source: "admin_user_form"
+              roles:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "multiselect"
+                    label: "Roles"
+                    sourceModel: ProgramCms\AclBundle\Model\Provider\DataSource\Acl\Roles
+                    source: "admin_user_form"
+          fieldset3:
+            class: "ui.block.form.fieldset"
+            arguments:
+              data:
+                label: "User Identity Verification"
+                open: true
+                collapse: true
+            blocks:
+              password:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "password"
+                    label: "Your Password"
+                    isRequired: true

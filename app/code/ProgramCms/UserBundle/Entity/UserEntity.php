@@ -275,6 +275,18 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
     }
 
     /**
+     * @return array
+     */
+    public function getGroupsLabels(): array
+    {
+        $labels = [];
+        foreach($this->getCollectionGroups() as $group) {
+            $labels[] = $group->getName();
+        }
+        return $labels;
+    }
+
+    /**
      * @return string|null
      */
     public function getUserFirstname(): ?string
@@ -318,6 +330,9 @@ class UserEntity extends Entity implements UserInterface, PasswordAuthenticatedU
         return $this->getUserFirstname() . ' ' . $this->getUserLastname();
     }
 
+    /**
+     * @return string
+     */
     public function getShortName(): string
     {
         return trim($this->getUserFirstname() . " " . $this->getUserLastname()[0] . '.');

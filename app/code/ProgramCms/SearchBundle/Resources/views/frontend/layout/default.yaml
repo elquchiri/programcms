@@ -1,0 +1,20 @@
+referenceContainers:
+  navbar.collapse:
+    blocks:
+      form.search.mini:
+        class: ProgramCms\SearchBundle\Block\Search
+        template: '@ProgramCmsSearchBundle/form_search_mini.html.twig'
+        before: '-'
+referenceBlocks:
+  footer.links:
+    blocks:
+      search-terms-link:
+        class: ProgramCms\ThemeBundle\Block\Page\Current
+        arguments:
+          label: Search Terms
+          path: search-terms
+      advanced-search-link:
+        class: ProgramCms\ThemeBundle\Block\Page\Current
+        arguments:
+          label: Advanced Search
+          path: advanced-search

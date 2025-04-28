@@ -1,0 +1,6 @@
+referenceContainers:
+  head:
+    blocks:
+      gadsense.script:
+        class: ProgramCms\AdsenseBundle\Block\Adsense
+        template: "@ProgramCmsAdsenseBundle/adsense.html.twig"

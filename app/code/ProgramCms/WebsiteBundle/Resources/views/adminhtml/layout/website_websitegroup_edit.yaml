@@ -1,0 +1,102 @@
+layout: admin-2columns-left
+referenceContainers:
+  sidebar.main:
+    blocks:
+      category.tree:
+        class: ProgramCms\UiBundle\Component\Tree\Tree
+        arguments:
+          data:
+            isOpen: true
+          dataSource:
+            dataProvider:
+              class: ProgramCms\WebsiteBundle\Model\Website\DataProvider
+  content:
+    blocks:
+      website_group_form:
+        class: ui.block.form
+        arguments:
+          data:
+            label: Website Group Information
+          buttons:
+            back: ProgramCms\WebsiteBundle\Model\Provider\Button\BackToWebsiteButton
+            add: ProgramCms\WebsiteBundle\Model\Provider\Button\AddWebsiteViewButton
+            remove: ProgramCms\WebsiteBundle\Model\Provider\Button\RemoveWebsiteGroupButton
+            save: ProgramCms\WebsiteBundle\Model\Provider\Button\SaveWebsiteGroupButton
+          dataSource:
+            dataProvider:
+              class: ProgramCms\WebsiteBundle\Model\WebsiteGroup\Form\DataProvider
+              primaryFieldName: website_group_id
+              requestFieldName: id
+            settings:
+              submitUrl: website_websitegroup_save
+        blocks:
+          website_group_fieldset:
+            class: ui.block.form.fieldset
+            blocks:
+              website_group_id:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: hidden
+                    source: website_group_form
+              is_active:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: switcher
+                    label: Enable Group
+                    source: website_group_form
+              website_group_name:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: Name
+                    placeholder: Group Name
+                    isRequired: true
+                    source: website_group_form
+              website_group_code:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: Code
+                    placeholder: Code
+                    isRequired: true
+                    source: website_group_form
+              sort_order:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: Sort Order
+                    placeholder: "0"
+                    isRequired: true
+                    source: website_group_form
+              category:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: select
+                    label: Root Category
+                    isRequired: true
+                    sourceModel: ProgramCms\CatalogBundle\Model\Provider\DataSource\Category\RootCategories
+                    source: website_group_form
+              defaultWebsiteView:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: select
+                    label: Default View
+                    isRequired: true
+                    sourceModel: ProgramCms\WebsiteBundle\Model\Provider\DataSource\WebsiteViews
+                    source: website_group_form
+              website:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: select
+                    label: Website
+                    isRequired: true
+                    sourceModel: ProgramCms\WebsiteBundle\Model\Provider\DataSource\Websites
+                    source: website_group_form

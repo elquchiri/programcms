@@ -1,0 +1,6 @@
+referenceContainers:
+ content:
+  blocks:
+   post.user.index:
+    class: ProgramCms\PostBundle\Block\User\Posts
+    template: "@ProgramCmsPostBundle/user/posts.html.twig"

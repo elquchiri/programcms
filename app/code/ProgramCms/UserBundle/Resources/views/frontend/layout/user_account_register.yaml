@@ -1,0 +1,6 @@
+referenceContainers:
+  content:
+    blocks:
+      user.register.form:
+        class: ProgramCms\UserBundle\Block\Account\Register
+        template: "@ProgramCmsUserBundle/authentication/register.html.twig"

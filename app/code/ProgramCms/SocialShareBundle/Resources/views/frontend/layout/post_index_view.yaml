@@ -1,0 +1,6 @@
+referenceContainers:
+  sidebar.additional.sticky:
+    blocks:
+      post_share:
+        class: ProgramCms\SocialShareBundle\Block\Share
+        template: "@ProgramCmsSocialShareBundle/post/share.html.twig"

@@ -1,0 +1,9 @@
+referenceContainers:
+  content:
+    blocks:
+      user.edit.new.address:
+        class: ProgramCms\UserBundle\Block\Account\Edit\Address
+        template: "@ProgramCmsUserBundle/address/address_form.html.twig"
+
+requires:
+ - user_account

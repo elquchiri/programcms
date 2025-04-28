@@ -1,0 +1,7 @@
+referenceBlocks:
+  user.register.form:
+    blocks:
+      account.captcha:
+        class: ProgramCms\CaptchaBundle\Block\Captcha
+        template: "@ProgramCmsCaptchaBundle/captcha.html.twig"
+        before: "-"

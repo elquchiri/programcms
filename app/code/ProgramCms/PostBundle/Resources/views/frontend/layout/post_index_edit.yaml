@@ -1,0 +1,9 @@
+layout: empty
+referenceContainers:
+  page.wrapper:
+    remove: true
+  root:
+    blocks:
+      post.content:
+        class: ProgramCms\PostBundle\Block\Editor\Editor
+        template: "@ProgramCmsPostBundle/editor.html.twig"

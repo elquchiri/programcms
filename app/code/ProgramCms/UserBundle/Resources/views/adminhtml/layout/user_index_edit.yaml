@@ -1,0 +1,168 @@
+referenceContainers:
+  content:
+    blocks:
+      user_form:
+        class: ui.block.form
+        arguments:
+          data:
+            label: User Information
+          buttons:
+            back: ProgramCms\UserBundle\Model\Provider\Button\BackToUsersButton
+            reset: ProgramCms\UserBundle\Model\Provider\Button\ResetButton
+            login_as_user: ProgramCms\UserBundle\Model\Provider\Button\LoginAsUserButton
+            force_login: ProgramCms\UserBundle\Model\Provider\Button\ForceSignInButton
+            password_reset: ProgramCms\UserBundle\Model\Provider\Button\ResetPasswordButton
+            delete: ProgramCms\UserBundle\Model\Provider\Button\DeleteUserButton
+            save: ProgramCms\UserBundle\Model\Provider\Button\SaveUserButton
+          dataSource:
+            dataProvider:
+              class: ProgramCms\UserBundle\Model\Provider\Listing\DataProvider
+              primaryFieldName: entity_id
+              requestFieldName: id
+            settings:
+              submitUrl: user_index_save
+          layout:
+            navContainerName: sidebar.main
+            type: tabs
+        blocks:
+          user_view:
+            class: ui.block.form.fieldset
+            arguments:
+              data:
+                label: Account Interface
+            blocks:
+              user_view_block:
+                class: ProgramCms\UserBundle\Block\Adminhtml\AccountView
+          user_fieldset:
+            class: ui.block.form.fieldset
+            arguments:
+              data:
+                label: Account Information
+            blocks:
+              entity_id:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: hidden
+                    source: user_form
+              account_lock:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: switcher
+                    label: Lock
+                    source: user_form
+              websiteView:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: select
+                    label: Associate to View
+                    helpMessage: User can sign in only on this website.
+                    isRequired: true
+                    sourceModel: ProgramCms\WebsiteBundle\Model\Provider\DataSource\WebsiteTree
+                    source: user_form
+                    size: col-md-3
+              name_prefix:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: Name Prefix
+                    source: user_form
+              user_firstname:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: First Name
+                    source: user_form
+                    dataScope: user_firstname
+              user_lastname:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: Last Name
+                    placeholder: Last Name
+                    source: user_form
+              name_suffix:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: Name Suffix
+                    source: user_form
+              email:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: Email
+                    isRequired: true
+                    source: user_form
+              username:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: Username
+                    helpMessage: This is the user identifier on website.
+                    isRequired: true
+                    source: user_form
+              sex:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: select
+                    label: Sex
+                    isRequired: true
+                    source: user_form
+                    sourceModel: ProgramCms\UserBundle\Model\Provider\Source\Sex
+                    size: col-md-3
+              birthday:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: date
+                    label: Birthday
+                    isRequired: true
+                    source: user_form
+                    size: col-md-3
+              color:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: color
+                    label: Color
+                    isRequired: true
+                    source: user_form
+                    size: col-md-3
+              profile_image:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: imageUploader
+                    label: Profile Image
+                    source: user_form
+                    helpMessage: "Maximum file size: 4 MB. Allowed file types: JPG, GIF, PNG."
+              biography:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: textarea
+                    label: Biography
+                    placeholder: Biography
+                    source: user_form
+              profile_cv:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: file
+                    label: Profile CV
+                    source: user_form
+                    helpMessage: "Maximum file size:4 MB. Allowed file types: JPG, GIF, PNG."
+requires:
+  - includes/user_acl
+  - includes/user_addresses
+  - includes/user_log

@@ -57,7 +57,6 @@ class EditController extends \ProgramCms\CoreBundle\Controller\AdminController
         $pageResult = $this->objectManager->create(\ProgramCms\CoreBundle\View\Result\Page::class);
         $website = $this->websiteRepository->findOneBy(['website_id' => $this->getRequest()->getParam('id')]);
         if($website) {
-            //dd($website);
             $pageResult->getConfig()->getTitle()->set(
                 sprintf("%s : %s", $this->trans('Edit Website'), $website->getWebsiteName())
             );

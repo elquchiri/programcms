@@ -1,0 +1,44 @@
+referenceContainers:
+  content:
+    blocks:
+      connected_users_listing:
+        class: ui.block.listing
+        arguments:
+          dataSource:
+            dataProvider:
+              class: ProgramCms\UserBundle\Model\Provider\Listing\Groups\DataProvider
+              primaryFieldName: entity_id
+              requestFieldName: id
+        blocks:
+          connected_users_listing_columns:
+            class: ui.block.columns
+            blocks:
+              connected_users_listing_selectionsColumn:
+                class: ui.block.selectionsColumn
+                arguments:
+                  data:
+                    source: connected_users_listing
+              entity_id:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: ""
+                    source: connected_users_listing
+              code:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: "Code"
+                    source: connected_users_listing
+              label:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: "Group Label"
+                    source: connected_users_listing
+              actionsColumn:
+                class: ProgramCms\UserBundle\Ui\Listing\Column\UserGroupActions
+                arguments:
+                  data:
+                    label: "Actions"
+                    source: connected_users_listing

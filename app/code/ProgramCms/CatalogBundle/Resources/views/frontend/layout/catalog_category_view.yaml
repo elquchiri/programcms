@@ -1,0 +1,14 @@
+referenceContainers:
+  main.content:
+    containers:
+      category_navbar:
+        htmlTag: nav
+        htmlClass: "navbar navbar-expand-lg"
+        before: '-'
+        blocks:
+          forum_name:
+            class: ProgramCms\CatalogBundle\Block\Category\View
+            template: "@ProgramCmsPostBundle/post/navbar/forum_name.html.twig"
+          category_options:
+            class: ProgramCms\CatalogBundle\Block\Category\View
+            template: "@ProgramCmsCatalogBundle/category/navbar/category_options.html.twig"

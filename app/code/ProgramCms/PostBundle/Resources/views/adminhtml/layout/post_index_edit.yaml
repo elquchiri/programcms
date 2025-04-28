@@ -1,0 +1,19 @@
+layout: editor
+referenceContainers:
+  main.editor:
+    blocks:
+      post_editor:
+        class: ProgramCms\PostBundle\Block\PostEditor
+        template: '@ProgramCmsPostBundle/post_editor.html.twig'
+        arguments:
+          entity: ProgramCms\PostBundle\Entity\PostEntity
+          attributes:
+            - post_enable
+            - post_lock
+            - post_image
+            - post_short_description
+            - post_sort_order
+            - post_url_key
+            - post_meta_title
+            - post_meta_keywords
+            - post_meta_description

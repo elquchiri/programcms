@@ -1,0 +1,9 @@
+require: 1column
+
+referenceContainers:
+  columns:
+    containers:
+      sidebar.main:
+        htmlTag: div
+        htmlClass: col-md side-col
+        before: "-"

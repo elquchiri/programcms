@@ -1,0 +1,88 @@
+layout: admin-2columns-left
+
+referenceContainers:
+  head:
+    blocks:
+      head.block:
+        class: ProgramCms\ThemeBundle\Block\Page\Head\Head
+        template: "@ProgramCmsThemeBundle/head/head.html.twig"
+      head.title:
+        class: ProgramCms\ThemeBundle\Block\Page\Head\Title
+        template: "@ProgramCmsThemeBundle/head/title.html.twig"
+
+  page.menu:
+    blocks:
+      sidebar:
+        class: ProgramCms\AdminBundle\Block\Sidebar
+        template: "@ProgramCmsAdminBundle/sidebar.html.twig"
+
+  main.top:
+    containers:
+      navbar.header:
+        htmlTag: nav
+        htmlClass: "navbar navbar-expand-lg content-header"
+        blocks:
+          page.title:
+            class: ProgramCms\ThemeBundle\Block\Html\Title
+            template: "@ProgramCmsThemeBundle/title.html.twig"
+        containers:
+          navbar.collapse:
+            htmlTag: div
+            htmlClass: "collapse navbar-collapse justify-content-end"
+            blocks:
+              account.dropdown:
+                class: ProgramCms\AdminBundle\Block\Account\Navigation
+                template: "@ProgramCmsAdminBundle/admin_account_dropdown.html.twig"
+
+      breadcrumb:
+        htmlTag: div
+        htmlClass: breadcrumb-content
+        before: "-"
+        blocks:
+          breadcrumb.content:
+            class: ProgramCms\ThemeBundle\Block\Html\Breadcrumb
+            template: "@ProgramCmsThemeBundle/breadcrumb.html.twig"
+
+  page.main.actions:
+    containers:
+      buttons.bar:
+        htmlTag: div
+        htmlClass: "container-fluid ef-buttons-bar"
+
+  page.messages:
+    blocks:
+      page.alerts.block:
+        class: ProgramCms\CoreBundle\View\Element\Template
+        template: "@ProgramCmsAdminBundle/flashes.html.twig"
+
+  footer.container:
+    containers:
+      footer.content:
+        htmlTag: div
+        htmlClass: "footer-content row"
+        containers:
+          footer.legal.copyright:
+            htmlTag: div
+            htmlClass: "col-md-6"
+            blocks:
+              copyright:
+                class: ProgramCms\AdminBundle\Block\Page\Copyright
+          footer.legal.system:
+            htmlTag: div
+            htmlClass: "col-md-6 text-end"
+            blocks:
+              version:
+                class: ProgramCms\AdminBundle\Block\Page\Footer
+                template: "@ProgramCmsAdminBundle/footer.html.twig"
+              site.update:
+                class: ProgramCms\AdminBundle\Block\Legal\SiteUpdate
+                template: "@ProgramCmsAdminBundle/site_update.html.twig"
+              links:
+                class: ProgramCms\CoreBundle\View\Element\Template
+                template: "@ProgramCmsAdminBundle/links.html.twig"
+
+  after.body:
+    blocks:
+      before.body.block:
+        class: ProgramCms\ThemeBundle\Block\Page\Body\BeforeBody
+        template: "@ProgramCmsThemeBundle/body/before_body.html.twig"

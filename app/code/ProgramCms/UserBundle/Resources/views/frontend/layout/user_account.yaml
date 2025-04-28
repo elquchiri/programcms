@@ -1,0 +1,31 @@
+referenceContainers:
+  sidebar.main:
+    blocks:
+      user.account.navigation:
+        class: ProgramCms\UserBundle\Block\Account\Navigation
+        template: "@ProgramCmsUserBundle/dashboard/navigation.bar.html.twig"
+        blocks:
+          user.account.dashboard:
+            class: ProgramCms\CoreBundle\View\Element\Html\Link\Item
+            arguments:
+              label: "Dashboard"
+              path: "user_edit_index"
+              sortOrder: "1"
+          user.account.information:
+            class: ProgramCms\CoreBundle\View\Element\Html\Link\Item
+            arguments:
+              label: "Edit Information"
+              path: "user_edit_information"
+              sortOrder: "2"
+          user.account.password:
+            class: ProgramCms\CoreBundle\View\Element\Html\Link\Item
+            arguments:
+              label: "Update Password"
+              path: "user_edit_password"
+              sortOrder: "3"
+          user.account.addresses:
+            class: ProgramCms\CoreBundle\View\Element\Html\Link\Item
+            arguments:
+              label: "Addresses"
+              path: "user_address_index"
+              sortOrder: "4"

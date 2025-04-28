@@ -1,0 +1,6 @@
+referenceContainers:
+  content:
+    blocks:
+      category.view:
+        class: ProgramCms\CatalogBundle\Block\Category\View
+        template: "@ProgramCmsPostBundle/category/posts.html.twig"

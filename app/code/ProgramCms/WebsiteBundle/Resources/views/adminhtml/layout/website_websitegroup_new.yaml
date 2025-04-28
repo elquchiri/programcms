@@ -1,0 +1,92 @@
+# Copyright © ProgramCMS. All rights reserved.
+# See COPYING.txt for license details.
+#
+# Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+
+
+layout: "admin-2columns-left"
+
+referenceContainers:
+  sidebar.main:
+    blocks:
+      category.tree:
+        class: ProgramCms\UiBundle\Component\Tree\Tree
+        arguments:
+          data:
+            isOpen: true
+          dataSource:
+            dataProvider:
+              class: ProgramCms\WebsiteBundle\Model\Website\DataProvider
+
+  content:
+    blocks:
+      website_group_form:
+        class: "ui.block.form"
+        arguments:
+          data:
+            label: "Website Group Information"
+          buttons:
+            back: ProgramCms\WebsiteBundle\Model\Provider\Button\BackToWebsiteButton
+            save: ProgramCms\WebsiteBundle\Model\Provider\Button\SaveWebsiteGroupButton
+          dataSource:
+            settings:
+              submitUrl: "website_websitegroup_save"
+
+        blocks:
+          website_group_fieldset:
+            class: "ui.block.form.fieldset"
+            blocks:
+              is_active:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "switcher"
+                    label: "Enable Group"
+              website_group_name:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "text"
+                    label: "Name"
+                    placeholder: "Group Name"
+                    isRequired: true
+              website_group_code:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "text"
+                    label: "Code"
+                    placeholder: "Code"
+                    isRequired: true
+              sort_order:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "text"
+                    label: "Sort Order"
+                    placeholder: "0"
+                    isRequired: true
+              category:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "select"
+                    label: "Root Category"
+                    isRequired: true
+                    sourceModel: ProgramCms\WebsiteBundle\Model\Provider\DataSource\Groups
+              defaultWebsiteView:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "select"
+                    label: "Default View"
+                    isRequired: true
+                    sourceModel: ProgramCms\WebsiteBundle\Model\Provider\DataSource\WebsiteViews
+              website:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "select"
+                    label: "Website"
+                    isRequired: true
+                    sourceModel: ProgramCms\WebsiteBundle\Model\Provider\DataSource\Websites

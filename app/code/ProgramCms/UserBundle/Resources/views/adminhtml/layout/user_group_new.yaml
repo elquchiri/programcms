@@ -1,0 +1,75 @@
+layout: admin-2columns-left
+referenceContainers:
+  content:
+   blocks:
+     group_form:
+       class: "ui.block.form"
+       arguments:
+         data:
+           label: "Group Information"
+         buttons:
+           back: ProgramCms\UserBundle\Model\Provider\Button\Group\Back
+           save: ProgramCms\UserBundle\Model\Provider\Button\Group\Save
+         dataSource:
+           settings:
+             submitUrl: "user_group_save"
+         layout:
+           navContainerName: "sidebar.main"
+           type: "tabs"
+       blocks:
+        group_view:
+          class: "ui.block.form.fieldset"
+          arguments:
+            data:
+              label: "Group Detail"
+          blocks:
+            name:
+              class: "ui.block.form.field"
+              arguments:
+                data:
+                  type: "text"
+                  label: "Group Name"
+                  isRequired: true
+            code:
+              class: "ui.block.form.field"
+              arguments:
+                data:
+                  type: "text"
+                  label: "Group Code"
+                  isRequired: true
+            description:
+              class: "ui.block.form.field"
+              arguments:
+                data:
+                  type: "textarea"
+                  label: "Group Description"
+                  isRequired: false
+        acl_fieldset:
+          class: "ui.block.form.fieldset"
+          arguments:
+            data:
+              label: "Access Control List"
+          blocks:
+            permissions:
+              class: "ui.block.form.field"
+              arguments:
+                data:
+                  type: "tree"
+                  label: "Resources"
+                  isRequired: true
+                  sourceModel: ProgramCms\UserBundle\Model\Provider\DataSource\Acl\DataProvider
+        fieldset3:
+          class: "ui.block.form.fieldset"
+          arguments:
+            data:
+              label: "User Identity Verification"
+              open: true
+              collapse: true
+          blocks:
+            password:
+              class: "ui.block.form.field"
+              arguments:
+                data:
+                  type: "password"
+                  label: "Your Password"
+                  isRequired: true

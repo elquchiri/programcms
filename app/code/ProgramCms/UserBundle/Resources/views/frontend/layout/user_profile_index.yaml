@@ -1,0 +1,6 @@
+referenceContainers:
+  content:
+    blocks:
+      user.community.block:
+        class: ProgramCms\UserBundle\Block\Community
+        template: "@ProgramCmsUserBundle/community.html.twig"

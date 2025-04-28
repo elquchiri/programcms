@@ -19,10 +19,10 @@ acl:
         ProgramCmsPostBundle_post_edit_my:
           label: 'Edit My Posts'
         ProgramCmsPostBundle_post_edit_categories:
-          label: 'Edit Posts in specific categories only'
+          label: 'Edit Posts in specific categories'
       ProgramCmsPostBundle_post_delete:
         label: 'Delete Permissions'
         ProgramCmsPostBundle_post_delete_my:
           label: 'Delete My Posts'
         ProgramCmsPostBundle_post_delete_categories:
-          label: 'Delete Posts in specific categories only'
+          label: 'Delete Posts in specific categories'

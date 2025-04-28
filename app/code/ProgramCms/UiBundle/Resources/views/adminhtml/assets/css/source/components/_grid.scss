@@ -19,10 +19,11 @@
 
 .admin-table {
     font-size: 14px;
-}
-.admin-table .table-columns {
-    font-size: 13px;
 
+    .table-columns {
+        font-size: 13px;
+
+    }
 }
 .admin-table tr th {
     padding: 11px 15px;
@@ -35,9 +36,11 @@
     &:hover {
         background-color: #2a2e32;
     }
+
 }
 .admin-table tr td {
     padding: 15px;
+    vertical-align: middle;
 }
 
 .grid-filters {
@@ -68,4 +71,11 @@
     background-repeat: no-repeat;
     background-position: 9px 9px;
     padding-left: 35px;
+}
+
+.listing_column_image {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #1d6ce0;
+    padding: 2px;
 }

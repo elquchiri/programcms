@@ -1,0 +1,52 @@
+referenceContainers:
+  content:
+    blocks:
+      posts_listing:
+        class: "ui.block.listing"
+        arguments:
+          buttons:
+            new: ProgramCms\PostBundle\Model\Provider\Button\NewPostButton
+          dataSource:
+            dataProvider:
+              class: ProgramCms\PostBundle\Model\Provider\PostDataProvider
+              primaryFieldName: "entity_id"
+              requestFieldName: "id"
+        blocks:
+          posts_listing_columns:
+            class: "ui.block.columns"
+            blocks:
+              selectionsColumn:
+                class: "ui.block.selectionsColumn"
+                arguments:
+                  data:
+                    source: "posts_listing"
+              entity_id:
+                class: "ui.block.column"
+                arguments:
+                  data:
+                    label: "#{"
+                    source: "posts_listing"
+              post_name:
+                class: "ui.block.column"
+                arguments:
+                  data:
+                    label: "Post Name"
+                    source: "posts_listing"
+              parent_theme_title:
+                class: "ui.block.column"
+                arguments:
+                  data:
+                    label: "Parent Theme"
+                    source: "posts_listing"
+              theme_path:
+                class: "ui.block.column"
+                arguments:
+                  data:
+                    label: "Path"
+                    source: "posts_listing"
+              actionsColumn:
+                class: ProgramCms\PostBundle\Ui\Listing\Column\PostActions
+                arguments:
+                  data:
+                    label: "Actions"
+                    source: "posts_listing"

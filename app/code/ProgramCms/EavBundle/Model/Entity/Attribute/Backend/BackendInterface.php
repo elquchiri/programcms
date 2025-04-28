@@ -19,5 +19,5 @@ interface BackendInterface
      * @param object $object
      * @return mixed
      */
-    public function beforeSave(string $attributeCode, object $object);
+    public function beforeSave(string $attributeCode, object &$object);
 }

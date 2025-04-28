@@ -31,6 +31,7 @@ class AclSerializer
     /**
      * AclSerializer constructor.
      * @param BundleManager $bundleManager
+     * @throws ReflectionException
      */
     public function __construct(
         BundleManager $bundleManager

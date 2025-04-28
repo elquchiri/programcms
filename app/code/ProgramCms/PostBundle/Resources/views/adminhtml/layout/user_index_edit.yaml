@@ -1,0 +1,9 @@
+referenceBlocks:
+  user_form:
+    blocks:
+      user_posts:
+        class: ui.block.form.fieldset
+        after: "-"
+        arguments:
+          data:
+            label: "Posts"

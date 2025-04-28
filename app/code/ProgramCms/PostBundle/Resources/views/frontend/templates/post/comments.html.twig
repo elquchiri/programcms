@@ -1,0 +1,113 @@
+<ul class="nav nav-tabs mt-5">
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#">Comments ({{ block.countComments() }})</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Readers</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">History</a>
+    </li>
+</ul>
+
+{% if block.canComment() %}
+    {% if block.hasComments() %}
+        <div class="mb-5">
+            {% for comment in block.getComments() %}
+                <div class="row" id="comment-{{ comment.getEntityId() }}">
+                    <div class="col-md-2 p-0">
+                        <div class="sticky-md-top pt-4 second-sticky">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item text-center">
+                                    <div>
+                                        <img class="rounded-circle" src="{{ comment.getUser().getProfileImage() }}"
+                                             style="border: 2px solid #afafaf; width: 45px; height: 45px;"
+                                             alt=""/>
+                                    </div>
+                                    <div class="mt-2">
+                                        <a class="fw-bold" style="font-size: 14px; color: #000000"
+                                           href="">{{ comment.getUser().getShortName() }}</a>
+                                        <p class="text-muted m-0"
+                                           style="font-size: 13px;">{{ block.trans('Member') }}</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-10 p-4">
+                        <div class="post_comment ps-2">
+                            {{ comment.getComment()|raw }}
+                        </div>
+                        <div class="comment_options d-flex justify-content-center mt-3 p-3">
+                            <div class="comment_reaction d-block" style="flex: 1;">
+                                <div class="input-group">
+                                    <button class="btn comment-like-reaction fw-bold"
+                                            style="color: #46860E;" type="button" id="like_comment">31
+                                    </button>
+                                    <button class="btn comment-dislike-reaction" type="button"
+                                            id="dislike_comment"></button>
+                                </div>
+                            </div>
+                            <div class="">
+                                            <span class="fw-bold text-muted" style="font-size: 13px">
+                                                {{ block.getCommentUpdatedAt(comment) }}
+                                            </span>
+                                <div class="btn-group dropdown ms-3">
+                                    <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                       data-bs-auto-close="true"
+                                       aria-expanded="false">
+                                        {{ block.trans('Edit') }}
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item"
+                                               href="{{ block.getEditCommentUrl(comment) }}">{{ block.trans('Edit Comment') }}</a>
+                                        </li>
+                                        <li><a class="dropdown-item" data-controller="delete-comment"
+                                               data-action="delete-comment#onDelete"
+                                               id="{{ comment.getEntityId() }}"
+                                               href="#">{{ block.trans('Delete Comment') }}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
+        <div class="row" id="comment-container">
+            <div class="col-md-2 p-4">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-center">
+                        <div class="profile-image"
+                             style="display: inline-block; border: 3px solid #6d9dcb; width: 38px; height: 38px; border-radius: 50%; padding: 1px;">
+                            <img src="{{ block.getUser().getProfileImage() }}"
+                                 style="width: 100%; height: 100%; border-radius: 50%;" alt=""/>
+                        </div>
+                        <p class="m-0 mt-2">{{ block.getUser().getUserFirstname() }}</p>
+                        <p class="text-muted m-0"
+                           style="font-size: 13px;">{{ block.trans('Member') }}</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-10 p-4">
+                <form action="{{ block.getCommentSaveUrl() }}" method="POST"
+                      data-controller="new-comment">
+                                        <textarea name="comment" class="form-control"
+                                                  placeholder="{{ block.trans('Write a comment ..') }}"
+                                                  rows="5"></textarea>
+                    <input type="hidden" name="post_id" value="{{ block.getPost().getEntityId() }}"/>
+                    <input type="submit" class="btn btn-primary float-end mt-2"
+                           data-action="new-comment#onSubmit"
+                           value="{{ block.trans('Send') }}">
+                </form>
+            </div>
+        </div>
+    {% endif %}
+{% else %}
+    <div class="text-muted text-center p-5">
+        Comments are disabled on this post.
+    </div>
+{% endif %}

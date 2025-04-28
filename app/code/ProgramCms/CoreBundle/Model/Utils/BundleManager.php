@@ -9,9 +9,14 @@
 namespace ProgramCms\CoreBundle\Model\Utils;
 
 use Exception;
+use ProgramCms\CoreBundle\Entity\Bundle;
 use ProgramCms\CoreBundle\ProgramCmsCoreBundle;
+use ProgramCms\CoreBundle\Repository\BundleRepository;
+use Psr\Cache\InvalidArgumentException;
 use ReflectionException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 /**
  * Class BundleManager
@@ -29,14 +34,25 @@ class BundleManager implements BundleManagerInterface
     protected ContainerInterface $container;
 
     /**
+     * @var BundleRepository
+     */
+    protected BundleRepository $bundleRepository;
+    protected CacheInterface $cache;
+
+    /**
      * BundleManager constructor.
      * @param ContainerInterface $container
+     * @param BundleRepository $bundleRepository
      */
     public function __construct(
-        ContainerInterface $container
+        ContainerInterface $container,
+        BundleRepository $bundleRepository,
+        CacheInterface $cache
     )
     {
         $this->container = $container;
+        $this->bundleRepository = $bundleRepository;
+        $this->cache = $cache;
     }
 
     /**
@@ -61,24 +77,45 @@ class BundleManager implements BundleManagerInterface
     /**
      * Get All registered ProgramCMS bundles
      * @return array
-     * @throws ReflectionException
+     * @throws ReflectionException|InvalidArgumentException
      */
     public function getAllBundles(): array
     {
-        $bundles = [];
-        foreach ($this->getContainerParameter('kernel.bundles') as $bundleName => $bundleClass) {
-            $reflectedBundle = new \ReflectionClass($bundleClass);
-            if ($reflectedBundle->isSubclassOf(ProgramCmsCoreBundle::class)) {
-                $bundleDirectory = dirname($reflectedBundle->getFileName());
-                $bundles[$bundleName] = [
-                    'name' => $reflectedBundle->getShortName(),
-                    'path' => $bundleDirectory,
-                    'class' => $bundleClass
-                ];
-            }
-        }
+        return $this->cache->get('bundles', function (ItemInterface $item) {
+            $item->expiresAfter(3600);
 
-        return $bundles;
+            $bundles = [];
+            foreach ($this->getContainerParameter('kernel.bundles') as $bundleName => $bundleClass) {
+                $reflectedBundle = new \ReflectionClass($bundleClass);
+                if ($reflectedBundle->isSubclassOf(ProgramCmsCoreBundle::class)) {
+                    $bundleDirectory = dirname($reflectedBundle->getFileName());
+                    $bundleShortName = $reflectedBundle->getShortName();
+
+                    $bundleObject = $this->bundleRepository->getByShortName($bundleShortName);
+                    if(!$bundleObject) {
+                        $bundleObject = new Bundle();
+                        $bundleObject
+                            ->setBundleName($bundleShortName)
+                            ->setBundlePath($bundleDirectory)
+                            ->setStatus(true)
+                            ->updateTimestamps();
+                    }
+
+                    $this->bundleRepository->save($bundleObject);
+
+                    // Add Only active bundles
+                    if($bundleObject->getStatus() === true) {
+                        $bundles[$bundleName] = [
+                            'name' => $bundleShortName,
+                            'path' => $bundleDirectory,
+                            'class' => $bundleClass
+                        ];
+                    }
+                }
+            }
+
+            return $bundles;
+        });
     }
 
     /**

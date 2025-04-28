@@ -1,0 +1,6 @@
+referenceContainers:
+  sidebar.additional.sticky:
+    blocks:
+      post_reaction:
+        class: ProgramCms\PostReactionBundle\Block\PostReaction
+        template: "@ProgramCmsPostReactionBundle/post_reaction.html.twig"

@@ -1,0 +1,6 @@
+referenceContainers:
+  content:
+    blocks:
+      chat.widget:
+        class: ProgramCms\AdminChatBundle\Block\ChatWidget
+        template: "@ProgramCmsAdminChatBundle/chat_widget.html.twig"

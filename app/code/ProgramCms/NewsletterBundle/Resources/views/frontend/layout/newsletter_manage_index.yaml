@@ -1,0 +1,9 @@
+referenceContainers:
+  content:
+    blocks:
+      user.manage.newsletter:
+        class: ProgramCms\NewsletterBundle\Block\Newsletter
+        template: "@ProgramCmsNewsletterBundle/dashboard/subscription.html.twig"
+
+requires:
+  - user_account

@@ -1,0 +1,8 @@
+referenceBlocks:
+  footer.links:
+    blocks:
+      contact-us-link:
+        class: ProgramCms\ThemeBundle\Block\Page\Current
+        arguments:
+          label: Contact Us
+          path: contact-us

@@ -11,6 +11,14 @@
         <img src="{{ block.getUser().getProfileImage() }}" style="width: 100%; height: 100%;" alt="" />
     </div>
 </div>
+<div class="user_groups p-2">
+    <p class="text-muted m-0">Descriptions :</p>
+    <ul>
+    {% for groupLabel in block.getUser().getGroupsLabels() %}
+        <li class="m-0">{{ block.trans(groupLabel) }}</li>
+    {% endfor %}
+    </ul>
+</div>
 <div class="user_actions">
     <div class="btn-group d-flex" role="group" aria-label="Basic example">
         <button type="button" class="btn btn-outline-primary">{{ block.trans('Follow') }}</button>

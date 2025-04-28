@@ -1,0 +1,7 @@
+layout: editor
+referenceContainers:
+  main.editor:
+    blocks:
+      page_editor:
+        class: ProgramCms\PageBundle\Block\PageEditor
+        template: "@ProgramCmsPageBundle/page_editor.html.twig"

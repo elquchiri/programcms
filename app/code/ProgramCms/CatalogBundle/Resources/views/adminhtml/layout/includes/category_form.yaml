@@ -1,0 +1,157 @@
+referenceContainers:
+  content:
+    blocks:
+      category_form:
+        class: "ui.block.form"
+        arguments:
+          data:
+            label: "Category Information"
+          buttons:
+            reset: ProgramCms\CatalogBundle\Model\Provider\Button\Category\ResetButton
+            delete: ProgramCms\CatalogBundle\Model\Provider\Button\Category\RemoveCategoryButton
+            save: ProgramCms\CatalogBundle\Model\Provider\Button\Category\SaveCategoryButton
+          dataSource:
+            dataProvider:
+              class: ProgramCms\CatalogBundle\Model\Category\DataProvider
+              primaryFieldName: "entity_id"
+              requestFieldName: "id"
+            settings:
+              submitUrl: "catalog_category_save"
+        blocks:
+          general:
+            class: "ui.block.form.fieldset"
+            blocks:
+              entity_id:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "hidden"
+                    source: "category_form"
+              parent:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "hidden"
+                    source: "category_form"
+              category_enable:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "switcher"
+                    label: "Enable Category"
+                    source: "category_form"
+              include_in_menu:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "switcher"
+                    label: "Include in Menu"
+                    source: "category_form"
+              category_name:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "text"
+                    label: "Category Name"
+                    isRequired: true
+                    source: "category_form"
+          category_content:
+            class: "ui.block.form.fieldset"
+            arguments:
+              data:
+                label: "Content"
+                collapse: true
+            blocks:
+              category_image:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "imageUploader"
+                    label: "Category Image"
+                    source: "category_form"
+                    helpMessage: "Maximum file size: 4 MB. Allowed file types: JPG, GIF, PNG."
+              category_description:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "textarea"
+                    label: "Description"
+                    source: "category_form"
+          display_settings:
+            class: "ui.block.form.fieldset"
+            arguments:
+              data:
+                label: "Display Settings"
+                collapse: true
+            blocks:
+              category_display_mode:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "select"
+                    label: "Display Mode"
+                    source: "category_form"
+                    sourceModel: "ProgramCms\\CatalogBundle\\Model\\Provider\\DataSource\\DisplayMode"
+              category_sort_order:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "text"
+                    label: "Sort Order"
+                    source: "category_form"
+          search_engine:
+            class: "ui.block.form.fieldset"
+            arguments:
+              data:
+                label: "Search Engine Optimization"
+                collapse: true
+            blocks:
+              category_url_key:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "text"
+                    label: "URL Key"
+                    source: "category_form"
+              category_meta_title:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "text"
+                    label: "Meta Title"
+                    source: "category_form"
+              category_meta_keywords:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "textarea"
+                    label: "Meta Keywords"
+                    source: "category_form"
+              category_meta_description:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "textarea"
+                    label: "Meta Description"
+                    source: "category_form"
+          schedule_new:
+            class: "ui.block.form.fieldset"
+            arguments:
+              data:
+                label: "Schedule Status"
+                collapse: true
+            blocks:
+              schedule_new_from:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "date"
+                    label: "From"
+                    source: "category_form"
+              schedule_new_to:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "date"
+                    label: "To"
+                    source: "category_form"

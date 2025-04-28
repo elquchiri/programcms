@@ -1,0 +1,80 @@
+referenceBlocks:
+  user_form:
+    blocks:
+      user_addresses:
+        class: ui.block.form.fieldset
+        arguments:
+          data:
+            label: "Addresses"
+        blocks:
+          new_address:
+            class: ProgramCms\UserBundle\Ui\Component\NewAddressButton
+            arguments:
+              disabled: false
+              value: "Add New Address"
+              css_class: "btn btn-sm btn-outline-primary float-end mb-3"
+          user_addresses_listing:
+            class: ui.block.listing
+            arguments:
+              dataSource:
+                dataProvider:
+                  class: ProgramCms\UserBundle\Model\Provider\Listing\UserAddress\DataProvider
+                  foreignFieldName: user
+                  requestFieldName: id
+            blocks:
+              user_addresses_listing_columns:
+                class: ui.block.columns
+                blocks:
+                  user_addresses_listing_selectionsColumn:
+                    class: ui.block.selectionsColumn
+                    arguments:
+                      data:
+                        source: "user_addresses_listing"
+                  city:
+                    class: ui.block.column
+                    arguments:
+                      data:
+                        label: "City"
+                        source: "user_addresses_listing"
+                        filter: "text"
+                  country_code:
+                    class: ui.block.column
+                    arguments:
+                      data:
+                        label: "Country"
+                        source: "user_addresses_listing"
+                        filter: "text"
+                  firstname:
+                    class: ui.block.column
+                    arguments:
+                      data:
+                        label: "First Name"
+                        source: "user_addresses_listing"
+                        filter: "text"
+                  lastname:
+                    class: ui.block.column
+                    arguments:
+                      data:
+                        label: "Last Name"
+                        source: "user_addresses_listing"
+                        filter: "text"
+                  postcode:
+                    class: ui.block.column
+                    arguments:
+                      data:
+                        label: "Postcode"
+                        source: "user_addresses_listing"
+                        filter: "text"
+                  street:
+                    class: ui.block.column
+                    arguments:
+                      data:
+                        label: "Street"
+                        source: "user_addresses_listing"
+                        filter: "text"
+                  actionsColumn:
+                    class: ProgramCms\UserBundle\Ui\Listing\Column\UserAddressActions
+                    arguments:
+                      data:
+                        label: "Actions"
+                        source: "user_addresses_listing"

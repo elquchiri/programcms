@@ -1,0 +1,55 @@
+layout: 3columns
+
+referenceContainers:
+  main.content:
+    containers:
+      post_navbar:
+        htmlTag: nav
+        htmlClass: "navbar navbar-expand-lg mt-4"
+        before: '-'
+        blocks:
+          forum_name:
+            class: ProgramCms\PostBundle\Block\Post
+            template: "@ProgramCmsPostBundle/post/navbar/forum_name.html.twig"
+          post_options:
+            class: ProgramCms\PostBundle\Block\Post
+            template: "@ProgramCmsPostBundle/post/navbar/post_options.html.twig"
+
+      post.main.content:
+        htmlTag: div
+        htmlClass: "page-main container"
+      post.related:
+        htmlTag: div
+        htmlClass: "container"
+        blocks:
+          related_posts:
+            class: ProgramCms\PostBundle\Block\Post
+            template: "@ProgramCmsPostBundle/post/related_posts.html.twig"
+
+  content:
+    blocks:
+      post.content:
+        class: ProgramCms\PostBundle\Block\Post
+        template: "@ProgramCmsPostBundle/post/content.html.twig"
+      post.comments:
+        class: ProgramCms\PostBundle\Block\Post
+        template: "@ProgramCmsPostBundle/post/comments.html.twig"
+
+  sidebar.main:
+    htmlClass: "col-md-2"
+    blocks:
+      poster:
+        class: ProgramCms\PostBundle\Block\Post
+        template: "@ProgramCmsPostBundle/post/poster.html.twig"
+
+  sidebar.additional:
+    htmlClass: "col-md-2"
+    containers:
+      sidebar.additional.sticky:
+        htmlTag: div
+        htmlClass: "sticky-md-top pt-4"
+
+moves:
+  columns:
+    destination: post.main.content
+    before: "-"

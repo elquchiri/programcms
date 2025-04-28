@@ -1,0 +1,7 @@
+referenceContainers:
+  sidebar.additional.sticky:
+    blocks:
+      post_ads:
+        class: ProgramCms\AdsenseBundle\Block\Adsense
+        template: "@ProgramCmsAdsenseBundle/post/ads.html.twig"
+        after: "-"

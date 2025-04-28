@@ -1,0 +1,57 @@
+referenceBlocks:
+  category_form:
+    blocks:
+      posts:
+        class: "ui.block.form.fieldset"
+        arguments:
+          data:
+            label: "Posts"
+            collapse: true
+        blocks:
+          themes_listing:
+            class: "ui.block.listing"
+            arguments:
+              dataSource:
+                dataProvider:
+                  class: ProgramCms\ThemeBundle\Model\Theme\Grid\DataProvider
+                  primaryFieldName: theme_id
+                  requestFieldName: "id"
+            blocks:
+              themes_listing_columns:
+                class: "ui.block.columns"
+                blocks:
+                  selectionsColumn:
+                    class: "ui.block.selectionsColumn"
+                    arguments:
+                      data:
+                        source: "themes_listing"
+                  theme_id:
+                    class: "ui.block.column"
+                    arguments:
+                      data:
+                        label: "#"
+                        source: "themes_listing"
+                  theme_title:
+                    class: "ui.block.column"
+                    arguments:
+                      data:
+                        label: "Title"
+                        source: "themes_listing"
+                  parent_theme_title:
+                    class: "ui.block.column"
+                    arguments:
+                      data:
+                        label: "Parent Theme"
+                        source: "themes_listing"
+                  theme_path:
+                    class: "ui.block.column"
+                    arguments:
+                      data:
+                        label: "Path"
+                        source: "themes_listing"
+                  actionsColumn:
+                    class: ProgramCms\ThemeBundle\Ui\Grid\Column\ThemeActions
+                    arguments:
+                      data:
+                        label: "Actions"
+                        source: "themes_listing"

@@ -1,0 +1,6 @@
+referenceBlocks:
+  user.register.form:
+    blocks:
+      account.newsletter.subscribe.optin:
+        class: ProgramCms\NewsletterBundle\Block\User\Subscribe
+        template: "@ProgramCmsNewsletterBundle/user/subscribe.html.twig"

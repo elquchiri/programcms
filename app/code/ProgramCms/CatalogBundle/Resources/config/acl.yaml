@@ -23,6 +23,6 @@ acl:
           ProgramCmsCatalogBundle_catalog_category_edit_all:
             label: 'Edit All Categories'
           ProgramCmsCatalogBundle_catalog_category_edit_category:
-            label: 'Edit Specific Categories only'
+            label: 'Edit Specific Categories'
         ProgramCmsCatalogBundle_catalog_category_delete:
           label: 'Delete Permissions'

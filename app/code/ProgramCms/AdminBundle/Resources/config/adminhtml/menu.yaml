@@ -47,6 +47,12 @@ menu:
     htmlClass: 'sidebar-system'
     sortOrder: 9
     groups:
+      tools:
+        label: 'Tools'
+        actions:
+          cache:
+            label: 'Cache Management'
+            action: 'admin_tool_cache'
       dataTransfer:
         label: 'Data Transfer'
         actions:

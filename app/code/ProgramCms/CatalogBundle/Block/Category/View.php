@@ -14,6 +14,7 @@ use ProgramCms\CatalogBundle\Repository\CategoryRepository;
 use ProgramCms\CoreBundle\View\Element\Template;
 use ProgramCms\PostBundle\Entity\PostEntity;
 use ProgramCms\PostBundle\Repository\CommentRepository;
+use ProgramCms\PostBundle\Repository\PostRepository;
 use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use ProgramCms\UserBundle\Entity\UserEntity;
 
@@ -37,6 +38,8 @@ class View extends Template
      * @var CommentRepository
      */
     protected CommentRepository $commentRepository;
+    protected \ProgramCms\PostBundle\Model\Collection\Collection $collection;
+    protected PostRepository $postRepository;
 
     /**
      * View constructor.
@@ -50,6 +53,8 @@ class View extends Template
         Template\Context $context,
         CategoryRepository $categoryRepository,
         CommentRepository $commentRepository,
+        \ProgramCms\PostBundle\Model\Collection\Collection $collection,
+        PostRepository $postRepository,
         Url $url,
         array $data = []
     )
@@ -58,6 +63,8 @@ class View extends Template
         $this->categoryRepository = $categoryRepository;
         $this->url = $url;
         $this->commentRepository = $commentRepository;
+        $this->collection = $collection;
+        $this->postRepository = $postRepository;
     }
 
     /**
@@ -75,11 +82,19 @@ class View extends Template
     }
 
     /**
-     * @return Collection
+     * @return array
      */
-    public function getPosts(): Collection
+    public function getPosts()
     {
-        return $this->getCategory()->getPosts();
+        $p = 1;
+        if($this->getRequest()->hasParam('p')) {
+            $p = $this->getRequest()->getParam('p');
+        }
+        $posts = $this->postRepository->getPosts($this->getCategory(), $p);
+//        usort($posts, function($a, $b) {
+//            return ($b->getPostPin() === 'on') <=> ($a->getPostPin() === 'on');
+//        });
+        return $posts;
     }
 
     /**
@@ -99,7 +114,7 @@ class View extends Template
      */
     public function hasPosts(): bool
     {
-        return (bool) $this->getCategory()->getPosts()->count();
+        return (bool)$this->getCategory()->getPosts()->count();
     }
 
     /**
@@ -136,5 +151,14 @@ class View extends Template
     public function getUserUrl(UserEntity $user): string
     {
         return $this->getUrl('user_profile_view', ['id' => $user->getEntityId()]);
+    }
+
+    /**
+     * @return int
+     */
+    public function getPagesCount(): int
+    {
+        $count = $this->getCategory()->getPosts()->count() ;
+        return $count === 1 ? $count :  (int) $count / 10;
     }
 }

@@ -1,0 +1,59 @@
+referenceBlocks:
+  user_form:
+    blocks:
+      user_log:
+        class: ui.block.form.fieldset
+        arguments:
+          data:
+            label: "Session Log"
+        blocks:
+          user_log_listing:
+            class: ui.block.listing
+            arguments:
+              dataSource:
+                dataProvider:
+                  class: ProgramCms\UserBundle\Model\Provider\Listing\UserLog\DataProvider
+                  foreignFieldName: user
+                  requestFieldName: id
+            blocks:
+              user_log_listing_columns:
+                class: ui.block.columns
+                blocks:
+                  user_log_listing_selectionsColumn:
+                    class: ui.block.selectionsColumn
+                    arguments:
+                      data:
+                        source: "user_log_listing"
+                  ip_address:
+                    class: ui.block.column
+                    arguments:
+                      data:
+                        label: "IP Address"
+                        source: "user_log_listing"
+                        filter: "text"
+                  device:
+                    class: ui.block.column
+                    arguments:
+                      data:
+                        label: "Device"
+                        source: "user_log_listing"
+                        dataScope: "device"
+                  os:
+                    class: ui.block.column
+                    arguments:
+                      data:
+                        label: "OS"
+                        source: "user_log_listing"
+                  browser:
+                    class: ui.block.column
+                    arguments:
+                      data:
+                        label: "Browser"
+                        source: "user_log_listing"
+                  created_at:
+                    class: ui.block.column
+                    arguments:
+                      data:
+                        type: dateColumn
+                        label: "Date"
+                        source: "user_log_listing"

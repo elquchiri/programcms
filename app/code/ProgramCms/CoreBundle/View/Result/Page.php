@@ -49,6 +49,7 @@ class Page extends Layout
     /**
      * Page constructor.
      * @param Context $context
+     * @param string $currentLayout
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError

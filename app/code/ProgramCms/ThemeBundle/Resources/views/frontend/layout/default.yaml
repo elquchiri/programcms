@@ -1,0 +1,114 @@
+layout: 2columns-left
+
+referenceContainers:
+  head:
+    blocks:
+      head.block:
+        class: ProgramCms\ThemeBundle\Block\Page\Head\Head
+        template: "@ProgramCmsThemeBundle/head/head.html.twig"
+      head.title:
+        class: ProgramCms\ThemeBundle\Block\Page\Head\Title
+        template: "@ProgramCmsThemeBundle/head/title.html.twig"
+
+  page.top:
+    containers:
+      navigation.bar:
+        htmlTag: "nav"
+        htmlId: "menu"
+        containers:
+          navigation.nav.container:
+            htmlTag: "div"
+            htmlClass: "container"
+            blocks:
+              navigation.block:
+                class: ProgramCms\ThemeBundle\Block\Html\TopMenu
+                template: "@ProgramCmsThemeBundle/navigation_bar.html.twig"
+
+  header.container:
+    containers:
+      header.panel.wrapper:
+        htmlTag: "div"
+        htmlClass: "panel wrapper"
+        containers:
+          header.panel:
+            htmlTag: "div"
+            htmlClass: "panel header container"
+            blocks:
+              website.navigation:
+                class: ProgramCms\CoreBundle\View\Element\Template
+                template: "@ProgramCmsUserBundle/account_navigation.html.twig"
+      header.wrapper:
+        htmlTag: "div"
+        htmlClass: "panel content"
+        containers:
+          navbar:
+            htmlTag: "div"
+            htmlClass: "container"
+            containers:
+              navbar.container:
+                htmlTag: "nav"
+                htmlClass: "navbar navbar-expand-lg p-0 pt-2 pb-2"
+                containers:
+                  logo.container:
+                    htmlTag: "div"
+                    blocks:
+                      logo:
+                        class: ProgramCms\ThemeBundle\Block\Html\Header\Logo
+                        template: "@ProgramCmsThemeBundle/logo.html.twig"
+                  navbar.collapse:
+                    htmlTag: "div"
+                    htmlClass: "collapse navbar-collapse justify-content-end"
+                blocks:
+                  navbar.togller:
+                    class: ProgramCms\CoreBundle\View\Element\Template
+                    template: "@ProgramCmsThemeBundle/navbar_toggler.html.twig"
+      breadcrumb.container:
+        htmlTag: "div"
+        htmlClass: "ef-breadcrumb container"
+        blocks:
+          breadcrumb:
+            class: ProgramCms\ThemeBundle\Block\Html\Breadcrumb
+            template: "@ProgramCmsThemeBundle/breadcrumb.html.twig"
+
+  page.messages:
+    containers:
+      page.messages.wrapper:
+        htmlTag: "div"
+        htmlClass: "container"
+        blocks:
+          page.alerts.block:
+            class: ProgramCms\CoreBundle\View\Element\Template
+            template: "@ProgramCmsThemeBundle/flashes.html.twig"
+
+  main:
+    containers:
+      content: { }
+
+  footer.container:
+    containers:
+      footer:
+        htmlTag: "div"
+        htmlClass: "footer-content"
+        containers:
+          footer.columns.container:
+            htmlTag: "div"
+            htmlClass: "container"
+            containers:
+              footer.columns:
+                htmlTag: "div"
+                htmlClass: "row"
+                blocks:
+                  footer.links:
+                    class: ProgramCms\ThemeBundle\Block\Page\Links
+                    arguments:
+                      css_class: "col-md-4"
+      footer.legal.copyright:
+        blocks:
+          copyright:
+            class: ProgramCms\ThemeBundle\Block\Page\Copyright
+
+  after.body:
+    blocks:
+      before.body.block:
+        class: ProgramCms\ThemeBundle\Block\Page\Body\BeforeBody
+        template: "@ProgramCmsThemeBundle/body/before_body.html.twig"

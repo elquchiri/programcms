@@ -10,6 +10,7 @@ namespace ProgramCms\CoreBundle\View\Element;
 
 use Exception;
 use ProgramCms\CoreBundle\App\State;
+use ProgramCms\CoreBundle\DateTime\TransformerInterface;
 use ProgramCms\CoreBundle\Model\Filesystem\DirectoryList;
 use ProgramCms\CoreBundle\View\Page\Config;
 use ProgramCms\RouterBundle\Service\Request;
@@ -78,6 +79,11 @@ class Template extends AbstractBlock
     protected State $state;
 
     /**
+     * @var TransformerInterface
+     */
+    protected TransformerInterface $transformer;
+
+    /**
      * Template constructor.
      * @param Template\Context $context
      * @param array $data
@@ -92,6 +98,7 @@ class Template extends AbstractBlock
         $this->environment = $context->getEnvironment();
         $this->pageConfig = $context->getPageConfig();
         $this->translator = $context->getTranslator();
+        $this->transformer = $context->getTransformer();
         $this->resolver = $context->getResolver();
         $this->state = $context->getState();
         $this->templateContext = $this;
@@ -265,5 +272,14 @@ class Template extends AbstractBlock
         return isset($params) && !empty($params)
                 ? sprintf($this->translator->trans($message), ...$params)
                 : $this->translator->trans($message);
+    }
+
+    /**
+     * @param \DateTime $dateTime
+     * @return string
+     */
+    public function timeAgo(\DateTime $dateTime): string
+    {
+        return $this->transformer->timeAgo($dateTime);
     }
 }

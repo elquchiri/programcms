@@ -24,7 +24,7 @@ class UserActions extends ActionsColumn
     protected Url $url;
 
     /**
-     * ThemeActions constructor.
+     * UserActions constructor.
      * @param Context $context
      * @param array $data
      */
@@ -51,6 +51,11 @@ class UserActions extends ActionsColumn
                 $actions = [
                     [
                         'label' => 'Edit',
+                        'url' => $this->url->getUrlByRouteName('user_index_edit', ['id' => $rowData->getEntityId()]),
+                        'type' => 'url'
+                    ],
+                    [
+                        'label' => 'Lock',
                         'url' => $this->url->getUrlByRouteName('user_index_edit', ['id' => $rowData->getEntityId()]),
                         'type' => 'url'
                     ]

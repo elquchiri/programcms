@@ -1,0 +1,6 @@
+referenceBlocks:
+  search.results:
+    blocks:
+      search.post.results:
+        class: ProgramCms\PostBundle\Block\Search\Post
+        template: "@ProgramCmsPostBundle/search/posts.html.twig"

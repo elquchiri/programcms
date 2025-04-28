@@ -1,0 +1,33 @@
+{% if block.getPost().getReactions().count() > 0 %}
+    <div class="mb-3">
+        {{ block.getLikesResume()|raw }}
+    </div>
+{% endif %}
+
+<div data-controller="post-reaction"
+     data-post-reaction-post-value="{{ block.getPost().getEntityId() }}"
+     data-post-reaction-type-value="{{ block.getCurrentReaction() }}"
+     class="like-dislike-widget d-flex gap-3 justify-content-center">
+    <button data-post-reaction-target="reaction"
+            data-action="post-reaction#react"
+            id="like"
+            type="button"
+            class="btn btn-outline-success like-btn border-3"
+            style="font-size: 21px;"
+            aria-pressed="false">
+        <i class="bi bi-hand-thumbs-up-fill"></i>
+    </button>
+    <button data-post-reaction-target="reaction"
+            data-action="post-reaction#react"
+            id="dislike"
+            type="button"
+            class="btn btn-outline-danger dislike-btn"
+            style="font-size: 21px;"
+            aria-pressed="false">
+        <i class="bi bi-hand-thumbs-down-fill"></i>
+    </button>
+</div>
+
+<div class="text-muted mt-3">
+    <small>Please React to {{ block.getPost().getUser().getUserFirstname() }} and let know that you like or dislike the post.</small>
+</div>

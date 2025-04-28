@@ -1,0 +1,9 @@
+referenceContainers:
+  content:
+    blocks:
+      favorite.list:
+        class: "ProgramCms\\FavoriteBundle\\Block\\Index"
+        template: "@ProgramCmsFavoriteBundle/list.html.twig"
+
+requires:
+  - user_account

@@ -20,9 +20,4 @@ interface CollectionInterface
      * @return array
      */
     public function getData(): array;
-
-    /**
-     * @return string
-     */
-    public function getEntity(): string;
 }

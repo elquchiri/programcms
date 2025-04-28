@@ -1,0 +1,130 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<table class="table table-striped table-forums">
+    <thead class="table-forum-times">
+    <th class="text-center" style="width: 5%"></th>
+    <th>{{ block.trans('Posts') }}</th>
+    <th class="text-center" style="width: 12%">{{ block.trans('Publisher') }}</th>
+    <th class="text-center" style="width: 5%">{{ block.trans('Comments') }}</th>
+    <th class="text-center" style="width: 5%">{{ block.trans('Views') }}</th>
+    <th class="text-center" style="width: 13%">{{ block.trans('Latest reply') }}</th>
+    <th style="width: 8%"></th>
+    </thead>
+    <tbody>
+    {% if not block.hasPosts() %}
+        <caption class="text-center p-3"
+                 style="font-size: 14px;">{{ block.trans('No posts found in this category.') }}</caption>
+    {% endif %}
+    {% for post in block.getPosts() %}
+        <tr{% if post.getPostPin() == 'on' %} class="pinned" {% endif %}>
+            <td class="text-center">
+                {% if post.getPostLock() == 'on' %}
+                <img
+                        src="{{ asset('bundles/programcmscatalog/images/locked_folder.png') }}"
+                        alt=""
+                        title=""
+                />
+                {% else %}
+                    <img
+                            src="{{ asset('bundles/programcmscatalog/images/folder.png') }}"
+                            alt=""
+                            title=""
+                    />
+                {% endif %}
+            </td>
+            <td>
+                <p class="text-muted p-0 m-0 mb-1" style="font-size: 13px;">
+                    {{ block.timeAgo(post.getUpdatedAt()) }} &middot;
+                    {{ post.getReactions().count() }} likes
+                </p>
+                <a href="{{ block.getPostUrl(post) }}">{{ post.getPostName() }}</a>
+
+            </td>
+            <td class="text-center text-truncate">
+                <a href="#" style="font-size: 14px;">
+                    <img class="rounded-circle" src="{{ post.getUser().getProfileImage() }}"
+                         style="width: 30px; height: 30px; border: 1px solid #CCCCCC; padding: 2px;"/>
+                    <span class="ms-2 fw-bold"
+                          style="font-size: 13px;">{{ post.getUser().getUserFirstname() }}</span>
+                </a>
+            </td>
+            <td class="text-center" style="background-color: #d8dff0;">
+                {% if block.countComments(post) > 0 %}
+                    <span class="badge bg-primary">{{ block.countComments(post) }}</span>
+                {% endif %}
+            </td>
+            <td class="text-center" style="background-color: #d8dff0;">
+                <span class="badge bg-light text-dark">475</span>
+            </td>
+            <td class="text-center">
+                {% if post.getLastComment() %}
+                    <p class="text-muted p-0 m-0 mb-1 fw-bold" style="font-size: 13px;">
+                        {{ block.timeAgo(post.getLastComment().getUpdatedAt()) }}
+                    </p>
+                    <a href="{{ block.getUserUrl(post.getLastComment().getUser()) }}" style="font-size: 14px;">
+                        <img class="rounded-circle" src="{{ post.getLastComment().getUser().getProfileImage() }}"
+                             style="width: 30px; height: 30px; border: 1px solid #CCCCCC; padding: 2px;"/>
+                        <span class="ms-2 fw-bold"
+                              style="font-size: 13px;">{{ post.getLastComment().getUser().getUserFirstname() }}</span>
+                    </a>
+                {% endif %}
+            </td>
+            <td class="text-center">
+                {% if is_granted('ProgramCmsPostBundle_post_edit_categories', block.getCategory()) %}
+                    <div class="btn-group dropstart me-2">
+                        <a class="dropdown-toggle" type="button" style="font-size: 14px;"
+                           data-bs-toggle="dropdown" data-bs-auto-close="true"
+                           aria-expanded="false">
+                            {{ block.trans('Edit') }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% if is_granted('ProgramCmsPostBundle_post_edit_categories', block.getCategory()) %}
+                                <li><a class="dropdown-item" href="#">Edit Post</a></li>
+                            {% endif %}
+                            {% if is_granted('ProgramCmsPostBundle_post_delete_categories', block.getCategory()) %}
+                                <li><a class="dropdown-item" href="#">Delete Post</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                {% endif %}
+                <div class="btn-group dropdown">
+                    <a class="dropdown-toggle" type="button" style="font-size: 14px;" data-bs-toggle="dropdown"
+                       data-bs-auto-close="true"
+                       aria-expanded="false">
+                        {{ block.trans('View') }}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Read Post</a></li>
+                        <li><a class="dropdown-item" href="#">Message User</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<nav aria-label="Page navigation example" class="mt-4 mb-4">
+    <ul class="pagination justify-content-end">
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+        </li>
+
+        {# On boucle de 1 à totalPages #}
+        {% for page in 1..block.getPagesCount() %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+            </li>
+        {% endfor %}
+
+        <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+        </li>
+    </ul>
+</nav>

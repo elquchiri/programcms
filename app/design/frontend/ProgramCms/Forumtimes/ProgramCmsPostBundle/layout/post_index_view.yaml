@@ -1,0 +1,16 @@
+#referenceContainers:
+# navigation.nav.container:
+#  htmlClass: "container-fluid ps-4"
+# header.panel:
+#  htmlClass: "panel header container-fluid ps-4"
+# navbar:
+#  htmlClass: "container-fluid ps-4"
+# page.messages.wrapper:
+#  htmlClass: "container-fluid ps-4"
+# main.content:
+#  htmlClass: "page-main container-fluid"
+# breadcrumb.container:
+#  htmlTag: "div"
+#  htmlClass: "ef-breadcrumb container-fluid ps-4"
+# footer.columns.container:
+#  htmlClass: "container-fluid ps-4"

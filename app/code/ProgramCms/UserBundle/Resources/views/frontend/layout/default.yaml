@@ -1,0 +1,31 @@
+referenceContainers:
+  navbar.collapse:
+    blocks:
+      account.dropdown:
+        class: ProgramCms\UserBundle\Block\Account\AccountDropDown
+        template: "@ProgramCmsUserBundle/account_dropdown.html.twig"
+        after: "."
+
+referenceBlocks:
+  navigation.block:
+    blocks:
+      navigation.community.link:
+        class: ProgramCms\ThemeBundle\Block\Html\Item
+        arguments:
+          label: "Community"
+          path: "user_profile_index"
+          sortOrder: "4"
+      navigation.new_account.link:
+        class: ProgramCms\ThemeBundle\Block\Html\Item
+        arguments:
+          label: "Create an Account"
+          path: "user_account_register"
+          sortOrder: "8"
+          isAuth: false
+      navigation.login.link:
+        class: ProgramCms\ThemeBundle\Block\Html\Item
+        arguments:
+          label: "Sign In"
+          path: "user_account_login"
+          sortOrder: "9"
+          isAuth: false

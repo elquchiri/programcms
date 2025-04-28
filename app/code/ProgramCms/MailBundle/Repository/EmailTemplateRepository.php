@@ -35,4 +35,13 @@ class EmailTemplateRepository extends AbstractRepository
     {
         return $this->findOneBy(['entity_id' => $id]);
     }
+
+    /**
+     * @param string $code
+     * @return object|null
+     */
+    public function getByCode(string $code): ?object
+    {
+        return $this->findOneBy(['code' => $code]);
+    }
 }

@@ -8,13 +8,37 @@
 
 namespace ProgramCms\MailBundle\Block;
 
-use ProgramCms\CoreBundle\View\Element\Template;
+use ProgramCms\PageBundle\Block\PageEditor;
 
 /**
  * Class EmailEditor
  * @package ProgramCms\MailBundle\Block
  */
-class EmailEditor extends Template
+class EmailEditor extends PageEditor
 {
+    /**
+     * @return string
+     */
+    public function getLoadUrl(): string
+    {
+        return $this->getUrl('mailer_ajax_loadtemplate', [
+            'template_id' => $this->getTemplateId()
+        ]);
+    }
 
+    /**
+     * @return string
+     */
+    public function getSaveUrl(): string
+    {
+        return $this->getUrl('mailer_index_save');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTemplateId()
+    {
+        return $this->getRequest()->getParam('id');
+    }
 }

@@ -49,7 +49,7 @@
 
   .editor-column {
     flex: 1; /* Each column takes equal width */
-    background-color: #FFFFFF;
+    //background-color: #FFFFFF;
   }
 
   #blocks {
@@ -65,7 +65,7 @@
   .editor-canvas {
     flex: 2;
     flex-grow: 4;
-    border: 2px solid #cecece;
+    //border: 2px solid #cecece;
     border-radius: 5px;
   }
 
@@ -74,6 +74,7 @@
     overflow-y: auto;
     border: 2px solid #cecece;
     border-radius: 5px;
+    background-color: #ffffff;
 
     #styles-container {
       display: block;
@@ -137,6 +138,7 @@
   box-shadow: none;
   background-color: inherit;
   font-size: 15px;
+  font-weight: bold;
 
   &:hover, &:focus, &:active {
     border: 0 !important;
@@ -306,7 +308,7 @@
 
       &.with_text {
         font-size: 13px;
-        padding-top: 4px;
+        padding-top: 5px;
         padding-left: 35px;
         padding-right: 13px;
         font-weight: bold;

@@ -1,0 +1,9 @@
+referenceContainers:
+  content:
+    blocks:
+      user.edit.index:
+        class: ProgramCms\UserBundle\Block\Account\Edit\Dashboard
+        template: "@ProgramCmsUserBundle/dashboard/dashboard.html.twig"
+
+requires:
+  - user_account

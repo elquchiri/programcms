@@ -1,0 +1,46 @@
+referenceContainers:
+  content:
+    blocks:
+      bundle_listing:
+        class: ui.block.listing
+        arguments:
+          buttons:
+            new: ProgramCms\ManagerBundle\Model\Provider\Button\Bundles\AddBundleButton
+          dataSource:
+            dataProvider:
+              class: ProgramCms\ManagerBundle\Model\Provider\Listing\Bundles\DataProvider
+        blocks:
+          bundle_listing_columns:
+            class: ui.block.columns
+            blocks:
+              selectionsColumn:
+                class: ui.block.selectionsColumn
+                arguments:
+                  data:
+                    source: bundle_listing
+              bundle_name:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: Bundle Name
+                    source: bundle_listing
+                    filter: text
+              bundle_path:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: Bundle Path
+                    source: bundle_listing
+                    filter: text
+              status_label:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: Bundle Status
+                    source: bundle_listing
+              actionsColumn:
+                class: ProgramCms\ManagerBundle\Ui\Grid\Column\Bundle\Actions
+                arguments:
+                  data:
+                    label: Actions
+                    source: bundle_listing

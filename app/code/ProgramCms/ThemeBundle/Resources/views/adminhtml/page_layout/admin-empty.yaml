@@ -1,0 +1,16 @@
+root:
+  containers:
+   head:
+    htmlTag: head
+   body:
+    htmlTag: body
+    containers:
+     before.body: {}
+     page.wrapper:
+      htmlTag: div
+      htmlClass: page-wrapper
+      containers:
+       page.content:
+        htmlTag: div
+        htmlClass: content
+     after.body: {}

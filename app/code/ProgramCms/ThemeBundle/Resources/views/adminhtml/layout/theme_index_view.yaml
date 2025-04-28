@@ -1,0 +1,52 @@
+layout: admin-2columns-left
+referenceContainers:
+  content:
+    blocks:
+      theme_form:
+        class: ui.block.form
+        arguments:
+          data:
+            label: Theme Information
+          dataSource:
+            dataProvider:
+              class: ProgramCms\ThemeBundle\Model\Theme\Grid\DataProvider
+              primaryFieldName: theme_id
+              requestFieldName: id
+          buttons:
+            back: ProgramCms\ThemeBundle\Model\Provider\Button\BackToThemesButton
+        blocks:
+          theme_fieldset:
+            class: ui.block.form.fieldset
+            arguments:
+              data:
+                label: General
+            blocks:
+              theme_title:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: plainText
+                    label: Title
+                    source: theme_form
+              theme_path:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: plainText
+                    label: Path
+                    source: theme_form
+              parent_theme_title:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: plainText
+                    label: Parent Theme
+                    helpMessage: Parent Theme Ensures that all core layouts and templates are being loaded.
+                    source: theme_form
+              preview_image:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: image
+                    label: Preview
+                    source: theme_form

@@ -1,0 +1,69 @@
+layout: admin-2columns-left
+title: All Websites
+referenceContainers:
+  sidebar.main:
+    blocks:
+      category.tree.block:
+        class: ProgramCms\CatalogBundle\Block\CategoryTreeButtons
+        template: '@ProgramCmsWebsiteBundle/new_root_website.html.twig'
+      category.tree:
+        class: ProgramCms\UiBundle\Component\Tree\Tree
+        arguments:
+          data:
+            isOpen: true
+          dataSource:
+            dataProvider:
+              class: ProgramCms\WebsiteBundle\Model\Website\DataProvider
+  content:
+    blocks:
+      website_form:
+        class: ui.block.form
+        arguments:
+          data:
+            label: Website Information
+          buttons:
+            save: ProgramCms\WebsiteBundle\Model\Provider\Button\SaveWebsiteButton
+          dataSource:
+            settings:
+              submitUrl: website_website_save
+        blocks:
+          website_fieldset:
+            class: ui.block.form.fieldset
+            blocks:
+              is_active:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    label: Enable Website
+                    type: switcher
+              website_name:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: Name
+                    placeholder: Website Name
+                    isRequired: true
+              website_code:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: Code
+                    placeholder: Code
+                    isRequired: true
+              sort_order:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: Sort Order
+                    placeholder: "0"
+              defaultGroup:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: select
+                    label: Default Group
+                    sourceModel: ProgramCms\WebsiteBundle\Model\Provider\DataSource\Groups
+                    isRequired: true

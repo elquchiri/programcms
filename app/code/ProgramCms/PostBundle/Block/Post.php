@@ -259,4 +259,72 @@ class Post extends Template
     {
         return $this->transformer->timeAgo($comment->getUpdatedAt());
     }
+
+    public function getUserGroups()
+    {
+        $user = $this->getPost()->getUser();
+        $groups = "";
+        foreach($user->getCollectionGroups() as $group) {
+            $groups .= "<p class='m-0' style='font-size: 15px; color: {$group->getColor()}'>" . $this->trans($group->getName()) . "</p>";
+        }
+        return $groups;
+    }
+
+    /**
+     * @param PostEntity $post
+     * @return string
+     */
+    public function getPinUrl(): string
+    {
+        $post = $this->getPost();
+        $category = $this->getCategory();
+        return $this->getUrl('post_edit_pin', ['id' => $post->getEntityId(), 'category' => $category->getEntityId()]);
+    }
+
+    public function getLockUrl(): string
+    {
+        $post = $this->getPost();
+        $category = $this->getCategory();
+        return $this->getUrl('post_edit_lock', ['id' => $post->getEntityId(), 'category' => $category->getEntityId()]);
+    }
+
+    public function getDisableUrl(): string
+    {
+        $post = $this->getPost();
+        $category = $this->getCategory();
+        return $this->getUrl('post_edit_disable', ['id' => $post->getEntityId(), 'category' => $category->getEntityId()]);
+    }
+
+    /**
+     * @return bool
+     */
+    public function canComment(): bool
+    {
+        return $this->getPost()->getPostLock() !== 'on';
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getRelatedPosts(): Collection
+    {
+        return $this->getPost()->getUser()->getPosts();
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasRelatedPosts(): bool
+    {
+        return !empty($this->getRelatedPosts());
+    }
+
+    /**
+     * @return string
+     */
+    public function getPosterFlag(): string
+    {
+        $countryCode = $this->getPost()->getUser()->getDefaultAddress()->getCountryCode();
+        return '/bundles/programcmswebsite/images/flags/' . strtolower($countryCode) . '.png';
+    }
 }

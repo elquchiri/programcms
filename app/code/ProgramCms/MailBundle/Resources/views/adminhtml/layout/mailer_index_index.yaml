@@ -1,0 +1,46 @@
+referenceContainers:
+  content:
+    blocks:
+      email_templates_listing:
+        class: ui.block.listing
+        arguments:
+          buttons:
+            new: ProgramCms\MailBundle\Model\Provider\Button\NewTemplateButton
+          dataSource:
+            dataProvider:
+              class: ProgramCms\MailBundle\Model\Provider\Listing\EmailTemplateDataProvider
+              primaryFieldName: entity_id
+              requestFieldName: id
+        blocks:
+          email_templates_listing_columns:
+            class: ui.block.columns
+            blocks:
+              selectionsColumn:
+                class: ui.block.selectionsColumn
+                arguments:
+                  data:
+                    source: email_templates_listing
+              entity_id:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: "#"
+                    source: email_templates_listing
+              code:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: Code
+                    source: email_templates_listing
+              name:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: Name
+                    source: email_templates_listing
+              actionsColumn:
+                class: ProgramCms\MailBundle\Ui\Grid\Column\Template\Actions
+                arguments:
+                  data:
+                    label: Actions
+                    source: email_templates_listing

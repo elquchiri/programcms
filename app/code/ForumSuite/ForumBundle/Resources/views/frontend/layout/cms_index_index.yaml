@@ -1,0 +1,24 @@
+referenceContainers:
+  content:
+    containers:
+      home.forums:
+        htmlTag: div
+        htmlClass: 'row mb-5'
+        containers:
+          home.forums.listing:
+            htmlTag: div
+            htmlClass: 'col'
+            blocks:
+              home.forums.block:
+                class: ForumSuite\ForumBundle\Block\Cms\Categories
+                template: '@ForumSuiteForumBundle/cms/forums.html.twig'
+          home.user.login:
+            htmlTag: div
+            htmlClass: 'col-md-2'
+            blocks:
+              home.user.block:
+                class: ProgramCms\UserBundle\Block\Account\Login
+                template: '@ForumSuiteForumBundle/user/login.html.twig'
+              home.forum.last_users:
+                class: ForumSuite\ForumBundle\Block\User\LastUsers
+                template: '@ForumSuiteForumBundle/user/last_users.html.twig'

@@ -1,0 +1,6 @@
+referenceContainers:
+  content:
+    blocks:
+      user.login.form:
+        class: ProgramCms\UserBundle\Block\Account\Login
+        template: "@ProgramCmsUserBundle/authentication/login.html.twig"

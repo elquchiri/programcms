@@ -1,0 +1,87 @@
+layout: admin-2columns-left
+referenceContainers:
+  content:
+    blocks:
+      admin_user_form:
+        class: ui.block.form
+        arguments:
+          data:
+            label: "Admin Users"
+          buttons:
+            back: ProgramCms\AdminBundle\Model\Provider\Button\AdminUser\BackButton
+            save: ProgramCms\AdminBundle\Model\Provider\Button\AdminUser\SaveButton
+          dataSource:
+            settings:
+              submitUrl: admin_user_save
+          layout:
+            navContainerName: sidebar.main
+            type: tabs
+        blocks:
+          user_view:
+            class: ui.block.form.fieldset
+            arguments:
+              data:
+                label: "Account Interface"
+            blocks:
+              first_name:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: "First Name"
+                    isRequired: true
+              last_name:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: "Last Name"
+                    isRequired: true
+              email:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: "Email"
+                    isRequired: true
+              new_password:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: password
+                    label: "New Password"
+              password_confirmation:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: password
+                    label: "Password Confirmation"
+              interface_locale:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: select
+                    label: "Interface Locale"
+                    sourceModel: ProgramCms\UiBundle\Model\Provider\DataSource\Locales
+              roles:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: multiselect
+                    label: "Roles"
+                    sourceModel: ProgramCms\AclBundle\Model\Provider\DataSource\Acl\Roles
+          fieldset3:
+            class: ui.block.form.fieldset
+            arguments:
+              data:
+                label: "User Identity Verification"
+                open: true
+                collapse: true
+            blocks:
+              password:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: password
+                    label: "Your Password"
+                    isRequired: true

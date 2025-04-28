@@ -1,0 +1,41 @@
+/*!
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+
+.monitor_cateory_container {
+  padding-left: 15px;
+  padding-right: 15px;
+
+  .btn {
+    padding-left: 35px;
+    margin-right: 7px;
+    background-repeat: no-repeat;
+    background-position: 5px center;
+    font-size: 14px;
+    color: #000000;
+
+    &.edit{
+      background-image: url("../../../../../public/images/edit_category.png");
+      font-weight: bold;
+      color: #0d6efd;
+    }
+    &.settings{
+      background-image: url("../../../../../public/images/settings.png");
+    }
+    &.managers{
+      background-image: url("../../../../../public/images/edit_category.png");
+      //padding-left: 3px;
+    }
+    &.reporting{
+      background-image: url("../../../../../public/images/reporting.png");
+      //padding-left: 3px;
+    }
+    &.top_users{
+      background-image: url("../../../../../public/images/top_users.png");
+      //padding-left: 3px;
+    }
+  }
+}

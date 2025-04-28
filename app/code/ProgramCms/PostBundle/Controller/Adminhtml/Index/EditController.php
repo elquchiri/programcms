@@ -66,7 +66,7 @@ class EditController extends AdminController
             );
         }
 
-        $this->prepareLayout($pageResult);
+        //$this->prepareLayout($pageResult);
 
         return $pageResult;
     }

@@ -8,9 +8,10 @@
 
 namespace ProgramCms\ManagerBundle\Model\Provider\Listing\Bundles;
 
-use ProgramCms\CoreBundle\Model\DataObject;
 use ProgramCms\CoreBundle\Model\Utils\BundleManager;
+use ProgramCms\ManagerBundle\Model\Collection\Bundle\Collection;
 use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;
+use ProgramCms\CoreBundle\Model\DataObject;
 
 /**
  * Class DataProvider
@@ -18,27 +19,32 @@ use ProgramCms\UiBundle\DataProvider\AbstractDataProvider;
  */
 class DataProvider extends AbstractDataProvider
 {
+    /**
+     * @var BundleManager
+     */
     protected BundleManager $bundleManager;
 
     /**
      * DataProvider constructor.
+     * @param Collection $collection
+     * @param BundleManager $bundleManager
      */
     public function __construct(
+        Collection $collection,
         BundleManager $bundleManager
     )
     {
-
+        $this->collection = $collection;
         $this->bundleManager = $bundleManager;
     }
 
     public function getData(): mixed
     {
+        $collectionData = parent::getData();
         $data = [];
-        $bundles = $this->bundleManager->getAllBundles();
-        foreach($bundles as $bundle) {
-            $bundle['status'] = 'Active';
-            $dataObject = new DataObject($bundle);
-            $data[] = $dataObject;
+        foreach($collectionData as $bundle) {
+            $bundle->setData('status_label', $bundle->getStatus() === true ? '<span class="badge rounded-pill bg-success w-100 text-uppercase" style="font-size: 12px;">Enabled</span>' : '<span class="badge bg-danger float-end">Disabled</span>');
+            $data[] = $bundle;
         }
         return $data;
     }

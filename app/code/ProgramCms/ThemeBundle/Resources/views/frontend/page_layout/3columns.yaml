@@ -1,0 +1,9 @@
+require: 2columns-left
+
+referenceContainers:
+  columns:
+    containers:
+      sidebar.additional:
+        htmlTag: div
+        htmlClass: col-md
+        after: "-"

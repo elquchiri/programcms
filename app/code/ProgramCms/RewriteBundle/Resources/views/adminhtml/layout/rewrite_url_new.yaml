@@ -1,0 +1,63 @@
+layout: admin-2columns-left
+referenceContainers:
+  content:
+    blocks:
+      url_rewrite_form:
+        class: ui.block.form
+        arguments:
+          data:
+            label: URL Information
+          buttons:
+            back: ProgramCms\RewriteBundle\Model\Provider\Button\Url\Back
+            save: ProgramCms\RewriteBundle\Model\Provider\Button\Url\Save
+          dataSource:
+            settings:
+              submitUrl: rewrite_url_save
+          layout:
+            navContainerName: sidebar.main
+            type: tabs
+        blocks:
+          url_rewrite_view:
+            class: ui.block.form.fieldset
+            arguments:
+              data:
+                label: Rewrite Detail
+            blocks:
+              websiteView:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: select
+                    label: Associate to View
+                    isRequired: true
+                    sourceModel: ProgramCms\WebsiteBundle\Model\Provider\DataSource\WebsiteTree
+                    size: col-md-3
+              request_path:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: Request Path
+                    isRequired: true
+              target_path:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: Target Path
+                    isRequired: true
+              arguments:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: textarea
+                    label: Arguments
+                    isRequired: false
+              redirect_type:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: select
+                    label: Redirect Type
+                    isRequired: false
+                    sourceModel: ProgramCms\RewriteBundle\Model\Provider\DataSource\RedirectTypes

@@ -1,0 +1,80 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="pcms-editor">
+            <form
+                    method="post"
+                    data-controller="editor"
+                    data-editor-load-endpoint-value="{{ block.getLoadUrl() }}"
+                    data-editor-save-endpoint-value="{{ block.getSaveUrl() }}"
+                    data-editor-entity-id-value="{{ block.getPostId() }}"
+                    data-editor-icon-value="{{ block.getBackIcon() }}"
+            >
+                <div style="padding: 1px 12px 0 12px;">
+                    <div class="editor-header"></div>
+                    <div class="panel__top mt-2"></div>
+                </div>
+            </form>
+
+    <div class="editor-row">
+        <div id="blocks" class="editor-column">
+
+        </div>
+        <div class="editor-canvas editor-column" id="editor-wrapper" aria-describedby="gjs">
+            <div>What do you want to say ? ...</div>
+        </div>
+        <div id="components" class="editor-column">
+            <div id="layers-container" class="component_container"></div>
+            <div id="styles-container" class="component_container"></div>
+            <div id="traits-container" class="component_container"></div>
+            <div id="settings-container" class="component_container p-3">
+                <form id="eavAttributes">
+                    {% for attribute in block.getEavAttributes() %}
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">{{ attribute.label }}</label>
+                            {{ attribute.html|raw }}
+                        </div>
+                    {% endfor %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade modal__actions" id="linkModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">{{ block.trans('Add Link') }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form_link">
+                    <div class="mb-3">
+                        <label for="link_title" class="form-label">{{ block.trans('Link Title') }}</label>
+                        <input type="text" class="form-control" id="link_title" aria-describedby="link_title">
+                    </div>
+                    <div class="mb-3">
+                        <label for="link_url" class="form-label">{{ block.trans('Link') }}</label>
+                        <input type="text" class="form-control" id="link_url">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {{ block.trans('Close') }}
+                </button>
+                <button type="button" class="btn btn-primary" id="add_link_button">
+                    {{ block.trans('Add Link') }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

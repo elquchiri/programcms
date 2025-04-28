@@ -1,0 +1,36 @@
+/*!
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+
+.like-dislike-widget {
+  .like-btn {
+    &.active {
+      background-color: #198754;
+      transition: background-color 1s;
+    }
+  }
+
+  .dislike-btn {
+    &.active {
+      background-color: #dc3545;
+      transition: background-color 1s;
+    }
+  }
+
+  button {
+    transition: transform 0.2s ease, background-color 0.3s;
+
+    &:active {
+      transform: scale(1.2);
+    }
+  }
+
+  .btn {
+    &.active {
+      transform: scale(1.1);
+    }
+  }
+}

@@ -11,6 +11,7 @@ namespace ProgramCms\CoreBundle\View\Result;
 use ProgramCms\CoreBundle\Model\Utils\BundleManager;
 use ProgramCms\CoreBundle\View\Element\Template\Context;
 use ProgramCms\RouterBundle\Service\Request;
+use ProgramCms\ThemeBundle\Loader\LayoutLoader;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -23,7 +24,7 @@ use Twig\Error\SyntaxError;
  */
 class Layout extends AbstractResult
 {
-    const LAYOUT_EXTENSION = 'layout.twig';
+    const LAYOUT_EXTENSION = '.yaml';
 
     /**
      * @var \ProgramCms\CoreBundle\View\Layout
@@ -51,6 +52,11 @@ class Layout extends AbstractResult
     protected string $currentLayout;
 
     /**
+     * @var LayoutLoader
+     */
+    protected LayoutLoader $layoutLoader;
+
+    /**
      * @throws SyntaxError
      * @throws RuntimeError
      * @throws LoaderError
@@ -62,15 +68,14 @@ class Layout extends AbstractResult
         $this->layout = $context->getLayout();
         $this->bundleManager = $context->getBundleManager();
         $this->currentLayout = $currentLayout;
+        $this->layoutLoader = $context->getLayoutLoader();
 
         // Construct Layout Elements
         $this->_initLayout();
     }
 
     /**
-     * @throws SyntaxError
-     * @throws RuntimeError
-     * @throws LoaderError
+     * @throws \ReflectionException
      */
     private function _initLayout()
     {
@@ -81,7 +86,9 @@ class Layout extends AbstractResult
         if(!empty($this->currentLayout)) {
             $currentRouteName = $this->currentLayout;
         }
-        $this->env->render($currentRouteName . '.' . self::LAYOUT_EXTENSION);
+
+        $this->layoutLoader->renderLayout($currentRouteName . self::LAYOUT_EXTENSION);
+
         // Generate Layout Elements
         $this->getLayout()->generateElements();
     }

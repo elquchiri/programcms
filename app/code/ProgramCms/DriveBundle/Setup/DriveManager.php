@@ -8,6 +8,7 @@
 
 namespace ProgramCms\DriveBundle\Setup;
 
+use Doctrine\ORM\EntityManagerInterface;
 use ProgramCms\CoreBundle\Model\Utils\BundleManagerInterface;
 use ProgramCms\DriveBundle\Entity\DriveFile;
 use ProgramCms\DriveBundle\Helper\FileHelper;
@@ -40,6 +41,7 @@ class DriveManager implements DriveManagerInterface
      * @var UrlInterface
      */
     protected UrlInterface $url;
+    protected EntityManagerInterface $entityManager;
 
     /**
      * DriveManager constructor.
@@ -52,13 +54,15 @@ class DriveManager implements DriveManagerInterface
         BundleManagerInterface $bundleManager,
         DriveFileRepository $driveFileRepository,
         FileHelper $fileHelper,
-        UrlInterface $url
+        UrlInterface $url,
+        EntityManagerInterface $entityManager
     )
     {
         $this->driveFileRepository = $driveFileRepository;
         $this->fileHelper = $fileHelper;
         $this->bundleManager = $bundleManager;
         $this->url = $url;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -74,6 +78,7 @@ class DriveManager implements DriveManagerInterface
         $fileSize = $file->getSize();
         $fileExt = $file->getClientOriginalExtension();
         $fileType = $file->getType();
+        $mimeType = $file->getClientMimeType();
         $perms = $this->fileHelper->permsToArray($file->getPerms());
         $driveFilePath = $this->url->getBaseUrl() . '/' . $destination . '/' . $newFilename;
 
@@ -87,8 +92,20 @@ class DriveManager implements DriveManagerInterface
             ->setPath($driveFilePath)
             ->setGeneratedName($newFilename)
             ->setType($fileType)
+            ->setMimeType($mimeType)
             ->setPerms($perms)
             ->updateTimestamps();
-        $this->driveFileRepository->save($driveFile);
+
+        /**
+         * The onFlush event fires while Doctrine is preparing to sync with the database.
+         * If you do a $this->driveFileRepository->save($driveFile)
+         * (which probably does a persist + flush) inside onFlush,
+         * you break Doctrine's lifecycle.
+         */
+        $this->driveFileRepository->save($driveFile, false);
+        $this->entityManager->getUnitOfWork()->computeChangeSet(
+            $this->entityManager->getClassMetadata(DriveFile::class),
+            $driveFile
+        );
     }
 }

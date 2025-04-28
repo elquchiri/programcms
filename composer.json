@@ -9,6 +9,7 @@
         "php": ">=8.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/annotations": "^2.0",
         "doctrine/doctrine-bundle": "^2.7",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.13",
@@ -89,6 +90,8 @@
             "ProgramCms\\GtmBundle\\": "app/code/ProgramCms/GtmBundle",
             "ProgramCms\\ApiBundle\\": "app/code/ProgramCms/ApiBundle",
             "ProgramCms\\AdsenseBundle\\": "app/code/ProgramCms/AdsenseBundle",
+            "ProgramCms\\SocialShareBundle\\": "app/code/ProgramCms/SocialShareBundle",
+            "ProgramCms\\PostReactionBundle\\": "app/code/ProgramCms/PostReactionBundle",
             "ProgramCms\\Backend\\": "app/design/adminhtml/ProgramCms/Backend",
             "ProgramCms\\Blank\\": "app/design/frontend/ProgramCms/Blank",
             "ProgramCms\\Forumtimes\\": "app/design/frontend/ProgramCms/Forumtimes",
@@ -139,7 +142,6 @@
         "symfony/css-selector": "6.2.*",
         "symfony/maker-bundle": "^1.48",
         "symfony/phpunit-bridge": "^7.0",
-        "symfony/stopwatch": "6.2.*",
-        "symfony/web-profiler-bundle": "6.2.*"
+        "symfony/stopwatch": "6.2.*"
     }
 }

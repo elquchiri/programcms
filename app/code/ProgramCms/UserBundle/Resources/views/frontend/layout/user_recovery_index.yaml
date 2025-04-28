@@ -1,0 +1,6 @@
+referenceContainers:
+  content:
+    blocks:
+      user.forgotten.password:
+        class: ProgramCms\\UserBundle\\Block\\Account\\Recovery
+        template: "@ProgramCmsUserBundle/recovery/forgotten_password.html.twig"

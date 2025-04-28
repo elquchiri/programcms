@@ -1,0 +1,57 @@
+referenceContainers:
+  content:
+    blocks:
+      url_rewrite_listing:
+        class: ui.block.listing
+        arguments:
+          buttons:
+            new: ProgramCms\RewriteBundle\Model\Provider\Button\Url\NewButton
+          dataSource:
+            dataProvider:
+              class: ProgramCms\RewriteBundle\Model\Provider\Listing\Url\DataProvider
+              primaryFieldName: url_rewrite_id
+        blocks:
+          url_rewrite_listing_columns:
+            class: ui.block.columns
+            blocks:
+              selectionsColumn:
+                class: ui.block.selectionsColumn
+                arguments:
+                  data:
+                    source: url_rewrite_listing
+              url_rewrite_id:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: '#'
+                    source: url_rewrite_listing
+              request_path:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: Request Path
+                    source: url_rewrite_listing
+              target_path:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: Target Path
+                    source: url_rewrite_listing
+              arguments:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: Arguments
+                    source: url_rewrite_listing
+              redirect_type:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: Redirect Type
+                    source: url_rewrite_listing
+              actionsColumn:
+                class: ProgramCms\RewriteBundle\Ui\Grid\Column\Url\Actions
+                arguments:
+                  data:
+                    label: Actions
+                    source: url_rewrite_listing

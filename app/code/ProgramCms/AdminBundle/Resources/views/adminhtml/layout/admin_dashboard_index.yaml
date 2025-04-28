@@ -1,0 +1,15 @@
+referenceContainers:
+  buttons.bar:
+    blocks:
+      website.switcher:
+        class: ProgramCms\UiBundle\Block\Toolbar\WebsiteSwitcher
+
+  content:
+    blocks:
+      dashboard.home:
+        class: ProgramCms\AdminBundle\Block\Dashboard\AdvancedReporting
+        template: "@ProgramCmsAdminBundle/dashboard/home.html.twig"
+        blocks:
+          dashboard.advanced.reporting:
+            class: ProgramCms\AdminBundle\Block\Dashboard\AdvancedReporting
+            template: "@ProgramCmsAdminBundle/dashboard/advanced_reporting.html.twig"

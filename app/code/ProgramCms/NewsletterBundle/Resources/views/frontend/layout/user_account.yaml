@@ -1,0 +1,9 @@
+referenceBlocks:
+  user.account.navigation:
+    blocks:
+      user.account.newsletter:
+        class: ProgramCms\CoreBundle\View\Element\Html\Link\Item
+        arguments:
+          label: "Newsletter"
+          path: "newsletter_manage_index"
+          sortOrder: "6"

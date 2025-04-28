@@ -1,0 +1,22 @@
+referenceBlocks:
+  navigation.block:
+    blocks:
+      navigation.posts.link:
+        class: ProgramCms\ThemeBundle\Block\Html\Item
+        arguments:
+          label: Posts
+          path: post_user_index
+          sortOrder: 2
+          isAuth: true
+      navigation.trends.link:
+        class: ProgramCms\ThemeBundle\Block\Html\Item
+        arguments:
+          label: Trends
+          path: post_index_trend
+          sortOrder: 6
+      navigation.archive.link:
+        class: ProgramCms\ThemeBundle\Block\Html\Item
+        arguments:
+          label: Archive
+          path: post_index_archive
+          sortOrder: 7

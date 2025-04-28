@@ -13,6 +13,7 @@ use ProgramCms\CoreBundle\DateTime\TransformerInterface;
 use ProgramCms\UiBundle\Component\AbstractComponent;
 use ProgramCms\UiBundle\View\Element\Context;
 use ProgramCms\UserBundle\Entity\Address\UserAddressEntity;
+use ProgramCms\UserBundle\Entity\Group\UserGroup;
 use ProgramCms\UserBundle\Entity\UserEntity;
 use ProgramCms\UserBundle\Repository\UserEntityRepository;
 use ProgramCms\UserBundle\Repository\UserLogRepository;
@@ -134,6 +135,17 @@ class AccountView extends AbstractComponent
     {
         $user = $this->getUser();
         return $user->getWebsiteView()->getWebsiteName() . ' &middot; ' . $user->getWebsiteView()->getName();
+    }
+
+    public function getUserRoles()
+    {
+        $user = $this->getUser();
+        $html = "";
+        /** @var UserGroup $group */
+        foreach($user->getCollectionGroups() as $group) {
+            $html .= "<div class='badge me-3' style='background-color: {$group->getColor()}'>" . $group->getName() ."</div>";
+        }
+        return $html;
     }
 
     /**

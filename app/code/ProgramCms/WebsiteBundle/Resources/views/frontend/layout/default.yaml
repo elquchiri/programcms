@@ -1,0 +1,11 @@
+referenceContainers:
+  header.panel:
+    blocks:
+      website.switcher:
+        class: ProgramCms\WebsiteBundle\Block\WebsiteSwitcher
+        template: '@ProgramCmsWebsiteBundle/website_switcher.html.twig'
+        before: '-'
+      locale.switcher:
+        class: ProgramCms\WebsiteBundle\Block\LocaleSwitcher
+        template: '@ProgramCmsWebsiteBundle/locale_switcher.html.twig'
+        before: '-'

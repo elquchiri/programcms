@@ -1,0 +1,10 @@
+<a class="navbar-brand" href="{{ block.getCategoryUrl() }}">
+    <img style="margin-top: -21px;" src="{{ block.getCategory().getCategoryImage() }}" width="40" height="40"
+         alt=""/>
+</a>
+<p>
+    <a href="{{ block.getCategoryUrl() }}"
+       style="font-weight: bold; font-size: 19px">{{ block.getCategory().getCategoryName() }}</a>
+    <span style="display: block; font-size: 13px;" class="mt-1 text-muted">{{ block.trans('Managed by') }}: <a
+                href="">Med ELQ</a></span>
+</p>

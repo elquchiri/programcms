@@ -1,0 +1,30 @@
+layout: admin-2columns-left
+referenceContainers:
+  buttons.bar:
+    blocks:
+      website.switcher:
+        class: "ui.block.toolbar.website_switcher"
+        arguments:
+          confirm: false
+          switch_websites: false
+          switch_groups: false
+          switch_views: true
+  sidebar.main:
+    containers:
+      tree.container:
+        htmlTag: "div"
+        htmlClass: "sticky-md-top"
+        blocks:
+          category.tree.block:
+            class: ProgramCms\CatalogBundle\Block\CategoryTreeButtons
+            template: "@ProgramCmsCatalogBundle/tree_buttons.html.twig"
+          category.tree:
+            class: ProgramCms\UiBundle\Component\Tree\Tree
+            arguments:
+              data:
+                isOpen: true
+              dataSource:
+                dataProvider:
+                  class: ProgramCms\CatalogBundle\Model\Provider\DataSource\Category\TreeDataProvider
+requires:
+  - includes/category_form

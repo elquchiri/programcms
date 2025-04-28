@@ -493,7 +493,7 @@ class Layout implements LayoutInterface
      */
     private function _cleanUnusedPageLayoutContainers(): void
     {
-        $currentPageLayout = $this->elementsWithFileName[$this->currentPageLayout];
+        $currentPageLayout = $this->elementsWithFileName[$this->currentPageLayout] ?? [];
         $pageLayouts = $this->elementsWithFileName;
         if(isset($currentPageLayout['handlers'])) {
             foreach($currentPageLayout['handlers'] as $layout) {
@@ -713,6 +713,17 @@ class Layout implements LayoutInterface
     public function setBlock($name, $block): static
     {
         $this->blocks[$name] = $block;
+        return $this;
+    }
+
+    /**
+     * @param $name
+     * @return $this
+     */
+    public function unsetBlock($name): static
+    {
+        unset($this->blocks[$name]);
+        $this->getStructure()->unsetElement($name);
         return $this;
     }
 

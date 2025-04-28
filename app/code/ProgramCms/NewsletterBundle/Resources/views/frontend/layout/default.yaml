@@ -1,0 +1,6 @@
+referenceContainers:
+  footer.columns:
+    blocks:
+      newsletter.subscriber:
+        class: ProgramCms\NewsletterBundle\Block\Newsletter
+        template: "@ProgramCmsNewsletterBundle/newsletter.html.twig"

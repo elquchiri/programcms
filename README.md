@@ -139,6 +139,7 @@ Basic Frontend Home Page :
 - 2023/06: Changing Project name from ElectroForums to ProgramCMS.
 - 2023/08: Finally, The Inspiring Logo (°P) Founded.
 - 2024/04: First stable beta version for internal use.
+- 2025/04: Switching from Twig to Yaml for layout management
 ## Donation
 
 Your donation will help, Improve and Speed up productivity of The Amazing ProgramCMS.

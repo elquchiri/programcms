@@ -1,0 +1,22 @@
+##
+#  Copyright © ProgramCMS. All rights reserved.
+#  See COPYING.txt for license details.
+#
+#  Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+##
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  ProgramCms\PostReactionBundle\:
+    resource: '../../'
+    exclude:
+      - '../../DependencyInjection/'
+      - '../../Resources/'
+      - '../../Tests/'
+
+  ProgramCms\PostReactionBundle\EventSubscriber\DoctrineMappingSubscriber:
+    tags:
+      - { name: doctrine.event_listener, event: postLoad, priority: 1 }

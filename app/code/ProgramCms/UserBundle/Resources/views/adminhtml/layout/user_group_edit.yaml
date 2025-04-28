@@ -1,0 +1,77 @@
+layout: admin-2columns-left
+referenceContainers:
+  content:
+    blocks:
+      user_group_form:
+        class: "ui.block.form"
+        arguments:
+          data:
+            label: "User Group"
+          dataSource:
+            dataProvider:
+              class: ProgramCms\UserBundle\Model\Provider\Listing\Groups\DataProvider
+              primaryFieldName: "group_id"
+              requestFieldName: "id"
+            settings:
+              submitUrl: "user_group_save"
+          buttons:
+            back: ProgramCms\UserBundle\Model\Provider\Button\BackToUserGroupsButton
+            save: ProgramCms\UserBundle\Model\Provider\Button\SaveUserGroupButton
+        blocks:
+          general_fieldset:
+            class: "ui.block.form.fieldset"
+            arguments:
+              data:
+                label: "General"
+            blocks:
+              group_id:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "hidden"
+                    source: "user_group_form"
+              code:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "text"
+                    label: "Code"
+                    source: "user_group_form"
+              name:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "text"
+                    label: "Group Label"
+                    helpMessage: "The group label may appear to users."
+                    source: "user_group_form"
+              description:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "textarea"
+                    label: "Group Description"
+                    isRequired: false
+                    source: "user_group_form"
+              color:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "color"
+                    label: "Group Color"
+                    isRequired: false
+                    source: "user_group_form"
+          acl_fieldset:
+            class: "ui.block.form.fieldset"
+            arguments:
+              data:
+                label: "Access Control List"
+            blocks:
+              permissions:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: tree
+                    label: "Resources"
+                    isRequired: true
+                    sourceModel: ProgramCms\UserBundle\Model\Provider\DataSource\Acl\DataProvider

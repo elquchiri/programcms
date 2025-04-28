@@ -1,0 +1,6 @@
+moves:
+  header.panel.wrapper:
+    destination: page.wrapper
+    before: "-"
+  form.search.mini:
+    destination: navigation.bar

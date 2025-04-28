@@ -1,0 +1,25 @@
+referenceContainers:
+  sidebar.main:
+    containers:
+      user.identity:
+        htmlTag: "div"
+        htmlClass: "mb-5"
+        blocks:
+          user.identity.block:
+            class: ProgramCms\UserBundle\Block\User\Identity
+            template: "@ProgramCmsUserBundle/user/identity.html.twig"
+  content:
+    containers:
+      user.profile.content:
+        htmlTag: "div"
+        htmlClass: "ps-5 mb-5"
+        blocks:
+          user.resume.block:
+            class: ProgramCms\UserBundle\Block\User\Resume
+            template: "@ProgramCmsUserBundle/user/resume.html.twig"
+          user.tabs.block:
+            class: ProgramCms\UserBundle\Block\User\Tabs
+            template: "@ProgramCmsUserBundle/user/tabs.html.twig"
+          user.about.block:
+            class: ProgramCms\UserBundle\Block\User\About
+            template: "@ProgramCmsUserBundle/user/about.html.twig"

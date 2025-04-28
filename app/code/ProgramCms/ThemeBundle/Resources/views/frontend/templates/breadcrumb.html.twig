@@ -6,9 +6,14 @@
  * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
  */
 #}
-<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">{{ block.trans('Home') }}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{ block.trans('Forums') }}</li>
+<nav style="--bs-breadcrumb-divider: '/';" aria-label="breadcrumb">
+    <ol class="breadcrumb" style="font-size: 14px;">
+        {% for item in block.getItems() %}
+            {% if loop.last %}
+                <li class="breadcrumb-item active" aria-current="page">{{ block.getPreviewText(item.label) }}</li>
+            {% else %}
+                <li class="breadcrumb-item "><a href="{{ item.url }}">{{ item.label }}</a></li>
+            {% endif %}
+        {% endfor %}
     </ol>
 </nav>

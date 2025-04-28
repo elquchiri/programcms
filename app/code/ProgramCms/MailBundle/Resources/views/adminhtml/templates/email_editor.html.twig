@@ -1,38 +1,91 @@
-<div
-        data-controller="email-editor"
-        id="{{ block.getNameInLayout() }}"
-        aria-describedby="{{ block.getNameInLayout() }}"
-></div>
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<div class="pcms-editor">
+    <div class="panel__post">
+        <div class="row">
+            <div style="padding: 3px 21px 0 21px;">
+                <form
+                        method="post"
+                        data-controller="email-editor"
+                        data-email-editor-load-endpoint-value="{{ block.getLoadUrl() }}"
+                        data-email-editor-save-endpoint-value="{{ block.getSaveUrl() }}"
+                        data-email-editor-entity-id-value="{{ block.getTemplateId() }}"
+                        data-email-editor-icon-value="{{ block.getBackIcon() }}"
+                >
+                    <div class="editor-header">
 
-<style>
-    .gjs-editor-cont {
-        height: 100% !important;
-    }
-    #gjs {
-        border: none;
-        padding-left: 30px;
-    }
-    /* Theming */
+                    </div>
+                    <div class="panel__top mt-2">
 
-    /* Primary color for the background */
-    .gjs-one-bg {
-        background-color: #373330;
-    }
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    /* Secondary color for the text color */
-    .gjs-two-color {
-        color: rgba(255, 255, 255, 0.7);
-    }
+    <div class="editor-row">
+        <div id="blocks" class="editor-column">
 
-    /* Tertiary color for the background */
-    .gjs-three-bg {
-        background-color: #0d6efd;
-        color: white;
-    }
+        </div>
+        <div class="editor-canvas editor-column" id="editor-wrapper" aria-describedby="gjs">
+            <div>What do you want to say ? ...</div>
+        </div>
+        <div id="components" class="editor-column">
+            <div id="layers-container" class="component_container"></div>
+            <div id="styles-container" class="component_container"></div>
+            <div id="traits-container" class="component_container"></div>
+            <div id="settings-container" class="component_container p-3">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Meta Title</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Meta Description</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Meta Keywords</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    /* Quaternary color for the text color */
-    .gjs-four-color,
-    .gjs-four-color-h:hover {
-        color: #0d6efd;
-    }
-</style>
+<!-- Modal -->
+<div class="modal fade modal__actions" id="linkModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">{{ block.trans('Add Link') }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form_link">
+                    <div class="mb-3">
+                        <label for="link_title" class="form-label">{{ block.trans('Link Title') }}</label>
+                        <input type="text" class="form-control" id="link_title" aria-describedby="link_title">
+                    </div>
+                    <div class="mb-3">
+                        <label for="link_url" class="form-label">{{ block.trans('Link') }}</label>
+                        <input type="text" class="form-control" id="link_url">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {{ block.trans('Close') }}
+                </button>
+                <button type="button" class="btn btn-primary" id="add_link_button">
+                    {{ block.trans('Add Link') }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

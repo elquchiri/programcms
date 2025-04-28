@@ -1,0 +1,6 @@
+referenceBlocks:
+  footer.links:
+    blocks:
+      gdpr.container:
+        class: ProgramCms\GdprBundle\Block\GdprContainer
+        template: "@ProgramCmsGdprBundle/gdpr_container.html.twig"

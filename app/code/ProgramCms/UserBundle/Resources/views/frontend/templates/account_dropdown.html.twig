@@ -7,7 +7,7 @@
  */
 #}
 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    <ul class="navbar-nav mb-2 mb-lg-0">
+    <ul class="navbar-nav mb-2 mb-lg-0" style="z-index: 1040">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
@@ -15,7 +15,8 @@
                     <img src="{{ app.user.getProfileImage() }}" style="width: 100%; height: 100%; border-radius: 100%;" alt="" />
                 </div>
             </a>
-            <div class="dropdown-menu dropdown-menu-end">
+            <div class="dropdown-menu dropdown-menu-end" style="min-width: 200px;">
+                <p class="text-muted m-0 p-2 ps-3"><small>Connected as {{ app.user.getUsername() }}</small></p>
                 <a class="dropdown-item" href="{{ block.getUserUrl() }}">{{ block.trans('Profile') }}</a>
                 <a class="dropdown-item" href="{{ path('frontend_user_edit_index') }}">
                     {{ block.trans('Edit Account') }}

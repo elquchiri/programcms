@@ -1,0 +1,26 @@
+root:
+  containers:
+    head:
+      htmlTag: head
+    body:
+      htmlTag: body
+      containers:
+        before.body: { }
+        page.wrapper:
+          htmlTag: div
+          htmlClass: "page-wrapper"
+          containers:
+            global.notices:
+              before: "-"
+            main.content:
+              htmlTag: main
+              htmlClass: "page-main container"
+              containers:
+                columns:
+                  htmlTag: div
+                  htmlClass: "row me-0 columns"
+                  containers:
+                    main:
+                      htmlTag: div
+                      htmlClass: "col-md main-col"
+        after.body: { }

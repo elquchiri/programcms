@@ -1,0 +1,95 @@
+referenceContainers:
+  content:
+    blocks:
+      system_account_form:
+        class: ui.block.form
+        arguments:
+          data:
+            label: Account Information
+          dataSource:
+            dataProvider:
+              class: ProgramCms\AdminBundle\Model\Account\DataProvider
+              primaryFieldName: user_id
+            settings:
+              submitUrl: admin_systemaccount_save
+          buttons:
+            save: ProgramCms\AdminBundle\Model\Provider\Button\SaveAccountButton
+        blocks:
+          fieldset:
+            class: ui.block.form.fieldset
+            arguments:
+              data:
+                label: Account Information
+                open: true
+                collapse: true
+            blocks:
+              user_id:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: hidden
+                    isRequired: true
+                    source: system_account_form
+              first_name:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: First Name
+                    isRequired: true
+                    source: system_account_form
+              last_name:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: Last Name
+                    isRequired: true
+                    source: system_account_form
+              email:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: Email
+                    isRequired: true
+                    source: system_account_form
+              new_password:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: password
+                    label: New Password
+                    source: system_account_form
+              password_confirmation:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: password
+                    label: Password Confirmation
+                    source: system_account_form
+              interface_locale:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: select
+                    label: Interface Locale
+                    sourceModel: ProgramCms\UiBundle\Model\Provider\DataSource\Locales
+                    source: system_account_form
+
+          fieldset3:
+            class: ui.block.form.fieldset
+            arguments:
+              data:
+                label: User Identity Verification
+                open: true
+                collapse: true
+            blocks:
+              password:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: password
+                    label: Your Password
+                    isRequired: true
+                    source: system_account_form

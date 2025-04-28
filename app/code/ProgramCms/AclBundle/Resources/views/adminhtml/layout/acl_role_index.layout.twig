@@ -20,22 +20,7 @@
                     {% endArgument %}
                 {% endArgument %}
             {% endArguments %}
-            {% block name="toolbar" class="ui.block.listing.toolbar" %}
-                {% block name="filters" class="ui.block.listing.filters" %}{% endBlock %}
-                {% block name="search" class="ui.block.listing.search" %}{% endBlock %}
-                {% block name="massActions" class="ui.block.listing.massActions" %}
-                    {% arguments %}
-                        {% argument name="settings" type="array" %}
-                            {% argument name="delete" type="array" %}
-                                {% argument name="url" type="string" %}delete{% endArgument %}
-                                {% argument name="label" type="string" %}Delete All{% endArgument %}
-                            {% endArgument %}
-                        {% endArgument %}
-                    {% endArguments %}
-                {% endBlock %}
-                {% block name="pagination" class="ui.block.listing.pagination" %}{% endBlock %}
-            {% endBlock %}
-            {% block name="columns" class="ui.block.columns" %}
+            {% block name="role_listing_columns" class="ui.block.columns" %}
                 {% block name="selectionsColumn" class="ui.block.selectionsColumn" %}
                     {% arguments %}
                         {% argument name="data" type="array" %}

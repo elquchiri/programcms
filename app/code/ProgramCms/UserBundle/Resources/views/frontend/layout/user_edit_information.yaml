@@ -1,0 +1,9 @@
+referenceContainers:
+  content:
+    blocks:
+      user.edit.information:
+        class: ProgramCms\UserBundle\Block\Account\Edit\Information
+        template: "@ProgramCmsUserBundle/dashboard/information.html.twig"
+
+requires:
+ - user_account

@@ -1,0 +1,7 @@
+layout: admin-login
+referenceContainers:
+  login.content:
+    blocks:
+      admin.login:
+        class: ProgramCms\AdminBundle\Block\Account\Login
+        template: "@ProgramCmsAdminBundle/login.html.twig"

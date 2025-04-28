@@ -49,6 +49,12 @@ class UserGroup extends AbstractEntity
     private ?string $description;
 
     /**
+     * @var string|null
+     */
+    #[ORM\Column(type: 'string', length: 100)]
+    private ?string $color;
+
+    /**
      * @var Collection
      */
     #[ORM\OneToMany(mappedBy: 'group', targetEntity: UserGroupPermission::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
@@ -143,6 +149,24 @@ class UserGroup extends AbstractEntity
     public function setDescription(string $description): static
     {
         $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getColor(): ?string
+    {
+        return !empty($this->color) ? $this->color : '#888';
+    }
+
+    /**
+     * @param string $color
+     * @return $this
+     */
+    public function setColor(string $color): static
+    {
+        $this->color = $color;
         return $this;
     }
 

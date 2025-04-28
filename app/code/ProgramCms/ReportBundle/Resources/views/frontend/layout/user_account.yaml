@@ -1,0 +1,9 @@
+referenceBlocks:
+  user.account.navigation:
+    blocks:
+      user.account.report:
+        class: ProgramCms\CoreBundle\View\Element\Html\Link\Item
+        arguments:
+          label: "Report"
+          path: "cms_index_index"
+          sortOrder: "7"

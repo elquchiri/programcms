@@ -1,0 +1,9 @@
+referenceBlocks:
+  user.account.navigation:
+    blocks:
+      user.account.favorite:
+        class: ProgramCms\CoreBundle\View\Element\Html\Link\Item
+        arguments:
+          label: "Favorite"
+          path: "favorite_index_index"
+          sortOrder: "5"

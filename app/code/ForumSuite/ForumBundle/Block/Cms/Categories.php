@@ -15,6 +15,7 @@ use ProgramCms\PostBundle\Entity\PostEntity;
 use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use ProgramCms\UserBundle\Entity\UserEntity;
 use ProgramCms\WebsiteBundle\Model\WebsiteManagerInterface;
+use IntlDateFormatter;
 
 /**
  * Class Categories
@@ -157,5 +158,54 @@ class Categories extends Template
     public function getPostUrl(CategoryEntity $category, PostEntity $post): string
     {
         return $this->getUrl('post_index_view', ['category' => $category->getEntityId(), 'id' => $post->getEntityId()]);
+    }
+
+    /**
+     * @return array
+     */
+    public function getTimezonesWithOffset(): array
+    {
+        $timezones = \DateTimeZone::listIdentifiers();
+        $now = new \DateTime();
+
+        $formattedTimezones = [];
+
+        foreach ($timezones as $timezone) {
+            $tz = new \DateTimeZone($timezone);
+            $offset = $tz->getOffset($now);
+
+            $hours = intdiv($offset, 3600);
+            $minutes = abs($offset % 3600) / 60;
+            $sign = $offset >= 0 ? '+' : '-';
+
+            $formattedOffset = sprintf("GMT%s%02d:%02d", $sign, abs($hours), $minutes);
+            $formattedTimezones[] = [
+                'identifier' => $timezone,
+                'offset' => $formattedOffset,
+                'label' => sprintf("(%s) %s", $formattedOffset, $timezone),
+            ];
+        }
+
+        // Optionally sort by offset
+        usort($formattedTimezones, function ($a, $b) {
+            return strcmp($a['offset'], $b['offset']);
+        });
+
+        return $formattedTimezones;
+    }
+
+    public function getTodaysDate()
+    {
+        $date = new \DateTime();
+        $formatter = new IntlDateFormatter(
+            'en',
+            IntlDateFormatter::FULL,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            'EEEE dd MMMM YYYY  hh:mm' // Full day name, day, full month name
+        );
+
+        return $formatter->format($date);
     }
 }

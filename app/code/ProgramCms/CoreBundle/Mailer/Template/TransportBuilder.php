@@ -12,6 +12,7 @@ use ProgramCms\CoreBundle\App\Config;
 use ProgramCms\CoreBundle\Mailer\Config\TemplateConfigBuilder;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\CoreBundle\View\Element\Template;
+use ProgramCms\MailBundle\Repository\EmailTemplateRepository;
 use ProgramCms\WebsiteBundle\Entity\WebsiteView;
 use ProgramCms\WebsiteBundle\Model\ScopeInterface;
 use ReflectionException;
@@ -94,6 +95,7 @@ class TransportBuilder implements TransportBuilderInterface
      * @var Config
      */
     protected Config $config;
+    protected EmailTemplateRepository $emailTemplateRepository;
 
     /**
      * TransportBuilder constructor.
@@ -108,7 +110,8 @@ class TransportBuilder implements TransportBuilderInterface
         MailerInterface $mailer,
         TemplateConfigBuilder $templateConfigBuilder,
         LocaleSwitcher $localeSwitcher,
-        Config $config
+        Config $config,
+        EmailTemplateRepository $emailTemplateRepository
     )
     {
         $this->mailer = $mailer;
@@ -117,6 +120,7 @@ class TransportBuilder implements TransportBuilderInterface
         $this->objectManager = $objectManager;
         $this->localeSwitcher = $localeSwitcher;
         $this->config = $config;
+        $this->emailTemplateRepository = $emailTemplateRepository;
     }
 
     /**
@@ -228,6 +232,11 @@ class TransportBuilder implements TransportBuilderInterface
      */
     public function prepareTemplate(): string
     {
+        $templateObject = $this->emailTemplateRepository->getByCode($this->templateId);
+        if($templateObject) {
+            return '<style>' . $templateObject->getCss() . '</style>' .  $templateObject->getHtml();
+        }
+
         /** @var Template $template */
         $template = $this->objectManager->create(Template::class);
         $templatePath = $this->templateConfigBuilder->getTemplate($this->templateId);

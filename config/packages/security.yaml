@@ -47,6 +47,10 @@ security:
         - { path: '^/admin/admin/recovery/index', roles: PUBLIC_ACCESS }
         - { path: '^/admin', roles: ROLE_ADMIN }
 
+    access_decision_manager:
+        strategy: unanimous
+        allow_if_all_abstain: false
+
 when@test:
     security:
         password_hashers:

@@ -9,6 +9,11 @@
 <form action="{{ block.getSearchUrl() }}" method="GET" class="d-flex" role="search" style="margin-right: 11px;">
     <div class="input-group">
         <input type="text" name="q" style="width: 290px" class="form-control" placeholder="{{ block.trans('Search anything here ..') }}">
+        <select style="width: 130px;" class="form-select" aria-label="Default select example">
+            <option selected>Anywhere</option>
+            <option value="1">Posts</option>
+            <option value="2">Community</option>
+        </select>
         <button class="btn" type="submit" id="button-mini-search"
                 style="border: 1px solid #CCC; padding-top: 0;">
             <img src="{{ asset('bundles/programcmsui/images/search.png') }}"

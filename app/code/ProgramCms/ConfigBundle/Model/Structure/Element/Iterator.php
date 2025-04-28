@@ -86,9 +86,6 @@ abstract class Iterator implements \Iterator
         $this->_flyweight->setData($element, $this->_scope);
     }
 
-    /**
-     * @return void
-     */
     public function key()
     {
         key($this->_elements);

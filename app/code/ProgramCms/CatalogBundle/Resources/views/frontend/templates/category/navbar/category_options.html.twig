@@ -1,0 +1,46 @@
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse justify-content-end pe-3"  style="margin-top: -25px;" id="navbarSupportedContent">
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a class="btn btn-light fw-bold me-4" href="" data-bs-toggle="tooltip" data-bs-placement="left"
+           title="Add New Post">
+            <i class="bi bi-plus-circle-fill text-success me-1"></i>
+            New
+        </a>
+    {% endif %}
+
+    <div class="btn-group me-2">
+        <a href="{{ block.getEditPostUrl() }}" class="btn btn-light fw-bold">
+            <i class="bi bi-grid-fill"></i>
+        </a>
+        <a href="{{ block.getEditPostUrl() }}" class="btn btn-light fw-bold">
+            <i class="bi bi-layout-text-window-reverse"></i>
+        </a>
+    </div>
+
+    <div class="dropdown">
+        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="{{ asset('bundles/programcmspost/images/more.png') }}" />
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#">Report</a></li>
+            {% if is_granted('ProgramCmsCatalogBundle_catalog_category_edit_category', block.getCategory()) %}
+                <li><a class="dropdown-item" href="#">Edit Category</a></li>
+            {% endif %}
+
+        </ul>
+    </div>
+
+</div>

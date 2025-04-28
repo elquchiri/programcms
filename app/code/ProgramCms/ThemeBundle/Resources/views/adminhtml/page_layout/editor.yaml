@@ -1,0 +1,9 @@
+require: admin-1column
+referenceContainers:
+  page.content:
+    containers:
+      main.editor:
+        htmlTag: div
+        htmlClass: main-wrapper
+removes:
+  - main.wrapper

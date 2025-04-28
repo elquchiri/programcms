@@ -1,0 +1,63 @@
+referenceContainers:
+  content:
+    blocks:
+      cache_listing:
+        class: ui.block.listing
+        arguments:
+          buttons:
+            new: ProgramCms\AdminBundle\Model\Provider\Button\Cache\FlushCacheButton
+          dataSource:
+            dataProvider:
+              class: ProgramCms\AdminBundle\Model\Provider\Listing\Cache\DataProvider
+              primaryFieldName: entity_id
+              requestFieldName: id
+        blocks:
+          cache_listing_columns:
+            class: ui.block.columns
+            blocks:
+              selectionsColumn:
+                class: ui.block.selectionsColumn
+                arguments:
+                  data:
+                    source: cache_listing
+              entity_id:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: "#"
+                    source: cache_listing
+                    filter: text
+              cache_type:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: "Cache Type"
+                    source: cache_listing
+                    filter: text
+              description:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: "Description"
+                    source: cache_listing
+                    filter: text
+              cache_tag:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: "Cache Tag"
+                    source: cache_listing
+                    filter: text
+              status:
+                class: ui.block.column
+                arguments:
+                  data:
+                    label: "Cache Status"
+                    source: cache_listing
+                    filter: text
+              actionsColumn:
+                class: ProgramCms\AdminBundle\Ui\Grid\Column\Cache\Actions
+                arguments:
+                  data:
+                    label: Actions
+                    source: cache_listing

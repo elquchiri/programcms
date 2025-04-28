@@ -9,6 +9,7 @@
 namespace ProgramCms\CoreBundle\View\Element\Template;
 
 use ProgramCms\CoreBundle\App\State;
+use ProgramCms\CoreBundle\DateTime\TransformerInterface;
 use ProgramCms\CoreBundle\Helper\Language;
 use ProgramCms\CoreBundle\Model\Filesystem\DirectoryList;
 use ProgramCms\CoreBundle\Model\Utils\BundleManager;
@@ -18,6 +19,7 @@ use ProgramCms\CoreBundle\View\Layout;
 use ProgramCms\CoreBundle\View\Page\Config;
 use ProgramCms\RouterBundle\Service\Request;
 use ProgramCms\RouterBundle\Service\UrlInterface as Url;
+use ProgramCms\ThemeBundle\Loader\LayoutLoader;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use ProgramCms\ThemeBundle\Webpack\Output as WebpackOutput;
@@ -96,6 +98,16 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
     protected FilesystemAdapter $filesystemAdapter;
 
     /**
+     * @var LayoutLoader
+     */
+    protected LayoutLoader $layoutLoader;
+
+    /**
+     * @var TransformerInterface
+     */
+    protected TransformerInterface $transformer;
+
+    /**
      * Context constructor.
      * @param BundleManager $bundleManager
      * @param DirectoryList $directoryList
@@ -111,7 +123,8 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
      * @param State $state
      * @param Resolver $resolver
      * @param FileSystem $fileSystem
-     * @param FilesystemAdapter $filesystemAdapter
+     * @param LayoutLoader $layoutLoader
+     * @param TransformerInterface $transformer
      */
     public function __construct(
         BundleManager $bundleManager,
@@ -128,6 +141,8 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
         State $state,
         Resolver $resolver,
         FileSystem $fileSystem,
+        LayoutLoader $layoutLoader,
+        TransformerInterface $transformer
     )
     {
         parent::__construct($directoryList, $request);
@@ -144,6 +159,8 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
         $this->bundleManager = $bundleManager;
         $this->fileSystem = $fileSystem;
         $this->filesystemAdapter = new FilesystemAdapter();
+        $this->layoutLoader = $layoutLoader;
+        $this->transformer = $transformer;
     }
 
     /**
@@ -249,5 +266,21 @@ class Context extends \ProgramCms\CoreBundle\View\Element\Context
     public function getFileSystemAdapter(): FilesystemAdapter
     {
         return $this->filesystemAdapter;
+    }
+
+    /**
+     * @return LayoutLoader
+     */
+    public function getLayoutLoader(): LayoutLoader
+    {
+        return $this->layoutLoader;
+    }
+
+    /**
+     * @return TransformerInterface
+     */
+    public function getTransformer(): TransformerInterface
+    {
+        return $this->transformer;
     }
 }

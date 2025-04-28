@@ -18,4 +18,10 @@ services:
       - '../../Tests/'
 
   ProgramCms\PostBundle\Security\PostVoter:
-    tags: [security.voter]
+    tags: [ security.voter ]
+
+  ProgramCms\PostBundle\Security\CanEditPostOnCategoryVoter:
+    tags: [ security.voter ]
+
+  ProgramCms\PostBundle\Security\CanDeletePostOnCategoryVoter:
+    tags: [ security.voter ]

@@ -19,11 +19,23 @@ class Config
      */
     protected Title $title;
 
+    /**
+     * @var Breadcrumb
+     */
+    protected Breadcrumb $breadcrumb;
+
+    /**
+     * Config constructor.
+     * @param Title $title
+     * @param Breadcrumb $breadcrumb
+     */
     public function __construct(
-        Title $title
+        Title $title,
+        Breadcrumb $breadcrumb
     )
     {
         $this->title = $title;
+        $this->breadcrumb = $breadcrumb;
     }
     /**
      * @return Title
@@ -31,5 +43,13 @@ class Config
     public function getTitle(): Title
     {
         return $this->title;
+    }
+
+    /**
+     * @return Breadcrumb
+     */
+    public function getBreadcrumb(): Breadcrumb
+    {
+        return $this->breadcrumb;
     }
 }

@@ -45,9 +45,10 @@ class Notification extends Template
      */
     public function getNotifications(): array
     {
+        $cacheUrl = $this->getUrl('admin_tool_cache');
         return [
             'message' => sprintf(
-                $this->translator->trans("Some of the Cache Types have been invalidated, specifically the Page Cache. Please navigate to %s and refresh the cache types."), "<a href=\"#\">{$this->translator->trans("Cache Management")}</a>"
+                $this->translator->trans("Some of the Cache Types have been invalidated, specifically the Page Cache. Please navigate to %s and refresh the cache types."), "<a href=\"{$cacheUrl}\">{$this->translator->trans("Cache Management")}</a>"
             )
         ];
     }

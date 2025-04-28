@@ -58,3 +58,27 @@ services:
     class: ProgramCms\UiBundle\Component\Modal\Modal
   ui.block.form.button:
     class: ProgramCms\UiBundle\Component\Form\Element\Button
+
+  ProgramCms\UiBundle\View\Element\UiComponentFactory:
+    arguments:
+      $instances:
+        fieldset: ProgramCms\UiBundle\Component\Form\Fieldset
+        field: ProgramCms\UiBundle\Component\Form\Field
+        text: ProgramCms\UiBundle\Component\Form\Element\Text
+        textarea: ProgramCms\UiBundle\Component\Form\Element\TextArea
+        editor: ProgramCms\UiBundle\Component\Form\Element\Editor
+        password: ProgramCms\UiBundle\Component\Form\Element\Password
+        hidden: ProgramCms\UiBundle\Component\Form\Element\Hidden
+        select: ProgramCms\UiBundle\Component\Form\Element\Select
+        multiselect: ProgramCms\UiBundle\Component\Form\Element\MultiSelect
+        date: ProgramCms\UiBundle\Component\Form\Element\Date
+        switcher: ProgramCms\UiBundle\Component\Form\Element\Switcher
+        plainText: ProgramCms\UiBundle\Component\Form\Element\PlainText
+        image: ProgramCms\UiBundle\Component\Form\Element\Image
+        imageUploader: ProgramCms\UiBundle\Component\Form\Element\ImageUploader
+        file: ProgramCms\UiBundle\Component\Form\Element\File
+        color: ProgramCms\UiBundle\Component\Form\Element\Color
+        button: ProgramCms\UiBundle\Component\Form\Element\Button
+        tree: ProgramCms\UiBundle\Component\Form\Element\Tree
+        imageColumn: ProgramCms\UiBundle\Component\Listing\Columns\ImageColumn
+        dateColumn: ProgramCms\UiBundle\Component\Listing\Columns\DateColumn

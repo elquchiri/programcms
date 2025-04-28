@@ -20,6 +20,9 @@ class PlainText extends AbstractElement
      */
     protected string $_template = "@ProgramCmsUiBundle/form/fields/plain_text.html.twig";
 
+    /**
+     * @return string
+     */
     public function getComponentName()
     {
         return self::NAME;

@@ -25,7 +25,7 @@ class PageEntity extends Entity implements PageInterface
     /**
      * @var string|null
      */
-    #[ORM\Column(length: 255, unique: true, nullable: false)]
+    #[ORM\Column(length: 190, unique: true, nullable: false)]
     private ?string $page_identifier;
 
     /**

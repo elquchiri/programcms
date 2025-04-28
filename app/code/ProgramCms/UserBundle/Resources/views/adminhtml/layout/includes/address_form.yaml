@@ -1,0 +1,75 @@
+referenceContainers:
+  content:
+    blocks:
+      user_address_form:
+        class: ui.block.form
+        arguments:
+          data:
+            label: "User Information"
+          buttons:
+            back: ProgramCms\UserBundle\Model\Provider\Button\Address\BackToUserButton
+            reset: ProgramCms\UserBundle\Model\Provider\Button\Address\ResetButton
+            save: ProgramCms\UserBundle\Model\Provider\Button\Address\SaveAddressButton
+          dataSource:
+            dataProvider:
+              class: ProgramCms\UserBundle\Model\Provider\Listing\UserAddress\DataProvider
+              primaryFieldName: entity_id
+              requestFieldName: id
+            settings:
+              submitUrl: "user_address_save"
+        blocks:
+          user_address_fieldset:
+            class: ui.block.form.fieldset
+            arguments:
+              data:
+                label: "Address Information"
+            blocks:
+              entity_id:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: "hidden"
+                    source: "user_address_form"
+              city:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: "text"
+                    label: "City"
+                    source: "user_address_form"
+              country_code:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: "select"
+                    label: "Country"
+                    source: "user_address_form"
+                    sourceModel: ProgramCms\WebsiteBundle\Model\Provider\CountrySelector
+              firstname:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: "text"
+                    label: "First Name"
+                    source: "user_address_form"
+              lastname:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: "text"
+                    label: "Last Name"
+                    source: "user_address_form"
+              street:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: "text"
+                    label: "Street"
+                    source: "user_address_form"
+              postcode:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: "text"
+                    label: "Postcode"
+                    source: "user_address_form"

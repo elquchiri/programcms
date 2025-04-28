@@ -1,0 +1,13 @@
+referenceContainers:
+  notifications:
+    blocks:
+      notifications.block:
+        class: ProgramCms\AdminNotificationBundle\Block\Notification
+        template: "@ProgramCmsAdminNotificationBundle/notification.html.twig"
+
+  navbar.collapse:
+    blocks:
+      admin.notifications:
+        class: ProgramCms\CoreBundle\View\Element\Template
+        template: "@ProgramCmsAdminNotificationBundle/admin_notifications.html.twig"
+        before: "-"

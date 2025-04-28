@@ -1,0 +1,3 @@
+layout: admin-2columns-left
+requires:
+  - includes/category_posts

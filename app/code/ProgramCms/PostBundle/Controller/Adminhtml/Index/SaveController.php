@@ -17,6 +17,7 @@ use ProgramCms\PostBundle\Entity\PostEntity;
 use ProgramCms\PostBundle\Repository\PostRepository;
 use ProgramCms\RouterBundle\Service\UrlInterface as Url;
 use ReflectionException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
@@ -64,7 +65,7 @@ class SaveController extends AdminController
     }
 
     /**
-     * @return RedirectResponse
+     * @return JsonResponse
      * @throws ReflectionException
      */
     public function execute()
@@ -100,10 +101,20 @@ class SaveController extends AdminController
             // Transform form data to user object
             $this->objectSerializer->arrayToObject($post, $formData);
 
-            $post->setUpdatedAt();
-
             // Add data for eav processing
             $post->addData($formData);
+
+            // Editor fields
+            $editorJson = $this->getRequest()->getParam('data');
+            $postTitle = $this->getRequest()->getParam('title');
+            $postHtml = $this->getRequest()->getParam('html');
+            $postCss = $this->getRequest()->getParam('css');
+            $post
+                ->setPostName($postTitle)
+                ->setPostContent($editorJson)
+                ->setPostHtml($postHtml)
+                ->setPostCss($postCss)
+                ->setUpdatedAt();
 
             if(isset($formData['post_categories']) && !empty($formData['post_categories'])) {
                 $categories = explode(',', $formData['post_categories']);
@@ -117,24 +128,15 @@ class SaveController extends AdminController
             // Save Category
             $this->postRepository->save($post);
             $this->addFlash('success', $this->trans('Post successfully saved.'));
-            return $this->redirect($this->url->getUrlByRouteName('post_index_edit', $this->redirectParams($request, $post->getEntityId())));
+            return $this->json([
+                'success' => true,
+                'redirect_url' => $this->url->getUrlByRouteName('post_index_index')
+            ]);
         }
-        return $this->redirect($this->url->getUrlByRouteName('post_index_index'));
-    }
 
-    /**
-     * @param $request
-     * @param $id
-     * @return array
-     */
-    private function redirectParams($request, $id)
-    {
-        // Scope Switcher Redirection
-        $redirectParams = ['id' => $id];
-        $websiteViewSwitcher = $request->get('website_view');
-        if(!empty($websiteViewSwitcher)) {
-            $redirectParams['website_view'] = $websiteViewSwitcher;
-        }
-        return $redirectParams;
+        return $this->json([
+            'success' => false,
+            'message' => $this->trans('Error Loading the post')
+        ]);
     }
 }

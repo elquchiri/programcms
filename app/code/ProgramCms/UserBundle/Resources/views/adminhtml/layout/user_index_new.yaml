@@ -1,0 +1,67 @@
+layout: admin-2columns-left
+referenceContainers:
+  content:
+    blocks:
+      user_form:
+        class: ui.block.form
+        arguments:
+          data:
+            label: "User Information"
+          buttons:
+            back: ProgramCms\UserBundle\Model\Provider\Button\BackToUsersButton
+            save: ProgramCms\UserBundle\Model\Provider\Button\SaveUserButton
+          dataSource:
+            settings:
+              submitUrl: user_index_save
+          layout:
+            navContainerName: sidebar.main
+            type: tabs
+        blocks:
+          user_fieldset:
+            class: ui.block.form.fieldset
+            arguments:
+              data:
+                label: "Account Information"
+            blocks:
+              user_firstname:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: "First Name"
+              user_lastname:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: "Last Name"
+                    placeholder: "Last Name"
+                    isRequired: true
+              email:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: "Email"
+                    isRequired: true
+              username:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: text
+                    label: "Username"
+                    isRequired: true
+              account_lock:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: switcher
+                    label: "Lock"
+              websiteView:
+                class: ui.block.form.field
+                arguments:
+                  data:
+                    type: select
+                    label: "Account Created in"
+                    isRequired: true
+                    sourceModel: ProgramCms\WebsiteBundle\Model\Provider\DataSource\WebsiteTree

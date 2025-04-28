@@ -47,7 +47,7 @@ class Image extends AbstractBackend
      * @param string $attributeCode
      * @param object $object
      */
-    public function beforeSave(string $attributeCode, object $object)
+    public function beforeSave(string $attributeCode, object &$object)
     {
         $uploadedFile = $object->getData($attributeCode);
         if($uploadedFile instanceof UploadedFile) {

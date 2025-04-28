@@ -1,0 +1,151 @@
+layout: "admin-2columns-left"
+referenceContainers:
+  sidebar.main:
+    container:
+      name: "tree.container"
+      htmlTag: "div"
+      htmlClass: "sticky-md-top"
+      blocks:
+        category.tree.block:
+          class: ProgramCms\CatalogBundle\Block\CategoryTreeButtons
+          template: "@ProgramCmsCatalogBundle/tree_buttons.html.twig"
+        category.tree:
+          class: ProgramCms\UiBundle\Component\Tree\Tree
+          arguments:
+            data:
+              isOpen: true
+            dataSource:
+              dataProvider:
+                class: ProgramCms\CatalogBundle\Model\Provider\DataSource\Category\TreeDataProvider
+  content:
+    blocks:
+      category_form:
+        class: "ui.block.form"
+        arguments:
+          data:
+            label: "Category Information"
+          buttons:
+            reset: ProgramCms\CatalogBundle\Model\Provider\Button\Category\ResetButton
+            delete: ProgramCms\CatalogBundle\Model\Provider\Button\Category\RemoveCategoryButton
+            save: ProgramCms\CatalogBundle\Model\Provider\Button\Category\SaveCategoryButton
+          dataSource:
+            settings:
+              submitUrl: "catalog_category_save"
+        blocks:
+          general:
+            class: "ui.block.form.fieldset"
+            blocks:
+              parent:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "hidden"
+              category_enable:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "switcher"
+                    label: "Enable Category"
+              include_in_menu:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "switcher"
+                    label: "Include in Menu"
+              category_name:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "text"
+                    label: "Category Name"
+                    isRequired: true
+          category_content:
+            class: "ui.block.form.fieldset"
+            arguments:
+              data:
+                label: "Content"
+                collapse: true
+            blocks:
+              category_image:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "imageUploader"
+                    label: "Category Image"
+                    helpMessage: "Maximum file size: 4 MB. Allowed file types: JPG, GIF, PNG."
+              category_description:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "textarea"
+                    label: "Description"
+          display_settings:
+            class: "ui.block.form.fieldset"
+            arguments:
+              data:
+                label: "Display Settings"
+                collapse: true
+            blocks:
+              category_display_mode:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "select"
+                    label: "Display Mode"
+                    sourceModel: ProgramCms\CatalogBundle\Model\Provider\DataSource\DisplayMode
+              category_sort_order:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "text"
+                    label: "Sort Order"
+          search_engine:
+            class: "ui.block.form.fieldset"
+            arguments:
+              data:
+                label: "Search Engine Optimization"
+                collapse: true
+            blocks:
+              category_url_key:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "text"
+                    label: "URL Key"
+              category_meta_title:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "text"
+                    label: "Meta Title"
+              category_meta_keywords:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "textarea"
+                    label: "Meta Keywords"
+              category_meta_description:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "textarea"
+                    label: "Meta Description"
+          schedule_new:
+            class: "ui.block.form.fieldset"
+            arguments:
+              data:
+                label: "Schedule Status"
+                collapse: true
+            blocks:
+              schedule_new_from:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "date"
+                    label: "From"
+              schedule_new_to:
+                class: "ui.block.form.field"
+                arguments:
+                  data:
+                    type: "date"
+                    label: "To"

@@ -27,7 +27,11 @@ application.register('toolbar', class extends Controller {
                         text: confirm.yes ?? 'Yes',
                         class: 'btn-primary',
                         click: function() {
-                            window.location.href = action;
+                            if(confirm._blank) {
+                                window.open(action, '_blank');
+                            }else {
+                                window.location.href = action;
+                            }
                         }
                     },
                     {

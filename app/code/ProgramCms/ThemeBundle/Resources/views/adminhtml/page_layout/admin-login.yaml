@@ -1,0 +1,37 @@
+require: admin-empty
+
+referenceContainers:
+  page.content:
+    containers:
+      login.admin.wrapper:
+        htmlTag: div
+        htmlClass: login-wrapper
+        containers:
+          login.admin.container:
+            htmlTag: div
+            htmlClass: login-admin-container
+            containers:
+              login.header:
+                htmlTag: header
+                htmlClass: login-header
+              login.content:
+                htmlTag: div
+                htmlClass: login-content
+              login.footer:
+                htmlTag: footer
+                htmlClass: login-footer
+
+move:
+  - name: copyright
+    destination: login.footer
+    before: "-"
+  - name: page.alerts.block
+    destination: login.content
+    before: "-"
+
+removes:
+  - page.menu
+  - main.top
+  - page.main.actions
+  - page.messages
+  - footer.container

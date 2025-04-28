@@ -1,0 +1,42 @@
+referenceContainers:
+  buttons.bar:
+    blocks:
+      file.manager.search:
+        class: ProgramCms\DriveBundle\Block\FileManager
+        template: '@ProgramCmsDriveBundle/filters/search.html.twig'
+      file.manager.presentation:
+        class: ProgramCms\DriveBundle\Block\FileManager
+        template: '@ProgramCmsDriveBundle/presentation_mode.html.twig'
+      drive.buttons:
+        class: ProgramCms\UiBundle\Block\Toolbar\ToolbarActions
+        arguments:
+          new_upload:
+            type: string
+            value: ProgramCms\DriveBundle\Model\Provider\Button\UploadButton
+          new_file:
+            type: string
+            value: ProgramCms\DriveBundle\Model\Provider\Button\NewFileButton
+          new_folder:
+            type: string
+            value: ProgramCms\DriveBundle\Model\Provider\Button\NewFolderButton
+
+  content:
+    containers:
+      file.manager.row:
+        htmlTag: div
+        htmlClass: row
+        containers:
+          file.manager:
+            htmlTag: div
+            htmlClass: col
+            blocks:
+              file.manager.block:
+                class: ProgramCms\DriveBundle\Block\FileManager
+                template: '@ProgramCmsDriveBundle/file_manager.html.twig'
+          file.viewer:
+            htmlTag: div
+            htmlClass: col-3
+            blocks:
+              file.viewer.block:
+                class: ProgramCms\DriveBundle\Block\FileViewer
+                template: '@ProgramCmsDriveBundle/file_viewer.html.twig'

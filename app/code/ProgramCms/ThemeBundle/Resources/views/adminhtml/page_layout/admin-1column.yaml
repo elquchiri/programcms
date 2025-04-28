@@ -1,0 +1,45 @@
+require: admin-empty
+
+referenceContainers:
+  page.wrapper:
+    containers:
+      page.menu: {}
+  page.content:
+    containers:
+      main.wrapper:
+        htmlTag: div
+        htmlClass: main-wrapper
+        containers:
+          notices.wrapper:
+            before: "-"
+            containers:
+              notifications:
+                htmlTag: div
+                htmlClass: 'notices-notifications'
+              notification.window:
+                before: "-"
+          header.container:
+            htmlTag: header
+            htmlClass: 'page-header'
+            before: main.content
+          main.top: {}
+          page.main.actions:
+            htmlTag: nav
+            htmlClass: 'navbar navbar-expand-lg page-main-actions'
+          messages.wrapper:
+            htmlTag: div
+            htmlClass: 'messages-wrapper'
+            containers:
+              page.messages: {}
+          page.main.container:
+            htmlTag: div
+            htmlClass: 'row me-0 content-container'
+            containers:
+              main.col:
+                htmlTag: div
+                htmlClass: 'col main-col'
+                containers:
+                  content: {}
+          footer.container:
+            htmlTag: footer
+            htmlClass: 'footer'
