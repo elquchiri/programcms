@@ -57,6 +57,7 @@
 
             </button>
             <ul class="dropdown-menu dropdown-menu-end z-3">
+                <p class="text-muted m-0 p-2 ps-3 fw-bold"><small>Moderation</small></p>
                 <li><a class="dropdown-item" href="{{ block.getPinUrl() }}">
                         <i class="bi bi-pin-angle-fill me-1"></i>
                         Pin Post
@@ -94,11 +95,6 @@
                         Add to favorite
                     </a></li>
             {% endif %}
-            <li><a class="dropdown-item" href="#">
-                    <i class="bi bi-flag-fill me-1"></i>
-                    Report
-                </a></li>
-            <li><hr class="dropdown-divider"></li>
             <p class="text-muted m-0 p-2 ps-3 fw-bold"><small>Export</small></p>
             <li><a class="dropdown-item" href="#">
                     <i class="bi bi-file-earmark-pdf-fill me-1"></i>
@@ -107,6 +103,11 @@
             <li><a class="dropdown-item" href="#">
                     <i class="bi bi-qr-code me-1"></i>
                     Generate QR Code
+                </a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">
+                    <i class="bi bi-flag-fill me-1"></i>
+                    Report
                 </a></li>
         </ul>
     </div>

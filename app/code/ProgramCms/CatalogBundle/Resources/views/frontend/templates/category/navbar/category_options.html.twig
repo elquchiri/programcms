@@ -30,17 +30,37 @@
         </a>
     </div>
 
+    {% if is_granted('ProgramCmsCatalogBundle_catalog_category_edit_category', block.getCategory()) %}
+        <div class="dropdown me-2">
+            <button class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{{ asset('bundles/programcmspost/images/manage.png') }}"/>
+
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end z-3">
+                <li><a class="dropdown-item" href="#">Edit Category</a></li>
+            </ul>
+        </div>
+    {% endif %}
+
     <div class="dropdown">
         <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="{{ asset('bundles/programcmspost/images/more.png') }}" />
         </button>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Report</a></li>
-            {% if is_granted('ProgramCmsCatalogBundle_catalog_category_edit_category', block.getCategory()) %}
-                <li><a class="dropdown-item" href="#">Edit Category</a></li>
-            {% endif %}
-
+            <li><a class="dropdown-item" href="#">
+                    <i class="bi bi-flag-fill me-1"></i>
+                    Report
+                </a></li>
+            <li><hr class="dropdown-divider"></li>
+            <p class="text-muted m-0 p-2 ps-3 fw-bold"><small>Export</small></p>
+            <li><a class="dropdown-item" href="#">
+                    <i class="bi bi-file-earmark-pdf-fill me-1"></i>
+                    Export as PDF
+                </a></li>
+            <li><a class="dropdown-item" href="#">
+                    <i class="bi bi-qr-code me-1"></i>
+                    Generate QR Code
+                </a></li>
         </ul>
     </div>
-
 </div>

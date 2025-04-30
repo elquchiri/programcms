@@ -231,6 +231,9 @@ class Post extends Template
     {
         /** @var UserEntity $user */
         $user = $this->getSecurityUser();
+        if(!$user) {
+            return false;
+        }
         return $this->favoriteRepository->isFavorite($user, $this->getPost());
     }
 

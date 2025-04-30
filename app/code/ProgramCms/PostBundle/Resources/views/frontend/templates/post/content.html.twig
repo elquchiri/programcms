@@ -1,5 +1,11 @@
-<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css"/>
-
+{#
+/*
+ * Copyright © ProgramCMS. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Developed by Mohamed EL QUCHIRI <elquchiri@gmail.com>
+ */
+#}
 <div class="mt-4" data-controller="post-viewer">
     <style>
         {{ block.getPost().getPostCss()|raw }}
@@ -7,10 +13,19 @@
 
     <h2 class="fw-bold lh-base">{{ block.getPost().getPostName() }}</h2>
 
-    <p class="text-muted m-0 mb-1" style="font-size: 14px; font-weight: normal">
-        <b>32</b> reply &middot;
-        <b>453</b> views &middot;
-        Updated <b>{{ block.getPostUpdatedAt() }}</b>
+    <p class="text-muted m-0 mb-1">
+        {% if not block.getPost().getPostLock() %}
+            <span class="badge bg-light text-muted"><b>{{ block.getPost().getComments().count() }}</b> replies</span> &middot;
+        {% endif %}
+        <span class="badge bg-light text-muted">
+            <a href="#"><b>{{ block.getPost().getViews().count() }}</b> views</a>
+        </span> &middot;
+        <span class="badge bg-light text-muted">
+            Latest Update :
+            <a href="#">
+                <b>{{ block.getPostUpdatedAt() }}</b>
+            </a>
+        </span>
     </p>
 
     <div class="post_image mt-4" style="border: 1px solid #dedede; padding: 5px; background-color: #eee;">

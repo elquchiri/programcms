@@ -52,6 +52,12 @@ class PostEntity extends Entity implements PostInterface
     private Collection $comments;
 
     /**
+     * @var Collection
+     */
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: PostView::class)]
+    private Collection $views;
+
+    /**
      * PostEntity constructor.
      * @param array $data
      */
@@ -200,5 +206,13 @@ class PostEntity extends Entity implements PostInterface
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return Collection|null
+     */
+    public function getViews(): ?Collection
+    {
+        return $this->views;
     }
 }

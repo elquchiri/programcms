@@ -32,7 +32,7 @@
             From: {{ block.getPost().getUser().getDefaultAddress().getCountry() }}
         </li>
         <li class="list-group-item text-muted" style="font-size: 13px;">
-            {{ block.trans('Joined us') }} 2 years ago.
+            {{ block.trans('Joined us') }} {{ block.timeAgo(block.getPost().getUser().getCreatedAt()) }}.
         </li>
     </ul>
 </div>

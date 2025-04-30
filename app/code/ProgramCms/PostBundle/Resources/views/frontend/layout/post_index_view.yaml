@@ -1,6 +1,12 @@
 layout: 3columns
 
 referenceContainers:
+  head:
+    blocks:
+      post.head:
+        class: ProgramCms\PostBundle\Block\Post
+        template: "@ProgramCmsPostBundle/post/head.html.twig"
+
   main.content:
     containers:
       post_navbar:

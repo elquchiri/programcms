@@ -15,6 +15,7 @@ use ProgramCms\CoreBundle\Controller\Controller;
 use ProgramCms\CoreBundle\Model\ObjectManager;
 use ProgramCms\CoreBundle\View\Result\Page;
 use ProgramCms\PostBundle\Entity\PostEntity;
+use ProgramCms\PostBundle\Model\PostViewRecorder;
 use ProgramCms\PostBundle\Repository\PostRepository;
 use ReflectionException;
 
@@ -40,23 +41,31 @@ class ViewController extends Controller
     protected CategoryRepository $categoryRepository;
 
     /**
+     * @var PostViewRecorder
+     */
+    protected PostViewRecorder $postViewRecorder;
+
+    /**
      * ViewController constructor.
      * @param Context $context
      * @param ObjectManager $objectManager
      * @param PostRepository $postRepository
      * @param CategoryRepository $categoryRepository
+     * @param PostViewRecorder $postViewRecorder
      */
     public function __construct(
         Context $context,
         ObjectManager $objectManager,
         PostRepository $postRepository,
-        CategoryRepository $categoryRepository
+        CategoryRepository $categoryRepository,
+        PostViewRecorder $postViewRecorder
     )
     {
         parent::__construct($context);
         $this->objectManager = $objectManager;
         $this->postRepository = $postRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->postViewRecorder = $postViewRecorder;
     }
 
     /**
@@ -89,6 +98,9 @@ class ViewController extends Controller
                 'label' => $post->getPostName(),
                 'url' => ''
             ]);
+
+            // Record Post View
+            $this->postViewRecorder->record($post);
         }
         return $pageResult;
     }

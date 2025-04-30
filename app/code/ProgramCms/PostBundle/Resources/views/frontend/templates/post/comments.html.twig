@@ -10,9 +10,9 @@
     </li>
 </ul>
 
-{% if block.canComment() %}
-    {% if block.hasComments() %}
-        <div class="mb-5">
+<div class="mb-5" style="border-left: 1px solid #dedede; border-right: 1px solid #dedede; border-bottom: 1px solid #dedede;">
+    {% if block.canComment() %}
+        {% if block.hasComments() %}
             {% for comment in block.getComments() %}
                 <div class="row" id="comment-{{ comment.getEntityId() }}">
                     <div class="col-md-2 p-0">
@@ -73,41 +73,63 @@
                     </div>
                 </div>
             {% endfor %}
-        </div>
-    {% endif %}
+        {% endif %}
 
-    {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
-        <div class="row" id="comment-container">
-            <div class="col-md-2 p-4">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item text-center">
-                        <div class="profile-image"
-                             style="display: inline-block; border: 3px solid #6d9dcb; width: 38px; height: 38px; border-radius: 50%; padding: 1px;">
-                            <img src="{{ block.getUser().getProfileImage() }}"
-                                 style="width: 100%; height: 100%; border-radius: 50%;" alt=""/>
-                        </div>
-                        <p class="m-0 mt-2">{{ block.getUser().getUserFirstname() }}</p>
-                        <p class="text-muted m-0"
-                           style="font-size: 13px;">{{ block.trans('Member') }}</p>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-10 p-4">
-                <form action="{{ block.getCommentSaveUrl() }}" method="POST"
-                      data-controller="new-comment">
+        {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
+            <div class="row" id="comment-container">
+                <div class="col-md-2 p-4">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-center">
+                            <div class="profile-image"
+                                 style="display: inline-block; border: 3px solid #6d9dcb; width: 38px; height: 38px; border-radius: 50%; padding: 1px;">
+                                <img src="{{ block.getUser().getProfileImage() }}"
+                                     style="width: 100%; height: 100%; border-radius: 50%;" alt=""/>
+                            </div>
+                            <p class="m-0 mt-2">{{ block.getUser().getUserFirstname() }}</p>
+                            <p class="text-muted m-0"
+                               style="font-size: 13px;">{{ block.trans('Member') }}</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-10 p-4">
+                    <form action="{{ block.getCommentSaveUrl() }}" method="POST"
+                          data-controller="new-comment">
                                         <textarea name="comment" class="form-control"
                                                   placeholder="{{ block.trans('Write a comment ..') }}"
                                                   rows="5"></textarea>
-                    <input type="hidden" name="post_id" value="{{ block.getPost().getEntityId() }}"/>
-                    <input type="submit" class="btn btn-primary float-end mt-2"
-                           data-action="new-comment#onSubmit"
-                           value="{{ block.trans('Send') }}">
-                </form>
+                        <input type="hidden" name="post_id" value="{{ block.getPost().getEntityId() }}"/>
+                        <input type="submit" class="btn btn-primary float-end mt-2"
+                               data-action="new-comment#onSubmit"
+                               value="{{ block.trans('Send') }}">
+                    </form>
+                </div>
             </div>
+        {% endif %}
+    {% else %}
+        <div class="text-muted text-center p-5">
+            Comments are disabled on this post.
         </div>
     {% endif %}
-{% else %}
-    <div class="text-muted text-center p-5">
-        Comments are disabled on this post.
+
+    <div class="post_readers p-3">
+        <div class="favorite-list row row-cols-1 row-cols-md-4 g-4">
+            {% if block.getPost().getViews().count() > 0 %}
+                {% for view in block.getPost().getViews() %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                {% if view.getUser() %}
+                                    <img class="rounded-circle" src="{{ view.getUser().getProfileImage }}" style="width: 55px; height: 55px;" />
+                                    <p class="m-0 mt-2"><a href="#">{{ view.getUser().getShortName() }}</a></p>
+                                    <small>{{ block.timeAgo(view.updatedAt()) }}</small>
+                                {% else %}
+                                    Anonymous
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
     </div>
-{% endif %}
+</div>
